@@ -7,4 +7,4 @@ bridge. is currently in active development with no stable build being available 
 
 
 ### Screenshots
-![Bridge can open all files you find inside a BP](https://github.com/solvedDev/bridge./raw/master/images/bridge_image_open.png "Bridge can open all files you find inside a BP")
+![Bridge can open all files you find inside a BP](https://github.com/solvedDev/bridge./raw/master/images/bridge_image_open.PNG "Bridge can open all files you find inside a BP")
