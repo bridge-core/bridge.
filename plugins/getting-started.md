@@ -2,7 +2,7 @@
 
 ### Overview
 #### Bridge
-- [```registerMenu(menu)```](x)
+- [```registerMenu(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerMenu.md)
 
 ### What are Plugins?
 Plugins allow talented creators to lift their project onto the next level by extending bridge.'s functionality. 
