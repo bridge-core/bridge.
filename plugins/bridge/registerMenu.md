@@ -1,3 +1,4 @@
+#### [<< Back](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
 ## Bridge.registerMenu(menu)
 Bridge.registerMenu(menu) allows you to create a new app toolbar element with custom functionality.
 The function requires a valid menu object as a parameter which should look like this:
@@ -46,5 +47,3 @@ Bridge.registerMenu({
   ]
 })
 ```
-
-#### [<< Back](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
