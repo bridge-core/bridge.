@@ -4,6 +4,8 @@
 #### ```Bridge```
 - [```registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
 - [```registerMenu(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerMenu.md)
+- ```Bridge.on(event, callback)```
+- ```Bridge.trigger(event, arguments)```
 
 #### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
 
