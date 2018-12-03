@@ -1,7 +1,7 @@
 ## Plugins
 
 ### Overview
-#### Bridge
+#### ```Bridge```
 - [```registerMenu(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerMenu.md)
 
 #### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
