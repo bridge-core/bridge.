@@ -46,3 +46,5 @@ Bridge.registerMenu({
   ]
 })
 ```
+
+#### [<< Back](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
