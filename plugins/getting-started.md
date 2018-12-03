@@ -15,16 +15,14 @@ Its return value is the information about your plugin.
 In order to hook into the save process, we simply call ```Bridge.on(event, callback)```.
 Inside our callback function, we write the usual ```console.log()``` method.
 ```javascript
-  (function Plugin() {
-    Bridge.on("save", (err) => {
-        console.log("Hello world!");
-    });
+Bridge.registerPlugin({
+    author: "solvedDev",
+    version: "1.0.0",
+    name: "My Plugin",
+    description: "My first plugin."
+});
 
-    return {
-        author: "solvedDev",
-        version: "1.0.0",
-        name: "Test Plugin",
-        description: "An extension to test the new plugin features I implement."
-    };
-})();
+Bridge.on("save", (err) => {
+    console.log("Hello world!");
+});
 ```
