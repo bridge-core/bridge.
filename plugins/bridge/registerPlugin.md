@@ -21,3 +21,5 @@ Bridge.registerPlugin({
     link: "https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md"
 });
 ```
+
+#### [<< Back](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
