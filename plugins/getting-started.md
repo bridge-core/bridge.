@@ -5,7 +5,7 @@
 - [```registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
 - [```registerMenu(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerMenu.md)
 - [```Bridge.on(event, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/on.md)
-- ```Bridge.trigger(event, arguments)```
+- [```Bridge.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
 
 #### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
 
