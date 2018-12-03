@@ -18,3 +18,5 @@ Asynchronously loads data of a file.
 | --- | --- | ---
 | name | ```String``` | File name
 | callback | ```Function``` | Function to call on completion. The function receives an ```error``` string and the file ````data``` as its arguments
+
+#### [<< Back](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
