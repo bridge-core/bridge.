@@ -1,3 +1,4 @@
+#### [<< Back](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
 ## Bridge.on(event, callback)
 Bridge.on(event, callback) allows you to listen to events triggered by another plugin or the "bridge." editor itself.
 
@@ -15,5 +16,3 @@ Bridge.on("save", (err, { file, path, content }) => {
     }
 });
 ```
-
-#### [<< Back](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
