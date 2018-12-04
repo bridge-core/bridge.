@@ -18,4 +18,4 @@ Asynchronously loads data of a file.
 | Argument | Type | Description
 | --- | --- | ---
 | name | ```String``` | File name
-| callback | ```Function``` | Function to call on completion. The function receives an ```error``` string and the file ````data``` as its arguments
+| callback | ```Function``` | Function to call on completion. The function receives an ```error``` string and the file ```data``` as its arguments
