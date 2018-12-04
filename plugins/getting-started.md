@@ -16,8 +16,7 @@ Plugins are loaded from the "plugins" folder inside the "bridge" folder in the r
 built-in file explorer also loads and unloads plugins.
 
 ### The Beginning
-Let's create a basic plugin which logs "Hello World!" upon saving a file. We start by writing the self-invoking function. 
-Its return value is the information about your plugin. 
+Let's create a basic plugin which logs "Hello World!" upon saving a file. We start by registering our plugin.  
 In order to hook into the save process, we simply call ```Bridge.on(event, callback)```.
 Inside our callback function, we write the usual ```console.log()``` method.
 ```javascript
