@@ -5,7 +5,8 @@ Bridge.trigger(event, arguments) allows you to trigger events to which other plu
 | Argument | Type | Description |
 | --- | --- | --- |
 | event | ```String``` | Event to trigger |
-| arguments | ```Any``` | Data to send with the event |
+| arguments | ```Object``` | Data to send with the event |
+| basic | ```Boolean``` | (Optional) Only sends the event to the last subscriber |
 
 
 ### Example
