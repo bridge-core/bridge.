@@ -29,7 +29,7 @@ Bridge.registerMenu({
   elements: [
     {
       title: "Do something",
-      shortcut: "Control + W",
+      shortcut: "Ctrl + W",
       action() {
         console.log("You pressed ctrl+w!");
       }
@@ -43,7 +43,7 @@ Bridge.registerMenu({
       elements: [
         {
           title: "Do something 2",
-          shortcut: "Control + Shift + W"
+          shortcut: "Ctrl + Shift + W"
         }
       ]
     }
