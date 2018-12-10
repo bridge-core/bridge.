@@ -2,14 +2,14 @@
 
 ### Overview
 #### ```Bridge```
-- [```Bridge.on(event, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/on.md)
-- [```Bridge.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
-- [```registerMenu(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerMenu.md)
-- [```registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
+- [```.on(event, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/on.md)
+- [```.registerMenu(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerMenu.md)
+- [```.registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
+- [```.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
 
 #### ```Bridge.FS```
-- [```readFile(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readFile.md)
-- [```readDirectory(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readDirectory.md)
+- [```.readDirectory(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readDirectory.md)
+- [```.readFile(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readFile.md)
 
 #### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
 

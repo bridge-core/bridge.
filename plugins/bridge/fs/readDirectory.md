@@ -3,7 +3,7 @@
 Bridge.readDirectory(path, callback) reads a Directory inside the currently selected project asynchronously.
 
 ### Arguments
-| Key | Type | Description
+| Argument | Type | Description
 | --- | --- | ---
 | path | ```String``` | Path of the Directory to read
 | callback | ```Function``` | Callback function. Receives ```error``` and ```files``` as arguments
