@@ -4,9 +4,12 @@
 #### ```Bridge```
 - [```Bridge.on(event, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/on.md)
 - [```Bridge.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
-- [```readFile(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/loadFile.md)
 - [```registerMenu(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerMenu.md)
 - [```registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
+
+#### ```Bridge.FS```
+- [```readFile(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readFile.md)
+- [```readDirectory(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readDirectory.md)
 
 #### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
 
