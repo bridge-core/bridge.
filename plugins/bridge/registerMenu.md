@@ -17,7 +17,7 @@ The function requires a valid menu object as a parameter which should look like 
 | title | ```String``` | Title of your menu element
 | subheader | ```String``` | (optional) Subheader to show below the title
 | shortcut | ```Array``` | (optional) Shortcut to register for the action bound to this item
-| action | ```String``` | Action to perform upon activating this menu item
+| action | ```Function``` | Function to call upon activating this menu item
 | elements | ```Array``` | Elements to append as a submenu. Requires the element type to be set as "submenu"
 
 
@@ -29,7 +29,10 @@ Bridge.registerMenu({
   elements: [
     {
       title: "Do something",
-      shortcut: "Control + W"
+      shortcut: "Control + W",
+      action() {
+        console.log("You pressed ctrl+w!");
+      }
     },
     {
       type: "divider"
