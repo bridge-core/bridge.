@@ -9,4 +9,8 @@ bridge. is currently in active development with no stable build being available 
 brige. allows creators to develop their own plugins in order to extend bridge.'s functionality. [Read more...](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
 
 ### Screenshots
-![Bridge can open all files you find inside a BP](https://github.com/solvedDev/bridge./raw/master/images/bridge_image_open.PNG "Bridge can open all files you find inside a BP")
+![bridge. can even open images](https://github.com/solvedDev/bridge./raw/master/images/bridge_image.png)
+
+![bridge. plugins -a powerful tool!](https://github.com/solvedDev/bridge./raw/master/images/bridge_plugin.png)
+
+![bridge.'s JSON highlighting!](https://github.com/solvedDev/bridge./raw/master/images/bridge_json.png)
