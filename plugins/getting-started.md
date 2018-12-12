@@ -7,6 +7,7 @@
 - [```.registerSidebar(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerSidebar.md)
 - [```.registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
 - [```.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
+- [```.updateSidebar(id, content)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/updateSidebar.md)
 
 #### ```Bridge.FS```
 - [```.readDirectory(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readDirectory.md)
