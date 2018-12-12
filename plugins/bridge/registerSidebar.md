@@ -19,6 +19,7 @@ Bridge.registerSidebar(sidebar) adds a new sidebar to bridge.'s menu.
 ### Example
 ```javascript
 Bridge.registerSidebar({
+    id: "solved-mySidebars-sidebar1",
     title: "My Sidebar",
     icon: "my-material-design-icon",
     content: {

@@ -3,8 +3,8 @@
 ### Overview
 #### ```Bridge```
 - [```.on(event, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/on.md)
-- [```.registerSidebar(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerSidebar.md)
 - [```.registerMenu(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerMenu.md)
+- [```.registerSidebar(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerSidebar.md)
 - [```.registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
 - [```.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
 
