@@ -4,7 +4,7 @@ use(path) imports the provided information of another plugin.
 It is recommended to save JavaScript files you want to import inside a dedicated folder inside your plugins directory. This significantly improves performance and avoids loading issues.
 
 Creating modules can significantly increase the readability of your plugin and helps avoiding name conflicts within bigger projects.
-
+Using a single module multiple times has no impact on how often a module gets evaluated. It only happens the first time another file makes use of it.
 
 ### Example
 ```javascript
