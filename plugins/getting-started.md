@@ -1,6 +1,10 @@
 ## Plugins
 
 ### Overview
+#### General
+- [```provide(data)```](https://github.com/solvedDev/bridge./blob/master/plugins/provide.md)
+- [```use(path)```](https://github.com/solvedDev/bridge./blob/master/plugins/use.md)
+
 #### ```Bridge```
 - [```.on(event, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/on.md)
 - [```.registerMenu(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerMenu.md)
