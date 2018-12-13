@@ -2,7 +2,7 @@
 ## Bridge.registerSidebar(sidebar)
 Bridge.registerSidebar(sidebar) adds a new sidebar to bridge.'s menu. 
 
-### Siebar Object
+### Sidebar Object
 | Key | Type | Description
 | --- | --- | ---
 | id | ```String``` | An unique id for your sidebar
