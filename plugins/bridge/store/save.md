@@ -3,6 +3,7 @@
 ## Bridge.Store.save(```name```, ```data```, ```callback```)
 Asynchronously saves data inside a file.
 
+### Arguments
 | Argument | Type | Description
 | --- | --- | ---
 | name | ```String``` | File name
@@ -11,7 +12,7 @@ Asynchronously saves data inside a file.
 
 Read more about the Bridge.Store [here](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md).
 
-## Example
+### Example
 ```javascript
 Bridge.Store.save("my-file", "Hello World!", (err) => {
    if(err) console.log(err);

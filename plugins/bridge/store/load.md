@@ -2,6 +2,7 @@
 ## Bridge.Store.load(```name```, ```callback```)
 Asynchronously loads data of a file.
 
+### Arguments
 | Argument | Type | Description
 | --- | --- | ---
 | name | ```String``` | File name
@@ -9,7 +10,7 @@ Asynchronously loads data of a file.
 
 Read more about the Bridge.Store [here](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md).
 
-## Example
+### Example
 
 ```javascript
 Bridge.Store.load("my-file", (err, data) => console.log(data.toString()))
