@@ -14,10 +14,12 @@
 - [```.updateSidebar(id, content)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/updateSidebar.md)
 
 #### ```Bridge.FS```
+- [```.exists(path)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/exists.md)
 - [```.readDirectory(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readDirectory.md)
 - [```.readFile(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readFile.md)
 
 #### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
+- [```.exists(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/exists.md)
 - [```.load(name, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/load.md)
 - [```.save(name, data, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/save.md)
 
