@@ -73,7 +73,7 @@ class Console {
         Bridge.registerSidebar({
             id: "utility-console-sidebar",
             title: "Console",
-            icon: "sms-failed",
+            icon: "sms_failed",
             content: {
                 text: ""
             }
@@ -98,7 +98,7 @@ class Console {
         Bridge.registerSidebar({
             id: "utility-console-sidebar",
             title: "Console",
-            icon: "sms-failed",
+            icon: "sms_failed",
             content: {
                 text: this.console_text
             }
