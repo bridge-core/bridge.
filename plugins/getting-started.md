@@ -108,7 +108,7 @@ class Console {
     log(text) {
         this.console_text += text + "\n";
         Bridge.updateSidebar("utility-console-sidebar", {
-            text: this.console_text;
+            text: this.console_text
         });
     }
 }
