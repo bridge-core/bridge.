@@ -23,6 +23,25 @@
 - [```.load(name, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/load.md)
 - [```.save(name, data, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/save.md)
 
+#### ```Bridge.JSON```
+Documentation not available yet.
+WIP Draft:
+- ```.registerFile(file_details)```
+
+#### ```Bridge.JSON.<FILE>```
+Documentation not available yet.
+WIP Draft:
+- ```.registerSyntax(syntax_details)```
+- ```.defineComponentSegment(segment_details)```
+- ```.registerComponent(component_details)```
+
+#### ```Bridge.JSON.<FILE>.Highlighter```
+Documentation not available yet.
+WIP Draft:
+- ```.addKeywords(keyword_arr)```
+- ```.addTitles(title_arr)```
+- ```.addSymbols(symbol_arr)```
+
 ### What are Plugins?
 Plugins allow talented creators to lift their project onto the next level by extending bridge.'s functionality. 
 Plugins are loaded from the "plugins" folder inside the "bridge" folder in the root of your directory. Changing the project inside the
