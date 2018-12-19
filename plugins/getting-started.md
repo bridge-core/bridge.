@@ -18,15 +18,10 @@
 - [```.readDirectory(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readDirectory.md)
 - [```.readFile(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readFile.md)
 
-#### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
-- [```.exists(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/exists.md)
-- [```.load(name, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/load.md)
-- [```.save(name, data, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/save.md)
-
 #### ```Bridge.Highlighter```
  - [```.registerLanguage(name, language_definition)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/highlighter/registerLanguage.md)
  - [```.unregisterLanguage(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/highlighter/unregisterLanguage.md)
- 
+
 #### ```Bridge.JSON```
 Documentation not available yet.
 WIP Draft:
@@ -45,6 +40,11 @@ WIP Draft:
 - ```.addKeywords(keyword_arr)```
 - ```.addTitles(title_arr)```
 - ```.addSymbols(symbol_arr)```
+
+#### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
+- [```.exists(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/exists.md)
+- [```.load(name, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/load.md)
+- [```.save(name, data, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/save.md)
 
 ### What are Plugins?
 Plugins allow talented creators to lift their project onto the next level by extending bridge.'s functionality. 
