@@ -23,6 +23,10 @@
 - [```.load(name, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/load.md)
 - [```.save(name, data, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/save.md)
 
+#### ```Bridge.Highlighter```
+ - [```.registerLanguage(name, language_definition)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/highlighter/registerLanguage.md)
+ - [```.unregisterLanguage(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/highlighter/unregisterLanguage.md)
+ 
 #### ```Bridge.JSON```
 Documentation not available yet.
 WIP Draft:
