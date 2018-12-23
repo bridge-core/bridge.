@@ -45,6 +45,7 @@ WIP Draft:
 - [```.exists(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/exists.md)
 - [```.load(name, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/load.md)
 - [```.save(name, data, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/save.md)
+- ```.setup(namespace)```
 
 ### What are Plugins?
 Plugins allow talented creators to lift their project onto the next level by extending bridge.'s functionality. 
