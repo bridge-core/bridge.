@@ -3,7 +3,7 @@
 Bridge.Footer.update(footer) updates a footer element. One only needs to specify the attributes one wants to change and the footer ```id```.
 
 ### Footer Object
-You can find the documentation on a ```footer``` object [here](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Footer/register.md).
+You can find the documentation on a ```footer``` object [here](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/footer/register.md).
 
 ### Example
 ```javascript
