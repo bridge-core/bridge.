@@ -50,7 +50,7 @@ WIP Draft:
 - [```.open(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/open.md)
 - [```.register(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/register.md)
 - [```.remove(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/remove.md)
-- [```.update(id, content)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/update.md)
+- [```.update(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/update.md)
 
 #### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
 - [```.exists(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/exists.md)
