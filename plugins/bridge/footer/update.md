@@ -11,7 +11,7 @@ Bridge.Footer.update({
   id: "solved-myFooterElements-footer1",
   display_name: "New name",
 
-  onclick: () => {
+  action: () => {
     newDoSomething();
   }
 });

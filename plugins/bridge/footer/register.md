@@ -30,7 +30,7 @@ Bridge.Footer.register({
     content: "3"
   },
 
-  onclick: () => {
+  action: () => {
     doSomething();
   }
 });
