@@ -44,7 +44,7 @@ WIP Draft:
 - ```.addSymbols(symbol_arr)```
 
 #### ```Bridge.Menu```
-- [```.register(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/menu/register.md)
+- [```.register(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/menu/register.md)
 
 #### ```Bridge.Sidebar```
 - [```.open(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/open.md)
