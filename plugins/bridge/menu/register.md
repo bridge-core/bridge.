@@ -1,6 +1,6 @@
 #### [<< Back](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
-## Bridge.registerMenu(menu)
-Bridge.registerMenu(menu) allows you to create a new app toolbar element with custom functionality.
+## Bridge.Menu.register(menu)
+Bridge.Menu.register(menu) allows you to create a new app toolbar element with custom functionality.
 The function requires a valid menu object as a parameter which should look like this:
 
 ### Menu Object
@@ -23,7 +23,7 @@ The function requires a valid menu object as a parameter which should look like 
 
 ### Example
 ```javascript
-Bridge.registerMenu({
+Bridge.Menu.register({
   id: "my-unique-menu-id",
   display_name: "Name to show inside the app toolbar",
   elements: [

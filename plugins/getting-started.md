@@ -7,11 +7,13 @@
 
 #### ```Bridge```
 - [```.on(event, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/on.md)
-- [```.registerMenu(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerMenu.md)
-- [```.registerSidebar(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerSidebar.md)
 - [```.registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
 - [```.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
-- [```.updateSidebar(id, content)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/updateSidebar.md)
+
+#### ```Bridge.Footer```
+- [```.register(footer)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Footer/register.md)
+- [```.remove(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Footer/remove.md)
+- [```.update(footer)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Footer/update.md)
 
 #### ```Bridge.FS```
 - [```.exists(path)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/exists.md)
@@ -40,6 +42,15 @@ WIP Draft:
 - ```.addKeywords(keyword_arr)```
 - ```.addTitles(title_arr)```
 - ```.addSymbols(symbol_arr)```
+
+#### ```Bridge.Menu```
+- [```.register(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Menu/register.md)
+
+#### ```Bridge.Sidebar```
+- [```.open(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Sidebar/open.md)
+- [```.register(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Sidebar/register.md)
+- [```.remove(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Sidebar/remove.md)
+- [```.update(id, content)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Sidebar/update.md)
 
 #### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
 - [```.exists(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/exists.md)
@@ -94,7 +105,7 @@ In order to show our console, we need a new sidebar. Let's register it inside th
 ```javascript
 class Console {
     constructor() {
-        Bridge.registerSidebar({
+        Bridge.Sidebar.register({
             id: "utility-console-sidebar",
             title: "Console",
             icon: "sms_failed",
@@ -119,7 +130,7 @@ Let's finalize our logic. Save the current console text inside a separate variab
 class Console {
     constructor(text="") {
         this.console_text = text;
-        Bridge.registerSidebar({
+        Bridge.Sidebar.register({
             id: "utility-console-sidebar",
             title: "Console",
             icon: "sms_failed",
@@ -131,7 +142,7 @@ class Console {
 
     log(text) {
         this.console_text += text + "\n";
-        Bridge.updateSidebar("utility-console-sidebar", {
+        Bridge.Sidebar.update("utility-console-sidebar", {
             text: this.console_text
         });
     }
