@@ -9,6 +9,7 @@ Bridge.Footer.register(footer) adds a new footer element to bridge.'s footer are
 | display_name | ```String``` | Tooltip of the footer
 | display_icon | ```String``` | Material design icon to show
 | badge | ```Object<Badge>``` | (Optional) Badge to display next to the icon.
+| action | ```Function``` | (Optional) Function to execute on clicking the footer element
 
 ### Badge Object
 | Key | Type | Description
