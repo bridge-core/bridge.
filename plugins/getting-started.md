@@ -11,9 +11,9 @@
 - [```.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
 
 #### ```Bridge.Footer```
-- [```.register(footer)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Footer/register.md)
-- [```.remove(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Footer/remove.md)
-- [```.update(footer)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Footer/update.md)
+- [```.register(footer)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/footer/register.md)
+- [```.remove(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/footer/remove.md)
+- [```.update(footer)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/footer/update.md)
 
 #### ```Bridge.FS```
 - [```.exists(path)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/exists.md)
@@ -44,13 +44,13 @@ WIP Draft:
 - ```.addSymbols(symbol_arr)```
 
 #### ```Bridge.Menu```
-- [```.register(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Menu/register.md)
+- [```.register(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/menu/register.md)
 
 #### ```Bridge.Sidebar```
-- [```.open(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Sidebar/open.md)
-- [```.register(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Sidebar/register.md)
-- [```.remove(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Sidebar/remove.md)
-- [```.update(id, content)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Sidebar/update.md)
+- [```.open(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/open.md)
+- [```.register(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/register.md)
+- [```.remove(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/remove.md)
+- [```.update(id, content)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/update.md)
 
 #### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
 - [```.exists(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/exists.md)
