@@ -14,8 +14,14 @@ Bridge.Sidebar.register(sidebar) adds a new sidebar to bridge.'s menu.
 | Key | Type | Description
 | --- | --- | ---
 | text | ```String``` | Text to show within the sidebar menu
+| toolbar | ```Array<ToolbarElement>``` | Array of elements of the toolbar
 
-
+### ToolbarElement Object
+| Key | Type | Description
+| --- | --- | ---
+| display_name | ```String``` | Hover text of the button
+| display_icon | ```String``` | Material design icon to show
+| action | ```Function``` | Action to perform on click
 
 ### Example
 ```javascript
@@ -24,6 +30,15 @@ Bridge.Sidebar.register({
     title: "My Sidebar",
     icon: "my-material-design-icon",
     content: {
+      toolbar: [
+        {
+          display_name: "My action button",
+          display_icon: "home",
+          action() {
+            doSomething();
+          }
+        }
+      ]
       text: "My sidebar content is cool.\nVery cool!"
     }
 });

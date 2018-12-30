@@ -6,12 +6,12 @@ You may return a modified version of the object received inside the callback fun
 ### Built-in Events
 | Events | Description |
 | --- | --- |
-| save | Triggers before "bridge." saves a file. |
-
+| ```save``` | Triggers before "bridge." saves a file. |
+| ```opened-sidebar``` | Triggers after a user switched sidebars. Callback receives the sidebar id |
 
 ### Example
 ```javascript
-Bridge.on("save", (err, { file, path, content }) => {
+Bridge.on("save", ({ file, path, content }) => {
     if(file.split(".").pop().toLowerCase() == "txt") {
         return { content: content + "\nby solvedDev" };
     }
