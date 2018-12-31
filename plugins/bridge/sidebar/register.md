@@ -9,12 +9,12 @@ Bridge.Sidebar.register(sidebar) adds a new sidebar to bridge.'s menu.
 | title | ```String``` | Title of the sidebar
 | icon | ```String``` | Material design icon to show
 | content | ```Object<Content>``` | Content to show inside the sidebar
+| toolbar | ```Array<ToolbarElement>``` | Array of elements of the toolbar
 
 ### Content Object
 | Key | Type | Description
 | --- | --- | ---
 | text | ```String``` | Text to show within the sidebar menu
-| toolbar | ```Array<ToolbarElement>``` | Array of elements of the toolbar
 
 ### ToolbarElement Object
 | Key | Type | Description
