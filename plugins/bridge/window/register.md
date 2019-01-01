@@ -28,8 +28,21 @@ Information about the ```Content``` object can be found [here](https://github.co
 Bridge.Window.register({
   id: "solved-myWindows-window1",
   display_name: "New name",
+  is_visible: true,
   options: {
-
+      "..."
+  },
+  toolbar: [
+      "..."
+  ],
+  content: [
+      "..."
+  ],
+  actions: [
+      "..."
+  ],
+  onClose() {
+      closedWindow();
   }
 });
 ```

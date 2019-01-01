@@ -47,7 +47,9 @@ WIP Draft:
 - [```.register(menu)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/menu/register.md)
 
 #### ```Bridge.Sidebar```
+- [```.close()```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/close.md)
 - [```.open(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/open.md)
+- [```.openDefault()```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/open_default.md)
 - [```.register(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/register.md)
 - [```.remove(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/remove.md)
 - [```.update(sidebar)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/update.md)
@@ -59,6 +61,8 @@ WIP Draft:
 - ```.setup(namespace)```
 
 #### ```Bridge.Window```
+- [```.close(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/window/close.md)
+- [```.open(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/window/open.md)
 - [```.register(window)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/window/register.md)
 - [```.remove(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/window/remove.md)
 - [```.update(window)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/window/update.md)
