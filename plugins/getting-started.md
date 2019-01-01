@@ -58,6 +58,11 @@ WIP Draft:
 - [```.save(name, data, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/save.md)
 - ```.setup(namespace)```
 
+#### ```Bridge.Window```
+- [```.register(window)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/window/register.md)
+- [```.remove(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/window/remove.md)
+- [```.update(window)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/window/update.md)
+
 ### What are Plugins?
 Plugins allow talented creators to lift their project onto the next level by extending bridge.'s functionality. 
 Plugins are loaded from the "plugins" folder inside the "bridge" folder in the root of your directory. Changing the project inside the

@@ -11,17 +11,11 @@ Bridge.Sidebar.register(sidebar) adds a new sidebar to bridge.'s menu.
 | content | ```Object<Content>``` | Content to show inside the sidebar
 | toolbar | ```Array<ToolbarElement>``` | Array of elements of the toolbar
 
-### Content Object
-| Key | Type | Description
-| --- | --- | ---
-| text | ```String``` | Text to show within the sidebar menu
-
 ### ToolbarElement Object
-| Key | Type | Description
-| --- | --- | ---
-| display_name | ```String``` | Hover text of the button
-| display_icon | ```String``` | Material design icon to show
-| action | ```Function``` | Action to perform on click
+Information about the ```ToolbarElement``` object can be found [here](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/general/toolbar_element.md).
+
+### Content Object
+Information about the ```Content``` object can be found [here](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/general/content.md).
 
 ### Example
 ```javascript
