@@ -110,7 +110,7 @@ provide(new Console());
 #### Step 3: Sidebar
 In order to show our console, we need a new sidebar. Let's register it inside the constructor.
 
-[More information on custom sidebars...](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerSidebar.md)
+[More information on custom sidebars...](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/sidebar/register.md)
 ```javascript
 class Console {
     constructor() {
