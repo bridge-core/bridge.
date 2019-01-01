@@ -12,7 +12,7 @@ Returns ```true``` if the given store item exists and ```false``` otherwise.
 
 ### Example
 ```javascript
-if(Bridge.Store.exists("entities/player.json")) {
+if(Bridge.Store.exists("my-data")) {
     //Do something...
 }
 ```
