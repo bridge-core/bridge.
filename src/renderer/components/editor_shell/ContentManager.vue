@@ -31,12 +31,12 @@
         },
         data() {
             return {
-                available_height: window.innerHeight - 164
+                available_height: window.innerHeight - 94
             };
         },
         methods: {
             on_resize() {
-                this.available_height = window.innerHeight - 164;
+                this.available_height = window.innerHeight - 94;
             }
         },
         computed: {
@@ -48,10 +48,16 @@
             },
             selected_project() {
                 return this.$store.state.Explorer.project;
+            },
+            footer_visible() {
+                return this.$store.state.Footer.elements.length > 0;
             }
         },
         watch: {
-            
+            footer_visible(new_val) {
+                if(new_val) this.available_height -= 24;
+                else this.available_height += 24;
+            }
         }
     }
 </script>
@@ -62,5 +68,11 @@
     }
     img {
         max-height: 100%;
+    }
+</style>
+
+<style>
+    .CodeMirror.cm-s-monokai * {
+        background: #303030;
     }
 </style>

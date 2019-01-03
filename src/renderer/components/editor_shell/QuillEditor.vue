@@ -3,7 +3,7 @@
     <div 
         :class="this.$store.state.Appearance.is_dark_mode ? 'dark' : 'light'"
         :id="`quill-editor-${random_id}-${tab_id}`"
-        :style="`height: ${height + 37}px;`"
+        :style="`height: ${height - 10}px;`"
     >
         
     </div>
