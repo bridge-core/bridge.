@@ -1,0 +1,14 @@
+{
+    "include": [ "minecraft:cow", "minecraft:pig" ],
+    "minecraft:entity": {
+        "import": [ "entities/modules/passive_common.json" ],
+        "components": {
+            "minecraft:type_family": {
+                "family": [ "passive" ]
+            }
+        }
+    },
+    "run_commands": {
+            
+    }
+}

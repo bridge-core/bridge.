@@ -1,0 +1,108 @@
+import Store from "../index";
+import Bridge from "../../scripts/plugins/PluginEnv";
+import deepmerge from "deepmerge";
+import Vue from "vue";
+
+const state = {
+    menu_state: 1,
+    items: [
+        {
+            title: "Explorer",
+            icon: "folder",
+            menu_type: "explorer"
+        },
+        {
+            title: "Project",
+            icon: "dashboard",
+            menu_type: "project"
+        },
+        {
+            title: "Search",
+            icon: "search",
+            menu_type: "search"
+        },
+        {
+            title: "Extensions",
+            icon: "extension",
+            menu_type: "extensions"
+        }
+    ],
+    plugin_items: []
+}
+
+const mutations = {
+    setSidebarMenu(state, new_menu_state) {
+        state.menu_state = new_menu_state;
+        let opened = getters.all_items(state)[new_menu_state - 1];
+
+        Bridge.trigger("opened-sidebar", opened ? opened.id || opened.menu_type : null, true);
+    },
+    toggleSidebarMenu(state) {
+        state.menu_state = !state.menu_state;
+    },
+
+    //PLUGINS
+    addPluginSidebar(state, new_sidebar) {
+        let i = 0;
+        while(i < state.plugin_items.length && state.plugin_items[i].id != new_sidebar.id) {
+            i++;
+        }
+
+        if(i == state.plugin_items.length) state.plugin_items.push({
+            ...new_sidebar,
+            is_plugin: true
+        });
+    },
+    updatePluginSidebar(state, new_sidebar) {
+        let i = 0;
+        while(i < state.plugin_items.length && state.plugin_items[i].id != new_sidebar.id) {
+            i++;
+        }
+
+        if(i < state.plugin_items.length) {
+            let tmp = deepmerge(state.plugin_items[i], { ...new_sidebar, is_plugin: true }, { arrayMerge: (target, source) => [...source] });
+            
+            Vue.set(state.plugin_items, i, tmp);
+        }   
+    },
+    removePluginSidebar(state, id) {
+        let i = 0;
+        while(i < state.plugin_items.length && state.plugin_items[i].id != id) {
+            i++;
+        }
+
+        if(i < state.plugin_items.length) state.plugin_items.splice(i, 1);
+        if(state.menu_state - 1 == i  + state.items.length) Store.commit("setSidebarMenu", 0);
+    },
+    openPluginSidebar(state, id) {
+        let i = 0;
+        while(i < state.plugin_items.length && state.plugin_items[i].id != id) {
+            i++;
+        }
+        
+        Store.commit("setSidebarMenu", i + state.items.length + 1);
+    },
+    resetPluginSidebars(state) {
+        state.plugin_items = [];
+    },
+    sortPluginSidebars(state) {
+        state.plugin_items.sort((a,b) => {
+            if(a > b) return 1;
+            if(a < b) return -1;
+            return 0;
+        });
+    }
+}
+
+const getters = {
+    all_items(state, getters) {
+        Store.commit("sortPluginSidebars");
+        return state.items.concat(state.plugin_items);
+    }
+}
+
+export default {
+    state,
+    mutations,
+    getters
+}
