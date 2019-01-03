@@ -7,6 +7,7 @@ bridge. is currently in active development with no stable build being available 
 
 ### Plugins
 brige. allows creators to develop their own plugins in order to extend bridge.'s functionality. [Read more...](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
+The repository for plugins can be found [here](https://github.com/solvedDev/bridge-data). Feel free to add your plugins to it in order to make them appear inside the plugin menu.
 
 ### Screenshots
 ![bridge. can even open images](https://github.com/solvedDev/bridge./raw/master/images/bridge_image.png)
