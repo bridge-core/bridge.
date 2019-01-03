@@ -3,7 +3,7 @@ bridge. is a powerful add-on editor designed to speed up your development. It fe
 bridge. simply is the editor which fulfills all your needs!
 
 ### Download
-bridge. is currently in active development with no stable build being available yet.
+You can try a first pre-release of bridge. now! [See release!](https://github.com/solvedDev/bridge./releases)
 
 ### Plugins
 brige. allows creators to develop their own plugins in order to extend bridge.'s functionality. [Read more...](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
