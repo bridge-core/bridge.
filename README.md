@@ -10,6 +10,9 @@ brige. allows creators to develop their own plugins in order to extend bridge.'s
 
 The repository for plugins can be found [here](https://github.com/solvedDev/bridge-plugins). Feel free to add your plugins to it in order to make them appear inside the plugin menu.
 
+### Contributing
+Contributions to bridge. are welcome. However, please read the [guidelines](https://github.com/solvedDev/bridge./blob/master/contributing.md) first.
+
 ### Screenshots
 ![bridge. can even open images](https://github.com/solvedDev/bridge./raw/master/images/bridge_image.png)
 
