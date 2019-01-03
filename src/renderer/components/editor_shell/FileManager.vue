@@ -24,10 +24,15 @@
 <script>
     //Language
     import "codemirror/mode/javascript/javascript.js";
+
+    //Selection
+    import "codemirror/addon/selection/mark-selection.js";
+    import "codemirror/addon/selection/active-line.js";
     //Style
     import "codemirror/lib/codemirror.css";
     import "codemirror/theme/monokai.css";
     import "codemirror/theme/xq-light.css";
+
 
     import QuillEditor from "./QuillEditor";
     import JsonEditorMain from "./JsonEditor/Main";
@@ -93,6 +98,7 @@
             cm_options() {
                 return {
                     lineNumbers: true,
+                    line: true,
                     theme: this.$store.state.Appearance.is_dark_mode ? "monokai" : "xq-light",
                     mode: "text/javascript"
                 };
@@ -105,3 +111,15 @@
         }
     }
 </script>
+
+<style>
+    .CodeMirror.cm-s-monokai > * {
+        background: #303030;
+    }
+    .cm-s-monokai .CodeMirror-gutter, .cm-s-monokai .CodeMirror-linenumbers {
+        background: rgb(60, 60, 60);
+    }
+    .cm-s-monokai .CodeMirror-selected {
+        background: rgb(60, 60, 60) !important;
+    }
+</style>

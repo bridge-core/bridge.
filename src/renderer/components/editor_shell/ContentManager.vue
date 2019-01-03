@@ -70,9 +70,3 @@
         max-height: 100%;
     }
 </style>
-
-<style>
-    .CodeMirror.cm-s-monokai * {
-        background: #303030;
-    }
-</style>
