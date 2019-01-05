@@ -10,8 +10,10 @@ const ARRAY_MERGE = (target, source) => {
     return tmp;
 };
 
-const DETACH = (obj1, obj2) => {
-    return deepmerge(obj1, obj2, { arrayMerge: ARRAY_MERGE })
+const DETACH = (...objs) => {
+    if(objs.length == 1) return deepmerge({}, objs[0], { arrayMerge: ARRAY_MERGE });
+    if(objs.length == 2) return deepmerge(objs[0], objs[1], { arrayMerge: ARRAY_MERGE });
+    return deepmerge.all(objs, { arrayMerge: ARRAY_MERGE });
 }
 
 export default DETACH;

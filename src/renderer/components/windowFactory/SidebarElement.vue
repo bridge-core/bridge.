@@ -4,7 +4,7 @@
 
             <v-list-tile-action>
                 <v-layout align-center>
-                    <v-icon medium :style="`opacity: ${opacity};`">{{ item.icon }}</v-icon>
+                    <v-icon medium :style="`opacity: ${opacity};`" :color="item.color">{{ item.icon }}</v-icon>
                 </v-layout>
 
             </v-list-tile-action>

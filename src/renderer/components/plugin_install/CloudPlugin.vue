@@ -14,6 +14,7 @@
                     <v-btn slot="activator" @click.stop="download()" :loading="loading" icon>
                         <v-icon>cloud_download</v-icon>
                     </v-btn>
+                    <span>Download</span>
                 </v-tooltip>
                 <v-btn slot="activator" @click.stop="download()" :loading="loading" flat round color="success" v-else>
                     Update
@@ -86,7 +87,6 @@ export default {
                 current = this.installed_plugins[i];
                 if(typeof current == "string") current = { id: "" };
             }
-            console.log(this.installed_plugins[i], this.plugin.version);
             
             return this.installed_plugins[i] ? this.installed_plugins[i].version != this.plugin.version : false;
         },

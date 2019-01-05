@@ -28,7 +28,7 @@ class FileContent {
                                 this.input.content[0].color = "error";
                                 this.parent.actions[1].is_disabled = true;
 
-                                this.path_info.text = "Invalid file name!"
+                                this.path_info.text = "Invalid file name!\n\n"
                                 this.path_info.color = "error";
 
                                 this.update_function({ content: this.content, actions: this.parent.actions });
@@ -36,7 +36,7 @@ class FileContent {
                                 this.input.content[0].input = val;
                                 this.input.content[0].color = "success";
 
-                                this.path_info.text = this.getPath(val);
+                                this.path_info.text = this.getPath(val) + "\n\n";
                                 this.path_info.color = "grey";
 
                                 this.parent.win_def.actions[1].is_disabled = false;
@@ -52,7 +52,7 @@ class FileContent {
             ]
         };
         this.path_info = {
-            text: this.getPath("unnamed", ext),
+            text: this.getPath("unnamed", ext) + "\n\n",
             color: "grey"
         };
 
@@ -90,6 +90,9 @@ export default class CreateFileWindow extends ContentWindow {
     constructor() {
         super({
             display_name: "New file",
+            options: {
+                is_persistent: false
+            },
             sidebar: [
                 {
                     icon: "mdi-chess-knight",
@@ -153,7 +156,7 @@ export default class CreateFileWindow extends ContentWindow {
         }, -3, 1);
 
         this.createFile = () => {
-            FileSystem.save(this.current_content.getPath(), "", true, true);
+            FileSystem.save(this.current_content.getPath(), this.chosen_template, true, true);
             this.close();
         };
         this.actions = [
@@ -177,6 +180,28 @@ export default class CreateFileWindow extends ContentWindow {
             new FileContent("Spawn Rule", undefined, this, "spawn_rules/"),
             this.SCRIPTS
         ];
+        this.templates = [
+            {
+                "Blank entity": {
+                    "minecraft:entity": {
+                        "description": {
+                            "identifier": "",
+                            "runtime_identifier": ""
+                        },
+                        "component_groups": {
+
+                        },
+                        "components": {
+
+                        },
+                        "events": {
+
+                        }
+                    }
+                }
+            }
+        ];
+        this.chosen_template = "";
         this.select(0);
     }
 
@@ -186,6 +211,26 @@ export default class CreateFileWindow extends ContentWindow {
         this.win_def.sidebar.forEach(e => e.opacity = 0.25);
         this.win_def.sidebar[id].opacity = 1;
         this.win_def.content = this.contents[id].get() || [ { text: "Nothing to show yet" } ];
+
+        if(this.templates[id] && !this.win_def.content.added_select) this.compileTemplate(this.templates[id]);
+
         this.update();
+    }
+
+    compileTemplate(templ) {
+        this.win_def.content.added_select = true;
+        this.win_def.content.push({
+            type: "divider"
+        },
+        {
+            type: "select",
+            options: ["No template"].concat(Object.keys(templ)),
+            text: "Select template",
+            action: (val) => {
+                if(templ[val] == undefined) this.chosen_template = "";
+                if(typeof templ[val] == "string") this.chosen_template = templ[val];
+                else this.chosen_template = JSON.stringify(templ[val], null, "\t");
+            }
+        });
     }
 }

@@ -61,12 +61,3 @@
         }
     }
 </script>
-
-<style scoped>
-    * {
-        image-rendering: pixelated;
-    }
-    img {
-        max-height: 100%;
-    }
-</style>

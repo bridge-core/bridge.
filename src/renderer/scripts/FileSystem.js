@@ -1,7 +1,7 @@
 import fs from "fs";
 import mkdirp from "mkdirp";
 import dirToJson from "dir-to-json";
-import { base_path, mojang_path } from "./constants.js";
+import { BASE_PATH } from "./constants.js";
 import Store from "../store/index";
 import Vue from "../main";
 
@@ -31,8 +31,8 @@ class FileSystem {
     }
 
     getPath(path) {
-        return base_path + path;
+        return BASE_PATH + path;
     }
 }
 
-export default new FileSystem(); 
+export default new FileSystem();

@@ -75,7 +75,7 @@
                 `">
                     <window-content 
                         v-for="(content, i) in win.content" 
-                        :key="`plugin-popup-window-content-${i}`" 
+                        :key="content.key || `plugin-popup-window-content-${i}`" 
                         :content="content"
                     />
                 </div>
@@ -89,8 +89,9 @@
             <v-card-actions v-if="win.actions != undefined">
                 <window-content 
                     v-for="(content, i) in win.actions" 
-                    :key="`plugin-popup-window-actions-${i}`" 
+                    :key="content.key || `plugin-popup-window-actions-${Math.random()}-${i}`"
                     :content="content"
+                    style="overflow-x: auto;"
                 />
             </v-card-actions>
         </v-card>

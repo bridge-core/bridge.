@@ -40,6 +40,7 @@
   import FooterMain from "@/components/footer/Main";
 
   import { ipcRenderer } from "electron";
+  import UpdateWindow from "./windows/updateApp";
 
   export default {
     name: 'bridge',
@@ -60,6 +61,9 @@
     },
     destroyed() {
       ipcRenderer.removeAllListeners("readFile");
+    },
+    mounted() {
+      setTimeout(() => new UpdateWindow(), 1000);
     },
     computed: {
       is_sidebar_open() {

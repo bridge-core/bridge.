@@ -122,4 +122,7 @@
     .cm-s-monokai .CodeMirror-selected {
         background: rgb(60, 60, 60) !important;
     }
+    .v-img {
+        image-rendering: pixelated;
+    }
 </style>
