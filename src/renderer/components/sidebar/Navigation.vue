@@ -5,25 +5,25 @@
         </v-toolbar>
 
         <v-list :style="`max-height: ${nav_height}px;`">
-            <v-tooltip v-for="(item, i) in menu_items" :key="i" right>
-                <v-list-tile slot="activator" @click="toggleMenu(i+1)">
-
-                    <v-list-tile-action>
-                        <v-layout align-center>
-                            <v-icon medium :style="`opacity: ${getOpacity(i)};`">{{ item.icon }}</v-icon>
-                        </v-layout>
-
-                    </v-list-tile-action>
-                </v-list-tile>
-                <span>{{ item.title }}</span>
-            </v-tooltip>
+            <sidebar-element
+                v-for="(item, i) in menu_items"
+                :key="i"
+                :item="item"
+                :action="toggleMenu(i+1)"
+                :opacity="getOpacity(i)"
+            />
         </v-list>
     </v-navigation-drawer>
 </template>
 
 <script>
+    import SidebarElement from "../windowFactory/SidebarElement";
+
     export default {
         name: "sidebar-navigation",
+        components: {
+            SidebarElement
+        },
         created() {
             window.addEventListener("resize", this.on_resize);
         },
@@ -51,10 +51,12 @@
                 return this.isActive(i) ? 1 : 0.25;
             },
             toggleMenu(i) {
-                if (this.sidebar_menu_state == i) {
-                    this.$store.commit("setSidebarMenu", 0);
-                } else {
-                    this.$store.commit("setSidebarMenu", i);
+                return () => {
+                    if (this.sidebar_menu_state == i) {
+                        this.$store.commit("setSidebarMenu", 0);
+                    } else {
+                        this.$store.commit("setSidebarMenu", i);
+                    }
                 }
             },
             on_resize() {

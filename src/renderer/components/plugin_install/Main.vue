@@ -1,23 +1,24 @@
 <template>
     <v-dialog
         v-model="is_menu_open"
-        scrollable
-        persistent
         :max-width="is_fullscreen ? 2000 : 500"
     >
-        <v-card ref="movable_card">
-            <v-toolbar @dblclick.native="is_fullscreen = !is_fullscreen" ref="drag_region" height="30px">
-                <span class="window-title">Extensions</span>
-                <v-spacer></v-spacer>
-                <v-btn small icon @click.stop="is_fullscreen = !is_fullscreen">
-                    <v-icon small>add</v-icon>
-                </v-btn>
-                <v-btn small icon @click.stop="is_menu_open = false" class="last-btn">
-                    <v-icon small>close</v-icon>
-                </v-btn>
-            </v-toolbar>
+        <v-card>
+            <v-card-title>
+                <v-toolbar @dblclick.native="is_fullscreen = !is_fullscreen" height="30px">
+                    <span class="window-title">Extensions</span>
+                    <v-spacer></v-spacer>
+                    <v-btn small icon @click.stop="is_fullscreen = !is_fullscreen">
+                        <v-icon small>add</v-icon>
+                    </v-btn>
+                    <v-btn small icon @click.stop="is_menu_open = false" class="last-btn">
+                        <v-icon small>close</v-icon>
+                    </v-btn>
+                </v-toolbar>
+            </v-card-title>
+            
 
-            <v-card-text :style="`height: ${is_fullscreen ? 2000 : 500}px;`">
+            <v-card-text :style="`max-height: ${window_height * 0.7}px; height: ${is_fullscreen ? window_height * 0.7 : 500}px; overflow-y: auto;`">
                 <plugin-list v-if="filter != 'web'" :plugins="plugins" :filter="filter" :is_fullscreen="is_fullscreen"></plugin-list>
                 <web-plugins v-else :is_fullscreen="is_fullscreen" :plugins="web_plugins" :installed_plugins="plugins"></web-plugins>
             </v-card-text>
@@ -26,7 +27,6 @@
                 <v-bottom-nav
                     :active.sync="filter"
                     :value="true"
-                    absolute
                     color="transparent"
                 >
                     <v-btn flat value="active">
@@ -64,7 +64,8 @@ export default {
         return {
             is_fullscreen: false,
             filter: "active",
-            web_plugins: undefined
+            web_plugins: undefined,
+            window_height: window.innerHeight
         }
     },
     props: {
@@ -92,6 +93,18 @@ export default {
         plugins() {
             return this.$store.state.Plugins.installed_plugins;
         }
+    },
+
+    created() {
+        window.addEventListener("resize", this.on_resize);
+    },
+    destroyed() {
+        window.removeEventListener("resize", this.on_resize);
+    },
+    methods: {
+        on_resize() {
+            this.window_height = window.innerHeight;
+        }
     }
 }
 </script>
@@ -103,5 +116,11 @@ export default {
     .window-title {
         margin-left: 8px;
         cursor: default;
+    }
+    .v-card__title {
+        padding: 0;
+    }
+    .v-card__actions {
+        padding: 0;
     }
 </style>

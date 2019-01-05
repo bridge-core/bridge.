@@ -8,6 +8,13 @@
                 <span>Refresh</span>
             </v-tooltip>
 
+            <v-tooltip right>
+                <v-btn icon flat @click.stop="open_create_file_window" slot="activator" small>
+                    <v-icon small>mdi-file-document</v-icon>
+                </v-btn>
+                <span>New file</span>
+            </v-tooltip>
+
             <v-spacer></v-spacer>
             <v-tooltip right>
                 <v-btn icon flat @click.stop="" slot="activator" small>
@@ -35,6 +42,7 @@
 <script>
     import { ipcRenderer } from "electron";
     import FileDisplayer from "./explorer/FileDisplayer.vue";
+    import CreateFileWindow from "../../../windows/createFile";
     
     export default {
         name: "content-explorer",
@@ -108,6 +116,9 @@
                         this.getDirectory();
                     }
                 });
+            },
+            open_create_file_window() {
+                new CreateFileWindow();
             },
             toggleProjectFilter() {
                 this.$store.commit("toggleProjectFilter");

@@ -1,7 +1,6 @@
 import Vue from "vue";
-import deepmerge from "deepmerge";
 import Store from "../index";
-
+import detachObj from "../../scripts/detachObj";
 const state = {
     elements: []
 }
@@ -22,7 +21,7 @@ const mutations = {
             i++;
         }
 
-        if(i == state.elements.length) state.elements.push({ ...window });
+        if(i == state.elements.length) state.elements.push(detachObj({}, window));
         
     },
     updatePluginWindow(state, window) {
@@ -32,7 +31,7 @@ const mutations = {
         }
 
         if(i < state.elements.length) {
-            let tmp = deepmerge(state.elements[i], { ...window }, { arrayMerge: (target, source) => [...source] });
+            let tmp = detachObj(state.elements[i], window);
             Vue.set(state.elements, i, tmp);
         }
     },

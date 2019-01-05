@@ -92,7 +92,7 @@
         },
         data() {
             return {
-                plugin_height: window.innerHeight - 91
+                plugin_height: window.innerHeight - 140
             }
         },
         computed: {
@@ -113,7 +113,7 @@
         },
         methods: {
             on_resize() {
-                this.plugin_height = window.innerHeight - 91;
+                this.plugin_height = window.innerHeight - 140;
             },
             openLink(link) {
                 shell.openExternal(link);

@@ -1,6 +1,6 @@
 import Store from "../index";
 import Bridge from "../../scripts/plugins/PluginEnv";
-import deepmerge from "deepmerge";
+import detachObj from "../../scripts/detachObj";
 import Vue from "vue";
 
 const state = {
@@ -10,16 +10,6 @@ const state = {
             title: "Explorer",
             icon: "folder",
             menu_type: "explorer"
-        },
-        {
-            title: "Project",
-            icon: "dashboard",
-            menu_type: "project"
-        },
-        {
-            title: "Search",
-            icon: "search",
-            menu_type: "search"
         },
         {
             title: "Extensions",
@@ -48,10 +38,12 @@ const mutations = {
             i++;
         }
 
-        if(i == state.plugin_items.length) state.plugin_items.push({
+        if(i == state.plugin_items.length) state.plugin_items.push(detachObj({}, {
             ...new_sidebar,
             is_plugin: true
-        });
+        }));
+
+        Store.commit("sortPluginSidebars");
     },
     updatePluginSidebar(state, new_sidebar) {
         let i = 0;
@@ -60,10 +52,10 @@ const mutations = {
         }
 
         if(i < state.plugin_items.length) {
-            let tmp = deepmerge(state.plugin_items[i], { ...new_sidebar, is_plugin: true }, { arrayMerge: (target, source) => [...source] });
+            let tmp = detachObj(state.plugin_items[i], { ...new_sidebar, is_plugin: true });
             
             Vue.set(state.plugin_items, i, tmp);
-        }   
+        }
     },
     removePluginSidebar(state, id) {
         let i = 0;
@@ -87,8 +79,8 @@ const mutations = {
     },
     sortPluginSidebars(state) {
         state.plugin_items.sort((a,b) => {
-            if(a > b) return 1;
-            if(a < b) return -1;
+            if(a.title > b.title) return 1;
+            if(a.title < b.title) return -1;
             return 0;
         });
     }

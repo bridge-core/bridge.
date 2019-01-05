@@ -41,13 +41,44 @@
                     <v-icon small>close</v-icon>
                 </v-btn>
             </v-toolbar>
+            
 
-            <v-card-text v-if="Array.isArray(win.content)" class="main-content" :style="`height: ${is_fullscreen ? maxHeight : height}px;`">
-                <window-content 
-                    v-for="(content, i) in win.content" 
-                    :key="`plugin-popup-window-content-${Math.random()}-${i}`" 
-                    :content="content"
-                />
+            <v-card-text v-if="Array.isArray(win.content)" class="main-content" :style="`
+                max-height: ${maxHeight}px;
+                height: ${is_fullscreen ? maxHeight : height}px;
+                padding-left: ${has_sidebar ? 0 : 8}px;
+            `">
+                <v-list
+                    class="sidebar"
+                    v-if="has_sidebar"
+                    :style="`
+                        width: 59px;
+                        border-right: 1px solid rgba(255,255,255,0.12);
+                        position: absolute;
+                        height: ${(is_fullscreen ? maxHeight : height) - 20}px;
+                        overflow-y: auto;
+                        overflow-x: hidden;
+                    `"
+                >
+                    <sidebar-element
+                        v-for="(item, i) in win.sidebar"
+                        :key="`plugin-popup-window-sidebar-${i}`"
+                        :action="typeof item.action != 'function' ? () => {} : item.action"
+                        :opacity="item.opacity"
+                        :item="item"
+                    />
+                </v-list>
+                <div :style="`
+                    margin-left: ${has_sidebar ? 60 : 0}px;
+                    padding-left: 8px;
+                    overflow-y: auto;
+                `">
+                    <window-content 
+                        v-for="(content, i) in win.content" 
+                        :key="`plugin-popup-window-content-${i}`" 
+                        :content="content"
+                    />
+                </div>
             </v-card-text>
             <v-card-text v-else-if="win.content" class="main-content" :style="`height: ${is_fullscreen ? maxHeight : height}px;`">
                 <window-content 
@@ -58,7 +89,7 @@
             <v-card-actions v-if="win.actions != undefined">
                 <window-content 
                     v-for="(content, i) in win.actions" 
-                    :key="`plugin-popup-window-actions-${Math.random()}-${i}`" 
+                    :key="`plugin-popup-window-actions-${i}`" 
                     :content="content"
                 />
             </v-card-actions>
@@ -69,6 +100,7 @@
 <script>
 import WindowContent from "./WindowContent.vue";
 import ToolbarElement from "./ToolbarElement.vue";
+import SidebarElement from "./SidebarElement.vue";
 
 export default {
     name: "window",
@@ -77,7 +109,8 @@ export default {
     },
     components: {
         WindowContent,
-        ToolbarElement
+        ToolbarElement,
+        SidebarElement
     },
     created() {
         window.addEventListener("resize", this.on_resize);
@@ -87,7 +120,8 @@ export default {
     },
     data() {
         return {
-            is_fullscreen: false
+            is_fullscreen: false,
+            window_height: window.innerHeight
         }
     },
     computed: {
@@ -131,12 +165,17 @@ export default {
             return this.win.options.height;
         },
         maxWidth() {
-            if(!this.win.options || this.win.options.maxWidth == undefined) return "100%";
+            if(!this.win.options || this.win.options.maxWidth == undefined) return "90%";
             return this.win.options.maxWidth;
         },
         maxHeight() {
             if(!this.win.options || this.win.options.maxHeight == undefined) return this.window_height * 0.8;
             return this.win.options.maxHeight;
+        },
+
+        //Sidebar
+        has_sidebar() {
+            return this.win.sidebar != undefined;
         }
     },
     watch: {
@@ -218,5 +257,8 @@ export default {
     .main-content {
         transition: all ease-in-out 160ms;
         padding: 8px;
+    }
+    .sidebar {
+        padding: 0;
     }
 </style>

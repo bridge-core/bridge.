@@ -15,7 +15,7 @@ let mainWindow, loadingWindow, windowOptions = {
   width: 1000,
   frame: false,
   minWidth: 600,
-  minHeight: 350,
+  minHeight: 500,
   show: false
 };
 const winURL = process.env.NODE_ENV === 'development'
@@ -35,23 +35,22 @@ function createWindow () {
   });
 
   mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.show();
-
     if(loadingWindow) {
       mainWindow.setPosition(...loadingWindow.getPosition());
       loadingWindow.close();
+      mainWindow.show();
     }
   });
 
-  const menu_template = [
+  if(process.env.NODE_ENV === 'development') mainWindow.setMenu(Menu.buildFromTemplate([
     {
       label: 'View',
       submenu: [
         {role: 'reload'}
       ]
     }
-  ];
-  mainWindow.setMenu(Menu.buildFromTemplate(menu_template));
+  ]));
+  if(process.env.NODE_ENV !== 'development') mainWindow.setMenu(null);
 }
 
 function createSplashScreen() {

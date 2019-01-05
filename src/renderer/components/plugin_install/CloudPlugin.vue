@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div v-if="meets_search && !installed && !just_installed">
+    <div v-if="meets_search && !plugin.is_dependency_only && (!installed || is_update)">
         <v-list-tile>
             <v-list-tile-content>
                 <v-list-tile-title>{{ plugin.name }}</v-list-tile-title>
@@ -10,12 +10,14 @@
 
             <v-list-tile-action>
                 <v-list-tile-action-text>{{ plugin.version }}</v-list-tile-action-text>
-                <v-tooltip :right="!is_fullscreen" :left="is_fullscreen">
+                <v-tooltip :right="!is_fullscreen" :left="is_fullscreen" v-if="!is_update">
                     <v-btn slot="activator" @click.stop="download()" :loading="loading" icon>
                         <v-icon>cloud_download</v-icon>
                     </v-btn>
-                    <span>Download</span>
                 </v-tooltip>
+                <v-btn slot="activator" @click.stop="download()" :loading="loading" flat round color="success" v-else>
+                    Update
+                </v-btn>
                 
             </v-list-tile-action>
         </v-list-tile>
@@ -45,7 +47,6 @@ export default {
         return {
             web_path: "https://solveddev.github.io/bridge-plugins/",
             loading: false,
-            just_installed: false,
             total_to_install: 1,
             total_installed: 0
         };
@@ -72,6 +73,22 @@ export default {
                 if(typeof current == "string") current = { id: "" };
             }
             return i != this.installed_plugins.length;
+        },
+        is_update() {
+            if(this.installed_plugins.length == 0) return false;
+
+            let i = 0;
+            let current = this.installed_plugins[0];
+            if(typeof current == "string") current = { id: "" };
+
+            while(i < this.installed_plugins.length && current.id.split(/\\|\//g).pop() != this.plugin_key + ".js") {
+                i++;
+                current = this.installed_plugins[i];
+                if(typeof current == "string") current = { id: "" };
+            }
+            console.log(this.installed_plugins[i], this.plugin.version);
+            
+            return this.installed_plugins[i] ? this.installed_plugins[i].version != this.plugin.version : false;
         },
         base_path() {
             return this.$store.state.TabSystem.base_path + this.$store.state.Explorer.project + "/bridge";
@@ -105,7 +122,6 @@ export default {
             
             if(this.plugins[key].dependencies == undefined && this.total_installed >= this.total_to_install) {
                 this.loading = false;
-                this.just_installed = true;
                 this.notification = true;
                 this.total_to_install = 1;
                 this.total_installed = 0;

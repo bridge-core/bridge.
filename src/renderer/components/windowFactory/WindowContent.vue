@@ -16,7 +16,7 @@
         v-else-if="content.type == 'divider'"
     />
     <!-- HORIZONTAL GROUPS -->
-    <v-layout align-end v-else-if="content.type == 'horizontal' && Array.isArray(content.content)">
+    <v-layout :align-end="!content.center" :align-center="content.center" v-else-if="content.type == 'horizontal' && Array.isArray(content.content)">
         <v-flex v-for="(c, i) in content.content" :key="`horizontal-window-content-${i}`">
             <window-content :content="c"/>
         </v-flex>
@@ -26,6 +26,20 @@
             <window-content :content="content.content"/>
         </v-flex>
     </v-layout>
+    <!-- CARDS -->
+    <v-card v-else-if="content.type == 'card'">
+        <v-card-title v-if="content.above_content">
+            <window-content v-for="(a_c, i) in content.above_content" :key="`card-window-above-content-${i}`" :content="a_c"/>
+        </v-card-title>
+
+        <v-card-text v-if="content.content">
+            <window-content v-for="(c, i) in content.content" :key="`card-window-content-${i}`" :content="c"/>
+        </v-card-text>
+
+        <v-card-action v-if="content.below_content">
+            <window-content v-for="(b_c, i) in content.below_content" :key="`card-window-below-content-${i}`" :content="_bc"/>
+        </v-card-action>
+    </v-card>
     <!-- LOADER -->
     <v-progress-linear
         v-else-if="content.type == 'loader' && !content.is_circular"
@@ -44,6 +58,7 @@
         :color="content.color"
         :round="content.is_rounded"
         :flat="content.is_flat"
+        :disabled="content.is_disabled"
     >
         {{ content.text }}
     </v-btn>
@@ -64,7 +79,7 @@
         :color="content.color"
         :label="content.text"
         :value="content.input"
-        :autofocus="content.focus"
+        :autofocus="content.has_focus"
     />
     <v-switch
         v-else-if="content.type == 'switch'"
@@ -77,6 +92,7 @@
         :label="content.text"
         :items="content.options"
         @change="action.default"
+        :color="content.color"
         :value="content.input"
         solo
     />
@@ -90,6 +106,7 @@
         @update:search-input="action.default"
         :value="content.input"
         :solo="content.is_box"
+        :color="content.color"
     />
     <v-container style="width: 90%;" v-else-if="content.type == 'slider'">
         <v-slider
