@@ -10,6 +10,7 @@ Bridge.Footer.register(window) registers a new popup window.
 | is_visible | ```Boolean``` | Whether the window is visible
 | options | ```String``` | Content to show inside the sidebar
 | toolbar | ```Array<ToolbarElement>``` | Array of elements of the window toolbar
+| sidebar | ```Array<SidebarElement>``` | Array of elements of the window sidebar
 | content | ```Array<Content>``` | Main content of the window
 | actions | ```Array<Content>``` | Content to show below the main content (e.g. "cancel"/"confirm" buttons)
 | onClose | ```Function``` | Function to call when the window closes
@@ -19,6 +20,9 @@ Information about the ```WindowOptions``` object can be found [here](https://git
 
 ### ```ToolbarElement``` Object
 Information about the ```ToolbarElement``` object can be found [here](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/general/toolbar_element.md).
+
+### ```SidebarElement``` Object
+Information about the ```SidebarElement``` object can be found [here](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/general/sidebar_element.md).
 
 ### ```Content``` Object
 Information about the ```Content``` object can be found [here](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/general/content.md).
@@ -32,6 +36,9 @@ Bridge.Window.register({
   options: {
       "..."
   },
+  sidebar: [
+      "..."
+  ],
   toolbar: [
       "..."
   ],
