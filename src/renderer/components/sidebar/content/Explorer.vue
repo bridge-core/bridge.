@@ -50,6 +50,10 @@
             FileDisplayer
         },
         created() {
+            this.$root.$on("refreshExplorer", () => {
+                this.refresh();
+            });
+
             ipcRenderer.on("readDir", (event, args) => {
                 this.directory = args.files;
 
@@ -74,6 +78,7 @@
             this.listeners.forEach(e => {
                 ipcRenderer.removeAllListeners(e);
             });
+            this.$root.$off("refreshExplorer");
         },
         data() {
             return {

@@ -153,7 +153,7 @@ export default class CreateFileWindow extends ContentWindow {
         }, -3, 1);
 
         this.createFile = () => {
-            FileSystem.save(this.current_content.getPath(), "");
+            FileSystem.save(this.current_content.getPath(), "", true, true);
             this.close();
         };
         this.actions = [
