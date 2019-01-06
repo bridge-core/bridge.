@@ -11,18 +11,19 @@
             <v-list-tile-action>
                 <v-list-tile-action-text>{{ plugin.version }}</v-list-tile-action-text>
                 <v-tooltip :right="!is_fullscreen" :left="is_fullscreen" v-if="!is_update">
-                    <v-btn slot="activator" @click.stop="download()" :loading="loading" icon>
+                    <v-btn slot="activator" @click.stop="download()" :disabled="!is_compatible" :loading="loading" icon>
                         <v-icon>cloud_download</v-icon>
                     </v-btn>
                     <span>Download</span>
                 </v-tooltip>
-                <v-btn slot="activator" @click.stop="download()" :loading="loading" flat round color="success" v-else>
+                <v-btn slot="activator" @click.stop="download()" :disabled="!is_compatible" :loading="loading" flat round color="success" v-else>
                     Update
                 </v-btn>
                 
             </v-list-tile-action>
         </v-list-tile>
-
+        <div style="padding: 0 16px; cursor: default;" v-if="!is_compatible && !is_update" class="error--text">You cannot install this plugin because it requires a higher version of bridge.</div>
+        <div style="padding: 0 16px; cursor: default;" v-if="!is_compatible && is_update" class="error--text">You cannot install this update because it requires a higher version of bridge.</div>
         <v-divider/>
     </div>
 </div>
@@ -32,6 +33,8 @@
 <script>
 import fs from "fs";
 import mkdirp from "mkdirp";
+import { APP_VERSION } from "../../scripts/constants";
+import * as VersionUtils from "../../scripts/VersionUtils";
 
 export default {
     name: "cloud-plugin",
@@ -92,6 +95,10 @@ export default {
         },
         base_path() {
             return this.$store.state.TabSystem.base_path + this.$store.state.Explorer.project + "/bridge";
+        },
+        is_compatible() {
+            console.log(!VersionUtils.greaterThan(this.plugin.min_app_version || APP_VERSION, APP_VERSION))
+            return !VersionUtils.greaterThan(this.plugin.min_app_version || APP_VERSION, APP_VERSION);
         }
     },
     methods: {
