@@ -10,12 +10,12 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow, loadingWindow, windowOptions = {
-  height: 563,
+  height: 600,
   useContentSize: true,
   width: 1000,
   frame: false,
   minWidth: 600,
-  minHeight: 500,
+  minHeight: 600,
   show: false
 };
 const winURL = process.env.NODE_ENV === 'development'

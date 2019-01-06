@@ -156,6 +156,12 @@ export default class Bridge {
                 Store.commit("removePluginWindow", id);
             }
         };
+
+        this.BuildableFile = {
+            register(file) {
+                Runtime.CreationWindow.add(file);
+            }
+        };
     }
 
     registerPlugin(plugin_info) {
@@ -176,7 +182,7 @@ export default class Bridge {
     open({ content, file_name, path }) {
         Store.commit("addToTabSystem", {
             content,
-            path,
+            path: Runtime.Project.get() + "/" + path,
             file: file_name
         });
     }

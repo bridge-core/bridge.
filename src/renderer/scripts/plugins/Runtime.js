@@ -16,7 +16,8 @@ let Runtime = {
     menus: [],
     sidebar: [],
     plugin_modules: {},
-    hljs_languages: []
+    hljs_languages: [],
+    creation_window: []
 };
 
 function reset() {
@@ -26,7 +27,8 @@ function reset() {
         menus: [],
         sidebar: [],
         plugin_modules: {},
-        hljs_languages: []
+        hljs_languages: [],
+        creation_window: []
     });
 }
 
@@ -71,6 +73,14 @@ export default {
         store: () => Runtime.getStorePath(),
         project: () => Runtime.getProjectPath(),
         setProject: (project) => Runtime.project = project
+    },
+    Project: {
+        set: (project) => Runtime.project = project,
+        get: () => Runtime.project
+    },
+    CreationWindow: {
+        get: () => Runtime.creation_window,
+        add: (c_w) => Runtime.creation_window.push(c_w)
     },
     reset
 }

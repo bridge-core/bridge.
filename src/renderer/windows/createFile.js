@@ -1,6 +1,9 @@
 import FileSystem from "../scripts/FileSystem";
 import ContentWindow from "../scripts/commonWindows/Content";
 import Store from "../store/index";
+import Runtime from "../scripts/plugins/Runtime";
+import { FILE_TEMPLATES } from "../scripts/constants";
+import { FILE } from "dns";
 
 class FileContent {
     constructor(name, ext="json", parent, expand_path="") {
@@ -88,6 +91,9 @@ class FileContent {
 
 export default class CreateFileWindow extends ContentWindow {
     constructor() {
+        const plugin_types = Runtime.CreationWindow.get();
+        console.log(plugin_types);
+        
         super({
             display_name: "New file",
             options: {
@@ -141,9 +147,10 @@ export default class CreateFileWindow extends ContentWindow {
                     action: () => {
                         this.select(5)
                     }
-                }
+                },
             ]
         });
+
         this.SCRIPTS = new FileContent("Script", "js", this, "scripts/server/").add({
             type: "select",
             text: "server",
@@ -180,28 +187,10 @@ export default class CreateFileWindow extends ContentWindow {
             new FileContent("Spawn Rule", undefined, this, "spawn_rules/"),
             this.SCRIPTS
         ];
-        this.templates = [
-            {
-                "Blank entity": {
-                    "minecraft:entity": {
-                        "description": {
-                            "identifier": "",
-                            "runtime_identifier": ""
-                        },
-                        "component_groups": {
-
-                        },
-                        "components": {
-
-                        },
-                        "events": {
-
-                        }
-                    }
-                }
-            }
-        ];
+        this.templates = FILE_TEMPLATES;
         this.chosen_template = "";
+
+        plugin_types.forEach(t => this.loadPluginType(t.sidebar_element, t.templates, t.options));
         this.select(0);
     }
 
@@ -220,6 +209,10 @@ export default class CreateFileWindow extends ContentWindow {
     compileTemplate(templ) {
         this.win_def.content.added_select = true;
         this.win_def.content.push({
+            type: "header",
+            text: "Templates"
+        },
+        {
             type: "divider"
         },
         {
@@ -232,5 +225,29 @@ export default class CreateFileWindow extends ContentWindow {
                 else this.chosen_template = JSON.stringify(templ[val], null, "\t");
             }
         });
+    }
+
+    loadPluginType(add_sidebar, add_templates, opts) {
+        let sidebar = this.win_def.sidebar;
+        let id = sidebar.length;
+        sidebar[id] = ({
+            ...add_sidebar,
+            action: () => {
+                (function() {
+                    console.log(id);
+                    
+                    this.select(id);
+                }).call(this)
+            }
+        });
+
+        if(add_templates) {
+            this.templates[id] = {};
+            add_templates.forEach(t => {
+                this.templates[id][t.display_name] = t.content;
+            });
+        }
+
+        this.contents[id] = new FileContent(opts.display_name, opts.extension, this, opts.path);
     }
 }

@@ -32,7 +32,12 @@
     import "codemirror/lib/codemirror.css";
     import "codemirror/theme/monokai.css";
     import "codemirror/theme/xq-light.css";
+    //import "codemirror/addon/hint/show-hint.css";
 
+    //Other
+    import "codemirror/addon/edit/closebrackets.js";
+    //import "codemirror/addon/hint/show-hint.js";
+    //import "codemirror/addon/hint/javascript-hint.js";
 
     import QuillEditor from "./QuillEditor";
     import JsonEditorMain from "./JsonEditor/Main";
@@ -50,7 +55,9 @@
             uuid: String
         },
         mounted() {
-            if(this.$refs.cm) this.$refs.cm.$el.childNodes[1].style.height = this.available_height + "px";
+            if(this.$refs.cm) {
+                this.$refs.cm.$el.childNodes[1].style.height = this.available_height + "px";
+            } 
         },
         data() {
             return {
@@ -99,8 +106,10 @@
                 return {
                     lineNumbers: true,
                     line: true,
+                    autoCloseBrackets: true,
                     theme: this.$store.state.Appearance.is_dark_mode ? "monokai" : "xq-light",
-                    mode: "text/javascript"
+                    mode: "text/javascript",
+                    //extraKeys: { "Ctrl-Space": "autocomplete" },
                 };
             } 
         },
