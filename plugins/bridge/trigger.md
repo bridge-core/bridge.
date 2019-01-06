@@ -1,6 +1,6 @@
 #### [<< Back](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
 ## Bridge.trigger(event, arguments)
-```Bridge.trigger(event, arguments)``` allows you to trigger events to which other plugins can listen to.
+```Bridge.trigger(event, arguments)``` allows you to trigger events to which other plugins can listen.
 
 ### Arguments
 | Argument | Type | Description |

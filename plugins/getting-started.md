@@ -7,8 +7,13 @@
 
 #### ```Bridge```
 - [```.on(event, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/on.md)
+- [```.open(file)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/open.md)
+- [```.openExternal(path)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/openExternal.md)
 - [```.registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
 - [```.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
+
+#### ```Bridge.BuildableFile```
+- [```.register(file_def)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/buildableFile/register.md)
 
 #### ```Bridge.Footer```
 - [```.register(footer)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/footer/register.md)
