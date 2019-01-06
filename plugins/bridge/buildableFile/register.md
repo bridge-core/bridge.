@@ -12,6 +12,7 @@ Bridge.BuildableFile.register(file_def) registers a new buildable file type insi
 
 ### ```BuildableFileOptions``` Object
 The ```BuildableFileOptions``` provides general information on how a file should be build by bridge.
+
 | Key | Type | Description
 | --- | --- | ---
 | display_name | ```String``` | Name of your file type
@@ -23,10 +24,11 @@ Information about the ```SidebarElement``` object can be found [here](https://gi
 
 ### ```Template``` Object
 A ```Template``` object has exactly two attributes: ```display_name``` and ```content```. A registered template appears inside the template dropdown.
+
 | Key | Type | Description
 | --- | --- | ---
 | display_name | ```String``` | Name of the template
-| content | ```Object|String``` | Template content
+| content | ```Object\|String``` | Template content
 
 
 ### Example
