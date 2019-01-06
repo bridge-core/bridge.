@@ -1,7 +1,7 @@
 <template>
     <span>
         <v-container v-if="extension == 'png'">
-            <v-img :src="image" :style="`max-height: ${available_height}px;`"/>
+            <v-img class="image" :src="image" :style="`max-height: ${available_height}px;`"/>
         </v-container>
         <json-editor-main v-else-if="extension == 'json' && false" :compiled="file.compiled" :tab_id="tab_id" :object="json_object" :available_height="available_height" :uuid="use_uuid"></json-editor-main>
         <codemirror
@@ -122,7 +122,9 @@
     .cm-s-monokai .CodeMirror-selected {
         background: rgb(60, 60, 60) !important;
     }
-    .v-img {
+</style>
+<style scoped>
+    .image {
         image-rendering: pixelated;
     }
 </style>

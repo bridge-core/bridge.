@@ -1,310 +1,10 @@
 import saveEval from "safe-eval";
 import fs from "fs";
-import Store from "../../store/index";
 import hljs from "../editor/hljs";
-
-let Runtime = {
-    static_base_path: `C:/Users/${process.env.USERNAME}/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_behavior_packs/`,
-    getBridgePath() {
-        return `${Runtime.static_base_path}${Runtime.project}/bridge/`;
-    },
-    getStorePath() {
-        return `${Runtime.static_base_path}${Runtime.project}/bridge/plugin_storage/`;
-    },
-    getProjectPath() {
-        return `${Runtime.static_base_path}${Runtime.project}/`;
-    },
-    listeners: {},
-    plugins: [],
-    menus: [],
-    sidebar: [],
-    plugin_modules: {},
-    hljs_languages: []
-};
-
-function reset() {
-    Runtime = Object.assign(Runtime, {
-        listeners: { },
-        plugins: [],
-        menus: [],
-        sidebar: [],
-        plugin_modules: {},
-        hljs_languages: []
-    });
-}
-function trigger(name, arg) {
-    if(Runtime.listeners[name]) {
-        let new_arg = arg;
-        Runtime.listeners[name].forEach(cb => {
-            let res = cb(new_arg);
-
-            if(res) {
-                try {
-                    new_arg = Object.assign(arg, res);
-                } catch (e) {
-                    console.warn(e);
-                }
-            }
-        });
-        return new_arg;
-    }
-    return arg;
-}
-function overwriteTrigger(name, arg) {
-    let new_arg = arg;
-    if(Runtime.listeners[name]) {
-        let cb = Runtime.listeners[name][Runtime.listeners[name].length -1];
-        new_arg = cb(new_arg);
-    }
-    return new_arg;
-}
-function readonlyTrigger(name, arg) {
-    if(Runtime.listeners[name]) {
-        return Runtime.listeners[name][Runtime.listeners[name].length -1](arg);
-    }
-}
-
-class BlockedBridge {
-    constructor(is_module, file_path) {
-        this.plugin_id = Runtime.plugins.length;
-        this.__file_path__ = file_path;
-        if(is_module) {
-            Runtime.plugins[this.plugin_id] = "module";
-        } else {
-            Runtime.plugins[this.plugin_id] = "unknown";
-        }
-
-        this.Store = {
-            namespace: undefined,
-            setup() {},
-            load() { },
-            save() {},
-            exists() {}
-        };
-        this.FS = {
-            readFile() {},
-            readDirectory() {},
-            exists() {},
-            stats() {}
-       };
-        this.Highlighter = {
-            registerLanguage() {},
-            unregisterLanguage() {},
-            addKeywords() {},
-            addTitles() {},
-            addSymbols() { }
-        };
-
-        this.Menu = {
-            register() {}
-        };
-
-        this.Sidebar = {
-            register() {},
-            update() {},
-            remove() {},
-            open() {},
-            openDefault() {},
-            close() {}
-        };
-        this.Footer = {
-            register() {},
-            update() {},
-            remove() {}
-        };
-        this.Window = {
-            register() {},
-            update() {},
-            remove() {},
-            open() {},
-            close() {}
-        };
-    }
-
-    registerPlugin(plugin_info) {
-        Runtime.plugins[this.plugin_id] = { ...plugin_info, id: this.__file_path__ };
-    }
-    on() {}
-    trigger() {}
-    call() {}
-}
-class Bridge {
-    constructor(is_module, file_path) {
-        this.plugin_id = Runtime.plugins.length;
-        this.__file_path__ = file_path;
-        if(is_module) {
-            Runtime.plugins[this.plugin_id] = "module";
-        } else {
-            Runtime.plugins[this.plugin_id] = "unknown";
-        }
-
-        this.Store = {
-            namespace: undefined,
-
-            setup(namespace) {
-                if(namespace == undefined) throw new Error("You need to define a namespace");
-                this.namespace = namespace + "/";
-                fs.mkdir(Runtime.getStorePath() + namespace, (err) => {
-                    if(err && !err.message.includes("file already exists")) throw err;
-                });
-            },
-            load(name) {
-                if(this.namespace == undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
-                return JSON.parse(fs.readFileSync(Runtime.getStorePath() + this.namespace + name));
-            },
-            save(name, data) {
-                if(this.namespace == undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
-                try {
-                    return fs.writeFileSync(Runtime.getStorePath() + this.namespace + name, JSON.stringify(data));
-                } catch(e) {
-                    throw new Error("Provided data is not a valid store content.");
-                }
-            },
-            exists(name) {
-                if(this.namespace == undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
-                return fs.existsSync(Runtime.getStorePath() + this.namespace + name);
-            }
-        };
-
-        this.FS = {
-            readFile(path, cb) {
-                return fs.readFile(Runtime.getProjectPath() + path, cb);
-            },
-            readDirectory(path, cb) {
-                return fs.readdir(Runtime.getProjectPath() + path, cb);
-            },
-            exists(path) {
-                return fs.existsSync(Runtime.getBridgePath() + path);
-            },
-            stats(path, cb) {
-                return fs.lstat(Runtime.getProjectPath() + path, cb)
-            }
-        };
-
-        this.Highlighter = {
-            registerLanguage(name, language) {
-                if(!Runtime.hljs_languages.includes(name)) {
-                    hljs.registerLanguage(name, language);
-                    Runtime.hljs_languages.push(name);
-                }
-            },
-            unregisterLanguage(name) {
-                hljs.unregisterLanguage(name);
-
-                let arr = Runtime.hljs_languages;
-                if(arr.includes(name)) {
-                    arr.splice(arr.indexOf(name), 1);
-                }
-            },
-
-            addKeywords(keywords) {
-                Store.commit("addPluginKeywords", keywords);
-            },
-            addTitles(titles) {
-                Store.commit("addPluginTitles", titles);
-            },
-            addSymbols(symbols) {
-                Store.commit("addPluginSymbols", symbols);
-            }
-        };
-
-        this.Menu = {
-            register: (menu_input) => {
-                Runtime.menus[this.plugin_id] = {...menu_input, trusted: false};
-                Store.commit("addToAppMenu", Runtime.menus[this.plugin_id]);
-            }
-        };
-
-        this.Sidebar = {
-            register(sidebar_input) {
-                if(Array.isArray(sidebar_input)) {
-                    Runtime.sidebar.concat(sidebar_input);
-                    sidebar_input.forEach(input => Store.commit("addPluginSidebar", input));
-                } else {
-                    Runtime.sidebar.push(sidebar_input);
-                    Store.commit("addPluginSidebar", sidebar_input);
-                }
-            },
-            update(sidebar) {
-                Store.commit("updatePluginSidebar", sidebar);
-            },
-            remove(id) {
-                Store.commit("removePluginSidebar", id);
-            },
-            open(id) {
-                Store.commit("openPluginSidebar", id);
-            },
-            openDefault() {
-                Store.commit("setSidebarMenu", 1);
-            },
-            close() {
-                Store.commit("setSidebarMenu", 0);
-            }
-        };
-
-        this.Footer = {
-            register(footer_element) {
-                if(footer_element.id == undefined) throw new Error("No footer id defined.");
-                Store.commit("addPluginFooter", footer_element);
-            },
-            update(footer_element) {
-                Store.commit("updatePluginFooter", footer_element);
-            },
-            remove(id) {
-                Store.commit("removePluginFooter", id);
-            }
-        };
-
-        this.Window = {
-            register(window) {
-                if(window.id == undefined) throw new Error("No window id defined.");
-                Store.commit("addPluginWindow", window);
-            },
-            update(window) {
-                Store.commit("updatePluginWindow", window);
-            },
-            open(id) {
-                Store.commit("setWindowIsVisible", {
-                    id,
-                    val: true
-                });
-            },
-            close(id) {
-                Store.commit("setWindowIsVisible", {
-                    id,
-                    val: false
-                });
-            },
-            remove(id) {
-                Store.commit("removePluginWindow", id);
-            }
-        };
-    }
-
-    registerPlugin(plugin_info) {
-        Runtime.plugins[this.plugin_id] = { ...plugin_info, id: this.__file_path__ };
-    }
-    
-
-    on(event, cb) {
-        if(!Runtime.listeners[event]) {
-            Runtime.listeners[event] = [cb];
-        } else {
-            Runtime.listeners[event].push(cb);
-        }
-    }
-    trigger(name, arg, basic=false) {
-        if(basic) {
-            return overwriteTrigger(name, arg);
-        } else {
-            return trigger(name, arg);
-        }
-        
-    }
-    call() {
-
-    }
-}
+import Runtime from "./Runtime";
+import BlockedBridge from "./BlockedBridge";
+import Bridge from "./Bridge";
+import { trigger, readonlyTrigger } from "./EventTriggers";
 
 class Environment {
     constructor(file_path, depth=1000, is_module, blocked) {
@@ -335,19 +35,19 @@ class Environment {
                 throw new Error("Recursion depth too deep. Flatten your project structure and make sure that you haven't created an import loop.");
             }
             
-            if(Runtime.plugin_modules[path]) {
-                return Runtime.plugin_modules[path];
+            if(Runtime.Modules.exists(path)) {
+                return Runtime.Modules.get(path);
             } else {
-                let raw_file = fs.readFileSync(`${Runtime.getBridgePath()}plugins/${path}`);
+                let raw_file = fs.readFileSync(`${Runtime.Paths.bridge()}plugins/${path}`);
                 if(raw_file != undefined) new Interpreter().execute(raw_file.toString(), path, this.__bridge_import_depth__ - 1, true, blocked);
-                return Runtime.plugin_modules[path];
+                return Runtime.Modules.get(path);
             }
         };
         this.provide = (data) => {
-            Runtime.plugin_modules[this.__file_path__] = data;
+            Runtime.Modules.add(this.__file_path__, data);
             return {
                 as(id) {
-                    Runtime.plugin_modules[id] = data;
+                    Runtime.Modules.add(id, data);
                 }
             }
         };
@@ -396,20 +96,20 @@ class Interpreter {
             let tmp = e.stack.split("\n");
             tmp.shift();
             console.groupCollapsed(`%c${e.message} inside ${file_path}.`, "background-color: #ff3d3d; color: white; padding: 0 2px; border-radius: 2px;");
-            console.log(tmp[0]);
+            console.log(tmp.join("\n"));
             console.groupEnd();
         }
     }
 
     init(project) {
-        Runtime.project = project;
+        Runtime.Paths.setProject(project);
 
-        let path = `${Runtime.getBridgePath()}plugin_storage/`;
+        let path = `${Runtime.Paths.bridge()}plugin_storage/`;
         if(!fs.existsSync(path)) {
             fs.mkdirSync(path);
         }
 
-        let u_path = Runtime.getBridgePath() + "uninstalled_plugins.json";
+        let u_path = Runtime.Paths.bridge() + "uninstalled_plugins.json";
         if(!fs.existsSync(u_path)) {
             fs.writeFile(u_path, "[]", (err) => {
                 if(err) console.log(err);
@@ -423,18 +123,18 @@ class Interpreter {
 
 export default {
     Interpreter: new Interpreter(),
-    getMenus: () => Runtime.menus,
-    getPlugins: () => Runtime.plugins,
-    getSidebar: () => Runtime.sidebar,
+    getMenus: () => Runtime.Menus.get(),
+    getPlugins: () => Runtime.Plugins.get(),
+    getSidebar: () => Runtime.Sidebar.get(),
     Runtime: {
-        getBridgePath: Runtime.getBridgePath
+        getBridgePath: Runtime.Paths.bridge
     },
     hljs: {
         unregisterAll() {
-            Runtime.hljs_languages.forEach(lang => hljs.unregisterLanguage(lang));
+            Runtime.HLJS.forEach(lang => hljs.unregisterLanguage(lang));
         }
     },
-    reset,
+    reset: Runtime.reset,
     trigger: (name, arg, readonly=false) => {
         if(readonly) return readonlyTrigger(name, arg);
         return trigger(name, arg);

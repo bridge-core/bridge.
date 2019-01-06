@@ -18,7 +18,7 @@
             </v-card-title>
             
 
-            <v-card-text :style="`max-height: ${window_height * 0.7}px; height: ${is_fullscreen ? window_height * 0.7 : 500}px; overflow-y: auto;`">
+            <v-card-text :style="`max-height: ${window_height * 0.75}px; height: ${is_fullscreen ? window_height * 0.75 : 500}px; overflow-y: auto;`">
                 <plugin-list v-if="filter != 'web'" :plugins="plugins" :filter="filter" :is_fullscreen="is_fullscreen"></plugin-list>
                 <web-plugins v-else :is_fullscreen="is_fullscreen" :plugins="web_plugins" :installed_plugins="plugins"></web-plugins>
             </v-card-text>

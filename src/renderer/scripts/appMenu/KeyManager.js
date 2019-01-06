@@ -3,7 +3,7 @@ import Store from "../../store/index.js";
 let mouseTrap = MouseTrap(document.body);
 
 function bind(elements) {
-    elements.forEach(e => {
+    if(elements) elements.forEach(e => {
         if(e.shortcut && e.action) {
             let key = e.shortcut.toLowerCase().replace(/ /g, "");
 
@@ -20,7 +20,7 @@ function bind(elements) {
 }
 
 function unbind(elements) {
-    elements.forEach(e => {
+    if(elements) elements.forEach(e => {
         if(e.shortcut && e.action) {
             let key = e.shortcut.toLowerCase().replace(/ /g, "");
             mouseTrap.unbind(key);

@@ -2,7 +2,8 @@
     <!-- TEXT -->
     <pre 
         v-if="content.type == 'text' || content.type == undefined"
-        :class="pre_color"
+        :class="`${pre_color} ${content.action != undefined ? 'click-action' : ''}`"
+        @click.stop="action.default"
         style="overflow-x: scroll;"
     >{{ content.text }}</pre>
     <v-subheader 
@@ -182,11 +183,12 @@ export default {
         font-family: 'Roboto', sans-serif;
         display: inline;
         white-space: pre-wrap;
+        cursor: default;
     }
     i {
         cursor: default;
     }
-    i.click-action {
+    .click-action {
         cursor: pointer;
     }
 </style>
