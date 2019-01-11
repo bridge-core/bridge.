@@ -35,30 +35,30 @@ A ```Template``` object has exactly two attributes: ```display_name``` and ```co
 ```javascript
 Bridge.BuildableFile.register({
 	options: {
-    	display_name: "Tag",
-      	extension: "json",
-      	path: "tags/"
-    },
+	    display_name: "Tag",
+	    extension: "json",
+	    path: "tags/"
+	},
   	sidebar_element: {
-    	icon: "mdi-tag",
-      	title: "Tag"
-    },
+	    icon: "mdi-tag",
+	    title: "Tag"
+	},
   	templates: [{
-    	display_name: "Empty Tag",
-      	content: {
-            "include": [ "minecraft:cow", "minecraft:pig" ],
-            "minecraft:entity": {
-                "import": [ "entities/modules/passive_common.json" ],
-                "components": {
-                    "minecraft:type_family": {
-                        "family": [ "passive" ]
+    	    display_name: "Empty Tag",
+      	    content: {
+                "include": [ "minecraft:cow", "minecraft:pig" ],
+                "minecraft:entity": {
+                    "import": [ "entities/modules/passive_common.json" ],
+                    "components": {
+                        "minecraft:type_family": {
+                            "family": [ "passive" ]
+                        }
                     }
-                }
-            },
-            "run_commands": {
+                },
+                "run_commands": {
 
-            }
-      	}
-    }]
+                }
+      	    }
+        }]
 });
 ```
