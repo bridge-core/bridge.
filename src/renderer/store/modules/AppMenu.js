@@ -3,6 +3,7 @@ import Vue from "vue";
 import ContentWindow from "../../scripts/commonWindows/Content";
 import Store from "../index";
 import { ipcRenderer } from "electron";
+import SettingsWindow from "../../windows/Settings";
 
 const state = {
     file: {
@@ -49,32 +50,33 @@ const state = {
                     {
                         title: "Settings",
                         action: () => {
-                            new ContentWindow({
-                                options: {
-                                    height: 150,
-                                    is_persistent: false,
-                                    is_frameless: true
-                                },
-                                content: [
-                                    {
-                                        type: "header",
-                                        text: "Settings"
-                                    },
-                                    {
-                                        type: "divider"
-                                    },
-                                    {
-                                        text: "\nWe are currently working on implementing settings.\n\n"
-                                    },
-                                    {
-                                        type: "divider"
-                                    },
-                                    {
-                                        color: "grey",
-                                        text: "created by solvedDev"
-                                    }
-                                ]
-                            });
+                            new SettingsWindow();
+                            // new ContentWindow({
+                            //     options: {
+                            //         height: 150,
+                            //         is_persistent: false,
+                            //         is_frameless: true
+                            //     },
+                            //     content: [
+                            //         {
+                            //             type: "header",
+                            //             text: "Settings"
+                            //         },
+                            //         {
+                            //             type: "divider"
+                            //         },
+                            //         {
+                            //             text: "\nWe are currently working on implementing settings.\n\n"
+                            //         },
+                            //         {
+                            //             type: "divider"
+                            //         },
+                            //         {
+                            //             color: "grey",
+                            //             text: "created by solvedDev"
+                            //         }
+                            //     ]
+                            // });
                         }
                     },
                     {

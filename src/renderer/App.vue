@@ -40,7 +40,7 @@
   import FooterMain from "@/components/footer/Main";
 
   import { ipcRenderer } from "electron";
-  import UpdateWindow from "./windows/updateApp";
+  import UpdateWindow from "./windows/UpdateApp";
 
   export default {
     name: 'bridge',

@@ -55,6 +55,9 @@ export default class BlockedBridge {
             open() {},
             close() {}
         };
+        this.BuildableFile = {
+            register() {}
+        };
     }
 
     registerPlugin(plugin_info) {

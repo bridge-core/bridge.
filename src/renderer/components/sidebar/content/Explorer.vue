@@ -42,7 +42,7 @@
 <script>
     import { ipcRenderer } from "electron";
     import FileDisplayer from "./explorer/FileDisplayer.vue";
-    import CreateFileWindow from "../../../windows/createFile";
+    import CreateFileWindow from "../../../windows/CreateFile";
     
     export default {
         name: "content-explorer",

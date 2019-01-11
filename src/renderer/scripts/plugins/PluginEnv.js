@@ -5,6 +5,7 @@ import Runtime from "./Runtime";
 import BlockedBridge from "./BlockedBridge";
 import Bridge from "./Bridge";
 import { trigger, readonlyTrigger } from "./EventTriggers";
+import PluginAssert from "./PluginAssert";
 
 class Environment {
     constructor(file_path, depth=1000, is_module, blocked) {
@@ -92,10 +93,12 @@ class Interpreter {
     execute(code, file_path, depth, is_module=false, blocked) {
         try {
             return saveEval(this.wrap(code), new Environment(file_path, depth, is_module, blocked), { file_path });
-        } catch(e) {
-            let tmp = e.stack.split("\n");
+        } catch(err) {
+            PluginAssert.throw(file_path, err);
+
+            let tmp = err.stack.split("\n");
             tmp.shift();
-            console.groupCollapsed(`%c${e.message} inside ${file_path}.`, "background-color: #ff3d3d; color: white; padding: 0 2px; border-radius: 2px;");
+            console.groupCollapsed(`%c${err.message} inside ${file_path}.`, "background-color: #ff3d3d; color: white; padding: 0 2px; border-radius: 2px;");
             console.log(tmp.join("\n"));
             console.groupEnd();
         }

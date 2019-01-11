@@ -3,6 +3,7 @@ import { shell } from "electron";
 import fs from "fs";
 import Store from "../../store/index";
 import { trigger, overwriteTrigger } from "./EventTriggers";
+import PluginAssert from "./PluginAssert";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -44,17 +45,27 @@ export default class Bridge {
         };
 
         this.FS = {
+            __file_path__: file_path,
             readFile(path, cb) {
-                return fs.readFile(Runtime.Paths.project() + path, cb);
+                return fs.readFile(Runtime.Paths.project() + path, (err, data) => {
+                    if(err) PluginAssert.throw(this.__file_path__, err)
+                    cb(err, data);
+                });
             },
             readDirectory(path, cb) {
-                return fs.readdir(Runtime.Paths.project() + path, cb);
+                return fs.readdir(Runtime.Paths.project() + path, (err, data) => {
+                    if(err) PluginAssert.throw(this.__file_path__, err)
+                    cb(err, data);
+                });
             },
             exists(path) {
                 return fs.existsSync(Runtime.Paths.project() + path);
             },
             stats(path, cb) {
-                return fs.lstat(Runtime.Paths.project() + path, cb);
+                return fs.lstat(Runtime.Paths.project() + path, (err, data) => {
+                    if(err) PluginAssert.throw(this.__file_path__, err)
+                    cb(err, data);
+                });
             }
         };
 
