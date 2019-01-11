@@ -87,6 +87,8 @@
         @change="action.default"
         :label="content.text"
         :color="content.color"
+        value
+        :input-value="content.input"
     />
     <v-select
         v-else-if="content.type == 'select'"

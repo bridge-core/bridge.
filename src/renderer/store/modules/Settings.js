@@ -7,6 +7,11 @@ const state = {
 const mutations = {
     setSetting(state, { id, data }) {
         Vue.set(state, id, data);
+    },
+    setSettings(state, data) {
+        for(let key in data) {
+            mutations.setSetting(state, { id: key, data: data[key] })
+        }
     }
 }
 

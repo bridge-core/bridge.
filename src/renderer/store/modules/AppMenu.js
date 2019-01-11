@@ -51,32 +51,6 @@ const state = {
                         title: "Settings",
                         action: () => {
                             new SettingsWindow();
-                            // new ContentWindow({
-                            //     options: {
-                            //         height: 150,
-                            //         is_persistent: false,
-                            //         is_frameless: true
-                            //     },
-                            //     content: [
-                            //         {
-                            //             type: "header",
-                            //             text: "Settings"
-                            //         },
-                            //         {
-                            //             type: "divider"
-                            //         },
-                            //         {
-                            //             text: "\nWe are currently working on implementing settings.\n\n"
-                            //         },
-                            //         {
-                            //             type: "divider"
-                            //         },
-                            //         {
-                            //             color: "grey",
-                            //             text: "created by solvedDev"
-                            //         }
-                            //     ]
-                            // });
                         }
                     },
                     {
