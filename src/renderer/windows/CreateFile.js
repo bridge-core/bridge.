@@ -93,7 +93,7 @@ export default class CreateFileWindow extends ContentWindow {
         const plugin_types = Runtime.CreationWindow.get();
         
         super({
-            display_name: "New file",
+            display_name: "New File",
             options: {
                 is_persistent: false
             },
@@ -152,7 +152,7 @@ export default class CreateFileWindow extends ContentWindow {
         this.SCRIPTS = new FileContent("Script", "js", this, "scripts/server/").add({
             type: "select",
             text: "server",
-            options: [ "server",  "client" ],
+            options: [ "Server",  "Client" ],
             action: (val) => {
                 this.SCRIPTS.expand_path = "scripts/" + val + "/";
                 this.SCRIPTS.path_info.text = this.SCRIPTS.getPath(undefined, undefined)
