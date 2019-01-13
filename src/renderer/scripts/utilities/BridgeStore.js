@@ -9,9 +9,7 @@ export default class BridgeStore {
     setup(namespace) {
         if(namespace == undefined) throw new Error("You need to define a namespace");
         this.namespace = namespace + "/";
-        fs.mkdir(this.path + this.namespace, (err) => {
-            if(err && !err.message.includes("file already exists")) throw err;
-        });
+        fs.mkdirSync(this.path + this.namespace);
     }
     load(name) {
         if(this.namespace == undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");

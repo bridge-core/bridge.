@@ -15,6 +15,9 @@ const state = {
 const mutations = {
     toggleDarkMode(state) {
         state.is_dark_mode = !state.is_dark_mode;
+    },
+    setDarkMode(state, val) {
+        state.is_dark_mode = val;
     }
 }
 

@@ -43,7 +43,7 @@ export default class TabWindow extends CommonWindow {
         this.win_def.content = this.buildContent(id) || [ 
             { type: "header", text: "Oops :(" },
             { type: "divider" },
-            { text: "\nThis page looks pretty empty. Make sure to revisit in future versions of bridge." } 
+            { text: "\nThis page looks pretty empty. Make sure to revisit it in future versions of bridge." } 
         ];
     }
 

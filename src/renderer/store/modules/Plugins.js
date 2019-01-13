@@ -23,9 +23,9 @@ const mutations = {
 
             //SEARCH BRIDGE DIRECTORY
             let index = 0, child = args.files.children[0];
-            while(child.name != "bridge" && child.name < "bridge") {
+            while(child.name != "bridge" && index < args.files.children.length) {
                 index++;
-                child = arg.files[index];
+                child = args.files.children[index];
             }
             //Do stuff if bridge directory exists
             if(child.name == "bridge") {

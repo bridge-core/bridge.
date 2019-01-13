@@ -1,10 +1,10 @@
 import Stack from "../utilities/Stack";
 
 export default class JSONTree {
-    constructor(content={}, children=[], opened=false) {
+    constructor(content="", children=[], opened=false) {
         this.children = children;
         this.content = content;
-        this.opened = false;
+        this.opened = opened;
         this.TreeIterator = class {
             constructor(tree) {
                 this.stack = new Stack();
@@ -42,8 +42,8 @@ export default class JSONTree {
         if(!new_content) throw new Error("Content may not be undefined or null.")
         this.content = new_content;
     }
-    iterator() {
-
+    buildFromObject(obj) {
+        //this.children.push(new JSONTree())
     }
 
     *[Symbol.iterator] () {

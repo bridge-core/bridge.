@@ -1,4 +1,7 @@
 import Vue from "vue";
+import Store from "../index";
+
+const alias = { is_dark_mode: "setDarkMode" };
 
 const state = {
     is_dev_mode: false
@@ -10,7 +13,8 @@ const mutations = {
     },
     setSettings(state, data) {
         for(let key in data) {
-            mutations.setSetting(state, { id: key, data: data[key] })
+            if(key in alias) Store.commit(alias[key], data[key]);
+            else mutations.setSetting(state, { id: key, data: data[key] });
         }
     }
 }

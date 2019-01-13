@@ -1,4 +1,5 @@
 import saveEval from "safe-eval";
+import JSONTree from "./JsonTree";
 
 function private_toInternal(obj) {
     if(typeof obj == "function") return;
@@ -58,6 +59,10 @@ class Format {
 
     static toInternal(obj) {
         return { open: true, type: "object", data: private_toInternal(obj) };
+    }
+
+    static toTree(obj) {
+        return new JSONTree().buildFromObject(obj);
     }
 }
 

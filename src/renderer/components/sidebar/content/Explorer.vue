@@ -56,7 +56,6 @@
 
             ipcRenderer.on("readDir", (event, args) => {
                 this.directory = args.files;
-
                 this.$store.commit("loadAllPlugins", { args, selected: this.selected, base_path: this.base_path });
             });
 

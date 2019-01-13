@@ -41,6 +41,7 @@
 
   import { ipcRenderer } from "electron";
   import UpdateWindow from "./windows/UpdateApp";
+  import SETTINGS from "./store/Settings";
 
   export default {
     name: 'bridge',
@@ -55,6 +56,7 @@
       FooterMain
     },
     created() {
+      SETTINGS.setup();
       ipcRenderer.on("readFile", (event, details) => {
         this.$store.commit("addToTabSystem", details);
       });

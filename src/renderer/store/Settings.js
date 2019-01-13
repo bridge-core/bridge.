@@ -1,0 +1,33 @@
+import BridgeStore from "../scripts/utilities/BridgeStore";
+import VueStore from "./index";
+
+const STORE = new BridgeStore(__dirname + "/", "data");
+let DATA;
+
+function setup() {
+    if(!STORE.exists("settings")) {
+        console.log("[SETTING STORE] Not found - creating new store with default values");
+        STORE.setup("data");
+        save({
+            is_dev_mode: false,
+            is_dark_mode: true
+        });
+    }
+
+    DATA = STORE.load("settings");
+    VueStore.commit("setSettings", DATA);
+    VueStore.commit("setDarkMode", DATA.is_dark_mode);
+}
+function save(settings) {
+    DATA = settings;
+    STORE.save("settings", settings);
+}
+function load() {
+    return DATA;
+}
+
+export default {
+    load: () => load(),
+    save: (s) => save(s),
+    setup: () => setup()
+}

@@ -1,8 +1,7 @@
 import KeyManager from "../../scripts/appMenu/KeyManager";
 import Vue from "vue";
-import ContentWindow from "../../scripts/commonWindows/Content";
 import Store from "../index";
-import { ipcRenderer } from "electron";
+import { ipcRenderer, shell } from "electron";
 import SettingsWindow from "../../windows/Settings";
 
 const state = {
@@ -63,12 +62,15 @@ const state = {
     },
     view: {
         trusted: true,
-        display_name: "View",
+        display_name: "Help",
         elements: [
             {
-                title: "Dark Mode",
-                shortcut: "Ctrl + D",
-                action: () => Store.commit("toggleDarkMode")
+                title: "About",
+                action: () => shell.openExternal("https://www.github.com/solveddev/bridge.")
+            },
+            {
+                title: "Plugin API",
+                action: () => shell.openExternal("https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md")
             }
         ]
     }

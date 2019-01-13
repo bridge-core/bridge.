@@ -1,6 +1,6 @@
 import TabWindow from "../scripts/commonWindows/TabWindow";
 import Store from "../store/index";
-import BridgeStore from "../scripts/utilities/BridgeStore";
+import SETTINGS from "../store/Settings";
 
 class ReactiveSwitch {
     constructor(parent, watch_key, def) {
@@ -21,7 +21,7 @@ class ReactiveSwitch {
 export default class SettingsWindow extends TabWindow {
     constructor() {     
         super("Settings", { is_persistent: false }, "bridge.core.settings_window.");
-        this.createStore();
+        this.data = SETTINGS.load();
         
         this.addTab({
             sidebar_element: {
@@ -51,21 +51,8 @@ export default class SettingsWindow extends TabWindow {
         this.update();
     }
 
-    createStore() {
-        this.store = new BridgeStore(__dirname + "/", "data");
-        if(!this.store.exists("settings")) {
-            console.log("[SETTING STORE] Not found - creating new store with default values");
-            this.store.setup("data");
-            this.store.save("settings", {
-                is_dev_mode: false,
-                is_dark_mode: true
-            });
-        }
-
-        this.data = this.store.load("settings");      
-    }
     save() {
         Store.commit("setSettings", this.data);
-        this.store.save("settings", this.data);
+        SETTINGS.save(this.data);
     }
 }
