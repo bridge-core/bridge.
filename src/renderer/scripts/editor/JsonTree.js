@@ -42,8 +42,15 @@ export default class JSONTree {
         if(!new_content) throw new Error("Content may not be undefined or null.")
         this.content = new_content;
     }
-    buildFromObject(obj) {
-        //this.children.push(new JSONTree())
+    buildFromObject(data) {
+        if(typeof data == "object") {
+            for(let key in data) {
+                this.children.push(new JSONTree(key).buildFromObject(data[key]));
+            }
+        } else {
+            this.content = data;
+        }
+        return this;
     }
 
     *[Symbol.iterator] () {
