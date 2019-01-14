@@ -3,6 +3,7 @@ import Vue from "vue";
 import Store from "../index";
 import { ipcRenderer, shell } from "electron";
 import SettingsWindow from "../../windows/Settings";
+import CreateFileWindow from "../../windows/CreateFile";
 
 const state = {
     file: {
@@ -11,7 +12,8 @@ const state = {
         elements: [
             {
                 title: "New File",
-                shortcut: "Ctrl + N"
+                shortcut: "Ctrl + N",
+                action: () => new CreateFileWindow()
             },
             {
                 title: "Open File",

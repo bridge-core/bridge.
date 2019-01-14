@@ -41,7 +41,7 @@ ipcMain.on("openFileDialog", (event, args) => {
         title: "Select a file",
         properties: ["'openFile", "multiSelections" ]
     }, (file_paths) => {
-        file_paths.forEach(path => event.sender.send("openFile", path));
+        if(file_paths) file_paths.forEach(path => event.sender.send("openFile", path));
     });
 });
 

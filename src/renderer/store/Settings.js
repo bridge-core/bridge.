@@ -1,7 +1,9 @@
 import BridgeStore from "../scripts/utilities/BridgeStore";
 import VueStore from "./index";
 
-const STORE = new BridgeStore(__dirname + "/", "data");
+let STORE;
+if(process.env.NODE_ENV == "development") STORE = new BridgeStore(__dirname + "/", "data");
+else STORE = new BridgeStore(__dirname.split("app.asar\\")[0], "data");
 let DATA;
 
 function setup() {
