@@ -3,7 +3,7 @@
         This directory has no content.
     </p>
     <div :style="element_style" :class="element_class" v-else>
-        <details v-for="(file, i) in files" :key="i" v-if="file.type == 'directory'">
+        <details v-for="(file, i) in loop_files" :key="i" v-if="file.type == 'directory'">
             <summary v-ripple>
                 <v-icon class="open" small>folder_open</v-icon><v-icon class="closed" small>folder</v-icon><span class="folder"> {{ file.name }}</span>
             </summary>
@@ -45,6 +45,16 @@
             },
             element_class() {
                 return this.first ? "file-displayer" : "";
+            },
+
+            loop_files() {
+                return [...this.files].sort((a, b) => {
+                    if(a.children && !b.children) return -1;
+                    if(!a.children && b.children) return 1;
+                    if(a.name > b.name) return 1;
+                    if(a.name < b.name) return -1;
+                    return 0;
+                })
             }
         },
         methods: {

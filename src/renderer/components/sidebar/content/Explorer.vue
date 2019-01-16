@@ -169,8 +169,6 @@
                 }
             },
             on_resize() {
-                console.log(this.project_select_size);
-                
                 this.project_select_size = window.innerWidth / 7.5;
             }
         }
