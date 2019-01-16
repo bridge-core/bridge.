@@ -23,12 +23,12 @@ const mutations = {
 
             //SEARCH BRIDGE DIRECTORY
             let index = 0, child = args.files.children[0];
-            while(child.name != "bridge" && index < args.files.children.length) {
+            while(child && child.name != "bridge" && index < args.files.children.length) {
                 index++;
                 child = args.files.children[index];
             }
             //Do stuff if bridge directory exists
-            if(child.name == "bridge") {
+            if(child && child.name == "bridge") {
                 let uninstalled = Bridge.Interpreter.init(selected);
 
                 child.children.forEach(e => {

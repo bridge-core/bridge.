@@ -23,8 +23,9 @@
                 <span>More...</span>
             </v-tooltip>
         </v-toolbar>
-        <v-select 
-            :items="items" 
+        <v-select
+            ref="project_select"
+            :items="project_items" 
             :value="selected" 
             :label="display_label" 
             solo 
@@ -72,19 +73,24 @@
             this.getProjects({ event_name: "initialProjectLoad", func: () => {
                 this.getDirectory();
             }});
+
+            window.addEventListener("resize", this.on_resize);
         },
         destroyed() {
             this.listeners.forEach(e => {
                 ipcRenderer.removeAllListeners(e);
             });
             this.$root.$off("refreshExplorer");
+
+            window.removeEventListener("resize", this.on_resize);
         },
         data() {
             return {
                 listeners: ["readDir", "readProjects"],
                 items: [],
                 directory: undefined,
-                display_label: "Loading..."
+                display_label: "Loading...",
+                project_select_size: window.innerWidth / 7.5
             };
         },
         computed: {
@@ -108,6 +114,16 @@
             },
             base_path() {
                 return this.$store.state.TabSystem.base_path;
+            },
+            project_items() {
+                let size = Math.floor(this.project_select_size / 8.25);
+                
+                let tmp = [];
+                this.items.forEach(e => tmp.push({ 
+                    text: e.length > size && !e.includes(" ") ? e.substr(0, size) + "\u2026" : e, 
+                    value: e 
+                }));
+                return tmp;
             }
         },
         methods: {
@@ -151,6 +167,11 @@
                     ipcRenderer.on(event_name, func);
                     this.listeners.push(event_name);
                 }
+            },
+            on_resize() {
+                console.log(this.project_select_size);
+                
+                this.project_select_size = window.innerWidth / 7.5;
             }
         }
     }
