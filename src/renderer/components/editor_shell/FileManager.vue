@@ -100,7 +100,7 @@
                 try {
                     return safeEval(this.text);
                 } catch(e) {
-                    return this.text;
+                    return this.text == "" ? { } : "";
                 }
             },
 

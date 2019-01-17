@@ -1,10 +1,10 @@
 import Stack from "../utilities/Stack";
 
 export default class JSONTree {
-    constructor(content="", children=[], opened=false, parent) {
+    constructor(content="", children=[], open=false, parent) {
         this.children = children;
         this.content = content;
-        this.opened = opened;
+        this.open = open;
         this.parent = parent;
         this.TreeIterator = class {
             constructor(tree) {
@@ -12,24 +12,26 @@ export default class JSONTree {
                 this.descendAndPush(tree, 0);
                 this.stack.show();
             }
-            next() {
+            next(max_depth) {
                 let stack_e = this.stack.pop();
-                if(this.hasNext()) this.descendAndPush(this.stack.peek().node, stack_e.step + 1);
+                if(this.hasNext()) this.descendAndPush(this.stack.peek().node, stack_e.step + 1, max_depth);
                 return stack_e.node;
             }
             hasNext() {
                 return !this.stack.isEmpty();
             }
 
-            descendAndPush(root, step) {
+            descendAndPush(root, step, max_depth=Infinity) {
                 let current = root;
 
+                //Go one layer back (next sibling)
                 if(current && current.children[step] && step != 0) {
                     current = current.children[step];
                     this.stack.push({ node: current, step });
                     this.descendAndPush(current.children[0], 0);
                 } else if(step == 0) {
-                    while(current != undefined) {
+                    //Go further down
+                    while(current != undefined && this.stack.size < max_depth) {
                         this.stack.push({ node: current, step });
                         current = current.children[step];
                     }
@@ -51,7 +53,7 @@ export default class JSONTree {
                 this.children.push(new JSONTree(key, undefined, undefined, this).buildFromObject(data[key]));
             }
         } else if(typeof data != "function") {
-            this.content = data;
+            this.children.push(new JSONTree(data, undefined, undefined, this));
         }
         return this;
     }

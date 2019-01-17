@@ -97,6 +97,10 @@
                 if(this.first && !this.compiled) {
                     let obj = InternalJSON.Format.toInternal(this.object);
                     let tree = InternalJSON.Format.toTree(this.object);
+                    console.log(tree);
+                    // for(let t of tree) {
+                    //     console.log(t);
+                    // }
                     
                     
                     this.$store.commit("setTabCompiled", this.tab_id);
