@@ -86,7 +86,7 @@
         },
         data() {
             return {
-
+                
             };
         },
         computed: {
@@ -96,7 +96,7 @@
             render_object() {
                 if(this.first && !this.compiled) {
                     let obj = InternalJSON.Format.toInternal(this.object);
-                    console.log(obj);
+                    let tree = InternalJSON.Format.toTree(this.object);
                     
                     
                     this.$store.commit("setTabCompiled", this.tab_id);
@@ -170,7 +170,6 @@
     }
     .key {
         cursor: pointer;
-        width: 100%;
     }
     .key.selected {
         font-style: italic;

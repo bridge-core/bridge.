@@ -18,7 +18,8 @@
         },
         computed: {
             text() {
-                return (this.$slots.default[0].text + "").trim();
+                if(this.$slots.default) return (this.$slots.default[0].text + "").trim();
+                return "";
             },
             class_name() {
                 if(this.text == "true" || this.text == "false" || this.text == "undfined") {

@@ -14,11 +14,14 @@ export default class Stack {
     peek() {
         return stack.get(this)[0];
     }
+    show() {
+        console.log(stack.get(this));
+    }
 
     isEmpty() {
-        this.length == 0;
+        return this.size == 0;
     }
-    get length() {
+    get size() {
         return stack.get(this).length;
     }
 }

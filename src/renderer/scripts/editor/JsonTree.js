@@ -1,19 +1,21 @@
 import Stack from "../utilities/Stack";
 
 export default class JSONTree {
-    constructor(content="", children=[], opened=false) {
+    constructor(content="", children=[], opened=false, parent) {
         this.children = children;
         this.content = content;
         this.opened = opened;
+        this.parent = parent;
         this.TreeIterator = class {
             constructor(tree) {
                 this.stack = new Stack();
                 this.descendAndPush(tree, 0);
+                this.stack.show();
             }
             next() {
-                let content = this.stack.peek().node;
-                this.descendAndPush(content, this.stack.pop().step + 1);
-                return content;
+                let stack_e = this.stack.pop();
+                if(this.hasNext()) this.descendAndPush(this.stack.peek().node, stack_e.step + 1);
+                return stack_e.node;
             }
             hasNext() {
                 return !this.stack.isEmpty();
@@ -22,14 +24,15 @@ export default class JSONTree {
             descendAndPush(root, step) {
                 let current = root;
 
-                if(step == 0) {
+                if(current && current.children[step] && step != 0) {
+                    current = current.children[step];
+                    this.stack.push({ node: current, step });
+                    this.descendAndPush(current.children[0], 0);
+                } else if(step == 0) {
                     while(current != undefined) {
                         this.stack.push({ node: current, step });
-                        current = root.children[step];
+                        current = current.children[step];
                     }
-                } else {
-                    this.stack.push({ node: current, step });
-                    this.descendAndPush(root.children[step], 0);
                 }
             }
         }
@@ -45,12 +48,15 @@ export default class JSONTree {
     buildFromObject(data) {
         if(typeof data == "object") {
             for(let key in data) {
-                this.children.push(new JSONTree(key).buildFromObject(data[key]));
+                this.children.push(new JSONTree(key, undefined, undefined, this).buildFromObject(data[key]));
             }
-        } else {
+        } else if(typeof data != "function") {
             this.content = data;
         }
         return this;
+    }
+    iterator() {
+        return new this.TreeIterator(this);
     }
 
     *[Symbol.iterator] () {

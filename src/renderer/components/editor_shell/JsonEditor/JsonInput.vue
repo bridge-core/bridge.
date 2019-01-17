@@ -1,11 +1,14 @@
 <template>
     <v-flex v-show="type != 'edit' || value != ''">
         <v-layout>
-            <v-text-field
+            <v-combobox
                 v-model="value"
-                @keydown.enter="click"
+                @keydown.enter.native="click"
                 :label="label"
-            ></v-text-field>
+                :items="items"
+                :hide-no-data="true"
+                dense
+            ></v-combobox>
             <v-btn v-if="type != 'edit'" @click="click">
                 +
             </v-btn>
@@ -22,7 +25,17 @@
         },
         data() {
             return {
-                items: [ "minecraft:addrider", "minecraft:attack" ],
+                items: [
+                    "minecraft:addrider",
+                    "minecraft:attack",
+                    "minecraft:ambient_sound_interval",
+                    "minecraft:can_climb",
+                    "minecraft:can_fly",
+                    "minecraft:can_power_jump",
+                    "minecraft:collision_box",
+                    "minecraft:color",
+                    "minecraft:color2"
+                ],
                 select: "",
                 internal_value: ""
             };
@@ -61,6 +74,9 @@
         },
         methods: {
             click() {
+                console.log(this.value, this.select, this.internal_value);
+                
+                if(this.value == "") return;
                 if(this.type == "object") {
                     this.$store.commit("setTabContentWithPath", {
                         tab_id: this.tab_id,
@@ -74,6 +90,10 @@
                         key: "#&__path-pop__;"
                     });
                 }
+
+                this.$nextTick(() => {
+                    this.value = "";
+                });
             },
 
             expandPath(path) {

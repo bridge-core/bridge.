@@ -26,7 +26,8 @@
                 return this.$store.getters.highlighter_symbols;
             },
             text() {
-                return (this.$slots.default[0].text + "").trim();
+                if(this.$slots.default) return (this.$slots.default[0].text + "").trim();
+                return "";
             },
             text_as_array() {
                 return this.text.replace(/:|<|>/g, (match) => {

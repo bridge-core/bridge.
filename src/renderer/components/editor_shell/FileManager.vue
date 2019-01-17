@@ -3,7 +3,7 @@
         <v-container v-if="extension == 'png'">
             <v-img class="image" :src="image" :style="`max-height: ${available_height}px;`"/>
         </v-container>
-        <json-editor-main v-else-if="extension == 'json' && false" :compiled="file.compiled" :tab_id="tab_id" :object="json_object" :available_height="available_height" :uuid="use_uuid"></json-editor-main>
+        <json-editor-main v-else-if="extension == 'json'" :compiled="file.compiled" :tab_id="tab_id" :object="json_object" :available_height="available_height - 60" :uuid="use_uuid"></json-editor-main>
         <codemirror
             v-else-if="extension == 'json' || extension == 'js'"
             v-model="text"
@@ -41,6 +41,8 @@
 
     import QuillEditor from "./QuillEditor";
     import JsonEditorMain from "./JsonEditor/Main";
+
+    import safeEval from "safe-eval";
 
     export default {
         name: "file-manager",
@@ -96,7 +98,7 @@
             },
             json_object() {
                 try {
-                    return JSON.parse(this.text);
+                    return safeEval(this.text);
                 } catch(e) {
                     return this.text;
                 }

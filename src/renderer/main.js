@@ -5,7 +5,11 @@ import VueCodeMirror from "vue-codemirror";
 import App from './App';
 import store from './store';
 
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  options: {
+    customProperties: true
+  }
+});
 Vue.use(VueCodeMirror);
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));

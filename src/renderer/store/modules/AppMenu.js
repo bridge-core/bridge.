@@ -62,6 +62,35 @@ const state = {
             }
         ]
     },
+    edit: {
+        trusted: true,
+        display_name: "Edit",
+        elements: [
+            {
+                title: "Unselect",
+                shortcut: "Escape",
+                action: () => console.log("Unselect me!")
+            },
+            {
+                title: "Select next",
+                shortcut: "WIP",
+                action: () => console.log("Unselect me!")
+            },
+            {
+                title: "Select previous",
+                shortcut: "WIP",
+                action: () => console.log("Unselect me!")
+            },
+            {
+                type: "divider"
+            },
+            {
+                title: "Delete",
+                shortcut: "Backspace",
+                action: () => console.log("Delete me!")
+            }
+        ]
+    },
     view: {
         trusted: true,
         display_name: "Help",

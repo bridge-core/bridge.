@@ -35,7 +35,7 @@ export default class SettingsWindow extends TabWindow {
                 title: "Appearance"
             },
             content: [
-                new ReactiveSwitch(this, "is_dark_mode", { color: "light-green", text: "Dark Mode" })
+                new ReactiveSwitch(this, "is_dark_mode", { color: "light-green", text: "Dark Mode", key: `settings.appearance.tab.${Math.random()}` })
             ]
         });
         this.addTab({
@@ -44,7 +44,7 @@ export default class SettingsWindow extends TabWindow {
                 title: "Developer Mode"
             },
             content: [
-                new ReactiveSwitch(this, "is_dev_mode", { color: "error", text: "Asserts" })
+                new ReactiveSwitch(this, "is_dev_mode", { color: "error", text: "Asserts", key: `settings.dev.tab.${Math.random()}` })
             ]
         });
 
