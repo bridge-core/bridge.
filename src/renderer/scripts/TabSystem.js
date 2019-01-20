@@ -11,8 +11,8 @@ class TabSystem {
 
     //Adding tab
     add(tab) {
-        for(let t of this.tabs) {
-            if(t.file_path == tab.file_path) return;
+        for(let i = 0; i < this.tabs.length; i++) {
+            if(this.tabs[i].file_path == tab.file_path) return this.select(i);
         }
         
         this.tabs.unshift(Object.assign(tab, {
@@ -57,7 +57,9 @@ class TabSystem {
     }
     getCurrentNavContent() {
         let nav = this.getCurrentNavigation();
-        let current = this.getSelected().content.get(nav);
+        let s = this.getSelected();
+        if(!s.content.get) return;
+        let current = s.content.get(nav);
 
         if(!current) return;
 
@@ -106,16 +108,29 @@ class TabSystem {
     deleteCurrent() {
         this.getSelected().content.get(this.getCurrentNavigation()).remove();
         this.navigationBack();
+        this.setCurrentUnsaved();
+    }
+    setCurrentSaved() {
+        this.getSelected().is_unsaved = false;
+        //EventBus.trigger("updateTabUI");
+    }
+    setCurrentUnsaved() {
+        this.getSelected().is_unsaved = true;        
+        //EventBus.trigger("updateTabUI");
     }
 
     //SAVING
     saveCurrent() {
         let current = this.getSelected();
         FileSystem.basicSave(current.file_path, JSON.stringify(Format.toJSON(current.content), null, "\t"));
+        this.setCurrentSaved();
+        console.log(this.selected);
+                
     }
     saveCurrentAs() {
         let current = this.getSelected();
         FileSystem.basicSaveAs(current.file_path, JSON.stringify(Format.toJSON(current.content), null, "\t"));
+        this.setCurrentSaved();
     }
 }
 

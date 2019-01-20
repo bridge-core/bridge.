@@ -27,7 +27,10 @@ export default class SettingsWindow extends TabWindow {
             sidebar_element: {
                 icon: "mdi-code-braces",
                 title: "Editor"
-            }
+            },
+            content: [
+                new ReactiveSwitch(this, "inversed_arrows", { color: "light-green", text: "Inversed Arrows", key: `settings.editor.tab.${Math.random()}` })
+            ]
         });
         this.addTab({
             sidebar_element: {

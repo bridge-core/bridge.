@@ -12,7 +12,8 @@ function setup() {
         STORE.setup("data");
         save({
             is_dev_mode: false,
-            is_dark_mode: true
+            is_dark_mode: true,
+            inversed_arrows: false
         });
     }
 

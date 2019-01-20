@@ -29,7 +29,6 @@
     import TabSystem from '../../../scripts/TabSystem';
     import JSONTree from '../../../scripts/editor/JsonTree';
     import EventBus from '../../../scripts/EventBus';
-import { unlink } from 'fs';
 
     export default {
         name: "json-input",
@@ -42,11 +41,15 @@ import { unlink } from 'fs';
         mounted() {
             if(this.type == "edit") {
                 EventBus.on("updateFileNavigation", this.updateValue);
+                EventBus.on("updateTabUI", this.updateValue);
                 EventBus.on("setWatcherInactive", () => this.watcher_active = false);
             }
         },
         destroyed() {
-            if(this.type == "edit") EventBus.off("updateFileNavigation", this.updateValue);
+            if(this.type == "edit") {
+                EventBus.off("updateFileNavigation", this.updateValue);
+                EventBus.off("updateTabUI", this.updateValue);
+            } 
         },
         watch: {
             value(val) {
@@ -57,8 +60,8 @@ import { unlink } from 'fs';
                     TabSystem.setCurrentNavContent(val);
                     tmp.push(val);
                     
-                    
                     TabSystem.setCurrentFileNav(tmp.join("/"));
+                    TabSystem.setCurrentUnsaved();
                 }
 
                 this.watcher_active = true;
@@ -106,8 +109,9 @@ import { unlink } from 'fs';
                 } else if(this.file_navigation != "global") {
                     current.data += this.value;
                     current.type = typeof this.value;
+                    TabSystem.navigationBack();
                 }
-
+                TabSystem.setCurrentUnsaved();
                 EventBus.trigger("updateCurrentContent");
 
                 this.$nextTick(() => {

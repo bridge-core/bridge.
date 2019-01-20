@@ -2,14 +2,14 @@
     <v-layout :style="`overflow-x: ${is_mandatory ? 'scroll' : 'auto'}`" row wrap>
           <v-flex xs12 sm6 class="py-2">
             <v-btn-toggle v-model="selected_tab" :mandatory="is_mandatory">
-                <v-tooltip v-for="(file, i) in open_files" :key="`${selected_project}-${i}`" :disabled="hide_tooltip" bottom>
+                <v-tooltip v-for="(file, i) in open_files" :key="`${selected_project}-${i}-${file.is_unsaved}`" :disabled="selected_tab != i || true" bottom>
                     <span slot="activator">
                         <v-btn flat :ripple="selected_tab != i">
-                            {{ file.file_name }}
+                            <span :style="`font-style: ${file.is_unsaved ? 'italic' : 'none'};`">{{ file.file_name }}</span>
                             <v-icon @click.stop="closeTab(i)" ripple small>close</v-icon>
                         </v-btn>
                     </span>
-                    <span>{{ file.category }}</span>
+                    <span>{{ file.file_path.replace(/\\/g, "/") }}</span>
                 </v-tooltip>
             </v-btn-toggle>
           </v-flex>
@@ -32,12 +32,11 @@ export default {
         EventBus.on("updateTabUI", () => {
             this.open_files = TabSystem.filtered();
         });
-        EventBus.on("updateSelectedTab", () => {
-            this.internal_selected_tab = TabSystem.selected;
-        });
+        EventBus.on("updateSelectedTab", this.changeSelected);
     },
     destroyed() {
         EventBus.off("updateTabUI");
+        EventBus.off("updateSelectedTab", this.changeSelected);
     },
     computed: {
         selected_project() {
@@ -52,9 +51,6 @@ export default {
             }
         },
 
-        hide_tooltip() {
-            return true;
-        },
         is_mandatory() {
             return this.open_files.length > 0;
         }
@@ -62,6 +58,9 @@ export default {
     methods: {
         closeTab(i) {
             TabSystem.closeById(i);
+        },
+        changeSelected() {
+            this.internal_selected_tab = TabSystem.selected;
         }
     }
 }

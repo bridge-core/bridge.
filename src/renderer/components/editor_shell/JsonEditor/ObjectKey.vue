@@ -1,7 +1,7 @@
 <template>
     <summary :class="selected_class" v-ripple>
-        <v-icon class="open" small>keyboard_arrow_down</v-icon>
-        <v-icon class="closed" small>keyboard_arrow_up</v-icon>
+        <v-icon :class="`${inversed_arrows ? 'closed' : 'open'}`" small>keyboard_arrow_down</v-icon>
+        <v-icon :class="`${inversed_arrows ? 'open' : 'closed'}`" small>keyboard_arrow_up</v-icon>
         <highlight-text class="object"> {{ my_key }}</highlight-text>
         <span v-if="comment && comment != ''" class="comment hljs-comment">//{{ comment }}</span>
     </summary>  
@@ -27,6 +27,9 @@
             selected_class() {
                 if(this.$el && this.is_selected()) this.$el.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
                 return this.is_selected() ? "selected" : "";
+            },
+            inversed_arrows() {
+                return this.$store.state.Settings.inversed_arrows;
             }
         },
         methods: {

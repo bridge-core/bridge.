@@ -4,6 +4,7 @@ import fs from "fs";
 import Store from "../../store/index";
 import { trigger, overwriteTrigger } from "./EventTriggers";
 import PluginAssert from "./PluginAssert";
+import TabSystem from "../TabSystem";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -191,10 +192,11 @@ export default class Bridge {
         }
     }
     open({ content, file_name, path }) {
-        Store.commit("addToTabSystem", {
+        TabSystem.add({
             content,
+            raw_content: content,
             path: Runtime.Project.get() + "/" + path,
-            file: file_name
+            file_name
         });
     }
     openExternal(path) {
