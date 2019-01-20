@@ -16,6 +16,8 @@
 <script>
     import FileManager from "./FileManager";
     import WelcomeScreen from "./WelcomeScreen";
+    import TabSystem from "../../scripts/TabSystem";
+    import EventBus from "../../scripts/EventBus";
 
     export default {
         name: "editor-shell-content-manager",
@@ -24,28 +26,40 @@
             FileManager
         },
         created() {
-            window.addEventListener("resize", this.on_resize); 
+            window.addEventListener("resize", this.on_resize);
+            EventBus.on("updateTabUI", this.setOpenFiles);
+            EventBus.on("updateSelectedTab", this.updateSelectedTab);
         },
         destroyed() {
             window.removeEventListener("resize", this.on_resize);
+            EventBus.off("updateTabUI", this.setOpenFiles);
+            EventBus.off("updateSelectedTab", this.updateSelectedTab);
         },
         data() {
             return {
-                available_height: window.innerHeight - 94
+                available_height: window.innerHeight - 94,
+                open_files: TabSystem.filtered(),
+                selected_tab: TabSystem.selected
             };
         },
         methods: {
             on_resize() {
                 this.available_height = window.innerHeight - 94;
+            },
+            setOpenFiles() {
+                this.open_files = TabSystem.filtered();
+            },
+            updateSelectedTab() {
+                this.selected_tab = TabSystem.selected;
             }
         },
         computed: {
-            open_files() {
-                return this.$store.getters.open_files();
-            },
-            selected_tab() {
-                return this.$store.state.TabSystem.selected_tab;
-            },
+            // open_files() {
+            //     return this.$store.getters.open_files();
+            // },
+            // selected_tab() {
+            //     return this.$store.state.TabSystem.selected_tab;
+            // },
             selected_project() {
                 return this.$store.state.Explorer.project;
             },

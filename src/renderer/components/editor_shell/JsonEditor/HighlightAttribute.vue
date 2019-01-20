@@ -11,14 +11,14 @@
     export default {
         name: "highlight-attribute",
         props: {
-            
+            data: [ String, Boolean, Number ]
         },
         components: {
             HighlightText
         },
         computed: {
             text() {
-                if(this.$slots.default) return (this.$slots.default[0].text + "").trim();
+                if(this.data) return (this.data + "").trim();
                 return "";
             },
             class_name() {

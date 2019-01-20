@@ -3,21 +3,21 @@
         <v-container v-if="extension == 'png'">
             <v-img class="image" :src="image" :style="`max-height: ${available_height}px;`"/>
         </v-container>
-        <json-editor-main v-else-if="extension == 'json'" :compiled="file.compiled" :tab_id="tab_id" :object="json_object" :available_height="available_height - 60" :uuid="use_uuid"></json-editor-main>
-        <codemirror
-            v-else-if="extension == 'json' || extension == 'js'"
-            v-model="text"
-            :options="cm_options"
-            ref="cm"
-        />
+        <json-error-screen v-else-if="extension == 'json' && json_object == 'error'"/>
+        <json-editor-main v-else-if="extension == 'json'" :compiled="file.is_compiled" :tab_id="tab_id" :object="json_object" :available_height="available_height - 60" :uuid="use_uuid"/>
         <quill-editor 
-            v-else
+            v-else-if="extension == 'mcfunction'"
             :content="text"
             :tab_id="tab_id"
             :height="available_height"
             :extension="extension"
-        >
-        </quill-editor>
+        />
+        <codemirror
+            v-else
+            v-model="text"
+            :options="cm_options"
+            ref="cm"
+        />
     </span>
 </template>
 
@@ -41,14 +41,17 @@
 
     import QuillEditor from "./QuillEditor";
     import JsonEditorMain from "./JsonEditor/Main";
+    import JsonErrorScreen from "./JsonErrorScreen";
 
-    import safeEval from "safe-eval";
+    import cJSON from "comment-json";
+    import TabSystem from '../../scripts/TabSystem';
 
     export default {
         name: "file-manager",
         components: {
             QuillEditor,
-            JsonEditorMain
+            JsonEditorMain,
+            JsonErrorScreen
         },
         props: {
             file: Object,
@@ -68,7 +71,7 @@
         },
         computed: {
             extension() {
-                if (this.file) return this.file.file.split(".").pop().toLowerCase();
+                if (this.file) return this.file.file_name.split(".").pop().toLowerCase();
             },
             use_uuid() {
                 return `${this.uuid}-${Math.random()})`;
@@ -77,31 +80,31 @@
             //FILE CONTENT
             image() {
                 if (this.file) {
-                    let base64Data = btoa(String.fromCharCode.apply(null, this.file.content));
+                    let base64Data = btoa(String.fromCharCode.apply(null, this.file.raw_content));
                     return `data:image/${this.extension};base64,${base64Data}`;
                 }
             },
             text: {
                 get() {
                     if (this.file) {
-                        try {
-                            return new TextDecoder('utf-8').decode(this.file.content);
-                        } catch(err) {
-                            return this.file.content;
-                        } 
+                        return this.file.content;
                     }
                     return undefined;
                 },
                 set(val) {
-                    this.$store.commit("setTabContent", { tab: this.tab_id, content: val });
+                    //this.$store.commit("setTabContent", { tab: this.tab_id, content: val });
+                    TabSystem.setCurrentContent(val);
                 }
             },
             json_object() {
-                try {
-                    return safeEval(this.text);
-                } catch(e) {
-                    return this.text == "" ? { } : "";
+                if(typeof this.text == "string") {
+                    try {        
+                        return cJSON.parse(this.text, undefined, true);
+                    } catch(e) {
+                        return this.text == "" ? { } : "error";
+                    }
                 }
+                return this.text;
             },
 
             cm_options() {

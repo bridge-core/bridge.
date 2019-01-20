@@ -3,13 +3,14 @@
         <v-icon class="open" small>keyboard_arrow_down</v-icon>
         <v-icon class="closed" small>keyboard_arrow_up</v-icon>
         <highlight-text class="object"> {{ my_key }}</highlight-text>
-        <span v-if="comment != ''" class="comment hljs-comment">//{{ comment }}</span>
+        <span v-if="comment && comment != ''" class="comment hljs-comment">//{{ comment }}</span>
     </summary>  
 </template>
 
 <script>
     import Main from "./Main";
     import HighlightText from "./HighlightText";
+    import TabSystem from "../../../scripts/TabSystem";
 
     export default {
         name: "object-key",
@@ -30,7 +31,8 @@
         },
         methods: {
             is_selected() {
-                return this.$store.getters.current_internal_file_path() == this.object_key;
+                return TabSystem.getCurrentNavigation() == this.object_key;
+                //return this.$store.getters.current_internal_file_path() == this.object_key;
             }
         }
     }

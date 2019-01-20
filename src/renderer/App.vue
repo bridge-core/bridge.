@@ -39,7 +39,6 @@
   import WindowFactoryMain from "@/components/windowFactory/Main";
   import FooterMain from "@/components/footer/Main";
 
-  import { ipcRenderer } from "electron";
   import UpdateWindow from "./windows/UpdateApp";
   import SETTINGS from "./store/Settings";
 
@@ -57,12 +56,6 @@
     },
     created() {
       SETTINGS.setup();
-      ipcRenderer.on("readFile", (event, details) => {
-        this.$store.commit("addToTabSystem", details);
-      });
-    },
-    destroyed() {
-      ipcRenderer.removeAllListeners("readFile");
     },
     mounted() {
       setTimeout(() => new UpdateWindow(), 1000);

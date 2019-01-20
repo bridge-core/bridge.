@@ -45,12 +45,12 @@ ipcMain.on("openFileDialog", (event, args) => {
     });
 });
 
-ipcMain.on("saveAsFileDialog", (event, { path, content }) => {
-    let defaultPath = (behavior_path + path).replace(/\//g, "\\");
-    
-    dialog.showSaveDialog({ defaultPath }, (file_path) => {
-        if(file_path) fs.writeFile(file_path, content, (err) => {
-            if(err) throw err;
-        });
+ipcMain.on("saveAsFileDialog", (event, { path, content }) => {    
+    dialog.showSaveDialog({ defaultPath: path.replace(/\//g, "\\") }, (file_path) => {
+        if(file_path) {
+            fs.writeFile(file_path, content, (err) => {
+                if(err) throw err;
+            });
+        } 
     });
 });

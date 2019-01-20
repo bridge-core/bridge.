@@ -2,27 +2,45 @@
     <span>
         <div v-if="open" :style="element_style">
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
-                <details v-for="(e, i) in render_object.data" :key="`${uuid}-${object_key}/${i}`" :ref="`${object_key}/${e.key}`">
-                    <object-key @click.native="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
+                <details v-for="(e, i) in render_object.children" :key="`${uuid}.${object_key}/${i}.${Math.random()}`" :ref="`${object_key}/${e.key}`">
+                    <object-key 
+                        @click.native="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
                         :my_key="e.key"
                         :comment="e.comment"
                         :object_key="`${object_key}/${e.key}`"
-                    ></object-key>
+                    />
 
-                    <json-editor-main :uuid="uuid" :glob_object="first ? render_object : glob_object" :object="e" :first="false" :tab_id="tab_id" :object_key="`${object_key}/${e.key}`"></json-editor-main>
+                    <json-editor-main 
+                        :uuid="uuid"
+                        :glob_object="first ? render_object : glob_object"
+                        :object="e"
+                        :first="false"
+                        :tab_id="tab_id"
+                        :object_key="`${object_key}/${e.key}`"
+                    />
                 </details>
             </span>
             
-            <highlight-attribute v-else :class="`key ${key_selected_class}`" @click.stop.native="keyClick" v-ripple>
-                {{ render_object.data }}
-            </highlight-attribute>
-            
+            <highlight-attribute 
+                v-else
+                :class="`key ${key_selected_class}`"
+                :data="value_data"
+                @click.stop.native="keyClick"
+                v-ripple
+            />
         </div>
         <v-divider v-if="first"></v-divider>
-        <v-layout @keydown.tab.native="onTab" class="controls" v-if="first">
-            <json-input ref="add_object" :tab_id="tab_id" type="object"></json-input>
-            <json-input ref="add_value" :tab_id="tab_id" type="value"></json-input>
-            <json-input ref="edit" :tab_id="tab_id" type="edit"></json-input>
+        <v-layout class="controls" v-if="first">
+            <json-input
+                v-for="e in ['object', 'value', 'edit']"
+                :ref="e"
+                :render_object="render_object"
+                :tab_id="tab_id"
+                :type="e"
+                :key="e"
+                :file_navigation="file_navigation"
+                @keydown.tab.native="onTab"
+            />
         </v-layout>
     </span>
 </template>
@@ -32,6 +50,8 @@
     import ObjectKey from "./ObjectKey";
     import JsonInput from "./JsonInput";
     import InternalJSON from "../../../scripts/editor/Json.js";
+    import TabSystem from '../../../scripts/TabSystem';
+    import EventBus from '../../../scripts/EventBus';
 
     export default {
         name: "json-editor-main",
@@ -66,9 +86,11 @@
             });
 
             if(this.first) {
-                this.$root.$on(`commit-json-change`, () => {
-                    this.$store.commit("setTabCompiled", this.tab_id);
-                    this.$store.commit("setTabContent", { tab: this.tab_id, content: JSON.stringify(this.render_object) });
+                EventBus.on("updateFileNavigation", () => {
+                    this.file_navigation = TabSystem.getCurrentNavigation();
+                });
+                EventBus.on("updateCurrentContent", (new_o=this.computed_object()) => {
+                    this.render_object = new_o;
                 });
             }
 
@@ -82,34 +104,18 @@
         },
         beforeDestroy() {
             this.$root.$off(`load(${this.tab_id}):${this.object_key}`);
-            if(this.first) this.$root.$off("commit-json-change");
+            if(this.first) {
+                EventBus.off("updateFileNavigation");
+                EventBus.off("updateCurrentContent");
+            }
         },
         data() {
             return {
-                
+                file_navigation: TabSystem.getCurrentNavigation(),
+                render_object: this.computed_object()
             };
         },
         computed: {
-            is_array() {
-                return Array.isArray(this.object);
-            },
-            render_object() {
-                if(this.first && !this.compiled) {
-                    let obj = InternalJSON.Format.toInternal(this.object);
-                    let tree = InternalJSON.Format.toTree(this.object);
-                    console.log(tree);
-                    // for(let t of tree) {
-                    //     console.log(t);
-                    // }
-                    
-                    
-                    this.$store.commit("setTabCompiled", this.tab_id);
-                    this.$store.commit("setTabContent", { tab: this.tab_id, content: JSON.stringify(obj) });
-                    
-                    return obj;
-                } 
-                return this.object;
-            },
             element_style() {
                 if(this.first) {
                     return `height: ${this.available_height - 40}px; overflow: auto;`
@@ -119,7 +125,6 @@
             open: {
                 set(val) {
                     this.render_object.open = true;
-                    this.$store.commit("setTabContent", { tab: this.tab_id, content: JSON.stringify({ ...this.glob_object, open: val }) });
                 }, 
                 get() {
                     return this.first || this.render_object.open;
@@ -128,11 +133,25 @@
 
             key_selected_class() {
                 return this.is_selected(undefined, "/" + this.render_object.data) ? "selected" : "";
+            },
+            value_data() {
+                return this.render_object.data;
             }
         },
         methods: {
+            computed_object() {
+                if(this.first && !this.compiled) {
+                    let tree = InternalJSON.Format.toTree(this.object);
+
+                    TabSystem.setTabCompiled(true);
+                    TabSystem.setCurrentContent(tree);
+
+                    return tree;
+                }
+                return this.object;
+            },
             is_selected(path=this.object_key, expand="") {
-                return this.$store.getters.current_internal_file_path() == path + expand;
+                return TabSystem.getCurrentNavigation() == path + expand;
             },
             click(event, event_to_send, key) {
                 let path = `${this.object_key}/${key}`;
@@ -140,21 +159,28 @@
 
                 if(details.open && !this.is_selected(path)) {
                     event.preventDefault();
-                    //console.log("Send: " + event);
-                    
                 } else if(!details.open) {
-                    this.$root.$emit(event_to_send, true);
+                    this.render_object.get(key).open = true;
+                } else {
+                    this.render_object.get(key).open = false;
                 }
-                
-                this.$store.commit("setCurrentInternalFilePath", path);
+
+                TabSystem.setCurrentFileNav(path);
             },
             keyClick() {
                 let path = `${this.object_key}/${this.render_object.data}`;
-                this.$store.commit("setCurrentInternalFilePath", path);
+                TabSystem.setCurrentFileNav(path);
             },
             onTab(ev) {
-                ev.preventDefault();
-                console.log(ev, this.$refs);
+                // ev.preventDefault();
+                // console.log(ev, this.$refs, document.activeElement);
+                // if(document.activeElement.isSameNode(this.$refs.object[0].$refs.input.focus())) {
+                //     this.$refs.value[0].$el.focus();
+                // } else if(document.activeElement.isSameNode(this.$refs.value[0].$refs.input.focus())) {
+                //     this.$refs.edit[0].$el.focus();
+                // } else {
+                //     this.$refs.object[0].$el.focus();
+                // }
             }
         },
         watch: {

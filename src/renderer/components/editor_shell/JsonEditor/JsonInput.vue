@@ -1,7 +1,16 @@
 <template>
-    <v-flex v-show="type != 'edit' || value != ''">
+    <v-flex v-show="type != 'edit' || file_navigation != 'global'">
         <v-layout>
+            <v-text-field
+                ref="input"
+
+                v-if="type == 'edit'"
+                v-model="value"
+            />
             <v-combobox
+                ref="input"
+
+                v-else
                 v-model="value"
                 @keydown.enter.native="click"
                 :label="label"
@@ -17,27 +26,60 @@
 </template>
 
 <script>
+    import TabSystem from '../../../scripts/TabSystem';
+    import JSONTree from '../../../scripts/editor/JsonTree';
+    import EventBus from '../../../scripts/EventBus';
+import { unlink } from 'fs';
+
     export default {
         name: "json-input",
         props: {
             type: String,
-            tab_id: Number
+            tab_id: Number,
+            render_object: Object,
+            file_navigation: String
+        },
+        mounted() {
+            if(this.type == "edit") {
+                EventBus.on("updateFileNavigation", this.updateValue);
+                EventBus.on("setWatcherInactive", () => this.watcher_active = false);
+            }
+        },
+        destroyed() {
+            if(this.type == "edit") EventBus.off("updateFileNavigation", this.updateValue);
+        },
+        watch: {
+            value(val) {
+                if(this.type == "edit" && this.watcher_active) {
+                    let tmp = this.file_navigation.split("/");
+                    tmp.pop();
+
+                    TabSystem.setCurrentNavContent(val);
+                    tmp.push(val);
+                    
+                    
+                    TabSystem.setCurrentFileNav(tmp.join("/"));
+                }
+
+                this.watcher_active = true;
+            }
         },
         data() {
             return {
                 items: [
-                    "minecraft:addrider",
-                    "minecraft:attack",
-                    "minecraft:ambient_sound_interval",
-                    "minecraft:can_climb",
-                    "minecraft:can_fly",
-                    "minecraft:can_power_jump",
-                    "minecraft:collision_box",
-                    "minecraft:color",
-                    "minecraft:color2"
+                    // "minecraft:addrider",
+                    // "minecraft:attack",
+                    // "minecraft:ambient_sound_interval",
+                    // "minecraft:can_climb",
+                    // "minecraft:can_fly",
+                    // "minecraft:can_power_jump",
+                    // "minecraft:collision_box",
+                    // "minecraft:color",
+                    // "minecraft:color2"
                 ],
                 select: "",
-                internal_value: ""
+                value: "",
+                watcher_active: true
             };
         },
         computed: {
@@ -49,47 +91,24 @@
                 } else {
                     return "Edit";
                 }
-            },
-            value: {
-                get() {
-                    if(this.type != "edit") {
-                        return this.internal_value;
-                    } else {
-                        return this.$store.getters.current_edit_selected();
-                    }
-                },
-                set(val) {
-                    if(this.type != "edit") {
-                        this.internal_value = val;
-                    } else {
-                        this.$store.commit("editTabContentWithPath", {
-                            tab_id: this.tab_id,
-                            val: val,
-                            key: val,
-                            prev_key: val
-                        });
-                    }
-                }
             }
         },
         methods: {
             click() {
-                console.log(this.value, this.select, this.internal_value);
+                if(this.value == "" || !this.value) return;
+                let current = this.render_object.get(this.file_navigation);
                 
-                if(this.value == "") return;
                 if(this.type == "object") {
-                    this.$store.commit("setTabContentWithPath", {
-                        tab_id: this.tab_id,
-                        val: [],
-                        key: this.value
-                    });
-                } else if(this.type == "value") {
-                    this.$store.commit("setTabContentWithPath", {
-                        tab_id: this.tab_id,
-                        val: this.value,
-                        key: "#&__path-pop__;"
-                    });
+                    current.add(new JSONTree(this.value).openNode()).openNode();
+                    current.type = "object";
+                    EventBus.trigger("setWatcherInactive");
+                    this.expandPath(this.value);
+                } else if(this.file_navigation != "global") {
+                    current.data += this.value;
+                    current.type = typeof this.value;
                 }
+
+                EventBus.trigger("updateCurrentContent");
 
                 this.$nextTick(() => {
                     this.value = "";
@@ -97,8 +116,11 @@
             },
 
             expandPath(path) {
-                let current = this.$store.getters.current_internal_file_path();
-                this.$store.commit("setCurrentInternalFilePath", `${current}/${path}`);
+                TabSystem.setCurrentFileNav(`${TabSystem.getCurrentNavigation()}/${path}`);
+            },
+            updateValue() {
+                this.watcher_active = false;
+                this.value = TabSystem.getCurrentNavContent();
             }
         }
     }

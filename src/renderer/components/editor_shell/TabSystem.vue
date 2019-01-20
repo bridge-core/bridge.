@@ -4,8 +4,8 @@
             <v-btn-toggle v-model="selected_tab" :mandatory="is_mandatory">
                 <v-tooltip v-for="(file, i) in open_files" :key="`${selected_project}-${i}`" :disabled="hide_tooltip" bottom>
                     <span slot="activator">
-                        <v-btn flat>
-                            {{ file.file }}
+                        <v-btn flat :ripple="selected_tab != i">
+                            {{ file.file_name }}
                             <v-icon @click.stop="closeTab(i)" ripple small>close</v-icon>
                         </v-btn>
                     </span>
@@ -17,26 +17,38 @@
 </template>
 
 <script>
+import TabSystem from "../../scripts/TabSystem";
+import EventBus from "../../scripts/EventBus";
+
 export default {
     name: "editor-shell-tab-system",
     data() {
         return {
-            
+            open_files: TabSystem.filtered(),
+            internal_selected_tab: TabSystem.selected
         };
+    },
+    created() {
+        EventBus.on("updateTabUI", () => {
+            this.open_files = TabSystem.filtered();
+        });
+        EventBus.on("updateSelectedTab", () => {
+            this.internal_selected_tab = TabSystem.selected;
+        });
+    },
+    destroyed() {
+        EventBus.off("updateTabUI");
     },
     computed: {
         selected_project() {
             return this.$store.state.Explorer.project;
         },
-        open_files() {
-            return this.$store.getters.open_files();
-        },
         selected_tab: {
             set(val) {
-                this.$store.commit("setSelectedTab", val);
+                TabSystem.select(val);
             },
             get() {
-                return this.$store.state.TabSystem.selected_tab;
+                return this.internal_selected_tab;
             }
         },
 
@@ -49,7 +61,7 @@ export default {
     },
     methods: {
         closeTab(i) {
-            this.$store.commit("closeTab", i);
+            TabSystem.closeById(i);
         }
     }
 }

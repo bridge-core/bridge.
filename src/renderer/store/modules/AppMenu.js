@@ -4,6 +4,7 @@ import Store from "../index";
 import { ipcRenderer, shell } from "electron";
 import SettingsWindow from "../../windows/Settings";
 import CreateFileWindow from "../../windows/CreateFile";
+import TabSystem from "../../scripts/TabSystem";
 
 const state = {
     file: {
@@ -26,12 +27,12 @@ const state = {
             {
                 title: "Save",
                 shortcut: "Ctrl + S",
-                action: () => Store.commit("saveCurrentFile")
+                action: () => TabSystem.saveCurrent()
             },
             {
                 title: "Save As...",
                 shortcut: "Ctrl + Shift + S",
-                action: () => Store.commit("saveCurrentFileAs")
+                action: () => TabSystem.saveCurrentAs()
             },
             {
                 type: "divider"
@@ -39,7 +40,7 @@ const state = {
             {
                 title: "Close Editor",
                 shortcut: "Ctrl + W",
-                action: () => Store.commit("closeCurrentTab")
+                action: () => TabSystem.closeSelected()
             },
             {
                 type: "divider"
@@ -69,25 +70,25 @@ const state = {
             {
                 title: "Unselect",
                 shortcut: "Escape",
-                action: () => console.log("Unselect me!")
+                action: () => TabSystem.setCurrentFileNav("global")
             },
-            {
-                title: "Select next",
-                shortcut: "WIP",
-                action: () => console.log("Unselect me!")
-            },
-            {
-                title: "Select previous",
-                shortcut: "WIP",
-                action: () => console.log("Unselect me!")
-            },
+            // {
+            //     title: "Select Next",
+            //     shortcut: "WIP",
+            //     action: () => console.log("Unselect me!")
+            // },
+            // {
+            //     title: "Select Previous",
+            //     shortcut: "WIP",
+            //     action: () => console.log("Unselect me!")
+            // },
             {
                 type: "divider"
             },
             {
                 title: "Delete",
-                shortcut: "Backspace",
-                action: () => console.log("Delete me!")
+                shortcut: "Shift + Backspace",
+                action: () => TabSystem.deleteCurrent()
             }
         ]
     },
@@ -97,7 +98,7 @@ const state = {
         elements: [
             {
                 title: "About",
-                action: () => shell.openExternal("https://www.github.com/solveddev/bridge.")
+                action: () => shell.openExternal("https://www.github.com/solvedDev/bridge.")
             },
             {
                 title: "Plugin API",

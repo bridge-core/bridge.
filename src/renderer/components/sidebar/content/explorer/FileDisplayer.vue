@@ -3,13 +3,19 @@
         This directory has no content.
     </p>
     <div :style="element_style" :class="element_class" v-else>
-        <details v-for="(file, i) in loop_files" :key="i" v-if="file.type == 'directory'">
+        <details v-for="(file, i) in loop_files.filter(f => f.type == 'directory')" :key="i">
             <summary v-ripple>
                 <v-icon class="open" small>folder_open</v-icon><v-icon class="closed" small>folder</v-icon><span class="folder"> {{ file.name }}</span>
             </summary>
             <file-displayer :files="file.children" :first="false" :project="project"></file-displayer>
         </details>
-        <div v-else class="file" @click.stop="openFile(project + '\\' + file.path)" v-ripple>
+        <div 
+            v-for="(file, i) in loop_files.filter(f => f.type != 'directory')"
+            :key="`file.nr.${i}`"
+            class="file"
+            @click.stop="openFile(project + '\\' + file.path)"
+            v-ripple
+        >
             <v-icon small>{{ icon(getExtension(file.name)) }}</v-icon>  {{ file.name }}
         </div>
     </div>
@@ -17,6 +23,8 @@
 
 <script>
     import { ipcRenderer } from "electron";
+    import FileSystem from "../../../../scripts/FileSystem";
+    import { BASE_PATH } from "../../../../scripts/constants";
 
     export default {
         name: "file-displayer",
@@ -59,7 +67,8 @@
         },
         methods: {
             openFile(path) {
-                ipcRenderer.send("getFile", { path: path.replace(/\\/g, "/") });
+                //ipcRenderer.send("getFile", { path: path.replace(/\\/g, "/") });
+                FileSystem.open(BASE_PATH + path);
             },
             getExtension(name) {
                 return name.split(".").pop();

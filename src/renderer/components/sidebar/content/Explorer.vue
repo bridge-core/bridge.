@@ -44,6 +44,8 @@
     import { ipcRenderer } from "electron";
     import FileDisplayer from "./explorer/FileDisplayer.vue";
     import CreateFileWindow from "../../../windows/CreateFile";
+    import EventBus from '../../../scripts/EventBus';
+import TabSystem from '../../../scripts/TabSystem';
     
     export default {
         name: "content-explorer",
@@ -100,6 +102,7 @@
                 },
                 set(project) {
                     this.$store.commit("setExplorerProject", project);
+                    EventBus.trigger("updateTabUI");
                 }
             },
             loading() {
@@ -140,9 +143,6 @@
             open_create_file_window() {
                 new CreateFileWindow();
             },
-            toggleProjectFilter() {
-                this.$store.commit("toggleProjectFilter");
-            },
 
             getProjects({ event_name, func }={}) {
                 this.registerListener(event_name, func);
@@ -153,7 +153,7 @@
             },
             getDirectory(dir=this.selected, { event_name, func }={}) {
                 if(dir != this.selected) this.$set(this, "selected", dir);
-                this.$store.commit("setSelectedTab", -1)
+                TabSystem.select(0);
                 this.registerListener(event_name, func);
 
                 ipcRenderer.send("getDir", { 
