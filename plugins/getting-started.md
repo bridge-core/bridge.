@@ -27,7 +27,6 @@
 
 #### ```Bridge.Highlighter```
  - [```.registerLanguage(name, language_definition)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/highlighter/registerLanguage.md)
- - [```.unregisterLanguage(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/highlighter/unregisterLanguage.md)
 
 #### ```Bridge.JSON```
 Documentation not available yet.
