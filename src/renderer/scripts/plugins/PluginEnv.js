@@ -1,6 +1,5 @@
 import saveEval from "safe-eval";
 import fs from "fs";
-import hljs from "../editor/hljs";
 import Runtime from "./Runtime";
 import BlockedBridge from "./BlockedBridge";
 import Bridge from "./Bridge";

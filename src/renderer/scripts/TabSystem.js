@@ -113,23 +113,26 @@ class TabSystem {
     setCurrentSaved() {
         this.getSelected().is_unsaved = false;
         //EventBus.trigger("updateTabUI");
+        EventBus.trigger("updateSelectedTabUI", false);
     }
     setCurrentUnsaved() {
         this.getSelected().is_unsaved = true;        
         //EventBus.trigger("updateTabUI");
+        EventBus.trigger("updateSelectedTabUI", true);
+    }
+    get use_tabs() {
+        return Store.state.Settings.use_tabs;
     }
 
     //SAVING
     saveCurrent() {
         let current = this.getSelected();
-        FileSystem.basicSave(current.file_path, JSON.stringify(Format.toJSON(current.content), null, "\t"));
-        this.setCurrentSaved();
-        console.log(this.selected);
-                
+        FileSystem.basicSave(current.file_path, JSON.stringify(Format.toJSON(current.content), null, this.use_tabs ? "\t" : "  "));
+        this.setCurrentSaved(); 
     }
     saveCurrentAs() {
         let current = this.getSelected();
-        FileSystem.basicSaveAs(current.file_path, JSON.stringify(Format.toJSON(current.content), null, "\t"));
+        FileSystem.basicSaveAs(current.file_path, JSON.stringify(Format.toJSON(current.content), null, this.use_tabs ? "\t" : "  "));
         this.setCurrentSaved();
     }
 }

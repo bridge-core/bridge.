@@ -1,5 +1,5 @@
 <template>
-    <div :class="class_name">
+    <div :style="styles">
         <highlight-text v-if="use_advanced_parsing">{{ text }}</highlight-text>
         <span v-else>{{ text }}</span>
     </div>
@@ -18,20 +18,27 @@
         },
         computed: {
             text() {
-                if(this.data) return (this.data + "").trim();
-                return "";
+                if(this.data != undefined) return (this.data + "").trim();
+                return this.data;
             },
-            class_name() {
-                if(this.text == "true" || this.text == "false" || this.text == "undfined") {
-                    return "hljs-literal";
+            styles() {
+                if(this.text == "true" || this.text == "false" || this.text == "undefined") {
+                    return this.color_theme.atom;
                 } else if(isNaN(this.text)) {
-                    return "hljs-string";
+                    return this.color_theme.string;
                 } else {
-                    return "hljs-number";
+                    return this.color_theme.number;
                 }
             },
             use_advanced_parsing() {
-                return this.class_name == "hljs-string" && this.text.match(/:|<|>/g) != null;
+                return isNaN(this.text) && !(this.text == "true" || this.text == "false" || this.text == "undfined") && this.text.match(/:|<|>/g) != null;
+            },
+
+            is_dark_mode() {
+                return this.$store.state.Appearance.is_dark_mode;
+            },
+            color_theme() {
+                return this.is_dark_mode ? this.$store.state.Appearance.color_theme.dark : this.$store.state.Appearance.color_theme.light;
             }
         }
     }

@@ -37,7 +37,7 @@
                 :render_object="render_object"
                 :tab_id="tab_id"
                 :type="e"
-                :key="e"
+                :key="`${e}`"
                 :file_navigation="file_navigation"
                 @keydown.tab.native="onTab"
             />
@@ -156,7 +156,7 @@
             click(event, event_to_send, key) {
                 let path = `${this.object_key}/${key}`;
                 let details = this.$refs[path][0];
-
+                
                 if(details.open && !this.is_selected(path)) {
                     event.preventDefault();
                 } else if(!details.open) {

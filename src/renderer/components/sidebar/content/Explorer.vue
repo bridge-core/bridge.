@@ -12,7 +12,7 @@
                 <v-btn icon flat @click.stop="open_create_file_window" slot="activator" small>
                     <v-icon small>mdi-file-document</v-icon>
                 </v-btn>
-                <span>New file</span>
+                <span>New File</span>
             </v-tooltip>
 
             <v-spacer></v-spacer>

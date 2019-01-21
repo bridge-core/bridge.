@@ -1,9 +1,9 @@
 <template>
     <summary :class="selected_class" v-ripple>
-        <v-icon :class="`${inversed_arrows ? 'closed' : 'open'}`" small>keyboard_arrow_down</v-icon>
-        <v-icon :class="`${inversed_arrows ? 'open' : 'closed'}`" small>keyboard_arrow_up</v-icon>
+        <v-icon :class="`${inversed_arrows ? 'open' : 'closed'}`" small>keyboard_arrow_down</v-icon>
+        <v-icon :class="`${inversed_arrows ? 'closed' : 'open'}`" small>keyboard_arrow_up</v-icon>
         <highlight-text class="object"> {{ my_key }}</highlight-text>
-        <span v-if="comment && comment != ''" class="comment hljs-comment">//{{ comment }}</span>
+        <span v-if="comment && comment != ''" class="comment" :style="color_theme.comment">//{{ comment }}</span>
     </summary>  
 </template>
 
@@ -30,6 +30,13 @@
             },
             inversed_arrows() {
                 return this.$store.state.Settings.inversed_arrows;
+            },
+
+            is_dark_mode() {
+                return this.$store.state.Appearance.is_dark_mode;
+            },
+            color_theme() {
+                return this.is_dark_mode ? this.$store.state.Appearance.color_theme.dark : this.$store.state.Appearance.color_theme.light;
             }
         },
         methods: {
@@ -49,7 +56,7 @@
     }
     summary.selected {
         font-style: italic;
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(119, 119, 119, 0.1);
     }
 
     div, span.key {

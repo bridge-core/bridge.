@@ -2,10 +2,10 @@
     <v-layout :style="`overflow-x: ${is_mandatory ? 'scroll' : 'auto'}`" row wrap>
           <v-flex xs12 sm6 class="py-2">
             <v-btn-toggle v-model="selected_tab" :mandatory="is_mandatory">
-                <v-tooltip v-for="(file, i) in open_files" :key="`${selected_project}-${i}-${file.is_unsaved}`" :disabled="selected_tab != i || true" bottom>
+                <v-tooltip v-for="(file, i) in open_files" :key="`${selected_project}-${i}-${unsaved}`" :disabled="selected_tab != i || true" bottom>
                     <span slot="activator">
                         <v-btn flat :ripple="selected_tab != i">
-                            <span :style="`font-style: ${file.is_unsaved ? 'italic' : 'none'};`">{{ file.file_name }}</span>
+                            <span :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ file.file_name }}</span>
                             <v-icon @click.stop="closeTab(i)" ripple small>close</v-icon>
                         </v-btn>
                     </span>
@@ -25,17 +25,20 @@ export default {
     data() {
         return {
             open_files: TabSystem.filtered(),
-            internal_selected_tab: TabSystem.selected
+            internal_selected_tab: TabSystem.selected,
+            unsaved: []
         };
     },
     created() {
-        EventBus.on("updateTabUI", () => {
-            this.open_files = TabSystem.filtered();
-        });
+        EventBus.on("updateTabUI", this.updateFiles);
         EventBus.on("updateSelectedTab", this.changeSelected);
+        EventBus.on("updateSelectedTabUI", (val) => {
+            this.unsaved = [];
+            this.open_files.forEach(f => this.unsaved.push(f.is_unsaved == undefined ? false : f.is_unsaved));
+        });
     },
     destroyed() {
-        EventBus.off("updateTabUI");
+        EventBus.off("updateTabUI", this.updateFiles);
         EventBus.off("updateSelectedTab", this.changeSelected);
     },
     computed: {
@@ -61,6 +64,9 @@ export default {
         },
         changeSelected() {
             this.internal_selected_tab = TabSystem.selected;
+        },
+        updateFiles() {
+            this.open_files = TabSystem.filtered();
         }
     }
 }

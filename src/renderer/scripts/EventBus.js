@@ -7,12 +7,12 @@ export default class {
     }
 
     static off(event, cb) {
-        if(!cb) {
+        if(cb == undefined) {
             events[event] = [];
         } 
         else {
-            for(let i = 0; i < events[event]; i++) {
-                if(events[event] === cb) {
+            for(let i = 0; i < events[event].length; i++) {
+                if(events[event][i] === cb) {
                     events[event].splice(i, 1);
                     return;
                 }

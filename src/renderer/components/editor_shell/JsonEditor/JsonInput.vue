@@ -41,14 +41,14 @@
         mounted() {
             if(this.type == "edit") {
                 EventBus.on("updateFileNavigation", this.updateValue);
-                EventBus.on("updateTabUI", this.updateValue);
+                EventBus.on("updateSelectedTab", this.updateValue);
                 EventBus.on("setWatcherInactive", () => this.watcher_active = false);
             }
         },
         destroyed() {
             if(this.type == "edit") {
                 EventBus.off("updateFileNavigation", this.updateValue);
-                EventBus.off("updateTabUI", this.updateValue);
+                EventBus.off("updateSelectedTab", this.updateValue);
             } 
         },
         watch: {
@@ -123,8 +123,9 @@
                 TabSystem.setCurrentFileNav(`${TabSystem.getCurrentNavigation()}/${path}`);
             },
             updateValue() {
+                //FIXME: DOESN'T UPDATE AFTER SWITCHING TABS
                 this.watcher_active = false;
-                this.value = TabSystem.getCurrentNavContent();
+                this.value = TabSystem.getCurrentNavContent();        
             }
         }
     }

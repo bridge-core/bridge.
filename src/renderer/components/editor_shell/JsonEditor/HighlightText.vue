@@ -1,6 +1,6 @@
 <template>
     <span class="hl-wrapper">
-        <span v-for="(string, i) in text_as_array" :key="i" :class="class_name(string)">{{ string }}</span>
+        <span v-for="(string, i) in text_as_array" :key="i" :style="styles(string)">{{ string }}</span>
     </span>
 </template>
 
@@ -33,16 +33,22 @@
                 return this.text.replace(/:|<|>/g, (match) => {
                     return `&bridge.split-point;${match}&bridge.split-point;`
                 }).split("&bridge.split-point;");
-            }     
+            },
+            is_dark_mode() {
+                return this.$store.state.Appearance.is_dark_mode;
+            },
+            color_theme() {
+                return this.is_dark_mode ? this.$store.state.Appearance.color_theme.dark : this.$store.state.Appearance.color_theme.light;
+            }
         },
         methods: {
-            class_name(string) {
+            styles(string) {
                 if(this.keywords.includes(string)) {
-                    return "hljs-keyword";
+                    return this.color_theme.keyword;
                 } else if(this.titles.includes(string)) {
-                    return "hljs-title";
+                    return this.color_theme.property;
                 } else if(this.symbols.includes(string)) {
-                    return "hljs-symbol";
+                    return this.color_theme.definition;
                 }
             }
         }

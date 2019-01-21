@@ -13,7 +13,8 @@ function setup() {
         save({
             is_dev_mode: false,
             is_dark_mode: true,
-            inversed_arrows: false
+            inversed_arrows: false,
+            use_tabs: true
         });
     }
 
