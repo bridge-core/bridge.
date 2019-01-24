@@ -16,7 +16,7 @@ let Runtime = {
     menus: [],
     sidebar: [],
     plugin_modules: {},
-    hljs_languages: [],
+    languages: {},
     creation_window: []
 };
 
@@ -27,7 +27,7 @@ function reset() {
         menus: [],
         sidebar: [],
         plugin_modules: {},
-        hljs_languages: [],
+        languages: {},
         creation_window: []
     });
 }
@@ -62,11 +62,15 @@ export default {
         add: (id, provide) => Runtime.plugin_modules[id] = provide,
         exists: (id) => Runtime.plugin_modules[id] != undefined
     },
-    HLJS: {
-        add: (lang_name) => Runtime.hljs_languages.push(lang_name),
-        exists: (lang_name) => Runtime.hljs_languages.includes(lang_name),
-        remove: (lang_name) => Runtime.hljs_languages.splice(Runtime.hljs_languages.indexOf(lang_name), 1),
-        forEach: (cb) => Runtime.hljs_languages.forEach(lang => cb(lang))
+    HL: {
+        add: (lang_name, lang_def) => Runtime.languages[lang_name] = lang_def,
+        exists: (lang_name) => Runtime.languages[lang_name] != undefined,
+        remove: (lang_name) => Runtime.languages[lang_name] = undefined,
+        forEach: (cb) => {
+            for(let l in Runtime.languages) {
+                cb(l, Runtime.languages[l]);
+            }
+        }
     },
     Paths: {
         bridge: () => Runtime.getBridgePath(),

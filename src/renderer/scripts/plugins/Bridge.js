@@ -72,15 +72,15 @@ export default class Bridge {
 
         this.Highlighter = {
             registerLanguage(name, language) {
-                if(!Runtime.HLJS.exists(name)) {
+                if(!Runtime.HL.exists(name)) {
                     hljs.registerLanguage(name, language);
-                    Runtime.HLJS.add(name);
+                    Runtime.HL.add(name, language);
                 }
             },
             unregisterLanguage(name) {
-                if(Runtime.HLJS.exists(name)) {
+                if(Runtime.HL.exists(name)) {
                     hljs.unregisterLanguage(name);
-                    Runtime.HLJS.remove(name);
+                    Runtime.HL.remove(name);
                 }
             },
 

@@ -131,9 +131,9 @@ export default {
     Runtime: {
         getBridgePath: Runtime.Paths.bridge
     },
-    hljs: {
+    hl: {
         unregisterAll() {
-            Runtime.HLJS.forEach(lang => hljs.unregisterLanguage(lang));
+            Runtime.HL.forEach(lang => Runtime.HL.remove(lang));
         }
     },
     reset: Runtime.reset,

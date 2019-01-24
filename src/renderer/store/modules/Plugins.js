@@ -92,7 +92,7 @@ const mutations = {
         Store.commit("resetPluginHighlights");
         Store.commit("resetPluginFooters");
         Store.commit("resetPluginWindows");
-        Bridge.hljs.unregisterAll();
+        Bridge.hl.unregisterAll();
         
         Bridge.reset();
         Vue.set(state, "installed_plugins", []);
