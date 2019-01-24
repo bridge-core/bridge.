@@ -111,28 +111,42 @@ class TabSystem {
         this.setCurrentUnsaved();
     }
     setCurrentSaved() {
-        this.getSelected().is_unsaved = false;
-        //EventBus.trigger("updateTabUI");
-        EventBus.trigger("updateSelectedTabUI", false);
+        if(this.getSelected().is_unsaved) {
+            this.getSelected().is_unsaved = false;
+            EventBus.trigger("updateSelectedTabUI");
+        }
     }
     setCurrentUnsaved() {
-        this.getSelected().is_unsaved = true;        
-        //EventBus.trigger("updateTabUI");
-        EventBus.trigger("updateSelectedTabUI", true);
+        if(!this.getSelected().is_unsaved) {
+            this.getSelected().is_unsaved = true;
+            EventBus.trigger("updateSelectedTabUI");
+        }
     }
     get use_tabs() {
         return Store.state.Settings.use_tabs;
     }
 
     //SAVING
+    getSaveContent(current) {
+        let ext = current.file_path.split(/\/|\\/).pop().split(".").pop();
+        console.log(ext)
+        if(ext  == "json") {
+            return JSON.stringify(Format.toJSON(current.content), null, this.use_tabs ? "\t" : "  ");
+        } else if(ext == "png") {
+            return current.raw_content;
+        } else {
+            return current.content;
+        }
+    }
     saveCurrent() {
         let current = this.getSelected();
-        FileSystem.basicSave(current.file_path, JSON.stringify(Format.toJSON(current.content), null, this.use_tabs ? "\t" : "  "));
+
+        FileSystem.basicSave(current.file_path, this.getSaveContent(current));
         this.setCurrentSaved(); 
     }
     saveCurrentAs() {
         let current = this.getSelected();
-        FileSystem.basicSaveAs(current.file_path, JSON.stringify(Format.toJSON(current.content), null, this.use_tabs ? "\t" : "  "));
+        FileSystem.basicSaveAs(current.file_path, this.getSaveContent(current));
         this.setCurrentSaved();
     }
 }

@@ -30,7 +30,11 @@ export default class SettingsWindow extends TabWindow {
             },
             content: [
                 new ReactiveSwitch(this, "inversed_arrows", { color: "light-green", text: "Inversed Arrows", key: `settings.editor.tab.arrows.${Math.random()}` }),
-                new ReactiveSwitch(this, "use_tabs", { color: "light-green", text: "Use Tabs", key: `settings.editor.tab.tabs.${Math.random()}` })
+                new ReactiveSwitch(this, "use_tabs", { color: "light-green", text: "Use Tabs", key: `settings.editor.tab.tabs.${Math.random()}` }),
+                {
+                    type: "divider"
+                },
+                new ReactiveSwitch(this, "line_wraps", { color: "light-green", text: "Word Wrap", key: `settings.editor.tab.tabs.${Math.random()}` })
             ]
         });
         this.addTab({

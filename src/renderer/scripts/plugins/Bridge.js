@@ -69,17 +69,16 @@ export default class Bridge {
                 });
             }
         };
-
-        this.Highlighter = {
-            registerLanguage(name, language) {
+        this.Language = {
+            register(name, language) {
                 if(!Runtime.HL.exists(name)) {
-                    hljs.registerLanguage(name, language);
+                    //hljs.registerLanguage(name, language);
                     Runtime.HL.add(name, language);
                 }
             },
-            unregisterLanguage(name) {
+            remove(name) {
                 if(Runtime.HL.exists(name)) {
-                    hljs.unregisterLanguage(name);
+                    //hljs.unregisterLanguage(name);
                     Runtime.HL.remove(name);
                 }
             },
@@ -92,6 +91,14 @@ export default class Bridge {
             },
             addSymbols(symbols) {
                 Store.commit("addPluginSymbols", symbols);
+            }
+        };
+        this.Highlighter = {
+            registerLanguage() {
+                throw new Error("Using Highlighter.registerLanguage(...) is deprecated.");
+            },
+            unregisterLanguage() {
+                throw new Error("Using Highlighter.unregisterLanguage(...) is deprecated.");
             }
         };
 

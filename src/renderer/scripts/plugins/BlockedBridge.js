@@ -23,9 +23,9 @@ export default class BlockedBridge {
             exists() {},
             stats() {}
        };
-        this.Highlighter = {
-            registerLanguage() {},
-            unregisterLanguage() {},
+        this.Language = {
+            register() {},
+            remove() {},
             addKeywords() {},
             addTitles() {},
             addSymbols() { }

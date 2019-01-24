@@ -67,6 +67,8 @@ export default {
         },
         updateFiles() {
             this.open_files = TabSystem.filtered();
+            this.unsaved = [];
+            this.open_files.forEach(f => this.unsaved.push(f.is_unsaved == undefined ? false : f.is_unsaved));
         }
     }
 }

@@ -29,7 +29,7 @@ class FileSystem {
                     TabSystem.add({ 
                         content,
                         raw_content: content,
-                        file_path: path,
+                        file_path: this.getPath(path),
                         category: Store.state.Explorer.project,
                         file_name: path.split(/\/|\\/).pop()
                     });
@@ -52,8 +52,7 @@ class FileSystem {
     open(path) {
         fs.readFile(path, (err, data) => {
             if(err) throw err;
-            //console.log(data.toString());
-            
+
             TabSystem.add({ 
                 content: data.toString(),
                 raw_content: data,

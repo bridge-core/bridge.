@@ -15,12 +15,10 @@
 </template>
 
 <script>
+    import CodeMirror from "codemirror";
     //Language
     import "codemirror/mode/javascript/javascript.js";
 
-    //Selection
-    import "codemirror/addon/selection/mark-selection.js";
-    import "codemirror/addon/selection/active-line.js";
     //Style
     import "codemirror/lib/codemirror.css";
     import "codemirror/theme/monokai.css";
@@ -29,16 +27,16 @@
 
     //Other
     import "codemirror/addon/edit/closebrackets.js";
-    import "codemirror/addon/mode/simple.js";
-    import CodeMirror from "codemirror";
-    //import "codemirror/addon/hint/show-hint.js";
-    //import "codemirror/addon/hint/javascript-hint.js";
+    
+    //Files
+    import "../../scripts/editor/mcfunction.js";
 
     import JsonEditorMain from "./JsonEditor/Main";
     import JsonErrorScreen from "./JsonErrorScreen";
 
     import cJSON from "comment-json";
     import TabSystem from '../../scripts/TabSystem';
+    import Runtime from '../../scripts/plugins/Runtime';
 
     export default {
         name: "file-manager",
@@ -52,10 +50,18 @@
             tab_id: Number, 
             uuid: String
         },
-        mounted() {
+        beforeMount() {
+            // Runtime.HL.forEach((lang, def) => {
+            //     console.log(lang, def);
+                
+            //     CodeMirror.defineSimpleMode(lang, def);
+            // });
+        },
+        mounted() { 
             if(this.$refs.cm) {
                 this.$refs.cm.$el.childNodes[1].style.height = this.available_height + "px";
             }
+            
             // CodeMirror.defineSimpleMode("mcfunction", {
             //     start: [
             //         {regex: /"(?:[^\\]|\\.)*?(?:"|$)/, token: "string"},
@@ -126,6 +132,9 @@
                     autoCloseBrackets: true,
                     theme: this.$store.state.Appearance.is_dark_mode ? "monokai" : "xq-light",
                     mode: this.alias[this.extension] || this.extension,
+                    styleActiveLine: true,
+                    showCursorWhenSelecting: true,
+                    lineWrapping: this.$store.state.Settings.line_wraps
                     //extraKeys: { "Ctrl-Space": "autocomplete" },
                 };
             } 
@@ -133,6 +142,9 @@
         watch: {
             available_height() {
                 if(this.$refs.cm) this.$refs.cm.$el.childNodes[1].style.height = this.available_height + "px";
+            },
+            text() {
+                TabSystem.setCurrentUnsaved();
             }
         }
     }
