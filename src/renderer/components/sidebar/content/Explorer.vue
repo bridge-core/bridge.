@@ -7,6 +7,13 @@
                 </v-btn>
                 <span>Refresh</span>
             </v-tooltip>
+            
+            <v-tooltip right>
+                <v-btn icon flat @click.stop="open_create_project_window" slot="activator" small>
+                    <v-icon small>mdi-folder-plus</v-icon>
+                </v-btn>
+                <span>New Project</span>
+            </v-tooltip>
 
             <v-tooltip right>
                 <v-btn icon flat @click.stop="open_create_file_window" slot="activator" small>
@@ -44,9 +51,11 @@
     import { ipcRenderer } from "electron";
     import FileDisplayer from "./explorer/FileDisplayer.vue";
     import CreateFileWindow from "../../../windows/CreateFile";
+    import CreateProjectWindow from "../../../windows/CreateProject";
     import EventBus from '../../../scripts/EventBus';
-import TabSystem from '../../../scripts/TabSystem';
-    
+    import TabSystem from '../../../scripts/TabSystem';
+    import { BASE_PATH } from "../../../scripts/constants";
+
     export default {
         name: "content-explorer",
         components: {
@@ -112,11 +121,8 @@ import TabSystem from '../../../scripts/TabSystem';
                 return this.directory ? this.directory.children : [];
             },
 
-            project_filter_color() {
-                return this.$store.state.TabSystem.project_filter ? "green" : "";
-            },
             base_path() {
-                return this.$store.state.TabSystem.base_path;
+                return BASE_PATH;
             },
             project_items() {
                 let size = Math.floor(this.project_select_size / 8.25);
@@ -142,6 +148,9 @@ import TabSystem from '../../../scripts/TabSystem';
             },
             open_create_file_window() {
                 new CreateFileWindow();
+            },
+            open_create_project_window() {
+                new CreateProjectWindow();
             },
 
             getProjects({ event_name, func }={}) {

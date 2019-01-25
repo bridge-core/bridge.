@@ -1,6 +1,6 @@
 export default [
     {
-        "Blank entity": {
+        "Blank Entity": {
             "minecraft:entity": {
                 "description": {
                     "identifier": "",
@@ -13,7 +13,7 @@ export default [
         }
     },
     {
-        "Blank trade table": {
+        "Blank Trade Table": {
             tiers: [
                 {
                     trades: [
@@ -41,7 +41,7 @@ export default [
         }
     },
     {
-        "Blank loot table": {
+        "Blank Loot Table": {
             pools: [
                 {
                     rolls: 1,
@@ -62,10 +62,10 @@ export default [
         }
     },
     {
-        "Example function": "# My Comment\nsay Hello World!"
+        "Example Function": "# My Comment\nsay Hello World!"
     },
     {
-        "Blank spawn rule": {
+        "Blank Spawn Rule": {
             "format_version": "1.8.0",
             "minecraft:spawn_rules": {
                 "description": {
@@ -97,6 +97,6 @@ export default [
         }
     },
     {
-        "Script start": "let system = <server|client>.registerSystem(0,0);\n\nsystem.initialize = function() {};\nsystem.update = function () {};"
+        "Script Start": "let system = <server|client>.registerSystem(0,0);\n\nsystem.initialize = function() {};\nsystem.update = function () {};"
     }
 ];

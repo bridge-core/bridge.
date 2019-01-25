@@ -145,7 +145,10 @@
 
                     TabSystem.setTabCompiled(true);
                     TabSystem.setCurrentContent(tree);
-
+                    this.$nextTick(() => {
+                        TabSystem.setCurrentSaved();
+                    });
+                    
                     return tree;
                 }
                 return this.object;

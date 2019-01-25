@@ -2,6 +2,7 @@ import Store from "../store/index";
 import EventBus from "./EventBus";
 import { Format } from "./editor/Json";
 import FileSystem from "./FileSystem";
+import PluginEnv from "./plugins/PluginEnv";
 
 class TabSystem {
     constructor() {
@@ -18,7 +19,8 @@ class TabSystem {
         this.tabs.unshift(Object.assign(tab, {
             uuid: `${Store.state.Explorer.project}-${Math.random()}-${Math.random()}`,
             file_navigation: "global",
-            category: Store.state.Explorer.project
+            category: Store.state.Explorer.project,
+            is_unsaved: false
         }));
 
         this.select(0);
@@ -122,6 +124,9 @@ class TabSystem {
             EventBus.trigger("updateSelectedTabUI");
         }
     }
+    setCurrentInvalid() {
+        this.getSelected().is_invalid = true;
+    }
     get use_tabs() {
         return Store.state.Settings.use_tabs;
     }
@@ -131,17 +136,22 @@ class TabSystem {
         let ext = current.file_path.split(/\/|\\/).pop().split(".").pop();
         console.log(ext)
         if(ext  == "json") {
-            return JSON.stringify(Format.toJSON(current.content), null, this.use_tabs ? "\t" : "  ");
+            let j = Format.toJSON(current.content);
+
+            if(!current.is_invalid) FileSystem.Cache.save(current.file_path, j);
+            return JSON.stringify(j, null, this.use_tabs ? "\t" : "  ");
         } else if(ext == "png") {
             return current.raw_content;
         } else {
+            FileSystem.Cache.save(current.file_path, current.content);
             return current.content;
         }
     }
     saveCurrent() {
         let current = this.getSelected();
+        let modified_content = Bridge.trigger("bridge:saveFile", current.content);
 
-        FileSystem.basicSave(current.file_path, this.getSaveContent(current));
+        FileSystem.basicSave(current.file_path, modified_content);
         this.setCurrentSaved(); 
     }
     saveCurrentAs() {

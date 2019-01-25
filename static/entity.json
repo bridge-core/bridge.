@@ -1,0 +1,99 @@
+{
+    "format_version": "number",
+    "minecraft:entity": {
+        "propose": [
+            "$self.description",
+            "$self.components",
+            "$self.component_groups",
+            "$self.events"
+        ]
+    },
+    "description": {
+        "propose": [
+            {
+                "is": "identifier",
+                "propose": "$root.entity_identifiers"
+            },
+            {
+                "is": "runtime_identifier",
+                "propose": "$root.entity_identifiers"
+            }
+        ]
+    },
+    "component_groups": {
+        "propose": [
+            {
+                "if": "$file.sibling_value(has_equipment)",
+                "is": "",
+                "propose": "$root.components"
+            }
+        ]
+    },
+    "components": {
+        "propose": "$root.components"
+    },
+    "events": {
+        "propose": [
+            {
+                "is": "",
+                "propose": "$self.single_event"
+            }
+        ]
+    },
+    "single_event": {
+        "propose": [
+            {
+                "is": "add",
+                "propose": [
+                    {
+                        "is": "component_groups",
+                        "propose": [
+                            {
+                                "is": "$file.next_index",
+                                "propose": "$file.component_groups"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "is": "remove",
+                "propose": [
+                    {
+                        "is": "component_groups",
+                        "propose": [
+                            {
+                                "is": "$file.next_index",
+                                "propose": "$file.component_groups"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "is": "sequence",
+                "propose": [
+                    {
+                        "is": "$file.next_index",
+                        "propose": [
+                            "$root.filters",
+                            "$self.single_event"
+                        ]
+                    }
+                ]
+            },
+            {
+                "is": "randomize",
+                "propose": [
+                    {
+                        "is": "$file.next_index",
+                        "propose": [
+                            "weight",
+                            "$self.single_event"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
