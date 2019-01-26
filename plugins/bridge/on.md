@@ -14,7 +14,7 @@ You may return a modified version of the object received inside the callback fun
 
 ### Example
 ```javascript
-Bridge.on("save", ({ file, path, content }) => {
+Bridge.on("bridge:saveFile", ({ file, path, content }) => {
     if(file.split(".").pop().toLowerCase() == "txt") {
         return { content: content + "\nby solvedDev" };
     }
