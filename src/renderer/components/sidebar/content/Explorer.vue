@@ -9,17 +9,24 @@
             </v-tooltip>
             
             <v-tooltip right>
-                <v-btn icon flat @click.stop="open_create_project_window" slot="activator" small>
+                <v-btn icon flat @click.stop="openCreateProjectWindow" slot="activator" small>
                     <v-icon small>mdi-folder-plus</v-icon>
                 </v-btn>
                 <span>New Project</span>
             </v-tooltip>
 
             <v-tooltip right>
-                <v-btn icon flat @click.stop="open_create_file_window" slot="activator" small>
+                <v-btn icon flat @click.stop="openCreateFileWindow" slot="activator" small>
                     <v-icon small>mdi-file-document</v-icon>
                 </v-btn>
                 <span>New File</span>
+            </v-tooltip>
+
+            <v-tooltip right>
+                <v-btn icon flat @click.stop="packageProject" slot="activator" small>
+                    <v-icon small>mdi-package-variant-closed</v-icon>
+                </v-btn>
+                <span>Package</span>
             </v-tooltip>
 
             <v-spacer></v-spacer>
@@ -55,7 +62,9 @@
     import EventBus from '../../../scripts/EventBus';
     import TabSystem from '../../../scripts/TabSystem';
     import { BASE_PATH } from "../../../scripts/constants";
-
+    import ZipFolder from "zip-a-folder";
+    import fs from "fs";
+    
     export default {
         name: "content-explorer",
         components: {
@@ -146,11 +155,22 @@
                     }
                 });
             },
-            open_create_file_window() {
+            openCreateFileWindow() {
                 new CreateFileWindow();
             },
-            open_create_project_window() {
+            openCreateProjectWindow() {
                 new CreateProjectWindow();
+            },
+            packageProject() {
+                let project = this.$store.state.Explorer.project;
+                let path = BASE_PATH + project;
+                ZipFolder.zipFolder(path, `${path}.mcpack`, err => {
+                    if(err) throw err;
+                    fs.rename(`${path}.mcpack`, `${path}/${project}.mcpack`, (err) => {
+                        if(err) throw err;
+                        this.$root.$emit("refreshExplorer");
+                    })
+                });
             },
 
             getProjects({ event_name, func }={}) {
