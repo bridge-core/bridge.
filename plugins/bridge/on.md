@@ -6,8 +6,9 @@ You may return a modified version of the object received inside the callback fun
 ### Built-in Events
 | Events | Description |
 | --- | --- |
-| ```save``` | Triggers before "bridge." saves a file. |
-| ```opened-sidebar``` | Triggers after a user switched sidebars. Callback receives the sidebar id |
+| ```bridge:saveFile``` | Triggers before "bridge." saves a file. |
+| ```bridge:cacheFile``` | Triggers before "bridge." caches a file. Allows to store additional data inside the cache |
+| ```bridge:openedSidebar``` | Triggers after a user switched sidebars. Callback receives the sidebar id |
 
 ### Example
 ```javascript
