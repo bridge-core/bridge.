@@ -5,7 +5,7 @@ function private_toJSON(tree) {
     if(tree.type != "array" && tree.type != "object") {
         return toCorrectType(tree.data);
     } else {
-        if(tree.type == "object") {
+        if(!tree.is_array) {
             let obj = {};
             tree.children.forEach(c => obj[c.key] = private_toJSON(c));
             return obj;
@@ -16,22 +16,6 @@ function private_toJSON(tree) {
             return arr;
         }
     }
-    // if(typeof obj == "function" || !obj) return;
-    // if(obj.type != "object" && obj.type != "array") return obj.data;
-    
-    // let new_obj = {};
-    // if(obj.type == "array") {
-    //     new_obj = [];
-    //     for(let el of obj.data) {
-    //         new_obj.push(private_toJSON(el));
-    //     }
-    // } else {
-    //     for(let el of obj.data) {
-    //         new_obj[el.key] = private_toJSON(el);
-    //     }
-    // }
-    
-    // return new_obj;
 }
 
 function getType(data) {
@@ -40,8 +24,9 @@ function getType(data) {
 }
 
 function toCorrectType(val) {
-    if(!Number.isNaN(Number(val))) return Number(val);
+    if(val === "") return "";
     if(val == "true" || val == "false") return val == "true";
+    if(!Number.isNaN(Number(val)) && typeof val != "boolean") return Number(val);
     if(val == "undefined") return undefined;
     return val;
 }
@@ -55,8 +40,8 @@ function parse(string) {
 }
 
 export class Format {
-    static toJSON(obj) {
-        return private_toJSON(obj);
+    static toJSON(tree) {
+        return private_toJSON(tree);
     }
 
     static toTree(obj) {

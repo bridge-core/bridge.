@@ -72,6 +72,16 @@ const state = {
                 shortcut: "Escape",
                 action: () => TabSystem.setCurrentFileNav("global")
             },
+            {
+                title: "Move Up",
+                shortcut: "Ctrl + W",
+                action: () => TabSystem.moveCurrentUp()
+            },
+            {
+                title: "Move Down",
+                shortcut: "Ctrl + D",
+                action: () => TabSystem.moveCurrentDown()
+            },
             // {
             //     title: "Select Next",
             //     shortcut: "WIP",
@@ -87,7 +97,7 @@ const state = {
             },
             {
                 title: "Delete",
-                shortcut: "Shift + Backspace",
+                shortcut: "Ctrl + Backspace",
                 action: () => TabSystem.deleteCurrent()
             }
         ]

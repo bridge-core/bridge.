@@ -131,8 +131,13 @@
                 }
             },
 
+            evaluated_key() {
+                if(typeof this.render_object.data != "string") return this.render_object.data;
+                return this.render_object.data.replace(/\//g, "&slash;");
+            },
+
             key_selected_class() {
-                return this.is_selected(undefined, "/" + this.render_object.data) ? "selected" : "";
+                return this.is_selected(undefined, "/" + this.evaluated_key) ? "selected" : "";
             },
             value_data() {
                 return this.render_object.data;
@@ -157,7 +162,7 @@
                 return TabSystem.getCurrentNavigation() == path + expand;
             },
             click(event, event_to_send, key) {
-                let path = `${this.object_key}/${key}`;
+                let path = `${this.object_key}/${key.replace(/\//g, "&slash;")}`;
                 let details = this.$refs[path][0];
                 
                 if(details.open && !this.is_selected(path)) {
@@ -171,7 +176,7 @@
                 TabSystem.setCurrentFileNav(path);
             },
             keyClick() {
-                let path = `${this.object_key}/${this.render_object.data}`;
+                let path = `${this.object_key}/${this.render_object.data.replace(/\//g, "&slash;")}`;
                 TabSystem.setCurrentFileNav(path);
             },
             onTab(ev) {

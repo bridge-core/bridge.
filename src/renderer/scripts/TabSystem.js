@@ -3,6 +3,7 @@ import EventBus from "./EventBus";
 import { Format } from "./editor/Json";
 import FileSystem from "./FileSystem";
 import PluginEnv from "./plugins/PluginEnv";
+import JSONTree from "./editor/JsonTree";
 
 class TabSystem {
     constructor() {
@@ -67,6 +68,12 @@ class TabSystem {
 
         if(current.path != nav) return current.data;
         return current.key;
+    }
+    getCurrentNavObj() {
+        let nav = this.getCurrentNavigation();
+        let s = this.getSelected();
+        if(!s.content.get) return;
+        return s.content.get(nav);
     }
     setCurrentNavContent(val) {
         let nav = this.getCurrentNavigation();
@@ -135,29 +142,76 @@ class TabSystem {
     getSaveContent(current) {
         let ext = current.file_path.split(/\/|\\/).pop().split(".").pop();
         console.log(ext)
+
         if(ext  == "json") {
             let j = Format.toJSON(current.content);
+            
+            if(!current.is_invalid) FileSystem.Cache.save(current.file_path, j, PluginEnv.trigger("bridge:cacheFile", { 
+                file_path: current.file_path,
+                content: current.content,
+                file_extension: ext
+            }, false, false));
 
-            if(!current.is_invalid) FileSystem.Cache.save(current.file_path, j);
-            return JSON.stringify(j, null, this.use_tabs ? "\t" : "  ");
+            let modified_data = PluginEnv.trigger("bridge:saveFile", { 
+                ...current,
+                file_path: current.file_path.replace(/\\/g, "/"),
+                content: new JSONTree("global").buildFromObject(j),
+                file_extension: ext
+            });
+
+            return JSON.stringify(Format.toJSON(modified_data.content), null, this.use_tabs ? "\t" : "  ");
         } else if(ext == "png") {
             return current.raw_content;
         } else {
-            FileSystem.Cache.save(current.file_path, current.content);
-            return current.content;
+            FileSystem.Cache.save(current.file_path, current.content, PluginEnv.trigger("bridge:beforeCaching", { 
+                file_path: current.file_path,
+                content: current.content,
+                file_extension: ext
+            }, false, false));
+
+            let modified_data = PluginEnv.trigger("bridge:saveFile", { 
+                ...current,
+                file_path: current.file_path.replace(/\\/g, "/"),
+                file_extension: ext
+            });
+
+            return modified_data.content;
         }
     }
     saveCurrent() {
+        PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
-        let modified_content = Bridge.trigger("bridge:saveFile", current.content);
-
-        FileSystem.basicSave(current.file_path, modified_content);
+        FileSystem.basicSave(current.file_path, this.getSaveContent(current));
         this.setCurrentSaved(); 
     }
     saveCurrentAs() {
         let current = this.getSelected();
         FileSystem.basicSaveAs(current.file_path, this.getSaveContent(current));
         this.setCurrentSaved();
+    }
+
+    //MOVING
+    moveCurrentUp() {
+        this.getCurrentNavObj().moveUp();
+        EventBus.trigger("updateCurrentContent", this.getSelected().content);
+
+        let old = this.getCurrentNavigation();;
+        this.setCurrentFileNav("global");
+        this.setCurrentFileNav(old);
+
+        this.setCurrentUnsaved();
+        
+    }
+    moveCurrentDown() {
+        this.getCurrentNavObj().moveDown();
+        EventBus.trigger("updateCurrentContent", this.getSelected().content);
+        
+        let old = this.getCurrentNavigation();;
+        this.setCurrentFileNav("global");
+        this.setCurrentFileNav(old);
+
+        this.setCurrentUnsaved();
+        
     }
 }
 

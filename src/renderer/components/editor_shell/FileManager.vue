@@ -27,6 +27,8 @@
 
     //Other
     import "codemirror/addon/edit/closebrackets.js";
+    import "codemirror/addon/comment/comment.js";
+    import "codemirror/keymap/sublime.js";
     
     //Files
     import "../../scripts/editor/mcfunction.js";
@@ -58,7 +60,8 @@
         data() {
             return {
                 alias: {
-                    js: "javascript"
+                    js: "javascript",
+                    func: "mcfunction"
                 }
             }
         },
@@ -107,6 +110,7 @@
                     lineNumbers: true,
                     line: true,
                     autoCloseBrackets: true,
+                    keyMap: "sublime",
                     theme: this.$store.state.Appearance.is_dark_mode ? "monokai" : "xq-light",
                     mode: this.alias[this.extension] || this.extension,
                     styleActiveLine: true,

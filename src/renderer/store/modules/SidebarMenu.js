@@ -25,7 +25,7 @@ const mutations = {
         state.menu_state = new_menu_state;
         let opened = getters.all_items(state)[new_menu_state - 1];
 
-        Bridge.trigger("opened-sidebar", opened ? opened.id || opened.menu_type : null, true);
+        Bridge.trigger("bridge:openedSidebar", opened ? opened.id || opened.menu_type : null, true);
     },
     toggleSidebarMenu(state) {
         state.menu_state = !state.menu_state;

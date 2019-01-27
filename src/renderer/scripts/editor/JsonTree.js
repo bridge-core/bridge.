@@ -1,4 +1,5 @@
 import Stack from "../utilities/Stack";
+import Json from "./Json";
 
 function getType(data) {
     if(Array.isArray(data)) return "array";
@@ -18,7 +19,6 @@ export default class JSONTree {
             constructor(tree) {
                 this.stack = new Stack();
                 this.descendAndPush(tree, 0);
-                this.stack.show();
             }
             next(max_depth) {
                 let stack_e = this.stack.pop();
@@ -59,11 +59,11 @@ export default class JSONTree {
                if(i_arr.length == 0) return this; 
             } 
             key = i_arr.shift();
-            if(i_arr.length == 0 && this.data == key) return this;
+            if(i_arr.length == 0 && this.data.replace(/\//g, "&slash;") == key) return this;
             
             
             for(let c of this.children) {
-                if(c.key == key) {
+                if(c.key.replace(/\//g, "&slash;") == key) {
                     if(i_arr.length == 0) {
                         return c;
                     } else {
@@ -80,9 +80,23 @@ export default class JSONTree {
         for(let c of this.children) {
             if(c.key == child.key) return this;
         }
+        child.parent = this;
         if(!Number.isNaN(Number(child.key)) && this.children.length == 0) this.type = "array";
+        console.log(this.type);
+        
         this.children.push(child);
         return this;
+    }
+    find(child) {
+        let i = 0;
+        for(let c of this.children) {
+            if(c.key == child.key) {
+                return i;
+            }
+
+            i++;
+        }
+        return -1;
     }
     remove() {
         if(this.key == "global") return;
@@ -102,9 +116,31 @@ export default class JSONTree {
         this.open = true;
         return this;
     }
+    get is_array() {
+        return this.children[0] && !Number.isNaN(Number(this.children[0].key));
+    }
     get path() {
         if(!this.parent) return "global";
-        return this.parent.path + "/" + this.key;
+        return this.parent.path + "/" + this.key.replace(/\//g, "&slash;");
+    }
+
+    moveUp() {
+        let a = this.parent.children;
+        let me = this.parent.find(this);
+        if(me == 0 || a.length < 1) return;
+
+        let tmp = a[me];
+        a[me] = a[me - 1];
+        a[me - 1] = tmp;
+    }
+    moveDown() {
+        let a = this.parent.children;
+        let me = this.parent.find(this);
+        if(me == a.length - 1) return;
+
+        let tmp = a[me];
+        a[me] = a[me + 1];
+        a[me + 1] = tmp;
     }
 
     buildFromObject(data, first=true) {
@@ -121,6 +157,9 @@ export default class JSONTree {
         }
 
         return this;
+    }
+    toJSON() {
+        return Json.Format.toJSON(this);
     }
 
     iterator() {

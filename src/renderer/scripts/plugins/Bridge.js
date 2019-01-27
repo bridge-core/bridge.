@@ -5,6 +5,7 @@ import Store from "../../store/index";
 import { trigger, overwriteTrigger } from "./EventTriggers";
 import PluginAssert from "./PluginAssert";
 import TabSystem from "../TabSystem";
+import FileSystem from "../FileSystem";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -16,6 +17,23 @@ export default class Bridge {
         } else {
             Runtime.Plugins.add(this.plugin_id, "unknown");
         }
+
+        this.Cache = {
+            open(path, cb) {
+                FileSystem.Cache.get(path)
+                    .then(data => {
+                        if(typeof cb == "function") cb(data);
+                    })
+                    .catch(err => cb({}));
+            },
+            openSync(path) {
+                let c =  FileSystem.Cache;
+                return c.openWith(c.cached_cache, path) || c.openWith(c.getCacheSync(), path);
+            },
+            write(path, other) {
+                FileSystem.Cache.save(path, undefined, other);
+            }
+        };
 
         this.Store = {
             namespace: undefined,
@@ -48,23 +66,39 @@ export default class Bridge {
         this.FS = {
             __file_path__: file_path,
             readFile(path, cb) {
-                return fs.readFile(Runtime.Paths.project() + path, (err, data) => {
-                    if(err) PluginAssert.throw(this.__file_path__, err)
+                fs.readFile(Runtime.Paths.project() + path, (err, data) => {
+                    if(err) PluginAssert.throw(this.__file_path__, err);
                     cb(err, data);
                 });
             },
+            writeFile(path, data, cb, check=true) {
+                let folder = path.split(/\\|\//g);
+                folder.pop();
+                folder = folder.join("\\");
+
+                if(check && !this.exists(Runtime.Paths.project() + folder)) {
+                    fs.mkdir(Runtime.Paths.project() + folder, err => {
+                        this.writeFile(path, data, cb, false);
+                    });
+                } else {
+                    fs.writeFile(Runtime.Paths.project() + path, data, (err) => {
+                        if(err && !cb) PluginAssert.throw(this.__file_path__, err);
+                        else if(err) cb(err);
+                    });
+                }
+            },
             readDirectory(path, cb) {
-                return fs.readdir(Runtime.Paths.project() + path, (err, data) => {
-                    if(err) PluginAssert.throw(this.__file_path__, err)
+                fs.readdir(Runtime.Paths.project() + path, (err, data) => {
+                    if(err) PluginAssert.throw(this.__file_path__, err);
                     cb(err, data);
                 });
             },
             exists(path) {
-                return fs.existsSync(Runtime.Paths.project() + path);
+                return fs.existsSync((Runtime.Paths.project() + path).replace(/\//g, "\\"));
             },
             stats(path, cb) {
-                return fs.lstat(Runtime.Paths.project() + path, (err, data) => {
-                    if(err) PluginAssert.throw(this.__file_path__, err)
+                fs.lstat(Runtime.Paths.project() + path, (err, data) => {
+                    if(err) PluginAssert.throw(this.__file_path__, err);
                     cb(err, data);
                 });
             }
@@ -179,6 +213,21 @@ export default class Bridge {
         this.BuildableFile = {
             register(file) {
                 Runtime.CreationWindow.add(file);
+            }
+        };
+
+        this.Utils = {
+            get current_project() {
+                return Store.state.Explorer.project;
+            },
+            get current_selected() {
+                return TabSystem.getCurrentNavObj();
+            },
+            get current_file_path() {
+                return TabSystem.getSelected().file_path.replace(/\\/g, "/");
+            },
+            get current_file_content() {
+                return TabSystem.getSelected().content;
             }
         };
     }

@@ -10,10 +10,14 @@ export default class BlockedBridge {
             Runtime.Plugins.add(this.plugin_id, "unknown");
         }
 
+        this.Cache = {
+            write() {},
+            open() {},
+        },
         this.Store = {
             namespace: undefined,
             setup() {},
-            load() { },
+            load() {},
             save() {},
             exists() {}
         };
@@ -22,13 +26,13 @@ export default class BlockedBridge {
             readDirectory() {},
             exists() {},
             stats() {}
-       };
+        };
         this.Language = {
             register() {},
             remove() {},
             addKeywords() {},
             addTitles() {},
-            addSymbols() { }
+            addSymbols() {}
         };
 
         this.Menu = {
@@ -57,6 +61,12 @@ export default class BlockedBridge {
         };
         this.BuildableFile = {
             register() {}
+        };
+        this.Utils = {
+            get current_project() {},
+            get current_selected() {},
+            get current_file_path() {},
+            get current_file_content() {}   
         };
     }
 
