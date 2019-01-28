@@ -99,6 +99,11 @@ const state = {
                 title: "Delete",
                 shortcut: "Ctrl + Backspace",
                 action: () => TabSystem.deleteCurrent()
+            },
+            {
+                shortcut: "Ctrl + Del",
+                action: () => TabSystem.deleteCurrent(),
+                is_hidden: true
             }
         ]
     },

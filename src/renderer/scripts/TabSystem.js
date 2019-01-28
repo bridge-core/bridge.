@@ -4,7 +4,7 @@ import { Format } from "./editor/Json";
 import FileSystem from "./FileSystem";
 import PluginEnv from "./plugins/PluginEnv";
 import JSONTree from "./editor/JsonTree";
-
+import { BASE_PATH } from "./constants";
 class TabSystem {
     constructor() {
         this.tabs = [];
@@ -23,9 +23,9 @@ class TabSystem {
             category: Store.state.Explorer.project,
             is_unsaved: false
         }));
-
-        this.select(0);
+ 
         EventBus.trigger("updateTabUI");
+        this.select(0);
     }
     open(tab) {
         //Just an alias
@@ -35,13 +35,23 @@ class TabSystem {
     //Closing tab
     closeById(id) {
         this.tabs.splice(id, 1);
+        console.log(id, this.selected)
+        if(id <= this.selected && this.selected > 0) {
+            console.log("In")
+            this.select(this.selected - 1);
+        }
+
         EventBus.trigger("updateTabUI");
     }
     closeSelected() {
         this.closeById(this.selected);
     }
     close(val) {
-        if(!val) this.tabs = [];
+        if(val == undefined) {
+            this.tabs = [];
+            this.select(0);
+            EventBus.trigger("updateTabUI");
+        }
         else if(typeof val == "number") this.closeById(val);
         else throw new TypeError("Expected undefined or number, found " + typeof val);
     }
@@ -56,12 +66,13 @@ class TabSystem {
         return this.tabs[this.selected];
     }
     getCurrentNavigation() {
-        return this.tabs[this.selected].file_navigation;
+        if(!this.getSelected()) return;
+        return this.getSelected().file_navigation;
     }
     getCurrentNavContent() {
         let nav = this.getCurrentNavigation();
         let s = this.getSelected();
-        if(!s.content.get) return;
+        if(!s || !s.content.get) return;
         let current = s.content.get(nav);
 
         if(!current) return;
@@ -144,7 +155,16 @@ class TabSystem {
         console.log(ext)
 
         if(ext  == "json") {
-            let j = Format.toJSON(current.content);
+            let j;  
+            console.log(current.content instanceof JSONTree);
+            
+            if(current.content instanceof JSONTree) {
+                j = Format.toJSON(current.content);
+            } else {
+                j = current.content;
+                current.content = new JSONTree("global").buildFromObject(j);
+                console.log(current.content)
+            }
             
             if(!current.is_invalid) FileSystem.Cache.save(current.file_path, j, PluginEnv.trigger("bridge:cacheFile", { 
                 file_path: current.file_path,
@@ -178,15 +198,41 @@ class TabSystem {
             return modified_data.content;
         }
     }
+    updateDependencies(file_path) {
+        FileSystem.Cache.get(file_path)
+            .then(cache => {
+                if(cache.update) {
+                    cache.update.forEach(file => {
+                        console.log("[UPDATE] Dependency " + file);
+                        FileSystem.Cache.get(file)
+                            .then(d_cache => {
+                                this.save({ ...d_cache, file_path: file });
+                            })
+                            // .catch(err => console.log("File \"" + file + "\" does not exist in cache. Cannot update."));
+                            .catch(err => console.error(err));
+                    });
+                }
+            })
+            .catch("No file dependencies detected!");
+    }
+    save(current) {
+        FileSystem.basicSave(current.file_path, this.getSaveContent(current));
+        this.updateDependencies(current.file_path);
+    }
     saveCurrent() {
         PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
         FileSystem.basicSave(current.file_path, this.getSaveContent(current));
-        this.setCurrentSaved(); 
+
+        this.updateDependencies(current.file_path);
+        this.setCurrentSaved();
     }
     saveCurrentAs() {
+        PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
         FileSystem.basicSaveAs(current.file_path, this.getSaveContent(current));
+        
+        this.updateDependencies(current.file_path);
         this.setCurrentSaved();
     }
 

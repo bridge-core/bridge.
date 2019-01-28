@@ -28,7 +28,7 @@ export default class Cache {
             } 
             cache[getFileId(file_path)] = Object.assign(cache[getFileId(file_path)] || {}, other);
 
-            this.saveCache(cache);
+            if(!file_path.includes(".editor-cache")) this.saveCache(cache);
             
             this.loaded_cache = this.project;
         });

@@ -5,7 +5,7 @@
 
       <app-toolbar></app-toolbar>
 
-      <v-content  :style="`padding-bottom: ${footer_visible ? 44 : 20}px;`">
+      <v-content :style="`padding-bottom: ${footer_visible ? 44 : 20}px;`">
         <v-container class="no-padding" fluid fill-height align>
           <v-layout row align-space-between all fill-height>
             <sidebar-main fill-height></sidebar-main>
@@ -123,7 +123,6 @@
   .v-content .v-content__wrap > .container {
     padding-left: 0;
     padding-top: 0;
-    padding-right: 0.5em;
   }
 </style>
 

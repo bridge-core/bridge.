@@ -29,6 +29,8 @@
     import TabSystem from '../../../scripts/TabSystem';
     import JSONTree from '../../../scripts/editor/JsonTree';
     import EventBus from '../../../scripts/EventBus';
+    import Provider from "../../../scripts/editor/autoCompletions";
+    const myProvider = new Provider();
 
     export default {
         name: "json-input",
@@ -65,21 +67,15 @@
                 }
 
                 this.watcher_active = true;
+            },
+            file_navigation(nav) {
+                if(this.type == "edit") return;
+                this.items = myProvider.get(nav);
             }
         },
         data() {
             return {
-                items: [
-                    // "minecraft:addrider",
-                    // "minecraft:attack",
-                    // "minecraft:ambient_sound_interval",
-                    // "minecraft:can_climb",
-                    // "minecraft:can_fly",
-                    // "minecraft:can_power_jump",
-                    // "minecraft:collision_box",
-                    // "minecraft:color",
-                    // "minecraft:color2"
-                ],
+                items: myProvider.get(this.file_navigation),
                 select: "",
                 value: "",
                 watcher_active: true

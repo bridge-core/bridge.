@@ -1,18 +1,18 @@
 <template>
     <v-layout :style="`overflow-x: ${is_mandatory ? 'scroll' : 'auto'}`" row wrap>
-          <v-flex xs12 sm6 class="py-2">
-            <v-btn-toggle v-model="selected_tab" :mandatory="is_mandatory">
-                <v-tooltip v-for="(file, i) in open_files" :key="`${selected_project}-${i}-${unsaved}`" :disabled="selected_tab != i || true" bottom>
-                    <span slot="activator">
-                        <v-btn flat :ripple="selected_tab != i">
-                            <span :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ file.file_name }}</span>
-                            <v-icon @click.stop="closeTab(i)" ripple small>close</v-icon>
-                        </v-btn>
-                    </span>
-                    <span>{{ file.file_path.replace(/\\/g, "/") }}</span>
-                </v-tooltip>
-            </v-btn-toggle>
-          </v-flex>
+            <v-tabs slider-color="success" v-model="selected_tab" :mandatory="is_mandatory" :show-arrows="false">
+                <v-tab 
+                    v-for="(file, i) in open_files"
+                    :key="`${selected_project}-${i}-${unsaved.join('')}`"
+                    bottom
+                    :ripple="selected_tab != i"
+                    :class="`tab ${selected_tab == i ? 'selected' : ''}`"
+                    color="red"
+                >
+                    <span :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ file.file_name }}</span>
+                    <v-btn @click.stop="closeTab(i)" flat icon small><v-icon small>close</v-icon></v-btn>
+                </v-tab>
+            </v-tabs>
     </v-layout>
 </template>
 
@@ -32,14 +32,12 @@ export default {
     created() {
         EventBus.on("updateTabUI", this.updateFiles);
         EventBus.on("updateSelectedTab", this.changeSelected);
-        EventBus.on("updateSelectedTabUI", (val) => {
-            this.unsaved = [];
-            this.open_files.forEach(f => this.unsaved.push(f.is_unsaved == undefined ? false : f.is_unsaved));
-        });
+        EventBus.on("updateSelectedTabUI", this.updateSavedUI);
     },
     destroyed() {
         EventBus.off("updateTabUI", this.updateFiles);
         EventBus.off("updateSelectedTab", this.changeSelected);
+        EventBus.off("updateSelectedTabUI", this.updateSavedUI);
     },
     computed: {
         selected_project() {
@@ -47,11 +45,15 @@ export default {
         },
         selected_tab: {
             set(val) {
+                this.internal_selected_tab = val;
                 TabSystem.select(val);
             },
             get() {
                 return this.internal_selected_tab;
             }
+        },
+        render_open_files() {
+            return TabSystem.filtered();
         },
 
         is_mandatory() {
@@ -67,8 +69,11 @@ export default {
         },
         updateFiles() {
             this.open_files = TabSystem.filtered();
-            this.unsaved = [];
-            this.open_files.forEach(f => this.unsaved.push(f.is_unsaved == undefined ? false : f.is_unsaved));
+
+            this.unsaved = this.open_files.map(f => f.is_unsaved == undefined ? false : f.is_unsaved);
+        },
+        updateSavedUI() {
+            this.unsaved = this.open_files.map(f => f.is_unsaved == undefined ? false : f.is_unsaved);
         }
     }
 }
@@ -79,10 +84,16 @@ export default {
         padding-bottom: 0 !important;
     }
 
-    button.v-btn {
-        border-bottom-left-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
+    .tab {
         text-transform: none;
+        opacity: 0.5;
+        
+    }
+    .tab:hover{
+        opacity: 1;
+    }
+    .tab.selected {
+        opacity: 1;
     }
     *::-webkit-scrollbar-track {
         border-bottom-left-radius: 2px;
@@ -93,12 +104,12 @@ export default {
         border-bottom-right-radius: 2px;
     }
 
-    .v-icon {
+    /* .v-icon {
         margin-left: 0.1em;
-        opacity: 0.2;
+        opacity: 0.4;
         transition: all ease-in-out 300ms;
     }
     .v-icon:hover {
         opacity: 1;
-    }
+    } */
 </style>

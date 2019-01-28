@@ -2,12 +2,16 @@
     <span>
         <div v-if="open" :style="element_style">
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
-                <details v-for="(e, i) in render_object.children" :key="`${uuid}.${object_key}/${i}.${Math.random()}`" :ref="`${object_key}/${e.key}`">
+                <details 
+                    v-for="(e, i) in render_object.children"
+                    :key="`${uuid}.${object_key}/${i}.${Math.random()}`"
+                    :ref="`${object_key}/${e.key.replace(/\//g, '#;slash;#')}`"
+                >
                     <object-key 
                         @click.native="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
                         :my_key="e.key"
                         :comment="e.comment"
-                        :object_key="`${object_key}/${e.key}`"
+                        :object_key="`${object_key}/${e.key.replace(/\//g, '#;slash;#')}`"
                     />
 
                     <json-editor-main 
@@ -16,7 +20,7 @@
                         :object="e"
                         :first="false"
                         :tab_id="tab_id"
-                        :object_key="`${object_key}/${e.key}`"
+                        :object_key="`${object_key}/${e.key.replace(/\//g, '#;slash;#')}`"
                     />
                 </details>
             </span>
@@ -133,7 +137,7 @@
 
             evaluated_key() {
                 if(typeof this.render_object.data != "string") return this.render_object.data;
-                return this.render_object.data.replace(/\//g, "&slash;");
+                return this.render_object.data.replace(/\//g, "#;slash;#");
             },
 
             key_selected_class() {
@@ -162,7 +166,7 @@
                 return TabSystem.getCurrentNavigation() == path + expand;
             },
             click(event, event_to_send, key) {
-                let path = `${this.object_key}/${key.replace(/\//g, "&slash;")}`;
+                let path = `${this.object_key}/${key.replace(/\//g, "#;slash;#")}`;
                 let details = this.$refs[path][0];
                 
                 if(details.open && !this.is_selected(path)) {
@@ -176,7 +180,7 @@
                 TabSystem.setCurrentFileNav(path);
             },
             keyClick() {
-                let path = `${this.object_key}/${this.render_object.data.replace(/\//g, "&slash;")}`;
+                let path = `${this.object_key}/${this.render_object.data.replace(/\//g, "#;slash;#")}`;
                 TabSystem.setCurrentFileNav(path);
             },
             onTab(ev) {

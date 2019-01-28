@@ -71,6 +71,9 @@ export default class Bridge {
                     cb(err, data);
                 });
             },
+            readFileSync(path) {
+                return fs.readFileSync(Runtime.Paths.project() + path);
+            },
             writeFile(path, data, cb, check=true) {
                 let folder = path.split(/\\|\//g);
                 folder.pop();

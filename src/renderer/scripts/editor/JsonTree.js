@@ -59,11 +59,11 @@ export default class JSONTree {
                if(i_arr.length == 0) return this; 
             } 
             key = i_arr.shift();
-            if(i_arr.length == 0 && this.data.replace(/\//g, "&slash;") == key) return this;
+            if(i_arr.length == 0 && this.data.replace(/\//g, "#;slash;#") == key) return this;
             
             
             for(let c of this.children) {
-                if(c.key.replace(/\//g, "&slash;") == key) {
+                if(c.key.replace(/\//g, "#;slash;#") == key) {
                     if(i_arr.length == 0) {
                         return c;
                     } else {
@@ -78,14 +78,13 @@ export default class JSONTree {
     }
     add(child) {
         for(let c of this.children) {
-            if(c.key == child.key) return this;
+            if(c.key == child.key) return c;
         }
         child.parent = this;
         if(!Number.isNaN(Number(child.key)) && this.children.length == 0) this.type = "array";
-        console.log(this.type);
         
         this.children.push(child);
-        return this;
+        return child;
     }
     find(child) {
         let i = 0;
@@ -98,15 +97,15 @@ export default class JSONTree {
         }
         return -1;
     }
-    remove() {
+    remove(key) {
         if(this.key == "global") return;
-        let c = this.parent.children;
-        for(let i = 0; i < c.length; i++) {
-            if(c[i].key == this.key) {
-                c.splice(i, 1);
-                return;
+            let c = key ? this.children : this.parent.children;
+            for(let i = 0; i < c.length; i++) {
+                if(c[i].key == (key || this.key)) {
+                    c.splice(i, 1);
+                    return;
+                }
             }
-        }
     }
     edit(new_data) {
         if(!new_data) throw new Error("Data may not be undefined or null.")
@@ -121,7 +120,7 @@ export default class JSONTree {
     }
     get path() {
         if(!this.parent) return "global";
-        return this.parent.path + "/" + this.key.replace(/\//g, "&slash;");
+        return this.parent.path + "/" + this.key.replace(/\//g, "#;slash;#");
     }
 
     moveUp() {
@@ -150,7 +149,7 @@ export default class JSONTree {
         
         if(typeof data == "object") {
             for(let key in data) {
-                if(typeof data[key] != "function") this.children.push(new JSONTree(key, undefined, this).buildFromObject(data[key], false));
+                if(typeof data[key] != "function") this.add(new JSONTree(key, undefined, this).buildFromObject(data[key], false));
             }
         } else if(typeof data != "function") {
             this.data = data;

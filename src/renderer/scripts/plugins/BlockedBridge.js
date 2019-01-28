@@ -23,6 +23,7 @@ export default class BlockedBridge {
         };
         this.FS = {
             readFile() {},
+            readFileSync() {},
             readDirectory() {},
             exists() {},
             stats() {}

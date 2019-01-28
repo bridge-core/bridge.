@@ -5,6 +5,7 @@ import BlockedBridge from "./BlockedBridge";
 import Bridge from "./Bridge";
 import { trigger, readonlyTrigger } from "./EventTriggers";
 import PluginAssert from "./PluginAssert";
+import cJSON from "comment-json";
 
 class Environment {
     constructor(file_path, depth=1000, is_module, blocked) {
@@ -25,7 +26,7 @@ class Environment {
                 dir: console.dir
             };
             this.JSON = {
-                parse: (obj) => saveEval(obj),
+                parse: (text) => cJSON.parse(text, undefined, true),
                 stringify: JSON.stringify
             };
         }

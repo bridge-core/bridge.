@@ -1,4 +1,16 @@
 {
+    "entity": {
+        "propose": [
+            {
+                "is": "format_version",
+                "propose": "$self.format_version"
+            },
+            {
+                "is": "minecraft:entity",
+                "propose": "$self.minecraft:entity"
+            }
+        ]
+    },
     "format_version": "number",
     "minecraft:entity": {
         "propose": [
