@@ -3,5 +3,9 @@
     "entity",
     "entity_components",
     "entity_behavior",
-    "entity_filters"
+    "entity_filters",
+    "loot_table",
+    "trade_table",
+    "spawn_rule",
+    "spawn_rule_components"
 ]

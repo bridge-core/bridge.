@@ -1,0 +1,42 @@
+{
+    "minecraft:spawns_on_surface": {},
+    "minecraft:spawns_underwater": {},
+
+    "minecraft:brightness_filter": {
+        "min": "$general.number",
+        "max": "$general.number",
+        "adjust_for_weather": "$general.boolean"
+    },
+    
+    "minecraft:difficulty_filter": {
+        "min": "$general.game_difficulty",
+        "max": "$general.game_difficulty"
+    },
+
+    "minecraft:weight": {
+        "default": "$general.number"
+    },
+
+    "minecraft:herd": {
+        "min_size": "$general.number",
+        "max_size": "$general.number",
+        "event_skip_count": "$general.number",
+        "event": {}
+    },
+    "minecraft:density_limit": {
+        "surface": "$general.number",
+        "underground": "$general.number"
+    },
+
+    "minecraft:biome_filter": {
+        "all_of": {
+            "$dynamic.next_list_index": "$spawn_rule_components.minecraft:biome_filter"
+        },
+        "any_of": {
+            "$dynamic.next_list_index": "$spawn_rule_components.minecraft:biome_filter"
+        },
+        "test": [ "has_biome_tag" ],
+        "operator": "$general.entity.filter_operators",
+        "value": "$general.biome_tag"
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "pools": {
+        "$dynamic.next_list_index": {
+            "conditions": {
+                "$dynamic.next_list_index": {
+                    "condition": "$general.loot_table.conditions"
+                }
+            },
+            "tiers": {
+                "initial_range": "$general.number",
+                "bonus_rolls": "$general.number",
+                "bonus_chance": "$general.decimal"
+            },
+            "rolls": "$general.number",
+            "entries": {
+                "$dynamic.next_list_index": {
+                    "type": [ "item", "loot_table" ],
+                    "name": "$general.item_identifier and $dynamic.loot_table_files",
+                    "weight": "$general.number",
+                    "functions": {
+                        "$dynamic.next_list_index": {
+                            "function": "$general.loot_table.functions"
+                        }
+                    },
+                    "pools": "$loot_table.pools"
+                }
+            }
+        }
+    }
+}

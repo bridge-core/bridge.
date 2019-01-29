@@ -3,6 +3,7 @@
     "decimal": [ "0.0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9" ],
     "degrees": [ "45", "90", "135", "180", "225", "270", "335", "360" ],
     "boolean": [ "true", "false" ],
+    "format_version": [ "1.8.0", "1.9.0" ],
     "entity": {
         "event_definition": {
             "event": "$dynamic.entity.events",
@@ -25,6 +26,14 @@
         ],
         "filter_targets": [ "other", "parent", "player", "self", "target" ],
         "filter_operators": [ "==", "!=", "<", "<=", "<>", "=", ">", ">=", "equals", "not" ]
+    },
+    "loot_table": {
+        "conditions": [
+            "random_difficulty_chance", "random_regional_difficulty_chance"
+        ],
+        "functions": [
+            "looting_enchant", "enchant_random_gear"
+        ]
     },
     "entity_identifier": [
         "minecraft:agent", "minecraft:area_effect_cloud", "minecraft:armor_stand", "minecraft:arrow", "minecraft:balloon", "minecraft:bat", "minecraft:blaze",
@@ -60,36 +69,24 @@
         "minecraft:grass"
     ],
     "gamerule": [
-        "alwaysday",
-        "commandblockoutput",
-        "commandblocksenabled",
-        "dodaylightcycle",
-        "doentitydrops",
-        "dofiretick",
-        "domobloot",
-        "domobspawning",
-        "dotiledrops",
-        "doweathercycle",
-        "drowningdamage",
-        "falldamage",
-        "firedamage",
-        "functioncommandlimit",
-        "keepinventory",
-        "maxcommandchainlength",
-        "mobgriefing",
-        "naturalregeneration",
-        "pvp",
-        "randomtickspeed",
-        "sendcommandfeedback",
-        "showcoordinates",
-        "showdeathmessages",
-        "tntexplodes"
+        "alwaysday", "commandblockoutput", "commandblocksenabled", "dodaylightcycle", "doentitydrops",
+        "dofiretick", "domobloot", "domobspawning", "dotiledrops", "doweathercycle",
+        "drowningdamage", "falldamage", "firedamage", "functioncommandlimit", "keepinventory",
+        "maxcommandchainlength", "mobgriefing", "naturalregeneration", "pvp", "randomtickspeed",
+        "sendcommandfeedback", "showcoordinates", "showdeathmessages", "tntexplodes"
     ],
     "game_difficulty": [
         "easy",
         "hard",
         "normal",
         "peaceful"
+    ],
+    "biome_tag": [
+        "monster", "animal", "ocean", "nether", "the_end", "mooshroom_island", "plains", "desert",
+        "jungle", "taiga", "extreme_hills", "savanna", "frozen", "cold", "lukewarm", "warm",
+        "river", "swamp", "beach", "flower_forest", "forest", "birch", "dark_oak", "hills",
+        "mutated", "edge", "lakes", "plateau", "deep", "mesa", "ice_plains", "ice",
+        "mountain", "shore", "stone", "roofed", "mega"
     ],
     "sound": []
 }

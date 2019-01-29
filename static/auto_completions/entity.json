@@ -1,5 +1,5 @@
 {
-    "format_version": "$general.number",
+    "format_version": "$general.format_version",
     "minecraft:entity": {
         "description": {
             "identifier": "$general.entity_identifier",

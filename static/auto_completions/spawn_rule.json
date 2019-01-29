@@ -1,0 +1,12 @@
+{
+    "format_version": "$general.format_version",
+    "minecraft:spawn_rules": {
+        "description": {
+            "identifier": "$general.entity_identifier",
+            "population_control": [ "animal", "water_animal", "monster" ]
+        },
+        "conditions": {
+            "$dynamic.next_list_index": "$spawn_rule_components"
+        }
+    }
+}
