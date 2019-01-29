@@ -4,7 +4,15 @@
             <v-img class="image" :src="image" :style="`max-height: ${available_height}px;`"/>
         </v-container>
         <json-error-screen v-else-if="extension == 'json' && json_object == 'error'"/>
-        <json-editor-main v-else-if="extension == 'json'" :compiled="file.is_compiled" :tab_id="tab_id" :object="json_object" :available_height="available_height - 60" :uuid="use_uuid"/>
+        <json-editor-main
+            v-else-if="extension == 'json'"
+            :compiled="file.is_compiled"
+            :tab_id="tab_id"
+            :object="json_object"
+            :available_height="available_height - 60"
+            :uuid="use_uuid"
+            :current_file_path="file.file_path"
+        />
         <codemirror
             v-else
             v-model="text"

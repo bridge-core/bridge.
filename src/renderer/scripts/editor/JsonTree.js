@@ -8,8 +8,8 @@ function getType(data) {
 
 export default class JSONTree {
     constructor(key="", data="", parent, children=[], open=false) {
-        this.key = key;
-        this.data = data;
+        this.key = key + "";
+        this.data = data + "";
         this.children = children;
         this.open = open;
         this.type = "object";
@@ -143,16 +143,17 @@ export default class JSONTree {
     }
 
     buildFromObject(data, first=true) {
+        if(data instanceof JSONTree) return data;
         this.type = getType(data);
 
         if(first) this.open = true;
         
         if(typeof data == "object") {
             for(let key in data) {
-                if(typeof data[key] != "function") this.add(new JSONTree(key, undefined, this).buildFromObject(data[key], false));
+                if(typeof data[key] != "function" && key != "__ob__") this.add(new JSONTree(key, undefined, this).buildFromObject(data[key], false));
             }
         } else if(typeof data != "function") {
-            this.data = data;
+            this.data = data + "";
         }
 
         return this;

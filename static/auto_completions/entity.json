@@ -1,111 +1,38 @@
 {
-    "entity": {
-        "propose": [
-            {
-                "is": "format_version",
-                "propose": "$self.format_version"
-            },
-            {
-                "is": "minecraft:entity",
-                "propose": "$self.minecraft:entity"
-            }
-        ]
-    },
-    "format_version": "number",
+    "format_version": "$general.number",
     "minecraft:entity": {
-        "propose": [
-            "$self.description",
-            "$self.components",
-            "$self.component_groups",
-            "$self.events"
-        ]
-    },
-    "description": {
-        "propose": [
-            {
-                "is": "identifier",
-                "propose": "$root.entity_identifiers"
-            },
-            {
-                "is": "runtime_identifier",
-                "propose": "$root.entity_identifiers"
-            }
-        ]
-    },
-    "component_groups": {
-        "propose": [
-            {
-                "if": "$file.sibling_value(has_equipment)",
-                "is": "",
-                "propose": "$root.components"
-            }
-        ]
-    },
-    "components": {
-        "propose": "$root.components"
-    },
-    "events": {
-        "propose": [
-            {
-                "is": "",
-                "propose": "$self.single_event"
-            }
-        ]
-    },
-    "single_event": {
-        "propose": [
-            {
-                "is": "add",
-                "propose": [
-                    {
-                        "is": "component_groups",
-                        "propose": [
-                            {
-                                "is": "$file.next_index",
-                                "propose": "$file.component_groups"
-                            }
-                        ]
+        "description": {
+            "identifier": "$general.entity_identifier",
+            "runtime_identifier": "$general.entity_identifier",
+            "is_spawnable": "$general.boolean",
+            "is_summonable": "$general.boolean",
+            "is_experimental": "$general.boolean"
+        },
+        "component_groups": {
+            "$placeholder": "$entity_components and $entity_behavior"
+        },
+        "components": "$entity_components and $entity_behavior",
+        "events": {
+            "$placeholder": {
+                "sequence": {
+                    "$dynamic.next_list_index": {
+                        "filters": "$entity_filters",
+                        "$load": "$entity.minecraft:entity.events.$placeholder"
                     }
-                ]
-            },
-            {
-                "is": "remove",
-                "propose": [
-                    {
-                        "is": "component_groups",
-                        "propose": [
-                            {
-                                "is": "$file.next_index",
-                                "propose": "$file.component_groups"
-                            }
-                        ]
+                },
+                "randomize": {
+                    "$dynamic.next_list_index": {
+                        "weight": "$general.number",
+                        "$load": "$entity.minecraft:entity.events.$placeholder"
                     }
-                ]
-            },
-            {
-                "is": "sequence",
-                "propose": [
-                    {
-                        "is": "$file.next_index",
-                        "propose": [
-                            "$root.filters",
-                            "$self.single_event"
-                        ]
+                },
+                "add": {
+                    "component_groups": {
+                        "$dynamic.next_list_index": "$dynamic.entity.component_groups"
                     }
-                ]
-            },
-            {
-                "is": "randomize",
-                "propose": [
-                    {
-                        "is": "$file.next_index",
-                        "propose": [
-                            "weight",
-                            "$self.single_event"
-                        ]
-                    }
-                ]
+                },
+                "remove": "$entity.minecraft:entity.events.$placeholder.add"
             }
-        ]
+        }
     }
 }

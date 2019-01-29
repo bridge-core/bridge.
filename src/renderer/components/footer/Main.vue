@@ -1,8 +1,7 @@
 <template>
-<span class="footer-container">
-    <footer-element v-for="(el, i) in footer_elements" :element="el" :key="`footer-element-${i}`"/>
-</span>
-    
+    <span class="footer-container">
+        <footer-element v-for="(el, i) in footer_elements" :element="el" :key="`footer-element-${i}`"/>
+    </span>
 </template>
 
 <script>
@@ -28,7 +27,7 @@ export default {
     .footer-container {
         padding: 2px 12px 0 12px;
         margin: 0 4px;
-        overflow-x: scroll;
+        overflow-x: auto;
         overflow-y: hidden;
         height: 100%;
         white-space: nowrap;

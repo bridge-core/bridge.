@@ -5,13 +5,13 @@
                 <details 
                     v-for="(e, i) in render_object.children"
                     :key="`${uuid}.${object_key}/${i}.${Math.random()}`"
-                    :ref="`${object_key}/${e.key.replace(/\//g, '#;slash;#')}`"
+                    :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                 >
                     <object-key 
                         @click.native="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
                         :my_key="e.key"
                         :comment="e.comment"
-                        :object_key="`${object_key}/${e.key.replace(/\//g, '#;slash;#')}`"
+                        :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                     />
 
                     <json-editor-main 
@@ -20,7 +20,7 @@
                         :object="e"
                         :first="false"
                         :tab_id="tab_id"
-                        :object_key="`${object_key}/${e.key.replace(/\//g, '#;slash;#')}`"
+                        :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                     />
                 </details>
             </span>
@@ -43,6 +43,7 @@
                 :type="e"
                 :key="`${e}`"
                 :file_navigation="file_navigation"
+                :current_file_path="current_file_path"
                 @keydown.tab.native="onTab"
             />
         </v-layout>
@@ -66,6 +67,7 @@
         },
         props: {
             available_height: Number,
+            current_file_path: String,
             object: [String, Object, Number, Boolean, Array],
             glob_object: [String, Object, Number, Boolean, Array],
             compiled: {
@@ -137,7 +139,7 @@
 
             evaluated_key() {
                 if(typeof this.render_object.data != "string") return this.render_object.data;
-                return this.render_object.data.replace(/\//g, "#;slash;#");
+                return (this.render_object.data + "").replace(/\//g, "#;slash;#");
             },
 
             key_selected_class() {
@@ -180,7 +182,7 @@
                 TabSystem.setCurrentFileNav(path);
             },
             keyClick() {
-                let path = `${this.object_key}/${this.render_object.data.replace(/\//g, "#;slash;#")}`;
+                let path = `${this.object_key}/${(this.render_object.data + "").replace(/\//g, "#;slash;#")}`;
                 TabSystem.setCurrentFileNav(path);
             },
             onTab(ev) {

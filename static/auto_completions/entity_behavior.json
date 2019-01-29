@@ -1,0 +1,75 @@
+{
+    "minecraft:behavior.float": {
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.float_wander": {
+        "priority": "$general.number",
+        "float_duration": {
+            "$dynamic.next_list_index": "$general.number"
+        },
+        "random_reselect": "$general.boolean",
+        "must_reach": "$general.boolean",
+        "xz_dist": "$general.number",
+        "y_dist": "$general.number",
+        "y_offset": "$general.number"
+    },
+    "minecraft:behavior.hurt_by_target": {
+        "priority": "$general.number",
+        "alert_same_type": "$general.boolean",
+        "entity_types": "$general.entity.entity_types",
+        "hurt_owner": "$general.boolean"
+    },
+    "minecraft:behavior.nearest_attackable_target": {
+        "priority": "$general.number",
+        "attack_interval": "$general.number",
+        "entity_types": "$general.entity.entity_types",
+        "must_reach": "$general.boolean",
+        "must_see": "$general.boolean",
+        "must_see_forget_duration": "$general.number",
+        "persist_time": "$general.decimal",
+        "reselect_targets": "$general.boolean",
+        "scan_interval": "$general.number",
+        "target_search_height": "$general.decimal",
+        "within_radius": "$general.decimal"
+    },
+    "minecraft:behavior.melee_attack": {
+        "priority": "$general.number",
+        "attack_once": "$general.boolean",
+        "max_dist": "$general.number",
+        "melee_fov": "$general.degrees",
+        "random_stop_interval": "$general.decimal",
+        "reach_multiplier": "$general.decimal",
+        "require_complete_path": "$general.boolean",
+        "speed_multiplier": "$general.decimal",
+        "track_target": "$general.boolean"
+    },
+    "minecraft:behavior.move_towards_restriction": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.random_look_around": {
+        "priority": "$general.number",
+        "look_time": {
+            "$dynamic.next_list_index": "$general.number"
+        }
+    },
+    "minecraft:behavior.random_stroll": {
+        "priority": "$general.number",
+        "interval": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "xz_dist": "$general.number",
+        "y_dist": "$general.number"
+    },
+    "minecraft:behavior.ranged_attack": {
+        "priority": "$general.number",
+        "attack_interval_max": "$general.number",
+        "attack_interval_min": "$general.number",
+        "attack_radius": "$general.number",
+        "burst_interval": "$general.decimal",
+        "burst_shots": "$general.number",
+        "charge_charged_trigger": "$general.decimal",
+        "charge_shoot_trigger": "$general.decimal",
+        "ranged_fov": "$general.degrees",
+        "speed_multiplier": "$general.decimal"
+    }
+}

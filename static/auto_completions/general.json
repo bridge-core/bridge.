@@ -1,0 +1,95 @@
+{
+    "number": [ "0", "1", "2", "3", "4", "5" ],
+    "decimal": [ "0.0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9" ],
+    "degrees": [ "45", "90", "135", "180", "225", "270", "335", "360" ],
+    "boolean": [ "true", "false" ],
+    "entity": {
+        "event_definition": {
+            "event": "$dynamic.entity.events",
+            "target": "$general.entity.filter_targets"
+        },
+        "entity_types": {
+            "filters": "$entity_filters",
+            "max_dist": "$general.number",
+            "must_see": "$general.boolean",
+            "sprint_speed_multiplier": "$general.decimal",
+            "walk_speed_multiplier": "$general.decimal"
+        },
+        "family": {},
+        "filters": [ 
+            "clock_time", "has_ability", "has_biome_tag", "has_component", "has_damage", "has_equipment", "has_tag", "in_caravan",
+            "in_clouds", "in_lava", "in_water", "in_water_or_rain", "is_altitude", "is_biome", "is_brightness", "is_climbing",
+            "is_color", "is_daytime", "is_difficulty", "is_family", "is_game_rule", "is_humid", "is_immobile", "is_moving",
+            "is_owner", "is_riding", "is_sneaking", "is_snow_covered", "is_target", "is_temperature_type", "is_temperature_value", "is_underground",
+            "is_underwater", "is_variant", "moon_intensity", "moon_phase", "on_ground", "on_ladder"
+        ],
+        "filter_targets": [ "other", "parent", "player", "self", "target" ],
+        "filter_operators": [ "==", "!=", "<", "<=", "<>", "=", ">", ">=", "equals", "not" ]
+    },
+    "entity_identifier": [
+        "minecraft:agent", "minecraft:area_effect_cloud", "minecraft:armor_stand", "minecraft:arrow", "minecraft:balloon", "minecraft:bat", "minecraft:blaze",
+        "minecraft:boat", "minecraft:cat", "minecraft:cave_spider", "minecraft:chalkboard", "minecraft:chest_minecart", "minecraft:chicken", "minecraft:cod", "minecraft:command_block_minecart",
+        "minecraft:cow", "minecraft:creeper", "minecraft:dolphin", "minecraft:donkey", "minecraft:dragon_fireball", "minecraft:drowned", "minecraft:egg",
+        "minecraft:elder_guardian", "minecraft:ender_crystal", "minecraft:ender_dragon", "minecraft:ender_pearl", "minecraft:enderman", "minecraft:endermite", "minecraft:evocation_fang",
+        "minecraft:evocation_illager", "minecraft:eye_of_ender_signal", "minecraft:falling_block", "minecraft:fireball", "minecraft:fireworks_rocket", "minecraft:fishing_hook", "minecraft:ghast",
+        "minecraft:guardian", "minecraft:hopper_minecart", "minecraft:horse", "minecraft:husk", "minecraft:ice_bomb", "minecraft:iron_golem", "minecraft:item",
+        "minecraft:leash_knot", "minecraft:lightning_bolt", "minecraft:lingering_potion", "minecraft:llama", "minecraft:llama_spit", "minecraft:magma_cube", "minecraft:minecart",
+        "minecraft:mooshroom", "minecraft:moving_block", "minecraft:mule", "minecraft:npc", "minecraft:ocelot", "minecraft:painting", "minecraft:panda",
+        "minecraft:parrot", "minecraft:phantom", "minecraft:pig", "minecraft:pillager", "minecraft:player", "minecraft:polar_bear", "minecraft:pufferfish",
+        "minecraft:rabbit", "minecraft:salmon", "minecraft:sheep", "minecraft:shulker", "minecraft:shulker_bullet", "minecraft:silverfish", "minecraft:skeleton",
+        "minecraft:skeleton_horse", "minecraft:slime", "minecraft:small_fireball", "minecraft:snow_golem", "minecraft:snowball", "minecraft:spider", "minecraft:splash_potion",
+        "minecraft:squid", "minecraft:stray", "minecraft:thrown_trident", "minecraft:tnt", "minecraft:tnt_minecart", "minecraft:tripod_camera", "minecraft:tropicalfish",
+        "minecraft:turtle", "minecraft:vex", "minecraft:villager", "minecraft:vindicator", "minecraft:witch", "minecraft:wither", "minecraft:wither_skeleton", "minecraft:wither_skull",
+        "minecraft:wither_skull_dangerous", "minecraft:wolf", "minecraft:xp_bottle", "minecraft:xp_orb", "minecraft:zombie", "minecraft:zombie_horse", "minecraft:zombie_pigman",
+        "minecraft:zombie_villager"
+    ],
+    "effect_name": [
+        "absorption", "blindness", "conduit_power", "fatal_poison", "fire_resistance",
+        "haste", "health_boost", "hunger", "instant_damage", "instant_health",
+        "invisibility", "jump_boost", "levitation", "mining_fatigue", "nausea",
+        "night_vision", "poison", "regeneration", "resistance", "saturation",
+        "slow_falling", "slowness", "speed", "strength", "water_breathing",
+        "weakness", "wither"
+    ],
+    "item_identifier": [
+        "minecraft:apple",
+        "minecraft:diamond_sword"
+    ],
+    "block_identifier": [
+        "minecraft:dirt",
+        "minecraft:grass"
+    ],
+    "gamerule": [
+        "alwaysday",
+        "commandblockoutput",
+        "commandblocksenabled",
+        "dodaylightcycle",
+        "doentitydrops",
+        "dofiretick",
+        "domobloot",
+        "domobspawning",
+        "dotiledrops",
+        "doweathercycle",
+        "drowningdamage",
+        "falldamage",
+        "firedamage",
+        "functioncommandlimit",
+        "keepinventory",
+        "maxcommandchainlength",
+        "mobgriefing",
+        "naturalregeneration",
+        "pvp",
+        "randomtickspeed",
+        "sendcommandfeedback",
+        "showcoordinates",
+        "showdeathmessages",
+        "tntexplodes"
+    ],
+    "game_difficulty": [
+        "easy",
+        "hard",
+        "normal",
+        "peaceful"
+    ],
+    "sound": []
+}

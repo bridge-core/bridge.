@@ -91,7 +91,7 @@ export default class Cache {
                 } else {
                     fs.readFile(p + "/.editor-cache", (err, data) => {
                         if(err) throw err;
-                        let c = JSON.parse(data);
+                        let c = data == "" ? {} : JSON.parse(data);
                         this.cached_cache = c;
                         this.loaded_cache = this.project;
 

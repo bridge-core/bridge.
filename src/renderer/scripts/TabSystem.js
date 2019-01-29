@@ -5,6 +5,8 @@ import FileSystem from "./FileSystem";
 import PluginEnv from "./plugins/PluginEnv";
 import JSONTree from "./editor/JsonTree";
 import { BASE_PATH } from "./constants";
+import PluginAssert from "./plugins/PluginAssert";
+
 class TabSystem {
     constructor() {
         this.tabs = [];
@@ -198,7 +200,8 @@ class TabSystem {
             return modified_data.content;
         }
     }
-    updateDependencies(file_path) {
+    updateDependencies(file_path, cap=100) {
+        if(cap <= 0) return PluginAssert.throw("Dependency Update Failed", new Error("Reached maximum update depth. Make sure you haven't created a dependency loop!"));
         FileSystem.Cache.get(file_path)
             .then(cache => {
                 if(cache.update) {
@@ -215,9 +218,9 @@ class TabSystem {
             })
             .catch("No file dependencies detected!");
     }
-    save(current) {
+    save(current, cap) {
         FileSystem.basicSave(current.file_path, this.getSaveContent(current));
-        this.updateDependencies(current.file_path);
+        this.updateDependencies(current.file_path, cap - 1);
     }
     saveCurrent() {
         PluginEnv.trigger("bridge:startedSaving", null);

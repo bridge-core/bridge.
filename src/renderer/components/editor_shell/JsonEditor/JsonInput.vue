@@ -30,7 +30,7 @@
     import JSONTree from '../../../scripts/editor/JsonTree';
     import EventBus from '../../../scripts/EventBus';
     import Provider from "../../../scripts/editor/autoCompletions";
-    const myProvider = new Provider();
+    let myProvider; 
 
     export default {
         name: "json-input",
@@ -38,7 +38,14 @@
             type: String,
             tab_id: Number,
             render_object: Object,
-            file_navigation: String
+            file_navigation: String,
+            current_file_path: String
+        },
+        created() {
+            if(this.type != "edit") {
+                myProvider = new Provider(this.current_file_path);
+                this.updateAutoCompletions();
+            } 
         },
         mounted() {
             if(this.type == "edit") {
@@ -70,12 +77,12 @@
             },
             file_navigation(nav) {
                 if(this.type == "edit") return;
-                this.items = myProvider.get(nav);
+                this.updateAutoCompletions();
             }
         },
         data() {
             return {
-                items: myProvider.get(this.file_navigation),
+                items: [],
                 select: "",
                 value: "",
                 watcher_active: true
@@ -98,12 +105,12 @@
                 let current = this.render_object.get(this.file_navigation);
                 
                 if(this.type == "object") {
-                    current.add(new JSONTree(this.value).openNode()).openNode();
+                    current.add(new JSONTree(this.value + "").openNode()).openNode();
                     current.type = "object";
                     EventBus.trigger("setWatcherInactive");
                     this.expandPath(this.value);
                 } else if(this.file_navigation != "global") {
-                    current.data += this.value;
+                    current.data += this.value + "";
                     current.type = typeof this.value;
                     TabSystem.navigationBack();
                 }
@@ -113,6 +120,29 @@
                 this.$nextTick(() => {
                     this.value = "";
                 });
+            },
+
+            updateAutoCompletions() {
+                let context = [];
+                if(this.type == "object")
+                    context = Object.keys(this.render_object.get(this.file_navigation).toJSON());
+                if(this.type == "value")
+                    context = this.render_object.get(this.file_navigation).data;
+                let propose = myProvider.get(this.file_navigation)[this.type];
+                if(propose == undefined || propose.length == 0 || (typeof context == "string" && context != ""))
+                    return this.items = [];
+
+                this.items = propose.filter(e => !context.includes(e));
+
+                // CURRENTLY MAKES IT IMPOSSIBLE TO SELECT A NODE WHICH IS CONSIDERED "FILLED"
+                // if(this.items.length == 0) {
+                //     let nav = this.file_navigation.split("/");
+                //     nav.pop();
+                //     TabSystem.setCurrentFileNav(nav.join("/"));
+                // }
+
+                if(this.items && this.items.length > 0 && this.$refs.input)
+                    this.$refs.input.focus();
             },
 
             expandPath(path) {

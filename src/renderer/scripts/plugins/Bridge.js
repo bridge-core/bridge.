@@ -6,6 +6,7 @@ import { trigger, overwriteTrigger } from "./EventTriggers";
 import PluginAssert from "./PluginAssert";
 import TabSystem from "../TabSystem";
 import FileSystem from "../FileSystem";
+import { BASE_PATH } from "../constants";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -220,6 +221,9 @@ export default class Bridge {
         };
 
         this.Utils = {
+            get base_path() {
+                return BASE_PATH + Store.state.Explorer.project + "/";
+            },
             get current_project() {
                 return Store.state.Explorer.project;
             },

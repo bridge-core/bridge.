@@ -74,11 +74,13 @@ const state = {
             },
             {
                 title: "Move Up",
+                subtitle: "(Node)",
                 shortcut: "Ctrl + W",
                 action: () => TabSystem.moveCurrentUp()
             },
             {
                 title: "Move Down",
+                subtitle: "(Node)",
                 shortcut: "Ctrl + D",
                 action: () => TabSystem.moveCurrentDown()
             },
