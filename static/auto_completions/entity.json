@@ -1,6 +1,7 @@
 {
-    "format_version": "$general.format_version",
     "minecraft:entity": {
+        "format_version": "$general.format_version",
+        "do_not_upgrade": {},
         "description": {
             "identifier": "$general.entity_identifier",
             "runtime_identifier": "$general.entity_identifier",
@@ -9,9 +10,9 @@
             "is_experimental": "$general.boolean"
         },
         "component_groups": {
-            "$placeholder": "$entity_components and $entity_behavior"
+            "$placeholder": "$entity_components and $entity_behavior and $entity_annotations"
         },
-        "components": "$entity_components and $entity_behavior",
+        "components": "$entity_components and $entity_behavior and $entity_annotations",
         "events": {
             "$placeholder": {
                 "sequence": {

@@ -4,7 +4,7 @@
     "degree": [ "45", "90", "135", "180", "225", "270", "335", "360" ],
     "boolean": [ "true", "false" ],
     "number_boolean": [ "0", "1" ],
-    "format_version": [ "1.8.0", "1.9.0" ],
+    "format_version": [ "1.8.0", "1.9.0", "1.10.0" ],
     "entity": {
         "built_in_event": [
             "minecraft:entity_born",

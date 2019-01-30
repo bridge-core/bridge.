@@ -2,6 +2,7 @@
     "general",
     "entity",
     "entity_components",
+    "entity_annotations",
     "entity_behavior",
     "entity_filters",
     "loot_table",

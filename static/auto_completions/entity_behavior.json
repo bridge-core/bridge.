@@ -31,6 +31,12 @@
     "minecraft:behavior.charge_attack": {
         "priority": "$general.number"
     },
+    "minecraft:behavior.charge_held_item": {
+        "priority": "$general.number",
+        "items": {
+            "$dynamic.list.next_index": "$general.item_identifier"
+        }
+    },
     "minecraft:behavior.circle_around_anchor": {
         "priority": "$general.number",
         "radius_range": {
@@ -89,6 +95,12 @@
     },
     "minecraft:behavior.enderman_leave_block": {  "priority": "$general.number" },
     "minecraft:behavior.enderman_take_block": {  "priority": "$general.number" },
+    "minecraft:behavior.explore_outskirts": {
+        "priority": "$general.number",
+        "explore_dist": "$general.number",
+        "wait_time": "$general.number",
+        "speed_multiplier": "$general.decimal"
+    },
 
     "minecraft:behavior.find_mount": {
         "priority": "$general.number",
@@ -164,6 +176,14 @@
         "entity_types": "$general.entity.entity_types",
         "hurt_owner": "$general.boolean"
     },
+    "minecraft:behavior.inspect_bookshelf": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "search_range": "$general.number",
+        "search_height": "$general.number",
+        "goal_radius": "$general.decimal",
+        "search_count": "$general.number"
+    },
     "minecraft:behavior.lay_egg": {
       "priority": "$general.number",
       "speed_multiplier": "$general.decimal",
@@ -209,6 +229,12 @@
         "require_complete_path": "$general.boolean",
         "speed_multiplier": "$general.decimal",
         "track_target": "$general.boolean"
+    },
+    "minecraft:behavior.mingle": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "duration": "$general.number",
+        "cooldown_time": "$general.number"
     },
     "minecraft:behavior.mount_pathing": {
         "priority": "$general.number",
@@ -428,6 +454,14 @@
     },
     "minecraft:behavior.silverfish_wake_up_friends": { "priority": "$general.number" },
     "minecraft:behavior.silverfish_merge_with_stone": { "priority": "$general.number" },
+    "minecraft:behavior.sleep": {
+        "priority": "$general.number",
+        "goal_radius": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "sleep_collider_height": "$general.decimal",
+        "sleep_collider_width": "$general.decimal",
+        "sleep_y_offset": "$general.decimal"
+    },
     "minecraft:behavior.slime_float": { "priority": "$general.number" },
     "minecraft:behavior.slime_attack": { "priority": "$general.number" },
     "minecraft:behavior.slime_random_direction": { "priority": "$general.number" },
@@ -543,6 +577,14 @@
         "speed_multiplier": "$general.decimal",
         "within_radius": "$general.number"
     },
+    "minecraft:behavior.trade_interest": {
+        "priority": "$general.number",
+        "within_radius": "$general.number",
+        "interest_time": "$general.number",
+        "remove_item_time": "$general.number",
+        "carried_item_switch_time": "$general.number",
+        "cooldown": "$general.number"
+    },
     "minecraft:behavior.trade_with_player": {
         "priority": "$general.number"
     },
@@ -557,6 +599,15 @@
         "priority": "$general.number"
     },
     "minecraft:behavior.wither_target_highest_damage": {
-        "priority": "$general.number"
+        "priority": "$general.number",
+        "entity_types": "$general.entity.entity_types"
+    },
+    "minecraft:behavior.work": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "goal_cooldown": "$general.number",
+        "sound_delay_min": "$general.number",
+        "sound_delay_max": "$general.number",
+        "active_time": "$general.number"
     }
 }

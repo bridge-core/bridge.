@@ -129,6 +129,10 @@
     "minecraft:default_look_angle": {
         "value": "$general.decimal"
     },
+    "minecraft:despawn": {
+        "remove_child_entities": "$general.boolean",
+        "filters": "$entity_filters"
+    },
     "minecraft:environment_sensor": {
         "$dynamic.list.next_index": {
             "on_environment": "$general.entity.event_definition"
@@ -224,6 +228,7 @@
             "$dynamic.list.next_index": {
                 "item": "$general.item_identifier",
                 "heal_amount": "$general.number",
+                "filters": "$entity_filters",
                 "effects": {
                     "$dynamic.list.next_index": {
                         "name": "$general.effect_name",
@@ -314,7 +319,8 @@
         "hard_distance": "$general.decimal",
         "max_distance": "$general.decimal",
         "on_leash": "$general.entity.event_definition",
-        "on_unleash": "$general.entity.event_definition"
+        "on_unleash": "$general.entity.event_definition",
+        "can_be_stolen": "$general.boolean"
     },
     "minecraft:lookat": {
         "searchRadius": "$general.number",
@@ -328,6 +334,7 @@
         "table": "$dynamic.loot_table_files"
     },
 
+    "minecraft:managed_wandering_trader": {},
     "minecraft:mark_variant": {
         "value": "$general.number"
     },
@@ -425,6 +432,19 @@
 
     "minecraft:push_through": {
         "value": "$general.decimal"
+    },
+    "minecraft:preferred_path" : {
+        "max_fall_blocks" : "$general.number",
+        "jump_cost" : "$general.number",
+        "default_block_cost" : "$general.number",
+        "preferred_path_blocks": {
+            "$dynamic.list.next_index": {
+                "cost" : "$general.number",
+                "blocks" : {
+                    "$dynamic.list.next_index": "$general.block_identifier"
+                }
+            }
+        }
     },
     "minecraft:projectile": {
         "onHit": {
@@ -562,6 +582,11 @@
         "start_scale": "$general.decimal",
         "end_scale": "$general.decimal"
     },
+    "minecraft:scheduler": {
+        "$dynamic.list.next_index": {
+            "scheduled_event": "$general.entity.event_definition"
+        }
+    },
     "minecraft:shareables": {
         "items": {
             "$dynamic.list.next_index": {
@@ -577,18 +602,27 @@
         "def": "$general.entity_identifier",
         "auxVal": "$general.potion_number_id"
     },
-    "minecraft:sittable": {},
+    "minecraft:sittable": {
+        "sit_event": "$general.entity.event_definition",
+        "stand_event": "$general.entity.event_definition"
+    },
     "minecraft:sound_volume": {
         "value": "$general.decimal"
     },
     "minecraft:spawn_entity": {
-        "min_wait_time": "$general.number",
-        "max_wait_time": "$general.number",
-        "spawn_entity": "$general.entity_identifier",
-        "spawn_event": "$dynamic.entity.events",
-        "spawn_item": "$general.item_identifier",
-        "spawn_method": [ "born" ],
-        "spawn_sound": "$general.sound"
+        "$dynamic.list.next_index": {
+            "should_leash": "$general.boolean",
+            "num_to_spawn": "$general.number",
+            "min_wait_time": "$general.number",
+            "max_wait_time": "$general.number",
+            "spawn_entity": "$general.entity_identifier",
+            "spawn_event": "$dynamic.entity.events",
+            "spawn_item": "$general.item_identifier",
+            "spawn_method": [ "born" ],
+            "spawn_sound": "$general.sound",
+            "filters": "$entity_filters",
+            "single_use": "$general.boolean"
+        }
     },
     "minecraft:spell_effects": {
         "add_effects": {
@@ -657,6 +691,12 @@
         "randomInterval": "$general.boolean",
         "time": {
             "$dynamic.list.index_pair": "$general.decimal"
+        },
+        "random_time_choices": {
+            "$dynamic.list.index_pair": {
+                "weight": "$general.number",
+                "value": "$general.number"
+            }
         },
         "time_down_event": "$general.entity.event_definition"
     },
