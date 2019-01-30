@@ -32,7 +32,11 @@
                     }
                 },
                 "remove": "$entity.minecraft:entity.events.$placeholder.add"
-            }
+            },
+            "minecraft:entity_born": "$entity.minecraft:entity.events.$placeholder",
+            "minecraft:entity_spawned": "$entity.minecraft:entity.events.$placeholder",
+            "minecraft:entity_transformed": "$entity.minecraft:entity.events.$placeholder",
+            "minecraft:on_prime": "$entity.minecraft:entity.events.$placeholder"
         }
     }
 }

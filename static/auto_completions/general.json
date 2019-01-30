@@ -6,6 +6,12 @@
     "number_boolean": [ "0", "1" ],
     "format_version": [ "1.8.0", "1.9.0" ],
     "entity": {
+        "built_in_event": [
+            "minecraft:entity_born",
+            "minecraft:entity_spawned",
+            "minecraft:entity_transformed",
+            "minecraft:on_prime"
+        ],
         "effect_definition": {
             "effect": "$general.effect_name",
             "duration": "$general.number",
