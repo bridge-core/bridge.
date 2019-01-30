@@ -1,8 +1,8 @@
 {
     "pools": {
-        "$dynamic.next_list_index": {
+        "$dynamic.list.next_index": {
             "conditions": {
-                "$dynamic.next_list_index": {
+                "$dynamic.list.next_index": {
                     "condition": "$general.loot_table.conditions"
                 }
             },
@@ -13,12 +13,12 @@
             },
             "rolls": "$general.number",
             "entries": {
-                "$dynamic.next_list_index": {
+                "$dynamic.list.next_index": {
                     "type": [ "item", "loot_table" ],
                     "name": "$general.item_identifier and $dynamic.loot_table_files",
                     "weight": "$general.number",
                     "functions": {
-                        "$dynamic.next_list_index": {
+                        "$dynamic.list.next_index": {
                             "function": "$general.loot_table.functions"
                         }
                     },

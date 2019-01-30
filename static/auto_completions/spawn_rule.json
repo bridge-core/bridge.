@@ -6,7 +6,7 @@
             "population_control": [ "animal", "water_animal", "monster" ]
         },
         "conditions": {
-            "$dynamic.next_list_index": "$spawn_rule_components"
+            "$dynamic.list.next_index": "$spawn_rule_components"
         }
     }
 }

@@ -1,11 +1,83 @@
 {
+    "minecraft:behavior.avoid_mob_type": {
+        "priority": "$general.number",
+        "entity_types": "$general.entity.entity_types",
+        "ignore_visibility": "$general.boolean",
+        "max_dist": "$general.number",
+        "max_flee": "$general.number",
+        "probability_per_strength": "$general.decimal",
+        "sprint_speed_multiplier": "$general.decimal",
+        "walk_speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.break_door": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.breed": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal"
+    },
+
+    "minecraft:behavior.defend_village_target": { 
+        "priority": "$general.number",
+        "entity_types": "$general.entity.entity_types"
+    },
+
+    "minecraft:behavior.dragonlanding": {  "priority": "$general.number" },
+    "minecraft:behavior.dragonflaming": {  "priority": "$general.number" },
+    "minecraft:behavior.dragonscanning": {  "priority": "$general.number" },
+    "minecraft:behavior.dragontakeoff": {  "priority": "$general.number" },
+    "minecraft:behavior.dragonchargeplayer": {  "priority": "$general.number" },
+    "minecraft:behavior.dragonstrafeplayer": {  "priority": "$general.number" },
+    "minecraft:behavior.dragonholdingpattern": {  "priority": "$general.number" },
+    "minecraft:behavior.dragondeath": {  "priority": "$general.number" },
+
+    "minecraft:behavior.drop_item_for": {
+        "priority": "$general.number",
+        "drop_item_chance": "$general.decimal",
+        "entity_types": "$general.entity.entity_types",
+        "goal_radius": "$general.decimal",
+        "loot_table": "$dynamic.loot_table_files",
+        "max_dist": "$general.number",
+        "offering_distance": "$general.number",
+        "on_drop_attempt": "$general.entity.event_definition",
+        "search_count": "$general.number",
+        "search_height": "$general.number",
+        "search_range": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "time_of_day_range": {
+            "$dynamic.list.index_pair": "$general.decimal"
+        }
+    },
+
+    "minecraft:behavior.enderman_leave_block": {  "priority": "$general.number" },
+    "minecraft:behavior.enderman_take_block": {  "priority": "$general.number" },
+
+    "minecraft:behavior.find_mount": {
+        "priority": "$general.number",
+        "within_radius": "$general.number",
+        "avoid_water": "$general.boolean",
+        "mount_distance": "$general.number",
+        "start_delay": "$general.number",
+        "target_needed": "$general.boolean"
+    },
+    "minecraft:behavior.find_underwater_treasure": {
+        "priority": "$general.number",
+        "search_range": "$general.number",
+        "stop_distance":  "$general.number",
+	    "speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.flee_sun": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal"
+    },
     "minecraft:behavior.float": {
         "priority": "$general.number"
     },
     "minecraft:behavior.float_wander": {
         "priority": "$general.number",
         "float_duration": {
-            "$dynamic.next_list_index": "$general.number"
+            "$dynamic.list.index_pair": "$general.number"
         },
         "random_reselect": "$general.boolean",
         "must_reach": "$general.boolean",
@@ -13,11 +85,86 @@
         "y_dist": "$general.number",
         "y_offset": "$general.number"
     },
+    "minecraft:behavior.follow_caravan": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "entity_count": "$general.number",
+        "entity_types": "$general.entity.entity_types"
+    },
+    "minecraft:behavior.follow_owner": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "start_distance": "$general.number",
+        "stop_distance": "$general.number"
+    },
+    "minecraft:behavior.follow_parent": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.guardian_attack": {
+        "priority": "$general.number"
+    },
     "minecraft:behavior.hurt_by_target": {
         "priority": "$general.number",
         "alert_same_type": "$general.boolean",
         "entity_types": "$general.entity.entity_types",
         "hurt_owner": "$general.boolean"
+    },
+    "minecraft:behavior.leap_at_target": {
+        "priority": "$general.number",
+        "target_dist": "$general.decimal",
+        "must_be_on_ground": "$general.boolean",
+        "yd": "$general.decimal"
+    },
+    "minecraft:behavior.look_at_player": {
+        "priority": "$general.number",
+        "angle_of_view_horizontal": "$general.degree",
+        "angle_of_view_vertical": "$general.degree",
+        "look_distance": "$general.number",
+        "look_time": {
+            "$dynamic.list.index_pair": "$general.number"
+        },
+        "probability": "$general.decimal"
+    },
+    "minecraft:behavior.melee_attack": {
+        "priority": "$general.number",
+        "attack_once": "$general.boolean",
+        "max_dist": "$general.number",
+        "melee_fov": "$general.degree",
+        "random_stop_interval": "$general.decimal",
+        "reach_multiplier": "$general.decimal",
+        "require_complete_path": "$general.boolean",
+        "speed_multiplier": "$general.decimal",
+        "track_target": "$general.boolean"
+    },
+    "minecraft:behavior.mount_pathing": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "target_dist": "$general.number",
+        "track_target": "$general.boolean"
+    },
+    "minecraft:behavior.move_through_village": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "only_at_night": "$general.boolean"
+    },
+    "minecraft:behavior.move_towards_restriction": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "control_flags": [ "move", "look" ]
+    },
+    "minecraft:behavior.move_towards_target": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "within_radius": "$general.number"
+    },
+    "minecraft:behavior.move_to_water": {
+        "priority": "$general.number",
+        "goal_radius": "$general.decimal",
+        "search_count": "$general.number",
+        "search_height": "$general.number",
+        "search_range": "$general.number",
+	    "speed_multiplier": "$general.decimal"
     },
     "minecraft:behavior.nearest_attackable_target": {
         "priority": "$general.number",
@@ -32,25 +179,44 @@
         "target_search_height": "$general.decimal",
         "within_radius": "$general.decimal"
     },
-    "minecraft:behavior.melee_attack": {
+    "minecraft:behavior.ocelotattack": {
         "priority": "$general.number",
-        "attack_once": "$general.boolean",
-        "max_dist": "$general.number",
-        "melee_fov": "$general.degrees",
-        "random_stop_interval": "$general.decimal",
-        "reach_multiplier": "$general.decimal",
-        "require_complete_path": "$general.boolean",
-        "speed_multiplier": "$general.decimal",
-        "track_target": "$general.boolean"
+        "sneak_speed_multiplier": "$general.decimal",
+        "sprint_speed_multiplier": "$general.decimal",
+        "walk_speed_multiplier": "$general.decimal"
     },
-    "minecraft:behavior.move_towards_restriction": {
+    "minecraft:behavior.ocelot_sit_on_block": {
+      "priority": "$general.number",
+      "speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.offer_flower": {
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.panic": {
         "priority": "$general.number",
+        "force": "$general.boolean",
+        "ignore_mob_damage": "$general.boolean",
+        "prefer_water": "$general.boolean",
         "speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.pet_sleep_with_owner": {
+        "priority": "$general.number",
+        "goal_radius": "$general.decimal",
+        "search_height": "$general.number",
+        "search_radius": "$general.number",
+        "speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.player_ride_tamed": {
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.random_breach": {
+        "$load": "$entity_behavior.minecraft:behavior&dot;random_stroll",
+        "cooldown_time": "$general.number"
     },
     "minecraft:behavior.random_look_around": {
         "priority": "$general.number",
         "look_time": {
-            "$dynamic.next_list_index": "$general.number"
+            "$dynamic.list.index_pair": "$general.number"
         }
     },
     "minecraft:behavior.random_stroll": {
@@ -60,6 +226,7 @@
         "xz_dist": "$general.number",
         "y_dist": "$general.number"
     },
+    "minecraft:behavior.random_swim": "$entity_behavior.minecraft:behavior&dot;random_stroll",
     "minecraft:behavior.ranged_attack": {
         "priority": "$general.number",
         "attack_interval_max": "$general.number",
@@ -69,7 +236,103 @@
         "burst_shots": "$general.number",
         "charge_charged_trigger": "$general.decimal",
         "charge_shoot_trigger": "$general.decimal",
-        "ranged_fov": "$general.degrees",
+        "ranged_fov": "$general.degree",
         "speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.run_around_like_crazy": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.send_event": {
+        "priority": "$general.number",
+        "event_choices": [
+          {
+            "min_activation_range": "$general.decimal",
+            "max_activation_range": "$general.decimal",
+            "cooldown_time": "$general.decimal",
+            "cast_duration": "$general.decimal",
+            "particle_color": {},
+            "weight": "$general.number",
+            "filters": "$entity_filters",
+            "start_sound_event": "$general.sound",
+            "sequence": [
+              {
+                "base_delay": "$general.decimal",
+                "event": {},
+                "sound_event": "$general.sound"
+              }
+            ]
+          }
+        ]
+    },
+    "minecraft:behavior.slime_float": {  "priority": "$general.number" },
+    "minecraft:behavior.slime_attack": {  "priority": "$general.number" },
+    "minecraft:behavior.slime_random_direction": {  "priority": "$general.number" },
+    "minecraft:behavior.slime_keep_on_jumping": {  "priority": "$general.number" },
+    "minecraft:behavior.stay_while_sitting": {
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.stomp_turtle_egg": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.number",
+        "search_range": "$general.number",
+        "search_height": "$general.number",
+        "goal_radius": "$general.decimal",
+        "search_count": "$general.number",
+        "interval": "$general.number"
+    },
+    "minecraft:behavior.summon_entity": {
+        "priority": "$general.number",
+        "summon_choices": {
+            "$dynamic.list.next_index": {
+                "do_casting": "$general.boolean",
+                "filters": "$entity_filters",
+                "min_activation_range": "$general.decimal",
+                "max_activation_range": "$general.decimal",
+                "cooldown_time": "$general.decimal",
+                "weight": "$general.number",
+                "cast_duration": "$general.decimal",
+                "particle_color": {},
+                "start_sound_event": "$general.sound",
+                "sequence": {
+                    "$dynamic.list.next_index": {
+                        "shape": [ "circle", "line" ],
+                        "target": "$general.entity.filter_targets",
+                        "base_delay": "$general.decimal",
+                        "delay_per_summon": "$general.decimal",
+                        "num_entities_spawned": "$general.number",
+                        "entity_type": "$general.entity_identifier",
+                        "size": "$general.decimal",
+                        "entity_lifespan": "$general.decimal",
+                        "sound_event": "$general.sound",
+                        "summon_cap": "$general.number",
+                        "summon_cap_radius": "$general.number"
+                    }
+                }
+            }
+        }
+    },
+    "minecraft:behavior.swell": {
+        "priority": "$general.number",
+        "start_distance": "$general.number",
+        "stop_distance": "$general.number"
+    },
+    "minecraft:behavior.swim_idle": {
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.swim_wander": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "interval": "$general.number",
+        "look_ahead": "$general.decimal"
+    },
+    "minecraft:behavior.tempt": {
+        "priority": "$general.number",
+        "can_get_scared": "$general.boolean",
+        "items": {
+            "$dynamic.list.next_index": "$general.item_identifier"
+        },
+        "speed_multiplier": "$general.decimal",
+        "within_radius": "$general.number"
     }
 }

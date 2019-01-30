@@ -1,9 +1,9 @@
 {
     "all_of": {
-        "$dynamic.next_list_index": "$entity_filters"
+        "$dynamic.list.next_index": "$entity_filters"
     },
     "any_of": {
-        "$dynamic.next_list_index": "$entity_filters"
+        "$dynamic.list.next_index": "$entity_filters"
     },
     "test": "$general.entity.filters",
     "subject": "$general.entity.filter_targets",

@@ -15,20 +15,20 @@
         "events": {
             "$placeholder": {
                 "sequence": {
-                    "$dynamic.next_list_index": {
+                    "$dynamic.list.next_index": {
                         "filters": "$entity_filters",
                         "$load": "$entity.minecraft:entity.events.$placeholder"
                     }
                 },
                 "randomize": {
-                    "$dynamic.next_list_index": {
+                    "$dynamic.list.next_index": {
                         "weight": "$general.number",
                         "$load": "$entity.minecraft:entity.events.$placeholder"
                     }
                 },
                 "add": {
                     "component_groups": {
-                        "$dynamic.next_list_index": "$dynamic.entity.component_groups"
+                        "$dynamic.list.next_index": "$dynamic.entity.component_groups"
                     }
                 },
                 "remove": "$entity.minecraft:entity.events.$placeholder.add"

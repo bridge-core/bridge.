@@ -30,10 +30,10 @@
 
     "minecraft:biome_filter": {
         "all_of": {
-            "$dynamic.next_list_index": "$spawn_rule_components.minecraft:biome_filter"
+            "$dynamic.list.next_index": "$spawn_rule_components.minecraft:biome_filter"
         },
         "any_of": {
-            "$dynamic.next_list_index": "$spawn_rule_components.minecraft:biome_filter"
+            "$dynamic.list.next_index": "$spawn_rule_components.minecraft:biome_filter"
         },
         "test": [ "has_biome_tag" ],
         "operator": "$general.entity.filter_operators",

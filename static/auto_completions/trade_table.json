@@ -1,16 +1,16 @@
 {
     "tiers": {
-        "$dynamic.next_list_index": {
+        "$dynamic.list.next_index": {
             "trades": {
-                "$dynamic.next_list_index": {
+                "$dynamic.list.next_index": {
                     "wants": {
-                        "$dynamic.next_list_index": {
+                        "$dynamic.list.index_pair": {
                             "item": "$general.item_identifier",
                             "quantity": "$general.number"
                         }   
                     },
                     "gives": {
-                        "$dynamic.next_list_index": {
+                        "0": {
                             "item": "$general.item_identifier",
                             "quantity": "$general.number"
                         }   
