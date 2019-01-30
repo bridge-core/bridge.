@@ -12,6 +12,10 @@
         },
         "grow_up": "$general.entity.event_definition"
     },
+    "minecraft:ambient_sound_interval": {
+        "range": "$general.number",
+        "value": "$general.number"
+    },
     "minecraft:angry": {
         "broadcastAnger": "$general.boolean",
         "broadcastRange": "$general.number",
@@ -30,6 +34,17 @@
     },
     "minecraft:balloonable": {
         "mass": "$general.decimal"
+    },
+    "minecraft:boostable": {
+        "speed_multiplier": "$general.decimal",
+        "duration": "$general.number",
+        "boost_items": {
+            "$dynamic.list.next_index": {
+                "item": "$general.item_identifier",
+                "item_damage": "$general.number",
+                "replaceItem": "$general.item_identifier"
+            }
+        }
     },
     "minecraft:breathable": {
         "breatheBlocks": {
@@ -111,6 +126,9 @@
             "cause": "$general.damage_type"
         }
     },
+    "minecraft:default_look_angle": {
+        "value": "$general.decimal"
+    },
     "minecraft:environment_sensor": {
         "$dynamic.list.next_index": {
             "on_environment": "$general.entity.event_definition"
@@ -155,12 +173,48 @@
         "value": "$general.decimal"
     },
     "minecraft:fire_immune": "$general.boolean",
+    "minecraft:floats_in_liquid": {},
     "minecraft:flying_speed": {
         "value": "$general.decimal"
     },
     "minecraft:follow_range": {
         "value": "$general.number",
         "max": "$general.number"
+    },
+    "minecraft:foot_size": {
+        "value": "$general.decimal"
+    },
+    "minecraft:friction_modifier": {
+        "value": "$general.decimal"
+    },
+
+    "minecraft:genetics": {
+        "mutation_rate": "$general.decimal",
+        "genes": {
+            "$dynamic.list.next_index": {
+                "name": {},
+                "allele_range": "$general.number",
+                "genetic_variants": {
+                    "$dynamic.list.next_index": {
+                        "main_allele": "$general.number",
+                        "both_allele": "$general.number",
+                        "hidden_allele": "$general.number",
+                        "either_allele": "$general.number",
+                        "birth_event": "$general.entity.event_definition"
+                    }
+                }
+            }
+        }
+    },
+    "minecraft:giveable": {
+        "cooldown": "$general.number",
+        "items": {
+            "$dynamic.list.next_index": "$general.item_identifier"
+        },
+        "on_give": "$general.entity.event_definition"
+    },
+    "minecraft:ground_offset": {
+        "value": "$general.decimal"
     },
 
     "minecraft:healable": {
@@ -186,6 +240,7 @@
         "max": "$general.number",
         "min": "$general.number"
     },
+    "minecraft:home": {},
     "minecraft:horse.jump_strength": {
         "value": "$general.decimal"
     },
@@ -194,6 +249,9 @@
     },
 
     "minecraft:input_ground_controlled": {},
+    "minecraft:insomnia": {
+	    "days_until_insomnia": "$general.number"
+	},
     "minecraft:interact": {
         "$dynamic.list.next_index": {
             "add_items": {
@@ -229,11 +287,18 @@
     "minecraft:is_charged": {},
     "minecraft:is_chested": {},
     "minecraft:is_dyeable": { "interact_text": {} },
+    "minecraft:is_ignited": {},
     "minecraft:is_saddled": {},
     "minecraft:is_shaking": {},
+    "minecraft:is_sheared": {},
     "minecraft:is_stackable": {},
     "minecraft:is_tamed": {},
 
+    "minecraft:item_controllable": {
+        "control_items": {
+            "$dynamic.list.next_index": "$general.item_identifier"
+        }
+    },
     "minecraft:item_hopper": {},
     
     "minecraft:jump.dynamic": {},
@@ -262,6 +327,10 @@
     "minecraft:loot": {
         "table": "$dynamic.loot_table_files"
     },
+
+    "minecraft:mark_variant": {
+        "value": "$general.number"
+    },
     "minecraft:movement": {
         "value": "$general.decimal"
     },
@@ -277,7 +346,12 @@
         "jump_delay": {
             "$dynamic.list.index_pair": "$general.decimal"
         }
-    }, 
+    },
+    "minecraft:movement.glide": {
+        "$load": "$entity_components.minecraft:movement&dot;amphibious",
+        "start_speed": 0.1,
+        "speed_when_turning": 0.2
+    },
     "minecraft:movement.skip": "$entity_components.minecraft:movement&dot;amphibious",
     "minecraft:movement.sway": "$entity_components.minecraft:movement&dot;amphibious",
 
@@ -319,9 +393,38 @@
     "minecraft:on_target_escape": "$general.entity.event_definition",
     "minecraft:on_wake_with_owner": "$general.entity.event_definition",    
 
+    "minecraft:peek": {
+        "on_open": "$general.entity.event_definition",
+        "on_close": "$general.entity.event_definition",
+        "on_target_open": "$general.entity.event_definition"
+    },
     "minecraft:physics": {
         "has_collision": "$general.boolean",
         "has_gravity": "$general.boolean"
+    },
+    "minecraft:player.saturation": {
+        "value": "$general.number",
+        "max": "$general.number",
+        "min": "$general.number"
+    },
+    "minecraft:player.exhaustion": {
+        "value": "$general.number",
+        "max": "$general.number",
+        "min": "$general.number"
+    },
+    "minecraft:player.level": {
+        "value": "$general.number",
+        "max": "$general.number",
+        "min": "$general.number"
+    },
+    "minecraft:player.experience": {
+        "value": "$general.decimal",
+        "max": "$general.decimal",
+        "min": "$general.decimal"
+    },
+
+    "minecraft:push_through": {
+        "value": "$general.decimal"
     },
     "minecraft:projectile": {
         "onHit": {
@@ -451,6 +554,7 @@
             }
         }
     },
+    "minecraft:scaffolding_climber": {},
     "minecraft:scale": {
         "value": "$general.decimal"
     },
@@ -458,11 +562,25 @@
         "start_scale": "$general.decimal",
         "end_scale": "$general.decimal"
     },
+    "minecraft:shareables": {
+        "items": {
+            "$dynamic.list.next_index": {
+                "item": "$general.item_identifier",
+                "craft_into": "$general.item_identifier",
+                "want_amount": "$general.number",
+                "surplus_amount": "$general.number"
+            }
+        }
+    },
     "minecraft:shooter": {
         "type": {},
-        "def": "$general.entity_identifier"
+        "def": "$general.entity_identifier",
+        "auxVal": "$general.potion_number_id"
     },
     "minecraft:sittable": {},
+    "minecraft:sound_volume": {
+        "value": "$general.decimal"
+    },
     "minecraft:spawn_entity": {
         "min_wait_time": "$general.number",
         "max_wait_time": "$general.number",
@@ -529,6 +647,11 @@
         "lightTeleportChance": "$general.decimal",
         "darkTeleportChance": "$general.decimal"
     },
+    "minecraft:tick_world": {
+        "radius": "$general.number",
+        "distance_to_players": "$general.number",
+        "never_despawn": "$general.boolean"
+    },
     "minecraft:timer": {
         "looping": "$general.boolean",
         "randomInterval": "$general.boolean",
@@ -536,6 +659,10 @@
             "$dynamic.list.index_pair": "$general.decimal"
         },
         "time_down_event": "$general.entity.event_definition"
+    },
+    "minecraft:trade_table": {
+        "display_name": {},
+        "table": "$dynamic.trade_table_files"
     },
     "minecraft:transformation": {
         "into": "$general.entity_identifier",
@@ -569,5 +696,9 @@
     "minecraft:underwater_movement": "$entity_component.minecraft:movement",
     "minecraft:variant": {
         "value": "$general.number"
-    }
+    },
+    "minecraft:walk_animation_speed": {
+        "value": "$general.decimal"
+    },
+    "minecraft:wants_jockey": {}
 }
