@@ -1,9 +1,9 @@
 # bridge.
 bridge. is a powerful add-on editor designed to speed up your development. It features a custom entity behavior syntax, the ability to edit all files inside a behavior pack (.js, .json, .mcfunction) and provides a powerful work environment.
-bridge. simply is the editor which fulfills all your needs!
+Unleash the full power of addons with bridge. plugins or make use of rich auto-completions. Creating Minecraft addons was never more convenient!
 
 ### Download
-You can try a first pre-release of bridge. now! [See release!](https://github.com/solvedDev/bridge./releases)
+You can try pre-releases of bridge. now! [See releases!](https://github.com/solvedDev/bridge./releases)
 
 ### Plugins
 brige. allows creators to develop their own plugins in order to extend bridge.'s functionality. [Read more...](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
