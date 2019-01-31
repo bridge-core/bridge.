@@ -7,6 +7,7 @@
 
 #### ```Bridge```
 - [```.on(event, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/on.md)
+- ```.off(event, callback)```
 - [```.open(file)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/open.md)
 - [```.openExternal(path)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/openExternal.md)
 - [```.registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
@@ -24,9 +25,12 @@
 - [```.exists(path)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/exists.md)
 - [```.readDirectory(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readDirectory.md)
 - [```.readFile(path, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/fs/readFile.md)
+- ```.readFileSync(path)```
+- ```.writeFile(path, data, callback)```
 
-#### ```Bridge.Highlighter```
- - [```.registerLanguage(name, language_definition)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/highlighter/registerLanguage.md)
+#### ```Bridge.Language```
+ - [```.register(name, language_definition)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/highlighter/registerLanguage.md)
+ - ```.remove(name)```
 
 #### ```Bridge.JSON```
 Documentation not available yet.
@@ -70,6 +74,9 @@ WIP Draft:
 - [```.register(window)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/window/register.md)
 - [```.remove(id)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/window/remove.md)
 - [```.update(window)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/window/update.md)
+
+#### ```Bridge.Utils```
+Upcoming!
 
 ### What are Plugins?
 Plugins allow talented creators to lift their project onto the next level by extending bridge.'s functionality. 
