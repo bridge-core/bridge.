@@ -10,6 +10,9 @@
                 "growth": "$general.decimal"
             }
         },
+        "drop_items": {
+            "$dynamic.list.next_index": "$general.item_identifier"
+        },
         "grow_up": "$general.entity.event_definition"
     },
     "minecraft:ambient_sound_interval": {
