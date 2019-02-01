@@ -53,6 +53,7 @@
     }
   },
   "dependencies": {
+    "@mdi/font": "^3.3.92",
     "comment-json": "^1.1.3",
     "deepmerge": "^3.0.0",
     "dir-to-json": "0.0.3",

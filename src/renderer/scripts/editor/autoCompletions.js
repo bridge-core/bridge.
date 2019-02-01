@@ -4,12 +4,32 @@ import TabSystem from "../TabSystem";
 
 let LIB = {
     $dynamic: {
+        list: {
+            next_index() {
+                let arr = TabSystem.getSelected().content.get(TabSystem.getCurrentNavigation()).toJSON();
+                if(Array.isArray(arr)) return arr.length + "";
+                return "0";
+            },
+            index_pair() {
+                let arr = TabSystem.getSelected().content.get(TabSystem.getCurrentNavigation()).toJSON();
+                if(Array.isArray(arr)) return "1";
+                return "0";
+            },
+            index_triple() {
+                let arr = TabSystem.getSelected().content.get(TabSystem.getCurrentNavigation()).toJSON();
+                if(Array.isArray(arr) && arr.length >= 2) return "2";
+                if(Array.isArray(arr)) return "1";
+                return "0";
+            }
+        },
         next_list_index() {
-            let arr = TabSystem.getSelected().content.get(TabSystem.getCurrentNavigation()).toJSON();
-            if(Array.isArray(arr)) return arr.length + "";
-            return "0";
+            console.warn("Usage of $dynamic.next_list_index is deprecated! Use $dynamic.list.next_index() instead!");
+            return this.list.next_index();
         },
         loot_table_files() {
+            return [];
+        },
+        trade_table_files() {
             return [];
         },
         entity: {
@@ -61,7 +81,7 @@ class Provider {
             propose = this.omegaExpression(propose, prev_path.pop(), prev_path);
         }
 
-        console.log("[PROPOSING]", propose);
+        //console.log("[PROPOSING]", propose);
         if(propose === LIB) return { value: [], object: [] };
         if(Array.isArray(propose)) return { value: propose };
 
@@ -74,8 +94,10 @@ class Provider {
         return { 
             object: Object.keys(propose).filter(e => e != "$placeholder").map(key => {
                 if(key[0] == "$") {
-                    console.log(this.omegaExpression(key))
-                    return this.omegaExpression(key);
+                    //console.log(this.omegaExpression(key))
+                    let exp = this.omegaExpression(key);
+                    if(typeof exp == "object") return Object.keys(exp)[0];
+                    return exp;
                 }
                 return key;
             }) 
@@ -104,17 +126,20 @@ class Provider {
         let parts = str.split(" and ");
         let result = [];
         parts.forEach(part => {
+            let current;
             if(part.includes("$dynamic")) {
-                result = this.dynamic(part);
+                current = this.dynamic(part);
+                if(typeof current != "object") current = { [current]: {} };
             } else {
-                let current = this.static(part.substring(1, part.length));
-                if(!Array.isArray(current)) {
-                    if(Array.isArray(result)) result = {};
-                    console.log(result, current)
-                    result = Object.assign(result, current);
-                } else {
-                    result.push(...current);
-                }
+                current = this.static(part.substring(1, part.length));
+            }
+
+            if(!Array.isArray(current)) {
+                if(Array.isArray(result)) result = {};
+                // console.log(result, current)
+                result = Object.assign(result, current);
+            } else {
+                result.push(...current);
             }
         });
 
@@ -128,13 +153,13 @@ class Provider {
         let current = LIB;
         while(keys.length > 0 && current != undefined) {
             current = current[keys.shift()];
-            console.log(current);
+            //console.log(current);
         }
         if(typeof current == "function") return current();
     }
     static(expression) {
         let current = LIB;
-        console.log(expression);
+        // console.log(expression);
         expression.split(".").forEach(p => {
             if(current != undefined) current = current[p.replace(/\&dot\;/g, ".")];
         });

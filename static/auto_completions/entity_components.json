@@ -330,7 +330,7 @@
         "setTarget": "$general.boolean",
         "look_cooldown": "$general.number",
         "filters": "$entity_filters",
-        "look_event": "$dynamic.entity.events",
+        "look_event": "$general.entity.event_definition",
         "mAllowInvulnerable": "$general.boolean"
     },
     "minecraft:loot": {

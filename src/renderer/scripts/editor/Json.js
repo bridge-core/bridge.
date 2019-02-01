@@ -1,19 +1,19 @@
 import saveEval from "safe-eval";
 import JSONTree from "./JsonTree";
 
-function private_toJSON(tree) {
+function private_toJSON(tree, build_arrays) {
     if(tree.type != "array" && tree.type != "object") {
         return toCorrectType(tree.data);
     } else {
-        if(!tree.is_array) {
-            let obj = {};
-            tree.children.forEach(c => obj[c.key] = private_toJSON(c));
-            return obj;
+        if(build_arrays && tree.is_array) {
+            let arr = [];
+            tree.children.forEach(c => arr.push(private_toJSON(c, build_arrays)));
+            return arr;
         }
         else {
-            let arr = [];
-            tree.children.forEach(c => arr.push(private_toJSON(c)));
-            return arr;
+            let obj = {};
+            tree.children.forEach(c => obj[c.key] = private_toJSON(c, build_arrays));
+            return obj;
         }
     }
 }
@@ -40,8 +40,8 @@ function parse(string) {
 }
 
 export class Format {
-    static toJSON(tree) {
-        return private_toJSON(tree);
+    static toJSON(tree, build_arrays=true) {
+        return private_toJSON(tree, build_arrays);
     }
 
     static toTree(obj) {

@@ -30,6 +30,6 @@ export function overwriteTrigger(name, arg) {
 export function readonlyTrigger(name, arg) {
     let listeners = Runtime.Listeners.get(name);
     if(listeners) {
-        return listeners[listeners.length -1](arg);
+        return listeners.forEach(l => l(arg));
     }
 }

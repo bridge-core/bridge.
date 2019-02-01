@@ -41,7 +41,7 @@
 
   import UpdateWindow from "./windows/UpdateApp";
   import SETTINGS from "./store/Settings";
-
+  
   export default {
     name: 'bridge',
     components: {

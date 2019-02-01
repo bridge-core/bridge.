@@ -1,11 +1,17 @@
 import Stack from "../utilities/Stack";
 import Json from "./Json";
+import Provider from "./autoCompletions";
+import PluginEnv from "../plugins/PluginEnv";
+let PROVIDER = new Provider("");
 
 function getType(data) {
     if(Array.isArray(data)) return "array";
     return typeof data;
 }
 
+export function changeProvider(new_path) {
+    PROVIDER.validator(new_path);
+}
 export default class JSONTree {
     constructor(key="", data="", parent, children=[], open=false) {
         this.key = key + "";
@@ -83,8 +89,27 @@ export default class JSONTree {
         child.parent = this;
         if(!Number.isNaN(Number(child.key)) && this.children.length == 0) this.type = "array";
         
+        //PLUGIN HOOK
+        PluginEnv.trigger("bridge:addedNode", {
+            node: child
+        });
+
         this.children.push(child);
         return child;
+    }
+    clone() {
+        let clone = new JSONTree(this.key, this.data, this.parent, this.children, this.open);
+        clone.type = this.type;
+        return clone;
+    }
+    deepClone() {
+        let clone = new JSONTree(this.key, this.data, this.parent, this.children.map(c => c.deepClone()), this.open);
+        clone.type = this.type;
+        return clone;
+    }
+    propose(path=this.path) {
+        //console.log(PROVIDER.get(path), path)
+        return PROVIDER.get(path);
     }
     find(child) {
         let i = 0;
@@ -158,8 +183,8 @@ export default class JSONTree {
 
         return this;
     }
-    toJSON() {
-        return Json.Format.toJSON(this);
+    toJSON(build_arrays=true) {
+        return Json.Format.toJSON(this, build_arrays);
     }
 
     iterator() {

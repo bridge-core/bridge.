@@ -23,6 +23,7 @@ export default class BlockedBridge {
         };
         this.FS = {
             readFile() {},
+            writeFile() {},
             readFileSync() {},
             readDirectory() {},
             exists() {},
@@ -75,6 +76,7 @@ export default class BlockedBridge {
         Runtime.Plugins.add(this.plugin_id, { ...plugin_info, id: this.__file_path__ });
     }
     on() {}
+    off() {}
     trigger() {}
     open() {}
     openExternal() {}

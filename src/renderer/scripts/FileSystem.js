@@ -30,13 +30,7 @@ class FileSystem {
                     Vue.$root.$emit("refreshExplorer");
                 }
                 if(open) {
-                    TabSystem.add({ 
-                        content,
-                        raw_content: content,
-                        file_path: getPath(path),
-                        category: Store.state.Explorer.project,
-                        file_name: path.split(/\/|\\/).pop()
-                    });
+                    this.addAsTab(getPath(path), content, content);
                 }
             });
         });

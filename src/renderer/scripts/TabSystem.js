@@ -4,6 +4,7 @@ import { Format } from "./editor/Json";
 import FileSystem from "./FileSystem";
 import PluginEnv from "./plugins/PluginEnv";
 import JSONTree from "./editor/JsonTree";
+import { changeProvider } from "./editor/JsonTree";
 import { BASE_PATH } from "./constants";
 import PluginAssert from "./plugins/PluginAssert";
 
@@ -16,9 +17,10 @@ class TabSystem {
     //Adding tab
     add(tab) {
         for(let i = 0; i < this.tabs.length; i++) {
-            if(this.tabs[i].file_path == tab.file_path) return this.select(i);
+            if(this.tabs[i].file_path == tab.file_path.replace(/\//g, "\\")) return this.select(i);
         }
         
+        tab.file_path = tab.file_path.replace(/\//g, "\\");
         this.tabs.unshift(Object.assign(tab, {
             uuid: `${Store.state.Explorer.project}-${Math.random()}-${Math.random()}`,
             file_navigation: "global",
@@ -112,11 +114,27 @@ class TabSystem {
     select(val) {
         if(val < 0 || val > this.tabs.length) throw new TypeError("Tab to select is not within the valid range. (size of the tabs array)");
         this.selected = val;
+        
+        if(this.getSelected()) {
+            //UPDATES AUTO_COMPLETIONS
+            changeProvider(this.getSelected().file_path);
+
+            //PLUGIN TRIGGER
+            PluginEnv.trigger("bridge:changedTab", { 
+                file_path: this.getSelected().file_path,
+                file_extension: this.getSelected().file_path.split(/\\|\//g).pop()
+            }, true);
+        }
+        
+        //UPDATE UI
         EventBus.trigger("updateSelectedTab");
     }
     selectNavigation(str_path, tab=this.selected) {
+        if(this.tabs[tab].file_navigation == str_path) return;
+        
         this.tabs[tab].file_navigation = str_path;
         EventBus.trigger("updateFileNavigation");
+        PluginEnv.trigger("bridge:selectedNode", { node: this.getSelected().content.get(str_path) }, true);
     }
     setCurrentFileNav(val) {
         this.selectNavigation(val);
@@ -161,11 +179,10 @@ class TabSystem {
             console.log(current.content instanceof JSONTree);
             
             if(current.content instanceof JSONTree) {
-                j = Format.toJSON(current.content);
+                j = Format.toJSON(current.content, false);
             } else {
                 j = current.content;
                 current.content = new JSONTree("global").buildFromObject(j);
-                console.log(current.content)
             }
             
             if(!current.is_invalid) FileSystem.Cache.save(current.file_path, j, PluginEnv.trigger("bridge:cacheFile", { 

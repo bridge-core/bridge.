@@ -15,6 +15,7 @@
                 @keydown.enter.native="click"
                 :label="label"
                 :items="items"
+                :auto-select-first="true"
                 :hide-no-data="true"
                 dense
             ></v-combobox>
@@ -28,9 +29,8 @@
 <script>
     import TabSystem from '../../../scripts/TabSystem';
     import JSONTree from '../../../scripts/editor/JsonTree';
-    import EventBus from '../../../scripts/EventBus';
-    import Provider from "../../../scripts/editor/autoCompletions";
-    let myProvider; 
+    import EventBus from '../../../scripts/EventBus'; 
+    import PluginEnv from '../../../scripts/plugins/PluginEnv';
 
     export default {
         name: "json-input",
@@ -43,7 +43,6 @@
         },
         created() {
             if(this.type != "edit") {
-                myProvider = new Provider(this.current_file_path);
                 this.updateAutoCompletions();
             } 
         },
@@ -71,6 +70,11 @@
                     
                     TabSystem.setCurrentFileNav(tmp.join("/"));
                     TabSystem.setCurrentUnsaved();
+
+                    //PLUGIN HOOK
+                    PluginEnv.trigger("bridge:modifiedNode", {
+                        node: TabSystem.getSelected().content.get(this.file_navigation)
+                    });
                 }
 
                 this.watcher_active = true;
@@ -78,6 +82,10 @@
             file_navigation(nav) {
                 if(this.type == "edit") return;
                 this.updateAutoCompletions();
+            },
+            provide_auto_completions(prov_auto) {
+                if(!prov_auto) this.items = [];
+                else this.updateAutoCompletions();
             }
         },
         data() {
@@ -97,6 +105,9 @@
                 } else {
                     return "Edit";
                 }
+            },
+            provide_auto_completions() {
+                return this.$store.state.Settings.auto_completions;
             }
         },
         methods: {
@@ -105,14 +116,22 @@
                 let current = this.render_object.get(this.file_navigation);
                 
                 if(this.type == "object") {
-                    current.add(new JSONTree(this.value + "").openNode()).openNode();
+                    let node = new JSONTree(this.value + "").openNode();
+                    current.add(node).openNode();
                     current.type = "object";
                     EventBus.trigger("setWatcherInactive");
+
                     this.expandPath(this.value);
                 } else if(this.file_navigation != "global") {
                     current.data += this.value + "";
                     current.type = typeof this.value;
-                    TabSystem.navigationBack();
+                    this.updateAutoCompletions();
+                    this.navigationBack();
+
+                    //PLUGIN HOOK
+                    PluginEnv.trigger("bridge:modifiedNode", {
+                        node: current
+                    });
                 }
                 TabSystem.setCurrentUnsaved();
                 EventBus.trigger("updateCurrentContent");
@@ -123,12 +142,23 @@
             },
 
             updateAutoCompletions() {
+                if(!this.provide_auto_completions) {
+                    this.items = [];
+                    return;
+                }
+
                 let context = [];
                 if(this.type == "object")
                     context = Object.keys(this.render_object.get(this.file_navigation).toJSON());
                 if(this.type == "value")
                     context = this.render_object.get(this.file_navigation).data;
-                let propose = myProvider.get(this.file_navigation)[this.type];
+
+                let current_node = TabSystem.getSelected().content.get(this.file_navigation);
+                let propose = current_node.propose(this.file_navigation);
+                //PLUGIN HOOK
+                PluginEnv.trigger("bridge:beforePropose", { propose, node: current_node });
+                propose = propose[this.type];
+                
                 if(propose == undefined || propose.length == 0 || (typeof context == "string" && context != ""))
                     return this.items = [];
 
@@ -136,9 +166,7 @@
 
                 // CURRENTLY MAKES IT IMPOSSIBLE TO SELECT A NODE WHICH IS CONSIDERED "FILLED"
                 // if(this.items.length == 0) {
-                //     let nav = this.file_navigation.split("/");
-                //     nav.pop();
-                //     TabSystem.setCurrentFileNav(nav.join("/"));
+                //     this.navigationBack();
                 // }
 
                 if(this.items && this.items.length > 0 && this.$refs.input)
@@ -152,6 +180,14 @@
                 //FIXME: DOESN'T UPDATE AFTER SWITCHING TABS
                 this.watcher_active = false;
                 this.value = TabSystem.getCurrentNavContent();        
+            },
+            navigationBack() {
+                    console.log(this.items.length == 0, this.file_navigation != "global")
+                    if(this.items.length == 0 && this.file_navigation != "global") {
+                        TabSystem.navigationBack();
+                        this.updateAutoCompletions()
+                        this.navigationBack();
+                    } 
             }
         }
     }

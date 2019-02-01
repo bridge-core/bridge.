@@ -29,12 +29,9 @@ export default class SettingsWindow extends TabWindow {
                 title: "Editor"
             },
             content: [
-                new ReactiveSwitch(this, "inversed_arrows", { color: "light-green", text: "Inverse Arrows", key: `settings.editor.tab.arrows.${Math.random()}` }),
                 new ReactiveSwitch(this, "use_tabs", { color: "light-green", text: "Use Tabs", key: `settings.editor.tab.tabs.${Math.random()}` }),
-                {
-                    type: "divider"
-                },
-                new ReactiveSwitch(this, "line_wraps", { color: "light-green", text: "Word Wrap", key: `settings.editor.tab.tabs.${Math.random()}` })
+                new ReactiveSwitch(this, "line_wraps", { color: "light-green", text: "Word Wrap", key: `settings.editor.tab.tabs.${Math.random()}` }),
+                new ReactiveSwitch(this, "auto_completions", { color: "light-green", text: "Provide Auto-Completions", key: `settings.editor.tab.auto_completions.${Math.random()}` })
             ]
         });
         this.addTab({
@@ -43,7 +40,8 @@ export default class SettingsWindow extends TabWindow {
                 title: "Appearance"
             },
             content: [
-                new ReactiveSwitch(this, "is_dark_mode", { color: "light-green", text: "Dark Mode", key: `settings.appearance.tab.${Math.random()}` })
+                new ReactiveSwitch(this, "is_dark_mode", { color: "light-green", text: "Dark Mode", key: `settings.appearance.tab.${Math.random()}` }),
+                new ReactiveSwitch(this, "inversed_arrows", { color: "light-green", text: "Inverse Arrows", key: `settings.editor.tab.arrows.${Math.random()}` })
             ]
         });
         this.addTab({

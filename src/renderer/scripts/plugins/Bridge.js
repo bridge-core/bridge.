@@ -247,6 +247,10 @@ export default class Bridge {
     on(event, cb) {
         Runtime.Listeners.add(event, cb);
     }
+    off(event, cb) {
+        if(!cb) PluginAssert.throw("You need to define a callback in order to remove an event listener.");
+        Runtime.Listeners.remove(event, cb);
+    }
     trigger(name, arg, basic=false) {
         if(basic) {
             return overwriteTrigger(name, arg);

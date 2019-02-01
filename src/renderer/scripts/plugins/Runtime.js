@@ -42,7 +42,8 @@ export default {
                 Runtime.listeners[id] = [listener];
             }   
         },
-        exists: (id) => Runtime.listeners[id] != undefined
+        exists: (id) => Runtime.listeners[id] != undefined,
+        remove: (id, cb) => Runtime.listeners[id] = Runtime.listeners[id].filter(l => l !== cb)
     },
     Menus: {
         get: (id) => id ? Runtime.menus[id] : Runtime.menus,
