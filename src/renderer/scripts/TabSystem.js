@@ -18,7 +18,10 @@ class TabSystem {
     //Adding tab
     add(tab) {
         for(let i = 0; i < this.tabs.length; i++) {
-            if(this.tabs[i].file_path == tab.file_path.replace(/\//g, "\\")) return this.select(i);
+            if(this.tabs[i].file_path == tab.file_path.replace(/\//g, "\\")) {
+                Store.commit("removeLoadingWindow", { id: "open-file" });
+                return this.select(i);
+            } 
         }
         
         tab.file_path = tab.file_path.replace(/\//g, "\\");

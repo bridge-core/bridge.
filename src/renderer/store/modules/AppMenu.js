@@ -102,45 +102,51 @@ const state = {
         display_name: "Edit",
         elements: [
             {
-                title: "Unselect",
-                shortcut: "Escape",
-                action: () => TabSystem.setCurrentFileNav("global")
+                type: "submenu",
+                title: "Selection",
+                elements: [
+                    {
+                        title: "Unselect",
+                        shortcut: "Escape",
+                        action: () => TabSystem.setCurrentFileNav("global")
+                    },
+                    {
+                        title: "Select Next",
+                        shortcut: "Ctrl + D",
+                        action: () => TabSystem.moveSelectionDown()
+                    },
+                    {
+                        title: "Select Previous",
+                        shortcut: "Ctrl + E",
+                        action: () => TabSystem.moveSelectionUp()
+                    }
+                ]
             },
             {
-                title: "Select Next",
-                shortcut: "Ctrl + D",
-                action: () => TabSystem.moveSelectionDown()
-            },
-            {
-                title: "Select Previous",
-                shortcut: "Ctrl + E",
-                action: () => TabSystem.moveSelectionUp()
-            },
-            {
-                type: "divider"
-            },
-            {
-                title: "Move Node Up",
-                shortcut: "Ctrl + T",
-                action: () => TabSystem.moveCurrentUp()
-            },
-            {
-                title: "Move Node Down",
-                shortcut: "Ctrl + G",
-                action: () => TabSystem.moveCurrentDown()
-            },
-            {
-                type: "divider"
-            },
-            {
-                title: "Open All Nodes",
-                shortcut: "Ctrl + J",
-                action: () => EventBus.trigger("openAllNodes")
-            },
-            {
-                title: "Close All Nodes",
-                shortcut: "Ctrl + U",
-                action: () => EventBus.trigger("closeAllNodes")
+                type: "submenu",
+                title: "JSON Nodes",
+                elements: [
+                    {
+                        title: "Move Node Up",
+                        shortcut: "Ctrl + T",
+                        action: () => TabSystem.moveCurrentUp()
+                    },
+                    {
+                        title: "Move Node Down",
+                        shortcut: "Ctrl + G",
+                        action: () => TabSystem.moveCurrentDown()
+                    },
+                    {
+                        title: "Open All Nodes",
+                        shortcut: "Ctrl + J",
+                        action: () => EventBus.trigger("openAllNodes")
+                    },
+                    {
+                        title: "Close All Nodes",
+                        shortcut: "Ctrl + U",
+                        action: () => EventBus.trigger("closeAllNodes")
+                    }
+                ]
             },
             {
                 type: "divider"

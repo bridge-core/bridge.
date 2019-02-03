@@ -69,8 +69,10 @@
         methods: {
             openFile(path) {
                 //ipcRenderer.send("getFile", { path: path.replace(/\\/g, "/") });
-                new LoadingWindow("open-file").show();
-                FileSystem.open(BASE_PATH + path);
+                if(!this.$store.state.LoadingWindow["open-file"]) {
+                    new LoadingWindow("open-file").show();
+                    FileSystem.open(BASE_PATH + path);
+                } 
             },
             getExtension(name) {
                 return name.split(".").pop();
