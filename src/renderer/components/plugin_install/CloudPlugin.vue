@@ -90,14 +90,12 @@ export default {
                 current = this.installed_plugins[i];
                 if(typeof current == "string") current = { id: "" };
             }
-            
             return this.installed_plugins[i] ? this.installed_plugins[i].version != this.plugin.version : false;
         },
         base_path() {
             return this.$store.state.TabSystem.base_path + this.$store.state.Explorer.project + "/bridge";
         },
         is_compatible() {
-            console.log(!VersionUtils.greaterThan(this.plugin.min_app_version || APP_VERSION, APP_VERSION))
             return !VersionUtils.greaterThan(this.plugin.min_app_version || APP_VERSION, APP_VERSION);
         }
     },

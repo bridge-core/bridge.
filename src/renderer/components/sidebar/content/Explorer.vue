@@ -29,6 +29,13 @@
                 <span>Package</span>
             </v-tooltip>
 
+            <v-tooltip right>
+                <v-btn icon flat @click.stop="openInExplorer" slot="activator" small>
+                    <v-icon small>mdi-folder-multiple</v-icon>
+                </v-btn>
+                <span>Open In Explorer</span>
+            </v-tooltip>
+
             <v-spacer></v-spacer>
             <v-tooltip right>
                 <v-btn icon flat @click.stop="" slot="activator" small>
@@ -55,7 +62,7 @@
 </template>
 
 <script>
-    import { ipcRenderer } from "electron";
+    import { ipcRenderer, shell } from "electron";
     import FileDisplayer from "./explorer/FileDisplayer.vue";
     import CreateFileWindow from "../../../windows/CreateFile";
     import CreateProjectWindow from "../../../windows/CreateProject";
@@ -171,6 +178,9 @@
                         this.$root.$emit("refreshExplorer");
                     })
                 });
+            },
+            openInExplorer() {
+                shell.openExternal(BASE_PATH + this.$store.state.Explorer.project);
             },
 
             getProjects({ event_name, func }={}) {

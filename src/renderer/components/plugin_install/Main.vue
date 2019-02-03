@@ -52,7 +52,6 @@
 <script>
 import PluginList from "./PluginList";
 import WebPlugins from "./WebPlugins";
-import { setTimeout } from 'timers';
 
 export default {
     name: "plugin-install-main",
