@@ -7,6 +7,7 @@ import JSONTree from "./editor/JsonTree";
 import { changeProvider } from "./editor/JsonTree";
 import { BASE_PATH } from "./constants";
 import PluginAssert from "./plugins/PluginAssert";
+import LoadingWindow from "../windows/LoadingWindow";
 
 class TabSystem {
     constructor() {
@@ -241,20 +242,30 @@ class TabSystem {
         this.updateDependencies(current.file_path, cap - 1);
     }
     saveCurrent() {
+        let win = new LoadingWindow("save-file").show();
+
         PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
+        if(current == undefined) return win.close();
+
         FileSystem.basicSave(current.file_path, this.getSaveContent(current));
 
         this.updateDependencies(current.file_path);
         this.setCurrentSaved();
+        win.close();
     }
     saveCurrentAs() {
+        let win = new LoadingWindow("save-file").show();
+
         PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
+        if(current == undefined) return win.close();
+
         FileSystem.basicSaveAs(current.file_path, this.getSaveContent(current));
         
         this.updateDependencies(current.file_path);
         this.setCurrentSaved();
+        win.close();
     }
 
     //MOVING & NAVIGATING

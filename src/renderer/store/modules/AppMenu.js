@@ -8,6 +8,7 @@ import TabSystem from "../../scripts/TabSystem";
 import Cache from "../../scripts/utilities/Cache";
 import FileSystem from "../../scripts/FileSystem";
 import ConfirmWindow from "../../scripts/commonWindows/Confirm";
+import EventBus from "../../scripts/EventBus";
 
 const state = {
     file: {
@@ -127,6 +128,19 @@ const state = {
                 title: "Move Node Down",
                 shortcut: "Ctrl + G",
                 action: () => TabSystem.moveCurrentDown()
+            },
+            {
+                type: "divider"
+            },
+            {
+                title: "Open All Nodes",
+                shortcut: "Ctrl + J",
+                action: () => EventBus.trigger("openAllNodes")
+            },
+            {
+                title: "Close All Nodes",
+                shortcut: "Ctrl + U",
+                action: () => EventBus.trigger("closeAllNodes")
             },
             {
                 type: "divider"

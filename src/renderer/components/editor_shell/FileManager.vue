@@ -26,6 +26,7 @@
     import CodeMirror from "codemirror";
     //Language
     import "codemirror/mode/javascript/javascript.js";
+    import "codemirror/mode/xml/xml.js";
 
     //Style
     import "codemirror/lib/codemirror.css";
@@ -69,7 +70,8 @@
             return {
                 alias: {
                     js: "javascript",
-                    func: "mcfunction"
+                    func: "mcfunction",
+                    html: "text/html"
                 }
             }
         },
@@ -84,6 +86,7 @@
             //FILE CONTENT
             image() {
                 if (this.file) {
+                    this.$store.commit("removeLoadingWindow", { id: "open-file" });
                     let base64Data = btoa(String.fromCharCode.apply(null, this.file.raw_content));
                     return `data:image/${this.extension};base64,${base64Data}`;
                 }
@@ -107,6 +110,7 @@
                     } catch(e) {
                         if(this.text == "") return {};
                         TabSystem.setCurrentInvalid();
+                        this.$store.commit("removeLoadingWindow", { id: "open-file" });
                         return  "error";
                     }
                 }
@@ -114,6 +118,7 @@
             },
 
             cm_options() {
+                this.$store.commit("removeLoadingWindow", { id: "open-file" });
                 return {
                     lineNumbers: true,
                     line: true,

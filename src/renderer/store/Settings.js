@@ -16,7 +16,8 @@ function setup() {
             inversed_arrows: false,
             use_tabs: true,
             line_wraps: false,
-            auto_completions: true
+            auto_completions: true,
+            open_all_nodes: false
         });
     }
 

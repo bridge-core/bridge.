@@ -71,6 +71,14 @@ export default class JSONTree {
         if(this.parent == undefined) return;
         return this.parent.children[this.parent.find(this) - 1];
     }
+    get depth() {
+        let deepest = 0;
+        this.children.forEach(c => {
+            let potential = c.depth + 1;
+            if(deepest < potential) deepest = potential;
+        });
+        return deepest;
+    }
 
     get(inp) {
         if(Array.isArray(inp) || typeof inp == "string") {

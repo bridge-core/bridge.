@@ -12,7 +12,7 @@
             <v-flex :xs10="is_sidebar_open" :xs12="!is_sidebar_open" style="padding-left: 0.5em;">
               <editor-shell-tab-system></editor-shell-tab-system>
               <editor-shell-content-manager></editor-shell-content-manager>
-              <plugin-install-main v-if="this.$store.state.Plugins.is_menu_open"></plugin-install-main>
+              <plugin-install-main v-if="render_plugin_window"></plugin-install-main>
               <window-factory-main></window-factory-main>
             </v-flex>
           </v-layout>
@@ -66,13 +66,23 @@
       },
       footer_visible() {
         return this.$store.state.Footer.elements.length > 0;
+      },
+      is_plugin_window_open() {
+        return this.$store.state.Plugins.is_menu_open;
+      }
+    },
+    watch: {
+      is_plugin_window_open(to) {
+        if(to) this.render_plugin_window = true
+        else window.setTimeout(() => this.render_plugin_window = false, 100)
       }
     },
     data() {
       return {
         content: "",
         file: "",
-        path: ""
+        path: "",
+        render_plugin_window: false
       };
     }
   }

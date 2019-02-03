@@ -25,6 +25,7 @@
     import { ipcRenderer } from "electron";
     import FileSystem from "../../../../scripts/FileSystem";
     import { BASE_PATH } from "../../../../scripts/constants";
+    import LoadingWindow from "../../../../windows/LoadingWindow";
 
     export default {
         name: "file-displayer",
@@ -68,6 +69,7 @@
         methods: {
             openFile(path) {
                 //ipcRenderer.send("getFile", { path: path.replace(/\\/g, "/") });
+                new LoadingWindow("open-file").show();
                 FileSystem.open(BASE_PATH + path);
             },
             getExtension(name) {

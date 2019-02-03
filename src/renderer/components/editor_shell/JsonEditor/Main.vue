@@ -4,7 +4,7 @@
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
                 <details 
                     v-for="(e, i) in render_object.children"
-                    :key="`${uuid}.${object_key}/${i}.${Math.random()}`"
+                    :key="`${uuid}.${e.open}.${object_key}/${i}.${Math.random()}`"
                     :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                 >
                     <object-key 
@@ -98,21 +98,30 @@
                 EventBus.on("updateCurrentContent", (new_o=this.computed_object()) => {
                     this.render_object = new_o;
                 });
+                EventBus.on("openAllNodes", this.openAllChildren);
+
+                if(this.$store.state.Settings.open_all_nodes) 
+                    this.$nextTick(() => this.openAllChildren());
+                else
+                    this.$store.commit("removeLoadingWindow", { id: "open-file" });
             } else {
                 EventBus.on("updateFileNavigation", (new_path) => {
                     if(this.object_key == new_path) this.$nextTick(() => {
                         document.getElementById(`summary.${new_path}`).focus();
                     });
                 });
+                EventBus.on("closeAllNodes", () => {
+                    this.open = false;
+                    this.object = this.object;
+                });
             }
 
             if(!this.first && this.render_object.open) {
                 this.open = true;
-                //console.log(this.$parent.$refs, this.object_key);
-                
+
                 this.$parent.$refs[this.object_key][0].open = true;
                 this.$root.$emit(`load(${this.tab_id}):${this.object_key}`, true);
-            }
+            }            
         },
         beforeDestroy() {
             this.$root.$off(`load(${this.tab_id}):${this.object_key}`);
@@ -136,7 +145,7 @@
             },
             open: {
                 set(val) {
-                    this.render_object.open = true;
+                    this.render_object.open = val;
                 }, 
                 get() {
                     return this.first || this.render_object.open;
@@ -201,6 +210,14 @@
                 // } else {
                 //     this.$refs.object[0].$el.focus();
                 // }
+            },
+            openAllChildren(children=this.computed_object().children, first=true, depth=0, deepest=this.computed_object().depth) {
+                window.setTimeout(() => {
+                    this.open = true;
+                    children.forEach(c => this.openAllChildren(c.openNode().children, false, depth + 1, deepest));
+
+                    if(depth == deepest) this.$store.commit("removeLoadingWindow", { id: "open-file" });
+                }, 5);
             }
         },
         watch: {
