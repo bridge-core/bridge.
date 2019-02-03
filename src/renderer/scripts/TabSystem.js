@@ -39,9 +39,7 @@ class TabSystem {
     //Closing tab
     closeById(id) {
         this.tabs.splice(id, 1);
-        console.log(id, this.selected)
         if(id <= this.selected && this.selected > 0) {
-            console.log("In")
             this.select(this.selected - 1);
         }
 
@@ -87,7 +85,7 @@ class TabSystem {
     getCurrentNavObj() {
         let nav = this.getCurrentNavigation();
         let s = this.getSelected();
-        if(!s.content.get) return;
+        if(!s || !s.content.get) return;
         return s.content.get(nav);
     }
     setCurrentNavContent(val) {
@@ -133,7 +131,7 @@ class TabSystem {
         if(this.tabs[tab].file_navigation == str_path) return;
         
         this.tabs[tab].file_navigation = str_path;
-        EventBus.trigger("updateFileNavigation");
+        EventBus.trigger("updateFileNavigation", str_path);
         PluginEnv.trigger("bridge:selectedNode", { node: this.getSelected().content.get(str_path) }, true);
     }
     setCurrentFileNav(val) {
@@ -172,11 +170,10 @@ class TabSystem {
     //SAVING
     getSaveContent(current) {
         let ext = current.file_path.split(/\/|\\/).pop().split(".").pop();
-        console.log(ext)
 
         if(ext  == "json") {
             let j;  
-            console.log(current.content instanceof JSONTree);
+            console.log(current.content instanceof JSONTree, current);
             
             if(current.content instanceof JSONTree) {
                 j = Format.toJSON(current.content, false);
@@ -221,22 +218,26 @@ class TabSystem {
         if(cap <= 0) return PluginAssert.throw("Dependency Update Failed", new Error("Reached maximum update depth. Make sure you haven't created a dependency loop!"));
         FileSystem.Cache.get(file_path)
             .then(cache => {
-                if(cache.update) {
+                if(cache.update != undefined) {
                     cache.update.forEach(file => {
                         console.log("[UPDATE] Dependency " + file);
                         FileSystem.Cache.get(file)
                             .then(d_cache => {
-                                this.save({ ...d_cache, file_path: file });
+                                this.dependencyUpdate({ ...d_cache, file_path: file }, cap);
                             })
                             // .catch(err => console.log("File \"" + file + "\" does not exist in cache. Cannot update."));
                             .catch(err => console.error(err));
                     });
                 }
             })
-            .catch("No file dependencies detected!");
+            .catch((err) => {
+                console.log("No file dependencies detected!");
+                throw err;
+            });
     }
-    save(current, cap) {
-        FileSystem.basicSave(current.file_path, this.getSaveContent(current));
+    dependencyUpdate(current, cap) {
+        // FileSystem.basicSave(current.file_path, this.getSaveContent(current));
+        PluginEnv.trigger("bridge:updateFile", { file_path: current.file_path, current: this.getSaveContent(current) }, true);
         this.updateDependencies(current.file_path, cap - 1);
     }
     saveCurrent() {
@@ -256,28 +257,42 @@ class TabSystem {
         this.setCurrentSaved();
     }
 
-    //MOVING
+    //MOVING & NAVIGATING
     moveCurrentUp() {
-        this.getCurrentNavObj().moveUp();
+        let current = this.getCurrentNavObj();
+        if(current == undefined || !current instanceof JSONTree) return;
+        current.moveUp();
         EventBus.trigger("updateCurrentContent", this.getSelected().content);
 
-        let old = this.getCurrentNavigation();;
+        let old = this.getCurrentNavigation();
         this.setCurrentFileNav("global");
         this.setCurrentFileNav(old);
 
         this.setCurrentUnsaved();
-        
     }
     moveCurrentDown() {
-        this.getCurrentNavObj().moveDown();
+        let current = this.getCurrentNavObj();
+        if(current == undefined || !current instanceof JSONTree) return;
+        current.moveDown();
         EventBus.trigger("updateCurrentContent", this.getSelected().content);
         
-        let old = this.getCurrentNavigation();;
+        let old = this.getCurrentNavigation();
         this.setCurrentFileNav("global");
         this.setCurrentFileNav(old);
 
         this.setCurrentUnsaved();
-        
+    }
+    moveSelectionUp() {
+        let current = this.getCurrentNavObj();
+        if(current == undefined || !current instanceof JSONTree) return;
+        let node = current.previous();
+        this.setCurrentFileNav(node.path);
+    }
+    moveSelectionDown() {
+        let current = this.getCurrentNavObj();
+        if(current == undefined || !current instanceof JSONTree) return;
+        let node = current.next();
+        this.setCurrentFileNav(node.path);
     }
 }
 

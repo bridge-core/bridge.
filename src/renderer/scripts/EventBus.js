@@ -21,10 +21,10 @@ export default class {
         //console.log("Unregistered event " + event);
     }
 
-    static trigger(event, data) {
+    static trigger(event, ...data) {
         if(event in events) {
             events[event].forEach(e => {
-                e(data);
+                e(...data);
             });
         }
         //console.log("Triggered event " + event);

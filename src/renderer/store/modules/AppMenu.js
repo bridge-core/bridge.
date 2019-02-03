@@ -5,6 +5,9 @@ import { ipcRenderer, shell } from "electron";
 import SettingsWindow from "../../windows/Settings";
 import CreateFileWindow from "../../windows/CreateFile";
 import TabSystem from "../../scripts/TabSystem";
+import Cache from "../../scripts/utilities/Cache";
+import FileSystem from "../../scripts/FileSystem";
+import ConfirmWindow from "../../scripts/commonWindows/Confirm";
 
 const state = {
     file: {
@@ -43,6 +46,36 @@ const state = {
                 action: () => TabSystem.closeSelected()
             },
             {
+                title: "Clear Cache",
+                action: () => {
+                    if(TabSystem.getSelected()) new ConfirmWindow(() => {
+                        try {
+                            let path = TabSystem.getSelected().file_path;
+                            FileSystem.Cache.clear(path);
+                            TabSystem.closeSelected();
+                            FileSystem.open(path);
+                        } catch(err) {}
+                    }, null, {
+                        options: {
+                            is_frameless: true,
+                            height: 120
+                        },
+                        content: [
+                            {
+                                type: "header",
+                                text: "Confirmation"
+                            },
+                            {
+                                type: "divider"
+                            },
+                            {
+                                text: "\nAre you sure that you want to delete the cache of this file?"
+                            }
+                        ]
+                    });
+                } 
+            },
+            {
                 type: "divider"
             },
             {
@@ -73,27 +106,28 @@ const state = {
                 action: () => TabSystem.setCurrentFileNav("global")
             },
             {
-                title: "Move Up",
-                subtitle: "(Node)",
-                shortcut: "Ctrl + W",
+                title: "Select Next",
+                shortcut: "Ctrl + D",
+                action: () => TabSystem.moveSelectionDown()
+            },
+            {
+                title: "Select Previous",
+                shortcut: "Ctrl + E",
+                action: () => TabSystem.moveSelectionUp()
+            },
+            {
+                type: "divider"
+            },
+            {
+                title: "Move Node Up",
+                shortcut: "Ctrl + T",
                 action: () => TabSystem.moveCurrentUp()
             },
             {
-                title: "Move Down",
-                subtitle: "(Node)",
-                shortcut: "Ctrl + D",
+                title: "Move Node Down",
+                shortcut: "Ctrl + G",
                 action: () => TabSystem.moveCurrentDown()
             },
-            // {
-            //     title: "Select Next",
-            //     shortcut: "WIP",
-            //     action: () => console.log("Unselect me!")
-            // },
-            // {
-            //     title: "Select Previous",
-            //     shortcut: "WIP",
-            //     action: () => console.log("Unselect me!")
-            // },
             {
                 type: "divider"
             },

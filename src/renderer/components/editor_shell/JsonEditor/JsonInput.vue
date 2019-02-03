@@ -112,6 +112,7 @@
         },
         methods: {
             click() {
+                // console.log(this.value, this.render_object.get(this.file_navigation));
                 if(this.value == "" || !this.value) return;
                 let current = this.render_object.get(this.file_navigation);
                 
@@ -148,13 +149,21 @@
                 }
 
                 let context = [];
+                let current = this.render_object.get(this.file_navigation);
+                if(current == undefined) return;
                 if(this.type == "object")
-                    context = Object.keys(this.render_object.get(this.file_navigation).toJSON());
-                if(this.type == "value")
-                    context = this.render_object.get(this.file_navigation).data;
+                    context = Object.keys(current.toJSON());
+                if(this.type == "value") {
+                    if(current) context = current.data;
+                    else context = [];
+                }
+                    
 
                 let current_node = TabSystem.getSelected().content.get(this.file_navigation);
-                let propose = current_node.propose(this.file_navigation);
+                let propose;
+                if(current_node) propose = current_node.propose(this.file_navigation);
+                else propose = [];
+
                 //PLUGIN HOOK
                 PluginEnv.trigger("bridge:beforePropose", { propose, node: current_node });
                 propose = propose[this.type];
@@ -182,12 +191,13 @@
                 this.value = TabSystem.getCurrentNavContent();        
             },
             navigationBack() {
-                    console.log(this.items.length == 0, this.file_navigation != "global")
-                    if(this.items.length == 0 && this.file_navigation != "global") {
-                        TabSystem.navigationBack();
-                        this.updateAutoCompletions()
-                        this.navigationBack();
-                    } 
+                TabSystem.navigationBack();
+                    // console.log(this.items.length == 0, this.file_navigation != "global")
+                    // if(this.items.length == 0 && this.file_navigation != "global") {
+                    //     TabSystem.navigationBack();
+                    //     this.updateAutoCompletions()
+                    //     this.navigationBack();
+                    // } 
             }
         }
     }

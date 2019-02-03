@@ -7,7 +7,7 @@ function getPath(path) {
     return BASE_PATH + path;
 }
 function getFileId(file_path) {
-    return file_path.replace(BASE_PATH, "").replace(/\\/g, "/");
+    return file_path.replace(/\\/g, "/").replace(BASE_PATH.replace(/\\/g, "/"), "");
 }
 
 export default class Cache {
@@ -42,6 +42,13 @@ export default class Cache {
             });
         });
     }
+    clear(file_path) {
+        this.getCache((cache) => {
+            let id = getFileId(file_path);
+            delete cache[id];
+            this.saveCache(cache);
+        });
+    }
 
     //UPDATE
     addDependency(to, dependency) {
@@ -51,6 +58,11 @@ export default class Cache {
                 else if(!Array.isArray(cache.update)) cache.update = [dependency];
 
                 this.save(to, undefined, { update: cache.update });
+            })
+            .catch(() => {
+                this.save(to, undefined, {
+                    update: [dependency]
+                })
             });
     }
     removeDependency(from, dependency) {

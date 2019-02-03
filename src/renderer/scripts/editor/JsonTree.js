@@ -53,6 +53,24 @@ export default class JSONTree {
             }
         }
     }
+    get is_array() {
+        return this.children[0] && !Number.isNaN(Number(this.children[0].key));
+    }
+    get path() {
+        if(!this.parent) return "global";
+        return this.parent.path + "/" + this.key.replace(/\//g, "#;slash;#");
+    }
+    get parsed_key() {
+        return this.key.replace(/\//g, "#;slash;#");
+    }
+    get next_sibling() {
+        if(this.parent == undefined) return;
+        return this.parent.children[this.parent.find(this) + 1];
+    }
+    get prev_sibling() {
+        if(this.parent == undefined) return;
+        return this.parent.children[this.parent.find(this) - 1];
+    }
 
     get(inp) {
         if(Array.isArray(inp) || typeof inp == "string") {
@@ -82,9 +100,20 @@ export default class JSONTree {
             throw new TypeError("Expected string, found " + typeof inp);
         }
     }
+    find(child) {
+        let i = 0;
+        for(let c of this.children) {
+            if(c.parsed_key == child.parsed_key) {
+                return i;
+            }
+
+            i++;
+        }
+        return -1;
+    }
     add(child) {
         for(let c of this.children) {
-            if(c.key == child.key) return c;
+            if(c.parsed_key == child.parsed_key) return c;
         }
         child.parent = this;
         if(!Number.isNaN(Number(child.key)) && this.children.length == 0) this.type = "array";
@@ -97,6 +126,20 @@ export default class JSONTree {
         this.children.push(child);
         return child;
     }
+    edit(new_data) {
+        if(!new_data) throw new Error("Data may not be undefined or null.")
+        this.data = new_data;
+    }
+    remove(key) {
+        if(this.key == "global") return;
+            let c = key ? this.children : this.parent.children;
+            for(let i = 0; i < c.length; i++) {
+                if(c[i].parsed_key == (key || this.parsed_key)) {
+                    c.splice(i, 1);
+                    return;
+                }
+            }
+    }
     clone() {
         let clone = new JSONTree(this.key, this.data, this.parent, this.children, this.open);
         clone.type = this.type;
@@ -107,47 +150,18 @@ export default class JSONTree {
         clone.type = this.type;
         return clone;
     }
+
     propose(path=this.path) {
         //console.log(PROVIDER.get(path), path)
         return PROVIDER.get(path);
-    }
-    find(child) {
-        let i = 0;
-        for(let c of this.children) {
-            if(c.key == child.key) {
-                return i;
-            }
-
-            i++;
-        }
-        return -1;
-    }
-    remove(key) {
-        if(this.key == "global") return;
-            let c = key ? this.children : this.parent.children;
-            for(let i = 0; i < c.length; i++) {
-                if(c[i].key == (key || this.key)) {
-                    c.splice(i, 1);
-                    return;
-                }
-            }
-    }
-    edit(new_data) {
-        if(!new_data) throw new Error("Data may not be undefined or null.")
-        this.data = new_data;
-    }
+    }   
     openNode() {
         this.open = true;
         return this;
     }
-    get is_array() {
-        return this.children[0] && !Number.isNaN(Number(this.children[0].key));
-    }
-    get path() {
-        if(!this.parent) return "global";
-        return this.parent.path + "/" + this.key.replace(/\//g, "#;slash;#");
-    }
+    
 
+    //NAVIGATING & MOVING
     moveUp() {
         let a = this.parent.children;
         let me = this.parent.find(this);
@@ -166,7 +180,33 @@ export default class JSONTree {
         a[me] = a[me + 1];
         a[me + 1] = tmp;
     }
+    next(skip=false) {
+        let next_sibling = this.next_sibling;
 
+        if(!skip && this.open && this.children.length > 0) {
+            return this.children[0];
+        } else if(next_sibling != undefined) {
+            return next_sibling;
+        } else if(this.key != "global") {
+            return this.parent.next(true);
+        }
+        return this;
+    }
+    previous() {
+        let prev_sibling = this.prev_sibling;
+
+        if(prev_sibling == undefined && this.key != "global") {
+            return this.parent;
+        } else if(this.key == "global") {
+            return this;
+        } else if(prev_sibling.open && prev_sibling.children.length > 0) {
+            return prev_sibling.children[prev_sibling.children.length - 1];
+        } else {
+            return prev_sibling;
+        }
+    }
+
+    //JSON <-> TREE
     buildFromObject(data, first=true) {
         if(data instanceof JSONTree) return data;
         this.type = getType(data);
@@ -187,6 +227,7 @@ export default class JSONTree {
         return Json.Format.toJSON(this, build_arrays);
     }
 
+    //ITERATOR
     iterator() {
         return new this.TreeIterator(this);
     }

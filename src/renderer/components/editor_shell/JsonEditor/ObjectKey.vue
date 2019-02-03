@@ -1,5 +1,5 @@
 <template>
-    <summary :class="selected_class" v-ripple>
+    <summary :class="selected_class" v-on:keydown.enter="open_current" :id="'summary.' + object_key" v-ripple>
         <v-icon :class="`${inversed_arrows ? 'open' : 'closed'}`" small>keyboard_arrow_down</v-icon>
         <v-icon :class="`${inversed_arrows ? 'closed' : 'open'}`" small>keyboard_arrow_up</v-icon>
         <highlight-text class="object"> {{ my_key }}</highlight-text>
@@ -43,6 +43,9 @@
             is_selected() {
                 return TabSystem.getCurrentNavigation() == this.object_key;
                 //return this.$store.getters.current_internal_file_path() == this.object_key;
+            },
+            open_current() {
+                this.$root.$emit(`load(${this.tab_id}):${this.object_key}`);
             }
         }
     }

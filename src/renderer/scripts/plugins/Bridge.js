@@ -33,6 +33,14 @@ export default class Bridge {
             },
             write(path, other) {
                 FileSystem.Cache.save(path, undefined, other);
+            },
+            Dependency: {
+                add(to, dependency) {
+                    FileSystem.Cache.addDependency(to, dependency);
+                },
+                remove(from, dependency) {
+                    FileSystem.Cache.removeDependency(from, dependency);
+                }
             }
         };
 
@@ -73,7 +81,12 @@ export default class Bridge {
                 });
             },
             readFileSync(path) {
-                return fs.readFileSync(Runtime.Paths.project() + path);
+                try {
+                    return fs.readFileSync((Runtime.Paths.project() + path).replace(/\//g, "\\"));
+                } catch(err) {
+                    PluginAssert.throw(this.__file_path__, err);
+                }
+                
             },
             writeFile(path, data, cb, check=true) {
                 let folder = path.split(/\\|\//g);

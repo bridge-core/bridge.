@@ -55,7 +55,8 @@ class FileSystem {
                     if(err) throw err;
                     this.addAsTab(path, data.toString(), data);
             }))
-            .catch(() => {
+            .catch((err) => {
+                console.log("[OPEN] Not opened from cache");
                 fs.readFile(path, (err, data) => {
                     if(err) throw err;
                     this.addAsTab(path, data.toString(), data);

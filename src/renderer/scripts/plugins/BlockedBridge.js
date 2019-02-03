@@ -13,7 +13,12 @@ export default class BlockedBridge {
         this.Cache = {
             write() {},
             open() {},
-        },
+            openSync() {},
+            Dependency: {
+                add() {},
+                remove() {}
+            }
+        };
         this.Store = {
             namespace: undefined,
             setup() {},

@@ -98,6 +98,12 @@
                 EventBus.on("updateCurrentContent", (new_o=this.computed_object()) => {
                     this.render_object = new_o;
                 });
+            } else {
+                EventBus.on("updateFileNavigation", (new_path) => {
+                    if(this.object_key == new_path) this.$nextTick(() => {
+                        document.getElementById(`summary.${new_path}`).focus();
+                    });
+                });
             }
 
             if(!this.first && this.render_object.open) {
