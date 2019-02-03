@@ -58,7 +58,7 @@
       SETTINGS.setup();
     },
     mounted() {
-      setTimeout(() => new UpdateWindow(), 1000);
+      if(process.env.NODE_ENV !== "development") setTimeout(() => new UpdateWindow(), 1000);
     },
     computed: {
       is_sidebar_open() {
