@@ -38,7 +38,7 @@ Wherever it makes sense, you should chain methods by inserting a new line first.
 // Example
 doSomething()
   .then(data => data.string())
-  .then(str => console.log(str)
+  .then(str => console.log(str))
   .catch(err => console.error(err))
   .finally(updateUI());
 ```
