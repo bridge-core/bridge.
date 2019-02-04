@@ -95,11 +95,41 @@ const state = {
                 } 
             },
             {
+                title: "Copy With Key",
+                shortcut: "Ctrl + Shift + C",
+                action: () => {
+                    try {
+                        let obj = TabSystem.getCurrentNavObj().toJSON();
+                        let key = TabSystem.getCurrentNavContent();
+                        obj = { [key]: obj };
+                        clipboard.writeText(JSON.stringify(obj, null, "\t"));
+                    } catch(e) {
+                        EventBus.trigger("getCMSelection", clipboard.writeText);
+                    }
+                } 
+            },
+            {
                 title: "Cut",
                 shortcut: "Ctrl + X",
                 action: () => {
                     try {
                         clipboard.writeText(JSON.stringify(TabSystem.getCurrentNavObj().toJSON(), null, "\t"));
+                        TabSystem.deleteCurrentChildren();
+                    } catch(e) {
+                        EventBus.trigger("getCMSelection", clipboard.writeText);
+                        EventBus.trigger("setCMSelection", "");
+                    }
+                } 
+            },
+            {
+                title: "Cut With Key",
+                shortcut: "Ctrl + Shift + X",
+                action: () => {
+                    try {
+                        let obj = TabSystem.getCurrentNavObj().toJSON();
+                        let key = TabSystem.getCurrentNavContent();
+                        obj = { [key]: obj };
+                        clipboard.writeText(JSON.stringify(obj, null, "\t"));
                         TabSystem.deleteCurrent();
                     } catch(e) {
                         EventBus.trigger("getCMSelection", clipboard.writeText);

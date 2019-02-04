@@ -118,7 +118,6 @@ export default class JSONTree {
            if(i_arr.length == 0) return false; 
         } 
         key = i_arr.shift();
-        console.log(i_arr, key, this.data)
         if(i_arr.length == 0 && this.data.replace(/\//g, "#;slash;#") == key) return true;
         
         
@@ -127,7 +126,7 @@ export default class JSONTree {
                 if(i_arr.length == 0) {
                     return false;
                 } else {
-                    return c.get(i_arr);
+                    return c.isDataPath(i_arr);
                 }
             }
         }

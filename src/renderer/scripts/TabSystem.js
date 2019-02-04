@@ -172,6 +172,22 @@ class TabSystem {
         this.navigationBack();
         this.setCurrentUnsaved();
     }
+    deleteCurrentChildren() {
+        let current = this.getSelected().content;
+        if(!current instanceof JSONTree) return;
+        let nav = this.getCurrentNavigation();
+
+        if(current.isDataPath(nav)) {
+            this.navigationBack();
+        }
+        current = current.get(nav);
+
+        current.data = "";
+        current.children = [];
+
+        
+        this.setCurrentUnsaved();
+    }
     setCurrentSaved() {
         if(this.getSelected().is_unsaved) {
             this.getSelected().is_unsaved = false;
