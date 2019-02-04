@@ -52,31 +52,49 @@ export default class Cache {
 
     //UPDATE
     addDependency(to, dependency) {
-        this.get(to)
-            .then(cache => {
-                if(Array.isArray(cache.update) && !cache.update.includes(dependency)) cache.update.push(dependency);
-                else if(!Array.isArray(cache.update)) cache.update = [dependency];
+        return new Promise((resolve, reject) => {
+            this.get(to)
+                .then(cache => {
+                    if(Array.isArray(cache.update) && !cache.update.includes(dependency)) cache.update.push(dependency);
+                    else if(!Array.isArray(cache.update)) cache.update = [dependency];
 
-                this.save(to, undefined, { update: cache.update });
-            })
-            .catch(() => {
-                this.save(to, undefined, {
-                    update: [dependency]
+                    this.save(to, undefined, { update: cache.update });
+                    resolve(cache);
                 })
-            });
+                .catch(() => {
+                    resolve({ content: {} });
+                    this.save(to, undefined, {
+                        update: [dependency]
+                    })
+                });
+        });
+        
     }
-    removeDependency(from, dependency) {
-        this.get(from)
-            .then(cache => {
-                if(Array.isArray(cache.update) && cache.update.includes(dependency)) cache.update.splice(cache.update.indexOf(dependency), 1);
-                else return;
-                
-                this.save(from, undefined, { update: cache.update });
-            });
+    removeDependency(from, dependency, save=true) {
+        return new Promise((resolve, reject) => {
+            this.get(from)
+                .then(cache => {
+                    if(Array.isArray(cache.update) && cache.update.includes(dependency)) cache.update.splice(cache.update.indexOf(dependency), 1);
+                    else return resolve();
+                    
+                    if(save) this.save(from, undefined, { update: cache.update });
+                })
+                .catch(err => reject(err));
+        });
+        
+    }
+    removeAllDependencies(sources, dependency) {
+        let proms = [];
+        sources.forEach(
+            s => proms.push(this.removeDependency(s, dependency, false))
+        );
+        Promise.all(proms)
+            .then(() => this.saveCache())
+            .catch((err) => console.log(err));
     }
     
     //WRAPPER
-    saveCache(data) {
+    saveCache(data=this.cached_cache) {
         fs.writeFile(getPath(this.project + "/bridge/.editor-cache"), JSON.stringify(data, null, "\t"), (err) => {
             if(err) throw err;
         });

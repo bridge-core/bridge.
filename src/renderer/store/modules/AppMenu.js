@@ -5,7 +5,6 @@ import { ipcRenderer, shell } from "electron";
 import SettingsWindow from "../../windows/Settings";
 import CreateFileWindow from "../../windows/CreateFile";
 import TabSystem from "../../scripts/TabSystem";
-import Cache from "../../scripts/utilities/Cache";
 import FileSystem from "../../scripts/FileSystem";
 import ConfirmWindow from "../../scripts/commonWindows/Confirm";
 import EventBus from "../../scripts/EventBus";
@@ -102,6 +101,19 @@ const state = {
         display_name: "Edit",
         elements: [
             {
+                title: "Delete",
+                shortcut: "Ctrl + Backspace",
+                action: () => TabSystem.deleteCurrent()
+            },
+            {
+                shortcut: "Ctrl + Del",
+                action: () => TabSystem.deleteCurrent(),
+                is_hidden: true
+            },
+            {
+                type: "divider"
+            },
+            {
                 type: "submenu",
                 title: "Selection",
                 elements: [
@@ -127,13 +139,13 @@ const state = {
                 title: "JSON Nodes",
                 elements: [
                     {
-                        title: "Move Node Up",
-                        shortcut: "Ctrl + T",
+                        title: "Move Up",
+                        shortcut: "Ctrl + Shift + E",
                         action: () => TabSystem.moveCurrentUp()
                     },
                     {
-                        title: "Move Node Down",
-                        shortcut: "Ctrl + G",
+                        title: "Move Down",
+                        shortcut: "Ctrl + Shift + D",
                         action: () => TabSystem.moveCurrentDown()
                     },
                     {
@@ -147,19 +159,6 @@ const state = {
                         action: () => EventBus.trigger("closeAllNodes")
                     }
                 ]
-            },
-            {
-                type: "divider"
-            },
-            {
-                title: "Delete",
-                shortcut: "Ctrl + Backspace",
-                action: () => TabSystem.deleteCurrent()
-            },
-            {
-                shortcut: "Ctrl + Del",
-                action: () => TabSystem.deleteCurrent(),
-                is_hidden: true
             }
         ]
     },

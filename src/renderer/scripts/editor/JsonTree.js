@@ -120,18 +120,20 @@ export default class JSONTree {
         return -1;
     }
     add(child) {
-        for(let c of this.children) {
-            if(c.parsed_key == child.parsed_key) return c;
+        if(!this.is_array) {
+            for(let c of this.children) {
+                if(c.parsed_key == child.parsed_key) return c;
+            }
+            if(!Number.isNaN(Number(child.key)) && this.children.length == 0) this.type = "array";
         }
+
         child.parent = this;
-        if(!Number.isNaN(Number(child.key)) && this.children.length == 0) this.type = "array";
+        this.children.push(child);
         
         //PLUGIN HOOK
         PluginEnv.trigger("bridge:addedNode", {
             node: child
         });
-
-        this.children.push(child);
         return child;
     }
     edit(new_data) {
@@ -223,7 +225,7 @@ export default class JSONTree {
         
         if(typeof data == "object") {
             for(let key in data) {
-                if(typeof data[key] != "function" && key != "__ob__") this.add(new JSONTree(key, undefined, this).buildFromObject(data[key], false));
+                if(typeof data[key] != "function" && key != "__ob__") this.add(new JSONTree(key, undefined, this)).buildFromObject(data[key], false);
             }
         } else if(typeof data != "function") {
             this.data = data + "";

@@ -35,11 +35,15 @@ export default class Bridge {
                 FileSystem.Cache.save(path, undefined, other);
             },
             Dependency: {
-                add(to, dependency) {
-                    FileSystem.Cache.addDependency(to, dependency);
+                add(to, dependency, cb) {
+                    FileSystem.Cache.addDependency(to, dependency)
+                        .then(cache => cb(cache));
                 },
                 remove(from, dependency) {
                     FileSystem.Cache.removeDependency(from, dependency);
+                },
+                removeAll(sources, dependency) {
+                    FileSystem.Cache.removeAllDependencies(sources, dependency);
                 }
             }
         };
@@ -76,7 +80,7 @@ export default class Bridge {
             __file_path__: file_path,
             readFile(path, cb) {
                 fs.readFile(Runtime.Paths.project() + path, (err, data) => {
-                    if(err) PluginAssert.throw(this.__file_path__, err);
+                    if(err && !cb) PluginAssert.throw(this.__file_path__, err);
                     cb(err, data);
                 });
             },
@@ -106,7 +110,7 @@ export default class Bridge {
             },
             readDirectory(path, cb) {
                 fs.readdir(Runtime.Paths.project() + path, (err, data) => {
-                    if(err) PluginAssert.throw(this.__file_path__, err);
+                    if(err && !cb) PluginAssert.throw(this.__file_path__, err);
                     cb(err, data);
                 });
             },
@@ -115,7 +119,7 @@ export default class Bridge {
             },
             stats(path, cb) {
                 fs.lstat(Runtime.Paths.project() + path, (err, data) => {
-                    if(err) PluginAssert.throw(this.__file_path__, err);
+                    if(err && !cb) PluginAssert.throw(this.__file_path__, err);
                     cb(err, data);
                 });
             }

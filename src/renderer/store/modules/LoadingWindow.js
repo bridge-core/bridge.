@@ -9,9 +9,6 @@ const mutations = {
         } else {
             state[id] = [window];
         }
-        console.log(state[id] != undefined);
-        // window.show();
-        
     },
     removeLoadingWindow(state, { id }) {
         if(state[id] == undefined) return;

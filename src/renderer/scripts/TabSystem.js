@@ -172,12 +172,12 @@ class TabSystem {
     }
 
     //SAVING
-    getSaveContent(current) {
+    getSaveContent(current, previous) {
         let ext = current.file_path.split(/\/|\\/).pop().split(".").pop();
 
         if(ext  == "json") {
             let j;  
-            console.log(current.content instanceof JSONTree, current);
+            console.log(current.content instanceof JSONTree, current, previous);
             
             if(current.content instanceof JSONTree) {
                 j = Format.toJSON(current.content, false);
@@ -196,7 +196,8 @@ class TabSystem {
                 ...current,
                 file_path: current.file_path.replace(/\\/g, "/"),
                 content: new JSONTree("global").buildFromObject(j),
-                file_extension: ext
+                file_extension: ext,
+                previous
             });
 
             return JSON.stringify(Format.toJSON(modified_data.content), null, this.use_tabs ? "\t" : "  ");
@@ -212,13 +213,14 @@ class TabSystem {
             let modified_data = PluginEnv.trigger("bridge:saveFile", { 
                 ...current,
                 file_path: current.file_path.replace(/\\/g, "/"),
-                file_extension: ext
+                file_extension: ext,
+                previous
             });
 
             return modified_data.content;
         }
     }
-    updateDependencies(file_path, cap=100) {
+    updateDependencies(file_path, previous, cap=100) {
         if(cap <= 0) return PluginAssert.throw("Dependency Update Failed", new Error("Reached maximum update depth. Make sure you haven't created a dependency loop!"));
         FileSystem.Cache.get(file_path)
             .then(cache => {
@@ -227,7 +229,7 @@ class TabSystem {
                         console.log("[UPDATE] Dependency " + file);
                         FileSystem.Cache.get(file)
                             .then(d_cache => {
-                                this.dependencyUpdate({ ...d_cache, file_path: file }, cap);
+                                this.dependencyUpdate({ ...d_cache, file_path: file }, previous, cap);
                             })
                             // .catch(err => console.log("File \"" + file + "\" does not exist in cache. Cannot update."));
                             .catch(err => console.error(err));
@@ -239,9 +241,9 @@ class TabSystem {
                 throw err;
             });
     }
-    dependencyUpdate(current, cap) {
-        // FileSystem.basicSave(current.file_path, this.getSaveContent(current));
-        PluginEnv.trigger("bridge:updateFile", { file_path: current.file_path, current: this.getSaveContent(current) }, true);
+    dependencyUpdate(current, previous, cap) {
+        FileSystem.basicSave(current.file_path, this.getSaveContent(current, previous));
+        //PluginEnv.trigger("bridge:updateFile", { file_path: current.file_path, content: this.getSaveContent(current) }, true);
         this.updateDependencies(current.file_path, cap - 1);
     }
     saveCurrent() {
@@ -253,7 +255,7 @@ class TabSystem {
 
         FileSystem.basicSave(current.file_path, this.getSaveContent(current));
 
-        this.updateDependencies(current.file_path);
+        this.updateDependencies(current.file_path, current);
         this.setCurrentSaved();
         win.close();
     }
