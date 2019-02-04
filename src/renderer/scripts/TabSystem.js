@@ -278,7 +278,8 @@ class TabSystem {
     moveCurrentUp() {
         let current = this.getCurrentNavObj();
         if(current == undefined || !current instanceof JSONTree) return;
-        current.moveUp();
+
+        if(!current.moveUp()) return;
         EventBus.trigger("updateCurrentContent", this.getSelected().content);
 
         let old = this.getCurrentNavigation();
@@ -290,7 +291,8 @@ class TabSystem {
     moveCurrentDown() {
         let current = this.getCurrentNavObj();
         if(current == undefined || !current instanceof JSONTree) return;
-        current.moveDown();
+
+        if(!current.moveDown()) return;
         EventBus.trigger("updateCurrentContent", this.getSelected().content);
         
         let old = this.getCurrentNavigation();

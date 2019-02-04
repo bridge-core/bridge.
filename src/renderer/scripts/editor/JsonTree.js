@@ -173,24 +173,26 @@ export default class JSONTree {
 
     //NAVIGATING & MOVING
     moveUp() {
-        if(this.parent == undefined) return;
+        if(this.parent == undefined) return false;
         let a = this.parent.children;
         let me = this.parent.find(this);
-        if(me == 0 || a.length < 1) return;
+        if(me == 0 || a.length < 1) return false;
 
         let tmp = a[me];
         a[me] = a[me - 1];
         a[me - 1] = tmp;
+        return true;
     }
     moveDown() {
-        if(this.parent == undefined) return;
+        if(this.parent == undefined) return false;
         let a = this.parent.children;
         let me = this.parent.find(this);
-        if(me == a.length - 1) return;
+        if(me == a.length - 1) return false;
 
         let tmp = a[me];
         a[me] = a[me + 1];
         a[me + 1] = tmp;
+        return true;
     }
     next(skip=false) {
         let next_sibling = this.next_sibling;

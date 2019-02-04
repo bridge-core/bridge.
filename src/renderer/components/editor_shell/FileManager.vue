@@ -48,6 +48,7 @@
     import cJSON from "comment-json";
     import TabSystem from '../../scripts/TabSystem';
     import Runtime from '../../scripts/plugins/Runtime';
+    import EventBus from "../../scripts/EventBus";
 
     export default {
         name: "file-manager",
@@ -65,6 +66,12 @@
             if(this.$refs.cm) {
                 this.$refs.cm.$el.childNodes[1].style.height = this.available_height + "px";
             }
+            EventBus.on("setCMSelection", this.setCMSelection);
+            EventBus.on("getCMSelection", this.getCMSelection);
+        },
+        destroyed() {
+            EventBus.off("setCMSelection", this.setCMSelection);
+            EventBus.off("getCMSelection", this.getCMSelection);
         },
         data() {
             return {
@@ -131,7 +138,18 @@
                     lineWrapping: this.$store.state.Settings.line_wraps
                     //extraKeys: { "Ctrl-Space": "autocomplete" },
                 };
-            } 
+            },
+            codemirror() {
+                return this.$refs.cm.codemirror
+            }
+        },
+        methods: {
+            setCMSelection(str) {
+                this.codemirror.replaceSelection(str);
+            },
+            getCMSelection(cb) {
+                cb(this.codemirror.getSelection());
+            }
         },
         watch: {
             available_height() {

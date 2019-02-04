@@ -1,7 +1,7 @@
 import KeyManager from "../../scripts/appMenu/KeyManager";
 import Vue from "vue";
 import Store from "../index";
-import { ipcRenderer, shell } from "electron";
+import { ipcRenderer, shell, clipboard } from "electron";
 import SettingsWindow from "../../windows/Settings";
 import CreateFileWindow from "../../windows/CreateFile";
 import TabSystem from "../../scripts/TabSystem";
@@ -100,6 +100,31 @@ const state = {
         trusted: true,
         display_name: "Edit",
         elements: [
+            {
+                title: "Copy",
+                shortcut: "Ctrl + C",
+                action: () => {
+                    try {
+                        clipboard.writeText(JSON.stringify(TabSystem.getCurrentNavObj().toJSON(), null, "\t"));
+                    } catch(e) {
+                        EventBus.trigger("getCMSelection", clipboard.writeText);
+                    }
+                } 
+            },
+            {
+                title: "Paste",
+                shortcut: "Ctrl + V",
+                action: () => {
+                    try {
+                        TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()));
+                    } catch(e) {
+                        EventBus.trigger("setCMSelection", clipboard.readText());
+                    }
+                } 
+            },
+            {
+                type: "divider"
+            },
             {
                 title: "Delete",
                 shortcut: "Ctrl + Backspace",
