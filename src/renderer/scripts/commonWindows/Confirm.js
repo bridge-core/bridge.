@@ -1,7 +1,7 @@
 import Store from "../../store/index";
 
 export default class ConfirmWindow {
-    constructor(on_confirm, on_cancel, opts) {
+    constructor(on_confirm, on_cancel, text, opts) {
         this.id = `main.core.windows.confirm_window.${Math.random()}`;
         this.actions = [
             {
@@ -22,13 +22,35 @@ export default class ConfirmWindow {
                 color: "success",
                 is_rounded: true,
                 action: () => {
-                    if(typeof on_cancel == "function") on_confirm();
+                    if(typeof on_confirm == "function") on_confirm();
                     this.close();
                 }
             }
         ];
         
-        Store.commit("addPluginWindow", { actions: this.actions, ...opts, is_visible: true, id: this.id });
+        Store.commit("addPluginWindow", { 
+            actions: this.actions, 
+            content: [
+                {
+                    type: "header",
+                    text: "Confirmation"
+                },
+                {
+                    type: "divider"
+                },
+                {
+                    text: "\n"
+                },
+                {
+                    text
+                }
+            ],
+            options: { 
+                is_frameless: true, 
+                height: 120 
+            }, is_visible: true, id: this.id 
+        });
+        this.update(opts);
     }
 
     update(opts) {

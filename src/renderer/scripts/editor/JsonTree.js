@@ -108,6 +108,30 @@ export default class JSONTree {
             throw new TypeError("Expected string, found " + typeof inp);
         }
     }
+    isDataPath(path) {
+        let key;
+        let i_arr = path;
+        if(typeof path == "string") {
+           i_arr = path.split("/");
+
+           if(i_arr[0] == "global") i_arr.shift();
+           if(i_arr.length == 0) return false; 
+        } 
+        key = i_arr.shift();
+        console.log(i_arr, key, this.data)
+        if(i_arr.length == 0 && this.data.replace(/\//g, "#;slash;#") == key) return true;
+        
+        
+        for(let c of this.children) {
+            if(c.key.replace(/\//g, "#;slash;#") == key) {
+                if(i_arr.length == 0) {
+                    return false;
+                } else {
+                    return c.get(i_arr);
+                }
+            }
+        }
+    }
     find(child) {
         let i = 0;
         for(let c of this.children) {

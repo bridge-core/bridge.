@@ -8,6 +8,7 @@ import { changeProvider } from "./editor/JsonTree";
 import { BASE_PATH } from "./constants";
 import PluginAssert from "./plugins/PluginAssert";
 import LoadingWindow from "../windows/LoadingWindow";
+import ConfirmWindow from "./commonWindows/Confirm";
 
 class TabSystem {
     constructor() {
@@ -42,13 +43,22 @@ class TabSystem {
     }
 
     //Closing tab
-    closeById(id) {
+    internalCloseId(id) {
         this.tabs.splice(id, 1);
         if(id <= this.selected && this.selected > 0) {
             this.select(this.selected - 1);
         }
 
         EventBus.trigger("updateTabUI");
+    }
+    closeById(id) {
+        if(this.tabs[id].is_unsaved) {
+            new ConfirmWindow(() => {
+                this.internalCloseId(id);
+            }, null, "This tab has unsaved progress! Are you sure that you want to close it?");
+        } else {
+            this.internalCloseId(id);
+        }
     }
     closeSelected() {
         this.closeById(this.selected);
@@ -149,7 +159,16 @@ class TabSystem {
         this.tabs[this.selected].is_compiled = val;
     }
     deleteCurrent() {
-        this.getSelected().content.get(this.getCurrentNavigation()).remove();
+        let current = this.getSelected().content;
+        if(!current instanceof JSONTree) return;
+
+        let nav = this.getCurrentNavigation();
+        if(current.isDataPath(nav)) {
+            current.get(nav).data = "";
+        } else {
+            current.get(nav).remove();
+        }
+        
         this.navigationBack();
         this.setCurrentUnsaved();
     }

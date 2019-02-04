@@ -55,24 +55,7 @@ const state = {
                             TabSystem.closeSelected();
                             FileSystem.open(path);
                         } catch(err) {}
-                    }, null, {
-                        options: {
-                            is_frameless: true,
-                            height: 120
-                        },
-                        content: [
-                            {
-                                type: "header",
-                                text: "Confirmation"
-                            },
-                            {
-                                type: "divider"
-                            },
-                            {
-                                text: "\nAre you sure that you want to delete the cache of this file?"
-                            }
-                        ]
-                    });
+                    }, null, "Are you sure that you want to delete the cache of this file?");
                 } 
             },
             {
@@ -108,6 +91,19 @@ const state = {
                         clipboard.writeText(JSON.stringify(TabSystem.getCurrentNavObj().toJSON(), null, "\t"));
                     } catch(e) {
                         EventBus.trigger("getCMSelection", clipboard.writeText);
+                    }
+                } 
+            },
+            {
+                title: "Cut",
+                shortcut: "Ctrl + X",
+                action: () => {
+                    try {
+                        clipboard.writeText(JSON.stringify(TabSystem.getCurrentNavObj().toJSON(), null, "\t"));
+                        TabSystem.deleteCurrent();
+                    } catch(e) {
+                        EventBus.trigger("getCMSelection", clipboard.writeText);
+                        EventBus.trigger("setCMSelection", "");
                     }
                 } 
             },

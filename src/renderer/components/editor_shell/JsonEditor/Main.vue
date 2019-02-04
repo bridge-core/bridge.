@@ -107,7 +107,8 @@
             } else {
                 EventBus.on("updateFileNavigation", (new_path) => {
                     if(this.object_key == new_path) this.$nextTick(() => {
-                        document.getElementById(`summary.${new_path}`).focus();
+                        let potential = document.getElementById(`summary.${new_path}`);
+                        if(potential != undefined) potential.focus();
                     });
                 });
                 EventBus.on("closeAllNodes", () => {
