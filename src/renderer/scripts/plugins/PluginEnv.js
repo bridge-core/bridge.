@@ -78,8 +78,8 @@ class Interpreter {
 
     }
 
-    wrap(code) {
-        return `(function() { ${code} })()`;
+    wrap(code, file_path) {
+        return `(function ${file_path.replace(/[^a-zA-Z]/g, "_")}() {${code}})()`;
     }
 
     /**
@@ -92,7 +92,7 @@ class Interpreter {
      */
     execute(code, file_path, depth, is_module=false, blocked) {
         try {
-            return saveEval(this.wrap(code), new Environment(file_path, depth, is_module, blocked), { file_path });
+            return saveEval(this.wrap(code, file_path), new Environment(file_path, depth, is_module, blocked), { file_path });
         } catch(err) {
             PluginAssert.throw(file_path, err);
 

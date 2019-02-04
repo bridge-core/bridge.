@@ -17,6 +17,7 @@ class TabSystem {
 
     //Adding tab
     add(tab) {
+        //if(tab.file_path === undefined) return console.log(tab);
         for(let i = 0; i < this.tabs.length; i++) {
             if(this.tabs[i].file_path == tab.file_path.replace(/\//g, "\\")) {
                 Store.commit("removeLoadingWindow", { id: "open-file" });
@@ -190,7 +191,7 @@ class TabSystem {
                 file_path: current.file_path,
                 content: current.content,
                 file_extension: ext
-            }, false, false));
+            }, true, false));
 
             let modified_data = PluginEnv.trigger("bridge:saveFile", { 
                 ...current,
@@ -208,7 +209,7 @@ class TabSystem {
                 file_path: current.file_path,
                 content: current.content,
                 file_extension: ext
-            }, false, false));
+            }, true, false));
 
             let modified_data = PluginEnv.trigger("bridge:saveFile", { 
                 ...current,

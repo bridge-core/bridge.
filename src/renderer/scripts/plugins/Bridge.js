@@ -23,6 +23,7 @@ export default class Bridge {
             open(path, cb) {
                 FileSystem.Cache.get(path)
                     .then(data => {
+                        console.log(data);
                         if(typeof cb == "function") cb(data);
                     })
                     .catch(err => cb({}));
@@ -43,7 +44,11 @@ export default class Bridge {
                     FileSystem.Cache.removeDependency(from, dependency);
                 },
                 removeAll(sources, dependency) {
-                    FileSystem.Cache.removeAllDependencies(sources, dependency);
+                    if(!Array.isArray(sources)) sources = Array.prototype.slice.call({ ...sources, length: Object.keys(sources).length });
+                    let p =  Store.state.Explorer.project;
+                    FileSystem.Cache.removeAllDependencies(sources.map(
+                        s => s.includes(p) ? s : BASE_PATH + Store.state.Explorer.project + "/" + s
+                    ), dependency);
                 }
             }
         };

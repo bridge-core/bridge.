@@ -2,6 +2,7 @@ import fs from "fs";
 import mkdirp from "mkdirp";
 import { BASE_PATH } from "../constants.js";
 import Store from "../../store/index";
+import JSONTree from "../editor/JsonTree.js";
 
 function getPath(path) {
     return BASE_PATH + path;
@@ -83,8 +84,9 @@ export default class Cache {
         });
         
     }
-    removeAllDependencies(sources, dependency) {
+    removeAllDependencies(sources=[], dependency) {
         let proms = [];
+
         sources.forEach(
             s => proms.push(this.removeDependency(s, dependency, false))
         );
