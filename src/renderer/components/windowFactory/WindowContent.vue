@@ -186,6 +186,7 @@ export default {
         display: inline;
         white-space: pre-wrap;
         cursor: default;
+        word-wrap: break-word;
     }
     i {
         cursor: default;

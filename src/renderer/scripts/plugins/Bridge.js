@@ -280,11 +280,11 @@ export default class Bridge {
             return trigger(name, arg);
         }
     }
-    open({ content, file_name, path }) {
+    open({ content, file_name, file_path }) {
         TabSystem.add({
             content,
             raw_content: content,
-            path: Runtime.Project.get() + "/" + path,
+            file_path: Runtime.Project.get() + "/" + file_path,
             file_name
         });
     }

@@ -5,7 +5,6 @@ import FileSystem from "./FileSystem";
 import PluginEnv from "./plugins/PluginEnv";
 import JSONTree from "./editor/JsonTree";
 import { changeProvider } from "./editor/JsonTree";
-import { BASE_PATH } from "./constants";
 import PluginAssert from "./plugins/PluginAssert";
 import LoadingWindow from "../windows/LoadingWindow";
 import ConfirmWindow from "./commonWindows/Confirm";
@@ -228,19 +227,13 @@ class TabSystem {
                 file_extension: ext
             }, true, false));
 
-            let modified_data;
-            try {
-                modified_data = PluginEnv.trigger("bridge:saveFile", { 
-                    ...current,
-                    file_path: current.file_path.replace(/\\/g, "/"),
-                    content: new JSONTree("global").buildFromObject(j),
-                    file_extension: ext,
-                    previous
-                });
-    
-            } catch (error) {
-                modified_data = current;
-            }
+            let modified_data = PluginEnv.trigger("bridge:saveFile", { 
+                ...current,
+                file_path: current.file_path.replace(/\\/g, "/"),
+                content: new JSONTree("global").buildFromObject(j),
+                file_extension: ext,
+                previous
+            });
             
             return JSON.stringify(Format.toJSON(modified_data.content), null, this.use_tabs ? "\t" : "  ");
         } else if(ext == "png") {
