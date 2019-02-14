@@ -188,8 +188,12 @@ export default class JSONTree {
         //console.log(PROVIDER.get(path), path)
         return PROVIDER.get(path);
     }   
-    openNode() {
-        this.open = true;
+    openNode(val=true) {
+        this.open = val;
+        return this;
+    }
+    toggleOpen() {
+        this.open = !this.open;
         return this;
     }
     

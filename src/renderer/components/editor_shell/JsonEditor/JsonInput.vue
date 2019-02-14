@@ -16,6 +16,7 @@
                 :label="label"
                 :items="items"
                 :auto-select-first="true"
+                :menu-props="{ maxHeight: 160, maxWidth: 300, top: true }"
                 :hide-no-data="true"
                 dense
             ></v-combobox>
@@ -57,7 +58,7 @@
             if(this.type == "edit") {
                 EventBus.off("updateFileNavigation", this.updateValue);
                 EventBus.off("updateSelectedTab", this.updateValue);
-            } 
+            }
         },
         watch: {
             value(val) {
@@ -192,12 +193,12 @@
             },
             navigationBack() {
                 TabSystem.navigationBack();
-                    // console.log(this.items.length == 0, this.file_navigation != "global")
-                    // if(this.items.length == 0 && this.file_navigation != "global") {
-                    //     TabSystem.navigationBack();
-                    //     this.updateAutoCompletions()
-                    //     this.navigationBack();
-                    // } 
+                // console.log(this.items.length == 0, this.file_navigation != "global")
+                // if(this.items.length == 0 && this.file_navigation != "global") {
+                //     TabSystem.navigationBack();
+                //     this.updateAutoCompletions()
+                //     this.navigationBack();
+                // } 
             }
         }
     }

@@ -8,13 +8,13 @@
         <v-spacer></v-spacer>
 
         <v-toolbar-items>
-            <v-btn small icon @click.stop="minWindow">
+            <v-btn small icon flat @click.stop="minWindow">
                 <v-icon small>minimize</v-icon>
             </v-btn>
-            <v-btn small icon @click.stop="maxWindow">
+            <v-btn small icon flat @click.stop="maxWindow">
                 <v-icon small>add</v-icon>
             </v-btn>
-            <v-btn small icon @click.stop="closeWindow" class="last-btn">
+            <v-btn small icon flat @click.stop="closeWindow" class="last-btn">
                 <v-icon small>close</v-icon>
             </v-btn>
         </v-toolbar-items>

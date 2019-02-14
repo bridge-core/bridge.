@@ -105,12 +105,6 @@
                 else
                     this.$store.commit("removeLoadingWindow", { id: "open-file" });
             } else {
-                EventBus.on("updateFileNavigation", (new_path) => {
-                    if(this.object_key == new_path) this.$nextTick(() => {
-                        let potential = document.getElementById(`summary.${new_path}`);
-                        if(potential != undefined) potential.focus();
-                    });
-                });
                 EventBus.on("closeAllNodes", () => {
                     this.open = false;
                     this.object = this.object;
@@ -200,17 +194,6 @@
             keyClick() {
                 let path = `${this.object_key}/${(this.render_object.data + "").replace(/\//g, "#;slash;#")}`;
                 TabSystem.setCurrentFileNav(path);
-            },
-            onTab(ev) {
-                // ev.preventDefault();
-                // console.log(ev, this.$refs, document.activeElement);
-                // if(document.activeElement.isSameNode(this.$refs.object[0].$refs.input.focus())) {
-                //     this.$refs.value[0].$el.focus();
-                // } else if(document.activeElement.isSameNode(this.$refs.value[0].$refs.input.focus())) {
-                //     this.$refs.edit[0].$el.focus();
-                // } else {
-                //     this.$refs.object[0].$el.focus();
-                // }
             },
             openAllChildren(children=this.computed_object().children, first=true, depth=0, deepest=this.computed_object().depth) {
                 window.setTimeout(() => {

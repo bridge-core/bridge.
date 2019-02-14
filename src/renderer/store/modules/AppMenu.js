@@ -190,6 +190,14 @@ const state = {
                 title: "JSON Nodes",
                 elements: [
                     {
+                        title: "Open",
+                        shortcut: "Ctrl + Enter",
+                        action: () => TabSystem.openCurrentNode()
+                    },
+                    {
+                        type: "divider"
+                    },
+                    {
                         title: "Move Up",
                         shortcut: "Ctrl + Shift + E",
                         action: () => TabSystem.moveCurrentUp()
