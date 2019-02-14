@@ -103,7 +103,7 @@ Bridge.registerPlugin({
 #### Step 2: Console
 Even though there is a native console module available to your plugin, let's write our own one! Create a new folder inside your "plugins" folder called "modules". Add another .js file inside it (*console.js*). One can use the ```provide(data)``` method to determine which data shall be exposed to the plugins using the module. Please note that modules are only evaluated once! In this example, all plugins using the console module will use the same console!
 
-Generally, you do not need to register this file as a separate plugin (unless you want to create new Bridge app menus).
+Generally, you do not need to register this file as a separate plugin (unless you want to create new bridge. app menus).
 ```javascript
 class Console {
     constructor() {
@@ -190,4 +190,4 @@ Bridge.on("save", () => {
 ```
 
 #### Step 6: Testing
-Reload the directory with your plugins by pressing reload inside the built-in explorer. Now try to save a file and if you've done everything correct, you can see "Hello World!" inside the console tab.
+Reload the directory with your plugins by pressing reload inside the built-in explorer. Now try to save a file and if you've done everything correct, you can see "Hello World!" inside a new console tab.
