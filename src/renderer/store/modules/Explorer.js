@@ -1,10 +1,14 @@
 const state = {
-    project: ""
+    project: "",
+    files: {}
 }
 
 const mutations = {
     setExplorerProject(state, project) {
         state.project = project;
+    },
+    setExplorerFiles(state, files) {
+        state.files = files;
     }
 }
 

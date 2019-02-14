@@ -1,3 +1,4 @@
+// @ts-check
 import Stack from "../utilities/Stack";
 import Json from "./Json";
 import Provider from "./autoCompletions";
@@ -79,7 +80,9 @@ export default class JSONTree {
         });
         return deepest;
     }
-
+    /**
+     * @param {String|Array} inp 
+     */
     get(inp) {
         if(Array.isArray(inp) || typeof inp == "string") {
             let key;
@@ -89,8 +92,9 @@ export default class JSONTree {
 
                if(i_arr[0] == "global") i_arr.shift();
                if(i_arr.length == 0) return this; 
-            } 
-            key = i_arr.shift();
+            }
+            // @ts-ignore
+            key = i_arr.shift(); 
             if(i_arr.length == 0 && this.data.replace(/\//g, "#;slash;#") == key) return this;
             
             
@@ -148,6 +152,8 @@ export default class JSONTree {
                 if(c.parsed_key == child.parsed_key) return c;
             }
             if(!Number.isNaN(Number(child.key)) && this.children.length == 0) this.type = "array";
+        } else if(!Number.isNaN(Number(child.key)) || this.find(child) != -1) {
+            child.key = this.children.length + "";
         }
 
         child.parent = this;
@@ -160,7 +166,7 @@ export default class JSONTree {
         return child;
     }
     edit(new_data) {
-        if(!new_data) throw new Error("Data may not be undefined or null.")
+        if(!new_data) throw new Error("Data may not be undefined or null.");
         this.data = new_data;
     }
     remove(key) {
@@ -247,7 +253,14 @@ export default class JSONTree {
         }
     }
 
-    //JSON <-> TREE
+    //Removes all keys of an object from the calling node
+    removeByObject(data) {
+        Object.keys(data).forEach(key => {
+            this.remove(key);
+        });
+    }
+
+    //JSON -> TREE
     buildFromObject(data, first=true) {
         if(data instanceof JSONTree) return data;
         this.type = getType(data);
@@ -264,11 +277,20 @@ export default class JSONTree {
 
         return this;
     }
+    //Tree -> JSON
     toJSON(build_arrays=true) {
         return Json.Format.toJSON(this, build_arrays);
     }
 
     //ITERATOR
+    /**
+     * Returns a new iterator which iterates over the JSONTree
+     * @typedef TreeIterator
+     * @property {Function} hasNext
+     * @property {Function} next
+     * 
+     * @returns {TreeIterator}
+     */
     iterator() {
         return new this.TreeIterator(this);
     }

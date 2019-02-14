@@ -7,7 +7,7 @@
         min-width="200px"
         :class="is_submenu ? 'sidemenu' : ''"
     >
-        <v-btn v-if="!is_submenu" slot="activator" small flat>
+        <v-btn v-if="!is_submenu" slot="activator" style="border-radius: 0;" small flat>
             {{ menu.display_name }}
         </v-btn>
         <v-list-tile v-else slot="activator">
@@ -17,11 +17,11 @@
                 </v-list-tile-content>
                 
     	        <v-list-tile-action>
-                    <v-icon>keyboard_arrow_right</v-icon>
+                    <v-icon small>keyboard_arrow_right</v-icon>
                 </v-list-tile-action>
         </v-list-tile>
 
-        <v-list ref="main_menu" class="list" dense>
+        <v-list ref="main_menu" class="list app-menu" dense>
             <app-menu-element 
                 v-for="(element, i) in menu.elements"
                 :key="i"
@@ -91,5 +91,11 @@
     }
     .list {
         overflow-y: auto;
+    }
+    
+</style>
+<style>
+    .app-menu .v-list__tile {
+        height: 30px !important;
     }
 </style>

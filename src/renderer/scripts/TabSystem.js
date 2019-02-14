@@ -8,7 +8,13 @@ import { changeProvider } from "./editor/JsonTree";
 import PluginAssert from "./plugins/PluginAssert";
 import LoadingWindow from "../windows/LoadingWindow";
 import ConfirmWindow from "./commonWindows/Confirm";
+import { History } from "./TabSystem/CommonHistory";
 
+/**
+ * @todo Refactor TabSystem to use dedicated classes IMGTab, CMTab, JSONTab,...
+ * Makes the TabSystem less complex
+ * @todo Class JsonSelection to handle selected nodes
+ */
 class TabSystem {
     constructor() {
         this.tabs = [];
@@ -30,7 +36,8 @@ class TabSystem {
             uuid: `${Store.state.Explorer.project}-${Math.random()}-${Math.random()}`,
             file_navigation: "global",
             category: Store.state.Explorer.project,
-            is_unsaved: false
+            is_unsaved: false,
+            history: new History()
         }));
  
         EventBus.trigger("updateTabUI");

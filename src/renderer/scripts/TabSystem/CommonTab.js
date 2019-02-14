@@ -1,30 +1,52 @@
 // @ts-check
 export default class CommonTab {
-    constructor() {
-
-    }
-    
-    //Getting the save content of a file
+    /**
+     * Getting the save content of a file
+     * @abstract
+     * @returns {String}
+     */
     getSaveContent() {
-
+        return "";
     }
 
-    //UNDO & REDO
+    /**
+     * Undo
+     * @abstract
+     */
     undo() {
 
     }
+    /**
+     * Redo
+     * @abstract
+     */
     redo() {
 
     }
 
-    //CUT, COPY, PASTE
+    /**
+     * Cut
+     * @abstract
+     * @returns {Boolean} Whether cutting was successful
+     */
     cut() {
-
+        return false;
     }
+    /**
+     * Copy
+     * @abstract
+     * @returns {Boolean} Whether copying was successful
+     */
     copy() {
-
-    }
-    paste() {
-
+        return false;
+    }  
+    /**
+     * Paste
+     * @abstract
+     * @param {String} content Content to paste
+     * @returns {Boolean} Whether pasting was successful
+     */
+    paste(content) {
+        return false;
     }
 }

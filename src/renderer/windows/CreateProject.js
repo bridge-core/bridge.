@@ -2,7 +2,8 @@ import fs from "fs";
 import ContentWindow from "../scripts/commonWindows/Content";
 import { BASE_PATH, MANIFEST_TEMPLATE } from "../scripts/constants";
 import Vue from "../main";
-import { S_IFBLK } from "constants";
+import LoadingWindow from "./LoadingWindow";
+
 
 export default class CreateFileWindow extends ContentWindow {
     constructor() {
@@ -107,17 +108,21 @@ export default class CreateFileWindow extends ContentWindow {
 
             return;
         }
-
-        fs.mkdir(BASE_PATH + this.input, (err) => {
-            if(err && err.includes("already exists")) return;
-            if(err) throw err;
-            else fs.writeFile(BASE_PATH + this.input + "/manifest.json", MANIFEST_TEMPLATE(this.input, this.des), () => {
-                if(err && err.includes("already exists")) return;
-                if(err) throw err;
-                else Vue.$root.$emit("refreshExplorer");
-            });
-        });
-        
         this.close();
+        let l_w = new LoadingWindow("project.").show();
+        
+        window.setTimeout(() => {
+            fs.mkdir(BASE_PATH + this.input, (err) => {
+                if(err && err.message.includes("already exists")) return l_w.hide();
+                if(err) { l_w.hide(); throw err; }
+                else fs.writeFile(BASE_PATH + this.input + "/manifest.json", MANIFEST_TEMPLATE(this.input, this.des), () => {
+                    if(err && err.message.includes("already exists")) return l_w.hide();
+                    if(err) { l_w.hide(); throw err; }
+                    else Vue.$root.$emit("refreshExplorer");
+
+                    l_w.hide();
+                });
+            });
+        }, 50);
     }
 }

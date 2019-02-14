@@ -84,6 +84,7 @@
 
             ipcRenderer.on("readDir", (event, args) => {
                 this.directory = args.files;
+                this.$store.commit("setExplorerFiles", args.files);
                 this.$store.commit("loadAllPlugins", { args, selected: this.selected, base_path: this.base_path });
             });
 
@@ -157,7 +158,7 @@
                     event_name: "refreshExplorer",
                     func: () => {
                         this.$store.commit("forceReloadNextPluginRequest");
-                        console.log(this.selected + " refreshed");
+                        console.log("[REFRESH] " + this.selected);
                         this.getDirectory();
                     }
                 });

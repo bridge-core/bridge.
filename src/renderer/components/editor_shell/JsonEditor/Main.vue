@@ -44,7 +44,6 @@
                 :key="`${e}`"
                 :file_navigation="file_navigation"
                 :current_file_path="current_file_path"
-                @keydown.tab.native="onTab"
             />
         </v-layout>
     </span>
