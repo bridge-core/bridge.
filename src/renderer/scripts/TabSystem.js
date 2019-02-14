@@ -228,14 +228,20 @@ class TabSystem {
                 file_extension: ext
             }, true, false));
 
-            let modified_data = PluginEnv.trigger("bridge:saveFile", { 
-                ...current,
-                file_path: current.file_path.replace(/\\/g, "/"),
-                content: new JSONTree("global").buildFromObject(j),
-                file_extension: ext,
-                previous
-            });
-
+            let modified_data;
+            try {
+                modified_data = PluginEnv.trigger("bridge:saveFile", { 
+                    ...current,
+                    file_path: current.file_path.replace(/\\/g, "/"),
+                    content: new JSONTree("global").buildFromObject(j),
+                    file_extension: ext,
+                    previous
+                });
+    
+            } catch (error) {
+                modified_data = current;
+            }
+            
             return JSON.stringify(Format.toJSON(modified_data.content), null, this.use_tabs ? "\t" : "  ");
         } else if(ext == "png") {
             return current.raw_content;

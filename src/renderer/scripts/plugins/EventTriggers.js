@@ -1,10 +1,24 @@
+// @ts-check
 import Runtime from "./Runtime";
+import PluginAssert from "./PluginAssert";
 
+/**
+ * Triggers a plugin event and returns return value of the cbs
+ * @param {String} name Event to trigger
+ * @param {any} arg Data to give to cb
+ * @param {Boolean} init Whether to initialize the return value with "arg"
+ */
 export function trigger(name, arg, init=true) {
     if(Runtime.Listeners.get(name)) {
         let new_arg = init ? arg : {};
         Runtime.Listeners.get(name).forEach(cb => {
-            let res = cb(init ? new_arg : arg);
+            let res;
+            try { 
+                res = cb(init ? new_arg : arg) 
+            } catch(err) {
+                PluginAssert.throw("Event: " + name, err);
+                res = {};
+            }
 
             if(res) {
                 try {
@@ -18,6 +32,11 @@ export function trigger(name, arg, init=true) {
     }
     return arg;
 }
+/**
+ * Triggers the last registered plugin event
+ * @param {String} name Event to trigger
+ * @param {any} arg Data to give to cb
+ */
 export function overwriteTrigger(name, arg) {
     let new_arg = arg;
     let listeners = Runtime.Listeners.get(name);
@@ -27,6 +46,11 @@ export function overwriteTrigger(name, arg) {
     }
     return new_arg;
 }
+/**
+ * Readonly trigger. Objects may still be modified
+ * @param {String} name Event to trigger
+ * @param {any} arg Data to give to cb
+ */
 export function readonlyTrigger(name, arg) {
     let listeners = Runtime.Listeners.get(name);
     if(listeners) {

@@ -152,7 +152,7 @@ export default class CreateFileWindow extends ContentWindow {
         this.SCRIPTS = new FileContent("Script", "js", this, "scripts/server/").add({
             type: "select",
             text: "server",
-            options: [ "Server",  "Client" ],
+            options: [ "server",  "client" ],
             action: (val) => {
                 this.SCRIPTS.expand_path = "scripts/" + val + "/";
                 this.SCRIPTS.path_info.text = this.SCRIPTS.getPath(undefined, undefined)
