@@ -43,6 +43,14 @@
             file_navigation: String,
             current_file_path: String
         },
+        data() {
+            return {
+                items: [],
+                select: "",
+                value: "",
+                watcher_active: true
+            };
+        },
         created() {
             if(this.type != "edit") {
                 this.updateAutoCompletions();
@@ -50,15 +58,14 @@
         },
         mounted() {
             if(this.type == "edit") {
+                this.value = TabSystem.getCurrentNavContent();
                 EventBus.on("updateFileNavigation", this.updateValue);
-                EventBus.on("updateSelectedTab", this.updateValue);
                 EventBus.on("setWatcherInactive", () => this.watcher_active = false);
             }
         },
         destroyed() {
             if(this.type == "edit") {
                 EventBus.off("updateFileNavigation", this.updateValue);
-                EventBus.off("updateSelectedTab", this.updateValue);
             }
         },
         watch: {
@@ -69,6 +76,7 @@
                     if(!TabSystem.getSelected().content.isDataPath(this.file_navigation)) TabSystem.getHistory().add(new JSONAction("edit-key", node, old));
                     else TabSystem.getHistory().add(new JSONAction("edit-data", node, old));
 
+                    //UPDATE CONTENT
                     let tmp = this.file_navigation.split("/");
                     tmp.pop();
 
@@ -94,14 +102,6 @@
                 if(!prov_auto) this.items = [];
                 else this.updateAutoCompletions();
             }
-        },
-        data() {
-            return {
-                items: [],
-                select: "",
-                value: "",
-                watcher_active: true
-            };
         },
         computed: {
             label() {
@@ -193,9 +193,8 @@
                 TabSystem.setCurrentFileNav(`${TabSystem.getCurrentNavigation()}/${path}`);
             },
             updateValue() {
-                //FIXME: DOESN'T UPDATE AFTER SWITCHING TABS
                 this.watcher_active = false;
-                this.value = TabSystem.getCurrentNavContent();        
+                this.value = TabSystem.getCurrentNavContent();    
             },
             navigationBack() {
                 TabSystem.navigationBack();

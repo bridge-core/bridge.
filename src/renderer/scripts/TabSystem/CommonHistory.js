@@ -32,20 +32,22 @@ export class History {
      */
     undo() {
         let undo = this.undo_arr.shift();
-        if(undo == undefined) return;
+        if(undo == undefined) return false;
 
         this.redo_arr.unshift(undo.reverse());
         undo.commit();
+        return true;
     }
     /**
      * Commits a redo-action
      */
     redo() {
         let redo = this.redo_arr.shift();
-        if(redo == undefined) return;
+        if(redo == undefined) return false;
 
         this.undo_arr.unshift(redo.reverse());
         redo.commit();
+        return true;
     }
 
     /**

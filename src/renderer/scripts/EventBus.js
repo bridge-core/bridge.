@@ -24,9 +24,9 @@ export default class {
     static trigger(event, ...data) {
         if(event in events) {
             events[event].forEach(e => {
-                e(...data);
+                if(typeof e == "function") e(...data);
             });
         }
-        //console.log("Triggered event " + event);
+        console.log("[EVENT] " + event);
     }
 }

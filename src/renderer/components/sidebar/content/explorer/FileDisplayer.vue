@@ -3,7 +3,7 @@
         This directory has no content.
     </p>
     <div :style="element_style" :class="element_class" v-else>
-        <details v-for="(file, i) in loop_files.filter(f => f.type == 'directory')" :key="i">
+        <details v-for="(file, i) in loop_files.filter(f => f.type == 'directory')" :key="`${project}-${i}`">
             <summary v-ripple>
                 <v-icon class="open" small>folder_open</v-icon><v-icon class="closed" small>folder</v-icon><span class="folder"> {{ file.name }}</span>
             </summary>
