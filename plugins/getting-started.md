@@ -184,7 +184,7 @@ Bridge.registerPlugin({
     description: "My first plugin."
 });
 
-Bridge.on("save", () => {
+Bridge.on("bridge:saveFile", () => {
     my_console.log("Hello World!");
 });
 ```
