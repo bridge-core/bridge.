@@ -3,7 +3,7 @@ bridge. is a powerful add-on editor designed to speed up your development. It fe
 Unleash the full power of addons with bridge. plugins or make use of rich auto-completions. Creating Minecraft addons was never more convenient!
 
 ### Download
-You can try pre-releases of bridge. now! [See releases!](https://github.com/solvedDev/bridge./releases)
+You can try bridge.'s pre-releases now: [See releases!](https://github.com/solvedDev/bridge./releases)
 
 ### Plugins
 brige. allows creators to develop their own plugins in order to extend bridge.'s functionality. [Read more...](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
