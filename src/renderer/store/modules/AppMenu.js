@@ -152,6 +152,23 @@ const state = {
                 type: "divider"
             },
             {
+                title: "Undo",
+                shortcut: "Ctrl + Z",
+                action: () => {
+                    if(!TabSystem.getHistory().undo()) EventBus.trigger("cmUndo");
+                }
+            },
+            {
+                title: "Redo",
+                shortcut: "Ctrl + Y",
+                action: () => {
+                    if(!TabSystem.getHistory().redo()) EventBus.trigger("cmRedo");
+                }
+            },
+            {
+                type: "divider"
+            },
+            {
                 title: "Delete",
                 shortcut: "Ctrl + Backspace",
                 action: () => TabSystem.deleteCurrent()

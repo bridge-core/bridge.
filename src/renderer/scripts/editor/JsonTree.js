@@ -3,16 +3,18 @@ import Stack from "../utilities/Stack";
 import Json from "./Json";
 import Provider from "./autoCompletions";
 import PluginEnv from "../plugins/PluginEnv";
+import TabSystem from "../TabSystem";
+import { JSONAction } from "../TabSystem/CommonHistory";
 let PROVIDER = new Provider("");
 
 function getType(data) {
     if(Array.isArray(data)) return "array";
     return typeof data;
 }
-
 export function changeProvider(new_path) {
     PROVIDER.validator(new_path);
 }
+
 export default class JSONTree {
     constructor(key="", data="", parent, children=[], open=false) {
         this.key = key + "";
@@ -134,6 +136,7 @@ export default class JSONTree {
                 }
             }
         }
+        return false;
     }
     find(child) {
         let i = 0;
@@ -146,7 +149,11 @@ export default class JSONTree {
         }
         return -1;
     }
-    add(child) {
+    /**
+     * Adds a new child to calling node
+     * @param {JSONTree} child 
+     */
+    add(child, update_history=false) {
         if(!this.is_array) {
             for(let c of this.children) {
                 if(c.parsed_key == child.parsed_key) return c;
@@ -163,21 +170,54 @@ export default class JSONTree {
         PluginEnv.trigger("bridge:addedNode", {
             node: child
         });
+        //HISTORY
+        if(update_history) TabSystem.getHistory().add(new JSONAction("remove", this, child));
         return child;
     }
+    /**
+     * @param {String} new_data (Optional)
+     */
     edit(new_data) {
         if(!new_data) throw new Error("Data may not be undefined or null.");
         this.data = new_data;
     }
-    remove(key) {
+    /**
+     * @param {String} key (Optional)
+     */
+    remove(key, update_history=false) {
         if(this.key == "global") return;
-            let c = key ? this.children : this.parent.children;
-            for(let i = 0; i < c.length; i++) {
-                if(c[i].parsed_key == (key || this.parsed_key)) {
-                    c.splice(i, 1);
-                    return;
-                }
+
+        let c = key ? this.children : this.parent.children;
+        for(let i = 0; i < c.length; i++) {
+            if(c[i].parsed_key == (key || this.parsed_key)) {
+                //HISTORY
+                if(!update_history) return c.splice(i, 1);
+                TabSystem.getHistory().add(new JSONAction(
+                    "add", 
+                    key ? this : this.parent, 
+                    c.splice(i, 1)[0]
+                ));
+                return;
             }
+        }
+    }
+    /**
+     * @param {JSONTree} node 
+     * @param {Boolean} update_history 
+     */
+    removeNode(node, update_history=false) {
+        for(let i = 0; i < this.children.length; i++) {
+            if(node.parsed_key == this.children[i].parsed_key) {
+                //HISTORY
+                if(!update_history) return this.children.splice(i, 1);
+                TabSystem.getHistory().add(new JSONAction(
+                    "add", 
+                    this, 
+                    this.children.splice(i, 1)[0]
+                ));
+                return;
+            }
+        }
     }
     clone() {
         let clone = new JSONTree(this.key, this.data, this.parent, this.children, this.open);

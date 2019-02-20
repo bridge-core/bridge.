@@ -66,12 +66,19 @@
             if(this.$refs.cm) {
                 this.$refs.cm.$el.childNodes[1].style.height = this.available_height + "px";
             }
+            if(!this.codemirror) return;
+            
             EventBus.on("setCMSelection", this.setCMSelection);
             EventBus.on("getCMSelection", this.getCMSelection);
+            EventBus.on("cmUndo", this.cmUndo);
+            EventBus.on("cmUndo", this.cmRedo);
         },
         destroyed() {
+            if(!this.codemirror) return;
             EventBus.off("setCMSelection", this.setCMSelection);
             EventBus.off("getCMSelection", this.getCMSelection);
+            EventBus.off("cmUndo", this.cmUndo);
+            EventBus.off("cmUndo", this.cmRedo);
         },
         data() {
             return {
@@ -140,7 +147,8 @@
                 };
             },
             codemirror() {
-                return this.$refs.cm.codemirror
+                if(this.$refs.cm == undefined) return;
+                return this.$refs.cm.codemirror;
             }
         },
         methods: {
@@ -149,6 +157,12 @@
             },
             getCMSelection(cb) {
                 cb(this.codemirror.getSelection());
+            },
+            cmUndo() {
+                this.codemirror.execCommand("undo");
+            },
+            cmRedo() {
+                this.codemirror.execCommand("redo");
             }
         },
         watch: {

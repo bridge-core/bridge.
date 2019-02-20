@@ -1,62 +1,9 @@
+import TabSystem from "../TabSystem";
+
 // @ts-check
-export class Action {
-    /**
-     * Commits an action & returns current action object
-     * @abstract
-     * @returns {Action}
-     */
-    commit() {
-        return this;
-    }
-    /**
-     * Creates a new action object which has the opposite effect of the calling object
-     * @abstract
-     * @returns {Action}
-     */
-    reverse() {
-        return new Action();
-    }
-}
-
 /**
- * @typedef {"add"|"remove"|"edit-key"|"edit-data"} CommitType
- * 
- * @typedef {Object} JSONTree
- * @property {Function} buildFromObject
- * @property {Function} removeByObject
- * @property {String} path
- * @property {String} key
- * @property {String} data
+ * @class History
  */
-export class JSONAction extends Action {
-    /**
-     * @param {JSONTree} context 
-     * @param {CommitType} type
-     * @param {any} data
-     */
-    constructor(type, context, data) {
-        super();
-        this.type = type;
-        this.context = context;
-        this.data = data;
-    }
-
-    commit() {
-        if(this.type == "add") this.context.buildFromObject(this.data);
-        else if(this.type == "remove") this.context.removeByObject(this.data);
-        else if(this.type == "edit-key") this.context.key = this.data;
-        else if(this.type == "edit-data") this.context.data = this.data;
-        return this;
-    }
-
-    reverse() {
-        if(this.type == "add") return new JSONAction("remove", this.context, this.data);
-        else if(this.type == "remove") return new JSONAction("add", this.context, this.data);
-        else if(this.type == "edit-key") return new JSONAction("edit-key", this.context, this.context.key);
-        else if(this.type == "edit-data") return new JSONAction("edit-key", this.context, this.context.data);
-    }
-}
-
 export class History {
     constructor() {
         /**
@@ -76,7 +23,8 @@ export class History {
      * @param {Action} action Action to add to the undo queue
      */
     add(action) {
-        this.undo_arr.push(action);
+        if(this.undo_arr.length == 0) return this.undo_arr.unshift(action);
+        this.undo_arr[0].push(this.undo_arr, action);
     }
 
     /**
@@ -84,6 +32,8 @@ export class History {
      */
     undo() {
         let undo = this.undo_arr.shift();
+        if(undo == undefined) return;
+
         this.redo_arr.unshift(undo.reverse());
         undo.commit();
     }
@@ -92,6 +42,8 @@ export class History {
      */
     redo() {
         let redo = this.redo_arr.shift();
+        if(redo == undefined) return;
+
         this.undo_arr.unshift(redo.reverse());
         redo.commit();
     }
@@ -114,5 +66,88 @@ export class History {
      */
     clearRedo() {
         this.redo_arr = [];
+    }
+}
+
+export class Action {
+    /**
+     * Commits an action & returns current action object
+     * @abstract
+     * @returns {Action}
+     */
+    commit() {
+        return this;
+    }
+    /**
+     * Creates a new action object which has the opposite effect of the calling object
+     * @abstract
+     * @returns {Action}
+     */
+    reverse() {
+        return new Action();
+    }
+    /**
+     * Called on first object in "arr" upon trying to push a new action
+     * @abstract
+     * @param {Array<Action>} arr
+     * @param {Action} action
+     */
+    push(arr, action) {}
+}
+
+/**
+ * @typedef {"add"|"remove"|"edit-key"|"edit-data"} CommitType
+ * 
+ * @typedef {Object} JSONTree
+ * @property {Function} buildFromObject
+ * @property {Function} removeNode
+ * @property {Function} add
+ * @property {String} path
+ * @property {String} key
+ * @property {String} data
+ */
+export class JSONAction extends Action {
+    /**
+     * @param {JSONTree} context 
+     * @param {CommitType} type
+     * @param {any} data
+     */
+    constructor(type, context, data) {
+        super();
+        this.type = type;
+        this.context = context;
+        this.data = data;
+    }
+
+    commit() {
+        if(this.type == "add") this.context.add(this.data);
+        else if(this.type == "remove") this.context.removeNode(this.data);
+        else if(this.type == "edit-key") {
+            this.context.key = this.data;
+            TabSystem.setCurrentFileNav("global");
+        } else if(this.type == "edit-data") {
+            this.context.data = this.data;
+            TabSystem.setCurrentFileNav("global");
+        }
+        return this;
+    }
+
+    reverse() {
+        if(this.type == "add") return new JSONAction("remove", this.context, this.data);
+        else if(this.type == "remove") return new JSONAction("add", this.context, this.data);
+        else if(this.type == "edit-key") return new JSONAction("edit-key", this.context, this.context.key);
+        else if(this.type == "edit-data") return new JSONAction("edit-data", this.context, this.context.data);
+    }
+
+    push(arr, action) {
+        if(
+            action.context === this.context 
+            && action.type === this.type 
+            && (this.type == "edit-key" || this.type == "edit-data")
+        ) {
+            return;
+        } else {
+            arr.unshift(action);
+        }
     }
 }

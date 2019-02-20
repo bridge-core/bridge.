@@ -32,6 +32,7 @@
     import JSONTree from '../../../scripts/editor/JsonTree';
     import EventBus from '../../../scripts/EventBus'; 
     import PluginEnv from '../../../scripts/plugins/PluginEnv';
+    import { JSONAction } from '../../../scripts/TabSystem/CommonHistory';
 
     export default {
         name: "json-input",
@@ -61,8 +62,13 @@
             }
         },
         watch: {
-            value(val) {
+            value(val, old) {
                 if(this.type == "edit" && this.watcher_active) {
+                    //History
+                    let node = TabSystem.getCurrentNavObj();
+                    if(!TabSystem.getSelected().content.isDataPath(this.file_navigation)) TabSystem.getHistory().add(new JSONAction("edit-key", node, old));
+                    else TabSystem.getHistory().add(new JSONAction("edit-data", node, old));
+
                     let tmp = this.file_navigation.split("/");
                     tmp.pop();
 
@@ -74,7 +80,7 @@
 
                     //PLUGIN HOOK
                     PluginEnv.trigger("bridge:modifiedNode", {
-                        node: TabSystem.getSelected().content.get(this.file_navigation)
+                        node
                     });
                 }
 
@@ -118,8 +124,8 @@
                 let current = this.render_object.get(this.file_navigation);
                 
                 if(this.type == "object") {
-                    let node = new JSONTree(this.value + "").openNode();
-                    current.add(node).openNode();
+                    let node = new JSONTree(this.value + "");
+                    current.add(node, true).openNode();
                     current.type = "object";
                     EventBus.trigger("setWatcherInactive");
 

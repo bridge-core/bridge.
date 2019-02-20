@@ -109,6 +109,9 @@ class TabSystem {
         if(!s || !s.content.get) return;
         return s.content.get(nav);
     }
+    getHistory() {
+        return this.getSelected().history;
+    }
     setCurrentNavContent(val) {
         let nav = this.getCurrentNavigation();
         let current = this.getSelected().content.get(nav);
@@ -172,7 +175,7 @@ class TabSystem {
         if(current.isDataPath(nav)) {
             current.get(nav).data = "";
         } else {
-            current.get(nav).remove();
+            current.get(nav).remove(undefined, true);
         }
         
         this.navigationBack();
