@@ -14,6 +14,7 @@
               <editor-shell-content-manager></editor-shell-content-manager>
               <plugin-install-main v-if="render_plugin_window"></plugin-install-main>
               <window-factory-main></window-factory-main>
+              <context-menu-main/>
             </v-flex>
           </v-layout>
         </v-container>
@@ -38,6 +39,7 @@
   import PluginInstallMain from "@/components/plugin_install/Main";
   import WindowFactoryMain from "@/components/windowFactory/Main";
   import FooterMain from "@/components/footer/Main";
+  import ContextMenuMain from "@/components/context_menu/Main";
 
   import UpdateWindow from "./windows/UpdateApp";
   import SETTINGS from "./store/Settings";
@@ -52,7 +54,8 @@
       EditorShellContentManager,
       PluginInstallMain,
       WindowFactoryMain,
-      FooterMain
+      FooterMain,
+      ContextMenuMain
     },
     created() {
       SETTINGS.setup();

@@ -8,6 +8,7 @@
                     :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                 >
                     <object-key 
+                        @contextmenu.native="openContextMenu"
                         @click.native="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
                         :my_key="e.key"
                         :comment="e.comment"
@@ -30,6 +31,7 @@
                 v-else
                 :class="`key ${key_selected_class}`"
                 :data="value_data"
+                @contextmenu.native="openContextMenu"
                 @click.stop.native="keyClick"
                 v-ripple
             />
@@ -196,6 +198,13 @@
 
                     if(depth == deepest) this.$store.commit("removeLoadingWindow", { id: "open-file" });
                 }, 5);
+            },
+            openContextMenu(event) {
+                this.$store.commit("openContextMenu", {
+                    active_state: "node",
+                    x_position: event.clientX,
+                    y_position: event.clientY
+                });
             }
         },
         watch: {

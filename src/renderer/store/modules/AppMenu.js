@@ -9,7 +9,6 @@ import FileSystem from "../../scripts/FileSystem";
 import ConfirmWindow from "../../scripts/commonWindows/Confirm";
 import EventBus from "../../scripts/EventBus";
 import { JSONAction } from "../../scripts/TabSystem/CommonHistory";
-import JSONTree from "../../scripts/editor/JsonTree";
 
 const state = {
     file: {
