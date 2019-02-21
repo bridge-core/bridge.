@@ -12,6 +12,7 @@
                         :my_key="e.key"
                         :comment="e.comment"
                         :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
+                        :mark="e.mark_color"
                     />
 
                     <json-editor-main 
@@ -97,17 +98,11 @@
                 EventBus.on("updateCurrentContent", (new_o=this.computed_object()) => {
                     this.render_object = new_o;
                 });
-                EventBus.on("openAllNodes", this.openAllChildren);
 
                 if(this.$store.state.Settings.open_all_nodes) 
                     this.$nextTick(() => this.openAllChildren());
                 else
                     this.$store.commit("removeLoadingWindow", { id: "open-file" });
-            } else {
-                EventBus.on("closeAllNodes", () => {
-                    this.open = false;
-                    this.object = this.object;
-                });
             }
 
             if(!this.first && this.render_object.open) {

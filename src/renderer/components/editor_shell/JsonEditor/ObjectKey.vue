@@ -2,9 +2,14 @@
     <summary :class="selected_class" v-on:keydown.enter="open_current" :id="'summary.' + object_key" v-ripple>
         <v-icon :class="`${inversed_arrows ? 'open' : 'closed'}`" small>keyboard_arrow_down</v-icon>
         <v-icon :class="`${inversed_arrows ? 'closed' : 'open'}`" small>keyboard_arrow_up</v-icon>
-        <highlight-text class="object"> {{ my_key }}</highlight-text>
+        <highlight-text
+            :style="`background: ${mark.replace(/;|:/g, '')};`"
+            class="object"
+        >
+        {{ my_key }}
+        </highlight-text>
         <span v-if="comment && comment != ''" class="comment" :style="color_theme.comment">//{{ comment }}</span>
-    </summary>  
+    </summary>
 </template>
 
 <script>
@@ -21,7 +26,11 @@
         props: {
             my_key: [String, Number],
             object_key: String,
-            comment: String
+            comment: String,
+            mark: {
+                default: "none",
+                type: String
+            }
         },
         computed: {
             selected_class() {

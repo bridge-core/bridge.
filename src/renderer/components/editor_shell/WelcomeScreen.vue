@@ -4,18 +4,30 @@
         <div>
             <br>
             <p>
-                bridge. is everything you expect from an editor and more!
+                Creating Minecraft addons was never more convenient!
             </p>
             <ul>
-                <li>Custom addon syntax</li>
-                <li>Syntax highlighting</li>
-                <li>Easy project management</li>
-                <li>Plugins</li>
+                <li>
+                    <v-icon small>mdi-auto-fix</v-icon>
+                    <span>Syntax highlighting</span>
+                </li>
+                <li>
+                    <v-icon small>mdi-format-list-bulleted</v-icon>
+                    <span>Rich auto-completions</span>
+                </li>
+                <li>
+                    <v-icon small>mdi-folder-multiple</v-icon>
+                    <span>Easy project management</span>
+                </li>
+                <li>
+                    <v-icon small>mdi-json</v-icon>
+                    <span>Custom addon syntax</span>
+                </li>
+                <li>
+                    <v-icon small>mdi-nodejs</v-icon>
+                    <span>Customizable through plugins</span>
+                </li>
             </ul>
-            <br>
-            <p>
-                bridge. simply is the editor you've been looking for.
-            </p>
         </div>
     </v-layout>
 </template>
@@ -30,5 +42,8 @@ export default {
     div, li {
         list-style-type: none;
         text-align: center;
+    }
+    span {
+        margin-left: 4px;
     }
 </style>

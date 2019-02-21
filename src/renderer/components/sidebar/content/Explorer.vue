@@ -94,7 +94,7 @@
                 if (this.items.length == 0) {
                     this.display_label = "No projects found";
                 } else if(this.selected == "") {
-                    this.$set(this, "selected", this.items[0]);
+                    this.$set(this, "selected", this.findDefaultProject());
                 }
             });
 
@@ -210,6 +210,14 @@
             },
             on_resize() {
                 this.project_select_size = window.innerWidth / 7.5;
+            },
+
+            findDefaultProject() {
+                for(let i = 0; i < this.items.length; i++) {
+                    if(this.items[i].toLowerCase() == this.$store.state.Settings.default_project.toLowerCase())
+                        return this.items[i];
+                }
+                return this.items[0];
             }
         }
     }

@@ -18,6 +18,22 @@ class ReactiveSwitch {
     }
 }
 
+class ReactiveInput {
+    constructor(parent, watch_key, def) {
+        this.type = "input";
+        this.input = parent.data[watch_key];
+        for(let key in def) {
+            this[key] = def[key];
+        }
+
+        this.action = (val) => {
+            this.input = val;
+            parent.data[watch_key] = val;
+            parent.save();
+        };
+    }
+}
+
 export default class SettingsWindow extends TabWindow {
     constructor() {     
         super("Settings", { is_persistent: false }, "bridge.core.settings_window.");
@@ -33,6 +49,15 @@ export default class SettingsWindow extends TabWindow {
                 new ReactiveSwitch(this, "line_wraps", { color: "light-green", text: "Word Wrap", key: `settings.editor.tab.tabs.${Math.random()}` }),
                 new ReactiveSwitch(this, "open_all_nodes", { color: "light-green", text: "Open All Nodes", key: `settings.editor.tab.open_all_nodes.${Math.random()}` }),
                 new ReactiveSwitch(this, "auto_completions", { color: "light-green", text: "Provide Auto-Completions", key: `settings.editor.tab.auto_completions.${Math.random()}` })
+            ]
+        });
+        this.addTab({
+            sidebar_element: {
+                icon: "mdi-folder-multiple",
+                title: "Explorer"
+            },
+            content: [
+                new ReactiveInput(this, "default_project", { text: "Default Project", key: `settings.editor.tab.default_project.${Math.random()}` })
             ]
         });
         this.addTab({

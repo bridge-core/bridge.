@@ -242,6 +242,11 @@ export default class JSONTree {
         this.open = !this.open;
         return this;
     }
+    toggleOpenDeep() {
+        this.open = !this.open;
+        this.children.forEach(c => c.toggleOpenDeep());
+        return this;
+    }
     
 
     //NAVIGATING & MOVING

@@ -86,104 +86,6 @@ const state = {
         display_name: "Edit",
         elements: [
             {
-                title: "Copy",
-                shortcut: "Ctrl + C",
-                action: () => {
-                    try {
-                        clipboard.writeText(JSON.stringify(TabSystem.getCurrentNavObj().toJSON(), null, "\t"));
-                    } catch(e) {
-                        EventBus.trigger("getCMSelection", clipboard.writeText);
-                    }
-                } 
-            },
-            {
-                title: "Copy With Key",
-                shortcut: "Ctrl + Shift + C",
-                action: () => {
-                    try {
-                        let obj = TabSystem.getCurrentNavObj().toJSON();
-                        let key = TabSystem.getCurrentNavContent();
-                        obj = { [key]: obj };
-                        clipboard.writeText(JSON.stringify(obj, null, "\t"));
-                    } catch(e) {
-                        EventBus.trigger("getCMSelection", clipboard.writeText);
-                    }
-                } 
-            },
-            {
-                title: "Cut",
-                shortcut: "Ctrl + X",
-                action: () => {
-                    try {
-                        clipboard.writeText(JSON.stringify(TabSystem.getCurrentNavObj().toJSON(), null, "\t"));
-                        TabSystem.deleteCurrentChildren();
-                    } catch(e) {
-                        EventBus.trigger("getCMSelection", clipboard.writeText);
-                        EventBus.trigger("setCMSelection", "");
-                    }
-                } 
-            },
-            {
-                title: "Cut With Key",
-                shortcut: "Ctrl + Shift + X",
-                action: () => {
-                    try {
-                        let obj = TabSystem.getCurrentNavObj().toJSON();
-                        let key = TabSystem.getCurrentNavContent();
-                        obj = { [key]: obj };
-                        clipboard.writeText(JSON.stringify(obj, null, "\t"));
-                        TabSystem.deleteCurrent();
-                    } catch(e) {
-                        EventBus.trigger("getCMSelection", clipboard.writeText);
-                        EventBus.trigger("setCMSelection", "");
-                    }
-                } 
-            },
-            {
-                title: "Paste",
-                shortcut: "Ctrl + V",
-                action: () => {
-                    try {
-                        TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()));
-                    } catch(e) {
-                        EventBus.trigger("setCMSelection", clipboard.readText());
-                    }
-                } 
-            },
-            {
-                type: "divider"
-            },
-            {
-                title: "Undo",
-                shortcut: "Ctrl + Z",
-                action: () => {
-                    if(!TabSystem.getHistory().undo()) EventBus.trigger("cmUndo");
-                }
-            },
-            {
-                title: "Redo",
-                shortcut: "Ctrl + Y",
-                action: () => {
-                    if(!TabSystem.getHistory().redo()) EventBus.trigger("cmRedo");
-                }
-            },
-            {
-                type: "divider"
-            },
-            {
-                title: "Delete",
-                shortcut: "Ctrl + Backspace",
-                action: () => TabSystem.deleteCurrent()
-            },
-            {
-                shortcut: "Ctrl + Del",
-                action: () => TabSystem.deleteCurrent(),
-                is_hidden: true
-            },
-            {
-                type: "divider"
-            },
-            {
                 type: "submenu",
                 title: "Selection",
                 elements: [
@@ -209,9 +111,16 @@ const state = {
                 title: "JSON Nodes",
                 elements: [
                     {
-                        title: "Open",
+                        title: "Toggle Open",
                         shortcut: "Ctrl + Enter",
-                        action: () => TabSystem.openCurrentNode()
+                        action: () => TabSystem.toggleCurrentNode()
+                    },
+                    {
+                        title: "Toggle Open Children",
+                        shortcut: "Ctrl + Shift + Enter",
+                        action: () => {
+                            TabSystem.getCurrentNavObj().toggleOpenDeep();
+                        }
                     },
                     {
                         type: "divider"
@@ -225,16 +134,6 @@ const state = {
                         title: "Move Down",
                         shortcut: "Ctrl + Shift + D",
                         action: () => TabSystem.moveCurrentDown()
-                    },
-                    {
-                        title: "Open All Nodes",
-                        shortcut: "Ctrl + J",
-                        action: () => EventBus.trigger("openAllNodes")
-                    },
-                    {
-                        title: "Close All Nodes",
-                        shortcut: "Ctrl + U",
-                        action: () => EventBus.trigger("closeAllNodes")
                     }
                 ]
             },

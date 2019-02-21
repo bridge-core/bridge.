@@ -215,7 +215,7 @@ class TabSystem {
     get use_tabs() {
         return Store.state.Settings.use_tabs;
     }
-    openCurrentNode() {
+    toggleCurrentNode() {
         try {
             this.getCurrentNavObj().toggleOpen();
         } catch(e) {}

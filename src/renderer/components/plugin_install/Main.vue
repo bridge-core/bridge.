@@ -67,12 +67,6 @@ export default {
             window_height: window.innerHeight
         }
     },
-    props: {
-        is_draggable: {
-            default: false,
-            type: Boolean
-        }
-    },
     mounted() {
         fetch("https://solveddev.github.io/bridge-plugins/plugins.json")
             .then(data => data.json())

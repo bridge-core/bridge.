@@ -35,10 +35,10 @@
             </template>
         </div>
         
-        <v-layout justify-center v-else>
-            <h3>
+        <v-layout justify-center style="text-align: center;" v-else>
+            <p>
                 {{ no_plugins_message }}
-            </h3>
+            </p>
         </v-layout>
         <v-snackbar
             v-model="notification"
@@ -149,8 +149,6 @@ export default {
     },
     watch: {
         filter() {
-            console.log("Update");
-            
             this.loadPlugins();
         }
     }

@@ -4,7 +4,7 @@
         :offset-y="!is_submenu"
         :offset-x="is_submenu"
         :open-on-hover="is_submenu"
-        min-width="200px"
+        min-width="260px"
         :class="is_submenu ? 'sidemenu' : ''"
     >
         <v-btn v-if="!is_submenu" slot="activator" style="border-radius: 0;" small flat>
