@@ -14,7 +14,7 @@ let mainWindow, loadingWindow, windowOptions = {
   useContentSize: true,
   width: 1000,
   frame: false,
-  minWidth: 600,
+  minWidth: 900,
   minHeight: 600,
   show: false
 };

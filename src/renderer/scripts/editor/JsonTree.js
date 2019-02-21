@@ -301,7 +301,7 @@ export default class JSONTree {
     }
 
     //JSON -> TREE
-    buildFromObject(data, first=true) {
+    buildFromObject(data, first=true, update_history=false) {
         if(data instanceof JSONTree) return data;
         this.type = getType(data);
 
@@ -309,7 +309,8 @@ export default class JSONTree {
         
         if(typeof data == "object") {
             for(let key in data) {
-                if(typeof data[key] != "function" && key != "__ob__") this.add(new JSONTree(key, undefined, this)).buildFromObject(data[key], false);
+                if(typeof data[key] != "function" && key != "__ob__")
+                    this.add(new JSONTree(key, undefined, this), update_history).buildFromObject(data[key], false);
             }
         } else if(typeof data != "function") {
             this.data = data + "";

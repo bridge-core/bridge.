@@ -8,6 +8,8 @@ import TabSystem from "../../scripts/TabSystem";
 import FileSystem from "../../scripts/FileSystem";
 import ConfirmWindow from "../../scripts/commonWindows/Confirm";
 import EventBus from "../../scripts/EventBus";
+import { JSONAction } from "../../scripts/TabSystem/CommonHistory";
+import JSONTree from "../../scripts/editor/JsonTree";
 
 const state = {
     file: {
@@ -235,7 +237,83 @@ const state = {
                         action: () => EventBus.trigger("closeAllNodes")
                     }
                 ]
-            }
+            },
+            {
+                type: "divider"
+            },
+            {
+                title: "Delete",
+                shortcut: "Ctrl + Backspace",
+                action: () => TabSystem.deleteCurrent()
+            },
+            {
+                shortcut: "Ctrl + Del",
+                action: () => TabSystem.deleteCurrent(),
+                is_hidden: true
+            },
+            {
+                type: "divider"
+            },
+            {
+                title: "Undo",
+                shortcut: "Ctrl + Z",
+                action: () => {
+                    if(!TabSystem.getHistory().undo()) EventBus.trigger("cmUndo");
+                }
+            },
+            {
+                title: "Redo",
+                shortcut: "Ctrl + Y",
+                action: () => {
+                    if(!TabSystem.getHistory().redo()) EventBus.trigger("cmRedo");
+                }
+            },
+            {
+                type: "divider"
+            },
+            {
+                title: "Copy",
+                shortcut: "Ctrl + C",
+                action: () => {
+                    try {
+                        let node = TabSystem.getCurrentNavObj();
+                        let obj = { [node.key]: node.toJSON() };
+                        clipboard.writeText(JSON.stringify(obj, null, "\t"));
+                    } catch(e) {
+                        EventBus.trigger("getCMSelection", clipboard.writeText);
+                    }
+                } 
+            },
+            {
+                title: "Cut",
+                shortcut: "Ctrl + X",
+                action: () => {
+                    try {
+                        let node = TabSystem.getCurrentNavObj();
+                        //HISTORY
+                        TabSystem.getHistory().add(new JSONAction("add", node.parent, node));
+
+                        let obj = { [node.key]: node.toJSON() };
+                        clipboard.writeText(JSON.stringify(obj, null, "\t"));
+                        TabSystem.deleteCurrent();
+                        TabSystem.setCurrentFileNav("global");
+                    } catch(e) {
+                        EventBus.trigger("getCMSelection", clipboard.writeText);
+                        EventBus.trigger("setCMSelection", "");
+                    }
+                } 
+            },
+            {
+                title: "Paste",
+                shortcut: "Ctrl + V",
+                action: () => {
+                    try {
+                        TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
+                    } catch(e) {
+                        EventBus.trigger("setCMSelection", clipboard.readText());
+                    }
+                } 
+            }            
         ]
     },
     view: {
