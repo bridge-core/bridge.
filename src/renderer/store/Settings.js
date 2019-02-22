@@ -17,7 +17,9 @@ function setup() {
             use_tabs: true,
             line_wraps: false,
             auto_completions: true,
-            open_all_nodes: false
+            open_all_nodes: false,
+            default_project: "",
+            target_version: ""
         });
     }
 

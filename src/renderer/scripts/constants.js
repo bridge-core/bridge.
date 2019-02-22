@@ -7,7 +7,7 @@ export const APP_VERSION = "v0.8.0";
 export const WEB_APP_DATA = "https://solveddev.github.io/bridge-data/";
 export const WEB_APP_PLUGINS = "https://solveddev.github.io/bridge-plugins/";
 export const FILE_TEMPLATES = IMP_FILE_TEMPLATES;
-export const MINECRAFT_VERSIONS = [ "v1.10", "v1.11" ]
+export const MINECRAFT_VERSIONS = [ "v1.10", "v1.11" ];
 export const MANIFEST_TEMPLATE = (name="", des="") => `{
 	"format_version": 1,
 	"header": {

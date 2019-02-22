@@ -63,7 +63,11 @@ export default class SettingsWindow extends TabWindow {
                 title: "Editor"
             },
             content: [
-                new ReactiveDropdown(this, "target_version", MINECRAFT_VERSIONS ,{ text: "Target Version", key: `settings.editor.tab.target_version.${Math.random()}` }),
+                {
+                    color: "grey",
+                    text: "\nTarget Minecraft Version"
+                },
+                new ReactiveDropdown(this, "target_version", MINECRAFT_VERSIONS ,{ text: "Choose a version...", key: `settings.editor.tab.target_version.${Math.random()}` }),
                 new ReactiveSwitch(this, "use_tabs", { color: "light-green", text: "Use Tabs", key: `settings.editor.tab.tabs.${Math.random()}` }),
                 new ReactiveSwitch(this, "line_wraps", { color: "light-green", text: "Word Wrap", key: `settings.editor.tab.tabs.${Math.random()}` }),
                 new ReactiveSwitch(this, "open_all_nodes", { color: "light-green", text: "Open All Nodes", key: `settings.editor.tab.open_all_nodes.${Math.random()}` }),

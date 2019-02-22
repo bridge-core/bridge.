@@ -9,7 +9,6 @@ export default class VersionMap {
      * @param {String} version 
      */
     static convert(state_id, version) {
-        console.log(MAP)
         if(MAP[state_id] === undefined || MAP[state_id][version] === undefined) return state_id;
         return MAP[state_id][version];
     }

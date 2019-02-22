@@ -87,7 +87,7 @@ class Provider {
 
         if(path.includes("entities")) return this.start_state = "entity/main";
         if(path.includes("loot_tables")) return this.start_state = "loot_table";
-        if(path.includes("trading")) return this.start_state = "trade_table";
+        if(path.includes("trading")) return this.start_state = "trade_table/main";
         if(path.includes("spawn_rules")) return this.start_state = "spawn_rule/main";
     }
 
@@ -95,7 +95,6 @@ class Provider {
         path = path.replace("global", 
             VersionMap.convert(this.start_state, Store.state.Settings.target_version)
         );
-        console.log(path, LIB);
         let propose = this.walk(path.split("/"));
 
         if(typeof propose == "string") {

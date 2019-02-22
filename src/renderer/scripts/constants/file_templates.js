@@ -22,17 +22,17 @@ export default [
                             wants: [
                                 {
                                     item: "",
-                                    quantity: 1
+                                    quantity: {}
                                 },
                                 {
                                     item: "",
-                                    quantity: 1
+                                    quantity: {}
                                 }
                             ],
                             gives: [
                                 {
                                     item: "",
-                                    quantity: 1
+                                    quantity: {}
                                 }
                             ]
                         }
@@ -45,12 +45,12 @@ export default [
         "Blank Loot Table": {
             pools: [
                 {
-                    rolls: 1,
+                    rolls: {},
                     entries: [
                         {
                             type: "item",
                             name: "",
-                            weight: 1,
+                            weight: {},
                             functions: [
                                 {
                                     "function": ""
