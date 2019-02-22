@@ -227,7 +227,7 @@ class TabSystem {
 
         if(ext  == "json") {
             let j;  
-            console.log(current.content instanceof JSONTree, current, previous);
+            // console.log(current.content instanceof JSONTree, current, previous);
             
             if(current.content instanceof JSONTree) {
                 j = Format.toJSON(current.content, false);

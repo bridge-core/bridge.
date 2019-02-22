@@ -1,6 +1,9 @@
 import fs from "fs";
 import { BASE_PATH } from "../constants";
 import TabSystem from "../TabSystem";
+import deepmerge from "deepmerge";
+import VersionMap from "./VersionMap";
+import Store from "../../store/index";
 
 let LIB = {
     $dynamic: {
@@ -50,7 +53,15 @@ class Provider {
         this.loadAsset("files")
             .then(files => files.forEach(
                 f => this.loadAsset(f)
-                    .then(data => LIB[f] = data)
+                    .then(data => {
+                        //ALLOW MULTIPLE FILES TO REGISTER THE SAME LIB KEY
+                        if(data.$register_as !== undefined) {
+                            f = data.$register_as;
+                            delete data.$register_as;
+                        }
+
+                        this.storeInLIB(f, data);
+                    })
             ));
     }
     static loadAsset(name) {
@@ -61,19 +72,30 @@ class Provider {
             });
         });
     }
+    static storeInLIB(path, store, current=LIB) {
+        if(typeof path === "string") path = path.split("/");
+        let key = path.shift();
+
+        if(current[key] === undefined) current[key] = {};
+
+        if(path.length > 0) this.storeInLIB(path, store, current[key]);
+        else current[key] = deepmerge(current[key], store);
+    }
 
     validator(path) {
         path = path.replace(BASE_PATH, "");
 
-        if(path.includes("entities")) return this.start_state = "entity";
+        if(path.includes("entities")) return this.start_state = "entity/main";
         if(path.includes("loot_tables")) return this.start_state = "loot_table";
         if(path.includes("trading")) return this.start_state = "trade_table";
-        if(path.includes("spawn_rules")) return this.start_state = "spawn_rule";
+        if(path.includes("spawn_rules")) return this.start_state = "spawn_rule/main";
     }
 
     get(path) {
-        path = path.replace("global", this.start_state);
-
+        path = path.replace("global", 
+            VersionMap.convert(this.start_state, Store.state.Settings.target_version)
+        );
+        console.log(path, LIB);
         let propose = this.walk(path.split("/"));
 
         if(typeof propose == "string") {
@@ -81,7 +103,7 @@ class Provider {
             propose = this.omegaExpression(propose, prev_path.pop(), prev_path);
         }
 
-        //console.log("[PROPOSING]", propose);
+        // console.log("[PROPOSING]", propose);
         if(propose === LIB) return { value: [], object: [] };
         if(Array.isArray(propose)) return { value: propose };
 
@@ -106,7 +128,7 @@ class Provider {
 
     walk(path_arr, current=LIB) {
         if(path_arr == undefined || path_arr.length == 0 || current == undefined) return current;
-        let key = path_arr.shift();
+        let key = path_arr.shift().replace();
 
         if(current[key] == undefined) {
             key = "$placeholder";
@@ -125,6 +147,7 @@ class Provider {
     omegaExpression(str, key, prev_path) {
         let parts = str.split(" and ");
         let result = [];
+        
         parts.forEach(part => {
             let current;
             if(part.includes("$dynamic")) {
@@ -137,7 +160,7 @@ class Provider {
             if(!Array.isArray(current)) {
                 if(Array.isArray(result)) result = {};
                 // console.log(result, current)
-                result = Object.assign(result, current);
+                if(current != undefined) result = deepmerge(result, current);
             } else {
                 result.push(...current);
             }
@@ -159,10 +182,13 @@ class Provider {
     }
     static(expression) {
         let current = LIB;
-        // console.log(expression);
-        expression.split(".").forEach(p => {
+        let path = expression.split(".");
+
+        path.forEach(p => {
             if(current != undefined) current = current[p.replace(/\&dot\;/g, ".")];
         });
+
+        if(typeof current === "string") current = this.omegaExpression(current, path.pop(), path);
         return current;
     }
 }

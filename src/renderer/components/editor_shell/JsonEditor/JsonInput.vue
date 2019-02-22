@@ -16,9 +16,10 @@
                 :label="label"
                 :items="items"
                 :auto-select-first="true"
-                :menu-props="{ maxHeight: 160, maxWidth: 300, top: true }"
+                :menu-props="{ maxHeight: 130, top: true }"
                 :hide-no-data="true"
                 dense
+                class="json-input-menu"
             ></v-combobox>
             <v-btn v-if="type != 'edit'" @click="click">
                 +
@@ -212,5 +213,11 @@
 <style scoped>
     .v-btn {
         min-width: 0;
+    }
+</style>
+
+<style>
+    .v-menu__content.v-autocomplete__content .v-list__tile:not(.v-list__tile--avatar) {
+        height: 26px !important;
     }
 </style>

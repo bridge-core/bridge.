@@ -10,21 +10,21 @@
             "is_experimental": "$general.boolean"
         },
         "component_groups": {
-            "$placeholder": "$entity_components and $entity_behavior and $entity_annotations"
+            "$placeholder": "$entity.main.minecraft:entity.components"
         },
-        "components": "$entity_components and $entity_behavior and $entity_annotations",
+        "components": "$entity.annotations and $entity.behavior and $entity.components",
         "events": {
             "$placeholder": {
                 "sequence": {
                     "$dynamic.list.next_index": {
-                        "filters": "$entity_filters",
-                        "$load": "$entity.minecraft:entity.events.$placeholder"
+                        "filters": "$entity.filters",
+                        "$load": "$entity.main.minecraft:entity.events.$placeholder"
                     }
                 },
                 "randomize": {
                     "$dynamic.list.next_index": {
                         "weight": "$general.number",
-                        "$load": "$entity.minecraft:entity.events.$placeholder"
+                        "$load": "$entity.main.minecraft:entity.events.$placeholder"
                     }
                 },
                 "add": {
@@ -32,12 +32,12 @@
                         "$dynamic.list.next_index": "$dynamic.entity.component_groups"
                     }
                 },
-                "remove": "$entity.minecraft:entity.events.$placeholder.add"
+                "remove": "$entity.main.minecraft:entity.events.$placeholder.add"
             },
-            "minecraft:entity_born": "$entity.minecraft:entity.events.$placeholder",
-            "minecraft:entity_spawned": "$entity.minecraft:entity.events.$placeholder",
-            "minecraft:entity_transformed": "$entity.minecraft:entity.events.$placeholder",
-            "minecraft:on_prime": "$entity.minecraft:entity.events.$placeholder"
+            "minecraft:entity_born": "$entity.main.minecraft:entity.events.$placeholder",
+            "minecraft:entity_spawned": "$entity.main.minecraft:entity.events.$placeholder",
+            "minecraft:entity_transformed": "$entity.main.minecraft:entity.events.$placeholder",
+            "minecraft:on_prime": "$entity.main.minecraft:entity.events.$placeholder"
         }
     }
 }

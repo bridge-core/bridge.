@@ -213,9 +213,9 @@
         },
         "probability": "$general.decimal"
     },
-    "minecraft:behavior.look_at_player": "$entity_behavior.minecraft:behavior&dot;look_at_entity",
-    "minecraft:behavior.look_at_target": "$entity_behavior.minecraft:behavior&dot;look_at_entity",
-    "minecraft:behavior.look_at_trading_player": "$entity_behavior.minecraft:behavior&dot;look_at_entity",
+    "minecraft:behavior.look_at_player": "$entity.behavior.minecraft:behavior&dot;look_at_entity",
+    "minecraft:behavior.look_at_target": "$entity.behavior.minecraft:behavior&dot;look_at_entity",
+    "minecraft:behavior.look_at_trading_player": "$entity.behavior.minecraft:behavior&dot;look_at_entity",
     "minecraft:behavior.make_love": {
         "priority": "$general.number"
     },
@@ -261,7 +261,7 @@
         "speed_multiplier": "$general.decimal",
         "within_radius": "$general.number"
     },
-    "minecraft:behavior.move_to_land": "$entity_behavior.minecraft:behavior&dot;move_to_water",
+    "minecraft:behavior.move_to_land": "$entity.behavior.minecraft:behavior&dot;move_to_water",
     "minecraft:behavior.move_to_water": {
         "priority": "$general.number",
         "goal_radius": "$general.decimal",
@@ -361,7 +361,7 @@
         "avoid_damage_blocks": "$general.boolean"
     },
     "minecraft:behavior.random_breach": {
-        "$load": "$entity_behavior.minecraft:behavior&dot;random_stroll",
+        "$load": "$entity.behavior.minecraft:behavior&dot;random_stroll",
         "cooldown_time": "$general.number"
     },
     "minecraft:behavior.random_look_around": {
@@ -384,7 +384,7 @@
         "xz_dist": "$general.number",
         "y_dist": "$general.number"
     },
-    "minecraft:behavior.random_swim": "$entity_behavior.minecraft:behavior&dot;random_stroll",
+    "minecraft:behavior.random_swim": "$entity.behavior.minecraft:behavior&dot;random_stroll",
     "minecraft:behavior.ranged_attack": {
         "priority": "$general.number",
         "attack_interval_max": "$general.number",
@@ -428,7 +428,7 @@
             "cast_duration": "$general.decimal",
             "particle_color": {},
             "weight": "$general.number",
-            "filters": "$entity_filters",
+            "filters": "$entity.filters",
             "start_sound_event": "$general.sound",
             "sequence": [
               {
@@ -519,7 +519,7 @@
         "summon_choices": {
             "$dynamic.list.next_index": {
                 "do_casting": "$general.boolean",
-                "filters": "$entity_filters",
+                "filters": "$entity.filters",
                 "min_activation_range": "$general.decimal",
                 "max_activation_range": "$general.decimal",
                 "cooldown_time": "$general.decimal",

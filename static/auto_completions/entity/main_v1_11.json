@@ -1,0 +1,43 @@
+{
+    "minecraft:entity": {
+        "format_version": "$general.format_version",
+        "do_not_upgrade": {},
+        "description": {
+            "identifier": "$general.entity_identifier",
+            "runtime_identifier": "$general.entity_identifier",
+            "is_spawnable": "$general.boolean",
+            "is_summonable": "$general.boolean",
+            "is_experimental": "$general.boolean"
+        },
+        "component_groups": {
+            "$placeholder": "$entity.main.minecraft:entity.components"
+        },
+        "components": "$entity.annotations and $entity.behavior and $entity.components and $entity.v1_11",
+        "events": {
+            "$placeholder": {
+                "sequence": {
+                    "$dynamic.list.next_index": {
+                        "filters": "$entity.filters",
+                        "$load": "$entity.main.minecraft:entity.events.$placeholder"
+                    }
+                },
+                "randomize": {
+                    "$dynamic.list.next_index": {
+                        "weight": "$general.number",
+                        "$load": "$entity.main.minecraft:entity.events.$placeholder"
+                    }
+                },
+                "add": {
+                    "component_groups": {
+                        "$dynamic.list.next_index": "$dynamic.entity.component_groups"
+                    }
+                },
+                "remove": "$entity.main.minecraft:entity.events.$placeholder.add"
+            },
+            "minecraft:entity_born": "$entity.main.minecraft:entity.events.$placeholder",
+            "minecraft:entity_spawned": "$entity.main.minecraft:entity.events.$placeholder",
+            "minecraft:entity_transformed": "$entity.main.minecraft:entity.events.$placeholder",
+            "minecraft:on_prime": "$entity.main.minecraft:entity.events.$placeholder"
+        }
+    }
+}

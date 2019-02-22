@@ -22,7 +22,7 @@
     "minecraft:angry": {
         "broadcastAnger": "$general.boolean",
         "broadcastRange": "$general.number",
-        "broadcast_filters": "$entity_filters",
+        "broadcast_filters": "$entity.filters",
         "calm_event": "$general.entity.event_definition",
         "duration": "$general.number",
         "duration_delta": "$general.number"
@@ -134,7 +134,7 @@
     },
     "minecraft:despawn": {
         "remove_child_entities": "$general.boolean",
-        "filters": "$entity_filters"
+        "filters": "$entity.filters"
     },
     "minecraft:environment_sensor": {
         "$dynamic.list.next_index": {
@@ -226,12 +226,12 @@
 
     "minecraft:healable": {
         "force_use": "$general.boolean",
-        "filters": "$entity_filters",
+        "filters": "$entity.filters",
         "items": {
             "$dynamic.list.next_index": {
                 "item": "$general.item_identifier",
                 "heal_amount": "$general.number",
-                "filters": "$entity_filters",
+                "filters": "$entity.filters",
                 "effects": {
                     "$dynamic.list.next_index": {
                         "name": "$general.effect_name",
@@ -329,7 +329,7 @@
         "searchRadius": "$general.number",
         "setTarget": "$general.boolean",
         "look_cooldown": "$general.number",
-        "filters": "$entity_filters",
+        "filters": "$entity.filters",
         "look_event": "$general.entity.event_definition",
         "mAllowInvulnerable": "$general.boolean"
     },
@@ -348,22 +348,22 @@
     "minecraft:movement.amphibious": {
         "max_turn": "$general.degree"
     },
-    "minecraft:movement.basic": "$entity_components.minecraft:movement&dot;amphibious",
-    "minecraft:movement.fly": "$entity_components.minecraft:movement&dot;amphibious",
-    "minecraft:movement.generic": "$entity_components.minecraft:movement&dot;amphibious",
+    "minecraft:movement.basic": "$entity.components.minecraft:movement&dot;amphibious",
+    "minecraft:movement.fly": "$entity.components.minecraft:movement&dot;amphibious",
+    "minecraft:movement.generic": "$entity.components.minecraft:movement&dot;amphibious",
     "minecraft:movement.jump": {
-        "$load": "$entity_components.minecraft:movement&dot;amphibious",
+        "$load": "$entity.components.minecraft:movement&dot;amphibious",
         "jump_delay": {
             "$dynamic.list.index_pair": "$general.decimal"
         }
     },
     "minecraft:movement.glide": {
-        "$load": "$entity_components.minecraft:movement&dot;amphibious",
+        "$load": "$entity.components.minecraft:movement&dot;amphibious",
         "start_speed": 0.1,
         "speed_when_turning": 0.2
     },
-    "minecraft:movement.skip": "$entity_components.minecraft:movement&dot;amphibious",
-    "minecraft:movement.sway": "$entity_components.minecraft:movement&dot;amphibious",
+    "minecraft:movement.skip": "$entity.components.minecraft:movement&dot;amphibious",
+    "minecraft:movement.sway": "$entity.components.minecraft:movement&dot;amphibious",
 
     "minecraft:nameable": {
         "allowNameTagRenaming": "$general.boolean",
@@ -386,11 +386,11 @@
         "can_path_over_water": "$general.boolean",
         "can_sink": "$general.boolean"
     },
-    "minecraft:navigation.float": "$entity_components.minecraft:navigation&dot;climb",
-    "minecraft:navigation.fly": "$entity_components.minecraft:navigation&dot;climb",
-    "minecraft:navigation.generic": "$entity_components.minecraft:navigation&dot;climb",
-    "minecraft:navigation.swim": "$entity_components.minecraft:navigation&dot;climb",
-    "minecraft:navigation.walk": "$entity_components.minecraft:navigation&dot;climb",
+    "minecraft:navigation.float": "$entity.components.minecraft:navigation&dot;climb",
+    "minecraft:navigation.fly": "$entity.components.minecraft:navigation&dot;climb",
+    "minecraft:navigation.generic": "$entity.components.minecraft:navigation&dot;climb",
+    "minecraft:navigation.swim": "$entity.components.minecraft:navigation&dot;climb",
+    "minecraft:navigation.walk": "$entity.components.minecraft:navigation&dot;climb",
 
     "minecraft:on_death": "$general.entity.event_definition",
     "minecraft:on_friendly_anger": "$general.entity.event_definition",
@@ -623,7 +623,7 @@
             "spawn_item": "$general.item_identifier",
             "spawn_method": [ "born" ],
             "spawn_sound": "$general.sound",
-            "filters": "$entity_filters",
+            "filters": "$entity.filters",
             "single_use": "$general.boolean"
         }
     },

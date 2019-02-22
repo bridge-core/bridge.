@@ -4,7 +4,7 @@
     "degree": [ "45", "90", "135", "180", "225", "270", "335", "360" ],
     "boolean": [ "true", "false" ],
     "number_boolean": [ "0", "1" ],
-    "format_version": [ "1.8.0", "1.9.0", "1.10.0" ],
+    "format_version": [ "1.8.0", "1.9.0", "1.10.0", "1.11.0" ],
     "entity": {
         "built_in_event": [
             "minecraft:entity_born",
@@ -21,12 +21,12 @@
         },
         "event_definition": {
             "event": "$dynamic.entity.events",
-            "filters": "$entity_filters",
+            "filters": "$entity.filters",
             "target": "$general.entity.filter_targets"
         },
         "entity_types": {
             "$dynamic.list.next_index": {
-                "filters": "$entity_filters",
+                "filters": "$entity.filters",
                 "max_dist": "$general.number",
                 "must_see": "$general.boolean",
                 "sprint_speed_multiplier": "$general.decimal",
@@ -67,7 +67,7 @@
         "anvil", "attack", "block_explosion", "contact", "drowning", "entity_explosion", "fall", "falling_block", "fatal", "fire", "fire_tick", "fly_into_wall", "lava", "magic", "none", "override", "piston", "projectile", "starve", "suffocation", "suicide", "thorns", "void", "wither"
     ],
     "potion_number_id": [ "19", "23" ],
-    "slot_type": [ "slot.weapon.offhand" ],
+    "slot_type": [ "slot.weapon.offhand", "slot.armor.chest" ],
     "particle_name": [
         "mobspellambient", "villagerangry", "blockbreak", "blockdust", "bubble", "evaporation", "crit", "dragonbreath", "driplava", "dripwater", "reddust", "spell", "mobappearance", "enchantingtable", "endrod",  "mobspell", "largeexplode", "hugeexplosion", "fallingdust", "fireworksspark", "waterwake", "flame", "villagerhappy", "heart", "mobspellinstantaneous", "iconcrack", "slime", "snowballpoof", "largesmoke", "lava", "mobflame", "townaura", "nautilus", "note", "explode", "portal", "rainsplash", "smoke", "watersplash", "ink", "terrain", "totem", "trackingemitter", "witchspell"
     ],
@@ -81,10 +81,10 @@
         "minecraft:leash_knot", "minecraft:lightning_bolt", "minecraft:lingering_potion", "minecraft:llama", "minecraft:llama_spit", "minecraft:magma_cube", "minecraft:minecart",
         "minecraft:mooshroom", "minecraft:moving_block", "minecraft:mule", "minecraft:npc", "minecraft:ocelot", "minecraft:painting", "minecraft:panda",
         "minecraft:parrot", "minecraft:phantom", "minecraft:pig", "minecraft:pillager", "minecraft:player", "minecraft:polar_bear", "minecraft:pufferfish",
-        "minecraft:rabbit", "minecraft:salmon", "minecraft:sheep", "minecraft:shulker", "minecraft:shulker_bullet", "minecraft:silverfish", "minecraft:skeleton",
+        "minecraft:rabbit", "minecraft:ravager", "minecraft:salmon", "minecraft:sheep", "minecraft:shulker", "minecraft:shulker_bullet", "minecraft:silverfish", "minecraft:skeleton",
         "minecraft:skeleton_horse", "minecraft:slime", "minecraft:small_fireball", "minecraft:snow_golem", "minecraft:snowball", "minecraft:spider", "minecraft:splash_potion",
         "minecraft:squid", "minecraft:stray", "minecraft:thrown_trident", "minecraft:tnt", "minecraft:tnt_minecart", "minecraft:tripod_camera", "minecraft:tropicalfish",
-        "minecraft:turtle", "minecraft:vex", "minecraft:villager", "minecraft:vindicator", "minecraft:witch", "minecraft:wither", "minecraft:wither_skeleton", "minecraft:wither_skull",
+        "minecraft:turtle", "minecraft:vex", "minecraft:villager", "minecraft:vindicator", "minecraft:wandering_trader", "minecraft:witch", "minecraft:wither", "minecraft:wither_skeleton", "minecraft:wither_skull",
         "minecraft:wither_skull_dangerous", "minecraft:wolf", "minecraft:xp_bottle", "minecraft:xp_orb", "minecraft:zombie", "minecraft:zombie_horse", "minecraft:zombie_pigman",
         "minecraft:zombie_villager"
     ],

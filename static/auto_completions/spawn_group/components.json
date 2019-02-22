@@ -1,0 +1,5 @@
+{
+    "minecraft:mob_event_filter": {
+        "event": {}
+    }
+}

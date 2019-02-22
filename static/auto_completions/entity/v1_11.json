@@ -1,0 +1,59 @@
+{
+    "minecraft:behavior.delayed_attack": {
+        "priority": "$general.number",
+        "reach_multiplier": "$general.decimal",
+        "attack_duration": "$general.decimal",
+        "hit_delay_pct": "$general.decimal",
+        "track_target": "$general.boolean",
+        "sound_event": "$general.sound"
+    },
+    "minecraft:behavior.knockback_roar": {
+        "priority": "$general.number",
+        "attack_time": "$general.decimal",
+        "cooldown_time": "$general.decimal",
+        "duration": "$general.number",
+        "knockback_damage": "$general.number",
+        "knockback_strength": "$general.number",
+        "knockback_range": "$general.number",
+        "knockback_filters": "$entity.filters",
+        "damage_filters": "$entity.filters",
+        "on_roar_end": "$general.entity.event_definition"
+    },
+    "minecraft:addrider": {
+        "spawn_event": {}
+    },
+    "minecraft:break_blocks": {
+        "breakable_blocks": {
+            "$dynamic.list.next_index": "$general.block_identifier"
+        }
+    },
+    "minecraft:dweller": {
+        "dwelling_type": [ "village" ],
+        "dweller_role": [ "hostile", "inhabitant", "defender" ],
+        "update_interval_base": "$general.number",
+        "update_interval_variant": "$general.number",
+        "can_find_poi": "$general.boolean",
+        "can_migrate": "$general.boolean",
+        "first_founding_reward": "$general.number"
+    },
+    "minecraft:economy_trade_table": {
+        "display_name": {},
+        "table": "$dynamic.trade_table_files",
+        "new_screen": "$general.boolean"
+    },
+    "minecraft:scheduler": {
+        "min_delay_secs": "$general.number",
+        "max_delay_secs": "$general.number"
+    },
+    "minecraft:is_illager_captain": {},
+    "minecraft:is_stunned": {},
+    "minecraft:ravager_blocked": {
+        "knockback_strength": "$general.number",
+        "reaction_choices": {
+            "$dynamic.list.next_index": {
+                "weight": "$general.number",
+                "value": "$general.entity.event_definition"
+            }
+        }
+    }
+}

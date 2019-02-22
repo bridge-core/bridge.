@@ -1,12 +1,17 @@
 [
     "general",
-    "entity",
-    "entity_components",
-    "entity_annotations",
-    "entity_behavior",
-    "entity_filters",
+    "entity/main",
+    "entity/main_v1_11",
+    "entity/components",
+    "entity/v1_11",
+    "entity/annotations",
+    "entity/behavior",
+    "entity/filters",
     "loot_table",
     "trade_table",
-    "spawn_rule",
-    "spawn_rule_components"
+    "spawn_rule/main",
+    "spawn_rule/main_v1_11",
+    "spawn_rule/general",
+    "spawn_rule/components",
+    "spawn_rule/v1_11"
 ]

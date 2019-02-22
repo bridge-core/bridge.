@@ -3,10 +3,10 @@
     "minecraft:spawn_rules": {
         "description": {
             "identifier": "$general.entity_identifier",
-            "population_control": [ "animal", "water_animal", "monster" ]
+            "population_control": "$spawn_rule.general.population_control"
         },
         "conditions": {
-            "$dynamic.list.next_index": "$spawn_rule_components"
+            "$dynamic.list.next_index": "$spawn_rule.components and $spawn_rule.v1_11"
         }
     }
 }

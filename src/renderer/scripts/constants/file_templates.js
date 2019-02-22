@@ -2,6 +2,7 @@ export default [
     {
         "Blank Entity": {
             "minecraft:entity": {
+                "format_version": {},
                 "description": {
                     "identifier": "",
                     "runtime_identifier": ""
@@ -66,31 +67,15 @@ export default [
     },
     {
         "Blank Spawn Rule": {
-            "format_version": "1.8.0",
+            "format_version": {},
             "minecraft:spawn_rules": {
                 "description": {
                     "identifier": "",
-                    "population_control": "ambient"
+                    "population_control": ""
                 },
                 "conditions": [
                     {
-                        "minecraft:height_filter": {
-                            "min": 0,
-                            "max": 63
-                        },
-                        "minecraft:weight": {
-                            "default": 10
-                        },
-                        "minecraft:herd": {
-                            "min_size": 2,
-                            "max_size": 2
-                        },
-                        "minecraft:density_limit": {
-                            "surface": 5
-                        },
-                        "minecraft:biome_filter": {
-                            "test": "has_biome_tag", "operator":"==", "value": ""
-                        }
+                        
                     }
                 ]
             }
