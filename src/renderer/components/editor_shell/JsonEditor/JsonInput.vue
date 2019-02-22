@@ -62,11 +62,14 @@
                 this.value = TabSystem.getCurrentNavContent();
                 EventBus.on("updateFileNavigation", this.updateValue);
                 EventBus.on("setWatcherInactive", () => this.watcher_active = false);
+            } else {
+                EventBus.on("updateAutoCompletions", () => this.updateAutoCompletions());
             }
         },
         destroyed() {
             if(this.type == "edit") {
                 EventBus.off("updateFileNavigation", this.updateValue);
+                EventBus.off("updateAutoCompletions", () => this.updateAutoCompletions());
             }
         },
         watch: {
@@ -167,13 +170,12 @@
                 }
                     
 
-                let current_node = TabSystem.getSelected().content.get(this.file_navigation);
                 let propose;
-                if(current_node) propose = current_node.propose(this.file_navigation);
+                if(current) propose = current.propose(this.file_navigation);
                 else propose = [];
 
                 //PLUGIN HOOK
-                PluginEnv.trigger("bridge:beforePropose", { propose, node: current_node });
+                PluginEnv.trigger("bridge:beforePropose", { propose, node: current });
                 propose = propose[this.type];
                 
                 if(propose == undefined || propose.length == 0 || (typeof context == "string" && context != ""))

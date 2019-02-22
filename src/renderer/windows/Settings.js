@@ -2,6 +2,7 @@ import TabWindow from "../scripts/commonWindows/TabWindow";
 import Store from "../store/index";
 import SETTINGS from "../store/Settings";
 import { MINECRAFT_VERSIONS } from "../scripts/constants";
+import EventBus from "../scripts/EventBus";
 
 class ReactiveSwitch {
     constructor(parent, watch_key, def) {
@@ -36,7 +37,7 @@ class ReactiveInput {
 }
 
 class ReactiveDropdown {
-    constructor(parent, watch_key, options, def) {
+    constructor(parent, watch_key, options, def, cb) {
         this.type = "select";
         this.input = parent.data[watch_key];
         this.options = options;
@@ -48,6 +49,7 @@ class ReactiveDropdown {
             this.input = val;
             parent.data[watch_key] = val;
             parent.save();
+            if(typeof cb == "function") cb(val);
         };
     }
 }
@@ -67,7 +69,7 @@ export default class SettingsWindow extends TabWindow {
                     color: "grey",
                     text: "\nTarget Minecraft Version"
                 },
-                new ReactiveDropdown(this, "target_version", MINECRAFT_VERSIONS ,{ text: "Choose a version...", key: `settings.editor.tab.target_version.${Math.random()}` }),
+                new ReactiveDropdown(this, "target_version", MINECRAFT_VERSIONS ,{ text: "Choose a version...", key: `settings.editor.tab.target_version.${Math.random()}` }, () => EventBus.trigger("updateAutoCompletions")),
                 new ReactiveSwitch(this, "use_tabs", { color: "light-green", text: "Use Tabs", key: `settings.editor.tab.tabs.${Math.random()}` }),
                 new ReactiveSwitch(this, "line_wraps", { color: "light-green", text: "Word Wrap", key: `settings.editor.tab.tabs.${Math.random()}` }),
                 new ReactiveSwitch(this, "open_all_nodes", { color: "light-green", text: "Open All Nodes", key: `settings.editor.tab.open_all_nodes.${Math.random()}` }),

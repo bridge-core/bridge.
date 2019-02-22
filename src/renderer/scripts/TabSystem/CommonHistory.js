@@ -37,6 +37,7 @@ export class History {
         this.redo_arr.unshift(undo.reverse());
         undo.commit();
         TabSystem.setCurrentFileNav("global");
+        TabSystem.setCurrentUnsaved();
         return true;
     }
     /**
@@ -49,6 +50,7 @@ export class History {
         this.undo_arr.unshift(redo.reverse());
         redo.commit();
         TabSystem.setCurrentFileNav("global");
+        TabSystem.setCurrentUnsaved();
         return true;
     }
 
