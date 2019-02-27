@@ -2,7 +2,6 @@ import fs from "fs";
 import mkdirp from "mkdirp";
 import { BASE_PATH } from "../constants.js";
 import Store from "../../store/index";
-import JSONTree from "../editor/JsonTree.js";
 
 function getPath(path) {
     return BASE_PATH + path;
@@ -43,6 +42,9 @@ export default class Cache {
             });
         });
     }
+    getSync(file_path) {
+        return this.getCacheSync()[getFileId(file_path)];
+    }
     clear(file_path) {
         this.getCache((cache) => {
             let id = getFileId(file_path);
@@ -77,8 +79,8 @@ export default class Cache {
                 .then(cache => {
                     if(Array.isArray(cache.update) && cache.update.includes(dependency)) cache.update.splice(cache.update.indexOf(dependency), 1);
                     else return resolve();
-                    
                     if(save) this.save(from, undefined, { update: cache.update });
+                    resolve();
                 })
                 .catch(err => reject(err));
         });
@@ -86,7 +88,6 @@ export default class Cache {
     }
     removeAllDependencies(sources=[], dependency) {
         let proms = [];
-
         sources.forEach(
             s => proms.push(this.removeDependency(s, dependency, false))
         );
@@ -135,15 +136,14 @@ export default class Cache {
     }
     getCacheSync() {
         let p = getPath(this.project + "/bridge").replace(/\//g, "\\");
-
-        if(!fs.existsSync(getPath(p))) mkdirp.sync(p);
-        if(!fs.existsSync(getPath(p + "/.editor-cache"))) {
+        try {
+            return JSON.parse(fs.readFileSync(p + "/.editor-cache").toString());
+        } catch(e) {
+            mkdirp(p);
             fs.writeFile(p + "/.editor-cache", "{}", (err) => {
                 if(err) throw err;
             });
             return {};
-        } else {
-            return JSON.parse(fs.readFileSync(p + "/.editor-cache"));
         }
     }
     openWith(cache, file_path) {

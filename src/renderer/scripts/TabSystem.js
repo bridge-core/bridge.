@@ -239,7 +239,8 @@ class TabSystem {
             if(!current.is_invalid) FileSystem.Cache.save(current.file_path, j, PluginEnv.trigger("bridge:cacheFile", { 
                 file_path: current.file_path,
                 content: current.content,
-                file_extension: ext
+                file_extension: ext,
+                old_cache: FileSystem.Cache.getSync(current.file_path)
             }, true, false));
 
             let modified_data = PluginEnv.trigger("bridge:saveFile", { 
@@ -254,7 +255,7 @@ class TabSystem {
         } else if(ext == "png") {
             return current.raw_content;
         } else {
-            FileSystem.Cache.save(current.file_path, current.content, PluginEnv.trigger("bridge:beforeCaching", { 
+            FileSystem.Cache.save(current.file_path, current.content, PluginEnv.trigger("bridge:cacheFile", { 
                 file_path: current.file_path,
                 content: current.content,
                 file_extension: ext
