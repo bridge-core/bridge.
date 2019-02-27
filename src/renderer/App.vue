@@ -15,6 +15,7 @@
               <plugin-install-main v-if="render_plugin_window"></plugin-install-main>
               <window-factory-main></window-factory-main>
               <context-menu-main/>
+              <json-editor-hover-card/>
             </v-flex>
           </v-layout>
         </v-container>
@@ -35,6 +36,7 @@
   import SidebarNavigation from "@/components/sidebar/Navigation";
   import SidebarMain from "@/components/sidebar/Main";
   import EditorShellTabSystem from "@/components/editor_shell/TabSystem";
+  import JsonEditorHoverCard from "@/components/editor_shell/JsonEditor/HoverCard";
   import EditorShellContentManager from "@/components/editor_shell/ContentManager";
   import PluginInstallMain from "@/components/plugin_install/Main";
   import WindowFactoryMain from "@/components/windowFactory/Main";
@@ -55,7 +57,8 @@
       PluginInstallMain,
       WindowFactoryMain,
       FooterMain,
-      ContextMenuMain
+      ContextMenuMain,
+      JsonEditorHoverCard
     },
     created() {
       SETTINGS.setup();

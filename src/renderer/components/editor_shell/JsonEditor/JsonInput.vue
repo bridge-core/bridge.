@@ -161,7 +161,7 @@
 
                 let context = [];
                 let current = this.render_object.get(this.file_navigation);
-                if(current == undefined) return;
+                if(current == undefined || current == null) return;
                 if(this.type == "object")
                     context = Object.keys(current.toJSON());
                 if(this.type == "value") {

@@ -4,6 +4,7 @@ import TabSystem from "../TabSystem";
 import deepmerge from "deepmerge";
 import VersionMap from "./VersionMap";
 import Store from "../../store/index";
+let FILE_DEFS = [];
 
 let LIB = {
     $dynamic: {
@@ -63,6 +64,8 @@ class Provider {
                         this.storeInLIB(f, data);
                     })
             ));
+        this.loadAsset("file_definitions")
+            .then(def => FILE_DEFS = def);
     }
     static loadAsset(name) {
         return new Promise((resolve, reject) => {
@@ -84,11 +87,9 @@ class Provider {
 
     validator(path) {
         path = path.replace(BASE_PATH, "");
-
-        if(path.includes("entities")) return this.start_state = "entity/main";
-        if(path.includes("loot_tables")) return this.start_state = "loot_table";
-        if(path.includes("trading")) return this.start_state = "trade_table/main";
-        if(path.includes("spawn_rules")) return this.start_state = "spawn_rule/main";
+        for(let def of FILE_DEFS) {
+            if(path.includes(def.includes)) return this.start_state = def.start_state;
+        }
     }
 
     get(path) {

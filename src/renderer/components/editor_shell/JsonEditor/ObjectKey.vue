@@ -1,13 +1,21 @@
 <template>
-    <summary :class="selected_class" v-on:keydown.enter="open_current" :id="'summary.' + object_key" v-ripple>
+    <summary
+        @contextmenu="openContextMenu"
+        :class="selected_class"
+        v-on:keydown.enter="open_current"
+        :id="'summary.' + object_key"
+        v-ripple
+    >
         <v-icon :class="`${inversed_arrows ? 'open' : 'closed'}`" small>keyboard_arrow_down</v-icon>
         <v-icon :class="`${inversed_arrows ? 'closed' : 'open'}`" small>keyboard_arrow_up</v-icon>
+
         <highlight-text
             :style="`background: ${mark.replace(/;|:/g, '')};`"
             class="object"
         >
         {{ my_key }}
         </highlight-text>
+
         <span v-if="comment && comment != ''" class="comment" :style="color_theme.comment">//{{ comment }}</span>
     </summary>
 </template>
@@ -30,7 +38,8 @@
             mark: {
                 default: "none",
                 type: String
-            }
+            },
+            object: Object
         },
         computed: {
             selected_class() {
@@ -55,6 +64,19 @@
             },
             open_current() {
                 this.$root.$emit(`load(${this.tab_id}):${this.object_key}`);
+            },
+            openContextMenu(event) {
+                let data;
+                if(typeof this.object.toJSON() !== "object") data = `"${this.my_key}": "${this.object.toJSON()}"`;
+                else if(Number.isNaN(Number(this.my_key))) data = JSON.stringify({ [this.my_key]: this.object.toJSON() }, null, "  ");
+                else data = JSON.stringify([ this.object.toJSON() ], null, "  ");
+
+                this.$store.commit("showEditorHoverCard", {
+                    data,
+                    x_position: event.clientX,
+                    y_position: event.clientY
+                });
+                TabSystem.setCurrentFileNav(this.object_key);
             }
         }
     }
@@ -71,7 +93,7 @@
         background: rgba(119, 119, 119, 0.1);
     }
 
-    div, span.key {
+    span.key {
         padding-left: 0.75em;
     }
     span.comment {
