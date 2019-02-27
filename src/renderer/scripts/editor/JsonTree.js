@@ -23,6 +23,7 @@ export default class JSONTree {
         this.open = open;
         this.type = "object";
         this.parent = parent;
+        this.comment = "";
 
         this.TreeIterator = class {
             constructor(tree) {

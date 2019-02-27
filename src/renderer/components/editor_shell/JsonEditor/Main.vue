@@ -4,7 +4,7 @@
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
                 <details 
                     v-for="(e, i) in render_object.children"
-                    :key="`${uuid}.${e.open}.${object_key}/${i}.${Math.random()}`"
+                    :key="`${uuid}.${e.open}.${object_key}/${i}.${e.comment}.${Math.random()}`"
                     :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                 >
                     <object-key 
