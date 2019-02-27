@@ -12,6 +12,7 @@ class Environment {
         //Internal
         this.__file_path__ = file_path;
         this.__bridge_import_depth__ = depth;
+
         //Official
         if(blocked) {
             this.Bridge = new BlockedBridge(is_module, file_path);
@@ -29,6 +30,7 @@ class Environment {
                 parse: (text) => cJSON.parse(text, undefined, true),
                 stringify: JSON.stringify
             };
+            // this.document = window.document;
         }
 
         this.use = (path) => {

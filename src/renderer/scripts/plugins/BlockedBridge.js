@@ -34,6 +34,14 @@ export default class BlockedBridge {
             exists() {},
             stats() {}
         };
+        this.JSONTree = class JSONTree {
+            add() {}
+            remove() {}
+            buildFromObject() {}
+            get path() {
+                return "";
+            }
+        };
         this.Language = {
             register() {},
             remove() {},

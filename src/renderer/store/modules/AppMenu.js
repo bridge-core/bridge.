@@ -195,6 +195,7 @@ const state = {
                         clipboard.writeText(JSON.stringify(obj, null, "\t"));
                         TabSystem.deleteCurrent();
                         TabSystem.setCurrentFileNav("global");
+                        TabSystem.setCurrentUnsaved();
                     } catch(e) {
                         EventBus.trigger("getCMSelection", clipboard.writeText);
                         EventBus.trigger("setCMSelection", "");

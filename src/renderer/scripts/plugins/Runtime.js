@@ -34,7 +34,7 @@ function reset() {
 
 export default {
     Listeners: {
-        get: (id) => id ? Runtime.listeners[id] : Runtime.listeners,
+        get: (id) => id !== undefined ? Runtime.listeners[id] : Runtime.listeners,
         add: (id, listener) => {
             if(Runtime.listeners[id] != undefined) {
                 Runtime.listeners[id].push(listener);
@@ -46,14 +46,15 @@ export default {
         remove: (id, cb) => Runtime.listeners[id] = Runtime.listeners[id].filter(l => l !== cb)
     },
     Menus: {
-        get: (id) => id ? Runtime.menus[id] : Runtime.menus,
+        get: (id) => id !== undefined ? Runtime.menus[id] : Runtime.menus,
         add: (id, menu) => Runtime.menus[id] = menu
     },
     Sidebar: {
-        get: (id) => id ? Runtime.sidebar[id] : Runtime.sidebar,
+        get: (id) => id !== undefined ? Runtime.sidebar[id] : Runtime.sidebar,
         add: (...elements) => Runtime.sidebar.push(...elements)
     },
     Plugins: {
+        exists: (id) => Runtime.plugins[id] !== undefined,
         get: () => Runtime.plugins,
         add: (id, plg) => Runtime.plugins[id] = plg,
         getRuntimeId: () => Runtime.plugins.length

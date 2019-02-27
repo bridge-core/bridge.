@@ -1,5 +1,23 @@
 // @ts-check
+import { History } from "./CommonHistory";
+import TabSystem from "./TabSystem";
+
 export default class CommonTab {
+    /**
+     * @param {TabSystem} parent
+     * @param {String} project
+     * @param {String} content
+     */
+    constructor(parent, project, content) {
+        this.parent = parent;
+        this.content = content;
+        this.history = new History();
+        this.file_navigation = "global";
+        this.project = project;
+        this.is_unsaved = false;
+        this.uuid = `${project}-${Math.random()}-${Math.random()}`;
+    }
+
     /**
      * Getting the save content of a file
      * @abstract
@@ -7,21 +25,6 @@ export default class CommonTab {
      */
     getSaveContent() {
         return "";
-    }
-
-    /**
-     * Undo
-     * @abstract
-     */
-    undo() {
-
-    }
-    /**
-     * Redo
-     * @abstract
-     */
-    redo() {
-
     }
 
     /**

@@ -115,7 +115,7 @@ class Provider {
         return { 
             object: Object.keys(propose).filter(e => e != "$placeholder").map(key => {
                 if(key[0] == "$") {
-                    //console.log(this.omegaExpression(key))
+                    // console.log(this.omegaExpression(key))
                     let exp = this.omegaExpression(key);
                     if(typeof exp == "object") return Object.keys(exp)[0];
                     return exp;

@@ -11,6 +11,7 @@
 
     "loot_table",
 
+    "trade_table/general",
     "trade_table/main",
     "trade_table/v1_11",
 

@@ -129,6 +129,7 @@
                 set(project) {
                     this.$store.commit("setExplorerProject", project);
                     EventBus.trigger("updateTabUI");
+                    // EventBus.on("updateSelectedTab");
                 }
             },
             loading() {

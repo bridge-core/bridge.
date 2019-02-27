@@ -40,11 +40,7 @@
         },
         "family": {},
         "filters": [ 
-            "clock_time","hourly_clock_time",  "has_ability", "has_biome_tag", "has_component", "has_damage", "has_equipment", "has_tag", "in_caravan",
-            "in_clouds", "in_lava", "in_water", "in_water_or_rain", "is_altitude", "is_biome", "is_brightness", "is_climbing",
-            "is_color", "is_daytime", "is_difficulty", "is_family", "is_game_rule", "is_humid", "is_immobile", "is_moving",
-            "is_owner", "is_riding", "is_sneaking", "is_snow_covered", "is_target", "is_temperature_type", "is_temperature_value", "is_underground",
-            "is_underwater", "is_variant", "moon_intensity", "moon_phase", "on_ground", "on_ladder"
+            "clock_time", "distance_to_nearest_player", "hourly_clock_time", "has_ability", "has_biome_tag", "has_component", "has_damage", "has_equipment", "has_tag", "in_caravan", "in_clouds", "in_lava", "in_water", "in_water_or_rain", "is_altitude", "is_biome", "is_brightness", "is_climbing", "is_color", "is_daytime", "is_difficulty", "is_family", "is_game_rule", "is_humid", "is_immobile", "is_moving", "is_owner", "is_riding", "is_sneaking", "is_snow_covered", "is_target", "is_temperature_type", "is_temperature_value", "is_underground", "is_underwater", "is_variant", "moon_intensity", "moon_phase", "on_ground", "on_ladder"
         ],
         "filter_targets": [ "other", "parent", "player", "self", "target" ],
         "filter_operators": [ "==", "!=", "<", "<=", "<>", "=", ">", ">=", "equals", "not" ]

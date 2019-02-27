@@ -7,6 +7,7 @@ import PluginAssert from "./PluginAssert";
 import TabSystem from "../TabSystem";
 import FileSystem from "../FileSystem";
 import { BASE_PATH } from "../constants";
+import JSONTree from "../editor/JsonTree";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -52,6 +53,7 @@ export default class Bridge {
                 }
             }
         };
+        this.JSONTree = JSONTree;
 
         this.Store = {
             namespace: undefined,
@@ -164,9 +166,7 @@ export default class Bridge {
 
         this.Menu = {
             register: (menu_input) => {
-                Runtime.Menus.add(this.plugin_id, { ...menu_input, trusted: false });
-                console.log(Runtime.Menus.get(this.plugin_id));
-                
+                Runtime.Menus.add(this.plugin_id, { ...menu_input, trusted: false });      
                 Store.commit("addToAppMenu", Runtime.Menus.get(this.plugin_id));
             }
         };

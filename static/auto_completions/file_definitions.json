@@ -1,0 +1,18 @@
+[
+    {
+        "includes": "entities",
+        "start_state": "entity/main"
+    },
+    {
+        "includes": "loot_tables",
+        "start_state": "loot_table"
+    },
+    {
+        "includes": "trading",
+        "start_state": "trade_table/main"
+    },
+    {
+        "includes": "spawn_rules",
+        "start_state": "spawn_rule/main"
+    }
+]

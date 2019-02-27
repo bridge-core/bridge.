@@ -1,6 +1,6 @@
 <template>
     <div v-if="open_files.length > 0">
-        <span v-for="(file, i) in open_files" :key="`file-${file.uuid}-${i}`">
+        <span v-for="(file, i) in open_files" :key="`file-${selected_project}-${file.uuid}-${i}`">
             <file-manager 
                 v-if="selected_tab == i" 
                 :file="file" 

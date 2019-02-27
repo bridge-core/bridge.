@@ -1,23 +1,12 @@
 {
     "tiers": {
         "$dynamic.list.next_index": {
-            "trades": {
+            "trades": "$trade_table.general.trades_v1_11",
+            "groups": {
                 "$dynamic.list.next_index": {
-                    "wants": {
-                        "$dynamic.list.index_pair": {
-                            "item": "$general.item_identifier",
-                            "quantity": "$general.number",
-                            "price_multiplier": "$general.decimal"
-                        }   
-                    },
-                    "gives": {
-                        "0": {
-                            "item": "$general.item_identifier",
-                            "quantity": "$general.number",
-                            "price_multiplier": "$general.decimal"
-                        }
-                    }
-                }
+                    "trades": "$trade_table.general.trades_v1_11",
+                    "num_to_select": "$general.number"
+                } 
             }
         }
     }
