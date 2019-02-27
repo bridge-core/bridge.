@@ -6,15 +6,15 @@ You may return a modified version of the object received inside the callback fun
 ### Built-in Events
 | Events | Description | Callback arguments
 | --- | --- | ---
-| ```bridge:cacheFile``` | Triggers before "bridge." caches a file. Allows to store additional data inside the cache | 
+| ```bridge:addedNode``` | Triggers after the user added a new node to a JSON file | ```{ node }```
+| ```bridge:beforePropose``` | Triggers before bridge. shows auto-completions to the user | ```{ propose, node }```
+| ```bridge:cacheFile``` | Triggers before "bridge." caches a file. Allows to store additional data inside the cache 
+| ```bridge:changedTab``` | Triggers after the user switched to a different file | ```{ file_path, file_extension }```
+| ```bridge:modifiedNode``` | Triggers after the user modified a JSON node | ```{ node }```
 | ```bridge:openedSidebar``` | Triggers after a user switched sidebars. Callback receives the sidebar id | ```id```
 | ```bridge:saveFile``` | Triggers before "bridge." saves a file |
-| ```bridge:startedSaving``` | Triggers before "bridge." initializes the file saving process |
-| ```bridge:addedNode``` | Triggers after the user added a new node to a JSON file | ```{ node }```
-| ```bridge:modifiedNode``` | Triggers after the user modified a JSON node | ```{ node }```
 | ```bridge:selectedNode``` | Triggers after the user selected a new node | ```{ node }```
-| ```bridge:beforePropose``` | Triggers before bridge. shows auto-completions to the user | ```{ propose, node }```
-| ```bridge:changedTab``` | Triggers after the user switched to a different file | ```{ file_path, file_extension }```
+| ```bridge:startedSaving``` | Triggers before "bridge." initializes the file saving process
 
 ### Example
 ```javascript
