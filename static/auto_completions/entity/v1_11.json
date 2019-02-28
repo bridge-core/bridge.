@@ -7,6 +7,65 @@
         "track_target": "$general.boolean",
         "sound_event": "$general.sound"
     },
+    "minecraft:behavior.drink_potion": {
+        "priority": "$general.number",
+        "speed_modifier": "$general.decimal",
+        "potions": {
+            "$dynamic.list.next_index": {
+                "id": "$general.potion_number_id"
+            }
+        } [
+          {
+            "id": 7, // Short invisibility
+            "chance": 1.0,
+            "filters": {
+              "all_of": [
+                {
+                  "any_of": [
+                    { "test": "hourly_clock_time", "operator": ">=", "value": 18000 },
+                    { "test": "hourly_clock_time", "operator": "<", "value": 12000 }
+                  ]
+                },
+                { "test": "is_visible", "subject": "self", "value": true },
+                {
+                  "any_of": [
+                    { "test": "is_avoiding_mobs", "subject": "self", "value": true },
+                    {
+                      "all_of": [
+                        { "test": "has_component", "subject": "self", "value": "minecraft:angry" },
+                        { "test": "is_family", "subject": "target", "operator": "!=", "value": "player" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "id": 8, // Long invisibility
+            "chance": 1.0,
+            "filters": {
+              "all_of": [
+                { "test": "hourly_clock_time", "operator": ">=", "value": 12000 },
+                { "test": "hourly_clock_time", "operator": "<", "value": 18000 },
+                { "test": "is_visible", "subject": "self", "value": true },
+                {
+                  "any_of": [
+                    { "test": "is_avoiding_mobs", "subject": "self", "value": true },
+                    { "test": "has_component", "subject": "self", "value": "minecraft:angry" }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+    },
+    "minecraft:behavior.follow_target_captain": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "within_radius": "$general.number",
+        "follow_distance": "$general.number"
+    },
     "minecraft:behavior.knockback_roar": {
         "priority": "$general.number",
         "attack_time": "$general.decimal",
@@ -19,8 +78,23 @@
         "damage_filters": "$entity.filters",
         "on_roar_end": "$general.entity.event_definition"
     },
+    "minecraft:behavior.move_to_random_block": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "within_radius": "$general.number",
+        "block_distance": "$general.number"
+    },
+    "minecraft:behavior.move_to_village": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal"
+    },
     "minecraft:addrider": {
         "spawn_event": {}
+    },
+    "minecraft:angry": {
+        "broadcast_targets": {
+            "$dynamic.list.next_index": "$general.entity_identifier"
+        }
     },
     "minecraft:break_blocks": {
         "breakable_blocks": {
@@ -47,6 +121,9 @@
     },
     "minecraft:is_illager_captain": {},
     "minecraft:is_stunned": {},
+    "minecraft:raid_trigger": {
+        "triggered_event": "$general.entity.event_definition"
+    },
     "minecraft:ravager_blocked": {
         "knockback_strength": "$general.number",
         "reaction_choices": {

@@ -9,6 +9,11 @@
         "min": "$general.number",
         "max": "$general.number"
     },
+    "minecraft:herd": {
+        "initial_event": {},
+        "initial_event_count": "$general.number"
+    },
+    "minecraft:is_persistent": {},
     "minecraft:permute_type": {
         "$dynamic.list.next_index": {
             "weight": "$general.number",
@@ -18,9 +23,5 @@
     "minecraft:world_age_filter": {
         "min": "$general.number",
         "max": "$general.number"
-    },
-    "minecraft:herd": {
-        "initial_event": {},
-        "initial_event_count": "$general.number"
     }
 }
