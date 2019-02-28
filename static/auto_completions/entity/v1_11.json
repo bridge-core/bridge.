@@ -12,53 +12,11 @@
         "speed_modifier": "$general.decimal",
         "potions": {
             "$dynamic.list.next_index": {
-                "id": "$general.potion_number_id"
+                "id": "$general.potion_number_id",
+                "chance": "$general.decimal",
+                "filters": "$entity.filters"
             }
-        } [
-          {
-            "id": 7, // Short invisibility
-            "chance": 1.0,
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "test": "hourly_clock_time", "operator": ">=", "value": 18000 },
-                    { "test": "hourly_clock_time", "operator": "<", "value": 12000 }
-                  ]
-                },
-                { "test": "is_visible", "subject": "self", "value": true },
-                {
-                  "any_of": [
-                    { "test": "is_avoiding_mobs", "subject": "self", "value": true },
-                    {
-                      "all_of": [
-                        { "test": "has_component", "subject": "self", "value": "minecraft:angry" },
-                        { "test": "is_family", "subject": "target", "operator": "!=", "value": "player" }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "id": 8, // Long invisibility
-            "chance": 1.0,
-            "filters": {
-              "all_of": [
-                { "test": "hourly_clock_time", "operator": ">=", "value": 12000 },
-                { "test": "hourly_clock_time", "operator": "<", "value": 18000 },
-                { "test": "is_visible", "subject": "self", "value": true },
-                {
-                  "any_of": [
-                    { "test": "is_avoiding_mobs", "subject": "self", "value": true },
-                    { "test": "has_component", "subject": "self", "value": "minecraft:angry" }
-                  ]
-                }
-              ]
-            }
-          }
-        ]
+        }
     },
     "minecraft:behavior.follow_target_captain": {
         "priority": "$general.number",
