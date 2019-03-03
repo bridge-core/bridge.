@@ -46,6 +46,10 @@
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal"
     },
+    "minecraft:behavior.work": {
+        "can_work_in_rain": "$general.boolean",
+        "work_in_rain_tolerance":  "$general.number"
+    },
     "minecraft:addrider": {
         "spawn_event": {}
     },
