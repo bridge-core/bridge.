@@ -1,35 +1,35 @@
 <template>
     <v-container>
         <v-toolbar flat height="30px">
-            <v-tooltip right class="first">
+            <v-tooltip bottom class="first">
                 <v-btn icon flat @click.stop="refresh" slot="activator" small>
                     <v-icon small>refresh</v-icon>
                 </v-btn>
                 <span>Refresh</span>
             </v-tooltip>
             
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <v-btn icon flat @click.stop="openCreateProjectWindow" slot="activator" small>
                     <v-icon small>mdi-folder-plus</v-icon>
                 </v-btn>
                 <span>New Project</span>
             </v-tooltip>
 
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <v-btn icon flat @click.stop="openCreateFileWindow" slot="activator" small>
                     <v-icon small>mdi-file-document</v-icon>
                 </v-btn>
                 <span>New File</span>
             </v-tooltip>
 
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <v-btn icon flat @click.stop="packageProject" slot="activator" small>
                     <v-icon small>mdi-package-variant-closed</v-icon>
                 </v-btn>
                 <span>Package</span>
             </v-tooltip>
 
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <v-btn icon flat @click.stop="openInExplorer" slot="activator" small>
                     <v-icon small>mdi-folder-multiple</v-icon>
                 </v-btn>
@@ -37,7 +37,7 @@
             </v-tooltip>
 
             <v-spacer></v-spacer>
-            <v-tooltip right>
+            <v-tooltip bottom>
                 <v-btn icon flat @click.stop="" slot="activator" small>
                     <v-icon small>more_vert</v-icon>
                 </v-btn>

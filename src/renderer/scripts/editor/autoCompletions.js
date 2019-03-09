@@ -166,7 +166,10 @@ class Provider {
             }
         });
 
-        if(!str.includes("$dynamic")) this.walk(prev_path)[key] = result;
+        if(!str.includes("$dynamic")) {
+            let walked = this.walk(prev_path);
+            if(typeof walked === "object") walked[key] = result;
+        } 
         return result;
     }
 

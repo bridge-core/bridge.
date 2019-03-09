@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-toolbar flat height="30px">
-            <v-tooltip right class="first">
+            <v-tooltip bottom class="first">
                 <v-btn slot="activator" @click.stop="is_menu_open = true" class="first" small icon>
                     <v-icon small>settings</v-icon>
                 </v-btn>

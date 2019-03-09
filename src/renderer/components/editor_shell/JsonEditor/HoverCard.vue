@@ -23,26 +23,29 @@
             <v-divider/>
 
             <v-card-actions>
-                <v-spacer/>
-                <v-tooltip
+                <template
                     v-for="(btn, i) in buttons"
-                    :key="i"
-                    bottom
-                    :color="btn.color || 'primary'"
-                    :style="`margin-right: ${ i + 1 !== buttons.length ? 4 : 0}px;`"
                 >
-                    <v-btn
-                        slot="activator"
-                        :color="btn.color || 'primary'" 
-                        round
-                        icon
-                        @click="btn.action"
+                    <v-spacer v-if="btn === 'space'" :key="i"/>
+                    <v-tooltip
+                        v-else
+                        :key="i"
+                        bottom
+                        :color="btn.color || 'primary'"
+                        :style="`margin-right: ${ i + 1 !== buttons.length ? 4 : 0}px;`"
                     >
-                        <v-icon>{{ btn.icon }}</v-icon>
-                    </v-btn>
-                    <span>{{ btn.title }}</span>
-                </v-tooltip>
-                
+                        <v-btn
+                            slot="activator"
+                            :color="btn.color || 'primary'" 
+                            round
+                            icon
+                            @click="btn.action"
+                        >
+                            <v-icon color="white">{{ btn.icon }}</v-icon>
+                        </v-btn>
+                        <span>{{ btn.title }}</span>
+                    </v-tooltip>
+                </template>
             </v-card-actions>
         </v-card>
     </v-menu>
@@ -53,6 +56,7 @@ import TabSystem from "../../../scripts/TabSystem";
 import { clipboard } from "electron";
 import { JSONAction } from "../../../scripts/TabSystem/CommonHistory";
 import EventBus from '../../../scripts/EventBus';
+import { DOC_WINDOW } from '../../../scripts/documentation/main';
 
 export default {
     name: "json-editor-hover-card",
@@ -66,6 +70,17 @@ export default {
         return {
             current_comment: "",
             buttons: [
+                {
+                    title: "Documentation",
+                    icon: "mdi-book-open-page-variant",
+                    color: "orange",
+                    action: () => {
+                        DOC_WINDOW.open("entities");
+                        let e = document.getElementById(TabSystem.getCurrentNavContent());
+                        window.setTimeout(() => { if(e) e.scrollIntoView() }, 1000);
+                    }
+                },
+                "space",
                 {
                     title: "Move Down",
                     icon: "mdi-chevron-down",

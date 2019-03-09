@@ -24,6 +24,17 @@
         "within_radius": "$general.number",
         "follow_distance": "$general.number"
     },
+    "minecraft:behavior.hide": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "poi_type": "$general.poi_type",
+        "duration": "$general.number"
+    },
+    "minecraft.behavior.move_to_poi": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "poi_type": "$general.poi_type"
+    },
     "minecraft:behavior.knockback_roar": {
         "priority": "$general.number",
         "attack_time": "$general.decimal",
@@ -55,7 +66,7 @@
     },
     "minecraft:angry": {
         "broadcast_targets": {
-            "$dynamic.list.next_index": "$general.entity_identifier"
+            "$dynamic.list.next_index": {}
         }
     },
     "minecraft:break_blocks": {
@@ -75,7 +86,8 @@
     "minecraft:economy_trade_table": {
         "display_name": {},
         "table": "$dynamic.trade_table_files",
-        "new_screen": "$general.boolean"
+        "new_screen": "$general.boolean",
+        "hero_demand_discount": "$general.number"
     },
     "minecraft:scheduler": {
         "min_delay_secs": "$general.number",

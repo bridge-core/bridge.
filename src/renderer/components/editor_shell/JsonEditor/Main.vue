@@ -130,7 +130,7 @@
         computed: {
             element_style() {
                 if(this.first) {
-                    return `height: ${this.available_height - 40}px; overflow: auto;`
+                    return `height: ${this.available_height - 110}px; overflow: auto;`
                 }   
                 return "";
             },

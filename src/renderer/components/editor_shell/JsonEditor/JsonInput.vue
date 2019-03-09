@@ -16,7 +16,7 @@
                 :label="label"
                 :items="items"
                 :auto-select-first="true"
-                :menu-props="{ maxHeight: 130, top: true }"
+                :menu-props="{ maxHeight: 130, top: false }"
                 :hide-no-data="true"
                 dense
                 class="json-input-menu"

@@ -12,8 +12,10 @@
             <v-flex :xs10="is_sidebar_open" :xs12="!is_sidebar_open" style="padding-left: 0.5em;">
               <editor-shell-tab-system></editor-shell-tab-system>
               <editor-shell-content-manager></editor-shell-content-manager>
+
               <plugin-install-main v-if="render_plugin_window"></plugin-install-main>
               <window-factory-main></window-factory-main>
+              <documentation-main/>
               <context-menu-main/>
               <json-editor-hover-card/>
             </v-flex>
@@ -42,6 +44,7 @@
   import WindowFactoryMain from "@/components/windowFactory/Main";
   import FooterMain from "@/components/footer/Main";
   import ContextMenuMain from "@/components/context_menu/Main";
+  import DocumentationMain from "@/components/documentation/Main";
 
   import UpdateWindow from "./windows/UpdateApp";
   import SETTINGS from "./store/Settings";
@@ -58,7 +61,8 @@
       WindowFactoryMain,
       FooterMain,
       ContextMenuMain,
-      JsonEditorHoverCard
+      JsonEditorHoverCard,
+      DocumentationMain
     },
     created() {
       SETTINGS.setup();

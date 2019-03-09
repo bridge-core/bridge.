@@ -12,6 +12,11 @@ const state = {
             menu_type: "explorer"
         },
         {
+            title: "Documentation",
+            icon: "mdi-book-open-page-variant",
+            menu_type: "documentation"
+        },
+        {
             title: "Extensions",
             icon: "extension",
             menu_type: "extensions"
