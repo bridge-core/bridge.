@@ -11,16 +11,17 @@
                 
             </v-card-text>
             <v-divider/>
-                <v-text-field
-                    solo
-                    v-model="current_comment"
-                    @input="updateComment"
-                    label="Click to add a comment"
-                    prepend-inner-icon="mdi-pencil"
-                    hide-details
-                    style="margin: 4px 0px;"
-                />
-            <v-divider/>
+
+            <!-- <v-text-field
+                solo
+                v-model="current_comment"
+                @input="updateComment"
+                label="Click to add a comment"
+                prepend-inner-icon="mdi-pencil"
+                hide-details
+                style="margin: 4px 0px;"
+            />
+            <v-divider/> -->
 
             <v-card-actions>
                 <template

@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain, Menu } from 'electron'
 import Communicator from "./communicator.js";
+import "./Discord";
 
 /**
  * Set `__static` path to static files in production
