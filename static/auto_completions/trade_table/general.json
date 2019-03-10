@@ -28,7 +28,10 @@
                     "item": "$general.item_identifier",
                     "quantity": "$general.number"
                 }   
-            }
+            },
+            "trader_exp": "$general.number",
+            "max_uses": "$general.number",
+            "reward_exp": "$general.boolean"
         }
     }
 }

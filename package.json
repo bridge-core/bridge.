@@ -3,7 +3,7 @@
   "productName": "bridge.",
   "version": "0.9.0",
   "author": "solvedDev <33347616+solvedDev@users.noreply.github.com>",
-  "description": "An advanced addon editor",
+  "description": "A powerful add-on editor",
   "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {

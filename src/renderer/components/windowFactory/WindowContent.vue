@@ -10,6 +10,19 @@
         v-else-if="content.type == 'header'"
         :color="content.color"
     >{{ content.text }}</v-subheader>
+    <v-img
+        v-else-if="content.type == 'img'"
+        :src="content.src"
+        :height="content.height"
+    >
+        <v-container v-if="content.content !== undefined" fill-height fluid>
+            <v-layout fill-height>
+                <v-flex xs12 align-end flexbox>
+                    <window-content v-for="(c, i) in content.content" :content="c" :key="`img.inner_content.${i}`" />
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-img>
     
     <!-- GENERAL -->
     <v-spacer v-else-if="content.type == 'space'"/>
