@@ -19,11 +19,12 @@ export default class Cache {
         return Store.state.Explorer.project;
     }
 
-    save(file_path, file_content, other={}) {
+    save(file_path, file_content, other={}, format_version=0) {
         this.getCache((cache) => {
             if(file_content != undefined) {
                 cache[getFileId(file_path)] = Object.assign(cache[getFileId(file_path)] || {}, {
-                    content: file_content
+                    content: file_content,
+                    format_version
                 });
             } 
             cache[getFileId(file_path)] = Object.assign(cache[getFileId(file_path)] || {}, other);

@@ -12,7 +12,7 @@
             </v-card-text>
             <v-divider/>
 
-            <!-- <v-text-field
+            <v-text-field
                 solo
                 v-model="current_comment"
                 @input="updateComment"
@@ -21,7 +21,7 @@
                 hide-details
                 style="margin: 4px 0px;"
             />
-            <v-divider/> -->
+            <v-divider/>
 
             <v-card-actions>
                 <template
@@ -63,9 +63,11 @@ export default {
     name: "json-editor-hover-card",
     mounted() {
         EventBus.on("updateFileNavigation", this.updateCurrentComment);
+        EventBus.on("updateSelectedTab", this.installListener);
     },
     destroyed() {
         EventBus.off("updateFileNavigation", this.updateCurrentComment);
+        EventBus.off("updateSelectedTab", this.installListener);
     },
     data() {
         return {
@@ -162,7 +164,10 @@ export default {
             TabSystem.getCurrentNavObj().comment = val;
         },
         updateCurrentComment() {
-            try { this.current_comment = TabSystem.getCurrentNavObj().comment; } catch(e) {  }
+            try { this.current_comment = TabSystem.getCurrentNavObj().comment; } catch(e) { console.log(e) }
+        },
+        installListener() {
+            EventBus.on("updateFileNavigation", this.updateCurrentComment);
         }
     }
 }

@@ -236,12 +236,13 @@ class TabSystem {
                 current.content = new JSONTree("global").buildFromObject(j);
             }
             
-            if(!current.is_invalid) FileSystem.Cache.save(current.file_path, j, PluginEnv.trigger("bridge:cacheFile", { 
+            
+            if(!current.is_invalid) FileSystem.Cache.save(current.file_path, current.content.buildForCache(), PluginEnv.trigger("bridge:cacheFile", { 
                 file_path: current.file_path,
                 content: current.content,
                 file_extension: ext,
                 old_cache: FileSystem.Cache.getSync(current.file_path)
-            }, true, false));
+            }, true, false), 1);
 
             let modified_data = PluginEnv.trigger("bridge:saveFile", { 
                 ...current,

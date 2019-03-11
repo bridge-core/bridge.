@@ -118,14 +118,14 @@
                 }
             },
             json_object() {
-                if(typeof this.text == "string") {
+                if(typeof this.text === "string") {
                     try {        
                         return cJSON.parse(this.text, undefined, true);
                     } catch(e) {
                         if(this.text == "") return {};
                         TabSystem.setCurrentInvalid();
                         this.$store.commit("removeLoadingWindow", { id: "open-file" });
-                        return  "error";
+                        return "error";
                     }
                 }
                 return this.text;

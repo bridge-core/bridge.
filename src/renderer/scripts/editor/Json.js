@@ -53,5 +53,6 @@ export class Format {
 export default {
     Format,
     parse,
-    getType
+    getType,
+    toCorrectType
 };

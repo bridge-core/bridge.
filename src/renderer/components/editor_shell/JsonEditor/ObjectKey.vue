@@ -66,6 +66,7 @@
                 this.$root.$emit(`load(${this.tab_id}):${this.object_key}`);
             },
             openContextMenu(event) {
+                TabSystem.setCurrentFileNav(this.object_key);
                 let data;
                 if(typeof this.object.toJSON() !== "object") data = `"${this.my_key}": "${this.object.toJSON()}"`;
                 else if(Number.isNaN(Number(this.my_key))) data = JSON.stringify({ [this.my_key]: this.object.toJSON() }, null, "\t");
@@ -76,7 +77,6 @@
                     x_position: event.clientX,
                     y_position: event.clientY
                 });
-                TabSystem.setCurrentFileNav(this.object_key);
             }
         }
     }

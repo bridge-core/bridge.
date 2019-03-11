@@ -59,6 +59,7 @@
     import InternalJSON from "../../../scripts/editor/Json.js";
     import TabSystem from '../../../scripts/TabSystem';
     import EventBus from '../../../scripts/EventBus';
+    import JSONTree from '../../../scripts/editor/JsonTree';
 
     export default {
         name: "json-editor-main",
@@ -112,7 +113,7 @@
 
                 this.$parent.$refs[this.object_key][0].open = true;
                 this.$root.$emit(`load(${this.tab_id}):${this.object_key}`, true);
-            }            
+            }  
         },
         beforeDestroy() {
             this.$root.$off(`load(${this.tab_id}):${this.object_key}`);
@@ -157,15 +158,16 @@
         },
         methods: {
             computed_object() {
+                this.$nextTick(() => {
+                    TabSystem.setCurrentSaved();
+                });
+
                 if(this.first && !this.compiled) {
                     let tree = InternalJSON.Format.toTree(this.object);
 
                     TabSystem.setTabCompiled(true);
                     TabSystem.setCurrentContent(tree);
-                    this.$nextTick(() => {
-                        TabSystem.setCurrentSaved();
-                    });
-                    
+
                     return tree;
                 }
                 return this.object;

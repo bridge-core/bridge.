@@ -1,6 +1,6 @@
 // @ts-check
 import Stack from "../utilities/Stack";
-import Json from "./Json";
+import Json, { Format } from "./Json";
 import Provider from "./autoCompletions";
 import PluginEnv from "../plugins/PluginEnv";
 import TabSystem from "../TabSystem";
@@ -327,6 +327,27 @@ export default class JSONTree {
     //Tree -> JSON
     toJSON(build_arrays=true) {
         return Json.Format.toJSON(this, build_arrays);
+    }
+    buildForCache() {
+        return {
+            open: this.open,
+            comment: this.comment,
+            data: this.data,
+            key: this.key,
+            type: this.type,
+            children: this.children.map(c => c.buildForCache())
+        };
+    }
+    static buildFromCache(c) {
+        return new JSONTree(c.key, c.data, undefined, undefined, c.open).internal_buildFromCache(c);
+    }
+    internal_buildFromCache(c) {
+        //Load attributes which cannot be set with constructor
+        this.comment = c.comment;
+        this.type = c.type || (c.data === "" ? "object" : typeof Json.toCorrectType(c.data));
+
+        this.children = c.children.map(child => new JSONTree(child.key, child.data, this, undefined, child.open).internal_buildFromCache(child));
+        return this;
     }
 
     //ITERATOR

@@ -1,12 +1,12 @@
 import fs from "fs";
 import mkdirp from "mkdirp";
-import dirToJson from "dir-to-json";
 import { BASE_PATH } from "./constants.js";
 import Store from "../store/index";
 import Vue from "../main";
 import TabSystem from "./TabSystem";
 import { ipcRenderer } from "electron";
 import Cache from "./utilities/Cache.js";
+import JSONTree from "./editor/JsonTree.js";
 
 function getPath(path) {
     return BASE_PATH + path;
@@ -49,25 +49,28 @@ class FileSystem {
 
     open(path) {
         this.Cache.get(path)
-            .then((cache) => cache.content ? 
-                this.addAsTab(path, cache.content) : 
-                fs.readFile(path, (err, data) => {
-                    if(err) throw err;
-                    this.addAsTab(path, data.toString(), data);
-            }))
+            .then((cache) => 
+                cache.content ? 
+                    this.addAsTab(path, cache.content, cache.format_version) : 
+                    fs.readFile(path, (err, data) => {
+                        if(err) throw err;
+                        this.addAsTab(path, data.toString(), 0, data);
+                    })
+            )
             .catch((err) => {
                 console.log("[OPEN] Not opened from cache");
                 fs.readFile(path, (err, data) => {
                     if(err) throw err;
-                    this.addAsTab(path, data.toString(), data);
+                    this.addAsTab(path, data.toString(), 0, data);
                 });
             });
     }
-    addAsTab(path, data, raw_data) {
+    addAsTab(path, data, format_version=0, raw_data) {
         TabSystem.add({ 
-            content: data,
+            content: format_version === 1 ? JSONTree.buildFromCache(data) : data,
             raw_content: raw_data,
             file_path: path,
+            is_compiled: format_version === 1,
             category: Store.state.Explorer.project,
             file_name: path.split(/\/|\\/).pop()
         });
