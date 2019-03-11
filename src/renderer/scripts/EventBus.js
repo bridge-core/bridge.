@@ -3,7 +3,7 @@ export default class {
     static on(event, cb) {
         if(event in events) events[event].push(cb);
         else events[event] = [cb];
-        console.log("Registered event " + event);
+        // console.log("Registered event " + event);
     }
 
     static off(event, cb) {
@@ -18,16 +18,15 @@ export default class {
                 }
             }
         }
-        console.log("Unregistered event " + event);
+        // console.log("Unregistered event " + event);
     }
 
     static trigger(event, ...data) {
         if(event in events) {
-            console.log(events[event].length);
             events[event].forEach(e => {
                 e(...data);
             });
         }
-        console.log("[EVENT] " + event);
+        // console.log("[EVENT] " + event);
     }
 }

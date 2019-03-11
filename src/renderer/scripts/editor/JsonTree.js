@@ -24,6 +24,8 @@ export default class JSONTree {
         this.type = "object";
         this.parent = parent;
         this.comment = "";
+        this.propose_cache = {};
+        this.propose_cache_uses = 0;
 
         this.TreeIterator = class {
             constructor(tree) {
@@ -233,7 +235,13 @@ export default class JSONTree {
 
     propose(path=this.path) {
         //console.log(PROVIDER.get(path), path)
-        return PROVIDER.get(path);
+        if(this.propose_cache_uses === 0) {
+            this.propose_cache = PROVIDER.get(path);
+            this.propose_cache_uses++;
+        } else {
+            this.propose_cache_uses = 0;
+        } 
+        return this.propose_cache;
     }   
     openNode(val=true) {
         this.open = val;
@@ -243,9 +251,9 @@ export default class JSONTree {
         this.open = !this.open;
         return this;
     }
-    toggleOpenDeep() {
-        this.open = !this.open;
-        this.children.forEach(c => c.toggleOpenDeep());
+    toggleOpenDeep(val=this.open) {
+        this.open = !val;
+        this.children.forEach(c => c.toggleOpenDeep(val));
         return this;
     }
     

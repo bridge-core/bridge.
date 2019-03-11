@@ -125,7 +125,8 @@
         data() {
             return {
                 file_navigation: TabSystem.getCurrentNavigation(),
-                render_object: this.computed_object()
+                render_object: this.computed_object(),
+                first_init: true
             };
         },
         computed: {
@@ -158,9 +159,12 @@
         },
         methods: {
             computed_object() {
-                this.$nextTick(() => {
-                    TabSystem.setCurrentSaved();
-                });
+                if(this.first && this.first_init) {
+                    this.$nextTick(() => {
+                        TabSystem.setCurrentSaved();
+                    });
+                    this.first_init = false;
+                } 
 
                 if(this.first && !this.compiled) {
                     let tree = InternalJSON.Format.toTree(this.object);

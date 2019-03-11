@@ -127,12 +127,14 @@ class Provider {
     }
 
     walk(path_arr, current=LIB) {
-        if(path_arr == undefined || path_arr.length == 0 || current == undefined) return current;
-        let key = path_arr.shift().replace();
+        if(path_arr === undefined || path_arr.length === 0 || current === undefined) return current;
+        let key = path_arr.shift();
 
-        if(current[key] == undefined) {
+        if(typeof current[key] === "string") {
+            current[key] = this.omegaExpression(current[key], null, null, false);
+        } else if(current[key] === undefined) {
             key = "$placeholder";
-            if(current[key] == undefined && current !== LIB) {
+            if(current[key] === undefined && current !== LIB) {
                 for(let k of Object.keys(current)) {
                     if(k[0] == "$") {
                         key = k;
@@ -144,7 +146,7 @@ class Provider {
         return this.walk(path_arr, current[key]);
     }
 
-    omegaExpression(str, key, prev_path) {
+    omegaExpression(str, key, prev_path, set=true) {
         let parts = str.split(" and ");
         let result = [];
         
@@ -160,16 +162,16 @@ class Provider {
             if(!Array.isArray(current)) {
                 if(Array.isArray(result)) result = {};
                 // console.log(result, current)
-                if(current != undefined) result = deepmerge(result, current);
+                if(current !== undefined) result = deepmerge(result, current);
             } else {
                 result.push(...current);
             }
         });
 
-        if(!str.includes("$dynamic")) {
+        if(set && !str.includes("$dynamic")) {
             let walked = this.walk(prev_path);
-            if(typeof walked === "object") walked[key] = result;
-        } 
+            if(typeof walked === "object" && walked !== LIB) walked[key] = result;
+        }
         return result;
     }
 
