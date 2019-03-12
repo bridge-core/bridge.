@@ -10,7 +10,8 @@
             "gives": {
                 "0": {
                     "item": "$general.item_identifier",
-                    "quantity": "$general.number"
+                    "quantity": "$general.number",
+                    "functions": "$loot_table.functions"
                 }   
             }
         }
@@ -20,13 +21,15 @@
             "wants": {
                 "$dynamic.list.index_pair": {
                     "item": "$general.item_identifier",
-                    "quantity": "$general.number"
+                    "quantity": "$general.number",
+                    "price_multiplier": "$general.decimal"
                 }   
             },
             "gives": {
                 "0": {
                     "item": "$general.item_identifier",
-                    "quantity": "$general.number"
+                    "quantity": "$general.number",
+                    "functions": "$loot_table.functions"
                 }   
             },
             "trader_exp": "$general.number",

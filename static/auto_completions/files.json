@@ -9,11 +9,14 @@
     "entity/behavior",
     "entity/filters",
 
-    "loot_table",
+    "loot_table/main",
+    "loot_table/general",
+    "loot_table/functions",
+    "loot_table/conditions",
 
-    "trade_table/general",
     "trade_table/main",
     "trade_table/v1_11",
+    "trade_table/general",
 
     "spawn_rule/main",
     "spawn_rule/main_v1_11",

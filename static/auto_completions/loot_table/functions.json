@@ -1,0 +1,63 @@
+{
+    "$dynamic.list.next_index": {
+        "function": "$loot_table.general.functions",
+        "conditions": "$loot_table.conditions",
+        
+        "$dynamic_template": {
+            "$key": "$dynamic.children.function",
+            
+            "enchant_book_for_trading": {
+                "base_cost": "$general.number",
+                "base_random_cost": "$general.number",
+                "per_level_cost": "$general.number",
+                "per_level_random_cost": "$general.number"                                    
+            },
+            "enchant_random_gear": {
+                "chance": "$general.decimal"
+            },
+            "enchant_randomly": {
+                "treasure": "$general.boolean"
+            },
+            "enchant_with_levels": {
+                "treasure": "$general.boolean",
+                "levels": {
+                    "min": "$general.number",
+                    "max": "$general.number"
+                }
+            },
+            "exploration_map": {
+                "destination": "$general.structures"
+            },
+            "looting_enchant": {
+                "count": {
+                    "min": "$general.number",
+                    "max": "$general.number"
+                }
+            },
+            "set_banner_details": {
+                "type": {
+                    "min": "$general.number",
+                    "max": "$general.number"
+                }
+            },
+            "set_count": {
+                "count": {
+                    "min": "$general.number",
+                    "max": "$general.number"
+                }
+            },
+            "set_damage": {
+                "damage": {
+                    "min": "$general.decimal",
+                    "max": "$general.decimal"
+                }
+            },
+            "set_data": {
+                "data": {
+                    "min": "$general.number",
+                    "max": "$general.number"
+                }
+            }
+        }
+    }
+}

@@ -4,9 +4,11 @@ import TabSystem from "../TabSystem";
 import deepmerge from "deepmerge";
 import VersionMap from "./VersionMap";
 import Store from "../../store/index";
+import detachObj from "../detachObj";
+
 let FILE_DEFS = [];
-let SIBLINGS = {};
-let CHILDREN = {};
+let PARENT_CONTEXT = {};
+let NODE_CONTEXT = {};
 
 let LIB = {
     $dynamic: {
@@ -29,10 +31,10 @@ let LIB = {
             }
         },
         siblings() {
-            return SIBLINGS;
+            return PARENT_CONTEXT.toJSON();
         },
         children() {
-            return CHILDREN;
+            return NODE_CONTEXT.toJSON();
         },
 
         next_list_index() {
@@ -124,16 +126,21 @@ class Provider {
         if(Array.isArray(propose)) return { value: propose };
 
         //DYNAMIC LOAD INSTRUCTION
-        if(propose.$load != undefined) {
+        if(propose.$load !== undefined) {
             Object.assign(propose, this.omegaExpression(propose.$load));
             delete propose.$load;
         }
+        if(propose.$dynamic_template !== undefined) {
+            let t = this.compileTemplate(propose.$dynamic_template);
+            if(t !== undefined) propose = detachObj(propose, t);
+        }
 
         return { 
-            object: Object.keys(propose).filter(e => e != "$placeholder").map(key => {
+            object: Object.keys(propose).filter(e => e != "$placeholder" && e != "$dynamic_template").map(key => {
                 if(key.startsWith("$dynamic_template.")) {
                     return key.split(".").pop();
                 }
+
                 if(key[0] == "$") {
                     // console.log(this.omegaExpression(key))
                     let exp = this.omegaExpression(key);
@@ -148,6 +155,7 @@ class Provider {
     walk(path_arr, current=LIB) {
         if(path_arr === undefined || path_arr.length === 0 || current === undefined) return current;
         let key = path_arr.shift();
+        let key_backup = key;
 
         if(typeof current[key] === "string") {
             current[key] = this.omegaExpression(current[key], null, null, false);
@@ -158,15 +166,22 @@ class Provider {
             }
             return this.walk(path_arr, current);
         } else if(current[key] === undefined) {
-            key = "$placeholder";
-            if(current[key] === undefined && current !== LIB) {
+            if(current["$dynamic_template"] !== undefined) {
+                for(let i = 0; i < path_arr.length + 1; i++) this.contextUp();
+                let t = this.compileTemplate(current["$dynamic_template"]);
+                if(t !== undefined) current = detachObj(current, t);
+            }
+
+            if(current[key] === undefined  && current["$placeholder"] === undefined  && current !== LIB) {
                 for(let k of Object.keys(current)) {
                     if(k[0] == "$") {
                         key = k;
                         break;
                     }
                 }
-            } 
+            } else if(current["$placeholder"] !== undefined) {
+                key = "$placeholder";
+            }
         }
         return this.walk(path_arr, current[key]);
     }
@@ -201,13 +216,16 @@ class Provider {
     }
 
     setupContext(c) {
-        CHILDREN = c.toJSON();
-        if(c.parent == undefined) SIBLINGS = {};
-        else SIBLINGS = c.parent.toJSON();
+        NODE_CONTEXT = c;
+        PARENT_CONTEXT = c.parent;
+    }
+    contextUp() {
+        if(NODE_CONTEXT !== undefined) NODE_CONTEXT = NODE_CONTEXT.parent;
+        if(PARENT_CONTEXT !== undefined) PARENT_CONTEXT = PARENT_CONTEXT.parent;
     }
 
     compileTemplate(template) {
-        // console.log(template[this.dynamic(template["$key"])]);
+        // console.log(template["$key"], this.dynamic(template["$key"]), template[this.dynamic(template["$key"])]);
         return template[this.dynamic(template["$key"])];
     }
 

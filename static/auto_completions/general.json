@@ -40,14 +40,6 @@
         "filter_targets": [ "other", "parent", "player", "self", "target" ],
         "filter_operators": [ "==", "!=", "<", "<=", "<>", "=", ">", ">=", "equals", "not" ]
     },
-    "loot_table": {
-        "conditions": [
-            "random_difficulty_chance", "random_regional_difficulty_chance"
-        ],
-        "functions": [
-            "looting_enchant", "enchant_random_gear"
-        ]
-    },
     "inventory_type": [
         "minecart_chest", "horse", "minecart_hopper", "container"
     ],
@@ -72,6 +64,9 @@
     ],
     "color_palette": [
         "white", "light_green", "orange", "silver", "magenta", "light_blue", "yellow", "pink", "blue", "gray", "cyan", "purple", "brown", "green", "red", "black"
+    ],
+    "structures": [
+        "buriedtreasure", "endcity", "fortress", "mansion", "mineshaft", "monument", "pillageroutpost", "ruins", "shipwreck", "stronghold", "temple", "village"
     ],
     "particle_name": [
         "mobspellambient", "villagerangry", "blockbreak", "blockdust", "bubble", "evaporation", "crit", "dragonbreath", "driplava", "dripwater", "reddust", "spell", "mobappearance", "enchantingtable", "endrod",  "mobspell", "largeexplode", "hugeexplosion", "fallingdust", "fireworksspark", "waterwake", "flame", "villagerhappy", "heart", "mobspellinstantaneous", "iconcrack", "slime", "snowballpoof", "largesmoke", "lava", "mobflame", "townaura", "nautilus", "note", "explode", "portal", "rainsplash", "smoke", "watersplash", "ink", "terrain", "totem", "trackingemitter", "witchspell"

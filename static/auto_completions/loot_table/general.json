@@ -1,0 +1,8 @@
+{
+    "conditions": [
+        "entity_properties", "killed_by_player", "killed_by_player_or_pets", "random_chance", "random_chance_with_looting", "random_difficulty_chance", "random_regional_difficulty_chance"
+    ],
+    "functions": [
+        "enchant_book_for_trading", "enchant_random_gear", "enchant_randomly", "enchant_with_levels", "exploration_map", "furnace_smelt", "looting_enchant", "set_banner_details", "set_count", "set_damage", "set_data", "set_data_from_color_index"
+    ]
+}

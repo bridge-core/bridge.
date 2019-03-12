@@ -5,7 +5,7 @@
     },
     {
         "includes": "loot_tables",
-        "start_state": "loot_table"
+        "start_state": "loot_table/main"
     },
     {
         "includes": "trading",

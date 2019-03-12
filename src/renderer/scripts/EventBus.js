@@ -1,5 +1,5 @@
 let events = {};
-export default class {
+export default class EventBus {
     static on(event, cb) {
         if(event in events) events[event].push(cb);
         else events[event] = [cb];
