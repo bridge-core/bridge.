@@ -13,7 +13,7 @@ export default class EventBus {
         else {
             for(let i = 0; i < events[event].length; i++) {
                 if(events[event][i] === cb) {
-                    console.log(events[event].splice(i, 1));
+                    events[event].splice(i, 1);
                     return;
                 }
             }

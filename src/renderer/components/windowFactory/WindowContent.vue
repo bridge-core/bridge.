@@ -109,6 +109,7 @@
         :items="content.options"
         @change="action.default"
         :color="content.color"
+        background-color="rgba(0, 0, 0, 0)"
         :value="content.input"
         solo
     />

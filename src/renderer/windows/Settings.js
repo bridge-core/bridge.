@@ -69,11 +69,45 @@ export default class SettingsWindow extends TabWindow {
                     color: "grey",
                     text: "\nTarget Minecraft Version"
                 },
-                new ReactiveDropdown(this, "target_version", MINECRAFT_VERSIONS ,{ text: "Choose a version...", key: `settings.editor.tab.target_version.${Math.random()}` }, () => EventBus.trigger("updateAutoCompletions")),
-                new ReactiveSwitch(this, "use_tabs", { color: "light-green", text: "Use Tabs", key: `settings.editor.tab.tabs.${Math.random()}` }),
-                new ReactiveSwitch(this, "line_wraps", { color: "light-green", text: "Word Wrap", key: `settings.editor.tab.tabs.${Math.random()}` }),
-                new ReactiveSwitch(this, "open_all_nodes", { color: "light-green", text: "Open All Nodes", key: `settings.editor.tab.open_all_nodes.${Math.random()}` }),
-                new ReactiveSwitch(this, "auto_completions", { color: "light-green", text: "Provide Auto-Completions", key: `settings.editor.tab.auto_completions.${Math.random()}` })
+                new ReactiveDropdown(this, "target_version", MINECRAFT_VERSIONS, {
+                    text: "Choose a version...",
+                    key: `settings.editor.tab.target_version.${Math.random()}`
+                }, () => EventBus.trigger("updateAutoCompletions")),
+
+                {
+                    color: "grey",
+                    text: "\nGeneral"
+                },
+                new ReactiveSwitch(this, "use_tabs", {
+                    color: "light-green",
+                    text: "Use Tabs",
+                    key: `settings.editor.tab.tabs.${Math.random()}`
+                }),
+                new ReactiveSwitch(this, "line_wraps", {
+                    color: "light-green",
+                    text: "Word Wrap",
+                    key: `settings.editor.tab.line_wraps.${Math.random()}`
+                }),
+                new ReactiveSwitch(this, "open_all_nodes", {
+                    color: "light-green",
+                    text: "Open All Nodes",
+                    key: `settings.editor.tab.open_all_nodes.${Math.random()}`
+                }),
+
+                {
+                    color: "grey",
+                    text: "\nAuto-Completions"
+                },
+                new ReactiveSwitch(this, "auto_completions", {
+                    color: "light-green",
+                    text: "Provide Auto-Completions",
+                    key: `settings.editor.tab.auto_completions.${Math.random()}`
+                }),
+                new ReactiveSwitch(this, "auto_fill_inputs", {
+                    color: "light-green",
+                    text: "Auto Fill Inputs",
+                    key: `settings.editor.tab.auto_fill_inputs.${Math.random()}`
+                })
             ]
         });
         this.addTab({
@@ -82,7 +116,10 @@ export default class SettingsWindow extends TabWindow {
                 title: "Explorer"
             },
             content: [
-                new ReactiveInput(this, "default_project", { text: "Default Project", key: `settings.editor.tab.default_project.${Math.random()}` })
+                new ReactiveInput(this, "default_project", {
+                    text: "Default Project",
+                    key: `settings.editor.tab.default_project.${Math.random()}`
+                })
             ]
         });
         this.addTab({
@@ -91,8 +128,16 @@ export default class SettingsWindow extends TabWindow {
                 title: "Appearance"
             },
             content: [
-                new ReactiveSwitch(this, "is_dark_mode", { color: "light-green", text: "Dark Mode", key: `settings.appearance.tab.${Math.random()}` }),
-                new ReactiveSwitch(this, "inversed_arrows", { color: "light-green", text: "Inverse Arrows", key: `settings.editor.tab.arrows.${Math.random()}` })
+                new ReactiveSwitch(this, "is_dark_mode", {
+                    color: "light-green",
+                    text: "Dark Mode",
+                    key: `settings.appearance.tab.${Math.random()}`
+                }),
+                new ReactiveSwitch(this, "inversed_arrows", {
+                    color: "light-green",
+                    text: "Inverse Arrows",
+                    key: `settings.editor.tab.arrows.${Math.random()}`
+                })
             ]
         });
         this.addTab({
@@ -101,7 +146,11 @@ export default class SettingsWindow extends TabWindow {
                 title: "Developer Mode"
             },
             content: [
-                new ReactiveSwitch(this, "is_dev_mode", { color: "error", text: "Asserts", key: `settings.dev.tab.${Math.random()}` })
+                new ReactiveSwitch(this, "is_dev_mode", {
+                    color: "error",
+                    text: "Asserts",
+                    key: `settings.dev.tab.${Math.random()}`
+                })
             ]
         });
 

@@ -17,6 +17,7 @@ function setup() {
             use_tabs: true,
             line_wraps: false,
             auto_completions: true,
+            auto_fill_inputs: false,
             open_all_nodes: false,
             default_project: "",
             target_version: ""

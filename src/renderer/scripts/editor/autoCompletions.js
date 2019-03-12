@@ -5,6 +5,7 @@ import deepmerge from "deepmerge";
 import VersionMap from "./VersionMap";
 import Store from "../../store/index";
 import detachObj from "../detachObj";
+import ScopeGuard from "./ScopeGuard";
 
 let FILE_DEFS = [];
 let PARENT_CONTEXT = {};
@@ -132,7 +133,10 @@ class Provider {
         }
         if(propose.$dynamic_template !== undefined) {
             let t = this.compileTemplate(propose.$dynamic_template);
-            if(t !== undefined) propose = detachObj(propose, t);
+            if(t !== undefined) {
+                propose = Object.assign(propose, t);
+                this.installScopeGuard(propose, t);
+            } 
         }
 
         return { 
@@ -155,7 +159,6 @@ class Provider {
     walk(path_arr, current=LIB) {
         if(path_arr === undefined || path_arr.length === 0 || current === undefined) return current;
         let key = path_arr.shift();
-        let key_backup = key;
 
         if(typeof current[key] === "string") {
             current[key] = this.omegaExpression(current[key], null, null, false);
@@ -168,13 +171,17 @@ class Provider {
         } else if(current[key] === undefined) {
             if(current["$dynamic_template"] !== undefined) {
                 for(let i = 0; i < path_arr.length + 1; i++) this.contextUp();
+
                 let t = this.compileTemplate(current["$dynamic_template"]);
-                if(t !== undefined) current = detachObj(current, t);
+                if(t !== undefined) {
+                    current = Object.assign(current, t);
+                    this.installScopeGuard(current, t);
+                } 
             }
 
             if(current[key] === undefined  && current["$placeholder"] === undefined  && current !== LIB) {
                 for(let k of Object.keys(current)) {
-                    if(k[0] == "$") {
+                    if(k.startsWith("$dynamic.")) {
                         key = k;
                         break;
                     }
@@ -222,6 +229,16 @@ class Provider {
     contextUp() {
         if(NODE_CONTEXT !== undefined) NODE_CONTEXT = NODE_CONTEXT.parent;
         if(PARENT_CONTEXT !== undefined) PARENT_CONTEXT = PARENT_CONTEXT.parent;
+    }
+
+    installScopeGuard(propose, new_propose) {
+        ScopeGuard.onScopeChange(() => {
+            // console.log(JSON.stringify(propose));
+            Object.keys(new_propose).forEach(key => {
+                delete propose[key];
+            });
+            // console.log(JSON.stringify(propose));
+        });
     }
 
     compileTemplate(template) {

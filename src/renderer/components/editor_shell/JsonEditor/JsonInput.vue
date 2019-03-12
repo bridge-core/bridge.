@@ -18,6 +18,7 @@
                 :auto-select-first="true"
                 :menu-props="{ maxHeight: 130, top: false }"
                 :hide-no-data="true"
+                no-data-text="No suggestions available..."
                 dense
                 class="json-input-menu"
             ></v-combobox>
@@ -137,7 +138,6 @@
                 } else if(this.file_navigation != "global") {
                     current.data += this.value + "";
                     current.type = typeof this.value;
-                    this.updateAutoCompletions();
                     this.navigationBack();
 
                     //PLUGIN HOOK
@@ -151,6 +151,7 @@
                 this.$nextTick(() => {
                     this.value = "";
                 });
+                
             },
 
             updateAutoCompletions() {
@@ -182,16 +183,13 @@
                     return this.items = [];
 
                 this.items = propose.filter(e => !context.includes(e));
-
-                // CURRENTLY MAKES IT IMPOSSIBLE TO SELECT A NODE WHICH IS CONSIDERED "FILLED"
-                // if(this.items.length == 0) {
-                //     this.navigationBack();
-                // }
-                this.$nextTick(() => {
-                   if(this.items && this.items.length > 0 && this.$refs.input)
-                    this.$refs.input.focus(); 
-                });
                 
+                this.$nextTick(() => {
+                    if(this.items && this.items.length > 0 && this.$refs.input) {
+                        if(this.$store.state.Settings.auto_fill_inputs) this.value = this.items[0];
+                        this.$refs.input.focus();
+                    }
+                });
             },
 
             expandPath(path) {

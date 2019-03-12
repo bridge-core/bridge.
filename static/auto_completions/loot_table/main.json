@@ -11,10 +11,19 @@
             "entries": {
                 "$dynamic.list.next_index": {
                     "type": [ "item", "loot_table" ],
-                    "name": "$general.item_identifier and $dynamic.loot_table_files",
-                    "weight": "$general.number",
-                    "functions": "$loot_table.functions",
-                    "pools": "$loot_table.main.pools"
+                    "$dynamic_template": {
+                        "$key": "$dynamic.children.type",
+
+                        "item": {
+                            "name": "$general.item_identifier",
+                            "weight": "$general.number",
+                            "functions": "$loot_table.functions",
+                            "pools": "$loot_table.main.pools"
+                        },
+                        "loot_table": {
+                            "name": "$dynamic.loot_table_files"
+                        }
+                    }
                 }
             }
         }
