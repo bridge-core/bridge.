@@ -187,9 +187,11 @@
                 // if(this.items.length == 0) {
                 //     this.navigationBack();
                 // }
-
-                if(this.items && this.items.length > 0 && this.$refs.input)
-                    this.$refs.input.focus();
+                this.$nextTick(() => {
+                   if(this.items && this.items.length > 0 && this.$refs.input)
+                    this.$refs.input.focus(); 
+                });
+                
             },
 
             expandPath(path) {

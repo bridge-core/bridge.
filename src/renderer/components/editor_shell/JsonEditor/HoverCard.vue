@@ -164,7 +164,7 @@ export default {
             TabSystem.getCurrentNavObj().comment = val;
         },
         updateCurrentComment() {
-            try { this.current_comment = TabSystem.getCurrentNavObj().comment; } catch(e) { console.log(e) }
+            try { this.current_comment = TabSystem.getCurrentNavObj().comment; } catch(e) { /*console.log(e)*/ }
         },
         installListener() {
             EventBus.on("updateFileNavigation", this.updateCurrentComment);

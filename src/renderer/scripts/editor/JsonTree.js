@@ -236,7 +236,7 @@ export default class JSONTree {
     propose(path=this.path) {
         //console.log(PROVIDER.get(path), path)
         if(this.propose_cache_uses === 0) {
-            this.propose_cache = PROVIDER.get(path);
+            this.propose_cache = PROVIDER.get(path, this);
             this.propose_cache_uses++;
         } else {
             this.propose_cache_uses = 0;

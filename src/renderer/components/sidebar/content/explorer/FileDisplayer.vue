@@ -75,7 +75,7 @@
                 } 
             },
             getExtension(name) {
-                return name.split(".").pop();
+                return name.split(".").pop().toLowerCase();
             },
             icon(ext) {
                 return this.$store.state.Appearance.files[ext] ? this.$store.state.Appearance.files[ext] : "mdi-file-document-outline";

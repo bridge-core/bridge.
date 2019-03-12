@@ -5,6 +5,8 @@ import deepmerge from "deepmerge";
 import VersionMap from "./VersionMap";
 import Store from "../../store/index";
 let FILE_DEFS = [];
+let SIBLINGS = {};
+let CHILDREN = {};
 
 let LIB = {
     $dynamic: {
@@ -26,6 +28,13 @@ let LIB = {
                 return "0";
             }
         },
+        siblings() {
+            return SIBLINGS;
+        },
+        children() {
+            return CHILDREN;
+        },
+
         next_list_index() {
             console.warn("Usage of $dynamic.next_list_index is deprecated! Use $dynamic.list.next_index() instead!");
             return this.list.next_index();
@@ -37,6 +46,12 @@ let LIB = {
             return [];
         },
         entity: {
+            component_list() {
+                return [];
+            },
+            cached_families() {
+                return [];
+            },
             component_groups() {
                 return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/component_groups").toJSON());
             },
@@ -92,13 +107,14 @@ class Provider {
         }
     }
 
-    get(path) {
+    get(path, context) {
         path = path.replace("global", 
             VersionMap.convert(this.start_state, Store.state.Settings.target_version)
         );
+        this.setupContext(context);
         let propose = this.walk(path.split("/"));
 
-        if(typeof propose == "string") {
+        if(typeof propose === "string") {
             let prev_path = path.split("/");
             propose = this.omegaExpression(propose, prev_path.pop(), prev_path);
         }
@@ -115,6 +131,9 @@ class Provider {
 
         return { 
             object: Object.keys(propose).filter(e => e != "$placeholder").map(key => {
+                if(key.startsWith("$dynamic_template.")) {
+                    return key.split(".").pop();
+                }
                 if(key[0] == "$") {
                     // console.log(this.omegaExpression(key))
                     let exp = this.omegaExpression(key);
@@ -132,6 +151,12 @@ class Provider {
 
         if(typeof current[key] === "string") {
             current[key] = this.omegaExpression(current[key], null, null, false);
+        } else if(current["$dynamic_template." + key] !== undefined) {
+            current = this.compileTemplate(current["$dynamic_template." + key]);
+            if(typeof current === "string") {
+                current = this.omegaExpression(current, null, null, false);
+            }
+            return this.walk(path_arr, current);
         } else if(current[key] === undefined) {
             key = "$placeholder";
             if(current[key] === undefined && current !== LIB) {
@@ -142,7 +167,7 @@ class Provider {
                     }
                 }
             } 
-        } 
+        }
         return this.walk(path_arr, current[key]);
     }
 
@@ -175,15 +200,27 @@ class Provider {
         return result;
     }
 
+    setupContext(c) {
+        CHILDREN = c.toJSON();
+        if(c.parent == undefined) SIBLINGS = {};
+        else SIBLINGS = c.parent.toJSON();
+    }
+
+    compileTemplate(template) {
+        // console.log(template[this.dynamic(template["$key"])]);
+        return template[this.dynamic(template["$key"])];
+    }
+
     //OMEGA HELPERS
     dynamic(expression) {
         let keys = expression.split(".");
         let current = LIB;
         while(keys.length > 0 && current != undefined) {
             current = current[keys.shift()];
-            //console.log(current);
+            if(typeof current == "function") current = current();
+            // console.log(current);
         }
-        if(typeof current == "function") return current();
+        return current;
     }
     static(expression) {
         let current = LIB;

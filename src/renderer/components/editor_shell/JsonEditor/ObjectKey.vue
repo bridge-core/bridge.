@@ -68,9 +68,8 @@
             openContextMenu(event) {
                 TabSystem.setCurrentFileNav(this.object_key);
                 let data;
-                if(typeof this.object.toJSON() !== "object") data = `"${this.my_key}": "${this.object.toJSON()}"`;
-                else if(Number.isNaN(Number(this.my_key))) data = JSON.stringify({ [this.my_key]: this.object.toJSON() }, null, "\t");
-                else data = JSON.stringify([ this.object.toJSON() ], null, "\t");
+                if(Number.isNaN(Number(this.my_key))) data = `"${this.my_key}": ${JSON.stringify(this.object.toJSON(), null, "\t")}`;
+                else data = JSON.stringify(this.object.toJSON(), null, "\t");
 
                 this.$store.commit("showEditorHoverCard", {
                     data,
