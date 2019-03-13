@@ -9,6 +9,7 @@ import FileSystem from "../../scripts/FileSystem";
 import ConfirmWindow from "../../scripts/commonWindows/Confirm";
 import EventBus from "../../scripts/EventBus";
 import { JSONAction } from "../../scripts/TabSystem/CommonHistory";
+import SnippetWindow from "../../windows/Snippets";
 
 const state = {
     file: {
@@ -209,13 +210,30 @@ const state = {
                     try {
                         TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
                     } catch(e) {
+                        if(e.message.includes("JSON")) {
+                            //Try again with a fix if the key was still in front
+                            try {
+                                TabSystem.getCurrentNavObj().buildFromObject(JSON.parse("{" + clipboard.readText() + "}"), undefined, true);
+                            } catch(e) {}
+                        }
                         EventBus.trigger("setCMSelection", clipboard.readText());
                     }
                 } 
             }            
         ]
     },
-    view: {
+    tools: {
+        trusted: true,
+        display_name: "Tools",
+        elements: [
+            {
+                title: "Snippets",
+                shortcut: "Ctrl + Q",
+                action: () => SnippetWindow.show()
+            }
+        ]
+    },
+    help: {
         trusted: true,
         display_name: "Help",
         elements: [

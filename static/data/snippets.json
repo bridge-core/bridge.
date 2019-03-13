@@ -1,0 +1,28 @@
+{
+    "entity": {
+        "marker_setup": {
+            "display_name": "Marker Setup",
+            "template": {
+                "path": "minecraft:entity/components",
+                "data": {
+                    "minecraft:scale": {
+                        "value": 0.0
+                    },
+                    "minecraft:push_through": {
+                        "value": 1.0
+                    }
+                }
+                
+            }
+        },
+        "trade_setup": {
+            "display_name": "Marker Setup",
+            "template": {
+                "path": "minecraft:entity/components",
+                "data": {
+                    "super_cool_trade": "Not here... Hahahaha"
+                }
+            }
+        }
+    }
+}

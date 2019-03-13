@@ -4,7 +4,6 @@ import TabSystem from "../TabSystem";
 import deepmerge from "deepmerge";
 import VersionMap from "./VersionMap";
 import Store from "../../store/index";
-import detachObj from "../detachObj";
 import ScopeGuard from "./ScopeGuard";
 
 let FILE_DEFS = [];
@@ -82,12 +81,12 @@ class Provider {
                         this.storeInLIB(f, data);
                     })
             ));
-        this.loadAsset("file_definitions")
+        this.loadAsset("file_definitions", "data/")
             .then(def => FILE_DEFS = def);
     }
-    static loadAsset(name) {
+    static loadAsset(name, path="auto_completions/") {
         return new Promise((resolve, reject) => {
-            fs.readFile(__static + `/auto_completions/${name}.json`, (err, data) => {
+            fs.readFile(__static + `/${path}${name}.json`, (err, data) => {
                 if(err) reject(err);
                 resolve(JSON.parse(data.toString()));
             });

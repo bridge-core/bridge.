@@ -29,6 +29,12 @@
     <v-divider
         v-else-if="content.type == 'divider'"
     />
+    <div
+        v-else-if="content.type == 'container'"
+        :style="`background-color: ${content.color}; padding: 4px; width: ${content.full_width ? '100%' : 'unset'}; height: ${content.height}px; overflow-y: ${content.scroll ? 'auto' : 'hidden'};`"
+    >
+        <window-content v-for="(c, i) in content.content" :key="`window-div-${i}`" :content="c"/>
+    </div>
     <!-- HORIZONTAL GROUPS -->
     <v-layout :align-end="!content.center" :align-center="content.center" v-else-if="content.type == 'horizontal' && Array.isArray(content.content)">
         <v-flex v-for="(c, i) in content.content" :key="`horizontal-window-content-${i}`">
@@ -76,11 +82,23 @@
     >
         {{ content.text }}
     </v-btn>
+    <v-btn 
+        v-else-if="content.type == 'icon-button'"
+        @click.stop.native="action.default"
+        :color="content.color"
+        :round="content.is_rounded"
+        :flat="content.is_flat"
+        :disabled="content.is_disabled"
+        :icon="content.only_icon"
+    >
+        <v-icon>{{ content.text }}</v-icon>
+    </v-btn>
     <v-icon
         v-else-if="content.type == 'icon'"
         @click.stop.native="action.default"
         :color="content.color"
         :class="content.action != undefined ? 'click-action' : ''"
+        :small="content.small"
     >
         {{ content.text }}
     </v-icon>
@@ -94,6 +112,7 @@
         :label="content.text"
         :value="content.input"
         :autofocus="content.has_focus"
+        ref="input"
     />
     <v-switch
         v-else-if="content.type == 'switch'"
@@ -124,6 +143,21 @@
         :value="content.input"
         :solo="content.is_box"
         :color="content.color"
+        ref="input"
+    />
+    <v-autocomplete
+        v-else-if="content.type == 'autocomplete'"
+        auto-select-first
+        hide-no-data
+        style="max-width: 99%;"
+        dense
+        :label="content.text"
+        :items="content.options"
+        @change="action.default"
+        :value="content.input"
+        :solo="content.is_box"
+        :color="content.color"
+        ref="input"
     />
     <v-container style="width: 90%;" v-else-if="content.type == 'slider'">
         <v-slider
@@ -146,6 +180,11 @@ export default {
     name: "window-content",
     props: {
         content: Object
+    },
+    mounted() {
+        if(this.content.focus && this.$refs.input) {
+            this.$refs.input.focus();
+        }
     },
     computed: {
         action() {
