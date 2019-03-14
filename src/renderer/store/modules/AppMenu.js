@@ -174,12 +174,15 @@ const state = {
                 title: "Copy",
                 shortcut: "Ctrl + C",
                 action: () => {
-                    try {
-                        let node = TabSystem.getCurrentNavObj();
-                        let obj = { [node.key]: node.toJSON() };
-                        clipboard.writeText(JSON.stringify(obj, null, "\t"));
-                    } catch(e) {
-                        EventBus.trigger("getCMSelection", clipboard.writeText);
+                    if(document.activeElement.tagName === "BODY") {
+                        try {
+                            let node = TabSystem.getCurrentNavObj();
+                            let obj = { [node.key]: node.toJSON() };
+                            clipboard.writeText(JSON.stringify(obj, null, "\t"));
+                        } catch(e) {}
+                    } else {
+                        document.execCommand("copy");
+                        // EventBus.trigger("getCMSelection", clipboard.writeText);
                     }
                 } 
             },
@@ -187,19 +190,22 @@ const state = {
                 title: "Cut",
                 shortcut: "Ctrl + X",
                 action: () => {
-                    try {
-                        let node = TabSystem.getCurrentNavObj();
-                        //HISTORY
-                        TabSystem.getHistory().add(new JSONAction("add", node.parent, node));
+                    if(document.activeElement.tagName === "BODY") {
+                        try {
+                            let node = TabSystem.getCurrentNavObj();
+                            //HISTORY
+                            TabSystem.getHistory().add(new JSONAction("add", node.parent, node));
 
-                        let obj = { [node.key]: node.toJSON() };
-                        clipboard.writeText(JSON.stringify(obj, null, "\t"));
-                        TabSystem.deleteCurrent();
-                        TabSystem.setCurrentFileNav("global");
-                        TabSystem.setCurrentUnsaved();
-                    } catch(e) {
-                        EventBus.trigger("getCMSelection", clipboard.writeText);
-                        EventBus.trigger("setCMSelection", "");
+                            let obj = { [node.key]: node.toJSON() };
+                            clipboard.writeText(JSON.stringify(obj, null, "\t"));
+                            TabSystem.deleteCurrent();
+                            TabSystem.setCurrentFileNav("global");
+                            TabSystem.setCurrentUnsaved();
+                        } catch(e) {}
+                    } else {
+                        document.execCommand("cut");
+                        // EventBus.trigger("getCMSelection", clipboard.writeText);
+                        // EventBus.trigger("setCMSelection", "");
                     }
                 } 
             },
@@ -207,16 +213,18 @@ const state = {
                 title: "Paste",
                 shortcut: "Ctrl + V",
                 action: () => {
-                    try {
-                        TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
-                    } catch(e) {
-                        if(e.message.includes("JSON")) {
+                    if(document.activeElement.tagName === "BODY") {
+                        try {
+                            TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
+                        } catch(e) {
                             //Try again with a fix if the key was still in front
                             try {
                                 TabSystem.getCurrentNavObj().buildFromObject(JSON.parse("{" + clipboard.readText() + "}"), undefined, true);
                             } catch(e) {}
                         }
-                        EventBus.trigger("setCMSelection", clipboard.readText());
+                    } else {
+                        document.execCommand("paste");
+                        // EventBus.trigger("setCMSelection", clipboard.readText());
                     }
                 } 
             }            

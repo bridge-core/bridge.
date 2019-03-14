@@ -9,6 +9,7 @@ let SNIPPETS;
 fs.readFile(__static + "/data/snippets.json", (err, data) => {
     if(err) throw err;
     SNIPPETS = JSON.parse(data.toString());
+    Store.state.Settings.custom_snippets.forEach(s => addSnippet(Math.random(), s));
 });
 
 function toArr() {
@@ -37,6 +38,10 @@ function expandTemplateData(data, data_path) {
         current = current[keys[i]];
     }
     return return_data;
+}
+function addSnippet(key, s) {
+    if(SNIPPETS[s.file_type] === undefined) SNIPPETS[s.file_type] = {};
+    SNIPPETS[s.file_type]["custom_" + key] = s;
 }
 
 class SnippetWindow extends ContentWindow {
@@ -107,5 +112,6 @@ export default {
         } catch(e) {
             WIN = new SnippetWindow();
         }
-    } 
+    },
+    addSnippet
 }

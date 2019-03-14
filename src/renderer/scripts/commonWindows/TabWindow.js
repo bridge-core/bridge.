@@ -15,7 +15,7 @@ export default class TabWindow extends CommonWindow {
             sidebar: []
         }, add_id);
 
-        this.selcted_tab = null;
+        this.selected_tab = null;
         this.content_elements = [];
     }
 
@@ -34,10 +34,10 @@ export default class TabWindow extends CommonWindow {
         if(id == 0) { this.select(0); }
     }
 
-    select(id) {
-        if(this.selcted_tab == id) return;
+    select(id=this.selected_tab, force_update=false) {
+        if(this.selected_tab == id && !force_update) return;
 
-        this.selcted_tab = id;
+        this.selected_tab = id;
         this.win_def.sidebar.forEach(e => e.opacity = 0.25);
         this.win_def.sidebar[id].opacity = 1;
         this.win_def.content = this.buildContent(id) || [ 
@@ -45,6 +45,7 @@ export default class TabWindow extends CommonWindow {
             { type: "divider" },
             { text: "\nThis page looks pretty empty. Make sure to revisit it in future versions of bridge." } 
         ];
+        if(force_update) this.update(this.win_def)
     }
 
     buildContent(id) {
@@ -58,7 +59,10 @@ export default class TabWindow extends CommonWindow {
             {
                 type: "divider"
             },
-            ...this.content_elements[id]
+            ...this.content_elements[id].map(e => {
+                if(typeof e === "function") return e();
+                return e;
+            })
         ];
     }
 }

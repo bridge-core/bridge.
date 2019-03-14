@@ -4,6 +4,45 @@ import SETTINGS from "../store/Settings";
 import { MINECRAFT_VERSIONS, BASE_PATH } from "../scripts/constants";
 import EventBus from "../scripts/EventBus";
 import fs from "fs";
+import AddSnippetWindow from "./AddSnippet";
+
+class ReactiveListEntry {
+    constructor(text, parent, watch_key, index) {
+        this.type = "container";
+        this.content = [
+            {
+                type: "icon",
+                text: "mdi-delete",
+                color: "error",
+                action: () => {
+                    console.log(parent.data[watch_key].filter((e, i) => index !== i));
+                    parent.save({
+                        [watch_key]: parent.data[watch_key].filter((e, i) => index !== i)
+                    });
+                    parent.select(undefined, true);
+                }
+            },
+            {
+                text: text
+            },
+            {
+                type: "divider"
+            }
+        ];
+    }
+}
+class ReactiveList {
+    constructor(parent, watch_key) {
+        this.parent = parent;
+        this.watch_key = watch_key;
+    }
+    get() {
+        return {
+            type: "container",
+            content: this.parent.data[this.watch_key].map((e, i) => new ReactiveListEntry(e.display_name, this.parent, this.watch_key, i))
+        };
+    }
+}
 
 class ReactiveSwitch {
     constructor(parent, watch_key, def) {
@@ -125,7 +164,19 @@ export default class SettingsWindow extends TabWindow {
                 new ReactiveDropdown(this, "snippet_scope", [ "Default", "Selected Node"], {
                     text: "Choose a scope...",
                     key: `settings.editor.tab.snippet_scope.${Math.random()}`
-                })
+                }),
+                {
+                    color: "grey",
+                    text: "\nCustom Snippets\n"
+                },
+                {
+                    type: "icon-button",
+                    color: "success",
+                    text: "mdi-plus",
+                    only_icon: true,
+                    action: () => new AddSnippetWindow(this)
+                },
+                () => new ReactiveList(this, "custom_snippets").get()
             ]
         });
         this.addTab({
@@ -179,8 +230,8 @@ export default class SettingsWindow extends TabWindow {
         this.update();
     }
 
-    save() {
-        Store.commit("setSettings", this.data);
-        SETTINGS.save(this.data);
+    save(data=this.data) {
+        Store.commit("setSettings", data);
+        SETTINGS.save(data);
     }
 }

@@ -21,17 +21,21 @@ function setup() {
             open_all_nodes: false,
             default_project: "",
             target_version: "",
-            snippet_scope: "Default"
+            snippet_scope: "Default",
+            custom_snippets: []
         });
+    } else {
+        DATA = STORE.load("settings");
     }
 
-    DATA = STORE.load("settings");
     VueStore.commit("setSettings", DATA);
     VueStore.commit("setDarkMode", DATA.is_dark_mode);
 }
 function save(settings) {
-    DATA = settings;
-    STORE.save("settings", settings);
+    if(DATA) DATA = Object.assign(DATA, settings);
+    else DATA = settings;
+   
+    STORE.save("settings", Object.assign(DATA, settings));
 }
 function load() {
     return DATA;

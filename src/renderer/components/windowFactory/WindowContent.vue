@@ -91,7 +91,7 @@
         :disabled="content.is_disabled"
         :icon="content.only_icon"
     >
-        <v-icon>{{ content.text }}</v-icon>
+        <v-icon :small="content.small" class="click-action">{{ content.text }}</v-icon>
     </v-btn>
     <v-icon
         v-else-if="content.type == 'icon'"
@@ -114,6 +114,16 @@
         :autofocus="content.has_focus"
         ref="input"
     />
+    <v-textarea
+        v-else-if="content.type == 'textarea'"
+        @input="action.default"
+        @keydown.enter.native="action.enter"
+        :no-resize="!content.resizable"
+        :color="content.color"
+        :label="content.text"
+        :value="content.input"
+        ref="input"
+    ></v-textarea>
     <v-switch
         v-else-if="content.type == 'switch'"
         @change="action.default"
@@ -173,7 +183,11 @@
     </v-container>
 
     <!-- ERROR -->
-    <strong v-else>Invalid UI type: "{{ content.type }}"</strong>
+    <div v-else>
+        <br>
+        <strong class="error--text" >Invalid UI type: "{{ content.type }}"</strong>
+
+    </div>
 </template>
 
 <script>

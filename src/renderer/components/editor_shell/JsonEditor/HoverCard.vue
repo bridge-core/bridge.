@@ -126,7 +126,16 @@ export default {
                     title: "Paste",
                     icon: "mdi-download",
                     color: "success",
-                    action: () => TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()), undefined, true)
+                    action: () => {
+                        try {
+                            TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
+                        } catch(e) {
+                            //Try again with a fix if the key was still in front
+                            try {
+                                TabSystem.getCurrentNavObj().buildFromObject(JSON.parse("{" + clipboard.readText() + "}"), undefined, true);
+                            } catch(e) {}
+                        }
+                    }
                 },
                 {
                     title: "Delete",

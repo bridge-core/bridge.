@@ -16,4 +16,9 @@ export default class FileType {
         }
         return "unknown";
     }
+
+    static getAll() {
+        if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
+        return FILE_DEFS.map(def => def.id);
+    }
 }
