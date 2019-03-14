@@ -59,7 +59,8 @@
     },
     "minecraft:behavior.work": {
         "can_work_in_rain": "$general.boolean",
-        "work_in_rain_tolerance":  "$general.number"
+        "work_in_rain_tolerance":  "$general.number",
+        "on_arrival": "$general.entity.event_definition"
     },
     "minecraft:addrider": {
         "spawn_event": {}
@@ -89,6 +90,7 @@
         "new_screen": "$general.boolean",
         "hero_demand_discount": "$general.number"
     },
+    "minecraft:hide": {},
     "minecraft:scheduler": {
         "min_delay_secs": "$general.number",
         "max_delay_secs": "$general.number"
@@ -106,5 +108,6 @@
                 "value": "$general.entity.event_definition"
             }
         }
-    }
+    },
+    "minecraft:trade_resupply": {}
 }

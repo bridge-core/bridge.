@@ -20,7 +20,8 @@ function setup() {
             auto_fill_inputs: false,
             open_all_nodes: false,
             default_project: "",
-            target_version: ""
+            target_version: "",
+            snippet_scope: "Default"
         });
     }
 

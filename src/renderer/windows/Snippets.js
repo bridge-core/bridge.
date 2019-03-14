@@ -1,14 +1,43 @@
 import ContentWindow from "../scripts/commonWindows/Content";
 import fs from "fs";
+import FileType from "../scripts/editor/FileType";
+import TabSystem from "../scripts/TabSystem";
+import JSONTree from "../scripts/editor/JsonTree";
+import Store from "../store/index";
+
 let SNIPPETS;
 fs.readFile(__static + "/data/snippets.json", (err, data) => {
     if(err) throw err;
-    SNIPPETS = data.toJSON();
-    if(WIN) {
-        WIN.content[2].type = "autocomplete";
-        WIN.updateContent();
-    } 
+    SNIPPETS = JSON.parse(data.toString());
 });
+
+function toArr() {
+    let arr = [];
+    let for_file = SNIPPETS[FileType.get()];
+    if(for_file === undefined) return [];
+
+    for(let key in for_file) {
+        arr.push({
+            value: key,
+            text: for_file[key].display_name
+        });
+    }
+
+    return arr;
+}
+function expandTemplateData(data, data_path) {
+    let keys = data_path.split("/");
+    let return_data = {};
+    let current = return_data;
+
+    for(let i = 0; i < keys.length; i++) {
+        if(i === keys.length - 1) current[keys[i]] = data;
+        else current[keys[i]] = {};
+
+        current = current[keys[i]];
+    }
+    return return_data;
+}
 
 class SnippetWindow extends ContentWindow {
     constructor() {
@@ -21,28 +50,7 @@ class SnippetWindow extends ContentWindow {
             }
         }, "snippets.");
 
-        this.snippet_list = [
-            {
-                text: "Hostile Snippet",
-                value: "hostile_setup"
-            },
-            {
-                text: "Passive Snippet",
-                value: "passive_setup"
-            },
-            {
-                text: "Send Event Snippet",
-                value: "send_event_setup"
-            },
-            {
-                text: "Marker Snippet",
-                value: "marker_setup"
-            },
-            {
-                text: "Trade Snippet",
-                value: "trade_setup"
-            }
-        ].sort((a, b) => a.text.localeCompare(b.text));
+        this.snippet_list = toArr().sort((a, b) => a.text.localeCompare(b.text));
         this.content = [
             {
                 type: "header",
@@ -52,17 +60,32 @@ class SnippetWindow extends ContentWindow {
                 type: "divider"
             },
             {
-                type: SNIPPETS === undefined ? "loader" : "autocomplete",
+                type: "autocomplete",
                 text: "Search...",
                 focus: true,
                 options: this.snippet_list,
                 action: (val) => {
                     console.log(val)
+                    
+                    let c = TabSystem.getSelected().content;
+                    let templ = SNIPPETS[FileType.get()][val].template;
+                    
+                    if(c instanceof JSONTree) {
+                        if(Store.state.Settings.snippet_scope === "Default" || templ.force_default_scope) {
+                            c.get("global")
+                                .buildFromObject(expandTemplateData(templ.data, templ.data_path), true, true, true);
+                        } else {
+                            TabSystem.getCurrentNavObj()
+                                .buildFromObject(templ.data, true, true, true);
+                        }
+                        
+                        TabSystem.setCurrentUnsaved();
+                    }
+
                     this.close();
                 }
             }
         ];
-        
 
         this.updateContent();
     }
@@ -72,17 +95,13 @@ class SnippetWindow extends ContentWindow {
             content: this.content
         });
     }
-
-    updateSnippets(update=true) {
-        
-
-        if(update) this.updateContent();
-    }
 }
 
 let WIN;
 export default {
     show: () => {
+        if(SNIPPETS === undefined || toArr().length === 0) return;
+
         try {
             WIN.show();
         } catch(e) {

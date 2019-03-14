@@ -1,8 +1,9 @@
 import TabWindow from "../scripts/commonWindows/TabWindow";
 import Store from "../store/index";
 import SETTINGS from "../store/Settings";
-import { MINECRAFT_VERSIONS } from "../scripts/constants";
+import { MINECRAFT_VERSIONS, BASE_PATH } from "../scripts/constants";
 import EventBus from "../scripts/EventBus";
+import fs from "fs";
 
 class ReactiveSwitch {
     constructor(parent, watch_key, def) {
@@ -58,7 +59,8 @@ export default class SettingsWindow extends TabWindow {
     constructor() {     
         super("Settings", { is_persistent: false }, "bridge.core.settings_window.");
         this.data = SETTINGS.load();
-        
+        const PROJECTS = fs.readdirSync(BASE_PATH);
+
         this.addTab({
             sidebar_element: {
                 icon: "mdi-code-braces",
@@ -112,12 +114,32 @@ export default class SettingsWindow extends TabWindow {
         });
         this.addTab({
             sidebar_element: {
+                icon: "mdi-attachment",
+                title: "Snippets"
+            },
+            content: [
+                {
+                    color: "grey",
+                    text: "\nInsertion Scope"
+                },
+                new ReactiveDropdown(this, "snippet_scope", [ "Default", "Selected Node"], {
+                    text: "Choose a scope...",
+                    key: `settings.editor.tab.snippet_scope.${Math.random()}`
+                })
+            ]
+        });
+        this.addTab({
+            sidebar_element: {
                 icon: "mdi-folder-multiple",
                 title: "Explorer"
             },
             content: [
-                new ReactiveInput(this, "default_project", {
-                    text: "Default Project",
+                {
+                    color: "grey",
+                    text: "\nDefault Project"
+                },
+                new ReactiveDropdown(this, "default_project", PROJECTS, {
+                    text: "Choose a default project...",
                     key: `settings.editor.tab.default_project.${Math.random()}`
                 })
             ]

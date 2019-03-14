@@ -315,16 +315,16 @@ export default class JSONTree {
     }
 
     //JSON -> TREE
-    buildFromObject(data, first=true, update_history=false) {
+    buildFromObject(data, first=true, update_history=false, open_nodes=false) {
         if(data instanceof JSONTree) return data;
         this.type = getType(data);
 
-        if(first) this.open = true;
+        if(first || open_nodes) this.open = true;
         
         if(typeof data == "object") {
             for(let key in data) {
                 if(typeof data[key] != "function" && key != "__ob__")
-                    this.add(new JSONTree(key, undefined, this), update_history).buildFromObject(data[key], false);
+                    this.add(new JSONTree(key, undefined, this), update_history).buildFromObject(data[key], false, update_history, open_nodes);
             }
         } else if(typeof data != "function") {
             this.data = data + "";

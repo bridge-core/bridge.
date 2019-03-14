@@ -1,26 +1,259 @@
 {
     "entity": {
-        "marker_setup": {
-            "display_name": "Marker Setup",
+        "entity_description": {
+            "display_name": "Entity Description",
             "template": {
-                "path": "minecraft:entity/components",
+                "data_path": "minecraft:entity",
+                "force_default_scope": true,
+                "data": {
+                    "description": {
+                        "identifier": {},
+                        "runtime_identifier": {},
+                        "is_spawnable": true,
+                        "is_summonable": true,
+                        "is_experimental": false
+                    }
+                }
+            }
+        },
+        "default_components": {
+            "display_name": "Default Components",
+            "template": {
+                "data_path": "minecraft:entity/components",
+                "data": {
+                    "minecraft:collision_box": {
+                        "width": 1.0,
+                        "height": 1.8
+                    },
+                    "minecraft:health": {
+                        "value": 20,
+                        "max": 20
+                    },
+                    "minecraft:movement": {
+                        "value": 0.25
+                    },
+                    "minecraft:movement.generic": {},
+                    "minecraft:navigation.generic": {},
+                    "minecraft:jump.static": {},
+                    "minecraft:can_climb": {},
+                    "minecraft:breathable": {
+                        "totalSupply": 15,
+                        "suffocateTime": 0,
+                        "breathesAir": true,
+                        "breathesWater": false
+                    },
+                    "minecraft:loot": {
+                        "table": {}
+                    },
+                    "minecraft:physics": {}
+                }
+            }
+        },
+        "default_behavior": {
+            "display_name": "Default Behavior",
+            "template": {
+                "data_path": "minecraft:entity/components",
+                "data": {
+                    "minecraft:behavior.float": {
+                        "priority": 0
+                    },
+                    "minecraft:behavior.random_stroll": {
+                        "priority": 6,
+                        "speed_multiplier": 1
+                    },
+                    "minecraft:behavior.look_at_player": {
+                        "priority": 7,
+                        "look_distance": 6,
+                        "probability": 0.02
+                    },
+                    "minecraft:behavior.random_look_around": {
+                        "priority": 7
+                    }
+                }
+            }
+        },
+        "marker": {
+            "display_name": "Marker",
+            "template": {
+                "data_path": "minecraft:entity/components",
                 "data": {
                     "minecraft:scale": {
                         "value": 0.0
                     },
+                    "minecraft:collision_box": {
+                        "width": 0.0,
+                        "height": 0.0
+                    },
                     "minecraft:push_through": {
                         "value": 1.0
-                    }
+                    },
+                    "minecraft:damage_sensor": {
+                        "deals_damage": false
+                    },
+                    "minecraft:physics": {}
                 }
                 
             }
         },
-        "trade_setup": {
-            "display_name": "Marker Setup",
+        "trade": {
+            "display_name": "Trade",
             "template": {
-                "path": "minecraft:entity/components",
+                "data_path": "minecraft:entity/components",
                 "data": {
-                    "super_cool_trade": "Not here... Hahahaha"
+                    "minecraft:behavior.trade_with_player": {
+                        "priority": 1
+                    },
+                    "minecraft:behavior.look_at_trading_player": {
+                        "priority": 2
+                    },
+                    "minecraft:trade_table": {
+                        "display_name": {},
+                        "table": {}
+                    }
+                }
+            }
+        },
+        "send_event": {
+            "display_name": "Send Event",
+            "template": {
+                "data_path": "minecraft:entity/components",
+                "data": {
+                    "minecraft:behavior.send_event": {
+                        "priority": 0,
+                        "event_choices": [
+                            {
+                                "min_activation_range": 0,
+                                "max_activation_range": 8,
+                                "cooldown_time": 0.05,
+                                "weight": 1,
+                                "do_casting": false,
+                                "filters": {},
+                                "sequence": [
+                                    {
+                                        "base_delay": 0.05,
+                                        "event": {}
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "target_selection": {
+            "display_name": "Target Selection",
+            "template": {
+                "data_path": "minecraft:entity/components",
+                "data": {
+                    "minecraft:behavior.hurt_by_target": {
+                        "priority": 1
+                    },
+                    "minecraft:behavior.nearest_attackable_target": {
+                        "priority": 2,
+                        "within_radius": 25,
+                        "reselect_targets": true,
+                        "entity_types": [
+                            {
+                                "filters": {},
+                                "max_dist": 35
+                            }
+                        ],
+                        "must_see": true,
+                        "must_see_forget_duration": 17.0
+                    }
+                }
+            }
+        },
+        "melee_attack": {
+            "display_name": "Melee Attack",
+            "template": {
+                "data_path": "minecraft:entity/components",
+                "data": {
+                    "minecraft:attack": {
+                        "damage": 3
+                    },
+                    "minecraft:behavior.hurt_by_target": {
+                        "priority": 1
+                    },
+                    "minecraft:behavior.nearest_attackable_target": {
+                        "priority": 2,
+                        "within_radius": 25,
+                        "reselect_targets": true,
+                        "entity_types": [
+                            {
+                                "filters": {},
+                                "max_dist": 35
+                            }
+                        ],
+                        "must_see": true,
+                        "must_see_forget_duration": 17.0
+                    },
+                    "minecraft:behavior.melee_attack": {
+                        "priority": 3,
+                        "speed_multiplier": 1,
+                        "track_target": false
+                    }
+                }
+            }
+        },
+        "ranged_attack": {
+            "display_name": "Ranged Attack",
+            "template": {
+                "data_path": "minecraft:entity/components",
+                "data": {
+                    "minecraft:shooter": {
+                        "type": "Arrow",
+                        "def": "minecraft:arrow"
+                    },
+                    "minecraft:behavior.hurt_by_target": {
+                        "priority": 1
+                    },
+                    "minecraft:behavior.nearest_attackable_target": {
+                        "priority": 2,
+                        "within_radius": 25,
+                        "reselect_targets": true,
+                        "entity_types": [
+                            {
+                                "filters": {},
+                                "max_dist": 16
+                            }
+                        ],
+                        "must_see": true,
+                        "must_see_forget_duration": 17.0
+                    },
+                    "minecraft:behavior.ranged_attack": {
+                        "priority": 3,
+                        "attack_interval_min": 1,
+                        "attack_interval_max": 3,
+                        "attack_radius": 15
+                    }
+                }
+            }
+        },
+        "silent_kill": {
+            "display_name": "Silent Kill",
+            "template": {
+                "data_path": "minecraft:entity",
+                "force_default_scope": true,
+                "data": {
+                    "component_groups": {
+                        "bridge:silent_kill_group": {
+                            "minecraft:explode": {
+                                "fuseLength": 0,
+                                "fuseLit": true,
+                                "power": 0
+                            }
+                        }
+                    },
+                    "events": {
+                        "bridge:kill_silently": {
+                            "add": {
+                                "component_groups": [
+                                    "bridge:silent_kill_group"
+                                ]
+                            }
+                        }
+                    }
                 }
             }
         }

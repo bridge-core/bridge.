@@ -30,13 +30,18 @@ let LIB = {
                 return "0";
             }
         },
+        setting: {
+            target_version() {
+                return Store.state.Settings.target_version;
+            }
+        },
         siblings() {
             return PARENT_CONTEXT.toJSON();
         },
         children() {
             return NODE_CONTEXT.toJSON();
         },
-
+        
         next_list_index() {
             console.warn("Usage of $dynamic.next_list_index is deprecated! Use $dynamic.list.next_index() instead!");
             return this.list.next_index();
@@ -100,6 +105,9 @@ class Provider {
 
         if(path.length > 0) this.storeInLIB(path, store, current[key]);
         else current[key] = deepmerge(current[key], store);
+    }
+    static get FILE_DEFS() {
+        return FILE_DEFS;
     }
 
     validator(path) {

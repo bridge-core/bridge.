@@ -151,6 +151,7 @@
         hide-no-data
         style="max-width: 99%;"
         dense
+        :menu-props="{ maxHeight: 162 }"
         :label="content.text"
         :items="content.options"
         @change="action.default"

@@ -5,12 +5,18 @@
     "any_of": {
         "$dynamic.list.next_index": "$entity.filters"
     },
-    "test": "$general.entity.filters",
+    "$dynamic_template.test": {
+        "$key": "$dynamic.setting.target_version",
+
+        "v1.10": "$general.entity.filters",
+        "v1.11": "$general.entity.filters and $entity.general.filters_v1_11"
+    },
     "subject": "$general.entity.filter_targets",
     "operator": "$general.entity.filter_operators",
     "$dynamic_template.domain": {
         "$key": "$dynamic.siblings.test",
         "has_equipment": "$general.has_equipment_slot",
+
         "is_game_rule": "$general.gamerule"
     },
     "$dynamic_template.value": {

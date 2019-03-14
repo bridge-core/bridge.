@@ -226,6 +226,6 @@
     }
     .key.selected {
         font-style: italic;
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(119, 119, 119, 0.1);
     }
 </style>
