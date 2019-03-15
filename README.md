@@ -7,7 +7,7 @@ You can try bridge.'s pre-releases now: [See releases!](https://github.com/solve
 bridge. is a powerful add-on editor designed to speed up your development. It can open all files inside a behavior pack (JavaScript, JSON and functions) and provides a powerful work environment.
 Unleash the full power of add-ons with bridge. plugins and make use of rich auto-completions provided as you navigate through a file. Creating Minecraft add-ons was never more convenient!
 
-## Why should you use bridge.?
+## Using a JSON Editor
 In general, dedicated add-on editors like bridge. have a few incredible advantages over normal text editors:
 - You cannot write invalid JSON
 - You cannot make general file structure mistakes because "bridge." auto-completions guide you through the file
@@ -28,6 +28,7 @@ Additionally, "bridge." has a few specific features which other editors do not o
    - Powerful shortcuts to reorder and navigate through a JSON file
    - JSON displays as a tree structure with collapsible/expandable elements
    - Beautiful syntax highlighting for all behavior pack files
+   - Snippets to quickly import common JSON patterns
 - __Auto-Completions__
    - Rich auto-completions for entities, loot tables, trades and spawn rules
    - Handcrafted: We don't trust the Minecraft documentation and you shouldn't either. That's why we wrote all suggestions by hand
