@@ -214,8 +214,10 @@
             },
 
             findDefaultProject() {
+                if(this.$store.state.Settings.default_project === undefined) return this.items[0];
+                
                 for(let i = 0; i < this.items.length; i++) {
-                    if(this.items[i].toLowerCase() == this.$store.state.Settings.default_project.toLowerCase())
+                    if(this.items[i].toLowerCase() === this.$store.state.Settings.default_project.toLowerCase())
                         return this.items[i];
                 }
                 return this.items[0];

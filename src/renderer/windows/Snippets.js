@@ -9,7 +9,8 @@ let SNIPPETS;
 fs.readFile(__static + "/data/snippets.json", (err, data) => {
     if(err) throw err;
     SNIPPETS = JSON.parse(data.toString());
-    Store.state.Settings.custom_snippets.forEach(s => addSnippet(Math.random(), s));
+    
+    if(Store.state.Settings.custom_snippets !== undefined) Store.state.Settings.custom_snippets.forEach(s => addSnippet(s));
 });
 
 function toArr() {
@@ -39,9 +40,12 @@ function expandTemplateData(data, data_path) {
     }
     return return_data;
 }
-function addSnippet(key, s) {
+function addSnippet(s) {
     if(SNIPPETS[s.file_type] === undefined) SNIPPETS[s.file_type] = {};
-    SNIPPETS[s.file_type]["custom_" + key] = s;
+    SNIPPETS[s.file_type][s.key] = s;
+}
+function removeSnippet(s) {
+    delete SNIPPETS[s.file_type][s.key];
 }
 
 class SnippetWindow extends ContentWindow {
@@ -113,5 +117,6 @@ export default {
             WIN = new SnippetWindow();
         }
     },
-    addSnippet
+    addSnippet,
+    removeSnippet
 }

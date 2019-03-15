@@ -5,30 +5,32 @@ import { MINECRAFT_VERSIONS, BASE_PATH } from "../scripts/constants";
 import EventBus from "../scripts/EventBus";
 import fs from "fs";
 import AddSnippetWindow from "./AddSnippet";
+import Snippets from "./Snippets";
 
 class ReactiveListEntry {
     constructor(text, parent, watch_key, index) {
-        this.type = "container";
-        this.content = [
+        this.type = "card";
+        this.below_content = [
             {
-                type: "icon",
+                text: text
+            },
+            {
+                type: "space"
+            },
+            {
+                type: "icon-button",
                 text: "mdi-delete",
                 color: "error",
+                only_icon: true,
                 action: () => {
-                    console.log(parent.data[watch_key].filter((e, i) => index !== i));
+                    Snippets.removeSnippet(parent.data[watch_key][index]);
                     parent.save({
                         [watch_key]: parent.data[watch_key].filter((e, i) => index !== i)
                     });
                     parent.select(undefined, true);
                 }
-            },
-            {
-                text: text
-            },
-            {
-                type: "divider"
             }
-        ];
+        ]
     }
 }
 class ReactiveList {
@@ -36,10 +38,19 @@ class ReactiveList {
         this.parent = parent;
         this.watch_key = watch_key;
     }
+    get content() {
+        let arr = this.parent.data[this.watch_key];
+        let res = [];
+        for(let i = 0; i < arr.length; i++) {
+            res.push(new ReactiveListEntry(arr[i].display_name, this.parent, this.watch_key, i));
+            res.push({ text: "\n" });
+        }
+        return res;
+    }
     get() {
         return {
             type: "container",
-            content: this.parent.data[this.watch_key].map((e, i) => new ReactiveListEntry(e.display_name, this.parent, this.watch_key, i))
+            content: this.content
         };
     }
 }
@@ -175,6 +186,12 @@ export default class SettingsWindow extends TabWindow {
                     text: "mdi-plus",
                     only_icon: true,
                     action: () => new AddSnippetWindow(this)
+                },
+                {
+                    type: "divider"
+                },
+                {
+                    text: "\n"
                 },
                 () => new ReactiveList(this, "custom_snippets").get()
             ]

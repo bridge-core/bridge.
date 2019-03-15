@@ -4,7 +4,7 @@
         v-if="content.type == 'text' || content.type == undefined"
         :class="`${pre_color} ${content.action != undefined ? 'click-action' : ''}`"
         @click.stop="action.default"
-        style="overflow-x: scroll;"
+        style="overflow-x: auto;"
     >{{ content.text }}</pre>
     <v-subheader 
         v-else-if="content.type == 'header'"
@@ -56,9 +56,9 @@
             <window-content v-for="(c, i) in content.content" :key="`card-window-content-${i}`" :content="c"/>
         </v-card-text>
 
-        <v-card-action v-if="content.below_content">
-            <window-content v-for="(b_c, i) in content.below_content" :key="`card-window-below-content-${i}`" :content="_bc"/>
-        </v-card-action>
+        <v-card-actions v-if="content.below_content">
+            <window-content v-for="(b_c, i) in content.below_content" :key="`card-window-below-content-${i}`" :content="b_c"/>
+        </v-card-actions>
     </v-card>
     <!-- LOADER -->
     <v-progress-linear
@@ -197,7 +197,7 @@ export default {
         content: Object
     },
     mounted() {
-        if(this.content.focus && this.$refs.input) {
+        if(this.content && this.content.focus && this.$refs.input) {
             this.$refs.input.focus();
         }
     },
@@ -231,7 +231,7 @@ export default {
             return this.content.enter;
         },
         pre_color() {
-            if(!this.content.color) return undefined;
+            if(!this.content.color) return "";
             if(this.content.color.includes(" ")) {
                 let tmp = this.content.color.split(" ");
                 return `${tmp[0]}--text text--${tmp[1]}`;

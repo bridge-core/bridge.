@@ -16,7 +16,7 @@ export default class AddSnippetWindow extends ContentWindow {
         }, "add_snippets.");
 
         this.data = {
-            name: "Custom Snippet",
+            name: "",
             file_type: "entity",
             data_path: "minecraft:entity/components",
             force_scope: false
@@ -67,10 +67,12 @@ export default class AddSnippetWindow extends ContentWindow {
                 color: "success",
                 text: "Add!",
                 action: () => {
-                    let data = this.getTemplate(this.data.template)
-                    if(data === undefined) return new InformationWindow("Invalid Template", "\nThe provided template does not contain valid JSON.");
+                    let data = this.getTemplate(this.data.template);
+                    if(this.data.name === "") return new InformationWindow("Invalid Snippet Name", "\nYou need to provide a name for your snippet.");
+                    if(data === undefined) return new InformationWindow("Invalid Template", "\nThe provided snippet template does not contain valid JSON.");
                     
                     let s = {
+                        key: "custom_" + Math.random(),
                         file_type: this.data.file_type,
                         display_name: this.data.name,
                         template: {
@@ -82,7 +84,7 @@ export default class AddSnippetWindow extends ContentWindow {
 
                     parent.save({ custom_snippets: parent.data.custom_snippets.concat([ s ]) });
                     parent.select(undefined, true);
-                    Snippets.addSnippet(Math.random(), s);
+                    Snippets.addSnippet(s);
                     this.close();
                 }
             }

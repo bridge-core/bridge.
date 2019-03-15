@@ -174,7 +174,7 @@ const state = {
                 title: "Copy",
                 shortcut: "Ctrl + C",
                 action: () => {
-                    if(document.activeElement.tagName === "BODY") {
+                    if(document.activeElement.tagName === "BODY" || window.getSelection().toString() == "") {
                         try {
                             let node = TabSystem.getCurrentNavObj();
                             let obj = { [node.key]: node.toJSON() };
@@ -190,7 +190,7 @@ const state = {
                 title: "Cut",
                 shortcut: "Ctrl + X",
                 action: () => {
-                    if(document.activeElement.tagName === "BODY") {
+                    if(document.activeElement.tagName === "BODY"  || window.getSelection().toString() == "") {
                         try {
                             let node = TabSystem.getCurrentNavObj();
                             //HISTORY
@@ -216,10 +216,12 @@ const state = {
                     if(document.activeElement.tagName === "BODY") {
                         try {
                             TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
+                            TabSystem.setCurrentUnsaved();
                         } catch(e) {
                             //Try again with a fix if the key was still in front
                             try {
                                 TabSystem.getCurrentNavObj().buildFromObject(JSON.parse("{" + clipboard.readText() + "}"), undefined, true);
+                                TabSystem.setCurrentUnsaved();
                             } catch(e) {}
                         }
                     } else {

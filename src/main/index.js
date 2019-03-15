@@ -1,5 +1,5 @@
 import { app, BrowserWindow, ipcMain, Menu } from 'electron'
-import Communicator from "./communicator.js";
+import "./communicator.js";
 import "./Discord";
 
 /**

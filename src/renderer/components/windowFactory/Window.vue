@@ -53,7 +53,7 @@
                     v-if="has_sidebar"
                     :style="`
                         width: 59px;
-                        border-right: 1px solid rgba(255,255,255,0.12);
+                        border-right: 1px solid rgba(${is_dark_mode ? '255' : '0'}, ${is_dark_mode ? '255' : '0'}, ${is_dark_mode ? '255' : '0'}, 0.12);
                         position: absolute;
                         height: ${(is_fullscreen ? maxHeight : height) - 20}px;
                         overflow-y: auto;
@@ -156,6 +156,9 @@ export default {
         },
         is_persistent() {
             return !this.win.options || this.win.options.is_persistent == undefined || this.win.options.is_persistent;
+        },
+        is_dark_mode() {
+            return this.$store.state.Appearance.is_dark_mode;
         },
         width() {
             if(!this.win.options || this.win.options.width == undefined) return 500;
