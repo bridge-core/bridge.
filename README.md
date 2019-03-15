@@ -3,11 +3,11 @@
 ## Download
 You can try bridge.'s pre-releases now: [See releases!](https://github.com/solvedDev/bridge./releases)
 
-## About
+## About bridge.
 bridge. is a powerful add-on editor designed to speed up your development. It can open all files inside a behavior pack (JavaScript, JSON and functions) and provides a powerful work environment.
 Unleash the full power of add-ons with bridge. plugins and make use of rich auto-completions provided as you navigate through a file. Creating Minecraft add-ons was never more convenient!
 
-## Using a JSON Editor
+## Why *you* should use bridge.
 In general, dedicated add-on editors like bridge. have a few incredible advantages over normal text editors:
 - You cannot write invalid JSON
 - You cannot make general file structure mistakes because "bridge." auto-completions guide you through the file
@@ -50,7 +50,7 @@ Additionally, "bridge." has a few specific features which other editors do not o
    - [Library](https://github.com/solvedDev/bridge-plugins) with existing plugins to download from within bridge.
    - [Read more...](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
 
-## Plugins
+## bridge. Plugins
 __Documentation__
 
 You can read more on plugins [here](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md).
@@ -59,7 +59,7 @@ __Library__
 
 The repository for plugins can be found [here](https://github.com/solvedDev/bridge-plugins). Feel free to add your plugins to it in order to make them appear inside the plugin menu.
 
-## Contributing
+## Contributing to bridge.
 Contributions to bridge. are welcome. However, please read the [guidelines](https://github.com/solvedDev/bridge./blob/master/CONTRIBUTING.md) first.
 
 ## Screenshots
