@@ -1,7 +1,7 @@
 # bridge.
 
 ## Download
-You can try bridge.'s pre-releases now: [See releases!](https://github.com/solvedDev/bridge./releases)
+You can try the latest version of bridge. now: [See releases!](https://github.com/solvedDev/bridge./releases)
 
 ## About bridge.
 bridge. is a powerful add-on editor designed to speed up your development. It can open all files inside a behavior pack (JavaScript, JSON and functions) and provides a powerful work environment.
