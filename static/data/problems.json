@@ -1,0 +1,72 @@
+{
+    "entity": [
+        {
+            "bridge:find_one": {
+                "is_warning": true,
+                "search": "minecraft:behavior.send_event",
+                "error_message": "minecraft:behavior.send_event is known to crash Minecraft"
+            }
+        },
+        {
+            "bridge:find_one": {
+                "is_warning": true,
+                "search": "minecraft:spell_effects",
+                "error_message": "minecraft:spell_effects is known to crash Minecraft if used inside of loops"
+            }
+        },
+
+        {
+            "bridge:two_incompatible": {
+                "first": "minecraft:rideable",
+                "second": "minecraft:spawn_entity",
+                "error_message": "Entities being ridden cannot use minecraft:spawn_entity"
+            }
+        },
+        {
+            "bridge:first_needs_second": {
+                "first": "minecraft:addrider",
+                "second": "minecraft:rideable",
+                "error_message": "minecraft:addrider requires minecraft:rideable",
+                "fix": {
+                    "type": "snippet",
+                    "name": "rideable_component",
+                    "display_text": "Insert minecraft:rideable"
+                }
+            }
+        },
+        {
+            "bridge:first_needs_second": {
+                "first": "minecraft:behavior.open_door",
+                "second": "can_open_doors",
+                "error_message": "minecraft:behavior.open_door requires the mob to be able to path through doors"
+            }
+        },
+        {
+            "bridge:needs_both": {
+                "first": [ "minecraft:trade_table", "minecraft:economy_trade_table" ],
+                "second": "minecraft:behavior.trade_with_player",
+                "error_message": "$failure_name missing"
+            }
+        },
+        {
+            "bridge:needs_both": {
+                "first": "minecraft:shooter",
+                "second": "minecraft:behavior.ranged_attack",
+                "error_message": "$failure_name missing"
+            }
+        },
+        {
+            "bridge:needs_three_if_both": {
+                "first": "minecraft:shooter",
+                "second": "minecraft:behavior.ranged_attack",
+                "third": "minecraft:behavior.nearest_attackable_target",
+                "error_message": "$failure_name missing",
+                "fix": {
+                    "type": "snippet",
+                    "name": "target_selection",
+                    "display_text": "Insert minecraft:behavior.nearest_attackable_target"
+                }
+            }
+        }
+    ]
+}

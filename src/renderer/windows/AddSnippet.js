@@ -1,7 +1,6 @@
 import ContentWindow from "../scripts/commonWindows/Content";
 import FileType from "../scripts/editor/FileType";
 import InformationWindow from "../scripts/commonWindows/Information";
-import { Store } from "vuex";
 import Snippets from "./Snippets";
 
 export default class AddSnippetWindow extends ContentWindow {

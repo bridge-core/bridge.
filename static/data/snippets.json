@@ -256,6 +256,26 @@
                     }
                 }
             }
+        },
+        "rideable_component": {
+            "display_name": "minecraft:rideable",
+            "template": {
+                "data_path": "minecraft:entity/components",
+                "data": {
+                    "minecraft:rideable": {
+                        "seat_count": 1,
+                        "family_types": [
+                            "player"
+                        ],
+                        "interact_text": "action.interact.mount",
+                        "seats": [
+                            {
+                                "position": [ 0.0, 1.1, 0.0 ]
+                            }
+                        ]
+                    }
+                }
+            }
         }
     }
 }

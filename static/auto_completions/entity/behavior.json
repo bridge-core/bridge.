@@ -420,25 +420,25 @@
     },
     "minecraft:behavior.send_event": {
         "priority": "$general.number",
-        "event_choices": [
-          {
-            "min_activation_range": "$general.decimal",
-            "max_activation_range": "$general.decimal",
-            "cooldown_time": "$general.decimal",
-            "cast_duration": "$general.decimal",
-            "particle_color": {},
-            "weight": "$general.number",
-            "filters": "$entity.filters",
-            "start_sound_event": "$general.sound",
-            "sequence": [
-              {
-                "base_delay": "$general.decimal",
-                "event": {},
-                "sound_event": "$general.sound"
-              }
-            ]
-          }
-        ]
+        "event_choices": {
+            "$dynamic.list.next_index": {
+                "min_activation_range": "$general.decimal",
+                "max_activation_range": "$general.decimal",
+                "cooldown_time": "$general.decimal",
+                "cast_duration": "$general.decimal",
+                "particle_color": {},
+                "weight": "$general.number",
+                "filters": "$entity.filters",
+                "start_sound_event": "$general.sound",
+                "sequence": {
+                    "$dynamic.list.next_index": {
+                        "base_delay": "$general.decimal",
+                        "event": {},
+                        "sound_event": "$general.sound"
+                    }
+                }
+            }
+        }
     },
     "minecraft:behavior.share_items": {
         "priority": "$general.number",

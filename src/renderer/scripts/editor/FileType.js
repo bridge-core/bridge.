@@ -3,13 +3,15 @@ import Provider from "./autoCompletions";
 let FILE_DEFS;
 
 export default class FileType {
-    static get() {
+    static get(file_path) {
         if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
-        let path;
+        let path = file_path;
         
-        try {
-            path = TabSystem.getSelected().file_path;
-        } catch(e) { return "unknown"; }
+        if(path === undefined) {
+                try {
+                path = TabSystem.getSelected().file_path;
+            } catch(e) { return "unknown"; }
+        }
         
         for(let def of FILE_DEFS) {
             if(path.includes(def.includes)) return def.id;

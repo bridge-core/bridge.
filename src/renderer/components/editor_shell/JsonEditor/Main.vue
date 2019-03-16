@@ -4,7 +4,7 @@
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
                 <details 
                     v-for="(e, i) in render_object.children"
-                    :key="`${uuid}.${e.open}.${object_key}/${i}.${e.comment}.${Math.random()}`"
+                    :key="`${uuid}.${e.open}.${object_key}/${i}.${e.comment}.${JSON.stringify(e.error)}.${Math.random()}`"
                     :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                 >
                     <object-key 
@@ -14,6 +14,8 @@
                         :comment="e.comment"
                         :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                         :mark="e.mark_color"
+                        :error="e.error"
+                        :child_contains_error="e.child_contains_error"
                     />
 
                     <json-editor-main 
@@ -180,8 +182,10 @@
                 return TabSystem.getCurrentNavigation() == path + expand;
             },
             click(event, event_to_send, key) {
+                if(event.target.tagName === "I") return;
                 let path = `${this.object_key}/${key.replace(/\//g, "#;slash;#")}`;
                 let details = this.$refs[path][0];
+                
                 
                 if(details.open && !this.is_selected(path)) {
                     event.preventDefault();

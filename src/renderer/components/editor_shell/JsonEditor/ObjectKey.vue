@@ -9,12 +9,46 @@
         <v-icon :class="`${inversed_arrows ? 'open' : 'closed'}`" small>keyboard_arrow_down</v-icon>
         <v-icon :class="`${inversed_arrows ? 'closed' : 'open'}`" small>keyboard_arrow_up</v-icon>
 
+        <v-tooltip
+            v-if="error && error.show"
+            :open-delay="1400"
+            right
+            :nudge-right="error.fix ? 12 : 0"
+            :color="error.is_warning ? 'amber darken-2' : 'error'"
+        >
+            <highlight-text
+                slot="activator"
+                :style="`background: ${mark.replace(/;|:/g, '')};`"
+                :class="`object ${error.is_warning ? 'warning-line' : 'error-line'}`"
+            >
+            {{ my_key }}
+            </highlight-text>
+            <span>{{ error.message }}</span>
+        </v-tooltip>
         <highlight-text
+            v-else
+            slot="activator"
             :style="`background: ${mark.replace(/;|:/g, '')};`"
             class="object"
         >
         {{ my_key }}
         </highlight-text>
+        
+        <v-icon v-if="child_contains_error" color="error" small>mdi-alert-circle</v-icon>
+        <v-tooltip color="amber darken-2" right v-if="error && error.fix">
+            <v-btn
+                slot="activator"
+                color="amber darken-1"
+                @click.native="error.fix.function"
+                style="margin: 0; height: 24px; width: 24px;"
+                flat
+                small
+                icon
+            >
+                <v-icon small>mdi-lightbulb</v-icon>
+            </v-btn>
+            <span>{{ error.fix.text || 'Auto-fix' }}</span>
+        </v-tooltip>
 
         <span v-if="comment && comment != ''" class="comment" :style="color_theme.comment">//{{ comment }}</span>
     </summary>
@@ -39,7 +73,9 @@
                 default: "none",
                 type: String
             },
-            object: Object
+            object: Object,
+            error: Object,
+            child_contains_error: Boolean
         },
         computed: {
             selected_class() {
@@ -114,5 +150,15 @@
     }
     details > summary > .closed {
         display: inline;
+    }
+
+    .error-line {
+        border-bottom: 2px dotted #F44336;
+    }
+    .warning-line {
+        border-bottom: 2px dotted #FFA000;
+    }
+    button::before {
+        opacity: 0.2;
     }
 </style>

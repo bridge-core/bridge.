@@ -9,6 +9,7 @@ import PluginAssert from "./plugins/PluginAssert";
 import LoadingWindow from "../windows/LoadingWindow";
 import ConfirmWindow from "./commonWindows/Confirm";
 import { History } from "./TabSystem/CommonHistory";
+import ProblemIterator from "./editor/problems/Problems";
 
 /**
  * @todo Refactor TabSystem to use dedicated classes IMGTab, CMTab, JSONTab,...
@@ -230,6 +231,7 @@ class TabSystem {
             // console.log(current.content instanceof JSONTree, current, previous);
             
             if(current.content instanceof JSONTree) {
+                ProblemIterator.findProblems(current.content);
                 j = Format.toJSON(current.content, false);
             } else {
                 j = current.content;

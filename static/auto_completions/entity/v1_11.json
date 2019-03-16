@@ -88,7 +88,9 @@
         "display_name": {},
         "table": "$dynamic.trade_table_files",
         "new_screen": "$general.boolean",
-        "hero_demand_discount": "$general.number"
+        "hero_demand_discount": "$general.number",
+        "persist_trades": "$general.boolean",
+        "convert_trades_economy": "$general.boolean"
     },
     "minecraft:hide": {},
     "minecraft:scheduler": {
@@ -109,5 +111,15 @@
             }
         }
     },
-    "minecraft:trade_resupply": {}
+    "minecraft:trade_resupply": {},
+    "minecraft:trade_table": {
+        "new_screen": "$general.boolean",
+        "hero_demand_discount": "$general.number",
+        "persist_trades": "$general.boolean",
+        "convert_trades_economy": "$general.boolean"
+    },
+    "minecraft:transformation": {
+        "keep_owner": "$general.boolean",
+        "keep_level": "$general.boolean"
+    }
 }

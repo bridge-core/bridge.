@@ -7,6 +7,7 @@ import TabSystem from "./TabSystem";
 import { ipcRenderer } from "electron";
 import Cache from "./utilities/Cache.js";
 import JSONTree from "./editor/JsonTree.js";
+import ProblemIterator from "./editor/problems/Problems.js";
 
 function getPath(path) {
     return BASE_PATH + path;
@@ -66,8 +67,14 @@ class FileSystem {
             });
     }
     addAsTab(path, data, format_version=0, raw_data) {
+        let tree;
+        if(format_version === 1) {
+            tree = JSONTree.buildFromCache(data);
+            ProblemIterator.findProblems(tree, path);
+        }
+
         TabSystem.add({ 
-            content: format_version === 1 ? JSONTree.buildFromCache(data) : data,
+            content: format_version === 1 ? tree : data,
             raw_content: raw_data,
             file_path: path,
             is_compiled: format_version === 1,

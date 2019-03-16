@@ -26,6 +26,8 @@ export default class JSONTree {
         this.comment = "";
         this.propose_cache = {};
         this.propose_cache_uses = 0;
+        this.mark_color = undefined;
+        this.error = undefined;
 
         this.TreeIterator = class {
             constructor(tree) {
@@ -84,6 +86,13 @@ export default class JSONTree {
             if(deepest < potential) deepest = potential;
         });
         return deepest;
+    }
+    get child_contains_error() {
+        for(let child of this.children) {
+            if(child.error !== undefined && !child.error.is_warning) return true;
+            else if(child.child_contains_error) return true;
+        }
+        return false;
     }
     /**
      * @param {String|Array} inp 

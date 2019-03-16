@@ -68,6 +68,7 @@
         "distance_to_nearest_player": "$general.number",
         "is_mark_variant": "$general.number",
         "is_variant": "$general.number",
+        "is_skin_id": "$general.number",
         "is_altitude": "$general.number",
         "is_brightness": "$general.decimal",
         "is_temperature_value": "$general.decimal"

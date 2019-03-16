@@ -109,6 +109,9 @@
   body {
     overflow: unset;
   }
+  textarea {
+    outline: none;
+  }
 
   /* SCROLLBAR */
   *::-webkit-scrollbar {
