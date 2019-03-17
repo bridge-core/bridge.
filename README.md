@@ -19,31 +19,31 @@ Additionally, "bridge." has a few specific features which other editors do not o
 - Support for plugins: From custom components to searching files - bridge. plugins can do almost anything
 
 ## Feature Overview
-- __General__
+#### General
    - Create new behavior pack files through a clear interface
    - Create new projects with an automatically generated manifest.json
    - Package your behavior pack with only one click
-- __Editor__
+#### Editor
    - Cut, Copy, Paste, Undo, Redo and all other features you would expect
    - Powerful shortcuts to reorder and navigate through a JSON file
    - JSON displays as a tree structure with collapsible/expandable elements
    - Beautiful syntax highlighting for all behavior pack files
    - Snippets to quickly import common JSON patterns
    - Error/Mistake detection and auto-fixes for some of them
-- __Auto-Completions__
+#### Auto-Completions
    - Rich auto-completions for entities, loot tables, trades and spawn rules
    - Handcrafted: We don't trust the Minecraft documentation and you shouldn't either. That's why we wrote all suggestions by hand
    - Context sensitive: bridge. proposes different values depending on the file (events, component groups, filters, etc.)
-- __Documentation__
+#### Documentation
    - Easy access to the Minecraft add-on documentation
    - Shortcut to lookup specific components in your file
    - And more features to come...!
-- __Settings__
+#### Settings
    - Tabs vs. Spaces: You get to choose how we generate your files
    - Light & Dark Theme with corresponding syntax highlighter
    - Set a default project to be opened automatically when you open bridge.
-   - You know your target version better than we do: That's why you can choose between auto-completions for multiple Minecraft versions
-- __JavaScript Plugins__
+   - Choose between auto-completions for multiple Minecraft versions
+#### JavaScript Plugins
    - Create new menus, windows and notifications
    - Add new file types
    - Hook into a variety of different events
