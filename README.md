@@ -29,6 +29,7 @@ Additionally, "bridge." has a few specific features which other editors do not o
    - JSON displays as a tree structure with collapsible/expandable elements
    - Beautiful syntax highlighting for all behavior pack files
    - Snippets to quickly import common JSON patterns
+   - Error/Mistake detection and auto-fixes for some of them
 - __Auto-Completions__
    - Rich auto-completions for entities, loot tables, trades and spawn rules
    - Handcrafted: We don't trust the Minecraft documentation and you shouldn't either. That's why we wrote all suggestions by hand
