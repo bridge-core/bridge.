@@ -66,6 +66,7 @@ Contributions to bridge. are welcome. However, please read the [guidelines](http
 ##### JSON Editing
 ![JSON errors](https://github.com/solvedDev/bridge./raw/master/images/screenshot_1.png)
 ![JSON editing](https://github.com/solvedDev/bridge./raw/master/images/screenshot_2.png)
+![JSON context menu](https://github.com/solvedDev/bridge./raw/master/images/screenshot_9.png)
 ##### Other Filetypes
 ![JavaScript](https://github.com/solvedDev/bridge./raw/master/images/screenshot_6.png)
 ![.mcfunction](https://github.com/solvedDev/bridge./raw/master/images/screenshot_5.png)
