@@ -63,13 +63,15 @@ The repository for plugins can be found [here](https://github.com/solvedDev/brid
 Contributions to bridge. are welcome. However, please read the [guidelines](https://github.com/solvedDev/bridge./blob/master/CONTRIBUTING.md) first.
 
 ## Screenshots
-##### Plugins
-![bridge. plugins](https://github.com/solvedDev/bridge./raw/master/images/bridge_plugin.png)
 ##### JSON Editing
 ![JSON errors](https://github.com/solvedDev/bridge./raw/master/images/screenshot_1.png)
 ![JSON editing](https://github.com/solvedDev/bridge./raw/master/images/screenshot_2.png)
 ##### Other Filetypes
-![JSON editing](https://github.com/solvedDev/bridge./raw/master/images/screenshot_5.png)
+![JavaScript](https://github.com/solvedDev/bridge./raw/master/images/screenshot_6.png)
+![.mcfunction](https://github.com/solvedDev/bridge./raw/master/images/screenshot_5.png)
 ##### Menus
 ![bridge. settings](https://github.com/solvedDev/bridge./raw/master/images/screenshot_3.png)
-![bridge. settings](https://github.com/solvedDev/bridge./raw/master/images/screenshot_4.png)
+![bridge. file creation](https://github.com/solvedDev/bridge./raw/master/images/screenshot_4.png)
+##### Snippets
+![bridge. snippets](https://github.com/solvedDev/bridge./raw/master/images/screenshot_7.png)
+![bridge. custom snippets](https://github.com/solvedDev/bridge./raw/master/images/screenshot_8.png)
