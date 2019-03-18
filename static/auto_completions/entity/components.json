@@ -736,7 +736,7 @@
             "$dynamic.list.next_index": "$general.entity.family"
         }
     },
-    "minecraft:underwater_movement": "$entity_component.minecraft:movement",
+    "minecraft:underwater_movement": "$entity.components.minecraft:movement",
     "minecraft:variant": {
         "value": "$general.number"
     },

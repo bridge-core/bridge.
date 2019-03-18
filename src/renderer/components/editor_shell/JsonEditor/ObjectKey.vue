@@ -6,8 +6,8 @@
         :id="'summary.' + object_key"
         v-ripple
     >
-        <v-icon :class="`${inversed_arrows ? 'open' : 'closed'}`" small>keyboard_arrow_down</v-icon>
-        <v-icon :class="`${inversed_arrows ? 'closed' : 'open'}`" small>keyboard_arrow_up</v-icon>
+        <v-icon :class="`${inversed_arrows ? 'open' : 'closed'} open-arrow`" small>keyboard_arrow_down</v-icon>
+        <v-icon :class="`${inversed_arrows ? 'closed' : 'open'} open-arrow`" small>keyboard_arrow_up</v-icon>
 
         <v-tooltip
             v-if="error && error.show"
@@ -34,13 +34,17 @@
         {{ my_key }}
         </highlight-text>
         
-        <v-icon v-if="child_contains_error" color="error" small>mdi-alert-circle</v-icon>
-        <v-tooltip color="amber darken-2" right v-if="error && error.fix">
+        <v-icon v-if="$store.state.Settings.error_icon_indicator && child_contains_error" color="error" small>mdi-alert-circle</v-icon>
+        <v-tooltip
+            v-if="$store.state.Settings.error_auto_fix && error && error.fix"
+            color="amber darken-2"
+            right
+        >
             <v-btn
                 slot="activator"
                 color="amber darken-1"
                 @click.native="error.fix.function"
-                style="margin: 0; height: 24px; width: 24px;"
+                style="margin: 0; height: 20px; width: 20px;"
                 flat
                 small
                 icon

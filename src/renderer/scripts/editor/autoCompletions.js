@@ -5,10 +5,24 @@ import deepmerge from "deepmerge";
 import VersionMap from "./VersionMap";
 import Store from "../../store/index";
 import ScopeGuard from "./ScopeGuard";
+import path from "path";
+import JsonCacheUtils from "./JSONCacheUtils";
+
 
 let FILE_DEFS = [];
 let PARENT_CONTEXT = {};
 let NODE_CONTEXT = {};
+
+const walkSync = (dir, filelist = []) => {
+    fs.readdirSync(dir).forEach(file => {
+  
+        filelist = fs.statSync(path.join(dir, file)).isDirectory()
+            ? walkSync(path.join(dir, file), filelist)
+            : filelist.concat(path.join(dir, file));
+  
+    });
+    return filelist;
+}
 
 let LIB = {
     $dynamic: {
@@ -35,6 +49,28 @@ let LIB = {
                 return Store.state.Settings.target_version;
             }
         },
+        entity: {
+            component_list() {
+                return Object.keys(LIB.entity.main_v1_11["minecraft:entity"].components);
+            },
+            cached_families() {
+                return JsonCacheUtils.families;
+            },
+            component_groups() {
+                try {
+                    return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/component_groups").toJSON());
+                } catch(e) {
+                    return [];
+                }
+            },
+            events() {
+                try {
+                    return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/events").toJSON());
+                } catch(e) {
+                    return [];
+                }
+            }
+        },
         siblings() {
             return PARENT_CONTEXT.toJSON();
         },
@@ -47,24 +83,14 @@ let LIB = {
             return this.list.next_index();
         },
         loot_table_files() {
-            return [];
+            return walkSync(BASE_PATH + Store.state.Explorer.project + "\\loot_tables").map(e => {
+                return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
+            });
         },
         trade_table_files() {
-            return [];
-        },
-        entity: {
-            component_list() {
-                return [];
-            },
-            cached_families() {
-                return [];
-            },
-            component_groups() {
-                return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/component_groups").toJSON());
-            },
-            events() {
-                return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/events").toJSON());
-            }
+            return walkSync(BASE_PATH + Store.state.Explorer.project + "\\trading").map(e => {
+                return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
+            });
         }
     }
 };

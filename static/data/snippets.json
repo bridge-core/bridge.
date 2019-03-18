@@ -276,6 +276,22 @@
                     }
                 }
             }
+        },
+        "spawn_single": {
+            "display_name": "minecraft:spawn_entity",
+            "template": {
+                "data_path": "minecraft:entity/components",
+                "data": {
+                    "minecraft:spawn_entity": [
+                        {
+                            "spawn_entity": {},
+                            "min_wait_time": 0,
+                            "max_wait_time": 0,
+                            "single_use": true
+                        }
+                    ]
+                }
+            }
         }
     }
 }

@@ -135,7 +135,10 @@ export default class Cache {
             });
         });
     }
-    getCacheSync() {
+    getCacheSync(use_cache=false) {
+        if(use_cache && this.cached_cache !== undefined && this.loaded_cache === this.project)
+            return this.cached_cache;
+
         let p = getPath(this.project + "/bridge").replace(/\//g, "\\");
         try {
             return JSON.parse(fs.readFileSync(p + "/.editor-cache").toString());

@@ -22,6 +22,9 @@ function setup() {
             default_project: "",
             target_version: "",
             snippet_scope: "Default",
+            when_error: "On File Change",
+            error_icon_indicator: true,
+            error_auto_fix: true,
             custom_snippets: []
         });
     } else {

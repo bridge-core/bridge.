@@ -182,7 +182,8 @@
                 return TabSystem.getCurrentNavigation() == path + expand;
             },
             click(event, event_to_send, key) {
-                if(event.target.tagName === "I") return;
+                if((event.target.tagName === "I" && !event.target.classList.contains("open-arrow")) || event.target.tagName === "BUTTON")
+                    return;
                 let path = `${this.object_key}/${key.replace(/\//g, "#;slash;#")}`;
                 let details = this.$refs[path][0];
                 

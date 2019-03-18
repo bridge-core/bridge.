@@ -315,6 +315,20 @@ export default class JSONTree {
             return prev_sibling;
         }
     }
+    searchAll(key) {
+        let res = [];
+        this.children.forEach(c => {
+            if(c.key === key) res.push(c);
+            res = res.concat(c.searchAll(key));
+        });
+        return res;
+    }
+    searchOne(key) {
+        for(let c of this.children) {
+            if(c.key === key) return c;
+            c.searchOne(key);
+        }
+    }
 
     //Removes all keys of an object from the calling node
     removeByObject(data) {

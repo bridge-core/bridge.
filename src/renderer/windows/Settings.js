@@ -6,6 +6,7 @@ import EventBus from "../scripts/EventBus";
 import fs from "fs";
 import AddSnippetWindow from "./AddSnippet";
 import Snippets from "./Snippets";
+import ProblemIterator from "../scripts/editor/problems/Problems";
 
 class ReactiveListEntry {
     constructor(text, parent, watch_key, index) {
@@ -159,6 +160,25 @@ export default class SettingsWindow extends TabWindow {
                     color: "light-green",
                     text: "Auto Fill Inputs",
                     key: `settings.editor.tab.auto_fill_inputs.${Math.random()}`
+                }),
+
+                {
+                    color: "grey",
+                    text: "\nError Detection"
+                },
+                new ReactiveDropdown(this, "when_error", [ "On Save", "On File Change", "Never" ], {
+                    text: "Choose when to search for errors...",
+                    key: `settings.editor.tab.when_error.${Math.random()}`
+                }, () => ProblemIterator.repeatLast()),
+                new ReactiveSwitch(this, "error_icon_indicator", {
+                    color: "light-green",
+                    text: "Error Icon Indicator",
+                    key: `settings.editor.tab.error_icon_indicator.${Math.random()}`
+                }),
+                new ReactiveSwitch(this, "error_auto_fix", {
+                    color: "light-green",
+                    text: "Error Auto-fix",
+                    key: `settings.editor.tab.error_auto_fix.${Math.random()}`
                 })
             ]
         });
