@@ -18,10 +18,8 @@ export default class JsonCacheUtils {
     static get families() {
         let res = [];
         this.CACHE_ITEMS.forEach(c => {
-            console.log(c.searchAll("minecraft:type_family"));
             res = res.concat(c.searchAll("minecraft:type_family"));
         });
-        console.log(res.map(e => e.toJSON().family).reduce((acc, val) => acc.concat(val), []));
         return res.map(e => e.toJSON().family).reduce((acc, val) => acc.concat(val), []);
     }
 }

@@ -3,7 +3,7 @@
         <v-layout>
             <v-text-field
                 ref="input"
-
+                @keydown.enter.native="click"
                 v-if="type == 'edit'"
                 v-model="value"
             />
@@ -22,7 +22,7 @@
                 dense
                 class="json-input-menu"
             ></v-combobox>
-            <v-btn v-if="type != 'edit'" @click="click">
+            <v-btn @click="click">
                 +
             </v-btn>
         </v-layout>
@@ -48,15 +48,8 @@
         data() {
             return {
                 items: [],
-                select: "",
-                value: "",
-                watcher_active: true
+                value: ""
             };
-        },
-        created() {
-            if(this.type != "edit") {
-                this.updateAutoCompletions();
-            } 
         },
         mounted() {
             if(this.type == "edit") {
@@ -64,6 +57,7 @@
                 EventBus.on("updateFileNavigation", this.updateValue);
                 EventBus.on("setWatcherInactive", () => this.watcher_active = false);
             } else {
+                this.updateAutoCompletions();
                 EventBus.on("updateAutoCompletions", () => this.updateAutoCompletions());
             }
         },
@@ -74,31 +68,6 @@
             }
         },
         watch: {
-            value(val, old) {
-                if(this.type == "edit" && this.watcher_active) {
-                    //History
-                    let node = TabSystem.getCurrentNavObj();
-                    if(!TabSystem.getSelected().content.isDataPath(this.file_navigation)) TabSystem.getHistory().add(new JSONAction("edit-key", node, old));
-                    else TabSystem.getHistory().add(new JSONAction("edit-data", node, old));
-
-                    //UPDATE CONTENT
-                    let tmp = this.file_navigation.split("/");
-                    tmp.pop();
-
-                    TabSystem.setCurrentNavContent(val);
-                    tmp.push(val);
-                    
-                    TabSystem.setCurrentFileNav(tmp.join("/"));
-                    TabSystem.setCurrentUnsaved();
-
-                    //PLUGIN HOOK
-                    PluginEnv.trigger("bridge:modifiedNode", {
-                        node
-                    });
-                }
-
-                this.watcher_active = true;
-            },
             file_navigation(nav) {
                 if(this.type == "edit") return;
                 this.updateAutoCompletions();
@@ -127,15 +96,15 @@
                 // console.log(this.value, this.render_object.get(this.file_navigation));
                 if(this.value == "" || !this.value) return;
                 let current = this.render_object.get(this.file_navigation);
-                
-                if(this.type == "object") {
+                let is_data_path = TabSystem.getSelected().content.isDataPath(this.file_navigation);
+                if(this.type === "object") {
                     let node = new JSONTree(this.value + "");
                     current.add(node, true).openNode();
                     current.type = "object";
                     EventBus.trigger("setWatcherInactive");
 
                     this.expandPath(this.value);
-                } else if(this.file_navigation != "global") {
+                } else if(this.file_navigation !== "global" && this.type === "value") {
                     current.data += this.value + "";
                     current.type = typeof this.value;
                     this.navigationBack();
@@ -144,14 +113,26 @@
                     PluginEnv.trigger("bridge:modifiedNode", {
                         node: current
                     });
+                } else if(this.type === "edit") {
+                    if(!is_data_path) {
+                        TabSystem.getHistory().add(new JSONAction("edit-key", current, current.key));
+                        current.key = this.value;
+                        TabSystem.setCurrentFileNav(current.path);
+                    } 
+                    else {
+                        TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
+                        current.data = this.value;
+                        TabSystem.setCurrentFileNav(current.path + "/" +  this.value);
+                    }
                 }
                 TabSystem.setCurrentUnsaved();
                 EventBus.trigger("updateCurrentContent");
 
-                this.$nextTick(() => {
-                    this.value = "";
-                });
-                
+                if(this.type !== "edit") {
+                    this.$nextTick(() => {
+                        this.value = "";
+                    });
+                }               
             },
 
             updateAutoCompletions() {
