@@ -3,9 +3,9 @@
         <v-container v-if="extension == 'png'">
             <v-img class="image" :src="image" :style="`max-height: ${available_height}px;`"/>
         </v-container>
-        <json-error-screen v-else-if="extension == 'json' && json_object == 'error'"/>
+        <json-error-screen v-else-if="extension === 'json' && json_object == 'error'"/>
         <json-editor-main
-            v-else-if="extension == 'json'"
+            v-else-if="extension === 'json'"
             :compiled="file.is_compiled"
             :tab_id="tab_id"
             :object="json_object"
@@ -170,7 +170,7 @@
                 if(this.$refs.cm) this.$refs.cm.$el.childNodes[1].style.height = this.available_height + "px";
             },
             text() {
-                TabSystem.setCurrentUnsaved();
+                if(this.extension !== 'json') TabSystem.setCurrentUnsaved();
             }
         }
     }

@@ -3,7 +3,7 @@
             <v-tabs slider-color="success" v-model="selected_tab" :mandatory="is_mandatory" :show-arrows="false">
                 <v-tab 
                     v-for="(file, i) in open_files"
-                    :key="`${selected_project}-${i}-${unsaved.join('')}`"
+                    :key="`${selected_project}-${i}-${unsaved.join()}`"
                     bottom
                     :ripple="selected_tab != i"
                     :class="`tab ${selected_tab == i ? 'selected' : ''}`"
@@ -70,10 +70,10 @@ export default {
         updateFiles() {
             this.open_files = TabSystem.filtered();
 
-            this.unsaved = this.open_files.map(f => f.is_unsaved == undefined ? false : f.is_unsaved);
+            this.unsaved = this.open_files.map(f => f.is_unsaved === undefined ? false : f.is_unsaved);
         },
         updateSavedUI() {
-            this.unsaved = this.open_files.map(f => f.is_unsaved == undefined ? false : f.is_unsaved);
+            this.unsaved = this.open_files.map(f => f.is_unsaved === undefined ? false : f.is_unsaved);
         }
     }
 }

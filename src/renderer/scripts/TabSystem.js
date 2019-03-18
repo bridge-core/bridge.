@@ -18,25 +18,29 @@ import ProblemIterator from "./editor/problems/Problems";
  */
 class TabSystem {
     constructor() {
-        this.tabs = [];
+        this.projects = {};
         this.selected = 0;
+    }
+    get project() {
+        return Store.state.Explorer.project;
     }
 
     //Adding tab
     add(tab) {
-        //if(tab.file_path === undefined) return console.log(tab);
-        for(let i = 0; i < this.tabs.length; i++) {
-            if(this.tabs[i].file_path == tab.file_path.replace(/\//g, "\\")) {
+        if(this.projects[this.project] === undefined) this.projects[this.project] = [];
+
+        for(let i = 0; i < this.projects[this.project].length; i++) {
+            if(this.projects[this.project][i].file_path == tab.file_path.replace(/\//g, "\\")) {
                 Store.commit("removeLoadingWindow", { id: "open-file" });
                 return this.select(i);
             } 
         }
         
         tab.file_path = tab.file_path.replace(/\//g, "\\");
-        this.tabs.unshift(Object.assign(tab, {
+        this.projects[this.project].unshift(Object.assign(tab, {
             uuid: `${Store.state.Explorer.project}-${Math.random()}-${Math.random()}`,
             file_navigation: "global",
-            category: Store.state.Explorer.project,
+            category: this.project,
             is_unsaved: false,
             history: new History()
         }));
@@ -50,21 +54,22 @@ class TabSystem {
     }
 
     //Closing tab
-    internalCloseId(id) {
-        this.tabs.splice(id, 1);
+    internalCloseId(id, project=this.project) {
+        this.projects[project].splice(id, 1);
         if(id <= this.selected && this.selected > 0) {
             this.select(this.selected - 1);
         }
 
         EventBus.trigger("updateTabUI");
     }
-    closeById(id) {
-        if(this.tabs[id].is_unsaved) {
+    closeById(id, project=this.project) {
+        console.log(id, this.projects[project][id].is_unsaved, this.projects)
+        if(this.projects[project][id].is_unsaved) {
             new ConfirmWindow(() => {
-                this.internalCloseId(id);
+                this.internalCloseId(id, project);
             }, null, "This tab has unsaved progress! Are you sure that you want to close it?");
         } else {
-            this.internalCloseId(id);
+            this.internalCloseId(id, project);
         }
     }
     closeSelected() {
@@ -72,7 +77,7 @@ class TabSystem {
     }
     close(val) {
         if(val == undefined) {
-            this.tabs = [];
+            this.projects = {};
             this.select(0);
             EventBus.trigger("updateTabUI");
         }
@@ -82,12 +87,13 @@ class TabSystem {
 
     //Getting tabs
     get(val) {
-        if(!val) return this.tabs;
-        else if(typeof val == "number") return this.tabs[val];
+        if(!val) return this.projects[this.project];
+        else if(typeof val == "number") return this.projects[this.project][val];
         else throw new TypeError("Expected undefined or number, found " + typeof val);
     }
     getSelected() {
-        return this.tabs[this.selected];
+        if(this.projects[this.project] === undefined) return;
+        return this.projects[this.project][this.selected];
     }
     getCurrentNavigation() {
         if(!this.getSelected()) return;
@@ -124,8 +130,8 @@ class TabSystem {
         EventBus.trigger("updateCurrentContent");
     }
     filtered() {
-        let c = Store.state.Explorer.project;
-        return this.tabs.filter(t => t.category == c);
+        if(this.projects[this.project] === undefined) return [];
+        return this.projects[this.project];
     }
     navigationBack() {
         let nav = this.getCurrentNavigation().split("/");
@@ -135,7 +141,12 @@ class TabSystem {
 
     //Utilities
     select(val) {
-        if(val < 0 || val > this.tabs.length) throw new TypeError("Tab to select is not within the valid range. (size of the tabs array)");
+        if(val < 0 || (
+            this.projects[this.project] !== undefined
+            && this.projects[this.project][val] !== undefined
+            && val > this.projects[this.project][val].length)
+        ) 
+            throw new TypeError("Tab to select is not within the valid range. (size of the tabs array)");
         this.selected = val;
         
         if(this.getSelected()) {
@@ -153,9 +164,9 @@ class TabSystem {
         EventBus.trigger("updateSelectedTab");
     }
     selectNavigation(str_path, tab=this.selected) {
-        if(this.tabs[tab].file_navigation == str_path) return;
+        if(this.projects[this.project][tab].file_navigation == str_path) return;
         
-        this.tabs[tab].file_navigation = str_path;
+        this.projects[this.project][tab].file_navigation = str_path;
         EventBus.trigger("updateFileNavigation", str_path);
         PluginEnv.trigger("bridge:selectedNode", { node: this.getSelected().content.get(str_path) }, true);
     }
@@ -163,10 +174,10 @@ class TabSystem {
         this.selectNavigation(val);
     }
     setCurrentContent(c) {
-        this.tabs[this.selected].content = c;
+        this.getSelected().content = c;
     }
     setTabCompiled(val) {
-        this.tabs[this.selected].is_compiled = val;
+        this.getSelected().is_compiled = val;
     }
     deleteCurrent() {
         let current = this.getSelected().content;
