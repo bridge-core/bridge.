@@ -139,11 +139,27 @@ export default class CreateFileWindow extends ContentWindow {
                     }
                 },
                 {
+                    icon: "mdi-movie",
+                    title: "Animation",
+                    opacity: 0.25,
+                    action: () => {
+                        this.select(5)
+                    }
+                },
+                {
+                    icon: "mdi-google-controller",
+                    title: "Animation Controller",
+                    opacity: 0.25,
+                    action: () => {
+                        this.select(6)
+                    }
+                },
+                {
                     icon: "mdi-language-javascript",
                     title: "Script",
                     opacity: 0.25,
                     action: () => {
-                        this.select(5)
+                        this.select(7)
                     }
                 },
             ]
@@ -183,6 +199,8 @@ export default class CreateFileWindow extends ContentWindow {
             new FileContent("Loot Table", undefined, this, "loot_tables/"),
             new FileContent("Function", "mcfunction", this, "functions/"),
             new FileContent("Spawn Rule", undefined, this, "spawn_rules/"),
+            new FileContent("Animation", undefined, this, "animations/"),
+            new FileContent("Animation Controller", undefined, this, "animation_controllers/"),
             this.SCRIPTS
         ];
         this.templates = [...FILE_TEMPLATES];

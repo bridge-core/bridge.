@@ -44,6 +44,11 @@ let LIB = {
                 return "0";
             }
         },
+        timeline: {
+            next_step() {
+                return [ "0.0", "0.5", "1.0", "1.5", "2.0" ]
+            }
+        },
         setting: {
             target_version() {
                 return Store.state.Settings.target_version;
@@ -69,7 +74,27 @@ let LIB = {
                 } catch(e) {
                     return [];
                 }
+            },
+            "@events"() {
+                return JsonCacheUtils.events.map(e => "@s " + e);
+            },
+            animation_references() {
+                return [];
+            },
+            animation_controller_references() {
+                return [];
             }
+        },
+        animation_controller: {
+            current_states() {
+                return [];
+            }
+        },
+        animation_controller_ids() {
+            return [];
+        },
+        animation_ids() {
+            return [];
         },
         siblings() {
             return PARENT_CONTEXT.toJSON();
@@ -155,7 +180,7 @@ class Provider {
             propose = this.omegaExpression(propose, prev_path.pop(), prev_path);
         }
 
-        // console.log("[PROPOSING]", propose);
+        console.log("[PROPOSING]", propose, LIB);
         if(propose === LIB) return { value: [], object: [] };
         if(Array.isArray(propose)) return { value: propose };
 

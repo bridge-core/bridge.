@@ -17,6 +17,7 @@ class ProblemIterator {
         if(this.last_tree !== node_tree) this.last_tree = node_tree;
         
         let arr = PROBLEM_STORE[FileType.get(file_path)];
+        if(arr === undefined) return;
         arr.forEach(p => p.reset());
 
         if(Store.state.Settings.when_error === "Never") return;

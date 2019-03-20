@@ -33,6 +33,9 @@ function createWindow () {
 
   mainWindow.on('closed', () => {
     mainWindow = null;
+    if(loadingWindow) {
+      loadingWindow.close();
+    }
   });
 
   mainWindow.webContents.on('did-finish-load', () => {

@@ -30,7 +30,7 @@ class TabSystem {
         if(this.projects[this.project] === undefined) this.projects[this.project] = [];
 
         for(let i = 0; i < this.projects[this.project].length; i++) {
-            if(this.projects[this.project][i].file_path == tab.file_path.replace(/\//g, "\\")) {
+            if(this.projects[this.project][i].file_path === tab.file_path.replace(/\//g, "\\")) {
                 Store.commit("removeLoadingWindow", { id: "open-file" });
                 return this.select(i);
             } 
@@ -63,7 +63,6 @@ class TabSystem {
         EventBus.trigger("updateTabUI");
     }
     closeById(id, project=this.project) {
-        console.log(id, this.projects[project][id].is_unsaved, this.projects)
         if(this.projects[project][id].is_unsaved) {
             new ConfirmWindow(() => {
                 this.internalCloseId(id, project);
@@ -250,12 +249,14 @@ class TabSystem {
             }
             
             
-            if(!current.is_invalid) FileSystem.Cache.save(current.file_path, current.content.buildForCache(), PluginEnv.trigger("bridge:cacheFile", { 
-                file_path: current.file_path,
-                content: current.content,
-                file_extension: ext,
-                old_cache: FileSystem.Cache.getSync(current.file_path)
-            }, true, false), 1);
+            if(!current.is_invalid) {
+                FileSystem.Cache.save(current.file_path, current.content.buildForCache(), PluginEnv.trigger("bridge:cacheFile", { 
+                    file_path: current.file_path,
+                    content: current.content,
+                    file_extension: ext,
+                    old_cache: FileSystem.Cache.getSync(current.file_path)
+                }, true, false), 1);
+            } 
 
             let modified_data = PluginEnv.trigger("bridge:saveFile", { 
                 ...current,
@@ -316,7 +317,7 @@ class TabSystem {
 
         PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
-        if(current == undefined) return win.close();
+        if(current === undefined) return win.close();
 
         FileSystem.basicSave(current.file_path, this.getSaveContent(current));
 

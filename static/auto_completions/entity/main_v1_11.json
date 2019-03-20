@@ -7,7 +7,15 @@
             "runtime_identifier": "$general.entity_identifier",
             "is_spawnable": "$general.boolean",
             "is_summonable": "$general.boolean",
-            "is_experimental": "$general.boolean"
+            "is_experimental": "$general.boolean",
+            "animations": {
+                "$placeholder": "$dynamic.animation_ids"
+            },
+            "scripts": {
+                "animate": {
+                    "$dynamic.list.next_index": "$dynamic.entity.animation_references"
+                }
+            }
         },
         "component_groups": {
             "$placeholder": "$entity.main.minecraft:entity.components"

@@ -18,5 +18,15 @@
         "includes": "spawn_rules",
         "id": "spawn_rule",
         "start_state": "spawn_rule/main"
+    },
+    {
+        "includes": "animations",
+        "id": "animation",
+        "start_state": "animation/main"
+    },
+    {
+        "includes": "animation_controllers",
+        "id": "animation_controller",
+        "start_state": "animation_controller/main"
     }
 ]

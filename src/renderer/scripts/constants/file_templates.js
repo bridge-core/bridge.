@@ -82,6 +82,34 @@ export default [
         }
     },
     {
+        "Blank Animation": {
+            "format_version": {},
+            "animations": {
+                "animation.test_events": {
+                    "timeline": {
+                        "0.0": []
+                    },
+                    "animation_length": {}
+                }
+            }
+        }
+    },
+    {
+        "Blank Animation Controller": {
+            "format_version": {},
+            "animation_controllers": {
+                "controller.animation.blank": {
+                    "states": {
+                        "default": {
+                            "on_entry": [],
+                            "on_exit": []
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
         "Script Start": "let system = <server|client>.registerSystem(0,0);\n\nsystem.initialize = function() {};\nsystem.update = function () {};"
     }
 ];

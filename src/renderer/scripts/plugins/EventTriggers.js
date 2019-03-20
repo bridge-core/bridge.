@@ -24,6 +24,7 @@ export function trigger(name, arg, init=true) {
                 try {
                     new_arg = Object.assign(new_arg, res);
                 } catch (e) {
+                    PluginAssert.throw(name, e);
                     console.warn(e);
                 }
             }

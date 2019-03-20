@@ -1,0 +1,30 @@
+{
+    "format_version": "$general.format_version",
+    "animation_controllers": {
+        "$placeholder": {
+            "states": {
+                "default": {
+                    "transitions": {
+                        "$dynamic.list.next_index": {
+                            "$dynamic.animation_controller.current_states": "$animation.general.queries"
+                        }
+                    },
+                    "animations": {
+                        "$dynamic.list.next_index": {
+                            "$dynamic.animation_ids": {
+                                "$dynamic.list.next_index": {}
+                            }
+                        }
+                    },
+                    "on_entry": {
+                        "$dynamic.list.next_index": "$animation.general.events"
+                    },
+                    "on_exit": {
+                        "$dynamic.list.next_index": "$animation.general.events"
+                    }                    
+                },
+                "$placeholder": "$animation_controller.main.animation_controllers.$placeholder.states.default"
+            }
+        }
+    }
+}
