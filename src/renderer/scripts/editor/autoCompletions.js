@@ -44,11 +44,6 @@ let LIB = {
                 return "0";
             }
         },
-        timeline: {
-            next_step() {
-                return [ "0.0", "0.5", "1.0", "1.5", "2.0" ]
-            }
-        },
         setting: {
             target_version() {
                 return Store.state.Settings.target_version;
@@ -79,33 +74,34 @@ let LIB = {
                 return JsonCacheUtils.events.map(e => "@s " + e);
             },
             animation_references() {
-                return [];
-            },
-            animation_controller_references() {
-                return [];
+                try {
+                    return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/description/animations").toJSON());
+                } catch(e) {
+                    return [];
+                }
             }
         },
         animation_controller: {
             current_states() {
+                let current = TabSystem.getCurrentNavObj();
+                while(current !== undefined && current.key !== "states") {
+                    current = current.parent;
+                }
+                if(current.key === "states") return Object.keys(current.toJSON());
                 return [];
             }
         },
         animation_controller_ids() {
-            return [];
+            return JsonCacheUtils.animation_controller_ids;
         },
         animation_ids() {
-            return [];
+            return JsonCacheUtils.animation_ids;
         },
         siblings() {
             return PARENT_CONTEXT.toJSON();
         },
         children() {
             return NODE_CONTEXT.toJSON();
-        },
-        
-        next_list_index() {
-            console.warn("Usage of $dynamic.next_list_index is deprecated! Use $dynamic.list.next_index() instead!");
-            return this.list.next_index();
         },
         loot_table_files() {
             return walkSync(BASE_PATH + Store.state.Explorer.project + "\\loot_tables").map(e => {
@@ -180,7 +176,7 @@ class Provider {
             propose = this.omegaExpression(propose, prev_path.pop(), prev_path);
         }
 
-        console.log("[PROPOSING]", propose, LIB);
+        // console.log("[PROPOSING]", propose, LIB);
         if(propose === LIB) return { value: [], object: [] };
         if(Array.isArray(propose)) return { value: propose };
 
@@ -203,14 +199,14 @@ class Provider {
                     return key.split(".").pop();
                 }
 
-                if(key[0] == "$") {
+                if(key[0] === "$") {
                     // console.log(this.omegaExpression(key))
                     let exp = this.omegaExpression(key);
-                    if(typeof exp == "object") return Object.keys(exp)[0];
+                    if(typeof exp === "object" && !Array.isArray(exp)) return Object.keys(exp)[0];
                     return exp;
                 }
                 return key;
-            }) 
+            }).reduce((acc, val) => acc.concat(val), []) 
         };
     }
 

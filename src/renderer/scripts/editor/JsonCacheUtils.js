@@ -33,4 +33,25 @@ export default class JsonCacheUtils {
         });
         return res;
     }
+
+    static get animation_ids() {
+        let res = [];
+        this.CACHE_ITEMS.forEach(c => {
+            let a = c.get("animations");
+            if(a !== undefined) {
+                res = res.concat(Object.keys(a.toJSON()));
+            }
+        });
+        return res;
+    }
+    static get animation_controller_ids() {
+        let res = [];
+        this.CACHE_ITEMS.forEach(c => {
+            let a = c.get("animation_controllers");
+            if(a !== undefined) {
+                res = res.concat(Object.keys(a.toJSON()));
+            }
+        });
+        return res;
+    }
 }

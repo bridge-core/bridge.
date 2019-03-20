@@ -9,14 +9,14 @@
             "is_summonable": "$general.boolean",
             "is_experimental": "$general.boolean",
             "animations": {
-                "$placeholder": "$dynamic.animation_ids"
+                "$placeholder": "$dynamic.animation_ids and $dynamic.animation_controller_ids"
             },
             "scripts": {
                 "pre_animation": {
                     "$dynamic.list.next_index": {}
                 },
                 "animate": {
-                    "$dynamic.list.next_index": "$dynamic.entity.animation_references and $dynamic.entity.animation_controller_references"
+                    "$dynamic.list.next_index": "$dynamic.entity.animation_references"
                 }
             }
         },
