@@ -22,7 +22,8 @@
     {
         "includes": "animations",
         "id": "animation",
-        "start_state": "animation/main"
+        "start_state": "animation/main",
+        "build_array_exceptions": [ "timeline" ]
     },
     {
         "includes": "animation_controllers",

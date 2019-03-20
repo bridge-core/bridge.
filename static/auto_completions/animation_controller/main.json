@@ -4,11 +4,6 @@
         "$placeholder": {
             "states": {
                 "default": {
-                    "transitions": {
-                        "$dynamic.list.next_index": {
-                            "$dynamic.animation_controller.current_states": "$animation.general.queries"
-                        }
-                    },
                     "animations": {
                         "$dynamic.list.next_index": {
                             "$dynamic.animation_ids": {
@@ -16,6 +11,15 @@
                             }
                         }
                     },
+                    "transitions": {
+                        "$dynamic.list.next_index": {
+                            "$dynamic.animation_controller.current_states": "$animation.general.queries"
+                        }
+                    },
+                    "variables": {
+                        "$placeholder": {}
+                    },
+                    
                     "on_entry": {
                         "$dynamic.list.next_index": "$animation.general.events"
                     },

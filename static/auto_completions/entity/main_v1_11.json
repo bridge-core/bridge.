@@ -12,6 +12,9 @@
                 "$placeholder": "$dynamic.animation_ids"
             },
             "scripts": {
+                "pre_animation": {
+                    "$dynamic.list.next_index": {}
+                },
                 "animate": {
                     "$dynamic.list.next_index": "$dynamic.entity.animation_references"
                 }

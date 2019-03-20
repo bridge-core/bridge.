@@ -4,8 +4,8 @@
         "$placeholder": {
             "animation_length": "$general.number",
             "loop": "$general.boolean",
-            "timelines": {
-                "$dynamic.timeline.next_step": {
+            "timeline": {
+                "$placeholder": {
                     "$dynamic.list.next_index": "$animation.general.main"
                 }
             }

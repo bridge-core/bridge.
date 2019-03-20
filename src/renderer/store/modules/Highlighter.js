@@ -6,17 +6,28 @@ const state = {
         "description",
         "events",
         "components",
-        "component_groups"
+        "component_groups",
+        "timeline"
     ],
     titles: [
         "event",
-        "format_version"
+        "format_version",
+
+        "on_entry",
+        "on_exit"
     ],
     symbols: [
         "add",
         "remove",
         "sequence",
-        "randomize"
+        "randomize",
+
+        "states",
+        "scripts",
+        "animations",
+        "transitions",
+        "variables",
+        "animation_controllers"
     ],
     plugin_keywords: [],
     plugin_titles: [],

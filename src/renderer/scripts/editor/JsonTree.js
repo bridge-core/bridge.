@@ -1,10 +1,11 @@
 // @ts-check
 import Stack from "../utilities/Stack";
-import Json, { Format } from "./Json";
+import Json from "./Json";
 import Provider from "./autoCompletions";
 import PluginEnv from "../plugins/PluginEnv";
 import TabSystem from "../TabSystem";
 import { JSONAction } from "../TabSystem/CommonHistory";
+import FileType from "./FileType";
 let PROVIDER = new Provider("");
 
 function getType(data) {
@@ -62,7 +63,12 @@ export default class JSONTree {
         }
     }
     get is_array() {
-        return this.children[0] && !Number.isNaN(Number(this.children[0].key));
+        let d = FileType.getData();
+        // INCLUDE BUILD ARRAY EXCEPTIONS IF ABLE TO ACCESS DATA
+        if(d !== undefined)
+            return this.children[0] !== undefined && !Number.isNaN(Number(this.children[0].key)) 
+            && (d.build_array_exceptions === undefined || !d.build_array_exceptions.includes(this.key));
+        return this.children[0] !== undefined && !Number.isNaN(Number(this.children[0].key));
     }
     get path() {
         if(!this.parent) return "global";
@@ -170,8 +176,8 @@ export default class JSONTree {
             for(let c of this.children) {
                 if(c.parsed_key == child.parsed_key) return c;
             }
-            if(!Number.isNaN(Number(child.key)) && this.children.length == 0) this.type = "array";
-        } else if(!Number.isNaN(Number(child.key)) || this.find(child) != -1) {
+            if(!Number.isNaN(Number(child.key)) && this.children.length === 0) this.type = "array";
+        } else if(!Number.isNaN(Number(child.key)) || this.find(child) !== -1) {
             child.key = this.children.length + "";
         }
 
