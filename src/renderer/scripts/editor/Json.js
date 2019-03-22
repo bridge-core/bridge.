@@ -1,5 +1,6 @@
 import saveEval from "safe-eval";
 import JSONTree from "./JsonTree";
+import ProblemIterator from "./problems/Problems";
 
 function private_toJSON(tree, build_arrays) {
     if(tree.type != "array" && tree.type != "object") {
@@ -45,7 +46,9 @@ export class Format {
     }
 
     static toTree(obj) {
-        return new JSONTree("global").buildFromObject(obj);
+        let tree = new JSONTree("global").buildFromObject(obj);
+        setTimeout(() => ProblemIterator.findProblems(tree), 10);
+        return tree;
     }
 }
 

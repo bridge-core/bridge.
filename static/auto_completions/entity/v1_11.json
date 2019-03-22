@@ -93,6 +93,7 @@
         "convert_trades_economy": "$general.boolean"
     },
     "minecraft:hide": {},
+    "minecraft:is_hidden_when_invisible": {},
     "minecraft:scheduler": {
         "min_delay_secs": "$general.number",
         "max_delay_secs": "$general.number"
@@ -109,6 +110,14 @@
                 "weight": "$general.number",
                 "value": "$general.entity.event_definition"
             }
+        }
+    },
+    "minecraft:spell_effects": {
+        "add_effects": {
+            "$dynamic.list.next_index": {
+                "$load": "$general.entity.effect_definition",
+                "display_on_screen_animation": "$general.boolean"
+            } 
         }
     },
     "minecraft:trade_resupply": {},

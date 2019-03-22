@@ -6,7 +6,7 @@
                 "default": {
                     "animations": {
                         "$dynamic.list.next_index": {
-                            "$dynamic.animation_ids": {
+                            "$placeholder": {
                                 "$dynamic.list.next_index": {}
                             }
                         }

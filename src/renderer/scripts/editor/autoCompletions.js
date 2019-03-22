@@ -84,6 +84,9 @@ let LIB = {
         animation_controller: {
             current_states() {
                 let current = TabSystem.getCurrentNavObj();
+                if(Object.keys(current.toJSON()).length > 0) return [];
+
+                
                 while(current !== undefined && current.key !== "states") {
                     current = current.parent;
                 }
@@ -104,14 +107,22 @@ let LIB = {
             return NODE_CONTEXT.toJSON();
         },
         loot_table_files() {
-            return walkSync(BASE_PATH + Store.state.Explorer.project + "\\loot_tables").map(e => {
-                return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
-            });
+            try {
+                return walkSync(BASE_PATH + Store.state.Explorer.project + "\\loot_tables").map(e => {
+                    return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
+                });
+            } catch(e) {
+                return [];
+            }
         },
         trade_table_files() {
-            return walkSync(BASE_PATH + Store.state.Explorer.project + "\\trading").map(e => {
-                return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
-            });
+            try {
+                return walkSync(BASE_PATH + Store.state.Explorer.project + "\\trading").map(e => {
+                    return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
+                });
+            } catch(e) {
+                return [];
+            }
         }
     }
 };
@@ -215,7 +226,11 @@ class Provider {
         let key = path_arr.shift();
 
         if(typeof current[key] === "string") {
-            current[key] = this.omegaExpression(current[key], null, null, false);
+            let o = this.omegaExpression(current[key], null, null, false);
+            if(!current[key].startsWith("$dynamic."))
+                current[key] = o;
+            else 
+                return this.walk(path_arr, o);
         } else if(current["$dynamic_template." + key] !== undefined) {
             current = this.compileTemplate(current["$dynamic_template." + key]);
             if(typeof current === "string") {

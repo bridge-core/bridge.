@@ -1,4 +1,58 @@
 {
+    "animation": [
+        {
+            "bridge:format_version_check": {
+                "error_message": "\"format_version\" is required",
+                "fix": {
+                    "type": "script",
+                    "run": "self.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+                }
+            }
+        },
+        {
+            "bridge:child_must_start_with": {
+                "search": "animations",
+                "start": "animation.",
+                "error_message": "Animations must start with \"animation.<name>\"",
+                "fix": {
+                    "type": "script",
+                    "run": "History('edit-key', self, self.key); self.key = `animation.${self.key}`;"
+                }
+            }
+        },
+        {
+            "bridge:child_must_be_number": {
+                "search": "timeline",
+                "error_message": "Timeline attributes need to be a valid number.",
+                "fix": {
+                    "type": "script",
+                    "run": "History('edit-key', self, self.key); self.key = String(Math.floor(Math.random() * 100000));"
+                }
+            }
+        }
+    ],
+    "animation_controller": [
+        {
+            "bridge:format_version_check": {
+                "error_message": "\"format_version\" is required",
+                "fix": {
+                    "type": "script",
+                    "run": "self.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+                }
+            }
+        },
+        {
+            "bridge:child_must_start_with": {
+                "search": "animation_controllers",
+                "start": "controller.animation.",
+                "error_message": "Animation controllers must start with \"controller.animation.<name>\"",
+                "fix": {
+                    "type": "script",
+                    "run": "History('edit-key', self, self.key); self.key = `controller.animation.${self.key.split('.').pop()}`;"
+                }
+            }
+        }
+    ],
     "entity": [
         {
             "bridge:find_one": {
@@ -65,6 +119,37 @@
                     "type": "snippet",
                     "name": "target_selection",
                     "display_text": "Insert minecraft:behavior.nearest_attackable_target"
+                }
+            }
+        },
+
+        {
+            "bridge:format_version_check": {
+                "error_message": "\"format_version\" is required",
+                "fix": {
+                    "type": "script",
+                    "run": "self.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+                }
+            }
+        },
+        {
+            "bridge:event_check": {
+                "error_message": "Unknown event"
+            }
+        },
+        {
+            "bridge:behavior_check": {
+                "error_message": "$failure_name missing"
+            }
+        }
+    ],
+    "spawn_rule": [
+        {
+            "bridge:format_version_check": {
+                "error_message": "\"format_version\" is required",
+                "fix": {
+                    "type": "script",
+                    "run": "self.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
                 }
             }
         }

@@ -38,5 +38,9 @@
         "test": [ "has_biome_tag" ],
         "operator": "$general.entity.filter_operators",
         "value": "$general.biome_tag"
+    },
+    "minecraft:player_in_village_filter": {
+      "distance": "$general.number",
+      "village_border_tolerance": "$general.number"
     }
 }

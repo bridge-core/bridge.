@@ -21,7 +21,9 @@ export class History {
     }
 
     updateError() {
-        if(Store.state.Settings.when_error === "On File Change") ProblemIterator.repeatLast();
+        if(Store.state.Settings.when_error === "On File Change") {
+            setTimeout(() => ProblemIterator.repeatLast(), 10);
+        }
     }
 
     /**

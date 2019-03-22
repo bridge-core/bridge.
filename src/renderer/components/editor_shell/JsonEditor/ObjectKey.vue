@@ -43,7 +43,7 @@
             <v-btn
                 slot="activator"
                 color="amber darken-1"
-                @click.native="error.fix.function"
+                @click.native="error.fix.function(context)"
                 style="margin: 0; height: 20px; width: 20px;"
                 flat
                 small
@@ -79,7 +79,8 @@
             },
             object: Object,
             error: Object,
-            child_contains_error: Boolean
+            child_contains_error: Boolean,
+            context: Object
         },
         computed: {
             selected_class() {

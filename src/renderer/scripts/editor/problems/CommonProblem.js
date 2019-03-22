@@ -1,6 +1,22 @@
 //@ts-check
 import Snippets from "../../../windows/Snippets";
 import ProblemIterator from "./Problems";
+import TabSystem from "../../TabSystem";
+import { JSONAction } from "../../TabSystem/CommonHistory";
+
+function run(code, self) {
+    return (function(self, History, Unsaved){
+        return eval(code);
+    })(self, History, Unsaved);
+}
+function History(type, node, data) {
+    TabSystem.getHistory().add(new JSONAction(type, node, data));
+    TabSystem.setCurrentUnsaved();
+}
+function Unsaved() {
+    TabSystem.setCurrentUnsaved();
+}
+
 
 export default class CommonProblem {
     constructor({ error_message, is_warning, fix }) {
@@ -8,15 +24,26 @@ export default class CommonProblem {
         this.is_warning = is_warning;
         this.store_nodes = [];
         
-        if(fix && fix.type === "snippet") {
-            this.fix = {
-                function: () => {
-                    Snippets.insert(fix.name, true);
-                    ProblemIterator.repeatLast();
-                },
-                text: fix.display_text
-            };
+        if(fix !== undefined) {
+            if(fix.type === "snippet") {
+                this.fix = {
+                    function: () => {
+                        Snippets.insert(fix.name, true);
+                        ProblemIterator.repeatLast();
+                    },
+                    text: fix.display_text
+                };
+            } else if(fix.type === "script") {
+                this.fix = {
+                    function: (context) => {
+                        run(fix.run, context);
+                        ProblemIterator.repeatLast();
+                    },
+                    text: fix.display_text
+                };
+            }
         }
+        
     }
 
     processPeek(node) {

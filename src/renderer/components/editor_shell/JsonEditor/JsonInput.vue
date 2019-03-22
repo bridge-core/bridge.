@@ -105,6 +105,7 @@
 
                     this.expandPath(this.value);
                 } else if(this.file_navigation !== "global" && this.type === "value") {
+                    TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
                     current.data += this.value + "";
                     current.type = typeof this.value;
                     this.navigationBack();
@@ -124,6 +125,11 @@
                         current.data = this.value;
                         TabSystem.setCurrentFileNav(current.path + "/" +  this.value);
                     }
+
+                    //PLUGIN HOOK
+                    PluginEnv.trigger("bridge:modifiedNode", {
+                        node: current
+                    });
                 }
                 TabSystem.setCurrentUnsaved();
                 EventBus.trigger("updateCurrentContent");

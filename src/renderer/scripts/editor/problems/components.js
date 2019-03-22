@@ -7,6 +7,11 @@ import NeedsThree from "./components/NeedsThree";
 import NeedsThreeIfBoth from "./components/NeedsThreeIfBoth";
 import FirstNeedsSecond from "./components/FirstNeedsSecond";
 import FindOne from "./components/FindOne";
+import ChildMustStartWith from "./components/ChildMustStartWith";
+import ChildMustBeNumber from "./components/ChildMustBeNumber";
+import EventCheck from "./components/EventCheck";
+import BehaviorCheck from "./components/BehaviorCheck";
+import FormatVersionCheck from "./components/FormatVersionCheck";
 
 const MAP = {
     "bridge:two_incompatible": TwoIncompatible,
@@ -14,7 +19,12 @@ const MAP = {
     "bridge:needs_both": NeedsBoth,
     "bridge:needs_three": NeedsThree,
     "bridge:needs_three_if_both": NeedsThreeIfBoth,
-    "bridge:find_one": FindOne
+    "bridge:find_one": FindOne,
+    "bridge:child_must_start_with": ChildMustStartWith,
+    "bridge:child_must_be_number": ChildMustBeNumber,
+    "bridge:event_check": EventCheck,
+    "bridge:behavior_check": BehaviorCheck,
+    "bridge:format_version_check": FormatVersionCheck
 };
 
 //@ts-ignore
