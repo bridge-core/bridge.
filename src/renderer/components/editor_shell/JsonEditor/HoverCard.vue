@@ -61,14 +61,6 @@ import { DOC_WINDOW } from '../../../scripts/documentation/main';
 
 export default {
     name: "json-editor-hover-card",
-    mounted() {
-        EventBus.on("updateFileNavigation", this.updateCurrentComment);
-        EventBus.on("updateSelectedTab", this.installListener);
-    },
-    destroyed() {
-        EventBus.off("updateFileNavigation", this.updateCurrentComment);
-        EventBus.off("updateSelectedTab", this.installListener);
-    },
     data() {
         return {
             current_comment: "",
@@ -155,6 +147,7 @@ export default {
         },
         is_visible: {
             get() {
+                this.updateCurrentComment();
                 return this.$store.state.EditorHover.is_visible;
             },
             set() {
@@ -173,10 +166,9 @@ export default {
             TabSystem.getCurrentNavObj().comment = val;
         },
         updateCurrentComment() {
-            try { this.current_comment = TabSystem.getCurrentNavObj().comment; } catch(e) { /*console.log(e)*/ }
-        },
-        installListener() {
-            EventBus.on("updateFileNavigation", this.updateCurrentComment);
+            this.$nextTick(() => {
+                try { this.current_comment = TabSystem.getCurrentNavObj().comment; } catch(e) { /*console.log(e)*/ }
+            });
         }
     }
 }

@@ -34,7 +34,6 @@
                 v-else
                 :class="`key ${key_selected_class}`"
                 :data="value_data"
-                @contextmenu.native="openContextMenu"
                 @click.stop.native="keyClick"
                 v-ripple
             />

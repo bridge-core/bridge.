@@ -359,11 +359,14 @@
     },
     "minecraft:movement.glide": {
         "$load": "$entity.components.minecraft:movement&dot;amphibious",
-        "start_speed": 0.1,
-        "speed_when_turning": 0.2
+        "start_speed": "$general.number",
+        "speed_when_turning": "$general.number"
     },
     "minecraft:movement.skip": "$entity.components.minecraft:movement&dot;amphibious",
-    "minecraft:movement.sway": "$entity.components.minecraft:movement&dot;amphibious",
+    "minecraft:movement.sway": {
+        "$load": "$entity.components.minecraft:movement&dot;amphibious",
+        "sway_amplitude": "$general.number"
+    },
 
     "minecraft:nameable": {
         "allowNameTagRenaming": "$general.boolean",
