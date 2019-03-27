@@ -4,8 +4,8 @@
 You can try the latest version of bridge. now: [See releases!](https://github.com/solvedDev/bridge./releases)
 
 ## About bridge.
-bridge. is a powerful add-on editor designed to speed up your development. It can open all files inside a behavior pack (JavaScript, JSON and functions) and provides a powerful work environment.
-Unleash the full power of add-ons with bridge. plugins and make use of rich auto-completions provided as you navigate through a file. Creating Minecraft add-ons was never more convenient!
+bridge. is a powerful **add-on editor** designed to speed up your development. It can open all files inside a behavior pack (JavaScript, JSON and functions) and provides a **powerful work environment**.
+Unleash the full power of add-ons with bridge. plugins and make use of rich auto-completions provided as you navigate through a file. **Creating Minecraft add-ons was never more convenient!**
 
 ## Why *you* should use bridge.
 In general, dedicated add-on editors like bridge. have a few incredible advantages over normal text editors:
