@@ -33,7 +33,7 @@ Additionally, "bridge." has a few specific features which other editors do not o
 #### Auto-Completions
    - Rich auto-completions for entities, loot tables, trades, spawn rules, animations and animation controllers
    - Handcrafted: We don't trust the Minecraft documentation and you shouldn't either. That's why we wrote all suggestions by hand
-   - Context sensitive: bridge. proposes different values depending on the file (events, component groups, filters, etc.)
+   - Context sensitive: bridge. proposes different data depending on what you wrote before (events, component groups, filters, etc.)
 #### Documentation
    - Easy access to the Minecraft add-on documentation
    - Shortcut to lookup specific components in your file
