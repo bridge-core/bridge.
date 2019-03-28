@@ -34,6 +34,17 @@ export default class JsonCacheUtils {
         return res;
     }
 
+    static get animation_references() {
+        let res = [];
+        this.CACHE_ITEMS.forEach(c => {
+            let refs = c.get("minecraft:entity/description/animations");
+            if(refs !== undefined) {
+                res = res.concat(Object.keys(refs.toJSON()));
+            }
+        });
+        return res;
+    }
+
     static get animation_ids() {
         let res = [];
         this.CACHE_ITEMS.forEach(c => {

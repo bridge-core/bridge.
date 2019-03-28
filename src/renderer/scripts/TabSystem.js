@@ -63,6 +63,8 @@ class TabSystem {
         EventBus.trigger("updateTabUI");
     }
     closeById(id, project=this.project) {
+        if(this.projects[project] === undefined || this.projects[project][id] === undefined)
+            return;
         if(this.projects[project][id].is_unsaved) {
             new ConfirmWindow(() => {
                 this.internalCloseId(id, project);

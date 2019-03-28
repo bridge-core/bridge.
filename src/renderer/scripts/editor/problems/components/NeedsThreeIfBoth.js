@@ -9,7 +9,8 @@ export default class NeedsThreeIfBoth extends CommonProblem {
         if(Array.isArray(first)) this.first = first;
         else this.first = [first];
         this.second = second;
-        this.third = third;
+        if(Array.isArray(third)) this.third = third;
+        else this.third = [third];
 
         this.first_found = false;
         this.second_found = false;
@@ -19,7 +20,7 @@ export default class NeedsThreeIfBoth extends CommonProblem {
     peek(node) {
         if(this.first.includes(node.key)) this.first_found = true;
         else if(node.key === this.second) this.second_found = true;
-        else if(node.key === this.third) this.third_found = true;
+        else if(this.third.includes(node.key)) this.third_found = true;
         else return false;
         return true;
     }
@@ -33,7 +34,7 @@ export default class NeedsThreeIfBoth extends CommonProblem {
         if(!this.found()) return super.report();
         
         let old = this.error_message;
-        this.error_message = this.error_message.replace(/\$failure_name/g, this.third);
+        this.error_message = this.error_message.replace(/\$failure_name/g, this.third.join(" or "));
         let res = super.report();   
         this.error_message = old;
 

@@ -30,6 +30,10 @@
         "poi_type": "$general.poi_type",
         "duration": "$general.number"
     },
+    "minecraft:behavior.mingle": {
+        "mingle_partner_type": "$general.entity_identifier",
+        "mingle_distance": "$general.number"
+    },
     "minecraft.behavior.move_to_poi": {
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal",
@@ -82,7 +86,8 @@
         "update_interval_variant": "$general.number",
         "can_find_poi": "$general.boolean",
         "can_migrate": "$general.boolean",
-        "first_founding_reward": "$general.number"
+        "first_founding_reward": "$general.number",
+        "preferred_profession": ["weaponsmith"]
     },
     "minecraft:economy_trade_table": {
         "display_name": {},

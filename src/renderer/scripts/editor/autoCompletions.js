@@ -74,11 +74,7 @@ let LIB = {
                 return JsonCacheUtils.events.map(e => "@s " + e);
             },
             animation_references() {
-                try {
-                    return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/description/animations").toJSON());
-                } catch(e) {
-                    return [];
-                }
+                return JsonCacheUtils.animation_references;
             }
         },
         animation_controller: {

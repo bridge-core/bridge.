@@ -124,6 +124,27 @@
         },
 
         {
+            "bridge:needs_both": {
+                "first": "minecraft:can_power_jump",
+                "second": "minecraft:horse.jump_strength",
+                "error_message": "$failure_name missing"
+            }
+        },
+        {
+            "bridge:needs_three_if_both": {
+                "first": "minecraft:can_power_jump",
+                "second": "minecraft:horse.jump_strength",
+                "third": [ "minecraft:jump.dynamic", "minecraft:jump.static" ],
+                "error_message": "$failure_name missing",
+                "fix": {
+                    "type": "script",
+                    "run": "self.parent.buildFromObject({ 'minecraft:jump.static': {} }, undefined, true); Unsaved();",
+                    "display_text": "Insert minecraft:jump.static"
+                }
+            }
+        },
+
+        {
             "bridge:format_version_check": {
                 "error_message": "\"format_version\" is required",
                 "fix": {
