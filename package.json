@@ -1,7 +1,7 @@
 {
   "name": "bridge",
   "productName": "bridge.",
-  "version": "0.11.2",
+  "version": "0.11.3",
   "author": "solvedDev <33347616+solvedDev@users.noreply.github.com>",
   "description": "A powerful add-on editor",
   "license": null,
@@ -19,7 +19,7 @@
     "postinstall": ""
   },
   "build": {
-    "productName": "bridge",
+    "productName": "bridge.",
     "appId": "solved.editor.bridge",
     "directories": {
       "output": "build"

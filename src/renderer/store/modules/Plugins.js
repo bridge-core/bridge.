@@ -3,10 +3,7 @@ import Store from "../index";
 import Vue from "vue";
 import fs from "fs";
 import DirToJSON from "dir-to-json";
-
-import Runtime from "../../scripts/plugins/Runtime";
-import detachObj from "../../scripts/detachObj";
-import CodeMirror from "codemirror";
+import { BASE_PATH } from "../../scripts/constants";
 
 const state = {
     installed_plugins: [],
@@ -63,7 +60,7 @@ const mutations = {
     },
     refreshAllPlugins(state, load_dir=false) {
         if(load_dir) {
-            DirToJSON(state.cache.base_path + state.current_loaded_project, (err, files) => {
+            DirToJSON(BASE_PATH + state.current_loaded_project, (err, files) => {
                 if(err) console.log(err);
         
                 Store.commit("setPluginCache", {

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Menu } from 'electron'
+import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import "./communicator.js";
 import "./Discord";
 
@@ -41,6 +41,7 @@ function createWindow () {
   mainWindow.webContents.on('did-finish-load', () => {
     if(loadingWindow) {
       mainWindow.setPosition(...loadingWindow.getPosition());
+      // mainWindow.toggleDevTools();
       loadingWindow.close();
       mainWindow.show();
     }
@@ -77,23 +78,46 @@ function createSplashScreen() {
   });
 }
 
-app.on('ready', () => {
-  createWindow();
-  createSplashScreen();
-})
+function openFile(file) {
+  mainWindow.webContents.send("openFile", file)
+}
+
+const quit = app.makeSingleInstance((argv) => {
+  // Someone tried to run a second instance, we should focus our window.
+  if(loadingWindow) {
+    if(loadingWindow.isMinimized()) loadingWindow.restore();
+    loadingWindow.focus();
+  } else if(mainWindow) {
+    if(mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
+
+  console.log(argv);
+  openFile(argv[1]);
+});
+
+if (quit && process.argv.length >= 2 && process.env.NODE_ENV !== "development") {
+  app.quit();
+} else {
+  app.on('ready', () => {
+    createWindow();
+    createSplashScreen();
+  });
+}
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
-})
+});
 
 app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
-})
+});
 
+ipcMain.on("toggleDevTools", function() { mainWindow.toggleDevTools(); });
 
 /**
  * Auto Updater

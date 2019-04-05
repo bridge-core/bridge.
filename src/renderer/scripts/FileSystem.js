@@ -8,10 +8,29 @@ import { ipcRenderer } from "electron";
 import Cache from "./utilities/Cache.js";
 import JSONTree from "./editor/JsonTree.js";
 import ProblemIterator from "./editor/problems/Problems.js";
+import LoadingWindow from "../windows/LoadingWindow";
 
 function getPath(path) {
     return BASE_PATH + path;
 }
+
+document.addEventListener("dragover", event => {
+    event.preventDefault();
+});
+document.addEventListener("drop", event => {
+    let win = new LoadingWindow("save-file").show();
+    event.preventDefault();
+    let files = event.dataTransfer.files;
+    setTimeout(() => {
+        for(let file of files) {
+            FILE_SYSTEM.open(file.path, () => win.close());
+        }
+        
+    }, 100);
+});
+ipcRenderer.on("openFile", (event, path) => {
+    FILE_SYSTEM.open(path);
+});
 
 class FileSystem {
     constructor() {
@@ -48,7 +67,7 @@ class FileSystem {
         ipcRenderer.send("saveAsFileDialog", { path, content });
     }
 
-    open(path) {
+    open(path, cb) {
         this.Cache.get(path)
             .then((cache) => 
                 cache.content ? 
@@ -56,14 +75,27 @@ class FileSystem {
                     fs.readFile(path, (err, data) => {
                         if(err) throw err;
                         this.addAsTab(path, data.toString(), 0, data);
+
+                        if(typeof cb === "function") cb();
                     })
             )
             .catch((err) => {
-                console.log("[OPEN] Not opened from cache", err);
-                fs.readFile(path, (err, data) => {
-                    if(err) throw err;
-                    this.addAsTab(path, data.toString(), 0, data);
-                });
+                console.log("[OPEN] Not opened from cache", err, );
+                if(fs.statSync(path).isFile()) {
+                    fs.readFile(path, (err, data) => {
+                        if(err) throw err;
+                        this.addAsTab(path, data.toString(), 0, data);
+
+                        if(typeof cb === "function") cb();
+                    });
+                } else {
+                    fs.readdir(path, (err, files) => {
+                        if(err) throw err;
+                        setTimeout(() => {
+                            files.forEach((file, i, arr) => this.open(path + "\\" + file, arr.length - 1 === i ? cb : undefined));
+                        }, 1);
+                    });
+                }
             });
     }
     addAsTab(path, data, format_version=0, raw_data) {
@@ -85,8 +117,4 @@ class FileSystem {
 }
 
 const FILE_SYSTEM = new FileSystem();
-ipcRenderer.on("openFile", (event, path) => {
-    FILE_SYSTEM.open(path);
-});
-
 export default FILE_SYSTEM;

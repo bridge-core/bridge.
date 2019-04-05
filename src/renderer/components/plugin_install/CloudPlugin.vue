@@ -33,7 +33,7 @@
 <script>
 import fs from "fs";
 import mkdirp from "mkdirp";
-import { APP_VERSION } from "../../scripts/constants";
+import { APP_VERSION, BASE_PATH } from "../../scripts/constants";
 import * as VersionUtils from "../../scripts/VersionUtils";
 
 export default {
@@ -93,7 +93,7 @@ export default {
             return this.installed_plugins[i] ? this.installed_plugins[i].version != this.plugin.version : false;
         },
         base_path() {
-            return this.$store.state.TabSystem.base_path + this.$store.state.Explorer.project + "/bridge";
+            return BASE_PATH + this.$store.state.Explorer.project + "/bridge";
         },
         is_compatible() {
             return !VersionUtils.greaterThan(this.plugin.min_app_version || APP_VERSION, APP_VERSION);

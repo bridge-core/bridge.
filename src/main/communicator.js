@@ -1,10 +1,18 @@
 import { ipcMain } from "electron";
 import { dialog } from "electron";
 import fs from "fs";
-import path from "path";
 import DirToJSON from "dir-to-json";
 const base_path = `C:/Users/${process.env.USERNAME}/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/`;
 const behavior_path = base_path + "development_behavior_packs/";
+
+// ipcMain.on("getOpenedWithData", event => {
+//     let data = null;
+//     if(process.platform === "win32" && process.env.NODE_ENV !== "development" && process.argv.length >= 2) {
+//       let to_open = process.argv[1];
+//       data = to_open;
+//     }
+//     event.returnValue = data
+// });
 
 ipcMain.on("getProjects", (event, args) => {
     fs.readdir(base_path + "development_behavior_packs", (err, files) => {

@@ -71,6 +71,7 @@
 
         {
             "bridge:two_incompatible": {
+                "is_warning": true,
                 "first": "minecraft:rideable",
                 "second": "minecraft:spawn_entity",
                 "error_message": "Entities being ridden cannot use minecraft:spawn_entity"

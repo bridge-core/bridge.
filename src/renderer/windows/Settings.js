@@ -7,6 +7,7 @@ import fs from "fs";
 import AddSnippetWindow from "./AddSnippet";
 import Snippets from "./Snippets";
 import ProblemIterator from "../scripts/editor/problems/Problems";
+import { ipcRenderer } from "electron";
 
 class ReactiveListEntry {
     constructor(text, parent, watch_key, index) {
@@ -256,11 +257,18 @@ export default class SettingsWindow extends TabWindow {
                 title: "Developer Mode"
             },
             content: [
+                {
+                    type: "button",
+                    text: "Toggle Dev Tools",
+                    color: "warning",
+                    is_rounded: true,
+                    action: () => ipcRenderer.send("toggleDevTools")
+                },
                 new ReactiveSwitch(this, "is_dev_mode", {
                     color: "error",
                     text: "Asserts",
                     key: `settings.dev.tab.${Math.random()}`
-                })
+                })                
             ]
         });
 

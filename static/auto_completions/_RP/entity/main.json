@@ -1,0 +1,26 @@
+{
+    "format_version": "$general.format_version",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "$general.entity_identifier",
+            "materials": {
+                "$placeholder": {}
+            },
+            "textures": {
+                "$placeholder": {}
+            },
+            "geometry": {
+                "$placeholder": {}
+            },
+            "scripts": {
+                "scale": "$general.decimal",
+                "pre_animation": {
+                    "$dynamic.list.next_index": {}
+                },
+                "animate": {
+                    "$dynamic.list.next_index": {}
+                }
+            }
+        }
+    }
+}
