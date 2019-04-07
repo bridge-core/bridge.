@@ -70,6 +70,8 @@ export default {
                     icon: "mdi-book-open-page-variant",
                     color: "orange",
                     action: () => {
+                        this.is_visible = false;
+                        
                         DOC_WINDOW.open("entities");
                         let e = document.getElementById(TabSystem.getCurrentNavContent());
                         window.setTimeout(() => { if(e) e.scrollIntoView() }, 1000);
@@ -91,6 +93,8 @@ export default {
                     icon: "mdi-content-copy",
                     color: "success",
                     action: () => {
+                        this.is_visible = false;
+
                         let node = TabSystem.getCurrentNavObj();
                         let obj = { [node.key]: node.toJSON() };
                         clipboard.writeText(JSON.stringify(obj, null, "\t"));
@@ -119,6 +123,8 @@ export default {
                     icon: "mdi-download",
                     color: "success",
                     action: () => {
+                        this.is_visible = false;
+
                         try {
                             TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
                         } catch(e) {
