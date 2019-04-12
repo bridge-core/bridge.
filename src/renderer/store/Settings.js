@@ -25,6 +25,7 @@ function setup() {
             when_error: "On File Change",
             error_icon_indicator: true,
             error_auto_fix: true,
+            focus_json_inputs: true,
             custom_snippets: []
         });
     } else {

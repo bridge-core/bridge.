@@ -130,6 +130,16 @@ export default class SettingsWindow extends TabWindow {
 
                 {
                     color: "grey",
+                    text: "\nExperimental"
+                },
+                new ReactiveSwitch(this, "bridge_predictions", {
+                    color: "light-green",
+                    text: "bridge. Predictions",
+                    key: `settings.editor.tab.bridge_predictions.${Math.random()}`
+                }),
+
+                {
+                    color: "grey",
                     text: "\nGeneral"
                 },
                 new ReactiveSwitch(this, "use_tabs", {
@@ -141,6 +151,21 @@ export default class SettingsWindow extends TabWindow {
                     color: "light-green",
                     text: "Word Wrap",
                     key: `settings.editor.tab.line_wraps.${Math.random()}`
+                }),
+                new ReactiveSwitch(this, "focus_json_inputs", {
+                    color: "light-green",
+                    text: "Auto-Focus Inputs",
+                    key: `settings.editor.tab.focus_json_inputs.${Math.random()}`
+                }),
+                new ReactiveSwitch(this, "auto_scroll_json", {
+                    color: "light-green",
+                    text: "Auto-Scroll",
+                    key: `settings.editor.tab.focus_json_inputs.${Math.random()}`
+                }),
+                new ReactiveSwitch(this, "cade_node_click", {
+                    color: "light-green",
+                    text: "Only Select Node On Click",
+                    key: `settings.editor.tab.cade_node_click.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "open_all_nodes", {
                     color: "light-green",

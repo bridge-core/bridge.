@@ -174,7 +174,7 @@
                 this.$nextTick(() => {
                     if(this.items && this.items.length > 0 && this.$refs.input) {
                         if(this.$store.state.Settings.auto_fill_inputs) this.value = this.items[0];
-                        this.$refs.input.focus();
+                        if(this.$store.state.Settings.focus_json_inputs) this.$refs.input.focus();
                     }
                 });
             },

@@ -4,11 +4,12 @@
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
                 <details 
                     v-for="(e, i) in render_object.children"
-                    :key="`${uuid}.${e.open}.${object_key}/${i}.${e.comment}.${JSON.stringify(e.error)}.${Math.random()}`"
+                    :key="`${uuid}.${e.open}.${object_key}/${i}.${e.comment}.${JSON.stringify(e.error)}`"
                     :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                 >
                     <object-key 
-                        @click.native="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
+                        @mainClick="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
+                        @arrowClick="e.open = !e.open"
                         :object="e"
                         :my_key="e.key"
                         :comment="e.comment"
@@ -34,7 +35,7 @@
                 v-else
                 :class="`key ${key_selected_class}`"
                 :data="value_data"
-                @click.stop.native="keyClick"
+                @click.stop.native="attrClick"
                 v-ripple
             />
         </div>
@@ -174,23 +175,26 @@
                 return TabSystem.getCurrentNavigation() == path + expand;
             },
             click(event, event_to_send, key) {
-                if((event.target.tagName === "I" && !event.target.classList.contains("open-arrow")) || event.target.tagName === "BUTTON")
+                if(event.target.tagName === "I" || event.target.tagName === "BUTTON")
                     return;
-                let path = `${this.object_key}/${key.replace(/\//g, "#;slash;#")}`;
-                let details = this.$refs[path][0];
-                
-                
-                if(details.open && !this.is_selected(path)) {
-                    event.preventDefault();
-                } else if(!details.open) {
-                    this.render_object.get(key).open = true;
-                } else {
-                    this.render_object.get(key).open = false;
-                }
+                event.preventDefault();
 
+                let path = `${this.object_key}/${key.replace(/\//g, "#;slash;#")}`;
+                let context = this.render_object.get(key);
+                
+                if(!this.$store.state.Settings.cade_node_click) {
+                    if(context.open && !this.is_selected(path)) {
+                        
+                    } else if(!context.open) {
+                        context.open = true;
+                    } else {
+                        context.open = false;
+                    }
+                }
+                
                 TabSystem.setCurrentFileNav(path);
             },
-            keyClick() {
+            attrClick() {
                 let path = `${this.object_key}/${(this.render_object.data + "").replace(/\//g, "#;slash;#")}`;
                 TabSystem.setCurrentFileNav(path);
             },

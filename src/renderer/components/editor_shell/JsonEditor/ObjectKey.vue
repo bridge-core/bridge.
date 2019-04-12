@@ -4,10 +4,25 @@
         :class="selected_class"
         v-on:keydown.enter="open_current"
         :id="'summary.' + object_key"
-        v-ripple
+        @click="(event) => $emit('mainClick', event)"
+        @dblclick="() => $store.state.Settings.cade_node_click ? $emit('arrowClick') : undefined"
     >
-        <v-icon :class="`${inversed_arrows ? 'open' : 'closed'} open-arrow`" small>keyboard_arrow_down</v-icon>
-        <v-icon :class="`${inversed_arrows ? 'closed' : 'open'} open-arrow`" small>keyboard_arrow_up</v-icon>
+        <v-btn
+            icon
+            flat
+            small
+            style="margin: 0; height: 20px; width: 20px;"
+            @click="$emit('arrowClick')"
+        >
+            <v-icon
+                v-if="inversed_arrows && context.open || !inversed_arrows && !context.open"
+                small
+            >keyboard_arrow_down</v-icon>
+            <v-icon
+                v-if="!inversed_arrows && context.open || inversed_arrows && !context.open"
+                small
+            >keyboard_arrow_up</v-icon>
+        </v-btn>
 
         <v-tooltip
             v-if="error && error.show"
@@ -30,6 +45,7 @@
             slot="activator"
             :style="`background: ${mark.replace(/;|:/g, '')};`"
             class="object"
+            v-ripple
         >
         {{ my_key }}
         </highlight-text>
@@ -84,7 +100,7 @@
         },
         computed: {
             selected_class() {
-                if(this.$el && this.is_selected()) this.$el.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+                if(this.$el && this.is_selected() && this.$store.state.Settings.auto_scroll_json) this.$el.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
                 return this.is_selected() ? "selected" : "";
             },
             inversed_arrows() {
@@ -143,18 +159,6 @@
     
     summary::-webkit-details-marker {
         display: none
-    }
-    details[open]  > summary > .open {
-        display: inline;
-    }
-    details > summary > .open {
-        display: none;
-    }
-    details[open]  > summary > .closed {
-        display: none;
-    }
-    details > summary > .closed {
-        display: inline;
     }
 
     .error-line {
