@@ -137,6 +137,10 @@ export default class SettingsWindow extends TabWindow {
                     text: "bridge. Predictions",
                     key: `settings.editor.tab.bridge_predictions.${Math.random()}`
                 }),
+                {
+                    color: "grey lighten-1",
+                    text: "This experimental feature changes the classic way of editing JSON to a different approach with only two inputs. \"bridge.\" will try to predict the node type you want to insert.\n"
+                },
 
                 {
                     color: "grey",

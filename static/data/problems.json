@@ -160,6 +160,15 @@
             }
         },
         {
+            "bridge:animation_check": {
+                "fix": {
+                    "type": "script",
+                    "run": "self.remove(undefined, true); Unsaved();",
+                    "display_text": "Remove reference"
+                }
+            }
+        },
+        {
             "bridge:behavior_check": {
                 "error_message": "$failure_name missing"
             }

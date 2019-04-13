@@ -205,7 +205,7 @@ export default class JSONTree {
     remove(key, update_history=false) {
         if(this.key == "global") return;
 
-        let c = key ? this.children : this.parent.children;
+        let c = key !== undefined ? this.children : this.parent.children;
         for(let i = 0; i < c.length; i++) {
             if(c[i].parsed_key == (key || this.parsed_key)) {
                 //HISTORY

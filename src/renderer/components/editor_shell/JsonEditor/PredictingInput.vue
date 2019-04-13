@@ -1,19 +1,12 @@
 <template>
-    <v-flex v-show="type != 'edit' || file_navigation != 'global'">
+    <v-flex>
         <v-layout>
-            <v-text-field
-                ref="input"
-                @keydown.enter.native="click"
-                v-if="type == 'edit'"
-                v-model="value"
-            />
             <v-combobox
                 ref="input"
 
-                v-else
                 v-model="value"
                 @keydown.enter.native="click"
-                :label="label"
+                label="Add"
                 :items="items"
                 :auto-select-first="true"
                 :menu-props="{ maxHeight: 130, top: false }"
@@ -37,7 +30,7 @@
     import { JSONAction } from '../../../scripts/TabSystem/CommonHistory';
 
     export default {
-        name: "json-input",
+        name: "predicting-json-input",
         props: {
             type: String,
             tab_id: Number,
@@ -48,29 +41,19 @@
         data() {
             return {
                 items: [],
-                value: ""
+                value: "",
+                mode: "object"
             };
         },
         mounted() {
-            if(this.type == "edit") {
-                this.value = TabSystem.getCurrentNavContent();
-                EventBus.on("updateFileNavigation", this.updateValue);
-                EventBus.on("setWatcherInactive", () => this.watcher_active = false);
-            } else {
-                this.updateAutoCompletions();
-                EventBus.on("updateAutoCompletions", () => this.updateAutoCompletions());
-            }
+            this.updateAutoCompletions();
+            EventBus.on("updateAutoCompletions", () => this.updateAutoCompletions());
         },
         destroyed() {
-            if(this.type == "edit") {
-                EventBus.off("updateFileNavigation", this.updateValue);
-            } else {
-                EventBus.off("updateAutoCompletions", () => this.updateAutoCompletions());
-            }
+            EventBus.off("updateAutoCompletions", () => this.updateAutoCompletions());
         },
         watch: {
             file_navigation(nav) {
-                if(this.type == "edit") return;
                 this.updateAutoCompletions();
             },
             provide_auto_completions(prov_auto) {
@@ -79,33 +62,23 @@
             }
         },
         computed: {
-            label() {
-                if(this.type == "object") {
-                    return "Add object";
-                } else if(this.type == "value") {
-                    return "Add value";
-                } else {
-                    return "Edit";
-                }
-            },
             provide_auto_completions() {
                 return this.$store.state.Settings.auto_completions;
             }
         },
         methods: {
             click() {
-                // console.log(this.value, this.render_object.get(this.file_navigation));
-                if(this.value == "" || !this.value) return;
+                if(this.value == "" || this.value === undefined) return;
                 let current = this.render_object.get(this.file_navigation);
                 let is_data_path = TabSystem.getSelected().content.isDataPath(this.file_navigation);
-                if(this.type === "object") {
+
+                if(this.mode === "object") {
                     let node = new JSONTree(this.value + "");
                     current.add(node, true).openNode();
-                    current.type = "object";
                     EventBus.trigger("setWatcherInactive");
 
                     this.expandPath(this.value);
-                } else if(this.file_navigation !== "global" && this.type === "value") {
+                } else if(this.file_navigation !== "global" && this.mode === "value") {
                     TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
                     current.data += this.value + "";
                     current.type = typeof this.value;
@@ -115,31 +88,14 @@
                     PluginEnv.trigger("bridge:modifiedNode", {
                         node: current
                     });
-                } else if(this.type === "edit") {
-                    if(!is_data_path) {
-                        TabSystem.getHistory().add(new JSONAction("edit-key", current, current.key));
-                        current.key = this.value;
-                        TabSystem.setCurrentFileNav(current.path);
-                    } 
-                    else {
-                        TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
-                        current.data = this.value;
-                        TabSystem.setCurrentFileNav(current.path + "/" +  this.value);
-                    }
-
-                    //PLUGIN HOOK
-                    PluginEnv.trigger("bridge:modifiedNode", {
-                        node: current
-                    });
                 }
+
                 TabSystem.setCurrentUnsaved();
                 EventBus.trigger("updateCurrentContent");
 
-                if(this.type !== "edit") {
-                    this.$nextTick(() => {
-                        this.value = "";
-                    });
-                }               
+                this.$nextTick(() => {
+                    this.value = "";
+                });            
             },
 
             updateAutoCompletions() {
@@ -148,26 +104,25 @@
                     return;
                 }
 
-                let context = [];
+                
                 let current = this.render_object.get(this.file_navigation);
                 if(current == undefined || current == null) return;
-                if(this.type == "object")
-                    context = Object.keys(current.toJSON());
-                if(this.type == "value") {
-                    if(current) context = current.data;
-                    else context = [];
-                }
+                let context = Object.keys(current.toJSON());
                     
-
-                let propose;
-                if(current) propose = current.propose(this.file_navigation);
-                else propose = [];
+                let propose = current.propose(this.file_navigation);
 
                 //PLUGIN HOOK
                 PluginEnv.trigger("bridge:beforePropose", { propose, node: current });
-                propose = propose[this.type];
+                if(propose.object !== undefined && propose.object.length > 0) {
+                    propose = propose.object || [];
+                    this.mode = "object";
+                } else if(propose.value !== undefined && propose.value.length > 0) {
+                    propose = propose.value || [];
+                    this.mode = "value";
+                } else 
+                    return this.items = [];
                 
-                if(propose == undefined || propose.length == 0 || (typeof context == "string" && context != ""))
+                if(current.data != "")
                     return this.items = [];
 
                 this.items = propose.filter(e => !context.includes(e));
@@ -183,10 +138,6 @@
             expandPath(path) {
                 TabSystem.setCurrentFileNav(`${TabSystem.getCurrentNavigation()}/${path}`);
             },
-            updateValue() {
-                this.watcher_active = false;
-                this.value = TabSystem.getCurrentNavContent();    
-            },
             navigationBack() {
                 TabSystem.navigationBack();
                 // console.log(this.items.length == 0, this.file_navigation != "global")
@@ -200,14 +151,6 @@
     }
 </script>
 
-<style scoped>
-    .v-btn {
-        min-width: 0;
-    }
-</style>
-
 <style>
-    .v-menu__content.v-autocomplete__content .v-list__tile:not(.v-list__tile--avatar) {
-        height: 26px !important;
-    }
+
 </style>
