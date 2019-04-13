@@ -12,7 +12,6 @@ export default class AnimationCheck extends CommonProblem {
 
     peek(node) {
         if(node.parent !== undefined && node.parent.key === "animations") {
-            console.log("Found")
             if(
                 !JsonCacheUtils.animation_ids.includes(node.data)
                 && !JsonCacheUtils.animation_controller_ids.includes(node.data)
