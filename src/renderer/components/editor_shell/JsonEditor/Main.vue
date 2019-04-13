@@ -4,7 +4,7 @@
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
                 <details 
                     v-for="(e, i) in render_object.children"
-                    :key="`${uuid}.${e.open}.${object_key}/${i}.${e.comment}.${JSON.stringify(e.error)}`"
+                    :key="`${uuid}.${e.key}.${e.data}.${e.open}.${object_key}/${i}.${e.comment}.${JSON.stringify(e.error)}`"
                     :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                 >
                     <object-key 
@@ -41,16 +41,34 @@
         </div>
         <v-divider v-if="first"></v-divider>
         <v-layout class="controls" v-if="first">
-            <json-input
-                v-for="e in ['object', 'value', 'edit']"
-                :ref="e"
-                :render_object="render_object"
-                :tab_id="tab_id"
-                :type="e"
-                :key="`${e}`"
-                :file_navigation="file_navigation"
-                :current_file_path="current_file_path"
-            />
+            <template v-if="$store.state.Settings.bridge_predictions && isKnownFileType()">
+                <predicting-input
+                    :render_object="render_object"
+                    :tab_id="tab_id"
+                    :file_navigation="file_navigation"
+                    :current_file_path="current_file_path"
+                />
+                <json-input
+                    ref="edit"
+                    :render_object="render_object"
+                    :tab_id="tab_id"
+                    type="edit"
+                    :file_navigation="file_navigation"
+                    :current_file_path="current_file_path"
+                />
+            </template>
+            <template v-else>
+                <json-input
+                    v-for="input_type in ['object', 'value', 'edit']"
+                    :ref="input_type"
+                    :render_object="render_object"
+                    :tab_id="tab_id"
+                    :type="input_type"
+                    :key="`${input_type}`"
+                    :file_navigation="file_navigation"
+                    :current_file_path="current_file_path"
+                />
+            </template>
         </v-layout>
     </span>
 </template>
@@ -59,17 +77,20 @@
     import HighlightAttribute from "./HighlightAttribute";
     import ObjectKey from "./ObjectKey";
     import JsonInput from "./JsonInput";
+    import PredictingInput from "./PredictingInput";
     import InternalJSON from "../../../scripts/editor/Json.js";
     import TabSystem from '../../../scripts/TabSystem';
     import EventBus from '../../../scripts/EventBus';
     import JSONTree from '../../../scripts/editor/JsonTree';
+    import FileType from '../../../scripts/editor/FileType';
 
     export default {
         name: "json-editor-main",
         components: {
             HighlightAttribute,
             ObjectKey,
-            JsonInput
+            JsonInput,
+            PredictingInput
         },
         props: {
             available_height: Number,
@@ -205,6 +226,10 @@
 
                     if(depth == deepest) this.$store.commit("removeLoadingWindow", { id: "open-file" });
                 }, 5);
+            },
+
+            isKnownFileType() {
+                return FileType.get() !== "unknown";
             }
         },
         watch: {

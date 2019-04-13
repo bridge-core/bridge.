@@ -11,7 +11,7 @@
             icon
             flat
             small
-            style="margin: 0; height: 20px; width: 20px;"
+            style="margin: 0; height: 16px; width: 16px;"
             @click="$emit('arrowClick')"
         >
             <v-icon

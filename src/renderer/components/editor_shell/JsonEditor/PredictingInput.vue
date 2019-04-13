@@ -99,6 +99,8 @@
             },
 
             updateAutoCompletions() {
+                this.mode = "object";
+
                 if(!this.provide_auto_completions) {
                     this.items = [];
                     return;
@@ -113,10 +115,9 @@
 
                 //PLUGIN HOOK
                 PluginEnv.trigger("bridge:beforePropose", { propose, node: current });
-                if(propose.object !== undefined && propose.object.length > 0) {
+                if(propose.object !== undefined && propose.object.length > 0)
                     propose = propose.object || [];
-                    this.mode = "object";
-                } else if(propose.value !== undefined && propose.value.length > 0) {
+                else if(propose.value !== undefined && propose.value.length > 0) {
                     propose = propose.value || [];
                     this.mode = "value";
                 } else 
