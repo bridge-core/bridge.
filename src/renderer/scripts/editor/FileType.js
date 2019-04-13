@@ -29,4 +29,19 @@ export default class FileType {
         if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
         return FILE_DEFS.map(def => def.id);
     }
+
+    static getHighlighter() {
+        try {
+            return this.getData().highlighter;
+        } catch(e) {
+            return {
+                define: {
+                    keywords: [],
+                    symbols: [],
+                    titles: []
+                }
+            }
+        }
+        
+    }
 }

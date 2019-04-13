@@ -17,13 +17,13 @@
         },  
         computed: {
             keywords() {
-                return this.$store.getters.highlighter_keywords;
+                return this.$store.getters.highlighter_keywords();
             },
             titles() {
-                return this.$store.getters.highlighter_titles;
+                return this.$store.getters.highlighter_titles();
             },
             symbols() {
-                return this.$store.getters.highlighter_symbols;
+                return this.$store.getters.highlighter_symbols();
             },
             text() {
                 if(this.$slots.default) return (this.$slots.default[0].text + "").trim();

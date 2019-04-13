@@ -6,6 +6,7 @@ import PluginEnv from "../plugins/PluginEnv";
 import TabSystem from "../TabSystem";
 import { JSONAction } from "../TabSystem/CommonHistory";
 import FileType from "./FileType";
+import uuidv4 from "uuid/v4";
 let PROVIDER = new Provider("");
 
 function getType(data) {
@@ -29,6 +30,7 @@ export default class JSONTree {
         this.propose_cache_uses = 0;
         this.mark_color = undefined;
         this.error = undefined;
+        this.uuid = uuidv4();
 
         this.TreeIterator = class {
             constructor(tree) {
@@ -100,6 +102,11 @@ export default class JSONTree {
         }
         return false;
     }
+
+    updateUUID() {
+        this.uuid = uuidv4();
+    }
+
     /**
      * @param {String|Array} inp 
      */
@@ -172,6 +179,8 @@ export default class JSONTree {
      * @param {JSONTree} child 
      */
     add(child, update_history=false) {
+        this.updateUUID();
+
         if(!this.is_array) {
             for(let c of this.children) {
                 if(c.parsed_key == child.parsed_key) return c;
@@ -198,12 +207,14 @@ export default class JSONTree {
     edit(new_data) {
         if(!new_data) throw new Error("Data may not be undefined or null.");
         this.data = new_data;
+        this.updateUUID();
     }
     /**
      * @param {String} key (Optional)
      */
     remove(key, update_history=false) {
-        if(this.key == "global") return;
+        if(this.key === "global") return;
+        this.parent.updateUUID();
 
         let c = key !== undefined ? this.children : this.parent.children;
         for(let i = 0; i < c.length; i++) {
@@ -224,6 +235,8 @@ export default class JSONTree {
      * @param {Boolean} update_history 
      */
     removeNode(node, update_history=false) {
+        this.updateUUID();
+        
         for(let i = 0; i < this.children.length; i++) {
             if(node.parsed_key == this.children[i].parsed_key) {
                 //HISTORY
@@ -259,14 +272,20 @@ export default class JSONTree {
         return this.propose_cache;
     }   
     openNode(val=true) {
+        this.updateUUID();
+
         this.open = val;
         return this;
     }
     toggleOpen() {
+        this.updateUUID();
+
         this.open = !this.open;
         return this;
     }
     toggleOpenDeep(val=this.open) {
+        this.updateUUID();
+
         this.open = !val;
         this.children.forEach(c => c.toggleOpenDeep(val));
         return this;
@@ -276,6 +295,8 @@ export default class JSONTree {
     //NAVIGATING & MOVING
     moveUp() {
         if(this.parent == undefined) return false;
+        this.parent.updateUUID();
+
         let a = this.parent.children;
         let me = this.parent.find(this);
         if(me == 0 || a.length < 1) return false;
@@ -287,6 +308,8 @@ export default class JSONTree {
     }
     moveDown() {
         if(this.parent == undefined) return false;
+        this.parent.updateUUID();
+
         let a = this.parent.children;
         let me = this.parent.find(this);
         if(me == a.length - 1) return false;
@@ -341,6 +364,8 @@ export default class JSONTree {
         Object.keys(data).forEach(key => {
             this.remove(key);
         });
+
+        this.updateUUID();
     }
 
     //JSON -> TREE

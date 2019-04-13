@@ -2,32 +2,82 @@
     {
         "includes": "entities",
         "id": "entity",
-        "start_state": "entity/main"
+        "start_state": "entity/main",
+        "highlighter": {
+            "set": {},
+            "define": {
+                "keywords": [ "minecraft", "description", "events", "components", "component_groups" ],
+                "titles": [ "format_version", "do_not_upgrade", "event" ],
+                "symbols": [ "add", "remove", "sequence", "randomize", "scripts", "animations" ]
+            }
+        }
     },
     {
         "includes": "loot_tables",
         "id": "loot_table",
-        "start_state": "loot_table/main"
+        "start_state": "loot_table/main",
+        "highlighter": {
+            "set": {},
+            "define": {
+                "keywords": [ "minecraft", "pools", "entries" ],
+                "titles": [ "type" ],
+                "symbols": [ "functions", "conditions", "tiers", "rolls" ]
+            }
+        }
     },
     {
         "includes": "trading",
         "id": "trade_table",
-        "start_state": "trade_table/main"
+        "start_state": "trade_table/main",
+        "highlighter": {
+            "set": {},
+            "define": {
+                "keywords": [ "minecraft", "tiers", "trades", "groups" ],
+                "titles": [ "item", "quantity" ],
+                "symbols": [ "wants", "gives" ]
+            }
+        }
     },
     {
         "includes": "spawn_rules",
         "id": "spawn_rule",
-        "start_state": "spawn_rule/main"
+        "start_state": "spawn_rule/main",
+        "highlighter": {
+            "set": {},
+            "define": {
+                "keywords": [ "minecraft", "conditions", "description" ],
+                "titles": [ "format_version" ],
+                "symbols": [ "identifier", "population_control" ]
+            }
+        }
     },
     {
         "includes": "animations",
         "id": "animation",
         "start_state": "animation/main",
-        "build_array_exceptions": [ "timeline" ]
+        "build_array_exceptions": [ "timeline" ],
+
+        "highlighter": {
+            "set": {},
+            "define": {
+                "keywords": [ "animations", "timeline" ],
+                "titles": [ "format_version" ],
+                "symbols": []
+            }
+        }
     },
     {
         "includes": "animation_controllers",
         "id": "animation_controller",
-        "start_state": "animation_controller/main"
+        "start_state": "animation_controller/main",
+
+        "highlighter": {
+            "set": {},
+            "define": {
+                "keywords": [ "animation_controllers", "states" ],
+                "titles": [ "format_version", "on_entry", "on_exit" ],
+                "symbols": [ "animations", "transitions", "variables" ]
+            }
+        }
     }
 ]

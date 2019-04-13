@@ -107,7 +107,7 @@
                     this.expandPath(this.value);
                 } else if(this.file_navigation !== "global" && this.type === "value") {
                     TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
-                    current.data += this.value + "";
+                    current.edit(this.value);;
                     current.type = typeof this.value;
                     this.navigationBack();
 
@@ -119,11 +119,12 @@
                     if(!is_data_path) {
                         TabSystem.getHistory().add(new JSONAction("edit-key", current, current.key));
                         current.key = this.value;
+                        current.updateUUID();
                         TabSystem.setCurrentFileNav(current.path);
                     } 
                     else {
                         TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
-                        current.data = this.value;
+                        current.edit(this.value);
                         TabSystem.setCurrentFileNav(current.path + "/" +  this.value);
                     }
 

@@ -3,13 +3,13 @@
         <div v-if="open" :style="element_style">
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
                 <details 
-                    v-for="(e, i) in render_object.children"
-                    :key="`${uuid}.${e.key}.${e.data}.${e.open}.${object_key}/${i}.${e.comment}.${JSON.stringify(e.error)}`"
+                    v-for="e in render_object.children"
+                    :key="e.uuid"
                     :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                 >
                     <object-key 
                         @mainClick="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
-                        @arrowClick="e.open = !e.open"
+                        @arrowClick="e.toggleOpen()"
                         :object="e"
                         :my_key="e.key"
                         :comment="e.comment"
@@ -207,9 +207,9 @@
                     if(context.open && !this.is_selected(path)) {
                         
                     } else if(!context.open) {
-                        context.open = true;
+                        context.openNode(true);
                     } else {
-                        context.open = false;
+                        context.openNode(false);
                     }
                 }
                 
