@@ -15,9 +15,16 @@
                 dense
                 class="json-input-menu"
             ></v-combobox>
-            <v-btn @click="click">
-                +
+
+            <v-btn @click="click(null, 'object')">
+                <v-icon>mdi-code-braces</v-icon>
             </v-btn>
+            <v-tooltip bottom>
+                <v-btn slot="activator" @click="click(null, 'value')">
+                    <v-icon>mdi-format-quote-close</v-icon>
+                </v-btn>
+                <span>Shift + Enter</span>
+            </v-tooltip>           
         </v-layout>
     </v-flex>
 </template>
@@ -67,19 +74,25 @@
             }
         },
         methods: {
-            click() {
-                if(this.value == "" || this.value === undefined) return;
-                let current = this.render_object.get(this.file_navigation);
-                let is_data_path = TabSystem.getSelected().content.isDataPath(this.file_navigation);
+            click(event, force) {
+                if(this.value === "" || this.value === undefined || this.value === null) return;
 
+                if(force !== undefined)
+                    this.mode = force;
+                else if(event !== null && event.shiftKey)
+                    this.mode = "value";
+
+                let current = this.render_object.get(this.file_navigation);
                 if(this.mode === "object") {
                     let node = new JSONTree(this.value + "");
-                    current.add(node, true).openNode();
-                    EventBus.trigger("setWatcherInactive");
+                    current.add(node, true);
+                    current.type = "object";
+                    current.openNode();
 
                     this.expandPath(this.value);
                 } else if(this.file_navigation !== "global" && this.mode === "value") {
                     TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
+
                     current.edit(this.value + "");
                     current.type = typeof this.value;
                     this.navigationBack();
@@ -91,7 +104,7 @@
                 }
 
                 TabSystem.setCurrentUnsaved();
-                EventBus.trigger("updateCurrentContent");
+                // EventBus.trigger("updateCurrentContent");
 
                 this.$nextTick(() => {
                     this.value = "";

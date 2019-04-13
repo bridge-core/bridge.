@@ -180,7 +180,7 @@ export default class JSONTree {
      */
     add(child, update_history=false) {
         this.updateUUID();
-
+        
         if(!this.is_array) {
             for(let c of this.children) {
                 if(c.parsed_key == child.parsed_key) return c;

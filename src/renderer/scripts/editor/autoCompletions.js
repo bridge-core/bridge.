@@ -67,6 +67,7 @@ let LIB = {
                 try {
                     return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/events").toJSON());
                 } catch(e) {
+                    console.log(e);
                     return [];
                 }
             },
@@ -223,7 +224,7 @@ class Provider {
 
         if(typeof current[key] === "string") {
             let o = this.omegaExpression(current[key], null, null, false);
-            if(!current[key].startsWith("$dynamic."))
+            if(typeof current !== "string" && !current[key].startsWith("$dynamic."))
                 current[key] = o;
             else 
                 return this.walk(path_arr, o);

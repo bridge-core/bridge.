@@ -6,6 +6,7 @@
                     v-for="e in render_object.children"
                     :key="e.uuid"
                     :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
+                    :open="e.open"
                 >
                     <object-key 
                         @mainClick="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
@@ -21,7 +22,6 @@
                     />
 
                     <json-editor-main 
-                        :uuid="uuid"
                         :glob_object="first ? render_object : glob_object"
                         :object="e"
                         :first="false"
@@ -102,7 +102,6 @@
                 type: Boolean
             },
             tab_id: Number,
-            uuid: String,
             object_key: {
                 type: String,
                 default: "global"
@@ -113,11 +112,6 @@
             }
         },
         mounted() {
-            //console.log("Listening: " + `load(${this.tab_id}):${this.object_key}`);
-            this.$root.$on(`load(${this.tab_id}):${this.object_key}`, () => {
-                this.open = true;
-            });
-
             if(this.first) {
                 EventBus.on("updateFileNavigation", () => {
                     this.file_navigation = TabSystem.getCurrentNavigation();
@@ -130,17 +124,9 @@
                     this.$nextTick(() => this.openAllChildren());
                 else
                     this.$store.commit("removeLoadingWindow", { id: "open-file" });
-            }
-
-            if(!this.first && this.render_object.open) {
-                this.open = true;
-
-                this.$parent.$refs[this.object_key][0].open = true;
-                this.$root.$emit(`load(${this.tab_id}):${this.object_key}`, true);
-            }  
+            } 
         },
         beforeDestroy() {
-            this.$root.$off(`load(${this.tab_id}):${this.object_key}`);
             if(this.first) {
                 EventBus.off("updateFileNavigation");
                 EventBus.off("updateCurrentContent");
@@ -230,14 +216,6 @@
 
             isKnownFileType() {
                 return FileType.get() !== "unknown";
-            }
-        },
-        watch: {
-            render_object(new_val, prev_val) {
-                if(new_val && prev_val && new_val.open && new_val.open != prev_val.open) {
-                    this.$root.$emit(`load(${this.tab_id}:)${this.object_key}`, true);
-                    if(this.object_key != "global") this.$parent.$refs[this.object_key][0].open = true;
-                }
             }
         }
     }
