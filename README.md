@@ -1,7 +1,8 @@
 # bridge.
 
 ## Download
-You can try the latest version of bridge. now: [See releases!](https://github.com/solvedDev/bridge./releases)
+#### [Latest version!](https://github.com/solvedDev/bridge./releases/latest)
+
 
 ## About bridge.
 bridge. is a powerful **add-on editor** designed to speed up your development. It can open all files inside a behavior pack (JavaScript, JSON and functions) and provides a **powerful work environment**.
@@ -31,6 +32,7 @@ Additionally, "bridge." has a few specific features which other editors do not o
    - Beautiful syntax highlighting for all behavior pack files
    - Snippets to quickly import common JSON patterns
    - Error/Mistake detection and auto-fixes for some of them
+   - bridge. file structure predictions for users who want to be even faster writing add-ons
 #### Auto-Completions
    - Rich auto-completions for entities, loot tables, trades, spawn rules, animations and animation controllers
    - Handcrafted: We don't trust the Minecraft documentation and you shouldn't either. That's why we wrote all suggestions by hand
@@ -44,6 +46,7 @@ Additionally, "bridge." has a few specific features which other editors do not o
    - Light & Dark Theme with corresponding syntax highlighter
    - Set a default project to be opened automatically when you open bridge.
    - Choose between auto-completions for multiple Minecraft versions
+   - Collection of options to customize your developing experience
 #### JavaScript Plugins
    - Create new menus, windows and notifications
    - Add new file types
