@@ -35,12 +35,18 @@ const DEF = JSON.parse(fs.readFileSync(__static + "\\data\\problems.json").toStr
 //Load
 let PROBLEM_STORE = {};
 for(let file_type in DEF) {
-    PROBLEM_STORE[file_type] = DEF[file_type].map(component_store => {
-        let component_name = Object.keys(component_store)[0];
-        if(MAP[component_name] === undefined) throw new Error("Unknown component: " + component_name);
+    PROBLEM_STORE[file_type] = [];
 
-        return new MAP[component_name](component_store[component_name]);
-    })
+    for(let key in DEF[file_type]) {
+        let current = DEF[file_type][key];
+        if(MAP[key] === undefined) throw new Error("Unknown component: " + key);
+
+        if(Array.isArray(current)) {
+            current.forEach(e => PROBLEM_STORE[file_type].push(new MAP[key](e)));
+        } else {
+            PROBLEM_STORE[file_type].push(new MAP[key](current));
+        }
+    }
 }
 
 export default PROBLEM_STORE;
