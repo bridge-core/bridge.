@@ -152,6 +152,8 @@
     }
 </script>
 
-<style>
-
+<style scoped>
+    .v-btn {
+        min-width: 0;
+    }
 </style>
