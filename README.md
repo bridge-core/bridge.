@@ -13,7 +13,7 @@ In general, dedicated add-on editors like bridge. have a few incredible advantag
 - You cannot write invalid JSON
 - You cannot make general file structure mistakes because auto-completions guide you through the file
 - You do not need to study vanilla files and/or the incorrect documentation to find out which arguments a component has
-
+- Developing a behavior pack is significantly faster
 Additionally, "bridge." has a few specific features which other editors do not offer:
 - The ability to switch between auto-completions for multiple Minecraft versions seamlessly: We currently support v1.10 and v1.11 of Minecraft
 - Packaging your behavior pack into a .mcpack file with only one click
