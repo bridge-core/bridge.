@@ -1,9 +1,12 @@
 import { ipcMain } from "electron";
 import { dialog } from "electron";
 import fs from "fs";
+import path from "path";
 import DirToJSON from "dir-to-json";
-const base_path = `C:/Users/${process.env.USERNAME}/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/`;
-const behavior_path = base_path + "development_behavior_packs/";
+import getGameDirectory from "../shared/getGameDirectory";
+
+const base_path = path.join(getGameDirectory(), "/games/com.mojang");
+const behavior_path = path.join(base_path, "/development_behavior_packs");
 
 // ipcMain.on("getOpenedWithData", event => {
 //     let data = null;
@@ -15,7 +18,7 @@ const behavior_path = base_path + "development_behavior_packs/";
 // });
 
 ipcMain.on("getProjects", (event, args) => {
-    fs.readdir(base_path + "development_behavior_packs", (err, files) => {
+    fs.readdir(behavior_path, (err, files) => {
         if(err) console.log(err);
         event.sender.send("readProjects", { files, ...args });
         if(args.event_name) event.sender.send(args.event_name, { files, ...args });
@@ -23,7 +26,7 @@ ipcMain.on("getProjects", (event, args) => {
 });
   
 ipcMain.on("getDir", (event, args) => {
-    DirToJSON(behavior_path + args.path, (err, files) => {
+    DirToJSON(path.join(behavior_path, args.path), (err, files) => {
         if(err) console.log(err);
 
         event.sender.send("readDir", { files, ...args });
@@ -32,7 +35,7 @@ ipcMain.on("getDir", (event, args) => {
 });
   
 ipcMain.on("getFile", (event, args) => {
-    fs.readFile(behavior_path + args.path, (err, content) => {
+    fs.readFile(path.join(behavior_path, args.path), (err, content) => {
         if(err) console.log(err);
         let file = args.path.split("/").pop();
   
@@ -41,7 +44,7 @@ ipcMain.on("getFile", (event, args) => {
 });
 
 ipcMain.on("saveFile", (event, { path, content }) => {
-    fs.writeFile(behavior_path + path, content, (err) => console.warn(err));
+    fs.writeFile(path.join(behavior_path, path), content, (err) => console.warn(err));
 });
 
 ipcMain.on("openFileDialog", (event, args) => {

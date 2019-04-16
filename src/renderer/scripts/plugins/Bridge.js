@@ -1,6 +1,7 @@
 import Runtime from "./Runtime";
 import { shell } from "electron";
 import fs from "fs";
+import path from "path";
 import Store from "../../store/index";
 import { trigger, overwriteTrigger } from "./EventTriggers";
 import PluginAssert from "./PluginAssert";
@@ -60,71 +61,71 @@ export default class Bridge {
             setup(namespace) {
                 if(namespace == undefined) throw new Error("You need to define a namespace");
                 this.namespace = namespace + "/";
-                fs.mkdir(Runtime.Paths.store() + namespace, (err) => {
+                fs.mkdir(path.join(Runtime.Paths.store(), namespace), (err) => {
                     if(err && !err.message.includes("file already exists")) throw err;
                 });
             },
             load(name) {
                 if(this.namespace == undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
-                return JSON.parse(fs.readFileSync(Runtime.Paths.store() + this.namespace + name));
+                return JSON.parse(fs.readFileSync(path.join(Runtime.Paths.store(), this.namespace, name)));
             },
             save(name, data) {
                 if(this.namespace == undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
                 try {
-                    return fs.writeFileSync(Runtime.Paths.store() + this.namespace + name, JSON.stringify(data));
+                    return fs.writeFileSync(path.join(Runtime.Paths.store(), this.namespace, name), JSON.stringify(data));
                 } catch(e) {
                     throw new Error("Provided data is not a valid store content.");
                 }
             },
             exists(name) {
                 if(this.namespace == undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
-                return fs.existsSync(Runtime.Paths.store() + this.namespace + name);
+                return fs.existsSync(path.join(Runtime.Paths.store(), this.namespace, name));
             }
         };
 
         this.FS = {
             __file_path__: file_path,
-            readFile(path, cb) {
-                fs.readFile(Runtime.Paths.project() + path, (err, data) => {
+            readFile(filePath, cb) {
+                fs.readFile(path.join(Runtime.Paths.project(), filePath), (err, data) => {
                     if(err && !cb) PluginAssert.throw(this.__file_path__, err);
                     cb(err, data);
                 });
             },
-            readFileSync(path) {
+            readFileSync(filePath) {
                 try {
-                    return fs.readFileSync((Runtime.Paths.project() + path).replace(/\//g, "\\"));
+                    return fs.readFileSync(path.join(Runtime.Paths.project(), filePath));
                 } catch(err) {
                     PluginAssert.throw(this.__file_path__, err);
                 }
                 
             },
-            writeFile(path, data, cb, check=true) {
+            writeFile(filePath, data, cb, check=true) {
                 let folder = path.split(/\\|\//g);
                 folder.pop();
-                folder = folder.join("\\");
+                folder = path.join(...folder);
 
                 if(check && !this.exists(Runtime.Paths.project() + folder)) {
-                    fs.mkdir(Runtime.Paths.project() + folder, err => {
-                        this.writeFile(path, data, cb, false);
+                    fs.mkdir(path.join(Runtime.Paths.project(), folder), err => {
+                        this.writeFile(filePath, data, cb, false);
                     });
                 } else {
-                    fs.writeFile(Runtime.Paths.project() + path, data, (err) => {
+                    fs.writeFile(path.join(Runtime.Paths.project(), filePath), data, (err) => {
                         if(err && !cb) PluginAssert.throw(this.__file_path__, err);
                         else if(err) cb(err);
                     });
                 }
             },
-            readDirectory(path, cb) {
-                fs.readdir(Runtime.Paths.project() + path, (err, data) => {
+            readDirectory(filePath, cb) {
+                fs.readdir(path.join(Runtime.Paths.project(), filePath), (err, data) => {
                     if(err && !cb) PluginAssert.throw(this.__file_path__, err);
                     cb(err, data);
                 });
             },
-            exists(path) {
-                return fs.existsSync((Runtime.Paths.project() + path).replace(/\//g, "\\"));
+            exists(filePath) {
+                return fs.existsSync(path.join(Runtime.Paths.project() + filePath));
             },
-            stats(path, cb) {
-                fs.lstat(Runtime.Paths.project() + path, (err, data) => {
+            stats(filePath, cb) {
+                fs.lstat(path.join(Runtime.Paths.project(), filePath), (err, data) => {
                     if(err && !cb) PluginAssert.throw(this.__file_path__, err);
                     cb(err, data);
                 });
@@ -243,7 +244,7 @@ export default class Bridge {
 
         this.Utils = {
             get base_path() {
-                return BASE_PATH + Store.state.Explorer.project + "/";
+                return path.join(BASE_PATH, Store.state.Explorer.project) + "/";
             },
             get current_project() {
                 return Store.state.Explorer.project;
@@ -283,7 +284,7 @@ export default class Bridge {
         TabSystem.add({
             content,
             raw_content: content,
-            file_path: Runtime.Project.get() + "/" + file_path,
+            file_path: path.join(Runtime.Project.get(), file_path),
             file_name
         });
     }

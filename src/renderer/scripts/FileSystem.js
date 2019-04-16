@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import mkdirp from "mkdirp";
 import { BASE_PATH } from "./constants.js";
 import Store from "../store/index";
@@ -11,7 +12,7 @@ import ProblemIterator from "./editor/problems/Problems.js";
 import LoadingWindow from "../windows/LoadingWindow";
 
 function getPath(path) {
-    return BASE_PATH + path;
+    return path.join(BASE_PATH, path);
 }
 
 document.addEventListener("dragover", event => {
@@ -90,10 +91,10 @@ class FileSystem {
                         if(typeof cb === "function") cb();
                     });
                 } else {
-                    fs.readdir(path, (err, files) => {
+                    fs.readdir(filePath, (err, files) => {
                         if(err) throw err;
                         setTimeout(() => {
-                            files.forEach((file, i, arr) => this.open(path + "\\" + file, arr.length - 1 === i ? cb : undefined));
+                            files.forEach((file, i, arr) => this.open(path.join(filePath, file), arr.length - 1 === i ? cb : undefined));
                         }, 1);
                     });
                 }

@@ -1,5 +1,6 @@
 //@ts-check
 import fs from "fs";
+import path from "path";
 //Components
 import TwoIncompatible from "./components/TwoIncompatible";
 import NeedsBoth from "./components/NeedsBoth";
@@ -30,7 +31,7 @@ const MAP = {
 };
 
 //@ts-ignore
-const DEF = JSON.parse(fs.readFileSync(__static + "\\data\\problems.json").toString());
+const DEF = JSON.parse(fs.readFileSync(path.join(__static, "/data/problems.json")).toString());
 
 //Load
 let PROBLEM_STORE = {};

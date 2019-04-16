@@ -39,7 +39,7 @@ const mutations = {
                         e.children.forEach(plugin => {
                             if(plugin.type != "directory") {
                                 Store.commit("loadPlugin", { 
-                                    code: fs.readFileSync(base_path + selected + "/" + plugin.path).toString(),
+                                    code: fs.readFileSync(path.join(base_path, selected, `/${plugin.path}`)).toString(),
                                     path: plugin.path,
                                     blocked: uninstalled.includes(plugin.path)
                                 });

@@ -1,5 +1,6 @@
 import saveEval from "safe-eval";
 import fs from "fs";
+import path from "path";
 import Runtime from "./Runtime";
 import BlockedBridge from "./BlockedBridge";
 import Bridge from "./Bridge";
@@ -109,12 +110,12 @@ class Interpreter {
     init(project) {
         Runtime.Paths.setProject(project);
 
-        let path = `${Runtime.Paths.bridge()}plugin_storage/`;
-        if(!fs.existsSync(path)) {
-            fs.mkdirSync(path);
+        let p = path.join(Runtime.Paths.bridge(), "plugin_storage");
+        if(!fs.existsSync(p)) {
+            fs.mkdirSync(p);
         }
 
-        let u_path = Runtime.Paths.bridge() + "uninstalled_plugins.json";
+        let u_path = path.join(Runtime.Paths.bridge(), "uninstalled_plugins.json");
         if(!fs.existsSync(u_path)) {
             fs.writeFile(u_path, "[]", (err) => {
                 if(err) console.log(err);

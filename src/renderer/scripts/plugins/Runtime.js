@@ -1,12 +1,13 @@
+import path from "path";
 import { BASE_PATH } from "../constants";
 
 let Runtime = {
     static_base_path: BASE_PATH,
     getBridgePath() {
-        return `${BASE_PATH}${Runtime.project}/bridge/`;
+        return path.join(BASE_PATH, Runtime.project, "bridge");
     },
     getStorePath() {
-        return `${BASE_PATH}${Runtime.project}/bridge/plugin_storage/`;
+        return path.join(this.getBridgePath, "plugin_storage");
     },
     getProjectPath() {
         return `${BASE_PATH}${Runtime.project}/`;

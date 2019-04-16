@@ -1,8 +1,9 @@
+import path from "path";
 import BridgeStore from "../scripts/utilities/BridgeStore";
 import VueStore from "./index";
 
 let STORE;
-if(process.env.NODE_ENV === "development") STORE = new BridgeStore(__dirname + "/", "data");
+if(process.env.NODE_ENV === "development") STORE = new BridgeStore(path.join(__dirname, "data"));
 else STORE = new BridgeStore(`C:\\Users\\${process.env.USERNAME}\\.bridge\\`, "data");
 let DATA;
 

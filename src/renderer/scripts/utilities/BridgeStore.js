@@ -1,20 +1,21 @@
 import fs from "fs";
+import path from "path";
 import mkdirp from "mkdirp";
 
 export default class BridgeStore {
     constructor(path, namespace) {
-        this.namespace = namespace + "\\";
+        this.namespace = namespace;
         this.path = path;
     }
 
     setup(namespace) {
         if(namespace === undefined) throw new Error("You need to define a namespace");
-        this.namespace = namespace + "\\";
+        this.namespace = namespace;
         mkdirp.sync(this.path + this.namespace);
     }
     load(name) {
         if(this.namespace === undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
-        return JSON.parse(fs.readFileSync(this.path + this.namespace + name));
+        return JSON.parse(fs.readFileSync(path.join(this.path, this.namespace, name)));
     }
     save(name, data) {
         if(this.namespace === undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
@@ -25,12 +26,12 @@ export default class BridgeStore {
         } catch(e) {
             throw new Error("Provided data is not a valid store content.");
         }
-        return fs.writeFileSync(this.path + this.namespace + name, tmp);
+        return fs.writeFileSync(path.join(this.path, this.namespace, name), tmp);
     }
     exists(name) {
         if(this.namespace === undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
-        console.log(this.path + this.namespace + name);
+        console.log(path.join(this.path, this.namespace, name));
         
-        return fs.existsSync(this.path + this.namespace + name);
+        return fs.existsSync(path.join(this.path, this.namespace, name));
     }
 }

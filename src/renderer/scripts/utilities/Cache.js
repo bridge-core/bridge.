@@ -1,10 +1,11 @@
 import fs from "fs";
+import path from "path";
 import mkdirp from "mkdirp";
 import { BASE_PATH } from "../constants.js";
 import Store from "../../store/index";
 
-function getPath(path) {
-    return BASE_PATH + path;
+function getPath(filePath) {
+    return path.join(BASE_PATH, filePath);
 }
 function getFileId(file_path) {
     return file_path.replace(/\\/g, "/").replace(BASE_PATH.replace(/\\/g, "/"), "");
@@ -99,7 +100,7 @@ export default class Cache {
     
     //WRAPPER
     saveCache(data=this.cached_cache) {
-        fs.writeFile(getPath(this.project + "/bridge/.editor-cache"), JSON.stringify(data, null, "\t"), (err) => {
+        fs.writeFile(getPath(path.join(this.project, "/bridge/.editor-cache")), JSON.stringify(data, null, "\t"), (err) => {
             if(err) throw err;
         });
     }
@@ -108,14 +109,14 @@ export default class Cache {
             cb(this.cached_cache);
             return;
         }
-        let p = getPath(this.project + "/bridge").replace(/\//g, "\\");
+        let p = getPath(path.join(this.project, "/bridge"));
 
         fs.exists(getPath(p), (exists) => {
             if(!exists) mkdirp.sync(p);
 
-            fs.exists(p + "/.editor-cache", (exists_file) => {
+            fs.exists(path.join(p, "/.editor-cache"), (exists_file) => {
                 if(!exists_file) {
-                    fs.writeFile(p + "/.editor-cache", "{}", (err) => {
+                    fs.writeFile(path.join(p, "/.editor-cache"), "{}", (err) => {
                         if(err) throw err;
                         this.cached_cache = {};
                         this.loaded_cache = this.project;
@@ -123,7 +124,7 @@ export default class Cache {
                         if(typeof cb == "function") cb({});
                     });
                 } else {
-                    fs.readFile(p + "/.editor-cache", (err, data) => {
+                    fs.readFile(path.join(p, "/.editor-cache"), (err, data) => {
                         if(err) throw err;
                         let c = data == "" ? {} : JSON.parse(data);
                         this.cached_cache = c;
@@ -139,12 +140,12 @@ export default class Cache {
         if(use_cache && this.cached_cache !== undefined && this.loaded_cache === this.project)
             return this.cached_cache;
 
-        let p = getPath(this.project + "/bridge").replace(/\//g, "\\");
+        let p = getPath(path.join(this.project, "/bridge"));
         try {
-            return JSON.parse(fs.readFileSync(p + "/.editor-cache").toString());
+            return JSON.parse(fs.readFileSync(path.join(p, "/.editor-cache")).toString());
         } catch(e) {
             mkdirp(p);
-            fs.writeFile(p + "/.editor-cache", "{}", (err) => {
+            fs.writeFile(path.join(p, "/.editor-cache"), "{}", (err) => {
                 if(err) throw err;
             });
             return {};

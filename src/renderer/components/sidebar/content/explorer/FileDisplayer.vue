@@ -13,7 +13,7 @@
             v-for="(file, i) in loop_files.filter(f => f.type != 'directory')"
             :key="`file.nr.${i}`"
             class="file"
-            @click.stop="openFile(project + '\\' + file.path)"
+            @click.stop="openFile(pathJoin(project, file.path))"
             v-ripple
         >
             <v-icon small>{{ icon(getExtension(file.name)) }}</v-icon>  {{ file.name }}
@@ -23,6 +23,7 @@
 
 <script>
     import { ipcRenderer } from "electron";
+    import path from "path";
     import FileSystem from "../../../../scripts/FileSystem";
     import { BASE_PATH } from "../../../../scripts/constants";
     import LoadingWindow from "../../../../windows/LoadingWindow";
@@ -67,12 +68,15 @@
             }
         },
         methods: {
-            openFile(path) {
+            openFile(filePath) {
                 //ipcRenderer.send("getFile", { path: path.replace(/\\/g, "/") });
                 if(!this.$store.state.LoadingWindow["open-file"]) {
                     new LoadingWindow("open-file").show();
-                    FileSystem.open(BASE_PATH + path);
+                    FileSystem.open(path.join(BASE_PATH, filePath));
                 } 
+            },
+            pathJoin (...args) {
+                return path.join(...args)
             },
             getExtension(name) {
                 return name.split(".").pop().toLowerCase();
