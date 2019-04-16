@@ -18,14 +18,15 @@ document.addEventListener("dragover", event => {
     event.preventDefault();
 });
 document.addEventListener("drop", event => {
-    let win = new LoadingWindow("save-file").show();
+    let win;
     event.preventDefault();
     let files = event.dataTransfer.files;
+    if(files.length !== 0) win = new LoadingWindow("save-file").show();
+
     setTimeout(() => {
         for(let file of files) {
             FILE_SYSTEM.open(file.path, () => win.close());
-        }
-        
+        }        
     }, 100);
 });
 ipcRenderer.on("openFile", (event, path) => {
