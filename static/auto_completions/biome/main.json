@@ -1,10 +1,45 @@
 {
-    "format_version": "1.12.0",
-    "minecraft:biome": {
-        "description": {
-            "identifier": {}
-        },
+    "$dynamic.current_file_name": {
+        "format_version": "1.12.0",
+        "$load": "$biome.components",
 
-        "components": "$biome.components"
+        "animal": {},
+        "bamboo": {},
+        "beach": {},
+        "birch": {},
+        "cold": {},
+        "deep": {},
+        "desert": {},
+        "edge": {},
+        "extreme_hills": {},
+        "flower_forest": {},
+        "frozen": {},
+        "hills": {},
+        "ice": {},
+        "ice_plains": {},
+        "jungle": {},
+        "forest": {},
+        "lukewarm": {},
+        "mega": {},
+        "mesa": {},
+        "monster": {},
+        "mooshroom_island": {},
+        "mountain": {},
+        "mutated": {},
+        "nether": {},
+        "no_legacy_worldgen": {},
+        "ocean": {},
+        "overworld": {},
+        "plains": {},
+        "plateau": {},
+        "savanna": {},
+        "swamp": {},
+        "rare": {},
+        "river": {},
+        "roofed": {},
+        "shore": {},
+        "stone": {},
+        "taiga": {},
+        "warm": {}
     }
 }

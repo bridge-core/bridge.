@@ -103,6 +103,11 @@ let LIB = {
         children() {
             return NODE_CONTEXT.toJSON();
         },
+        current_file_name() {
+            let arr = TabSystem.getSelected().file_path.split(/\/|\\/g).pop().split(".");
+            arr.pop()
+            return [ arr.join(".") ];
+        },
         loot_table_files() {
             try {
                 return walkSync(BASE_PATH + Store.state.Explorer.project + "\\loot_tables").map(e => {
