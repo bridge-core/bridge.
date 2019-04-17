@@ -1,0 +1,10 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:biome": {
+        "description": {
+            "identifier": {}
+        },
+
+        "components": "$biome.components"
+    }
+}

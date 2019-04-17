@@ -1,6 +1,0 @@
-{
-    "type": "furnace_recipe",
-    "tags": [ "furnace", "blast_furnace", "smoker", "campfire" ],
-    "input": "$general.item_identifier",
-    "output": "$general.item_identifier"
-}

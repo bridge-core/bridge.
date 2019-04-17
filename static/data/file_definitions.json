@@ -10,6 +10,65 @@
                 "titles": [ "format_version", "do_not_upgrade", "event" ],
                 "symbols": [ "add", "remove", "sequence", "randomize", "scripts", "animations" ]
             }
+        },
+        "file_creator": {
+            "icon": "mdi-chess-knight",
+            "title": "Entity",
+            "extension": "json",
+            "path": "/entities",
+            "templates": {
+                "Blank Entity": {
+                    "minecraft:entity": {
+                        "format_version": {},
+                        "description": {
+                            "identifier": "",
+                            "runtime_identifier": ""
+                        },
+                        "component_groups": {},
+                        "components": {},
+                        "events": {}
+                    }
+                }
+            }
+        }
+    },
+    {
+        "includes": "items",
+        "id": "item",
+        "start_state": "item/main",
+        "highlighter": {
+            "set": {},
+            "define": {
+                "keywords": [ "minecraft", "description", "components" ],
+                "titles": [ "format_version" ],
+                "symbols": [ ]
+            }
+        }
+    },
+    {
+        "includes": "biomes",
+        "id": "biome",
+        "start_state": "biome/main",
+        "highlighter": {
+            "set": {},
+            "define": {
+                "keywords": [ "minecraft", "description", "components" ],
+                "titles": [ "format_version" ],
+                "symbols": [ ]
+            }
+        }
+    },
+    {
+        "includes": "recipes",
+        "id": "recipe",
+        "start_state": "recipe/main",
+        "highlighter": {
+            "set": {},
+            "define": {
+                "keywords": [ "minecraft", "description", "tags", "input", "output", "pattern", "key", "result", "ingredients" ],
+                "titles": [ "format_version" ],
+                "symbols": [ ]
+            }
         }
     },
     {

@@ -1,0 +1,4 @@
+{
+    "noise_type": [ "beach", "default", "extreme", "taiga", "ocean", "mountains", "default_mutated", "deep_ocean", "lowlands", "less_extreme", "stone_beach", "swamp" ],
+    "temparature": [ "warm", "lukewarm", "medium", "cold", "frozen" ]
+}

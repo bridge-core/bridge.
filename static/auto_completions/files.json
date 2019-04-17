@@ -1,6 +1,13 @@
 [
     "general",
 
+    "biome/main",
+    "biome/general",
+    "biome/components",
+
+    "block/main",
+    "block/components",
+
     "entity/main",
     "entity/main_v1_11",
     "entity/general",
@@ -9,6 +16,13 @@
     "entity/annotations",
     "entity/behavior",
     "entity/filters",
+
+    "item/main",
+    "item/general",
+    "item/components",
+
+    "recipe/main",
+    "recipe/general",
 
     "loot_table/main",
     "loot_table/general",

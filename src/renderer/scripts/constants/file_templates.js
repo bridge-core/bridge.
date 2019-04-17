@@ -14,6 +14,17 @@ export default [
         }
     },
     {
+        "Blank Item": {
+            "format_version": {},
+            "minecraft:item": {
+                "description": {
+                    "identifier": ""
+                },
+                "components": {}
+            }
+        }
+    },
+    {
         "Blank Trade Table": {
             tiers: [
                 {
@@ -60,6 +71,17 @@ export default [
                     ]
                 }
             ]
+        }
+    },
+    {
+        "Blank Recipe": {
+            "format_version": {},
+            "minecraft:recipe_shaped": {
+                "description": {
+                    "identifier": ""
+                },
+                "tags": {}
+            }
         }
     },
     {

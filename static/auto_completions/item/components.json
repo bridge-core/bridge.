@@ -1,0 +1,30 @@
+{
+    "minecraft:use_duration": "$general.number",
+    "minecraft:max_stack_size": "$general.number",
+    "minecraft:max_damage": "$general.number",
+    "minecraft:hand_equipped": "$general.boolean",
+    "minecraft:stacked_by_data": "$general.boolean",
+    "minecraft:foil": "$general.boolean",
+
+    "minecraft:food": {
+        "nutrition": "$general.number",
+        "can_always_eat": "$general.boolean",
+        "saturation_modifier": "$item.general.saturation_modifier",
+        "effects": {
+            "$dynamic.list.next_index": "$item.general.effect_definition"
+        },
+        "using_converts_to": "$general.item_identifier",
+        "on_use_action": [ "chorus_teleport" ],
+        "on_use_range": {
+            "$dynamic.list.index_triple": "$general.number"
+        },
+        "cooldown_type": [ "chorusfruit" ],
+        "cooldown_time": "$general.number"
+    },
+    "minecraft:seed": {
+        "crop_result": "$general.block_identifier",
+        "plant_at": {
+            "$dynamic.list.next_index": "$general.block_identifier"
+        }
+    }
+}

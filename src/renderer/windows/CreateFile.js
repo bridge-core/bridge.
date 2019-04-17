@@ -107,11 +107,19 @@ export default class CreateFileWindow extends ContentWindow {
                     }
                 },
                 {
+                    icon: "mdi-sword",
+                    title: "Item",
+                    opacity: 0.25,
+                    action: () => {
+                        this.select(1)
+                    }
+                },
+                {
                     icon: "store",
                     title: "Trade Table",
                     opacity: 0.25,
                     action: () => {
-                        this.select(1)
+                        this.select(2)
                     }
                 },
                 {
@@ -119,7 +127,15 @@ export default class CreateFileWindow extends ContentWindow {
                     title: "Loot Table",
                     opacity: 0.25,
                     action: () => {
-                        this.select(2)
+                        this.select(3)
+                    }
+                },
+                {
+                    icon: "mdi-book",
+                    title: "Recipe",
+                    opacity: 0.25,
+                    action: () => {
+                        this.select(4)
                     }
                 },
                 {
@@ -127,7 +143,7 @@ export default class CreateFileWindow extends ContentWindow {
                     title: "Function",
                     opacity: 0.25,
                     action: () => {
-                        this.select(3)
+                        this.select(5)
                     }
                 },
                 {
@@ -135,7 +151,7 @@ export default class CreateFileWindow extends ContentWindow {
                     title: "Spawn Rule",
                     opacity: 0.25,
                     action: () => {
-                        this.select(4)
+                        this.select(6)
                     }
                 },
                 {
@@ -143,7 +159,7 @@ export default class CreateFileWindow extends ContentWindow {
                     title: "Animation",
                     opacity: 0.25,
                     action: () => {
-                        this.select(5)
+                        this.select(7)
                     }
                 },
                 {
@@ -151,7 +167,7 @@ export default class CreateFileWindow extends ContentWindow {
                     title: "Animation Controller",
                     opacity: 0.25,
                     action: () => {
-                        this.select(6)
+                        this.select(8)
                     }
                 },
                 {
@@ -159,7 +175,7 @@ export default class CreateFileWindow extends ContentWindow {
                     title: "Script",
                     opacity: 0.25,
                     action: () => {
-                        this.select(7)
+                        this.select(9)
                     }
                 },
             ]
@@ -195,8 +211,10 @@ export default class CreateFileWindow extends ContentWindow {
         this.win_def.actions = this.actions;
         this.contents = [
             new FileContent("Entity", undefined, this, "entities/"),
+            new FileContent("Item", undefined, this, "items/"),
             new FileContent("Trade Table", undefined, this, "trading/"),
             new FileContent("Loot Table", undefined, this, "loot_tables/"),
+            new FileContent("Recipe", undefined, this, "recipes/"),
             new FileContent("Function", "mcfunction", this, "functions/"),
             new FileContent("Spawn Rule", undefined, this, "spawn_rules/"),
             new FileContent("Animation", undefined, this, "animations/"),

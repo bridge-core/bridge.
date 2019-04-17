@@ -1,0 +1,11 @@
+{
+    "effect_definition": {
+        "effect": "$general.effect_name",
+        "chance": "$general.decimal",
+        "duration": "$general.number",
+        "amplifier": "$general.number",
+        "visible": "$general.number_boolean",
+        "ambient": "$general.number_boolean"
+    },
+    "saturation_modifier": [ "poor", "low", "normal", "good", "supernatural" ]
+}

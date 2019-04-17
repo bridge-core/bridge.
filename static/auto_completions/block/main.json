@@ -1,0 +1,13 @@
+{
+    "format_version": "$general.format_version",
+
+    "minecraft:block": {
+        "description": {
+            "identifier": {},
+            "register_to_creative_menu": "$general.boolean",
+            "is_experimental": "$general.boolean"
+        },
+
+        "components": "$block.components"
+    }
+}

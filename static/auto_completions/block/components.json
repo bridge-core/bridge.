@@ -1,0 +1,30 @@
+{
+    "minecraft:destroy_time": {
+        "value": "$general.decimal"
+    },
+    "minecraft:block_light_emission": {
+        "emission": "$general.decimal"
+    },
+    "minecraft:block_light_absorption": {
+        "value": "$general.decimal"
+    },
+    "minecraft:map_color": {
+        "color": {}
+    },
+    "minecraft:flammable": {
+        "burn_odds": "$general.decimal",
+        "flame_odds": "$general.decimal"
+    },
+    "minecraft:friction": {
+        "value": "$general.decimal"
+    },
+    "minecraft:explosion_resistance": {
+        "value": "$general.decimal"
+    },
+    "minecraft:destroy_time": {
+        "value": "$general.decimal"
+    },
+    "minecraft:loot": {
+        "table": "$dynamic.loot_table_files"
+    }
+}

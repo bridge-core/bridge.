@@ -1,0 +1,10 @@
+{
+    "format_version": "$general.format_version",
+    "minecraft:item": {
+        "description": {
+            "identifier": {}
+        },
+
+        "components": "$item.components"
+    }
+}

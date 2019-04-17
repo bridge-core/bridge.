@@ -1,0 +1,57 @@
+{
+    "format_version": "$general.format_version",
+    "minecraft:recipe_furnace": {
+        "description": "$recipe.general.description",
+        "tags": {
+            "$dynamic.list.next_index": "$recipe.general.tags"
+        },
+
+        "input": "$general.item_identifier",
+        "output": "$general.item_identifier"
+    },
+    
+    "minecraft:recipe_shaped": {
+        "description": "$recipe.general.description",
+        "tags": {
+            "$dynamic.list.next_index": "$recipe.general.tags"
+        },
+
+        "pattern": {
+            "$dynamic.list.index_triple": {}
+        },
+        "key": {
+            "$placeholder": {
+                "item": "$general.item_identifier",
+                "data": "$general.number"
+            }
+        },
+        "result": {
+            "$dynamic.list.next_index": {
+                "item": "$general.item_identifier",
+                "data": "$general.number",
+                "count": "$general.number"
+            }
+        }
+    },
+
+    "minecraft:recipe_shapeless": {
+        "description": "$recipe.general.description",
+        "tags": {
+            "$dynamic.list.next_index": "$recipe.general.tags"
+        },
+
+        "ingredients": {
+            "$dynamic.list.next_index": {
+                "item": "$general.item_identifier",
+                "data": "$general.number"
+            }
+        },
+        "result": {
+            "$dynamic.list.next_index": {
+                "item": "$general.item_identifier",
+                "data": "$general.number",
+                "count": "$general.number"
+            }
+        }
+    }
+}

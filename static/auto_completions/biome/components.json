@@ -1,0 +1,59 @@
+{
+    "minecraft:climate": {
+        "downfall": "$general.decimal",
+        "snow_accumulation": {
+            "$dynamic.list.index_pair": "$general.decimal"
+        },
+        "temperature": "$general.decimal"
+    },
+    "minecraft:overworld_height": {
+        "noise_type": "$biome.general.noise_type",
+        "noise_params": {
+            "$dynamic.list.index_pair": "$general.decimal"
+        }
+    },
+    "minecraft:overworld_surface": {
+        "floor_depth": "$general.number",
+        "floor_material": "$general.block_identifier",
+        "foundation_material": "$general.block_identifier",
+        "mid_material": "$general.block_identifier",
+        "top_material": "$general.block_identifier"
+    },
+    "minecraft:swamp_surface": {
+        "floor_depth": "$general.number",
+        "floor_material": "$general.block_identifier",
+        "foundation_material": "$general.block_identifier",
+        "mid_material": "$general.block_identifier",
+        "top_material": "$general.block_identifier"
+    },
+    "minecraft:nether_surface": {},
+    "minecraft:the_end_surface": {},
+    "minecraft:world_generation_rules": {
+        "hills_transformation": {
+            "$dynamic.list.next_index": {}
+        },
+        "mutate_transformation": {
+            "$dynamic.list.next_index": {}
+        },
+        "generate_for_climates": {
+            "$dynamic.list.next_index": {
+                "0": "$biome.general.temperature",
+                "1": "$general.number"
+            }
+        }
+    },
+    "minecraft:surface_material_adjustments": {
+        "adjustments": {
+            "$dynamic.list.next_index": {
+                "materials": {
+                    "floor_material": "$general.block_identifier",
+                    "mid_material": "$general.block_identifier",
+                    "top_material": "$general.block_identifier"
+                },
+                "noise_range": {
+                    "$dynamic.list.index_pair": "$general.decimal"
+                }
+            }
+        }
+    }
+}

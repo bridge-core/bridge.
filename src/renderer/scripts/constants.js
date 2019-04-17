@@ -9,7 +9,7 @@ export const APP_VERSION = a_v;
 export const WEB_APP_DATA = "https://solveddev.github.io/bridge-data/";
 export const WEB_APP_PLUGINS = "https://solveddev.github.io/bridge-plugins/";
 export const FILE_TEMPLATES = IMP_FILE_TEMPLATES;
-export const DOC_LIST = [ "entities", "addons", "moLang", "UI", "scripting", "particles", "animations", "timelines" ];
+export const DOC_LIST = [ "entities", "blocks", "biomes", "addons", "moLang", "UI", "scripting", "particles", "animations", "timelines" ];
 export const MINECRAFT_VERSIONS = JSON.parse(fs.readFileSync(__static + "\\auto_completions\\versions.json").toString());
 export const MANIFEST_TEMPLATE = (name="", des="") => `{
 	"format_version": 1,
