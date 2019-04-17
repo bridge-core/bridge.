@@ -3,6 +3,7 @@ import ContentWindow from "../scripts/commonWindows/Content";
 import Store from "../store/index";
 import Runtime from "../scripts/plugins/Runtime";
 import { FILE_TEMPLATES } from "../scripts/constants";
+import FileType from "../scripts/editor/FileType";
 
 class FileContent {
     constructor(name, ext="json", parent, expand_path="") {
@@ -91,94 +92,30 @@ class FileContent {
 export default class CreateFileWindow extends ContentWindow {
     constructor() {
         const plugin_types = Runtime.CreationWindow.get();
-        
+        const FILE_DATA = FileType.getFileCreator();
+
         super({
             display_name: "New File",
             options: {
                 is_persistent: false
             },
-            sidebar: [
-                {
-                    icon: "mdi-chess-knight",
-                    title: "Entity",
+            sidebar: FILE_DATA.map(({ icon, title }, index) => {
+                return {
+                    icon,
+                    title,
                     opacity: 0.25,
                     action: () => {
-                        this.select(0)
+                        this.select(index)
                     }
-                },
-                {
-                    icon: "mdi-sword",
-                    title: "Item",
-                    opacity: 0.25,
-                    action: () => {
-                        this.select(1)
-                    }
-                },
-                {
-                    icon: "store",
-                    title: "Trade Table",
-                    opacity: 0.25,
-                    action: () => {
-                        this.select(2)
-                    }
-                },
-                {
-                    icon: "mdi-skull",
-                    title: "Loot Table",
-                    opacity: 0.25,
-                    action: () => {
-                        this.select(3)
-                    }
-                },
-                {
-                    icon: "mdi-book",
-                    title: "Recipe",
-                    opacity: 0.25,
-                    action: () => {
-                        this.select(4)
-                    }
-                },
-                {
-                    icon: "mdi-function",
-                    title: "Function",
-                    opacity: 0.25,
-                    action: () => {
-                        this.select(5)
-                    }
-                },
-                {
-                    icon: "mdi-format-list-checks",
-                    title: "Spawn Rule",
-                    opacity: 0.25,
-                    action: () => {
-                        this.select(6)
-                    }
-                },
-                {
-                    icon: "mdi-movie",
-                    title: "Animation",
-                    opacity: 0.25,
-                    action: () => {
-                        this.select(7)
-                    }
-                },
-                {
-                    icon: "mdi-google-controller",
-                    title: "Animation Controller",
-                    opacity: 0.25,
-                    action: () => {
-                        this.select(8)
-                    }
-                },
-                {
-                    icon: "mdi-language-javascript",
-                    title: "Script",
-                    opacity: 0.25,
-                    action: () => {
-                        this.select(9)
-                    }
-                },
-            ]
+                }
+            }).concat([{
+                icon: "mdi-language-javascript",
+                title: "Script",
+                opacity: 0.25,
+                action: () => {
+                    this.select(FILE_DATA.length)
+                }
+            }])
         });
 
         this.SCRIPTS = new FileContent("Script", "js", this, "scripts/server/").add({
@@ -210,18 +147,10 @@ export default class CreateFileWindow extends ContentWindow {
         ];
         this.win_def.actions = this.actions;
         this.contents = [
-            new FileContent("Entity", undefined, this, "entities/"),
-            new FileContent("Item", undefined, this, "items/"),
-            new FileContent("Trade Table", undefined, this, "trading/"),
-            new FileContent("Loot Table", undefined, this, "loot_tables/"),
-            new FileContent("Recipe", undefined, this, "recipes/"),
-            new FileContent("Function", "mcfunction", this, "functions/"),
-            new FileContent("Spawn Rule", undefined, this, "spawn_rules/"),
-            new FileContent("Animation", undefined, this, "animations/"),
-            new FileContent("Animation Controller", undefined, this, "animation_controllers/"),
+            ...FILE_DATA.map(({ title, extension, path }) => new FileContent(title, extension, this, path)),
             this.SCRIPTS
         ];
-        this.templates = [...FILE_TEMPLATES];
+        this.templates = FILE_DATA.map(f => f.templates).concat(FILE_TEMPLATES);
         this.chosen_template = "";
 
         plugin_types.forEach(t => this.loadPluginType(t.sidebar_element, t.templates, t.options));

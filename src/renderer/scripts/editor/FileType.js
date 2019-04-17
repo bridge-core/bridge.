@@ -30,6 +30,11 @@ export default class FileType {
         return FILE_DEFS.map(def => def.id);
     }
 
+    static getFileCreator() {
+        if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
+        return FILE_DEFS.map(file => file.file_creator).filter(file_creator => file_creator !== undefined);
+    }
+
     static getHighlighter() {
         try {
             return this.getData().highlighter;
@@ -42,6 +47,5 @@ export default class FileType {
                 }
             }
         }
-        
     }
 }
