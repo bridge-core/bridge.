@@ -155,6 +155,20 @@
         }
     },
     {
+        "includes": "functions",
+        "id": "function",
+
+        "file_creator": {
+            "icon": "mdi-function",
+            "title": "Function",
+            "extension": "mcfunction",
+            "path": "functions/",
+            "templates": {
+                "Example Function": "# My Comment\nsay Hello World!"
+            }
+        }
+    },
+    {
         "includes": "items",
         "id": "item",
         "start_state": "item/main",
@@ -179,36 +193,6 @@
                             "identifier": ""
                         },
                         "components": {}
-                    }
-                }
-            }
-        }
-    },
-    {
-        "includes": "recipes",
-        "id": "recipe",
-        "start_state": "recipe/main",
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "minecraft", "description", "tags", "input", "output", "pattern", "key", "result", "ingredients" ],
-                "titles": [ "format_version" ],
-                "symbols": [ ]
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-book",
-            "title": "Recipe",
-            "extension": "json",
-            "path": "recipes/",
-            "templates": {
-                "Blank Recipe": {
-                    "format_version": {},
-                    "minecraft:recipe_shaped": {
-                        "description": {
-                            "identifier": ""
-                        },
-                        "tags": {}
                     }
                 }
             }
@@ -244,6 +228,71 @@
                             ]
                         }
                     ]
+                }
+            }
+        }
+    },
+    {
+        "includes": "recipes",
+        "id": "recipe",
+        "start_state": "recipe/main",
+        "highlighter": {
+            "set": {},
+            "define": {
+                "keywords": [ "minecraft", "description", "tags", "input", "output", "pattern", "key", "result", "ingredients" ],
+                "titles": [ "format_version" ],
+                "symbols": [ ]
+            }
+        },
+        "file_creator": {
+            "icon": "mdi-book",
+            "title": "Recipe",
+            "extension": "json",
+            "path": "recipes/",
+            "templates": {
+                "Blank Recipe": {
+                    "format_version": {},
+                    "minecraft:recipe_shaped": {
+                        "description": {
+                            "identifier": ""
+                        },
+                        "tags": {}
+                    }
+                }
+            }
+        }
+    },
+    {
+        "includes": "spawn_rules",
+        "id": "spawn_rule",
+        "start_state": "spawn_rule/main",
+        "highlighter": {
+            "set": {},
+            "define": {
+                "keywords": [ "minecraft", "conditions", "description" ],
+                "titles": [ "format_version" ],
+                "symbols": [ "identifier", "population_control" ]
+            }
+        },
+        "file_creator": {
+            "icon": "mdi-format-list-checks",
+            "title": "Spawn Rule",
+            "extension": "json",
+            "path": "spawn_rules/",
+            "templates": {
+                "Blank Spawn Rule": {
+                    "format_version": {},
+                    "minecraft:spawn_rules": {
+                        "description": {
+                            "identifier": "",
+                            "population_control": ""
+                        },
+                        "conditions": [
+                            {
+                                
+                            }
+                        ]
+                    }
                 }
             }
         }
@@ -292,55 +341,6 @@
                         }
                     ]
                 }
-            }
-        }
-    },
-    {
-        "includes": "spawn_rules",
-        "id": "spawn_rule",
-        "start_state": "spawn_rule/main",
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "minecraft", "conditions", "description" ],
-                "titles": [ "format_version" ],
-                "symbols": [ "identifier", "population_control" ]
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-format-list-checks",
-            "title": "Spawn Rule",
-            "extension": "json",
-            "path": "spawn_rules/",
-            "templates": {
-                "Blank Spawn Rule": {
-                    "format_version": {},
-                    "minecraft:spawn_rules": {
-                        "description": {
-                            "identifier": "",
-                            "population_control": ""
-                        },
-                        "conditions": [
-                            {
-                                
-                            }
-                        ]
-                    }
-                }
-            }
-        }
-    },
-    {
-        "includes": "functions",
-        "id": "function",
-
-        "file_creator": {
-            "icon": "mdi-function",
-            "title": "Function",
-            "extension": "mcfunction",
-            "path": "functions/",
-            "templates": {
-                "Example Function": "# My Comment\nsay Hello World!"
             }
         }
     }
