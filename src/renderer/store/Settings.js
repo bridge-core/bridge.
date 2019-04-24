@@ -3,7 +3,7 @@ import VueStore from "./index";
 
 let STORE;
 if(process.env.NODE_ENV === "development") STORE = new BridgeStore(__dirname + "/", "data");
-else STORE = new BridgeStore(`C:\\Users\\${process.env.USERNAME}\\.bridge\\`, "data");
+else STORE = new BridgeStore(`${process.env.HOME}\\.bridge\\`, "data");
 let DATA;
 
 function setup() {

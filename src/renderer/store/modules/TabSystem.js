@@ -16,7 +16,7 @@ import fs from "fs";
 // });
 
 const state = {
-    base_path: `C:/Users/${process.env.USERNAME}/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_behavior_packs/`,
+    base_path: `${process.env.LOCALAPPDATA.replace(/\\/g, "/")}/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_behavior_packs/`,
     selected_tab: 0,
     open_files: []
 }

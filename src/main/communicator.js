@@ -2,7 +2,7 @@ import { ipcMain } from "electron";
 import { dialog } from "electron";
 import fs from "fs";
 import DirToJSON from "dir-to-json";
-const base_path = `C:/Users/${process.env.USERNAME}/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/`;
+const base_path = `${process.env.LOCALAPPDATA.replace(/\\/g, "/")}/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/`;
 const behavior_path = base_path + "development_behavior_packs/";
 
 // ipcMain.on("getOpenedWithData", event => {
