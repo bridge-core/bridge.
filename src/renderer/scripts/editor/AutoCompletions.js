@@ -131,7 +131,7 @@ class Provider {
             if(current["$dynamic_template"] !== undefined) {
                 for(let i = 0; i < path_arr.length + 1; i++) CONTEXT_UP();
 
-                return this.walk(path_arr, this.compileTemplate(current["$dynamic_template"]))
+                return this.walk(path_arr, this.compileTemplate(current["$dynamic_template"])[key]);
             }
 
             if(current["$placeholder"] !== undefined) {
