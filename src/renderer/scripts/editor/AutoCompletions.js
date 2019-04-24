@@ -69,7 +69,7 @@ class Provider {
         );
         SET_CONTEXT(context, context.parent);
         let propose = this.walk(path.split("/"));
-        console.log("[PROPOSING]", path, propose, LIB);
+        // console.log("[PROPOSING]", path, propose, LIB);
 
         return this.preparePropose(propose, Object.keys(context.toJSON(false)));
     }
