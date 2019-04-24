@@ -99,6 +99,17 @@ export const DYNAMIC = {
             return JsonCacheUtils.animation_references;
         }
     },
+    recipe: {
+        pattern_keys() {
+            try {
+                let data = TabSystem.getSelected().content.get("minecraft:recipe_shaped/pattern").toJSON();
+                return data.map(e => e.split("")).reduce((acc, curr) => acc.concat(curr), []);
+            } catch(e) {
+                console.log(e);
+                return [];
+            }
+        }
+    },
     animation_controller: {
         current_states() {
             let current = TabSystem.getCurrentNavObj();

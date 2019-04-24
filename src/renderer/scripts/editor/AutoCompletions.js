@@ -125,17 +125,17 @@ class Provider {
         }
 
         let key = path_arr.shift();
-        if(current["$dynamic_template." + key] !== undefined) {
-            return this.walk(path_arr, this.compileTemplate(current["$dynamic_template." + key]));
-        } else if(current[key] === undefined) {
-            if(current["$dynamic_template"] !== undefined) {
+        if(current[key] === undefined) {
+            if(current["$dynamic_template." + key] !== undefined) {
+                return this.walk(path_arr, this.compileTemplate(current["$dynamic_template." + key]));
+            } else if(current.$dynamic_template !== undefined) {
                 for(let i = 0; i < path_arr.length + 1; i++) CONTEXT_UP();
 
                 return this.walk(path_arr, this.compileTemplate(current["$dynamic_template"])[key]);
-            }
-
-            if(current["$placeholder"] !== undefined) {
-                return this.walk(path_arr, current["$placeholder"]);
+            } else if(current.$placeholder !== undefined) {
+                return this.walk(path_arr, current.$placeholder);
+            } else if(current.$load !== undefined) {
+                return this.walk(path_arr, this.omegaExpression(current.$load).object[key]);
             } else if(current !== LIB) {
                 for(let k of Object.keys(current)) {
                     if(k[0] === "$") {

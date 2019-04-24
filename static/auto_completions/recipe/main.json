@@ -20,7 +20,7 @@
             "$dynamic.list.index_triple": {}
         },
         "key": {
-            "$placeholder": {
+            "$dynamic.recipe.pattern_keys": {
                 "item": "$general.item_identifier",
                 "data": "$general.number"
             }

@@ -4,6 +4,7 @@
     "biome/main",
     "biome/general",
     "biome/components",
+    "biome/tags",
 
     "block/main",
     "block/components",
