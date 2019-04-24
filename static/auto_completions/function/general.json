@@ -1,0 +1,5 @@
+{
+    "location": [ "~", "^", "0" ],
+    "target_selector": [ "@a", "@e", "@p", "@r" "@s" ],
+    "fill_option": [ "outline", "hollow", "destroy", "keep" ]
+}

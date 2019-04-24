@@ -23,7 +23,7 @@
         "component_groups": {
             "$placeholder": "$entity.main.minecraft:entity.components"
         },
-        "components": "$entity.annotations and $entity.behavior and $entity.components and $entity.v1_11",
+        "components": "$entity.annotations and $entity.behavior and $entity.components and $entity.beta_components",
         "events": {
             "$placeholder": {
                 "sequence": {

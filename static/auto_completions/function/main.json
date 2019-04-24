@@ -1,0 +1,131 @@
+{
+    "alwaysday": "$general.boolean",
+    "clear": {
+        "$function.general.target_selector": {
+            "$general.item_identifier": {
+                "$general.number": "$general.number"
+            }
+        }
+    },
+    "clone": {
+        "$function.general.location": {
+            "$function.general.location": {
+                "$function.general.location": {
+
+                    "$function.general.location": {
+                        "$function.general.location": {
+                            "$function.general.location": {
+
+                                "$function.general.location": {
+                                    "$function.general.location": {
+                                        "$function.general.location": {
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "daylock": "$general.boolean",
+    "difficulty": "$general.game_difficulty",
+    "effect": {
+        "$function.general.target_selector": {
+            "$general.effect_name": {
+                "$general.number": {
+                    "$general.number": "$general.boolean"
+                } 
+            },
+            "clear": {}
+        }
+    },
+    "enchant": {
+        "$function.general.target_selector": {
+            "$general.enchantment_name": "$general.number"
+        }
+    },
+    "execute": {
+        "$function.general.target_selector": {
+            "$function.general.location": {
+                "$function.general.location": {
+                    "$function.general.location": {
+                        "$function.main": {},
+
+                        "detect": {
+                            "$function.general.location": {
+                                "$function.general.location": {
+                                    "$function.general.location": {
+                                        "$general.block_identifier": {
+                                            "$general.number": "$function.main"
+                                        }
+                                    } 
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        }
+    },
+    "fill": {
+        "$function.general.location": {
+            "$function.general.location": {
+                "$function.general.location": {
+
+                    "$function.general.location": {
+                        "$function.general.location": {
+                            "$function.general.location": {
+
+                                "$general.block_identifier": {
+                                    "$general.number": {
+                                        "$function.general.fill_option": {},
+
+                                        "replace": {
+                                            "$general.block_identifier": "$general.number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "function": {},
+    "gamemode": {
+        "$general.gamemode": "$function.general.target_selector"
+    },
+    "gamerule": {
+        "$general.gamerule": {
+            "$general.boolean": {},
+            "$general.number": {}
+        }
+    },
+    "give": {
+        "$function.general.target_selector": {
+            "$general.item_identifier": {
+                "$general.number": {
+                    "$general.number": {}
+                }
+            }
+        }
+    },
+    "kill": {
+        "$function.general.target_selector": {}
+    },
+    "setblock": {
+        "$function.general.location": {
+            "$function.general.location": {
+                "$function.general.location": {
+                    "$general.block_identifier": {
+
+                    }
+                }
+            }
+        }
+    }
+}

@@ -51,7 +51,8 @@ let LIB = {
         },
         entity: {
             component_list() {
-                return Object.keys(LIB.entity.main_v1_11["minecraft:entity"].components);
+                // return Object.keys(LIB.entity.main_v1_11["minecraft:entity"].components);
+                return [];
             },
             cached_families() {
                 return JsonCacheUtils.families;
