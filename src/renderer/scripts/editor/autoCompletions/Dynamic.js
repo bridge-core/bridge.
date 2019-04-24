@@ -5,6 +5,10 @@ import Store from "../../../store/index";
 import path from "path";
 import fs from "fs";
 
+let PARENT_CONTEXT = {};
+let NODE_CONTEXT = {};
+let PREV_CONTEXT = undefined;
+
 function walkSync(dir, filelist = []) {
     fs.readdirSync(dir).forEach(file => {
   
@@ -16,10 +20,29 @@ function walkSync(dir, filelist = []) {
     return filelist;
 }
 
-export default {
+export function SET_CONTEXT(node, parent) {
+    PARENT_CONTEXT = parent;
+    NODE_CONTEXT = node;
+}
+export function CONTEXT_UP() {
+    PREV_CONTEXT = NODE_CONTEXT;
+    if(NODE_CONTEXT !== undefined) NODE_CONTEXT = NODE_CONTEXT.parent;
+    if(PARENT_CONTEXT !== undefined) PARENT_CONTEXT = PARENT_CONTEXT.parent;
+}
+export function CONTEXT_DOWN() {
+    if(PREV_CONTEXT !== undefined) {
+        PARENT_CONTEXT = NODE_CONTEXT;
+        NODE_CONTEXT = PREV_CONTEXT;
+        PREV_CONTEXT = undefined;
+    } else {
+        throw new Error("Called CONTEXT_DOWN without PREV_CONTEXT.");
+    }
+}
+
+export const DYNAMIC = {
     list: {
         next_index() {
-            let arr = TabSystem.getSelected().content.get(TabSystem.getCurrentNavigation()).toJSON();
+            let arr = NODE_CONTEXT.toJSON();
             if(Array.isArray(arr)) {
                 let res = [];
                 for(let i = arr.length; i >= 0; i--) {
@@ -30,12 +53,12 @@ export default {
             return [ "0" ];
         },
         index_pair() {
-            let arr = TabSystem.getSelected().content.get(TabSystem.getCurrentNavigation()).toJSON();
+            let arr = NODE_CONTEXT.toJSON();
             if(Array.isArray(arr)) return [ "0", "1" ];
             return [ "0" ];
         },
         index_triple() {
-            let arr = TabSystem.getSelected().content.get(TabSystem.getCurrentNavigation()).toJSON();
+            let arr = NODE_CONTEXT.toJSON();
             if(Array.isArray(arr) && arr.length >= 2) return [ "1", "2" ];
             if(Array.isArray(arr)) return [ "0", "1" ];
             return [ "0" ];

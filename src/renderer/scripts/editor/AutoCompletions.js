@@ -3,12 +3,10 @@ import { BASE_PATH } from "../constants";
 import deepmerge from "deepmerge";
 import VersionMap from "./VersionMap";
 import Store from "../../store/index";
-import ScopeGuard from "./ScopeGuard";
-import DYNAMIC from "./autoCompletions/Dynamic";
+import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from "./autoCompletions/Dynamic";
+import detachObj from "../detachObj";
 
 let FILE_DEFS = [];
-let PARENT_CONTEXT = {};
-let NODE_CONTEXT = {};
 const REMOVE_LIST = [ "$load", "$dynamic_template", "$placeholder" ]
 let LIB = { dynamic: DYNAMIC };
 
@@ -65,9 +63,9 @@ class Provider {
         path = path.replace("global", 
             VersionMap.convert(this.start_state, Store.state.Settings.target_version)
         );
-        this.setupContext(context);
+        SET_CONTEXT(context, context.parent);
         let propose = this.walk(path.split("/"));
-        console.log("[PROPOSING]", path, propose, context.toJSON(false));
+        console.log("[PROPOSING]", path, propose, LIB);
 
         return this.preparePropose(propose, Object.keys(context.toJSON(false)));
     }
@@ -78,7 +76,7 @@ class Provider {
 
         if(object.$load !== undefined) {
             let { object: object_internal, value: value_internal } = this.omegaExpression(object.$load);
-            object = Object.assign({}, object, object_internal);
+            object = detachObj({}, object, object_internal);
             value = value.concat(value_internal);
         }
         if(object.$dynamic_template !== undefined) {
@@ -103,8 +101,10 @@ class Provider {
                     return key;
                 })
                 .reduce((propose, element) => {
-                    if(element !== undefined && !context.includes(element))
-                        return propose.concat(element);
+                    if(!Array.isArray(element)) element = [element];
+                    
+                    if(element[0] !== undefined)
+                        return propose.concat(element.filter((e) => !context.includes(e)));
                     return propose;
                 }, []),
             value
@@ -119,10 +119,9 @@ class Provider {
 
             current = object;
         } else if(path_arr === undefined || path_arr.length === 0 || current === undefined) {
-            return {
-                object: current,
-                value: []
-            };
+            if(Array.isArray(current))
+                return { object: {}, value: current };
+            return { object: current, value: [] };
         }
 
         let key = path_arr.shift();
@@ -130,7 +129,7 @@ class Provider {
             return this.walk(path_arr, this.compileTemplate(current["$dynamic_template." + key]));
         } else if(current[key] === undefined) {
             if(current["$dynamic_template"] !== undefined) {
-                for(let i = 0; i < path_arr.length + 1; i++) this.contextUp();
+                for(let i = 0; i < path_arr.length + 1; i++) CONTEXT_UP();
 
                 return this.walk(path_arr, this.compileTemplate(current["$dynamic_template"]))
             }
@@ -140,7 +139,9 @@ class Provider {
             } else if(current !== LIB) {
                 for(let k of Object.keys(current)) {
                     if(k[0] === "$") {
+                        CONTEXT_UP();
                         let { object, value } = this.omegaExpression(k);
+                        CONTEXT_DOWN();
                         if(value.includes(key) || object[key] !== undefined)
                             return this.walk(path_arr, current[k]);
                     }
@@ -156,15 +157,15 @@ class Provider {
         let value = [];
         
         parts.forEach(part => {
-            let tmp = this.dynamic(part.substring(1, part.length));
+            let tmp = this.dynamic(part);
             if(typeof tmp === "string") {
                 let { object: object_internal, value: value_internal } = this.omegaExpression(tmp);
                 value = value.concat(value_internal);
-                object = Object.assign(object, object_internal);
+                object = detachObj(object, object_internal);
             } else if(Array.isArray(tmp))
                 value.push(...tmp);
             else
-                object = Object.assign(object, tmp);
+                object = detachObj(object, tmp);
         });
 
         return {
@@ -176,18 +177,9 @@ class Provider {
         return template[this.dynamic(template["$key"])];
     }
 
-    setupContext(c) {
-        NODE_CONTEXT = c;
-        PARENT_CONTEXT = c.parent;
-    }
-    contextUp() {
-        if(NODE_CONTEXT !== undefined) NODE_CONTEXT = NODE_CONTEXT.parent;
-        if(PARENT_CONTEXT !== undefined) PARENT_CONTEXT = PARENT_CONTEXT.parent;
-    }
-
     //OMEGA HELPERS
     dynamic(expression) {
-        let path = expression.split(".");
+        let path = expression.substring(1, expression.length).split(".");
         let current = LIB;
         while(path.length > 0 && current !== undefined) {
             current = current[path.shift().replace(/\&dot\;/g, ".")];
