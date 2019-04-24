@@ -7,6 +7,7 @@ import TabSystem from "../TabSystem";
 import { JSONAction } from "../TabSystem/CommonHistory";
 import FileType from "./FileType";
 import uuidv4 from "uuid/v4";
+import Store from "../../store/index";
 let PROVIDER = new Provider("");
 
 function getType(data) {
@@ -263,13 +264,19 @@ export default class JSONTree {
 
     propose(path=this.path) {
         //console.log(PROVIDER.get(path), path)
-        if(this.propose_cache_uses === 0) {
-            this.propose_cache = PROVIDER.get(path, this);
-            this.propose_cache_uses++;
-        } else {
+        if(Store.state.Settings.bridge_predictions) {
+            this.propose_cache = null;
             this.propose_cache_uses = 0;
-        } 
-        return this.propose_cache;
+            return PROVIDER.get(path, this);
+        } else {
+            if(this.propose_cache_uses === 0) {
+                this.propose_cache = PROVIDER.get(path, this);
+                this.propose_cache_uses++;
+            } else {
+                this.propose_cache_uses = 0;
+            } 
+            return this.propose_cache;
+        }
     }   
     openNode(val=true) {
         this.updateUUID();
