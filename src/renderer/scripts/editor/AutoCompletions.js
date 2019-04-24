@@ -35,7 +35,11 @@ class Provider {
         return new Promise((resolve, reject) => {
             fs.readFile(__static + `/${path}${name}.json`, (err, data) => {
                 if(err) reject(err);
-                resolve(JSON.parse(data.toString()));
+                try {
+                    resolve(JSON.parse(data.toString()));
+                } catch(err) {
+                    throw new Error(`File ${name} contains invalid JSON: ${err.message}`);
+                }
             });
         });
     }

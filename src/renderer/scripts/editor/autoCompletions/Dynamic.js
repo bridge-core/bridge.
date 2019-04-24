@@ -110,6 +110,13 @@ export const DYNAMIC = {
             }
         }
     },
+    biome: {
+        name_references() {
+            return walkSync(BASE_PATH + Store.state.Explorer.project + "\\biomes").map(e => {
+                return e.split(/\\|\//g).pop().replace(".json", "");
+            });
+        }
+    },
     animation_controller: {
         current_states() {
             let current = TabSystem.getCurrentNavObj();
