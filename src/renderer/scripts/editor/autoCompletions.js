@@ -1,134 +1,17 @@
 import fs from "fs";
 import { BASE_PATH } from "../constants";
-import TabSystem from "../TabSystem";
 import deepmerge from "deepmerge";
 import VersionMap from "./VersionMap";
 import Store from "../../store/index";
 import ScopeGuard from "./ScopeGuard";
-import path from "path";
-import JsonCacheUtils from "./JSONCacheUtils";
-
+import DYNAMIC from "./autoCompletions/Dynamic";
 
 let FILE_DEFS = [];
 let PARENT_CONTEXT = {};
 let NODE_CONTEXT = {};
+const REMOVE_LIST = [ "$load", "$dynamic_template", "$placeholder" ]
+let LIB = { dynamic: DYNAMIC };
 
-const walkSync = (dir, filelist = []) => {
-    fs.readdirSync(dir).forEach(file => {
-  
-        filelist = fs.statSync(path.join(dir, file)).isDirectory()
-            ? walkSync(path.join(dir, file), filelist)
-            : filelist.concat(path.join(dir, file));
-  
-    });
-    return filelist;
-}
-
-let LIB = {
-    $dynamic: {
-        list: {
-            next_index() {
-                let arr = TabSystem.getSelected().content.get(TabSystem.getCurrentNavigation()).toJSON();
-                if(Array.isArray(arr)) return arr.length + "";
-                return "0";
-            },
-            index_pair() {
-                let arr = TabSystem.getSelected().content.get(TabSystem.getCurrentNavigation()).toJSON();
-                if(Array.isArray(arr)) return "1";
-                return "0";
-            },
-            index_triple() {
-                let arr = TabSystem.getSelected().content.get(TabSystem.getCurrentNavigation()).toJSON();
-                if(Array.isArray(arr) && arr.length >= 2) return "2";
-                if(Array.isArray(arr)) return "1";
-                return "0";
-            }
-        },
-        setting: {
-            target_version() {
-                return Store.state.Settings.target_version;
-            }
-        },
-        entity: {
-            component_list() {
-                // return Object.keys(LIB.entity.main_v1_11["minecraft:entity"].components);
-                return [];
-            },
-            cached_families() {
-                return JsonCacheUtils.families;
-            },
-            component_groups() {
-                try {
-                    return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/component_groups").toJSON());
-                } catch(e) {
-                    return [];
-                }
-            },
-            events() {
-                try {
-                    return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/events").toJSON());
-                } catch(e) {
-                    console.log(e);
-                    return [];
-                }
-            },
-            "@events"() {
-                return JsonCacheUtils.events.map(e => "@s " + e);
-            },
-            animation_references() {
-                return JsonCacheUtils.animation_references;
-            }
-        },
-        animation_controller: {
-            current_states() {
-                let current = TabSystem.getCurrentNavObj();
-                if(Object.keys(current.toJSON()).length > 0) return [];
-
-                
-                while(current !== undefined && current.key !== "states") {
-                    current = current.parent;
-                }
-                if(current.key === "states") return Object.keys(current.toJSON());
-                return [];
-            }
-        },
-        animation_controller_ids() {
-            return JsonCacheUtils.animation_controller_ids;
-        },
-        animation_ids() {
-            return JsonCacheUtils.animation_ids;
-        },
-        siblings() {
-            return PARENT_CONTEXT.toJSON();
-        },
-        children() {
-            return NODE_CONTEXT.toJSON();
-        },
-        current_file_name() {
-            let arr = TabSystem.getSelected().file_path.split(/\/|\\/g).pop().split(".");
-            arr.pop()
-            return [ arr.join(".") ];
-        },
-        loot_table_files() {
-            try {
-                return walkSync(BASE_PATH + Store.state.Explorer.project + "\\loot_tables").map(e => {
-                    return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
-                });
-            } catch(e) {
-                return [];
-            }
-        },
-        trade_table_files() {
-            try {
-                return walkSync(BASE_PATH + Store.state.Explorer.project + "\\trading").map(e => {
-                    return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
-                });
-            } catch(e) {
-                return [];
-            }
-        }
-    }
-};
 class Provider {
     constructor(current) {
         this.validator(current);
@@ -184,114 +67,113 @@ class Provider {
         );
         this.setupContext(context);
         let propose = this.walk(path.split("/"));
+        console.log("[PROPOSING]", path, propose, context.toJSON(false));
 
-        if(typeof propose === "string") {
-            let prev_path = path.split("/");
-            propose = this.omegaExpression(propose, prev_path.pop(), prev_path);
+        return this.preparePropose(propose, Object.keys(context.toJSON(false)));
+    }
+
+    preparePropose(propose, context) {
+        if(propose.object === LIB) return { value: [], object: [] };
+        let { object, value } = propose;
+
+        if(object.$load !== undefined) {
+            let { object: object_internal, value: value_internal } = this.omegaExpression(object.$load);
+            object = Object.assign({}, object, object_internal);
+            value = value.concat(value_internal);
         }
-
-        // console.log("[PROPOSING]", propose, LIB);
-        if(propose === LIB) return { value: [], object: [] };
-        if(Array.isArray(propose)) return { value: propose };
-
-        //DYNAMIC LOAD INSTRUCTION
-        if(propose.$load !== undefined) {
-            Object.assign(propose, this.omegaExpression(propose.$load));
-            delete propose.$load;
-        }
-        if(propose.$dynamic_template !== undefined) {
-            let t = this.compileTemplate(propose.$dynamic_template);
+        if(object.$dynamic_template !== undefined) {
+            let t = this.compileTemplate(object.$dynamic_template);
             if(t !== undefined) {
-                propose = Object.assign(propose, t);
-                this.installScopeGuard(propose, t);
+                object = Object.assign({}, object, t);
             } 
         }
 
-        return { 
-            object: Object.keys(propose).filter(e => e != "$placeholder" && e != "$dynamic_template").map(key => {
-                if(key.startsWith("$dynamic_template.")) {
-                    return key.split(".").pop();
-                }
+        return {
+            object: Object.keys(object)
+                .map(key => {
+                    if(key.startsWith("$dynamic_template.")) {
+                        return key.split(".").pop();
+                    }
+                    if(REMOVE_LIST.includes(key)) return undefined;
 
-                if(key[0] === "$") {
-                    // console.log(this.omegaExpression(key))
-                    let exp = this.omegaExpression(key);
-                    if(typeof exp === "object" && !Array.isArray(exp)) return Object.keys(exp)[0];
-                    return exp;
-                }
-                return key;
-            }).reduce((acc, val) => acc.concat(val), []) 
-        };
+                    if(key[0] === "$") {
+                        let { object: object_internal, value: value_internal } = this.omegaExpression(key);
+                        return Object.keys(object_internal).concat(...value_internal);
+                    }
+                    return key;
+                })
+                .reduce((propose, element) => {
+                    if(element !== undefined && !context.includes(element))
+                        return propose.concat(element);
+                    return propose;
+                }, []),
+            value
+        }
     }
 
     walk(path_arr, current=LIB) {
-        if(path_arr === undefined || path_arr.length === 0 || current === undefined) return current;
-        let key = path_arr.shift();
+        if(typeof current === "string") {
+            let { object, value } = this.omegaExpression(current);
+            if(path_arr.length === 0)
+                return { object, value };
 
-        if(typeof current[key] === "string") {
-            let o = this.omegaExpression(current[key], null, null, false);
-            if(typeof current !== "string" && !current[key].startsWith("$dynamic."))
-                current[key] = o;
-            else 
-                return this.walk(path_arr, o);
-        } else if(current["$dynamic_template." + key] !== undefined) {
-            current = this.compileTemplate(current["$dynamic_template." + key]);
-            if(typeof current === "string") {
-                current = this.omegaExpression(current, null, null, false);
-            }
-            return this.walk(path_arr, current);
+            current = object;
+        } else if(path_arr === undefined || path_arr.length === 0 || current === undefined) {
+            return {
+                object: current,
+                value: []
+            };
+        }
+
+        let key = path_arr.shift();
+        if(current["$dynamic_template." + key] !== undefined) {
+            return this.walk(path_arr, this.compileTemplate(current["$dynamic_template." + key]));
         } else if(current[key] === undefined) {
             if(current["$dynamic_template"] !== undefined) {
                 for(let i = 0; i < path_arr.length + 1; i++) this.contextUp();
 
-                let t = this.compileTemplate(current["$dynamic_template"]);
-                if(t !== undefined) {
-                    current = Object.assign(current, t);
-                    this.installScopeGuard(current, t);
-                } 
+                return this.walk(path_arr, this.compileTemplate(current["$dynamic_template"]))
             }
 
-            if(current[key] === undefined  && current["$placeholder"] === undefined  && current !== LIB) {
+            if(current["$placeholder"] !== undefined) {
+                return this.walk(path_arr, current["$placeholder"]);
+            } else if(current !== LIB) {
                 for(let k of Object.keys(current)) {
-                    if(k.startsWith("$dynamic.")) {
-                        key = k;
-                        break;
+                    if(k[0] === "$") {
+                        let { object, value } = this.omegaExpression(k);
+                        if(value.includes(key) || object[key] !== undefined)
+                            return this.walk(path_arr, current[k]);
                     }
                 }
-            } else if(current["$placeholder"] !== undefined) {
-                key = "$placeholder";
             }
         }
         return this.walk(path_arr, current[key]);
     }
 
-    omegaExpression(str, key, prev_path, set=true) {
-        let parts = str.split(" and ");
-        let result = [];
+    omegaExpression(expression) {
+        let parts = expression.split(" and ");
+        let object = {};
+        let value = [];
         
         parts.forEach(part => {
-            let current;
-            if(part.includes("$dynamic")) {
-                current = this.dynamic(part);
-                if(typeof current != "object") current = { [current]: {} };
-            } else {
-                current = this.static(part.substring(1, part.length));
-            }
-
-            if(!Array.isArray(current)) {
-                if(Array.isArray(result)) result = {};
-                // console.log(result, current)
-                if(current !== undefined) result = deepmerge(result, current);
-            } else {
-                result.push(...current);
-            }
+            let tmp = this.dynamic(part.substring(1, part.length));
+            if(typeof tmp === "string") {
+                let { object: object_internal, value: value_internal } = this.omegaExpression(tmp);
+                value = value.concat(value_internal);
+                object = Object.assign(object, object_internal);
+            } else if(Array.isArray(tmp))
+                value.push(...tmp);
+            else
+                object = Object.assign(object, tmp);
         });
 
-        if(set && !str.includes("$dynamic")) {
-            let walked = this.walk(prev_path);
-            if(typeof walked === "object" && walked !== LIB) walked[key] = result;
-        }
-        return result;
+        return {
+            object, 
+            value 
+        };
+    }
+    compileTemplate(template) {
+        return template[this.dynamic(template["$key"])];
     }
 
     setupContext(c) {
@@ -303,41 +185,15 @@ class Provider {
         if(PARENT_CONTEXT !== undefined) PARENT_CONTEXT = PARENT_CONTEXT.parent;
     }
 
-    installScopeGuard(propose, new_propose) {
-        ScopeGuard.onScopeChange(() => {
-            // console.log(JSON.stringify(propose));
-            Object.keys(new_propose).forEach(key => {
-                delete propose[key];
-            });
-            // console.log(JSON.stringify(propose));
-        });
-    }
-
-    compileTemplate(template) {
-        // console.log(template["$key"], this.dynamic(template["$key"]), template[this.dynamic(template["$key"])]);
-        return template[this.dynamic(template["$key"])];
-    }
-
     //OMEGA HELPERS
     dynamic(expression) {
-        let keys = expression.split(".");
-        let current = LIB;
-        while(keys.length > 0 && current != undefined) {
-            current = current[keys.shift()];
-            if(typeof current == "function") current = current();
-            // console.log(current);
-        }
-        return current;
-    }
-    static(expression) {
-        let current = LIB;
         let path = expression.split(".");
+        let current = LIB;
+        while(path.length > 0 && current !== undefined) {
+            current = current[path.shift().replace(/\&dot\;/g, ".")];
+            if(typeof current === "function") current = current();
+        }
 
-        path.forEach(p => {
-            if(current != undefined) current = current[p.replace(/\&dot\;/g, ".")];
-        });
-
-        if(typeof current === "string") current = this.omegaExpression(current, path.pop(), path);
         return current;
     }
 }

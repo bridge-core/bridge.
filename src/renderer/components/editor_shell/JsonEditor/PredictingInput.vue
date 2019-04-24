@@ -139,7 +139,7 @@
                 if(current.data != "")
                     return this.items = [];
 
-                this.items = propose.filter(e => !context.includes(e));
+                this.items = propose;
                 
                 this.$nextTick(() => {
                     if(this.items && this.items.length > 0 && this.$refs.input) {

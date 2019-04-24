@@ -149,29 +149,18 @@
                     return;
                 }
 
-                let context = [];
                 let current = this.render_object.get(this.file_navigation);
-                if(current == undefined || current == null) return;
-                if(this.type == "object")
-                    context = Object.keys(current.toJSON());
-                if(this.type == "value") {
-                    if(current) context = current.data;
-                    else context = [];
+                if(current === undefined || current === null) return;
+                if(this.type == "value" && current.data !== "") {
+                    this.items = [];
+                    return;
                 }
-                    
-
-                let propose;
-                if(current) propose = current.propose(this.file_navigation);
-                else propose = [];
 
                 //PLUGIN HOOK
+                let propose = current.propose(this.file_navigation);
                 PluginEnv.trigger("bridge:beforePropose", { propose, node: current });
-                propose = propose[this.type];
-                
-                if(propose == undefined || propose.length == 0 || (typeof context == "string" && context != ""))
-                    return this.items = [];
+                this.items = propose[this.type];
 
-                this.items = propose.filter(e => !context.includes(e));
                 
                 this.$nextTick(() => {
                     if(this.items && this.items.length > 0 && this.$refs.input) {

@@ -1,7 +1,7 @@
 // @ts-check
 import Stack from "../utilities/Stack";
 import Json from "./Json";
-import Provider from "./autoCompletions";
+import Provider from "./AutoCompletions";
 import PluginEnv from "../plugins/PluginEnv";
 import TabSystem from "../TabSystem";
 import { JSONAction } from "../TabSystem/CommonHistory";
