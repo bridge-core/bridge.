@@ -41,7 +41,7 @@ function createWindow () {
   mainWindow.webContents.on('did-finish-load', () => {
     if(loadingWindow) {
       mainWindow.setPosition(...loadingWindow.getPosition());
-      // mainWindow.toggleDevTools();
+      mainWindow.toggleDevTools();
       loadingWindow.close();
       mainWindow.show();
     }

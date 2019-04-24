@@ -295,7 +295,7 @@ export default class SettingsWindow extends TabWindow {
                 },
                 new ReactiveSwitch(this, "is_dev_mode", {
                     color: "error",
-                    text: "Asserts",
+                    text: "Error Pop-Up",
                     key: `settings.dev.tab.${Math.random()}`
                 })                
             ]
