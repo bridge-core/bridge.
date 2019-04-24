@@ -30,10 +30,10 @@
     "minecraft:the_end_surface": {},
     "minecraft:world_generation_rules": {
         "hills_transformation": {
-            "$dynamic.list.next_index": {}
+            "$dynamic.list.next_index": "$dynamic.biome.name_references and $biome.general.vanilla_biomes"
         },
         "mutate_transformation": {
-            "$dynamic.list.next_index": {}
+            "$dynamic.list.next_index": "$dynamic.biome.name_references and $biome.general.vanilla_biomes"
         },
         "generate_for_climates": {
             "$dynamic.list.next_index": {

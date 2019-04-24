@@ -1,6 +1,6 @@
 {
     "entity/main": {
-        "v1.11": "entity/main_v1_11"
+        "v1.11": "entity/main_beta"
     },
     "spawn_rule/main":{
         "v1.11": "spawn_rule/main_v1_11"

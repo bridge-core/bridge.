@@ -3,7 +3,7 @@
 
     "minecraft:block": {
         "description": {
-            "identifier": {},
+            "identifier": "$general.block_identifier",
             "register_to_creative_menu": "$general.boolean",
             "is_experimental": "$general.boolean"
         },

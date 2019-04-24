@@ -2,7 +2,7 @@
     "format_version": "$general.format_version",
     "minecraft:item": {
         "description": {
-            "identifier": {}
+            "identifier": "$general.item_identifier"
         },
 
         "components": "$item.components"

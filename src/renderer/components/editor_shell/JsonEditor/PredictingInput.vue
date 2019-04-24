@@ -93,6 +93,7 @@
                 } else if(this.file_navigation !== "global" && this.mode === "value") {
                     TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
 
+                    current.open = true;
                     current.edit(this.value + "");
                     current.type = typeof this.value;
                     this.navigationBack();
@@ -139,7 +140,7 @@
                 if(current.data != "")
                     return this.items = [];
 
-                this.items = propose.filter(e => !context.includes(e));
+                this.items = propose;
                 
                 this.$nextTick(() => {
                     if(this.items && this.items.length > 0 && this.$refs.input) {

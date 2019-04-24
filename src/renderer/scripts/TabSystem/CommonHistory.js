@@ -120,6 +120,7 @@ export class Action {
  * 
  * @typedef {Object} JSONTree
  * @property {Function} buildFromObject
+ * @property {Function} updateUUID
  * @property {Function} removeNode
  * @property {Function} add
  * @property {String} path
@@ -149,6 +150,7 @@ export class JSONAction extends Action {
             this.context.data = this.data;
             TabSystem.setCurrentFileNav("global");
         }
+        this.context.updateUUID();
         return this;
     }
 
