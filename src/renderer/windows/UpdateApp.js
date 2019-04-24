@@ -35,7 +35,7 @@ export default class UpdateWindow extends ContentWindow {
                     color: "success",
                     action: () => {
                         this.close();
-                        shell.openExternal("https://github.com/solvedDev/bridge./releases");
+                        shell.openExternal("https://github.com/solvedDev/bridge./releases/latest");
                     }
                 }
             ]
