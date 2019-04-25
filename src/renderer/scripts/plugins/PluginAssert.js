@@ -19,6 +19,6 @@ export default class Assert {
     static throw(plugin, err, message=err.message) {
         // console.log(err.name, err.message, err.stack);
         if(Store.state.Settings.is_dev_mode) new AssertWindow(plugin, message);
-        else console.error(err);
+        else if(err) console.error(err);
     }
 }

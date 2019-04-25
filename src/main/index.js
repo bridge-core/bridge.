@@ -6,8 +6,8 @@ import "./Discord";
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
  */
-if (process.env.NODE_ENV !== 'development') {
-  global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+if (process.env.NODE_ENV !== "development") {
+  global.__static = require("path").join(__dirname, "/static").replace(/\\/g, "\\\\")
 }
 
 let mainWindow, loadingWindow, windowOptions = {
@@ -19,7 +19,7 @@ let mainWindow, loadingWindow, windowOptions = {
   minHeight: 600,
   show: false
 };
-const winURL = process.env.NODE_ENV === 'development'
+const winURL = process.env.NODE_ENV === "development"
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`;
 
@@ -31,14 +31,14 @@ function createWindow () {
 
   mainWindow.loadURL(winURL);
 
-  mainWindow.on('closed', () => {
+  mainWindow.on("closed", () => {
     mainWindow = null;
     if(loadingWindow) {
       loadingWindow.close();
     }
   });
 
-  mainWindow.webContents.on('did-finish-load', () => {
+  mainWindow.webContents.on("did-finish-load", () => {
     if(loadingWindow) {
       mainWindow.setPosition(...loadingWindow.getPosition());
       // mainWindow.toggleDevTools();
@@ -47,15 +47,15 @@ function createWindow () {
     }
   });
 
-  if(process.env.NODE_ENV === 'development') mainWindow.setMenu(Menu.buildFromTemplate([
+  if(process.env.NODE_ENV === "development") mainWindow.setMenu(Menu.buildFromTemplate([
     {
-      label: 'View',
+      label: "View",
       submenu: [
-        {role: 'reload'}
+        { role: "reload" }
       ]
     }
   ]));
-  if(process.env.NODE_ENV !== 'development') mainWindow.setMenu(null);
+  if(process.env.NODE_ENV !== "development") mainWindow.setMenu(null);
 }
 
 function createSplashScreen() {
@@ -69,12 +69,13 @@ function createSplashScreen() {
 
   loadingWindow.loadURL(`file://${__static}/loading.html`);
 
-  loadingWindow.on('closed', () => {
+  loadingWindow.on("closed", () => {
     loadingWindow = null;
   });
 
-  loadingWindow.webContents.on('did-finish-load', () => {
+  loadingWindow.webContents.on("did-finish-load", () => {
     loadingWindow.show();
+    if(process.argv[1]) openFile(process.argv[1]);
   });
 }
 
@@ -99,19 +100,19 @@ const quit = app.makeSingleInstance((argv) => {
 if (quit && process.argv.length >= 2 && process.env.NODE_ENV !== "development") {
   app.quit();
 } else {
-  app.on('ready', () => {
+  app.on("ready", () => {
     createWindow();
     createSplashScreen();
   });
 }
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
   }
@@ -128,13 +129,13 @@ ipcMain.on("toggleDevTools", function() { mainWindow.toggleDevTools(); });
  */
 
 /*
-import { autoUpdater } from 'electron-updater'
+import { autoUpdater } from "electron-updater"
 
-autoUpdater.on('update-downloaded', () => {
+autoUpdater.on("update-downloaded", () => {
   autoUpdater.quitAndInstall()
 })
 
-app.on('ready', () => {
-  if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
+app.on("ready", () => {
+  if (process.env.NODE_ENV === "production") autoUpdater.checkForUpdates()
 })
  */
