@@ -1,7 +1,7 @@
-import { BASE_PATH } from "../../constants";
-import TabSystem from "../../TabSystem";
-import JsonCacheUtils from "../JSONCacheUtils";
-import Store from "../../../store/index";
+import { BASE_PATH } from "../constants";
+import TabSystem from "../TabSystem";
+import JsonCacheUtils from "../editor/JSONCacheUtils";
+import Store from "../../store/index";
 import path from "path";
 import fs from "fs";
 
@@ -34,7 +34,7 @@ export function CONTEXT_DOWN() {
         PARENT_CONTEXT = NODE_CONTEXT;
         NODE_CONTEXT = PREV_CONTEXT;
         PREV_CONTEXT = undefined;
-    } else {
+    } else if(NODE_CONTEXT !== undefined) {
         throw new Error("Called CONTEXT_DOWN without PREV_CONTEXT.");
     }
 }

@@ -1,5 +1,5 @@
 import TabSystem from "../TabSystem";
-import Provider from "./AutoCompletions";
+import Provider from "../autoCompletions/Provider";
 let FILE_DEFS;
 
 export default class FileType {

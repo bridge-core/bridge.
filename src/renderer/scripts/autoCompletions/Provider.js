@@ -1,9 +1,9 @@
 import fs from "fs";
 import { BASE_PATH } from "../constants";
 import deepmerge from "deepmerge";
-import VersionMap from "./VersionMap";
+import VersionMap from "../editor/VersionMap";
 import Store from "../../store/index";
-import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from "./autoCompletions/Dynamic";
+import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from "./Dynamic";
 import detachObj from "../detachObj";
 
 let FILE_DEFS = [];
@@ -57,6 +57,7 @@ class Provider {
     }
 
     validator(path) {
+        if(path === undefined) return;
         path = path.replace(BASE_PATH, "");
         for(let def of FILE_DEFS) {
             if(path.includes(def.includes)) return this.start_state = def.start_state;
@@ -67,11 +68,11 @@ class Provider {
         path = path.replace("global", 
             VersionMap.convert(this.start_state, Store.state.Settings.target_version)
         );
-        SET_CONTEXT(context, context.parent);
+        SET_CONTEXT(context, context === undefined ? undefined : context.parent);
         let propose = this.walk(path.split("/"));
-        // console.log("[PROPOSING]", path, propose, LIB);
+        console.log("[PROPOSING]", path, propose, LIB);
 
-        return this.preparePropose(propose, Object.keys(context.toJSON(false)));
+        return this.preparePropose(propose, context === undefined ? [] : Object.keys(context.toJSON(false)));
     }
 
     preparePropose(propose, context) {

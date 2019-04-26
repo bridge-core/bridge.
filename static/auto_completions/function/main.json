@@ -52,7 +52,7 @@
             "$function.general.location": {
                 "$function.general.location": {
                     "$function.general.location": {
-                        "$function.main": {},
+                        "$load": "$function.main",
 
                         "detect": {
                             "$function.general.location": {

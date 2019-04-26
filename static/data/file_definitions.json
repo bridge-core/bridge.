@@ -157,6 +157,7 @@
     {
         "includes": "functions",
         "id": "function",
+        "start_state": "function/main",
 
         "file_creator": {
             "icon": "mdi-function",

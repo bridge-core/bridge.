@@ -18,6 +18,9 @@
     "entity/behavior",
     "entity/filters",
 
+    "function/main",
+    "function/general",
+
     "item/main",
     "item/general",
     "item/components",

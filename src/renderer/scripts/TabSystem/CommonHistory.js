@@ -1,5 +1,4 @@
 // @ts-check
-import TabSystem from "../TabSystem";
 import Store from "../../store/index";
 import ProblemIterator from "../editor/problems/Problems";
 

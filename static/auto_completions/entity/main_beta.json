@@ -1,6 +1,6 @@
 {
+    "format_version": "$general.format_version",
     "minecraft:entity": {
-        "format_version": "$general.format_version",
         "do_not_upgrade": {},
         "description": {
             "identifier": "$general.entity_identifier",

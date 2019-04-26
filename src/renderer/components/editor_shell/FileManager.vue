@@ -13,17 +13,21 @@
             :uuid="use_uuid"
             :current_file_path="file.file_path"
         />
-        <codemirror
-            v-else
-            v-model="text"
-            :options="cm_options"
-            ref="cm"
-        />
+        <span v-else>
+            <codemirror
+                
+                v-model="text"
+                :options="cm_options"
+                ref="cm"
+            />
+            <text-auto-completions/>
+        </span>
     </span>
 </template>
 
 <script>
     import CodeMirror from "codemirror";
+    import TextAutoCompletions from "./TextAutoCompletions";
     //Language
     import "codemirror/mode/javascript/javascript.js";
     import "codemirror/mode/xml/xml.js";
@@ -49,12 +53,15 @@
     import TabSystem from '../../scripts/TabSystem';
     import Runtime from '../../scripts/plugins/Runtime';
     import EventBus from "../../scripts/EventBus";
+    import TextProvider from "../../scripts/autoCompletions/TextProvider";
+    import { webContents } from "electron";
 
     export default {
         name: "file-manager",
         components: {
             JsonEditorMain,
-            JsonErrorScreen
+            JsonErrorScreen,
+            TextAutoCompletions
         },
         props: {
             file: Object,
@@ -65,13 +72,16 @@
         mounted() { 
             if(this.$refs.cm) {
                 this.$refs.cm.$el.childNodes[1].style.height = this.available_height + "px";
+                
             }
             if(!this.codemirror) return;
             
+            this.codemirror.on("cursorActivity", this.shouldUpdateSuggestions);
             EventBus.on("setCMSelection", this.setCMSelection);
             EventBus.on("getCMSelection", this.getCMSelection);
             EventBus.on("cmUndo", this.cmUndo);
             EventBus.on("cmUndo", this.cmRedo);
+            EventBus.on("bridge:cmFocus", this.cmFocus);
         },
         destroyed() {
             if(!this.codemirror) return;
@@ -79,6 +89,7 @@
             EventBus.off("getCMSelection", this.getCMSelection);
             EventBus.off("cmUndo", this.cmUndo);
             EventBus.off("cmUndo", this.cmRedo);
+            EventBus.off("bridge:cmFocus", this.cmFocus);
         },
         data() {
             return {
@@ -142,8 +153,10 @@
                     mode: this.alias[this.extension] || this.extension,
                     styleActiveLine: true,
                     showCursorWhenSelecting: true,
-                    lineWrapping: this.$store.state.Settings.line_wraps
-                    //extraKeys: { "Ctrl-Space": "autocomplete" },
+                    lineWrapping: this.$store.state.Settings.line_wraps,
+                    extraKeys: {
+                        "Ctrl-Space": this.shouldUpdateSuggestions 
+                    },
                 };
             },
             codemirror() {
@@ -163,6 +176,14 @@
             },
             cmRedo() {
                 this.codemirror.execCommand("redo");
+            },
+            cmFocus() {
+                console.log("FOCUS")
+                this.codemirror.focus();
+            },
+            shouldUpdateSuggestions(event) {
+                console.log(event);
+                TextProvider.compile(event, this.file.file_path);
             }
         },
         watch: {
