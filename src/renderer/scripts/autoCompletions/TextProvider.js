@@ -3,14 +3,19 @@ import EventBus from "../EventBus";
 const DEF_PROVIDER = new Provider();
 
 export default class TextProvider {
-    static compile(event, file_path, doc=event.doc) {
+    static compile(doc, file_path) {
         DEF_PROVIDER.validator(file_path);
 
         let line_number = doc.getCursor().line;
         let char = doc.getCursor().ch;
-        let path = doc.getLine(line_number).trim().substr(0, char).split(/\s+/).join("/");
-        
-        EventBus.trigger("bridge:textProviderUpdate", event, DEF_PROVIDER.get(path !== "" ? "global/" + path : "global"))
+
+        let path = doc.getLine(line_number).substr(0, char).split(/\s+/);
+        let current = path.pop();
+        path = path.join("/");
+
+        let { object, value } = DEF_PROVIDER.get(path !== "" ? "global/" + path : "global");
+        let propose = object.concat(value).filter(e => e !== current && e.includes(current));
+        EventBus.trigger("bridge:textProviderUpdate", propose, [{ line: line_number, ch: char }, { line: line_number, ch: char - current.length }])
     }
 
     static get() {

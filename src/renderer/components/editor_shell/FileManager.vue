@@ -78,6 +78,7 @@
             
             this.codemirror.on("cursorActivity", this.shouldUpdateSuggestions);
             EventBus.on("setCMSelection", this.setCMSelection);
+            EventBus.on("setCMTextSelection", this.setCMTextSelection);
             EventBus.on("getCMSelection", this.getCMSelection);
             EventBus.on("cmUndo", this.cmUndo);
             EventBus.on("cmUndo", this.cmRedo);
@@ -86,6 +87,7 @@
         destroyed() {
             if(!this.codemirror) return;
             EventBus.off("setCMSelection", this.setCMSelection);
+            EventBus.off("setCMTextSelection", this.setCMTextSelection);
             EventBus.off("getCMSelection", this.getCMSelection);
             EventBus.off("cmUndo", this.cmUndo);
             EventBus.off("cmUndo", this.cmRedo);
@@ -155,8 +157,8 @@
                     showCursorWhenSelecting: true,
                     lineWrapping: this.$store.state.Settings.line_wraps,
                     extraKeys: {
-                        "Ctrl-Space": this.shouldUpdateSuggestions 
-                    },
+                        "Ctrl-Space": this.shouldUpdateSuggestions
+                    }
                 };
             },
             codemirror() {
@@ -165,6 +167,9 @@
             }
         },
         methods: {
+            setCMTextSelection(sel_obj_1, sel_obj_2) {
+                this.codemirror.setSelection(sel_obj_1, sel_obj_2);
+            },
             setCMSelection(str) {
                 this.codemirror.replaceSelection(str);
             },
@@ -178,12 +183,10 @@
                 this.codemirror.execCommand("redo");
             },
             cmFocus() {
-                console.log("FOCUS")
                 this.codemirror.focus();
             },
             shouldUpdateSuggestions(event) {
-                console.log(event);
-                TextProvider.compile(event, this.file.file_path);
+                TextProvider.compile(event.doc, this.file.file_path);
             }
         },
         watch: {

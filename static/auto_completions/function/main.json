@@ -95,7 +95,7 @@
             }
         }
     },
-    "function": {},
+    "function": "$dynamic.function_files",
     "gamemode": {
         "$general.gamemode": "$function.general.target_selector"
     },

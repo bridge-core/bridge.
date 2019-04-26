@@ -164,5 +164,14 @@ export const DYNAMIC = {
         } catch(e) {
             return [];
         }
+    },
+    function_files() {
+        try {
+            return walkSync(BASE_PATH + Store.state.Explorer.project + "\\functions").map(e => {
+                return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\functions\\", "").replace(/\\/g, "/").replace(".mcfunction", "");
+            });
+        } catch(e) {
+            return [];
+        }
     }
 };
