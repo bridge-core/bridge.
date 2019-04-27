@@ -6,7 +6,7 @@
       <app-toolbar></app-toolbar>
 
       <v-content :style="`padding-bottom: ${footer_visible ? 44 : 20}px;`">
-        <v-container class="no-padding" fluid fill-height align>
+        <v-container class="no-padding" fluid fill-height align ref="container">
           <v-layout row align-space-between all fill-height>
             <sidebar-main fill-height></sidebar-main>
             <v-flex :xs10="is_sidebar_open" :xs12="!is_sidebar_open" style="padding-left: 0.5em;">
@@ -69,6 +69,15 @@
     },
     mounted() {
       if(process.env.NODE_ENV !== "development") setTimeout(() => new UpdateWindow(), 1000);
+      window.requestAnimationFrame(this.updateScroll);
+    },
+    methods: {
+        updateScroll() {
+          if(this.$refs.container && this.$refs.container.$el) {
+            this.$refs.container.$el.scrollTop = 0;
+          }
+          window.requestAnimationFrame(this.updateScroll);
+        }
     },
     computed: {
       is_sidebar_open() {
@@ -105,6 +114,7 @@
   /* Global CSS */
   html {
     overflow: hidden;
+    overscroll-behavior: contain;
   }
   body {
     overflow: unset;

@@ -157,7 +157,32 @@
                     showCursorWhenSelecting: true,
                     lineWrapping: this.$store.state.Settings.line_wraps,
                     extraKeys: {
-                        "Ctrl-Space": this.shouldUpdateSuggestions
+                        "Ctrl-Space": this.shouldUpdateSuggestions,
+                        "Up": () => {
+                            EventBus.trigger("bridge:textCompletionsOpen", (is_open) => {
+                                if(is_open) EventBus.trigger("bridge:textCompletionsUp");
+                                else {
+                                    let pos = { line: this.codemirror.doc.getCursor().line - 1, ch: this.codemirror.doc.getCursor().ch };
+                                    console.log(pos);
+                                    this.setCMTextSelection(pos);
+                                }
+                            });
+                        },
+                        "Down": () => {
+                            EventBus.trigger("bridge:textCompletionsOpen", (is_open) => {
+                                if(is_open) EventBus.trigger("bridge:textCompletionsDown");
+                                else {
+                                    let pos = { line: this.codemirror.doc.getCursor().line + 1, ch: this.codemirror.doc.getCursor().ch };
+                                    this.setCMTextSelection(pos);
+                                }
+                            });
+                        },
+                        "Enter": () => {
+                            EventBus.trigger("bridge:textCompletionsOpen", (is_open) => {
+                                if(is_open) EventBus.trigger("bridge:textCompletionsEnter");
+                                else return this.setCMSelection("\n");
+                            });
+                        }
                     }
                 };
             },

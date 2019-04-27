@@ -131,6 +131,7 @@ class Provider {
 
         let key = path_arr.shift();
         if(current[key] === undefined) {
+            //TODO: ONE COMPONENT PER CONDITION WHICH USES CURRENT & KEY TO EVALUATE
             if(current["$dynamic_template." + key] !== undefined) {
                 return this.walk(path_arr, this.compileTemplate(current["$dynamic_template." + key]));
             } else if(current.$dynamic_template !== undefined) {

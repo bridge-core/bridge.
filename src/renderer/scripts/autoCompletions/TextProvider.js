@@ -9,7 +9,7 @@ export default class TextProvider {
         let line_number = doc.getCursor().line;
         let char = doc.getCursor().ch;
 
-        let path = doc.getLine(line_number).substr(0, char).split(/\s+/);
+        let path = doc.getLine(line_number).split(/\s+/);
         let current = path.pop();
         path = path.join("/");
 

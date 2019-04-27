@@ -9,9 +9,11 @@
         :z-index="100000"
         ref="menu"
     >
-        <v-list class="text-auto-completion-list" dense>
+        <v-list class="text-auto-completion-list " dense>
             <v-list-tile
                 v-for="(e, i) in propose"
+                :class="selected === i ? 'selected' : ''"
+                :ref="selected === i ? 'selected' : null"
                 :key="e"
                 @click="insert(e)"
             >
@@ -34,19 +36,27 @@
                 show_menu: true,
                 x: 100,
                 y: 100,
+                selected: 0,
                 propose: []
             }
         },
         mounted() {
             EventBus.on("bridge:textProviderUpdate", this.updateSuggestions);
+            EventBus.on("bridge:textCompletionsUp", this.textCompletionsUp);
+            EventBus.on("bridge:textCompletionsDown", this.textCompletionsDown);
+            EventBus.on("bridge:textCompletionsEnter", this.textCompletionsEnter);
+            EventBus.on("bridge:textCompletionsOpen", this.isOpen);
             cursors = document.getElementsByClassName("CodeMirror-cursors")[0];
         },
         destroyed() {
             EventBus.off("bridge:textProviderUpdate", this.updateSuggestions);
+            EventBus.off("bridge:textCompletionsUp", this.textCompletionsUp);
+            EventBus.off("bridge:textCompletionsDown", this.textCompletionsDown);
+            EventBus.off("bridge:textCompletionsEnter", this.textCompletionsEnter);
+            EventBus.off("bridge:textCompletionsOpen", this.isOpen);
         },
         computed: {
             is_sidebar_expanded() {
-                console.log(this.$store.state.SidebarMenu.menu_state)
                 return this.$store.state.SidebarMenu.menu_state !== 0;
             }
         },
@@ -55,9 +65,11 @@
                 last_sel_object = sel_obj;
                 this.x = Number(cursors.children[0].style.left.replace("px", ""));
                 this.y = Number(cursors.children[0].style.top.replace("px", ""));
+
                 if(propose.length > 0) {
                     this.propose = propose;
-                    this.show_menu = true;
+                    this.selected = 0;
+                    window.setTimeout(() => this.show_menu = true, 100);
                 } else {
                     this.show_menu = false;
                     this.propose = [];
@@ -70,16 +82,47 @@
             },
             changeListIndex(event) {
                 this.$refs.menu.changeListIndex(event);
+            },
+
+            textCompletionsUp() {
+                if(this.selected > 0) this.selected--;
+                this.$nextTick(() => {
+                    if(this.$refs.selected[0] !== undefined) this.$refs.selected[0].$el.scrollIntoView(true); 
+                });
+            },
+            textCompletionsDown() {
+                if(this.selected < this.propose.length - 1) this.selected++;
+                this.$nextTick(() => {
+                    if(this.$refs.selected[0] !== undefined) this.$refs.selected[0].$el.scrollIntoView(false); 
+                });
+            },
+            textCompletionsEnter() {
+                this.insert(this.propose[this.selected]);
+            },
+            isOpen(cb) {
+                cb(this.show_menu);
             }
         }
     }
 </script>
 
+<style scoped>
+    .selected {
+        background: rgba(119, 119, 119, 0.1);
+    }
+</style>
+
+
 <style>
     .text-auto-completion-list a.v-list__tile {
         height: 26px !important;
+        overscroll-behavior: contain;
+    }
+    .text-auto-completion-list {
+        overscroll-behavior: contain;
     }
     .text-auto-completion-menu {
         position: relative;
+        overscroll-behavior: contain;
     }
 </style>
