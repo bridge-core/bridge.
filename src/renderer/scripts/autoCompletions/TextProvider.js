@@ -17,8 +17,4 @@ export default class TextProvider {
         let propose = object.concat(value).filter(e => e !== current && e.includes(current));
         EventBus.trigger("bridge:textProviderUpdate", propose, [{ line: line_number, ch: char }, { line: line_number, ch: char - current.length }])
     }
-
-    static get() {
-        return this.current;
-    }
 }

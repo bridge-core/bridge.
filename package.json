@@ -21,6 +21,7 @@
   "build": {
     "productName": "bridge.",
     "appId": "solved.editor.bridge",
+    "artifactName": "bridge@${version}.${ext}",
     "directories": {
       "output": "build"
     },
@@ -54,19 +55,21 @@
   },
   "dependencies": {
     "@mdi/font": "^3.3.92",
+    "clean-css": "^4.2.1",
     "comment-json": "^1.1.3",
     "deepmerge": "^3.0.0",
     "dir-to-json": "0.0.3",
-    "discord-rich-presence": "0.0.8",
     "highlightjs": "^9.12.0",
+    "js-yaml": "^3.13.1",
+    "mime": "^2.4.2",
     "mkdirp": "^0.5.1",
     "mousetrap": "^1.6.2",
     "safe-eval": "^0.4.1",
     "uuid": "^3.3.2",
-    "vue": "^2.5.21",
+    "vue": "^2.6.10",
     "vue-electron": "^1.0.6",
     "vuetify": "1.2.5",
-    "vuex": "^2.3.1",
+    "vuex": "^3.1.0",
     "zip-a-folder": "0.0.7"
   },
   "devDependencies": {
@@ -85,8 +88,8 @@
     "css-loader": "^0.28.4",
     "del": "^3.0.0",
     "devtron": "^1.4.0",
-    "electron": "^1.7.5",
-    "electron-builder": "^19.19.1",
+    "electron": "^5.0.0",
+    "electron-builder": "^20.40.2",
     "electron-debug": "^1.4.0",
     "electron-devtools-installer": "^2.2.0",
     "extract-text-webpack-plugin": "^3.0.0",
@@ -97,12 +100,12 @@
     "style-loader": "^0.18.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
-    "url-loader": "^0.5.9",
+    "url-loader": "^1.1.2",
     "vue-codemirror": "^4.0.6",
     "vue-html-loader": "^1.2.4",
     "vue-loader": "^13.0.5",
     "vue-style-loader": "^3.0.1",
-    "vue-template-compiler": "^2.5.21",
+    "vue-template-compiler": "^2.6.10",
     "webpack": "^3.5.2",
     "webpack-dev-server": "^2.7.1",
     "webpack-hot-middleware": "^2.18.2"

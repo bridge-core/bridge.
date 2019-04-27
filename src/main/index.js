@@ -17,7 +17,10 @@ let mainWindow, loadingWindow, windowOptions = {
   frame: false,
   minWidth: 900,
   minHeight: 600,
-  show: false
+  show: false,
+  webPreferences: {
+    nodeIntegration: true
+  }
 };
 const winURL = process.env.NODE_ENV === "development"
   ? `http://localhost:9080`
@@ -75,7 +78,10 @@ function createSplashScreen() {
 
   loadingWindow.webContents.on("did-finish-load", () => {
     loadingWindow.show();
-    if(process.argv[1]) openFile(process.argv[1]);
+
+    if (process.platform == 'win32' && process.argv.length >= 2 && process.env.NODE_ENV !== "development") {
+      openFile(process.argv[1]);
+    }
   });
 }
 
@@ -83,24 +89,28 @@ function openFile(file) {
   mainWindow.webContents.send("openFile", file)
 }
 
-const quit = app.makeSingleInstance((argv) => {
-  // Someone tried to run a second instance, we should focus our window.
-  if(loadingWindow) {
-    if(loadingWindow.isMinimized()) loadingWindow.restore();
-    loadingWindow.focus();
-  } else if(mainWindow) {
-    if(mainWindow.isMinimized()) mainWindow.restore();
-    mainWindow.focus();
-  }
-
-  console.log(argv);
-  openFile(argv[1]);
-});
-
-if (quit && process.argv.length >= 2 && process.env.NODE_ENV !== "development") {
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
   app.quit();
 } else {
-  app.on("ready", () => {
+  app.on("second-instance", (event, argv, working_directory) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if(mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+    if(loadingWindow) {
+      if (loadingWindow.isMinimized()) loadingWindow.restore();
+      loadingWindow.focus();
+    }
+
+    if (process.platform == 'win32' && argv.length >= 2) {
+      openFile(argv[3]);
+    }
+  });
+
+  // Create myWindow, load the rest of the app, etc...
+  app.on('ready', () => {
     createWindow();
     createSplashScreen();
   });
