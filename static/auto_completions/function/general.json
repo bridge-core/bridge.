@@ -1,5 +1,9 @@
 {
     "location": [ "~", "^", "0" ],
     "target_selector": [ "@a", "@e", "@p", "@r", "@s" ],
-    "fill_option": [ "outline", "hollow", "destroy", "keep" ]
+    "fill_option": [ "outline", "hollow", "destroy", "keep" ],
+    "structure_name": [ "buriedtreasure", "endcity", "fortress", "mansion", "mineshaft", "monument", "pillageroutpost", "ruins", "shipwreck", "stronghold", "temple", "village" ],
+    "scoreboard_operation": [ "%=", "*=", "+=", "-=", "/=", "<", "=", ">", "<>" ],
+    "title_type": [ "title", "subtitle", "actionbar" ],
+    "weather_type": [ "clear", "rain", "thunder" ]
 }

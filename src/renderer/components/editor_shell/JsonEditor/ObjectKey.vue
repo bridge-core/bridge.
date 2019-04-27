@@ -45,7 +45,6 @@
             slot="activator"
             :style="`background: ${mark.replace(/;|:/g, '')};`"
             class="object"
-            v-ripple
         >
         {{ my_key }}
         </highlight-text>

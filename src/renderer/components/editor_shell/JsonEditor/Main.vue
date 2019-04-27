@@ -36,7 +36,6 @@
                 :class="`key ${key_selected_class}`"
                 :data="value_data"
                 @click.stop.native="attrClick"
-                v-ripple
             />
         </div>
         <v-divider v-if="first"></v-divider>

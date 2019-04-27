@@ -1,11 +1,11 @@
 <template>
     <v-menu
-
         class="text-auto-completion-menu"
         v-model="show_menu"
         :max-height="200"
         :position-x="x + 100 + (this.is_sidebar_expanded ? 202 : 0)"
         :position-y="y + 56 + 24 +24"
+        absolute
         :z-index="100000"
         ref="menu"
     >
@@ -46,6 +46,7 @@
             EventBus.on("bridge:textCompletionsDown", this.textCompletionsDown);
             EventBus.on("bridge:textCompletionsEnter", this.textCompletionsEnter);
             EventBus.on("bridge:textCompletionsOpen", this.isOpen);
+            EventBus.on("bridge:closeTextCompletions", this.close);
             cursors = document.getElementsByClassName("CodeMirror-cursors")[0];
         },
         destroyed() {
@@ -54,6 +55,7 @@
             EventBus.off("bridge:textCompletionsDown", this.textCompletionsDown);
             EventBus.off("bridge:textCompletionsEnter", this.textCompletionsEnter);
             EventBus.off("bridge:textCompletionsOpen", this.isOpen);
+            EventBus.off("bridge:closeTextCompletions", this.close);
         },
         computed: {
             is_sidebar_expanded() {
@@ -87,13 +89,13 @@
             textCompletionsUp() {
                 if(this.selected > 0) this.selected--;
                 this.$nextTick(() => {
-                    if(this.$refs.selected[0] !== undefined) this.$refs.selected[0].$el.scrollIntoView(true); 
+                    if(this.$refs.selected[0] !== undefined) this.$refs.selected[0].$el.scrollIntoView({ block: "nearest", inline: "start" }); 
                 });
             },
             textCompletionsDown() {
                 if(this.selected < this.propose.length - 1) this.selected++;
                 this.$nextTick(() => {
-                    if(this.$refs.selected[0] !== undefined) this.$refs.selected[0].$el.scrollIntoView(false); 
+                    if(this.$refs.selected[0] !== undefined) this.$refs.selected[0].$el.scrollIntoView({ block: "nearest", inline: "start" }); 
                 });
             },
             textCompletionsEnter() {
@@ -108,7 +110,7 @@
 
 <style scoped>
     .selected {
-        background: rgba(119, 119, 119, 0.1);
+        background: rgba(119, 119, 119, 0.2);
     }
 </style>
 
@@ -116,13 +118,12 @@
 <style>
     .text-auto-completion-list a.v-list__tile {
         height: 26px !important;
-        overscroll-behavior: contain;
+        overscroll-behavior: none;
     }
     .text-auto-completion-list {
-        overscroll-behavior: contain;
+        overscroll-behavior: none;
     }
     .text-auto-completion-menu {
-        position: relative;
-        overscroll-behavior: contain;
+        overscroll-behavior: none;
     }
 </style>
