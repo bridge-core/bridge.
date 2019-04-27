@@ -163,7 +163,6 @@
                                 if(is_open) EventBus.trigger("bridge:textCompletionsUp");
                                 else {
                                     let pos = { line: this.codemirror.doc.getCursor().line - 1, ch: this.codemirror.doc.getCursor().ch };
-                                    console.log(pos);
                                     this.setCMTextSelection(pos);
                                 }
                             });

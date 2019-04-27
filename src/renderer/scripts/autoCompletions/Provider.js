@@ -5,6 +5,7 @@ import VersionMap from "../editor/VersionMap";
 import Store from "../../store/index";
 import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from "./Dynamic";
 import detachObj from "../detachObj";
+import ComponentProvider from "./Components";
 
 let FILE_DEFS = [];
 const REMOVE_LIST = [ "$load", "$dynamic_template", "$placeholder" ]
@@ -57,11 +58,12 @@ class Provider {
     }
 
     validator(path) {
-        if(path === undefined) return;
+        if(path === undefined) return this.start_state = "unknown";
         path = path.replace(BASE_PATH, "");
         for(let def of FILE_DEFS) {
             if(path.includes(def.includes)) return this.start_state = def.start_state;
         }
+        return this.start_state = "unknown";
     }
 
     get(path, context) {
@@ -132,16 +134,9 @@ class Provider {
         let key = path_arr.shift();
         if(current[key] === undefined) {
             //TODO: ONE COMPONENT PER CONDITION WHICH USES CURRENT & KEY TO EVALUATE
-            if(current["$dynamic_template." + key] !== undefined) {
-                return this.walk(path_arr, this.compileTemplate(current["$dynamic_template." + key]));
-            } else if(current.$dynamic_template !== undefined) {
-                for(let i = 0; i < path_arr.length + 1; i++) CONTEXT_UP();
-
-                return this.walk(path_arr, this.compileTemplate(current["$dynamic_template"])[key]);
-            } else if(current.$placeholder !== undefined) {
-                return this.walk(path_arr, current.$placeholder);
-            } else if(current.$load !== undefined) {
-                return this.walk(path_arr, this.omegaExpression(current.$load).object[key]);
+            let res = ComponentProvider.process(this, key, path_arr, current);
+            if(res !== undefined) {
+                return res;
             } else if(current !== LIB) {
                 for(let k of Object.keys(current)) {
                     if(k[0] === "$") {
