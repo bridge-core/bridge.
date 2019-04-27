@@ -35,7 +35,7 @@ Additionally, "bridge." has a few specific features which other editors do not o
    - Error/Mistake detection and auto-fixes for some of them
    - bridge. file structure predictions for users who want to be even faster writing add-ons
 #### Auto-Completions
-   - Rich auto-completions for entities, loot tables, trades, spawn rules, animations and animation controllers
+   - Rich auto-completions for entities, loot tables, trades, spawn rules, biomes, items, blocks, recipes, animations and animation controllers
    - Handcrafted: We don't trust the Minecraft documentation and you shouldn't either. That's why we wrote all suggestions by hand
    - Context sensitive: bridge. proposes different data depending on what you wrote before (events, component groups, filters, etc.)
 #### Documentation
