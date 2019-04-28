@@ -8,6 +8,9 @@ import detachObj from "../detachObj";
 import ComponentProvider from "./Components";
 
 let FILE_DEFS = [];
+let PLUGIN_FILE_DEFS = [];
+let PLUGIN_COMPLETIONS = [];
+let PLUGINS_TO_LOAD = [];
 const REMOVE_LIST = [ "$load", "$dynamic_template", "$placeholder" ]
 let LIB = { dynamic: DYNAMIC };
 
@@ -16,6 +19,7 @@ class Provider {
         this.validator(current);
     }
     static loadAssets() {
+        let total = 0;
         this.loadAsset("files")
             .then(files => files.forEach(
                 f => this.loadAsset(f)
@@ -27,6 +31,9 @@ class Provider {
                         }
 
                         this.storeInLIB(f, data);
+                        total ++;
+                        if(total >= files.length)
+                            this.loadAllPluginCompletions();
                     })
             ));
         this.loadAsset("file_definitions", "data/")
@@ -44,23 +51,61 @@ class Provider {
             });
         });
     }
-    static storeInLIB(path, store, current=LIB) {
+    static storeInLIB(path, store, current=LIB, native=true) {
         if(typeof path === "string") path = path.split("/");
         let key = path.shift();
+        let created = false;
+        if(current[key] === undefined) {
+            current[key] = {};
+            created = true;
+        }
+        if(!native) PLUGIN_COMPLETIONS[PLUGIN_COMPLETIONS.length - 1].push({ key, created });
 
-        if(current[key] === undefined) current[key] = {};
-
-        if(path.length > 0) this.storeInLIB(path, store, current[key]);
-        else current[key] = deepmerge(current[key], store);
+        if(path.length > 0) {
+            this.storeInLIB(path, store, current[key], native);
+        } else if(native || created) {            
+            current[key] = deepmerge(current[key], store);
+        } else if(!native) {
+            return true;
+        }
+    }
+    static removeFromLib(path, current=LIB) {
+        let { key, created } = path.shift();
+        console.log(key, created);
+        if(path.length > 0) this.removeFromLib(path, current[key]);
+        if(created) delete current[key];    
+    }
+    static addPluginCompletion(path, def) {
+        PLUGINS_TO_LOAD.push({ path, def });
+    }
+    static loadAllPluginCompletions() {
+        PLUGINS_TO_LOAD.forEach(({ path, def }) => {
+            PLUGIN_COMPLETIONS.push([]);
+            this.storeInLIB(path, def, undefined, false);
+        });
+        PLUGINS_TO_LOAD = [];
+    }
+    static removePluginCompletions() {
+        PLUGIN_COMPLETIONS.forEach(comp => this.removeFromLib(comp));
+        PLUGIN_COMPLETIONS = [];
+    }
+    static addPluginFileDef(def) {
+        PLUGIN_FILE_DEFS.push(def);
+    }
+    static removePluginFileDefs() {
+        PLUGIN_FILE_DEFS = [];
     }
     static get FILE_DEFS() {
-        return FILE_DEFS;
+        return FILE_DEFS.concat(PLUGIN_FILE_DEFS);
+    }
+    get FILE_DEFS() {
+        return FILE_DEFS.concat(PLUGIN_FILE_DEFS);
     }
 
     validator(path) {
         if(path === undefined) return this.start_state = "unknown";
         path = path.replace(BASE_PATH, "");
-        for(let def of FILE_DEFS) {
+        for(let def of this.FILE_DEFS) {
             if(path.includes(def.includes)) return this.start_state = def.start_state;
         }
         return this.start_state = "unknown";
@@ -72,7 +117,7 @@ class Provider {
         );
         SET_CONTEXT(context, context === undefined ? undefined : context.parent);
         let propose = this.walk(path.split("/"));
-        // console.log("[PROPOSING]", path, propose, LIB);
+        console.log("[PROPOSING]", path, propose, LIB);
 
         return this.preparePropose(propose, context === undefined ? [] : Object.keys(context.toJSON(false)));
     }

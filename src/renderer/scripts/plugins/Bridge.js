@@ -8,6 +8,7 @@ import TabSystem from "../TabSystem";
 import FileSystem from "../FileSystem";
 import { BASE_PATH } from "../constants";
 import JSONTree from "../editor/JsonTree";
+import Provider from "../autoCompletions/Provider";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -238,6 +239,17 @@ export default class Bridge {
         this.BuildableFile = {
             register(file) {
                 Runtime.CreationWindow.add(file);
+            }
+        };
+        this.File = {
+            register(file_def) {
+                Provider.addPluginFileDef(file_def);
+            }
+        };
+        this.AutoCompletions = {
+            add(path, store) {
+                if(Provider.addPluginCompletion(path, store))
+                    throw new Error("Path already exists.");
             }
         };
 
