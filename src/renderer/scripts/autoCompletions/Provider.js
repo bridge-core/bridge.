@@ -6,11 +6,13 @@ import Store from "../../store/index";
 import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from "./Dynamic";
 import detachObj from "../detachObj";
 import ComponentProvider from "./Components";
+import Assert from "../plugins/PluginAssert";
 
 let FILE_DEFS = [];
 let PLUGIN_FILE_DEFS = [];
 let PLUGIN_COMPLETIONS = [];
 let PLUGINS_TO_LOAD = [];
+let LIB_LOADED = false;
 const REMOVE_LIST = [ "$load", "$dynamic_template", "$placeholder" ]
 let LIB = { dynamic: DYNAMIC };
 
@@ -32,8 +34,10 @@ class Provider {
 
                         this.storeInLIB(f, data);
                         total ++;
-                        if(total >= files.length)
+                        if(total >= files.length) {
+                            LIB_LOADED = true;
                             this.loadAllPluginCompletions();
+                        }
                     })
             ));
         this.loadAsset("file_definitions", "data/")
@@ -65,8 +69,8 @@ class Provider {
             this.storeInLIB(path, store, current[key], native);
         } else if(native || created) {            
             current[key] = deepmerge(current[key], store);
-        } else if(!native) {
-            return true;
+        } else if(!native && path.length > 0) {
+            return Assert.throw("Auto-Completions", new Error("Unable to register auto-completions to already exisiting path."));
         }
     }
     static removeFromLib(path, current=LIB) {
@@ -76,7 +80,11 @@ class Provider {
         if(created) delete current[key];    
     }
     static addPluginCompletion(path, def) {
-        PLUGINS_TO_LOAD.push({ path, def });
+        if(!LIB_LOADED) PLUGINS_TO_LOAD.push({ path, def });
+        else {
+            PLUGIN_COMPLETIONS.push([]);
+            this.storeInLIB(path, def, undefined, false);
+        }
     }
     static loadAllPluginCompletions() {
         PLUGINS_TO_LOAD.forEach(({ path, def }) => {

@@ -248,8 +248,7 @@ export default class Bridge {
         };
         this.AutoCompletions = {
             add(path, store) {
-                if(Provider.addPluginCompletion(path, store))
-                    throw new Error("Path already exists.");
+                Provider.addPluginCompletion(path, store)
             }
         };
 
