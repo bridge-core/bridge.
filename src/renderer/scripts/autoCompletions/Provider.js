@@ -120,12 +120,13 @@ class Provider {
     }
 
     get(path, context) {
+        if(this.start_state === "unknown") return { object: [], value: [] };
         path = path.replace("global", 
             VersionMap.convert(this.start_state, Store.state.Settings.target_version)
         );
         SET_CONTEXT(context, context === undefined ? undefined : context.parent);
         let propose = this.walk(path.split("/"));
-        console.log("[PROPOSING]", path, propose, LIB);
+        // console.log("[PROPOSING]", path, propose, LIB);
 
         return this.preparePropose(propose, context === undefined ? [] : Object.keys(context.toJSON(false)));
     }
@@ -172,7 +173,11 @@ class Provider {
     }
 
     walk(path_arr, current=LIB) {
-        if(typeof current === "string") {
+        if(typeof current === "function") {
+            if(path_arr.length === 0)
+                return { object: {}, value: current() };
+            current = current();
+        } else if(typeof current === "string") {
             let { object, value } = this.omegaExpression(current);
             if(path_arr.length === 0)
                 return { object, value };

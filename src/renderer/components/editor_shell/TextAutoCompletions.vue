@@ -65,8 +65,10 @@
         methods: {
             updateSuggestions(propose, sel_obj) {
                 last_sel_object = sel_obj;
-                this.x = Number(cursors.children[0].style.left.replace("px", ""));
-                this.y = Number(cursors.children[0].style.top.replace("px", ""));
+                if(cursors.children[0] !== undefined) {
+                    this.x = Number(cursors.children[0].style.left.replace("px", ""));
+                    this.y = Number(cursors.children[0].style.top.replace("px", ""));
+                }
 
                 if(propose.length > 0) {
                     this.propose = propose;

@@ -292,12 +292,16 @@ class TabSystem {
         if(cap <= 0) return PluginAssert.throw("Dependency Update Failed", new Error("Reached maximum update depth. Make sure you haven't created a dependency loop!"));
         FileSystem.Cache.get(file_path)
             .then(cache => {
-                if(cache.update != undefined) {
+                if(cache.update !== undefined) {
                     cache.update.forEach(file => {
                         console.log("[UPDATE] Dependency " + file);
                         FileSystem.Cache.get(file)
                             .then(d_cache => {
-                                this.dependencyUpdate({ ...d_cache, file_path: file }, previous, cap);
+                                this.dependencyUpdate({ 
+                                    ...d_cache,
+                                    content: JSONTree.buildFromCache(d_cache.content),
+                                    file_path: file
+                                }, previous, cap);
                             })
                             // .catch(err => console.log("File \"" + file + "\" does not exist in cache. Cannot update."));
                             .catch(err => console.error(err));

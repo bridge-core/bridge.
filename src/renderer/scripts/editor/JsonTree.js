@@ -408,14 +408,14 @@ export default class JSONTree {
         };
     }
     static buildFromCache(c) {
-        return new JSONTree(c.key, c.data, undefined, undefined, c.open).internal_buildFromCache(c);
+        return new JSONTree(c.key, c.data, undefined, undefined, c.open).buildFromCache(c);
     }
-    internal_buildFromCache(c) {
+    buildFromCache(c) {
         //Load attributes which cannot be set with constructor
         this.comment = c.comment;
         this.type = c.type || (c.data === "" ? "object" : typeof Json.toCorrectType(c.data));
 
-        this.children = c.children.map(child => new JSONTree(child.key, child.data, this, undefined, child.open).internal_buildFromCache(child));
+        this.children = c.children.map(child => new JSONTree(child.key, child.data, this, undefined, child.open).buildFromCache(child));
         return this;
     }
 

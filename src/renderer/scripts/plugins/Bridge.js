@@ -9,6 +9,7 @@ import FileSystem from "../FileSystem";
 import { BASE_PATH } from "../constants";
 import JSONTree from "../editor/JsonTree";
 import Provider from "../autoCompletions/Provider";
+import { walkSync } from "../autoCompletions/Dynamic";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -121,6 +122,14 @@ export default class Bridge {
                     cb(err, data);
                 });
             },
+            readDirectorySync(path, deep=false) {
+                if(deep)
+                    return walkSync(Runtime.Paths.project() + path).map(e => {
+                        return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
+                    });
+                else 
+                    return fs.readdirSync(Runtime.Paths.project() + path);
+            },
             exists(path) {
                 return fs.existsSync((Runtime.Paths.project() + path).replace(/\//g, "\\"));
             },
@@ -200,7 +209,7 @@ export default class Bridge {
 
         this.Footer = {
             register(footer_element) {
-                if(footer_element.id == undefined) throw new Error("No footer id defined.");
+                if(footer_element.id === undefined) throw new Error("No footer id defined.");
                 Store.commit("addPluginFooter", footer_element);
             },
             update(footer_element) {
@@ -213,7 +222,7 @@ export default class Bridge {
 
         this.Window = {
             register(window) {
-                if(window.id == undefined) throw new Error("No window id defined.");
+                if(window.id === undefined) throw new Error("No window id defined.");
                 Store.commit("addPluginWindow", window);
             },
             update(window) {
@@ -267,6 +276,11 @@ export default class Bridge {
             },
             get current_file_content() {
                 return TabSystem.getSelected().content;
+            },
+            get current_file_name() {
+                let arr = TabSystem.getSelected().file_path.split(/\/|\\/g).pop().split(".");
+                arr.pop();
+                return arr.join(".");
             }
         };
     }

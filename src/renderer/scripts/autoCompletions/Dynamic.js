@@ -9,7 +9,7 @@ let PARENT_CONTEXT = {};
 let NODE_CONTEXT = {};
 let PREV_CONTEXT = undefined;
 
-function walkSync(dir, filelist = []) {
+export function walkSync(dir, filelist = []) {
     fs.readdirSync(dir).forEach(file => {
   
         filelist = fs.statSync(path.join(dir, file)).isDirectory()
