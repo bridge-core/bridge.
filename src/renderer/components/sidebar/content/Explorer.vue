@@ -152,7 +152,7 @@
                     func: () => {
                         this.$store.commit("forceReloadNextPluginRequest");
                         console.log("[REFRESH] " + this.selected);
-                        this.getDirectory();
+                        this.getDirectory(undefined, true);
                     }
                 });
             },
@@ -185,7 +185,7 @@
                     event_name
                 });
             },
-            getDirectory(dir=this.selected) {
+            getDirectory(dir=this.selected, force_reload=false) {
                 if(dir !== this.selected) {
                     this.$set(this, "selected", dir);
                     TabSystem.select(0);
@@ -193,7 +193,8 @@
                 
                 this.$store.commit("loadExplorerDirectory", {
                     store_key: this.explorer_type,
-                    path: this.base_path + this.selected
+                    path: this.base_path + this.selected,
+                    force_reload
                 });
                 if(this.load_plugins) {
                     this.$store.commit("loadAllPlugins", {

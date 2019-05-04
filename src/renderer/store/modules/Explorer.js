@@ -13,8 +13,8 @@ const mutations = {
     setExplorerFiles(state, files) {
         // state.files = files;
     },
-    loadExplorerDirectory(state, { store_key, path }) {
-        Vue.set(state.files, store_key, dirTree.dirTojson(path, {
+    loadExplorerDirectory(state, { store_key, path, force_reload }) {
+        if(force_reload || state.files[store_key] === undefined) Vue.set(state.files, store_key, dirTree.dirTojson(path, {
             includeAbsolutePath: true
         }));
         console.log(state.files)
