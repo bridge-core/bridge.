@@ -56,7 +56,7 @@
             @input="getDirectory"
         ></v-select>
         <v-divider></v-divider>
-        <file-displayer :files="clever_directory" :project="selected" class="file-displayer"></file-displayer>
+        <file-displayer :files="directory" :project="selected" class="file-displayer"></file-displayer>
         <v-divider></v-divider>
     </v-container>
 </template>
@@ -68,7 +68,6 @@
     import CreateProjectWindow from "../../../windows/CreateProject";
     import EventBus from '../../../scripts/EventBus';
     import TabSystem from '../../../scripts/TabSystem';
-    import { BASE_PATH } from "../../../scripts/constants";
     import ZipFolder from "zip-a-folder";
     import fs from "fs";
     
@@ -77,32 +76,37 @@
         components: {
             FileDisplayer
         },
-        created() {
+        props: {
+            load_plugins: Boolean,
+            base_path: String,
+            explorer_type: String
+        },
+        data() {
+            return {
+                listeners: ["readDir", "readProjects"],
+                items: [],
+                display_label: "Loading...",
+                project_select_size: window.innerWidth / 7.5
+            };
+        },
+        mounted() {
             this.$root.$on("refreshExplorer", () => {
                 this.refresh();
             });
 
-            ipcRenderer.on("readDir", (event, args) => {
-                this.directory = args.files;
-                this.$store.commit("setExplorerFiles", args.files);
-                this.$store.commit("loadAllPlugins", { args, selected: this.selected, base_path: this.base_path });
-            });
-
             ipcRenderer.on("readProjects", (event, args) => {
                 this.items = args.files;
-
+                
                 if (this.items.length == 0) {
                     this.display_label = "No projects found";
-                } else if(this.selected == "") {
-                    this.$set(this, "selected", this.findDefaultProject());
+                } else if(this.selected === "" || this.selected === undefined) {
+                    this.getDirectory(this.findDefaultProject());
                 }
             });
 
-            this.getProjects({ event_name: "initialProjectLoad", func: () => {
-                this.getDirectory();
-            }});
+            this.getProjects({ event_name: "initialProjectLoad", func () {} });
 
-            window.addEventListener("resize", this.on_resize);
+            window.addEventListener("resize", this.onResize);
         },
         destroyed() {
             this.listeners.forEach(e => {
@@ -110,24 +114,15 @@
             });
             this.$root.$off("refreshExplorer");
 
-            window.removeEventListener("resize", this.on_resize);
-        },
-        data() {
-            return {
-                listeners: ["readDir", "readProjects"],
-                items: [],
-                directory: undefined,
-                display_label: "Loading...",
-                project_select_size: window.innerWidth / 7.5
-            };
+            window.removeEventListener("resize", this.onResize);
         },
         computed: {
             selected: {
                 get() {
-                    return this.$store.state.Explorer.project;
+                    return this.$store.state.Explorer.project[this.explorer_type];
                 },
                 set(project) {
-                    this.$store.commit("setExplorerProject", project);
+                    this.$store.commit("setExplorerProject", { store_key: this.explorer_type, project});
                     EventBus.trigger("updateTabUI");
                     // EventBus.on("updateSelectedTab");
                 }
@@ -135,13 +130,10 @@
             loading() {
                 return this.items.length == 0;
             },
-            clever_directory() {
-                return this.directory ? this.directory.children : [];
+            directory() {
+                return this.$store.state.Explorer.files[this.explorer_type] ? this.$store.state.Explorer.files[this.explorer_type].child : [];
             },
 
-            base_path() {
-                return BASE_PATH;
-            },
             project_items() {
                 let size = Math.floor(this.project_select_size / 8.25);
                 
@@ -171,8 +163,8 @@
                 new CreateProjectWindow();
             },
             packageProject() {
-                let project = this.$store.state.Explorer.project;
-                let path = BASE_PATH + project;
+                let project = this.selected;
+                let path = this.base_path + project;
                 ZipFolder.zipFolder(path, `${path}.mcpack`, err => {
                     if(err) throw err;
                     fs.rename(`${path}.mcpack`, `${path}/${project}.mcpack`, (err) => {
@@ -182,25 +174,34 @@
                 });
             },
             openInExplorer() {
-                shell.openExternal(BASE_PATH + this.$store.state.Explorer.project);
+                shell.openExternal(this.base_path + this.selected);
             },
 
             getProjects({ event_name, func }={}) {
                 this.registerListener(event_name, func);
 
-                ipcRenderer.send("getProjects", { 
+                ipcRenderer.send("getProjects", {
+                    path: this.base_path,
                     event_name
                 });
             },
-            getDirectory(dir=this.selected, { event_name, func }={}) {
-                if(dir != this.selected) this.$set(this, "selected", dir);
-                TabSystem.select(0);
-                this.registerListener(event_name, func);
-
-                ipcRenderer.send("getDir", { 
-                    path: dir, 
-                    event_name
+            getDirectory(dir=this.selected) {
+                if(dir !== this.selected) {
+                    this.$set(this, "selected", dir);
+                    TabSystem.select(0);
+                }
+                
+                this.$store.commit("loadExplorerDirectory", {
+                    store_key: this.explorer_type,
+                    path: this.base_path + this.selected
                 });
+                if(this.load_plugins) {
+                    this.$store.commit("loadAllPlugins", {
+                        directory: this.$store.state.Explorer.files[this.explorer_type],
+                        selected: this.selected, 
+                        base_path: this.base_path 
+                    });
+                } 
             },
 
             registerListener(event_name, func) {
@@ -209,7 +210,7 @@
                     this.listeners.push(event_name);
                 }
             },
-            on_resize() {
+            onResize() {
                 this.project_select_size = window.innerWidth / 7.5;
             },
 

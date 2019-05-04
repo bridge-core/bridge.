@@ -111,7 +111,7 @@ class FileSystem {
             raw_content: raw_data,
             file_path: path,
             is_compiled: format_version === 1,
-            category: Store.state.Explorer.project,
+            category: Store.state.Explorer.project.explorer,
             file_name: path.split(/\/|\\/).pop()
         });
     }

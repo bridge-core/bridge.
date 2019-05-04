@@ -76,7 +76,7 @@ class FileContent {
     }
 
     getPath(val=this.input.content[0].input, ext=this.ext, expand=this.expand_path) {
-        return `${Store.state.Explorer.project}/${expand}${val}.${ext}`;
+        return `${Store.state.Explorer.project.explorer}/${expand}${val}.${ext}`;
     }
 
     get() {

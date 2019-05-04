@@ -3,17 +3,17 @@
         This directory has no content.
     </p>
     <div :style="element_style" :class="element_class" v-else>
-        <details v-for="(file, i) in loop_files.filter(f => f.type == 'directory')" :key="`${project}-${i}`">
+        <details v-for="(file) in loop_files.filter(f => f.isDir)" :key="file.absolutePath">
             <summary v-ripple>
                 <v-icon class="open" small>folder_open</v-icon><v-icon class="closed" small>folder</v-icon><span class="folder"> {{ file.name }}</span>
             </summary>
-            <file-displayer :files="file.children" :first="false" :project="project"></file-displayer>
+            <file-displayer :files="file.child" :first="false" :project="project"></file-displayer>
         </details>
         <div 
-            v-for="(file, i) in loop_files.filter(f => f.type != 'directory')"
-            :key="`file.nr.${i}`"
+            v-for="(file) in loop_files.filter(f => !f.isDir)"
+            :key="file.absolutePath"
             class="file"
-            @click.stop="openFile(project + '\\' + file.path)"
+            @click.stop="openFile(file.absolutePath)"
             v-ripple
         >
             <v-icon small>{{ icon(getExtension(file.name)) }}</v-icon>  {{ file.name }}
@@ -26,10 +26,15 @@
     import FileSystem from "../../../../scripts/FileSystem";
     import { BASE_PATH } from "../../../../scripts/constants";
     import LoadingWindow from "../../../../windows/LoadingWindow";
+    import uuidv4 from "uuid/v4";
 
     export default {
         name: "file-displayer",
         props: {
+            displayer_key: {
+                default: uuidv4(),
+                type: String
+            },
             files: Array,
             project: String,
             first: {
@@ -58,20 +63,19 @@
 
             loop_files() {
                 return [...this.files].sort((a, b) => {
-                    if(a.children && !b.children) return -1;
-                    if(!a.children && b.children) return 1;
+                    if(a.child && !b.child) return -1;
+                    if(!a.child && b.child) return 1;
                     if(a.name > b.name) return 1;
                     if(a.name < b.name) return -1;
                     return 0;
-                })
+                });
             }
         },
         methods: {
             openFile(path) {
-                //ipcRenderer.send("getFile", { path: path.replace(/\\/g, "/") });
                 if(!this.$store.state.LoadingWindow["open-file"]) {
                     new LoadingWindow("open-file").show();
-                    FileSystem.open(BASE_PATH + path);
+                    FileSystem.open(path);
                 } 
             },
             getExtension(name) {
