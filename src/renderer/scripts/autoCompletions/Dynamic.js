@@ -7,7 +7,7 @@ import fs from "fs";
 
 let PARENT_CONTEXT = {};
 let NODE_CONTEXT = {};
-let PREV_CONTEXT = undefined;
+let PREV_CONTEXT = [];
 
 export function walkSync(dir, filelist = []) {
     fs.readdirSync(dir).forEach(file => {
@@ -25,15 +25,14 @@ export function SET_CONTEXT(node, parent) {
     NODE_CONTEXT = node;
 }
 export function CONTEXT_UP() {
-    PREV_CONTEXT = NODE_CONTEXT;
+    PREV_CONTEXT.push(NODE_CONTEXT);
     if(NODE_CONTEXT !== undefined) NODE_CONTEXT = NODE_CONTEXT.parent;
     if(PARENT_CONTEXT !== undefined) PARENT_CONTEXT = PARENT_CONTEXT.parent;
 }
 export function CONTEXT_DOWN() {
-    if(PREV_CONTEXT !== undefined) {
+    if(PREV_CONTEXT.length > 0) {
         PARENT_CONTEXT = NODE_CONTEXT;
-        NODE_CONTEXT = PREV_CONTEXT;
-        PREV_CONTEXT = undefined;
+        NODE_CONTEXT = PREV_CONTEXT.pop();
     } else if(NODE_CONTEXT !== undefined) {
         throw new Error("Called CONTEXT_DOWN without PREV_CONTEXT.");
     }
@@ -42,9 +41,10 @@ export function CONTEXT_DOWN() {
 export const DYNAMIC = {
     list: {
         next_index() {
-            let arr = NODE_CONTEXT.toJSON();
-            if(Array.isArray(arr)) {
+            if(NODE_CONTEXT.is_array) {
                 let res = [];
+                let arr = NODE_CONTEXT.toJSON();
+
                 for(let i = arr.length; i >= 0; i--) {
                     res.push(i + "");
                 }
@@ -53,15 +53,10 @@ export const DYNAMIC = {
             return [ "0" ];
         },
         index_pair() {
-            let arr = NODE_CONTEXT.toJSON();
-            if(Array.isArray(arr)) return [ "0", "1" ];
-            return [ "0" ];
+            return [ "0", "1" ];
         },
         index_triple() {
-            let arr = NODE_CONTEXT.toJSON();
-            if(Array.isArray(arr) && arr.length >= 2) return [ "1", "2" ];
-            if(Array.isArray(arr)) return [ "0", "1" ];
-            return [ "0" ];
+            return [ "0", "1", "2" ];
         }
     },
     setting: {

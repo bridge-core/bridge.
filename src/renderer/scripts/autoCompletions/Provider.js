@@ -75,7 +75,7 @@ class Provider {
     }
     static removeFromLib(path, current=LIB) {
         let { key, created } = path.shift();
-        console.log(key, created);
+        // console.log(key, created);
         if(path.length > 0) this.removeFromLib(path, current[key]);
         if(created) delete current[key];    
     }
@@ -191,16 +191,16 @@ class Provider {
 
         let key = path_arr.shift();
         if(current[key] === undefined) {
-            //TODO: ONE COMPONENT PER CONDITION WHICH USES CURRENT & KEY TO EVALUATE
             let res = ComponentProvider.process(this, key, path_arr, current);
             if(res !== undefined) {
                 return res;
             } else if(current !== LIB) {
                 for(let k of Object.keys(current)) {
                     if(k[0] === "$") {
-                        CONTEXT_UP();
+                        for(let i = 0; i < path_arr.length + 1; i++) CONTEXT_UP();
                         let { object, value } = this.omegaExpression(k);
-                        CONTEXT_DOWN();
+                        for(let i = 0; i < path_arr.length + 1; i++) CONTEXT_DOWN();
+
                         if(value.includes(key) || object[key] !== undefined)
                             return this.walk(path_arr, current[k]);
                     }
