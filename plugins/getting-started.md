@@ -190,4 +190,4 @@ Bridge.on("bridge:saveFile", () => {
 ```
 
 #### Step 6: Testing
-Reload the directory with your plugins by pressing reload inside the built-in explorer. Now try to save a file and if you've done everything correct, you can see "Hello World!" inside a new console tab.
+Reload the directory with your plugins by pressing reload inside the built-in explorer. Now try to save a file and if you've done everything correctly, you can see "Hello World!" inside a new console tab.
