@@ -112,7 +112,7 @@ export default class Bridge {
                 } else {
                     fs.writeFile(Runtime.Paths.project() + path, data, (err) => {
                         if(err && !cb) PluginAssert.throw(this.__file_path__, err);
-                        else if(err) cb(err);
+                        else cb(err);
                     });
                 }
             },

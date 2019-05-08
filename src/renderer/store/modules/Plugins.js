@@ -5,6 +5,7 @@ import fs from "fs";
 import DirToJSON from "dir-to-json";
 import { BASE_PATH } from "../../scripts/constants";
 import Provider from "../../scripts/autoCompletions/Provider";
+import FileType from "../../scripts/editor/FileType";
 
 const state = {
     installed_plugins: [],
@@ -98,8 +99,9 @@ const mutations = {
         Bridge.hl.unregisterAll();
         Provider.removePluginFileDefs();
         Provider.removePluginCompletions();
-        
+        FileType.reset();
         Bridge.reset();
+        
         Vue.set(state, "installed_plugins", []);
         state.current_loaded_project = "";
     },
