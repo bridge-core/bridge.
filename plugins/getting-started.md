@@ -13,8 +13,14 @@
 - [```.registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
 - [```.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
 
+#### ```Bridge.AutoCompletions```
+- ```.register(path, data)```
+
 #### ```Bridge.BuildableFile```
 - [```.register(file_def)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/buildableFile/register.md)
+
+#### ```Bridge.File```
+- ```.register(file_def)```
 
 #### ```Bridge.Footer```
 - [```.register(footer)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/footer/register.md)
