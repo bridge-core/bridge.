@@ -122,7 +122,8 @@
                     return this.$store.state.Explorer.project[this.explorer_type];
                 },
                 set(project) {
-                    this.$store.commit("setExplorerProject", { store_key: this.explorer_type, project});
+                    this.$store.commit("setExplorerProject", { store_key: this.explorer_type, project });
+                    this.getDirectory(project, true);
                     EventBus.trigger("updateTabUI");
                     // EventBus.on("updateSelectedTab");
                 }
