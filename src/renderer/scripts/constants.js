@@ -11,25 +11,3 @@ export const WEB_APP_PLUGINS = "https://solveddev.github.io/bridge-plugins/";
 export const FILE_TEMPLATES = IMP_FILE_TEMPLATES;
 export const DOC_LIST = [ "entities", "blocks", "biomes", "addons", "moLang", "UI", "scripting", "particles", "animations", "timelines" ];
 export const MINECRAFT_VERSIONS = JSON.parse(fs.readFileSync(__static + "\\auto_completions\\versions.json").toString());
-export const MANIFEST_TEMPLATE = (name="", des="") => `{
-	"format_version": 1,
-	"header": {
-		"description": "${des}",
-		"name": "${name}",
-		"uuid": "${uuidv4()}",
-		"version": [ 1, 0, 0 ],
-		"min_engine_version": [ 1, 0, 0 ]
-	},
-	"modules": [
-		{
-			"type": "data",
-			"uuid": "${uuidv4()}",
-			"version": [ 1, 0, 0 ]
-		},
-		{
-            "type": "client_data",
-            "uuid": "${uuidv4()}",
-            "version": [ 1, 0, 0 ]
-        }
-	]
-}`;
