@@ -6,7 +6,7 @@
             "population_control": "$spawn_rule.general.population_control"
         },
         "conditions": {
-            "$dynamic.list.next_index": "$spawn_rule.components and $spawn_rule.v1_11"
+            "$dynamic.list.next_index": "$spawn_rule.components and $spawn_rule.beta_components"
         }
     }
 }

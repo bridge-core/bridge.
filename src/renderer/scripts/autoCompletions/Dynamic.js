@@ -4,6 +4,7 @@ import JsonCacheUtils from "../editor/JSONCacheUtils";
 import Store from "../../store/index";
 import path from "path";
 import fs from "fs";
+import Provider from "./Provider";
 
 let PARENT_CONTEXT = {};
 let NODE_CONTEXT = {};
@@ -66,7 +67,6 @@ export const DYNAMIC = {
     },
     entity: {
         component_list() {
-            // return Object.keys(LIB.entity.main_v1_11["minecraft:entity"].components);
             return [];
         },
         cached_families() {
@@ -86,6 +86,9 @@ export const DYNAMIC = {
                 console.log(e);
                 return [];
             }
+        },
+        all_events() {
+            return JsonCacheUtils.events.map(e => e);
         },
         "@events"() {
             return JsonCacheUtils.events.map(e => "@s " + e);

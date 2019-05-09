@@ -8,8 +8,8 @@
     "$dynamic_template.test": {
         "$key": "$dynamic.setting.target_version",
 
-        "v1.10": "$general.entity.filters",
-        "v1.11": "$general.entity.filters and $entity.general.filters_beta"
+        "Stable": "$general.entity.filters",
+        "Beta": "$general.entity.filters and $entity.general.filters_beta"
     },
     "subject": "$general.entity.filter_targets",
     "operator": "$general.entity.filter_operators",

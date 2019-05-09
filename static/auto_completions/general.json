@@ -12,7 +12,8 @@
             "duration": "$general.number",
             "amplifier": "$general.number",
             "visible": "$general.number_boolean",
-            "ambient": "$general.number_boolean"
+            "ambient": "$general.number_boolean",
+            "display_on_screen_animation": "$general.boolean"
         },
         "event_definition": {
             "event": "$dynamic.entity.events",
