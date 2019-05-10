@@ -13,6 +13,8 @@
             explorer_type="resource_pack"
             :base_path="RP_BASE_PATH"
             :load_plugins="false"
+            :force_project_algorithm="findRP"
+            :show_toolbar="false"
         />
         <content-plugins v-else-if="menu_type === 'extensions'"/>
         <content-documentation v-else-if="menu_type === 'documentation'"/>
@@ -28,6 +30,7 @@
     import ContentCustom from "./content/Custom";
     import ContentNotImplemented from "./content/NotImplemented";
     import { BASE_PATH, RP_BASE_PATH } from "../../scripts/constants";
+    import findRP from "../../scripts/utilities/FindRP";
 
     export default {
         name: "sidebar-content",
@@ -45,7 +48,8 @@
         data() {
             return {
                 BASE_PATH,
-                RP_BASE_PATH
+                RP_BASE_PATH,
+                findRP
             }
         }
     }

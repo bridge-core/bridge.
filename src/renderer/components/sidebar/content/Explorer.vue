@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-toolbar flat height="30px">
+        <v-toolbar v-if="show_toolbar" flat height="30px">
             <v-tooltip bottom class="first">
                 <v-btn icon flat @click.stop="refresh" slot="activator" small>
                     <v-icon small>refresh</v-icon>
@@ -45,6 +45,7 @@
             </v-tooltip>
         </v-toolbar>
         <v-select
+            v-if="force_project_algorithm === undefined"
             ref="project_select"
             :items="project_items" 
             :value="selected" 
@@ -54,9 +55,32 @@
             :loading="loading" 
             :disabled="items.length <= 1"
             @input="getDirectory"
-        ></v-select>
+        />
+        <v-subheader
+            v-else
+        >{{ selected }}</v-subheader>
         <v-divider></v-divider>
-        <file-displayer :files="directory" :project="selected" :base_path="base_path" class="file-displayer"></file-displayer>
+        <file-displayer
+            v-if="selected !== undefined && selected !== '/@NO-RP@/' && selected !== '/@NO-DEPENDENCY@/'" 
+            :files="directory"
+            :project="selected"
+            :base_path="base_path"
+            class="file-displayer"
+        />
+        <v-progress-linear v-else-if="selected === undefined" indeterminate/>
+        <div
+            v-else-if="selected === '/@NO-DEPENDENCY@/'"
+            style="padding: 4px;"
+            
+        >
+            It doesn't look like your current behavior pack has a corresponding resource pack registered inside its manifest file.
+        </div>
+        <div
+            v-else
+            style="padding: 4px;"
+        >
+            The resource pack which belongs to this behavior pack does not exist.
+        </div>
         <v-divider></v-divider>
     </v-container>
 </template>
@@ -80,7 +104,12 @@
         props: {
             load_plugins: Boolean,
             base_path: String,
-            explorer_type: String
+            explorer_type: String,
+            force_project_algorithm: Function,
+            show_toolbar: {
+                default: true,
+                type: Boolean
+            }
         },
         data() {
             return {
@@ -90,7 +119,7 @@
                 project_select_size: window.innerWidth / 7.5
             };
         },
-        mounted() {
+        async mounted() {
             this.$root.$on("refreshExplorer", () => {
                 this.refresh();
             });
@@ -105,7 +134,13 @@
                 }
             });
 
-            this.getProjects({ event_name: "initialProjectLoad", func () {} });
+            if(this.force_project_algorithm) {
+                this.selected = undefined;
+                this.selected = await this.force_project_algorithm();
+                this.getDirectory(this.selected);
+            } else {
+                this.getProjects({ event_name: "initialProjectLoad", func () {} });
+            }
 
             window.addEventListener("resize", this.onResize);
         },
@@ -187,6 +222,7 @@
                 });
             },
             getDirectory(dir=this.selected, force_reload=false) {
+                if(dir === undefined || dir === "/@NO-RP@/" || dir === '/@NO-DEPENDENCY@/') return;
                 if(dir !== this.selected) {
                     this.$set(this, "selected", dir);
                     TabSystem.select(0);
