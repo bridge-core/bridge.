@@ -1,8 +1,9 @@
 import ContentWindow from "../scripts/commonWindows/Content";
 import Store from "../store/index";
+import uuidv4 from "uuid/v4";
 
 export default class LoadingWindow extends ContentWindow {
-    constructor(id) {
+    constructor(id=uuidv4()) {
         super({
             options: {
                 is_visible: false,

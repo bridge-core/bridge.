@@ -70,6 +70,7 @@
     import TabSystem from '../../../scripts/TabSystem';
     import ZipFolder from "zip-a-folder";
     import fs from "fs";
+    import LoadingWindow from '../../../windows/LoadingWindow';
     
     export default {
         name: "content-explorer",
@@ -164,14 +165,13 @@
                 new CreateProjectWindow();
             },
             packageProject() {
+                let lw = new LoadingWindow();
                 let project = this.selected;
                 let path = this.base_path + project;
-                ZipFolder.zipFolder(path, `${path}.mcpack`, err => {
-                    if(err) throw err;
-                    fs.rename(`${path}.mcpack`, `${path}/${project}.mcpack`, (err) => {
-                        if(err) throw err;
-                        this.$root.$emit("refreshExplorer");
-                    })
+                ZipFolder.zipFolder(path, `${path}\\${project}.mcpack`, err => {
+                    if(err) console.error(err);
+                    this.refresh();
+                    lw.close();
                 });
             },
             openInExplorer() {
