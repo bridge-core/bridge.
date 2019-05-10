@@ -1,0 +1,27 @@
+{
+    "icon": "mdi-store",
+    "title": "Trade",
+    "extension": "json",
+    "path": "trading/",
+    "templates": {
+        "Blank Trade Table": {
+            "tiers": [{
+                "trades": [{
+                    "wants": [{
+                            "item": "",
+                            "quantity": {}
+                        },
+                        {
+                            "item": "",
+                            "quantity": {}
+                        }
+                    ],
+                    "gives": [{
+                        "item": "",
+                        "quantity": {}
+                    }]
+                }]
+            }]
+        }
+    }
+}

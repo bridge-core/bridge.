@@ -1,0 +1,8 @@
+{
+    "set": {},
+    "define": {
+        "keywords": ["animation_controllers", "states"],
+        "titles": ["format_version", "on_entry", "on_exit"],
+        "symbols": ["animations", "transitions", "variables"]
+    }
+}

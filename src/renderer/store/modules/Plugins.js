@@ -26,22 +26,22 @@ const mutations = {
             state.current_loaded_project = selected;
 
             //SEARCH BRIDGE DIRECTORY
-            let index = 0, child = directory[0];
-            while(child && child.name != "bridge" && index < directory.length) {
-                index++;
-                child = directory[index];
-            }
+            let dir;
+            directory.child.forEach(c => {
+                if(c.name === "bridge")
+                    dir = c;
+            })
             //Do stuff if bridge directory exists
-            if(child && child.name == "bridge") {
+            if(dir !== undefined) {
                 let uninstalled = Bridge.Interpreter.init(selected);
 
-                child.children.forEach(e => {
+                dir.child.forEach(e => {
                     //LOAD PLUGINS
                     if(e.name == "plugins") {
-                        e.children.forEach(plugin => {
+                        e.child.forEach(plugin => {
                             if(plugin.type != "directory") {
                                 Store.commit("loadPlugin", { 
-                                    code: fs.readFileSync(base_path + selected + "/" + plugin.path).toString(),
+                                    code: fs.readFileSync(base_path + "/" + plugin.path).toString(),
                                     path: plugin.path,
                                     blocked: uninstalled.includes(plugin.path)
                                 });

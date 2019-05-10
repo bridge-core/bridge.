@@ -1,0 +1,19 @@
+{
+    "icon": "mdi-movie",
+    "title": "Animation",
+    "extension": "json",
+    "path": "animations/",
+    "templates": {
+        "Blank Animation": {
+            "format_version": {},
+            "animations": {
+                "animation.test_events": {
+                    "timeline": {
+                        "0.0": []
+                    },
+                    "animation_length": {}
+                }
+            }
+        }
+    }
+}

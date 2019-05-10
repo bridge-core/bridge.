@@ -1,0 +1,8 @@
+{
+    "set": {},
+    "define": {
+        "keywords": ["minecraft", "tiers", "trades", "groups"],
+        "titles": ["item", "quantity"],
+        "symbols": ["wants", "gives"]
+    }
+}

@@ -4,345 +4,77 @@
         "id": "animation",
         "start_state": "animation/main",
         "build_array_exceptions": [ "timeline" ],
-
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "animations", "timeline" ],
-                "titles": [ "format_version" ],
-                "symbols": []
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-movie",
-            "title": "Animation",
-            "extension": "json",
-            "path": "animations/",
-            "templates": {
-                "Blank Animation": {
-                    "format_version": {},
-                    "animations": {
-                        "animation.test_events": {
-                            "timeline": {
-                                "0.0": []
-                            },
-                            "animation_length": {}
-                        }
-                    }
-                }
-            }
-        }
+        "highlighter": "animation",
+        "file_creator": "animation"
     },
     {
         "includes": "animation_controllers",
         "id": "animation_controller",
         "start_state": "animation_controller/main",
-
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "animation_controllers", "states" ],
-                "titles": [ "format_version", "on_entry", "on_exit" ],
-                "symbols": [ "animations", "transitions", "variables" ]
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-google-controller",
-            "title": "Animation Controller",
-            "extension": "json",
-            "path": "animation_controllers/",
-            "templates": {
-                "Blank Animation Controller": {
-                    "format_version": {},
-                    "animation_controllers": {
-                        "controller.animation.blank": {
-                            "states": {
-                                "default": {
-                                    "on_entry": [],
-                                    "on_exit": []
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        "highlighter": "animation_controller",
+        "file_creator": "animation_controller"
     },
     {
         "includes": "biomes",
         "id": "biome",
         "start_state": "biome/main",
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "minecraft", "description", "components" ],
-                "titles": [ "format_version" ],
-                "symbols": [ ]
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-earth",
-            "title": "Biome",
-            "extension": "json",
-            "path": "biomes/",
-            "templates": {}
-        }
+        "highlighter": "biome",
+        "file_creator": "biome"
     },
     {
         "includes": "blocks",
         "id": "block",
         "start_state": "block/main",
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "minecraft", "description", "components" ],
-                "titles": [ "format_version" ],
-                "symbols": [ ]
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-wall",
-            "title": "Block",
-            "extension": "json",
-            "path": "blocks/",
-            "templates": {
-                "Blank Block": {
-                    "format_version": {},
-
-                    "minecraft:block": {
-                        "description": {
-                            "identifier": {},
-                            "register_to_creative_menu": true
-                        },
-
-                        "components": {}
-                    }
-                }
-            }
-        }
+        "highlighter": "block",
+        "file_creator": "block"
     },
     {
         "includes": "entities",
         "id": "entity",
         "start_state": "entity/main",
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "minecraft", "description", "events", "components", "component_groups" ],
-                "titles": [ "format_version", "do_not_upgrade", "event" ],
-                "symbols": [ "add", "remove", "sequence", "randomize", "scripts", "animations" ]
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-chess-knight",
-            "title": "Entity",
-            "extension": "json",
-            "path": "entities/",
-            "templates": {
-                "Blank Entity": {
-                    "minecraft:entity": {
-                        "format_version": {},
-                        "description": {
-                            "identifier": "",
-                            "runtime_identifier": ""
-                        },
-                        "component_groups": {},
-                        "components": {},
-                        "events": {}
-                    }
-                }
-            }
-        }
+        "highlighter": "entity",
+        "file_creator": "entity"
     },
     {
         "includes": "functions",
         "id": "function",
         "start_state": "function/main",
 
-        "file_creator": {
-            "icon": "mdi-function",
-            "title": "Function",
-            "extension": "mcfunction",
-            "path": "functions/",
-            "templates": {
-                "Example Function": "# My Comment\nsay Hello World!"
-            }
-        }
+        "file_creator": "function"
     },
     {
         "includes": "items",
         "id": "item",
         "start_state": "item/main",
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "minecraft", "description", "components" ],
-                "titles": [ "format_version" ],
-                "symbols": [ ]
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-sword",
-            "title": "Item",
-            "extension": "json",
-            "path": "items/",
-            "templates": {
-                "Blank Item": {
-                    "format_version": {},
-                    "minecraft:item": {
-                        "description": {
-                            "identifier": ""
-                        },
-                        "components": {}
-                    }
-                }
-            }
-        }
+        "highlighter": "item",
+        "file_creator": "item"
     },
     {
         "includes": "loot_tables",
         "id": "loot_table",
         "start_state": "loot_table/main",
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "minecraft", "pools", "entries" ],
-                "titles": [ "type" ],
-                "symbols": [ "functions", "conditions", "tiers", "rolls" ]
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-skull",
-            "title": "Loot Table",
-            "extension": "json",
-            "path": "loot_tables/",
-            "templates": {
-                "Blank Loot Table": {
-                    "pools": [
-                        {
-                            "rolls": {},
-                            "entries": [
-                                {
-                                    "type": "item",
-                                    "name": ""
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        }
+        "highlighter": "loot_table",
+        "file_creator": "loot_table"
     },
     {
         "includes": "recipes",
         "id": "recipe",
         "start_state": "recipe/main",
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "minecraft", "description", "tags", "input", "output", "pattern", "key", "result", "ingredients" ],
-                "titles": [ "format_version" ],
-                "symbols": [ ]
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-book",
-            "title": "Recipe",
-            "extension": "json",
-            "path": "recipes/",
-            "templates": {
-                "Blank Recipe": {
-                    "format_version": {},
-                    "minecraft:recipe_shaped": {
-                        "description": {
-                            "identifier": ""
-                        },
-                        "tags": {}
-                    }
-                }
-            }
-        }
+        "highlighter": "recipe",
+        "file_creator": "recipe"
     },
     {
         "includes": "spawn_rules",
         "id": "spawn_rule",
         "start_state": "spawn_rule/main",
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "minecraft", "conditions", "description" ],
-                "titles": [ "format_version" ],
-                "symbols": [ "identifier", "population_control" ]
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-format-list-checks",
-            "title": "Spawn Rule",
-            "extension": "json",
-            "path": "spawn_rules/",
-            "templates": {
-                "Blank Spawn Rule": {
-                    "format_version": {},
-                    "minecraft:spawn_rules": {
-                        "description": {
-                            "identifier": "",
-                            "population_control": ""
-                        },
-                        "conditions": [
-                            {
-                                
-                            }
-                        ]
-                    }
-                }
-            }
-        }
+        "highlighter": "spawn_rule",
+        "file_creator": "spawn_rule"
     },
     {
         "includes": "trading",
         "id": "trade_table",
         "start_state": "trade_table/main",
-        "highlighter": {
-            "set": {},
-            "define": {
-                "keywords": [ "minecraft", "tiers", "trades", "groups" ],
-                "titles": [ "item", "quantity" ],
-                "symbols": [ "wants", "gives" ]
-            }
-        },
-        "file_creator": {
-            "icon": "mdi-store",
-            "title": "Trade",
-            "extension": "json",
-            "path": "trading/",
-            "templates": {
-                "Blank Trade Table": {
-                    "tiers": [
-                        {
-                            "trades": [
-                                {
-                                    "wants": [
-                                        {
-                                            "item": "",
-                                            "quantity": {}
-                                        },
-                                        {
-                                            "item": "",
-                                            "quantity": {}
-                                        }
-                                    ],
-                                    "gives": [
-                                        {
-                                            "item": "",
-                                            "quantity": {}
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        }
+        "highlighter": "trade_table",
+        "file_creator": "trade_table"
     }
 ]

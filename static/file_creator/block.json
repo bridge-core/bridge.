@@ -1,0 +1,20 @@
+{
+    "icon": "mdi-wall",
+    "title": "Block",
+    "extension": "json",
+    "path": "blocks/",
+    "templates": {
+        "Blank Block": {
+            "format_version": {},
+
+            "minecraft:block": {
+                "description": {
+                    "identifier": {},
+                    "register_to_creative_menu": true
+                },
+
+                "components": {}
+            }
+        }
+    }
+}

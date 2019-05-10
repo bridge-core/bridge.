@@ -1,0 +1,17 @@
+{
+    "icon": "mdi-skull",
+    "title": "Loot Table",
+    "extension": "json",
+    "path": "loot_tables/",
+    "templates": {
+        "Blank Loot Table": {
+            "pools": [{
+                "rolls": {},
+                "entries": [{
+                    "type": "item",
+                    "name": ""
+                }]
+            }]
+        }
+    }
+}

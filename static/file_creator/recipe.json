@@ -1,0 +1,17 @@
+{
+    "icon": "mdi-book",
+    "title": "Recipe",
+    "extension": "json",
+    "path": "recipes/",
+    "templates": {
+        "Blank Recipe": {
+            "format_version": {},
+            "minecraft:recipe_shaped": {
+                "description": {
+                    "identifier": ""
+                },
+                "tags": {}
+            }
+        }
+    }
+}

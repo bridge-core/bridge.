@@ -1,0 +1,20 @@
+{
+    "icon": "mdi-chess-knight",
+    "title": "Entity",
+    "extension": "json",
+    "path": "entities/",
+    "templates": {
+        "Blank Entity": {
+            "minecraft:entity": {
+                "format_version": {},
+                "description": {
+                    "identifier": "",
+                    "runtime_identifier": ""
+                },
+                "component_groups": {},
+                "components": {},
+                "events": {}
+            }
+        }
+    }
+}

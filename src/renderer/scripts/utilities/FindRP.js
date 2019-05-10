@@ -7,8 +7,8 @@ let last_result;
 export default async function findRP() {
     let selected = TabSystem.project;
     if(selected === last_selected) return last_result;
-
     last_selected = selected;
+    
     let manifest;
     let uuid;
     try {

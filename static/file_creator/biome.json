@@ -1,0 +1,7 @@
+{
+    "icon": "mdi-earth",
+    "title": "Biome",
+    "extension": "json",
+    "path": "biomes/",
+    "templates": {}
+}

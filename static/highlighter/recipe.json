@@ -1,0 +1,8 @@
+{
+    "set": {},
+    "define": {
+        "keywords": ["minecraft", "description", "tags", "input", "output", "pattern", "key", "result", "ingredients"],
+        "titles": ["format_version"],
+        "symbols": []
+    }
+}

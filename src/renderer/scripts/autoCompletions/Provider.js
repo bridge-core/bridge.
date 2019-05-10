@@ -13,7 +13,7 @@ let PLUGIN_FILE_DEFS = [];
 let PLUGIN_COMPLETIONS = [];
 let PLUGINS_TO_LOAD = [];
 let LIB_LOADED = false;
-const REMOVE_LIST = [ "$load", "$dynamic_template", "$placeholder" ]
+const REMOVE_LIST = [ "$load", "$dynamic_template", "$placeholder" ];
 let LIB = { dynamic: DYNAMIC };
 
 class Provider {

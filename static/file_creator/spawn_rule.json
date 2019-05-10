@@ -1,0 +1,20 @@
+{
+    "icon": "mdi-format-list-checks",
+    "title": "Spawn Rule",
+    "extension": "json",
+    "path": "spawn_rules/",
+    "templates": {
+        "Blank Spawn Rule": {
+            "format_version": {},
+            "minecraft:spawn_rules": {
+                "description": {
+                    "identifier": "",
+                    "population_control": ""
+                },
+                "conditions": [{
+
+                }]
+            }
+        }
+    }
+}
