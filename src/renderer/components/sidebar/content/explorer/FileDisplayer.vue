@@ -116,7 +116,12 @@
                                         TabSystem.closeByPath(file_path);
                                     }, 
                                     () => {}, 
-                                    `Are you sure that you want to delete "${file_path.replace(/\\/g, "/").replace(this.base_path, "")}"?`
+                                    `Are you sure that you want to delete "${file_path.replace(/\\/g, "/").replace(this.base_path, "")}"?`,
+                                    {
+                                        options: {
+                                            is_persistent: false
+                                        }
+                                    }
                                 );
                             }
                         },

@@ -68,7 +68,8 @@ export default class InputWindow {
             ],
             options: { 
                 is_frameless: true, 
-                height: 160 
+                height: 160,
+                is_persistent: false
             }, is_visible: true, id: this.id 
         });
     }
