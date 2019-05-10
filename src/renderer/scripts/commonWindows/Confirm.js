@@ -12,8 +12,8 @@ export default class ConfirmWindow {
                 text: "Cancel",
                 is_rounded: true,
                 action: () => {
-                    if(typeof on_cancel == "function") on_cancel();
                     this.close();
+                    if(typeof on_cancel == "function") on_cancel();
                 }
             },
             {
@@ -22,8 +22,8 @@ export default class ConfirmWindow {
                 color: "success",
                 is_rounded: true,
                 action: () => {
-                    if(typeof on_confirm == "function") on_confirm();
                     this.close();
+                    if(typeof on_confirm == "function") on_confirm();
                 }
             }
         ];

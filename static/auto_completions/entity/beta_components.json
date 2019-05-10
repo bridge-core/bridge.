@@ -1,4 +1,9 @@
 {
+    "minecraft:ambient_sound_interval": {
+        "min": "$general.number",
+        "max": "$general.number",
+        "event_name": "$general.sound"
+    },
     "minecraft:boss": {
         "should_darken_sky": "$general.boolean",
         "hud_range": "$general.number"

@@ -18,8 +18,7 @@
     },
     "minecraft:ambient_sound_interval": {
         "range": "$general.number",
-        "value": "$general.number",
-        "event_name": "$general.sound"
+        "value": "$general.number"
     },
     "minecraft:angry": {
         "broadcastAnger": "$general.boolean",
@@ -394,6 +393,9 @@
         "$load": "$entity.components.minecraft:movement&dot;amphibious",
         "start_speed": "$general.number",
         "speed_when_turning": "$general.number"
+    },
+    "minecraft:skin_id": {
+        "value": "$general.number"
     },
     "minecraft:movement.skip": "$entity.components.minecraft:movement&dot;amphibious",
     "minecraft:movement.sway": {

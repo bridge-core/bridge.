@@ -22,8 +22,8 @@ export default class InputWindow {
                 color: "success",
                 is_rounded: true,
                 action: () => {
-                    if(typeof onConfirm == "function") onConfirm(this.input + (expand_text !== undefined ? expand_text : ""));
                     this.close();
+                    if(typeof onConfirm == "function") onConfirm(this.input + (expand_text !== undefined ? expand_text : ""));
                 }
             }
         ];
@@ -49,8 +49,15 @@ export default class InputWindow {
                             type: "input",
                             text: label,
                             input: text,
-                            action: (val) => {
-                                this.input = val;
+                            has_focus: true,
+                            action: {
+                                enter: () => {
+                                    this.close();
+                                    if(typeof onConfirm == "function") onConfirm(this.input + (expand_text !== undefined ? expand_text : ""));
+                                },
+                                default: (val) => {
+                                    this.input = val;
+                                } 
                             }   
                         },
                         {

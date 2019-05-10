@@ -56,7 +56,7 @@
             @input="getDirectory"
         ></v-select>
         <v-divider></v-divider>
-        <file-displayer :files="directory" :project="selected" class="file-displayer"></file-displayer>
+        <file-displayer :files="directory" :project="selected" :base_path="base_path" class="file-displayer"></file-displayer>
         <v-divider></v-divider>
     </v-container>
 </template>

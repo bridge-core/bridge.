@@ -1,5 +1,4 @@
 import IMP_FILE_TEMPLATES from "./constants/file_templates";
-import uuidv4 from "uuid/v4";
 import fs from "fs";
 import a_v from "./constants/app_version";
 

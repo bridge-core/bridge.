@@ -7,7 +7,7 @@
             <summary v-ripple>
                 <v-icon class="open" small>folder_open</v-icon><v-icon class="closed" small>folder</v-icon><span class="folder"> {{ file.name }}</span>
             </summary>
-            <file-displayer :files="file.child" :first="false" :project="project"></file-displayer>
+            <file-displayer :files="file.child" :first="false" :project="project" :base_path="base_path"></file-displayer>
         </details>
         <div 
             v-for="(file) in loop_files.filter(f => !f.isDir)"
@@ -25,11 +25,14 @@
 <script>
     import { ipcRenderer } from "electron";
     import FileSystem from "../../../../scripts/FileSystem";
-    import { BASE_PATH } from "../../../../scripts/constants";
     import LoadingWindow from "../../../../windows/LoadingWindow";
     import uuidv4 from "uuid/v4";
     import ConfirmWindow from '../../../../scripts/commonWindows/Confirm';
     import InputWindow from '../../../../scripts/commonWindows/Input';
+    import trash from "trash";
+    import TabSystem from '../../../../scripts/TabSystem';
+    import fs from "fs";
+    import Assert from '../../../../scripts/plugins/PluginAssert';
 
     export default {
         name: "file-displayer",
@@ -43,7 +46,8 @@
             first: {
                 default: true,
                 type: Boolean
-            }
+            },
+            base_path: String
         },
         data() {
             return {
@@ -95,6 +99,7 @@
                 let file_name = file_path.split(".");
                 file_name.pop();
                 file_name = file_name.join(".").split(/\\|\//g).pop();
+                let excl_path = file_path.replace(`${file_name}.${file_ext}`, "");
 
                 this.$store.commit("openContextMenu", {
                     x_position: event.clientX,
@@ -103,8 +108,16 @@
                         {
                             title: "Delete",
                             action: () => {
-                                new ConfirmWindow(() => {}, () => {}, `Are you sure that you want to delete "${file_path.replace(/\\/g, "/")}"?`);
-                                console.log("Delete", file_path);
+                                new ConfirmWindow(
+                                    async () => {
+                                        FileSystem.Cache.clear(file_path);
+                                        await trash(file_path);
+                                        this.$root.$emit("refreshExplorer");
+                                        TabSystem.closeByPath(file_path);
+                                    }, 
+                                    () => {}, 
+                                    `Are you sure that you want to delete "${file_path.replace(/\\/g, "/").replace(this.base_path, "")}"?`
+                                );
                             }
                         },
                         {
@@ -115,8 +128,17 @@
                                     label: "Name",
                                     header: "Name Input",
                                     expand_text: "." + file_ext
-                                }, console.log);
-                                console.log("Rename", file_path);
+                                }, (new_name) => {
+                                    let closed = TabSystem.closeByPath(file_path);
+
+                                    let new_path = `${excl_path}${new_name}`;
+                                    FileSystem.Cache.rename(file_path, new_path);
+                                    fs.rename(file_path, new_path, (err) => {
+                                        if(err) Assert.throw("bridge. Core", err);
+                                        this.$root.$emit("refreshExplorer");
+                                        if(closed) FileSystem.open(new_path);
+                                    });
+                                });
                             }
                         }
                     ]

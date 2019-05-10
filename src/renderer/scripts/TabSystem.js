@@ -85,6 +85,17 @@ class TabSystem {
         else if(typeof val == "number") this.closeById(val);
         else throw new TypeError("Expected undefined or number, found " + typeof val);
     }
+    closeByPath(file_path) {
+        if(this.projects[this.project] === undefined) return false;
+        
+        for(let i = 0; i < this.projects[this.project].length; i++) {
+            if(this.projects[this.project][i].file_path.replace(/\\/g, "/") === file_path.replace(/\\/g, "/")) {
+                this.internalCloseId(i);
+                return true;
+            } 
+        }
+        return false;
+    }
 
     //Getting tabs
     get(val) {

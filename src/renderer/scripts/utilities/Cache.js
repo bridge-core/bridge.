@@ -53,6 +53,14 @@ export default class Cache {
             this.saveCache(cache);
         });
     }
+    rename(from, to) {
+        this.getCache((cache) => {
+            let id = getFileId(from);
+            cache[getFileId(to)] = cache[id]
+            delete cache[id];
+            this.saveCache(cache);
+        });
+    }
 
     //UPDATE
     addDependency(to, dependency) {
