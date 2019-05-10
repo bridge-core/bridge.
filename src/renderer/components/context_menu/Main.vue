@@ -10,10 +10,10 @@
         >
             <v-list class="context-menu">
                 <v-list-tile
-                v-for="(item, i) in items"
-                :key="`${y_position}.${x_position}.${state}.${i}`"
-                @click="() => {}"
-                dense
+                    v-for="(item, i) in items"
+                    :key="`${y_position}.${x_position}.${i}`"
+                    @click="item.action"
+                    dense
                 >
                     <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                 </v-list-tile>
@@ -50,11 +50,8 @@
             y_position() {
                 return this.$store.state.ContextMenu.y_position;
             },
-            state() {
-                return this.$store.state.ContextMenu.active_state;
-            },
             items() {
-                return this.$store.getters.current_context_menu_items;
+                return this.$store.state.ContextMenu.menu;
             }
         }
     }

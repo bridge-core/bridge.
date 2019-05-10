@@ -1,8 +1,9 @@
 import Store from "../../store/index";
 
-export default class ConfirmWindow {
-    constructor(on_confirm, on_cancel, text, opts) {
+export default class InputWindow {
+    constructor({ header, text, label, expand_text }, onConfirm) {
         this.id = `main.core.windows.confirm_window.${Math.random()}`;
+        this.input = text;
         this.actions = [
             {
                 type: "space"
@@ -12,7 +13,6 @@ export default class ConfirmWindow {
                 text: "Cancel",
                 is_rounded: true,
                 action: () => {
-                    if(typeof on_cancel == "function") on_cancel();
                     this.close();
                 }
             },
@@ -22,7 +22,7 @@ export default class ConfirmWindow {
                 color: "success",
                 is_rounded: true,
                 action: () => {
-                    if(typeof on_confirm == "function") on_confirm();
+                    if(typeof onConfirm == "function") onConfirm(this.input + (expand_text !== undefined ? expand_text : ""));
                     this.close();
                 }
             }
@@ -33,7 +33,7 @@ export default class ConfirmWindow {
             content: [
                 {
                     type: "header",
-                    text: "Confirmation"
+                    text: header
                 },
                 {
                     type: "divider"
@@ -42,15 +42,28 @@ export default class ConfirmWindow {
                     text: "\n"
                 },
                 {
-                    text
+                    type: "horizontal",
+                    center: true,
+                    content: [
+                        {
+                            type: "input",
+                            text: label,
+                            input: text,
+                            action: (val) => {
+                                this.input = val;
+                            }   
+                        },
+                        {
+                            text: expand_text
+                        }
+                    ]
                 }
             ],
             options: { 
                 is_frameless: true, 
-                height: 130 
+                height: 160 
             }, is_visible: true, id: this.id 
         });
-        this.update(opts);
     }
 
     update(opts) {
