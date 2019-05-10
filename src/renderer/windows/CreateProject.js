@@ -1,8 +1,9 @@
 import fs from "fs";
 import ContentWindow from "../scripts/commonWindows/Content";
-import { BASE_PATH, MANIFEST_TEMPLATE } from "../scripts/constants";
+import { BASE_PATH } from "../scripts/constants";
 import Vue from "../main";
 import LoadingWindow from "./LoadingWindow";
+import Manifest from "../scripts/utilities/Manifest";
 
 
 export default class CreateFileWindow extends ContentWindow {
@@ -13,7 +14,7 @@ export default class CreateFileWindow extends ContentWindow {
             display_name: "New Project",
             options: {
                 is_persistent: false,
-                height: 200
+                height: 260
             },
             actions: [
                 {
@@ -22,6 +23,8 @@ export default class CreateFileWindow extends ContentWindow {
                 {
                     type: "button",
                     text: "Create!",
+                    color: "success",
+                    is_rounded: true,
                     action: () => this.createProject()
                 }
             ]
@@ -89,10 +92,22 @@ export default class CreateFileWindow extends ContentWindow {
             {
                 text: DEFAULT_TEXT,
                 color: "grey"
+            },
+            {
+                type: "divider"
+            },
+            {
+                type: "switch",
+                color: "success",
+                text: "Register client data",
+                action: (val) => {
+                    this.client_data = val;
+                }
             }
         ];
         this.input = "";
         this.des = "";
+        this.client_data = false;
         this.update({
             content: this.content
         });
@@ -115,7 +130,7 @@ export default class CreateFileWindow extends ContentWindow {
             fs.mkdir(BASE_PATH + this.input, (err) => {
                 if(err && err.message.includes("already exists")) return l_w.hide();
                 if(err) { l_w.hide(); throw err; }
-                else fs.writeFile(BASE_PATH + this.input + "/manifest.json", MANIFEST_TEMPLATE(this.input, this.des), () => {
+                else fs.writeFile(BASE_PATH + this.input + "/manifest.json", new Manifest("data", this.input, this.des, this.client_data).get(), () => {
                     if(err && err.message.includes("already exists")) return l_w.hide();
                     if(err) { l_w.hide(); throw err; }
                     else Vue.$root.$emit("refreshExplorer");

@@ -1,6 +1,7 @@
 {
     "tiers": {
         "$dynamic.list.next_index": {
+            "total_exp_required": "$general.number",
             "trades": "$trade_table.general.trades",
             "groups": {
                 "$dynamic.list.next_index": {

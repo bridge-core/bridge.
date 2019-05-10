@@ -415,7 +415,8 @@ export default class JSONTree {
         this.comment = c.comment;
         this.type = c.type || (c.data === "" ? "object" : typeof Json.toCorrectType(c.data));
 
-        this.children = c.children.map(child => new JSONTree(child.key, child.data, this, undefined, child.open).buildFromCache(child));
+        if(c.children)
+            this.children = c.children.map(child => new JSONTree(child.key, child.data, this, undefined, child.open).buildFromCache(child));
         return this;
     }
 

@@ -3,6 +3,10 @@ import Provider from "../autoCompletions/Provider";
 let FILE_DEFS;
 
 export default class FileType {
+    static reset() {
+        FILE_DEFS = undefined;
+    }
+
     static get(file_path) {
         let data = this.getData(file_path);
         if(data === undefined) return "unknown";

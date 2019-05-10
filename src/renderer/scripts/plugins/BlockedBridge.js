@@ -77,6 +77,12 @@ export default class BlockedBridge {
         this.BuildableFile = {
             register() {}
         };
+        this.File = {
+            register() {}
+        };
+        this.AutoCompletions = {
+            add() {}
+        };
         this.Utils = {
             get current_project() {},
             get current_selected() {},

@@ -1,139 +1,34 @@
 {
-    "minecraft:behavior.delayed_attack": {
-        "priority": "$general.number",
-        "reach_multiplier": "$general.decimal",
-        "attack_duration": "$general.decimal",
-        "hit_delay_pct": "$general.decimal",
-        "track_target": "$general.boolean",
-        "sound_event": "$general.sound"
+    "minecraft:boss": {
+        "should_darken_sky": "$general.boolean",
+        "hud_range": "$general.number"
     },
-    "minecraft:behavior.drink_potion": {
-        "priority": "$general.number",
-        "speed_modifier": "$general.decimal",
-        "potions": {
-            "$dynamic.list.next_index": {
-                "id": "$general.potion_number_id",
-                "chance": "$general.decimal",
-                "filters": "$entity.filters"
+    "minecraft:npc": {
+        "npc_data": {
+            "portrait_offsets": {
+                "translate": {
+                    "$dynamic.list.index_triple": "$general.number"
+                },
+                "scale": {
+                    "$dynamic.list.index_triple": "$general.number"
+                }
+            },
+            "picker_offsets": {
+                "translate": {
+                    "$dynamic.list.index_triple": "$general.number"
+                },
+                "scale": {
+                    "$dynamic.list.index_triple": "$general.number"
+                }
+            },
+            "skin_list": {
+                "$dynamic.list.next_index": {
+                    "variant": "$general.number"
+                }
             }
         }
     },
-    "minecraft:behavior.follow_target_captain": {
-        "priority": "$general.number",
-        "speed_multiplier": "$general.decimal",
-        "within_radius": "$general.number",
-        "follow_distance": "$general.number"
-    },
-    "minecraft:behavior.hide": {
-        "priority": "$general.number",
-        "speed_multiplier": "$general.decimal",
-        "poi_type": "$general.poi_type",
-        "duration": "$general.number"
-    },
-    "minecraft:behavior.mingle": {
-        "mingle_partner_type": "$general.entity_identifier",
-        "mingle_distance": "$general.number"
-    },
-    "minecraft.behavior.move_to_poi": {
-        "priority": "$general.number",
-        "speed_multiplier": "$general.decimal",
-        "poi_type": "$general.poi_type"
-    },
-    "minecraft:behavior.knockback_roar": {
-        "priority": "$general.number",
-        "attack_time": "$general.decimal",
-        "cooldown_time": "$general.decimal",
-        "duration": "$general.number",
-        "knockback_damage": "$general.number",
-        "knockback_strength": "$general.number",
-        "knockback_range": "$general.number",
-        "knockback_filters": "$entity.filters",
-        "damage_filters": "$entity.filters",
-        "on_roar_end": "$general.entity.event_definition"
-    },
-    "minecraft:behavior.move_to_random_block": {
-        "priority": "$general.number",
-        "speed_multiplier": "$general.decimal",
-        "within_radius": "$general.number",
-        "block_distance": "$general.number"
-    },
-    "minecraft:behavior.move_to_village": {
-        "priority": "$general.number",
-        "speed_multiplier": "$general.decimal"
-    },
-    "minecraft:behavior.work": {
-        "can_work_in_rain": "$general.boolean",
-        "work_in_rain_tolerance":  "$general.number",
-        "on_arrival": "$general.entity.event_definition"
-    },
-    "minecraft:addrider": {
-        "spawn_event": {}
-    },
-    "minecraft:angry": {
-        "broadcast_targets": {
-            "$dynamic.list.next_index": {}
-        }
-    },
-    "minecraft:break_blocks": {
-        "breakable_blocks": {
-            "$dynamic.list.next_index": "$general.block_identifier"
-        }
-    },
-    "minecraft:dweller": {
-        "dwelling_type": [ "village" ],
-        "dweller_role": [ "hostile", "inhabitant", "defender" ],
-        "update_interval_base": "$general.number",
-        "update_interval_variant": "$general.number",
-        "can_find_poi": "$general.boolean",
-        "can_migrate": "$general.boolean",
-        "first_founding_reward": "$general.number",
-        "preferred_profession": ["weaponsmith"]
-    },
-    "minecraft:economy_trade_table": {
-        "display_name": {},
-        "table": "$dynamic.trade_table_files",
-        "new_screen": "$general.boolean",
-        "hero_demand_discount": "$general.number",
-        "persist_trades": "$general.boolean",
-        "convert_trades_economy": "$general.boolean"
-    },
-    "minecraft:hide": {},
-    "minecraft:is_hidden_when_invisible": {},
-    "minecraft:scheduler": {
-        "min_delay_secs": "$general.number",
-        "max_delay_secs": "$general.number"
-    },
-    "minecraft:is_illager_captain": {},
-    "minecraft:is_stunned": {},
-    "minecraft:raid_trigger": {
-        "triggered_event": "$general.entity.event_definition"
-    },
-    "minecraft:ravager_blocked": {
-        "knockback_strength": "$general.number",
-        "reaction_choices": {
-            "$dynamic.list.next_index": {
-                "weight": "$general.number",
-                "value": "$general.entity.event_definition"
-            }
-        }
-    },
-    "minecraft:spell_effects": {
-        "add_effects": {
-            "$dynamic.list.next_index": {
-                "$load": "$general.entity.effect_definition",
-                "display_on_screen_animation": "$general.boolean"
-            } 
-        }
-    },
-    "minecraft:trade_resupply": {},
-    "minecraft:trade_table": {
-        "new_screen": "$general.boolean",
-        "hero_demand_discount": "$general.number",
-        "persist_trades": "$general.boolean",
-        "convert_trades_economy": "$general.boolean"
-    },
-    "minecraft:transformation": {
-        "keep_owner": "$general.boolean",
-        "keep_level": "$general.boolean"
+    "minecraft:water_movement": {
+        "drag_factor": "$general.decimal"
     }
 }

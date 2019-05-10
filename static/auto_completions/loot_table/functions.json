@@ -34,6 +34,9 @@
                     "max": "$general.number"
                 }
             },
+            "set_actor_id": {
+                "id": "$general.entity_identifier"
+            },
             "set_banner_details": {
                 "type": {
                     "min": "$general.number",

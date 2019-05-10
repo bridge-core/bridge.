@@ -13,8 +13,14 @@
 - [```.registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
 - [```.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
 
+#### ```Bridge.AutoCompletions```
+- ```.register(path, data)```
+
 #### ```Bridge.BuildableFile```
 - [```.register(file_def)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/buildableFile/register.md)
+
+#### ```Bridge.File```
+- ```.register(file_def)```
 
 #### ```Bridge.Footer```
 - [```.register(footer)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/footer/register.md)
@@ -190,4 +196,4 @@ Bridge.on("bridge:saveFile", () => {
 ```
 
 #### Step 6: Testing
-Reload the directory with your plugins by pressing reload inside the built-in explorer. Now try to save a file and if you've done everything correct, you can see "Hello World!" inside a new console tab.
+Reload the directory with your plugins by pressing reload inside the built-in explorer. Now try to save a file and if you've done everything correctly, you can see "Hello World!" inside a new console tab.

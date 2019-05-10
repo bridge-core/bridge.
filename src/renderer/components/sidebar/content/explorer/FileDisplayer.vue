@@ -14,9 +14,10 @@
             :key="file.absolutePath"
             class="file"
             @click.stop="openFile(file.absolutePath)"
+            @contextmenu="(event) => showContextMenu(event, file.absolutePath)"
             v-ripple
         >
-            <v-icon small>{{ icon(getExtension(file.name)) }}</v-icon>  {{ file.name }}
+            <v-icon small>{{ icon(getExtension(file.name)) }}</v-icon> {{ file.name }}
         </div>
     </div>
 </template>
@@ -27,6 +28,8 @@
     import { BASE_PATH } from "../../../../scripts/constants";
     import LoadingWindow from "../../../../windows/LoadingWindow";
     import uuidv4 from "uuid/v4";
+    import ConfirmWindow from '../../../../scripts/commonWindows/Confirm';
+    import InputWindow from '../../../../scripts/commonWindows/Input';
 
     export default {
         name: "file-displayer",
@@ -86,6 +89,38 @@
             },
             on_resize(e) {
                 this.file_displayer_height = window.innerHeight - 199;
+            },
+            showContextMenu(event, file_path) {
+                let file_ext = file_path.split(".").pop();
+                let file_name = file_path.split(".");
+                file_name.pop();
+                file_name = file_name.join(".").split(/\\|\//g).pop();
+
+                this.$store.commit("openContextMenu", {
+                    x_position: event.clientX,
+                    y_position: event.clientY,
+                    menu: [
+                        {
+                            title: "Delete",
+                            action: () => {
+                                new ConfirmWindow(() => {}, () => {}, `Are you sure that you want to delete "${file_path.replace(/\\/g, "/")}"?`);
+                                console.log("Delete", file_path);
+                            }
+                        },
+                        {
+                            title: "Rename",
+                            action: () => {
+                                new InputWindow({
+                                    text: file_name,
+                                    label: "Name",
+                                    header: "Name Input",
+                                    expand_text: "." + file_ext
+                                }, console.log);
+                                console.log("Rename", file_path);
+                            }
+                        }
+                    ]
+                });
             }
         }
     }

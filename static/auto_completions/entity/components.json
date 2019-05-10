@@ -1,6 +1,7 @@
 {
     "minecraft:addrider": {
-        "entity_type": "$general.entity_identifier"
+        "entity_type": "$general.entity_identifier",
+        "spawn_event": "$dynamic.entity.all_events"
     },
     "minecraft:ageable": {
         "duration": "$general.number",
@@ -17,12 +18,16 @@
     },
     "minecraft:ambient_sound_interval": {
         "range": "$general.number",
-        "value": "$general.number"
+        "value": "$general.number",
+        "event_name": "$general.sound"
     },
     "minecraft:angry": {
         "broadcastAnger": "$general.boolean",
         "broadcastRange": "$general.number",
         "broadcast_filters": "$entity.filters",
+        "broadcast_targets": {
+            "$dynamic.list.next_index": {}
+        },
         "calm_event": "$general.entity.event_definition",
         "duration": "$general.number",
         "duration_delta": "$general.number"
@@ -47,6 +52,11 @@
                 "item_damage": "$general.number",
                 "replaceItem": "$general.item_identifier"
             }
+        }
+    },
+    "minecraft:break_blocks": {
+        "breakable_blocks": {
+            "$dynamic.list.next_index": "$general.block_identifier"
         }
     },
     "minecraft:breathable": {
@@ -135,6 +145,25 @@
     "minecraft:despawn": {
         "remove_child_entities": "$general.boolean",
         "filters": "$entity.filters"
+    },
+    "minecraft:dweller": {
+        "dwelling_type": [ "village" ],
+        "dweller_role": [ "hostile", "inhabitant", "defender" ],
+        "update_interval_base": "$general.number",
+        "update_interval_variant": "$general.number",
+        "can_find_poi": "$general.boolean",
+        "can_migrate": "$general.boolean",
+        "first_founding_reward": "$general.number",
+        "preferred_profession": ["weaponsmith"]
+    },
+
+    "minecraft:economy_trade_table": {
+        "display_name": {},
+        "table": "$dynamic.trade_table_files",
+        "new_screen": "$general.boolean",
+        "hero_demand_discount": "$general.number",
+        "persist_trades": "$general.boolean",
+        "convert_trades_economy": "$general.boolean"
     },
     "minecraft:environment_sensor": {
         "$dynamic.list.next_index": {
@@ -248,6 +277,7 @@
         "max": "$general.number",
         "min": "$general.number"
     },
+    "minecraft:hide": {},
     "minecraft:home": {},
     "minecraft:horse.jump_strength": {
         "value": "$general.decimal"
@@ -295,11 +325,14 @@
     "minecraft:is_charged": {},
     "minecraft:is_chested": {},
     "minecraft:is_dyeable": { "interact_text": {} },
+    "minecraft:is_hidden_when_invisible": {},
     "minecraft:is_ignited": {},
+    "minecraft:is_illager_captain": {},
     "minecraft:is_saddled": {},
     "minecraft:is_shaking": {},
     "minecraft:is_sheared": {},
     "minecraft:is_stackable": {},
+    "minecraft:is_stunned": {},
     "minecraft:is_tamed": {},
 
     "minecraft:item_controllable": {
@@ -545,6 +578,9 @@
         },
         "homing": "$general.boolean"
     },
+    "minecraft:raid_trigger": {
+        "triggered_event": "$general.entity.event_definition"
+    },
     "minecraft:rail_movement": {
         "max_speed": "$general.decimal"
     },
@@ -556,6 +592,15 @@
         "on_deactivate": "$general.entity.event_definition",
         "tick_command_block_on_activate": "$general.boolean",
         "tick_command_block_on_deactivate": "$general.boolean"
+    },
+    "minecraft:ravager_blocked": {
+        "knockback_strength": "$general.number",
+        "reaction_choices": {
+            "$dynamic.list.next_index": {
+                "weight": "$general.number",
+                "value": "$general.entity.event_definition"
+            }
+        }
     },
     "minecraft:rideable": {
         "controlling_seat": "$general.number",
@@ -589,8 +634,12 @@
         "end_scale": "$general.decimal"
     },
     "minecraft:scheduler": {
-        "$dynamic.list.next_index": {
-            "scheduled_event": "$general.entity.event_definition"
+        "min_delay_secs": "$general.number",
+        "max_delay_secs": "$general.number",
+        "scheduled_events": {
+            "$dynamic.list.next_index": {
+                "scheduled_event": "$general.entity.event_definition"
+            }
         }
     },
     "minecraft:shareables": {
@@ -706,15 +755,22 @@
         },
         "time_down_event": "$general.entity.event_definition"
     },
+    "minecraft:trade_resupply": {},
     "minecraft:trade_table": {
         "display_name": {},
-        "table": "$dynamic.trade_table_files"
+        "table": "$dynamic.trade_table_files",
+        "new_screen": "$general.boolean",
+        "hero_demand_discount": "$general.number",
+        "persist_trades": "$general.boolean",
+        "convert_trades_economy": "$general.boolean"
     },
     "minecraft:transformation": {
         "into": "$general.entity_identifier",
         "begin_transformation_sound": "$general.sound",
         "transformation_sound": "$general.sound",
         "drop_equipment": "$general.boolean",
+        "keep_owner": "$general.boolean",
+        "keep_level": "$general.boolean",
         "delay": {
             "value": "$general.number",
             "block_assist_chance": "$general.decimal",

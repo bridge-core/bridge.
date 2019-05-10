@@ -42,5 +42,31 @@
     "minecraft:player_in_village_filter": {
       "distance": "$general.number",
       "village_border_tolerance": "$general.number"
+    },
+    
+    "minecraft:delay_filter": {
+        "min": "$general.number",
+        "max": "$general.number",
+        "identifier": "$general.entity_identifier",
+        "spawn_chance": "$general.number"
+    },
+    "minecraft:distance_filter": {
+        "min": "$general.number",
+        "max": "$general.number"
+    },
+    "minecraft:herd": {
+        "initial_event": {},
+        "initial_event_count": "$general.number"
+    },
+    "minecraft:is_persistent": {},
+    "minecraft:permute_type": {
+        "$dynamic.list.next_index": {
+            "weight": "$general.number",
+            "entity_type": "$general.entity_type"
+        }
+    },
+    "minecraft:world_age_filter": {
+        "min": "$general.number",
+        "max": "$general.number"
     }
 }

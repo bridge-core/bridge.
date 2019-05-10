@@ -6,6 +6,7 @@ import Bridge from "./Bridge";
 import { trigger, readonlyTrigger } from "./EventTriggers";
 import PluginAssert from "./PluginAssert";
 import cJSON from "comment-json";
+import deepmerge from "deepmerge";
 
 class Environment {
     constructor(file_path, depth=1000, is_module, blocked) {
@@ -18,6 +19,7 @@ class Environment {
             this.Bridge = new BlockedBridge(is_module, file_path);
             this.console = { log() {}, warn() {}, error() {}, dir(){} };
             this.JSON = { parse() {}, stringify() {} };
+            this.LIB = { deepmerge() {} }
         } else {
             this.Bridge = new Bridge(is_module, file_path);
             this.console = {
@@ -29,6 +31,9 @@ class Environment {
             this.JSON = {
                 parse: (text) => cJSON.parse(text, undefined, true),
                 stringify: JSON.stringify
+            };
+            this.LIB = {
+                deepmerge,
             };
             // this.document = window.document;
         }
