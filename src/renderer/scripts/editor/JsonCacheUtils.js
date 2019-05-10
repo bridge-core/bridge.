@@ -9,7 +9,7 @@ export default class JsonCacheUtils {
     static get CACHE_ITEMS() {
         let res = [];
         for(let file_id in this.CACHE) {
-            if(this.CACHE[file_id].format_version === 1)
+            if(this.CACHE[file_id] !== undefined && this.CACHE[file_id].format_version === 1)
                 res.push(JSONTree.buildFromCache(this.CACHE[file_id].content))
         }
         return res;

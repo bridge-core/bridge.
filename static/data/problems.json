@@ -4,7 +4,7 @@
             "error_message": "\"format_version\" is required",
             "fix": {
                 "type": "script",
-                "run": "self.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+                "run": "node.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
             }
         },
         "bridge:child_must_start_with": {
@@ -13,7 +13,7 @@
             "error_message": "Animations must start with \"animation.<name>\"",
             "fix": {
                 "type": "script",
-                "run": "History('edit-key', self, self.key); self.key = `animation.${self.key}`;"
+                "run": "History('edit-key', node, node.key); node.key = `animation.${node.key}`;"
             }
         },
         "bridge:child_must_be_number": {
@@ -21,7 +21,7 @@
             "error_message": "Timeline attributes need to be a valid number.",
             "fix": {
                 "type": "script",
-                "run": "History('edit-key', self, self.key); self.key = String(Math.floor(Math.random() * 100000));"
+                "run": "History('edit-key', node, node.key); node.key = String(Math.floor(Math.random() * 100000));"
             }
         }
     },
@@ -30,7 +30,7 @@
             "error_message": "\"format_version\" is required",
             "fix": {
                 "type": "script",
-                "run": "self.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+                "run": "node.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
             }
         },
         "bridge:child_must_start_with": {
@@ -39,7 +39,7 @@
             "error_message": "Animation controllers must start with \"controller.animation.<name>\"",
             "fix": {
                 "type": "script",
-                "run": "History('edit-key', self, self.key); self.key = `controller.animation.${self.key.split('.').pop()}`;"
+                "run": "History('edit-key', node, node.key); node.key = `controller.animation.${node.key.split('.').pop()}`;"
             }
         }
     },
@@ -115,7 +115,7 @@
                 "error_message": "$failure_name missing",
                 "fix": {
                     "type": "script",
-                    "run": "self.parent.buildFromObject({ 'minecraft:jump.static': {} }, undefined, true); Unsaved();",
+                    "run": "node.parent.buildFromObject({ 'minecraft:jump.static': {} }, undefined, true); Unsaved();",
                     "display_text": "Insert minecraft:jump.static"
                 }
             }
@@ -124,7 +124,7 @@
             "error_message": "\"format_version\" is required",
             "fix": {
                 "type": "script",
-                "run": "self.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+                "run": "node.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
             }
         },
         "bridge:event_check": {
@@ -133,7 +133,7 @@
         "bridge:animation_check": {
             "fix": {
                 "type": "script",
-                "run": "self.remove(undefined, true); Unsaved();",
+                "run": "node.remove(undefined, true); Unsaved();",
                 "display_text": "Remove reference"
             }
         },
@@ -146,7 +146,7 @@
             "error_message": "\"format_version\" is required",
             "fix": {
                 "type": "script",
-                "run": "self.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+                "run": "node.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
             }
         }
     }

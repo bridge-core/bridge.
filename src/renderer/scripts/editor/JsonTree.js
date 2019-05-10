@@ -391,6 +391,7 @@ export default class JSONTree {
             this.data = data + "";
         }
 
+        if(first) this.updateUUID();
         return this;
     }
     //Tree -> JSON

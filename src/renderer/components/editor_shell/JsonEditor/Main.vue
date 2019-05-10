@@ -18,7 +18,7 @@
                         :mark="e.mark_color"
                         :error="e.error"
                         :child_contains_error="e.child_contains_error"
-                        :context="e"
+                        :node_context="e"
                     />
 
                     <json-editor-main 

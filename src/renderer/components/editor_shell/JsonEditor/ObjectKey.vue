@@ -15,11 +15,11 @@
             @click="$emit('arrowClick')"
         >
             <v-icon
-                v-if="inversed_arrows && context.open || !inversed_arrows && !context.open"
+                v-if="inversed_arrows && node_context.open || !inversed_arrows && !node_context.open"
                 small
             >keyboard_arrow_down</v-icon>
             <v-icon
-                v-if="!inversed_arrows && context.open || inversed_arrows && !context.open"
+                v-if="!inversed_arrows && node_context.open || inversed_arrows && !node_context.open"
                 small
             >keyboard_arrow_up</v-icon>
         </v-btn>
@@ -58,7 +58,7 @@
             <v-btn
                 slot="activator"
                 color="amber darken-1"
-                @click.native="error.fix.function(context)"
+                @click="error.fix.function(node_context)"
                 style="margin: 0; height: 20px; width: 20px;"
                 flat
                 small
@@ -95,7 +95,7 @@
             object: Object,
             error: Object,
             child_contains_error: Boolean,
-            context: Object
+            node_context: Object
         },
         computed: {
             selected_class() {

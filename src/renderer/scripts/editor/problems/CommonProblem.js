@@ -3,11 +3,14 @@ import Snippets from "../../../windows/Snippets";
 import ProblemIterator from "./Problems";
 import TabSystem from "../../TabSystem";
 import { JSONAction } from "../../TabSystem/CommonHistory";
+import safeEval from "safe-eval";
 
-function run(code, self) {
-    return (function(self, History, Unsaved){
-        return eval(code);
-    })(self, History, Unsaved);
+function run(code, node) {
+    safeEval(code, {
+        node,
+        History,
+        Unsaved
+    });
 }
 function History(type, node, data) {
     TabSystem.getHistory().add(new JSONAction(type, node, data));
