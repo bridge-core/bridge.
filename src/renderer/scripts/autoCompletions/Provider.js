@@ -112,9 +112,8 @@ class Provider {
 
     validator(path) {
         if(path === undefined) return this.start_state = "unknown";
-        path = path.replace(BASE_PATH, "");
         for(let def of this.FILE_DEFS) {
-            if(path.includes(def.includes)) return this.start_state = def.start_state;
+            if(path.includes(def.includes) && (path.includes("development_behavior_packs") || def.rp_definition)) return this.start_state = def.start_state;
         }
         return this.start_state = "unknown";
     }

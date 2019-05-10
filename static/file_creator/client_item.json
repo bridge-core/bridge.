@@ -1,0 +1,6 @@
+{
+    "icon": "mdi-sword",
+    "title": "Item",
+    "extension": "json",
+    "path": "items/"
+}

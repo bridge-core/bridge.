@@ -14,7 +14,7 @@
             :base_path="RP_BASE_PATH"
             :load_plugins="false"
             :force_project_algorithm="findRP"
-            :show_toolbar="false"
+            toolbar_component="explorer-rp-toolbar"
         />
         <content-plugins v-else-if="menu_type === 'extensions'"/>
         <content-documentation v-else-if="menu_type === 'documentation'"/>
@@ -29,6 +29,7 @@
     import ContentPlugins from "./content/Plugins";
     import ContentCustom from "./content/Custom";
     import ContentNotImplemented from "./content/NotImplemented";
+    
     import { BASE_PATH, RP_BASE_PATH } from "../../scripts/constants";
     import findRP from "../../scripts/utilities/FindRP";
 

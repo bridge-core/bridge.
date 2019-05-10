@@ -1,6 +1,7 @@
 //@ts-check
 import FileSystem from "../FileSystem";
 import JSONTree from "./JsonTree";
+import TabSystem from "../TabSystem";
 
 export default class JsonCacheUtils {
     static get CACHE() {
@@ -31,6 +32,11 @@ export default class JsonCacheUtils {
                 res = res.concat(Object.keys(events.toJSON()));
             }
         });
+
+        //Also try to load from current file (in case it's not cached yet)
+        try {
+            res = res.concat(Object.keys(TabSystem.getSelected().content.get("minecraft:entity/events").toJSON()));
+        } catch(e) { }
         return res;
     }
 

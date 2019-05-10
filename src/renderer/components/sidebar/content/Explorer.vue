@@ -1,49 +1,10 @@
 <template>
     <v-container>
-        <v-toolbar v-if="show_toolbar" flat height="30px">
-            <v-tooltip bottom class="first">
-                <v-btn icon flat @click.stop="refresh" slot="activator" small>
-                    <v-icon small>refresh</v-icon>
-                </v-btn>
-                <span>Refresh</span>
-            </v-tooltip>
-            
-            <v-tooltip bottom>
-                <v-btn icon flat @click.stop="openCreateProjectWindow" slot="activator" small>
-                    <v-icon small>mdi-folder-plus</v-icon>
-                </v-btn>
-                <span>New Project</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-                <v-btn icon flat @click.stop="openCreateFileWindow" slot="activator" small>
-                    <v-icon small>mdi-file-document</v-icon>
-                </v-btn>
-                <span>New File</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-                <v-btn icon flat @click.stop="packageProject" slot="activator" small>
-                    <v-icon small>mdi-package-variant-closed</v-icon>
-                </v-btn>
-                <span>Package</span>
-            </v-tooltip>
-
-            <v-tooltip bottom>
-                <v-btn icon flat @click.stop="openInExplorer" slot="activator" small>
-                    <v-icon small>mdi-folder-multiple</v-icon>
-                </v-btn>
-                <span>Open In Explorer</span>
-            </v-tooltip>
-
-            <v-spacer></v-spacer>
-            <v-tooltip bottom>
-                <v-btn icon flat @click.stop="" slot="activator" small>
-                    <v-icon small>more_vert</v-icon>
-                </v-btn>
-                <span>More...</span>
-            </v-tooltip>
-        </v-toolbar>
+        <span 
+            v-if="selected !== undefined && selected !== '/@NO-RP@/' && selected !== '/@NO-DEPENDENCY@/'"
+        >
+            <component :is="toolbar_component" :selected="selected" :base_path="base_path"/>
+        </span>
         <v-select
             v-if="force_project_algorithm === undefined"
             ref="project_select"
@@ -86,29 +47,35 @@
 </template>
 
 <script>
-    import { ipcRenderer, shell } from "electron";
+    import { ipcRenderer } from "electron";
     import FileDisplayer from "./explorer/FileDisplayer.vue";
-    import CreateFileWindow from "../../../windows/CreateFile";
-    import CreateProjectWindow from "../../../windows/CreateProject";
-    import EventBus from '../../../scripts/EventBus';
-    import TabSystem from '../../../scripts/TabSystem';
-    import ZipFolder from "zip-a-folder";
-    import fs from "fs";
-    import LoadingWindow from '../../../windows/LoadingWindow';
+    import ExplorerToolbar from "./explorer/Toolbar.vue";
+    import ExplorerRpToolbar from "./explorer/RpToolbar.vue";
+    import EventBus from "../../../scripts/EventBus";
+    import TabSystem from "../../../scripts/TabSystem";
     
     export default {
         name: "content-explorer",
         components: {
-            FileDisplayer
+            FileDisplayer,
+            ExplorerToolbar,
+            ExplorerRpToolbar
+        },
+        provide: {
+            base_path: this.base_path,
+            selected: this.selected
         },
         props: {
             load_plugins: Boolean,
             base_path: String,
             explorer_type: String,
             force_project_algorithm: Function,
-            show_toolbar: {
-                default: true,
-                type: Boolean
+            toolbar_component: {
+                default: "explorer-toolbar",
+                type: String,
+                validator(value) {
+                    return ["explorer-toolbar", "explorer-rp-toolbar"].indexOf(value) !== -1;
+                }
             }
         },
         data() {
@@ -193,25 +160,7 @@
                     }
                 });
             },
-            openCreateFileWindow() {
-                new CreateFileWindow();
-            },
-            openCreateProjectWindow() {
-                new CreateProjectWindow();
-            },
-            packageProject() {
-                let lw = new LoadingWindow();
-                let project = this.selected;
-                let path = this.base_path + project;
-                ZipFolder.zipFolder(path, `${path}\\${project}.mcpack`, err => {
-                    if(err) console.error(err);
-                    this.refresh();
-                    lw.close();
-                });
-            },
-            openInExplorer() {
-                shell.openExternal(this.base_path + this.selected);
-            },
+            
 
             getProjects({ event_name, func }={}) {
                 this.registerListener(event_name, func);
@@ -267,24 +216,6 @@
 
 <style scoped>
     div.container {
-        padding: 0;
-    }
-
-    button {
-        padding: 0;
-        width: 16px;
-        height: 28px;
-    }
-    .v-btn {
-        margin: 0;
-    }
-    .first {
-        padding-left: 0.1em;
-    }
-</style>
-
-<style>
-    nav .v-toolbar__content {
         padding: 0;
     }
 </style>

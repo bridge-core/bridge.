@@ -38,29 +38,32 @@ class FileSystem {
         this.Cache = new Cache();
     }
     save(path, content, update=false, open=false) {
-        let tmp_path = getPath(path).split("/");
+        let tmp_path = path.split("/");
         tmp_path.pop();
         tmp_path = tmp_path.join("/");
         fs.exists(tmp_path, (exists) => {
             if(!exists) mkdirp.sync(tmp_path);
 
-            fs.writeFile(getPath(path), content, (err) => {
+            fs.writeFile(path, content, (err) => {
                 if(err) console.log(err);
 
                 if(update) {
                     Vue.$root.$emit("refreshExplorer");
                 }
                 if(open) {
-                    this.addAsTab(getPath(path), content, content);
+                    this.addAsTab(path, content, content);
                 }
             });
         });
     }
-    basicSave(path, content, update=false) {
+    basicSave(path, content, update=false, open=true) {
         fs.writeFile(path, content, err => {
             if(err) throw err;
             if(update) {
                 Vue.$root.$emit("refreshExplorer");
+            }
+            if(open) {
+                this.addAsTab(path, content, content);
             }
         });
     }

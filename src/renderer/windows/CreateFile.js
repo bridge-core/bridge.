@@ -2,15 +2,17 @@ import FileSystem from "../scripts/FileSystem";
 import ContentWindow from "../scripts/commonWindows/Content";
 import Store from "../store/index";
 import Runtime from "../scripts/plugins/Runtime";
-import { FILE_TEMPLATES } from "../scripts/constants";
 import FileType from "../scripts/editor/FileType";
+import safeEval from "safe-eval";
+import { RP_BASE_PATH, BASE_PATH } from "../scripts/constants";
 
 class FileContent {
-    constructor(name, ext="json", parent, expand_path="") {
+    constructor(name, ext="json", parent, expand_path="", { location, ...add_content }={}, show_rp) {
         this.parent = parent;
         this.update_function = parent.update;
         this.ext = ext;
         this.expand_path = expand_path;
+        this.show_rp = show_rp;
 
         this.input = {
             type: "horizontal",
@@ -73,10 +75,26 @@ class FileContent {
             this.input,
             this.path_info
         ];
+
+        if(location === undefined)
+            location = {};
+        if(add_content !== undefined)
+            this.add({
+                ...add_content,
+                action: (parameter) => {
+                    if(add_content.action !== undefined && add_content.action.type === "change_path") {
+                        this.expand_path = safeEval(add_content.action.to, { parameter });
+                        this.path_info.text = this.getPath(undefined, undefined);
+                        this.parent.update({ content: this.content });
+                    } else if(add_content.action !== undefined) {
+                        throw new Error("Unknown add_content.action type: " + add_content.action.type);
+                    }
+                }
+            }, ...location);
     }
 
     getPath(val=this.input.content[0].input, ext=this.ext, expand=this.expand_path) {
-        return `${Store.state.Explorer.project.explorer}/${expand}${val}.${ext}`;
+        return `${this.show_rp ? Store.state.Explorer.project.resource_pack : Store.state.Explorer.project.explorer}/${expand}${val}.${ext}`;
     }
 
     get() {
@@ -90,9 +108,8 @@ class FileContent {
 }
 
 export default class CreateFileWindow extends ContentWindow {
-    constructor() {
-        const plugin_types = Runtime.CreationWindow.get();
-        const FILE_DATA = FileType.getFileCreator();
+    constructor(show_rp=false) {
+        const FILE_DATA = FileType.getFileCreator().filter(f => show_rp ? f.rp_definition : !f.rp_definition);
 
         super({
             display_name: "New File",
@@ -108,29 +125,16 @@ export default class CreateFileWindow extends ContentWindow {
                         this.select(index)
                     }
                 }
-            }).concat([{
-                icon: "mdi-language-javascript",
-                title: "Script",
-                opacity: 0.25,
-                action: () => {
-                    this.select(FILE_DATA.length)
-                }
-            }])
+            })
         });
 
-        this.SCRIPTS = new FileContent("Script", "js", this, "scripts/server/").add({
-            type: "select",
-            text: "server",
-            options: [ "server",  "client" ],
-            action: (val) => {
-                this.SCRIPTS.expand_path = "scripts/" + val + "/";
-                this.SCRIPTS.path_info.text = this.SCRIPTS.getPath(undefined, undefined)
-                this.update({ content: this.SCRIPTS.content });
-            }
-        }, -3, 1);
-
         this.createFile = () => {
-            FileSystem.save(this.current_content.getPath(), this.chosen_template, true, true);
+            FileSystem.save(
+                `${show_rp ? RP_BASE_PATH : BASE_PATH}${this.current_content.getPath()}`, 
+                this.chosen_template, 
+                true, 
+                true
+            );
             this.close();
         };
         this.actions = [
@@ -147,14 +151,10 @@ export default class CreateFileWindow extends ContentWindow {
             }
         ];
         this.win_def.actions = this.actions;
-        this.contents = [
-            ...FILE_DATA.map(({ title, extension, path }) => new FileContent(title, extension, this, path)),
-            this.SCRIPTS
-        ];
-        this.templates = FILE_DATA.map(f => f.templates).concat(FILE_TEMPLATES);
+        this.contents = FILE_DATA.map(({ title, extension, path, add_content }) => new FileContent(title, extension, this, path, add_content, show_rp));
+        this.templates = FILE_DATA.map(f => f.templates);
         this.chosen_template = "";
 
-        plugin_types.forEach(t => this.loadPluginType(t.sidebar_element, t.templates, t.options));
         this.select(0);
     }
 
@@ -189,27 +189,5 @@ export default class CreateFileWindow extends ContentWindow {
                 else this.chosen_template = JSON.stringify(templ[val], null, "\t");
             }
         });
-    }
-
-    loadPluginType(add_sidebar, add_templates, opts) {
-        let sidebar = this.win_def.sidebar;
-        let id = sidebar.length;
-        sidebar[id] = ({
-            ...add_sidebar,
-            action: () => {
-                (function() {
-                    this.select(id);
-                }).call(this)
-            }
-        });
-
-        if(add_templates) {
-            this.templates[id] = {};
-            add_templates.forEach(t => {
-                this.templates[id][t.display_name] = t.content;
-            });
-        }
-
-        this.contents[id] = new FileContent(opts.display_name, opts.extension, this, opts.path);
     }
 }

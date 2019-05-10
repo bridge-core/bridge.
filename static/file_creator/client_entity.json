@@ -1,0 +1,6 @@
+{
+    "icon": "mdi-chess-knight",
+    "title": "Client Entity",
+    "extension": "json",
+    "path": "entity/"
+}

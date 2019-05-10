@@ -28,7 +28,7 @@ export default class FileType {
         }
         
         for(let def of FILE_DEFS) {
-            if(path.includes(def.includes)) return def;
+            if(path.includes(def.includes) && (path.includes("development_behavior_packs") || def.rp_definition)) return def;
         }
         return;
     }
@@ -44,9 +44,15 @@ export default class FileType {
             FILE_CREATOR_CACHE = FILE_DEFS.reduce((acc, file) => {
                 if(file.file_creator !== undefined) {
                     if(typeof file.file_creator === "string")
-                        acc.push(JSON.parse(fs.readFileSync(`${__static}\\file_creator\\${file.file_creator}.json`).toString()));
+                        acc.push({
+                            rp_definition: file.rp_definition,
+                            ...JSON.parse(fs.readFileSync(`${__static}\\file_creator\\${file.file_creator}.json`).toString())
+                        });
                     else
-                        acc.push(file.file_creator);
+                        acc.push({
+                            rp_definition: file.rp_definition,
+                            ...file.file_creator
+                        });
                 }
                 return acc;
             }, []);
@@ -56,7 +62,6 @@ export default class FileType {
 
     static getHighlighter() {
         try {
-            console.log(this.getData())
             let hl = this.getData().highlighter;
             if(typeof hl !== "string")
                 return hl;
@@ -64,7 +69,6 @@ export default class FileType {
                 HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(`${__static}\\highlighter\\${hl}.json`).toString());
             return HIGHLIGHTER_CACHE[hl];
         } catch(e) {
-            console.error("Failed to load file highlighter!");
             return {
                 define: {
                     keywords: [],
