@@ -47,9 +47,9 @@ export default class Bridge {
                 },
                 removeAll(sources=[], dependency) {
                     if(!Array.isArray(sources)) sources = Array.prototype.slice.call({ ...sources, length: Object.keys(sources).length });
-                    let p =  Store.state.Explorer.project;
+                    let p =  Store.state.Explorer.project.explorer;
                     FileSystem.Cache.removeAllDependencies(sources.map(
-                        s => s.includes(p) ? s : BASE_PATH + Store.state.Explorer.project + "/" + s
+                        s => s.includes(p) ? s : BASE_PATH + p + "/" + s
                     ), dependency);
                 }
             }
@@ -125,7 +125,7 @@ export default class Bridge {
             readDirectorySync(path, deep=false) {
                 if(deep)
                     return walkSync(Runtime.Paths.project() + path).map(e => {
-                        return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
+                        return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.explorer + "\\", "").replace(/\\/g, "/");
                     });
                 else 
                     return fs.readdirSync(Runtime.Paths.project() + path);
@@ -263,10 +263,10 @@ export default class Bridge {
 
         this.Utils = {
             get base_path() {
-                return BASE_PATH + Store.state.Explorer.project + "/";
+                return BASE_PATH + Store.state.Explorer.project.explorer + "/";
             },
             get current_project() {
-                return Store.state.Explorer.project;
+                return Store.state.Explorer.project.explorer;
             },
             get current_selected() {
                 return TabSystem.getCurrentNavObj();

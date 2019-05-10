@@ -110,7 +110,7 @@ export const DYNAMIC = {
     },
     biome: {
         name_references() {
-            return walkSync(BASE_PATH + Store.state.Explorer.project + "\\biomes").map(e => {
+            return walkSync(BASE_PATH + Store.state.Explorer.project.explorer + "\\biomes").map(e => {
                 return e.split(/\\|\//g).pop().replace(".json", "");
             });
         }
@@ -147,8 +147,8 @@ export const DYNAMIC = {
     },
     loot_table_files() {
         try {
-            return walkSync(BASE_PATH + Store.state.Explorer.project + "\\loot_tables").map(e => {
-                return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
+            return walkSync(BASE_PATH + Store.state.Explorer.project.explorer + "\\loot_tables").map(e => {
+                return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.explorer + "\\", "").replace(/\\/g, "/");
             });
         } catch(e) {
             return [];
@@ -156,8 +156,8 @@ export const DYNAMIC = {
     },
     trade_table_files() {
         try {
-            return walkSync(BASE_PATH + Store.state.Explorer.project + "\\trading").map(e => {
-                return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\", "").replace(/\\/g, "/");
+            return walkSync(BASE_PATH + Store.state.Explorer.project.explorer + "\\trading").map(e => {
+                return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.explorer + "\\", "").replace(/\\/g, "/");
             });
         } catch(e) {
             return [];
@@ -165,8 +165,8 @@ export const DYNAMIC = {
     },
     function_files() {
         try {
-            return walkSync(BASE_PATH + Store.state.Explorer.project + "\\functions").map(e => {
-                return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project + "\\functions\\", "").replace(/\\/g, "/").replace(".mcfunction", "");
+            return walkSync(BASE_PATH + Store.state.Explorer.project.explorer + "\\functions").map(e => {
+                return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.explorer + "\\functions\\", "").replace(/\\/g, "/").replace(".mcfunction", "");
             });
         } catch(e) {
             return [];

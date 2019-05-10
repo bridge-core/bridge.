@@ -16,7 +16,7 @@ export default class Cache {
         this.cached_cache = undefined;
     }
     get project() {
-        return Store.state.Explorer.project;
+        return Store.state.Explorer.project.explorer;
     }
 
     save(file_path, file_content, other={}, format_version=0) {

@@ -19,17 +19,17 @@ const mutations = {
     forceReloadNextPluginRequest(state) {
         state.current_loaded_project = "";
     },
-    loadAllPlugins(state, { args, base_path, selected }) {
+    loadAllPlugins(state, { directory, base_path, selected }) {
         if(state.current_loaded_project != selected) {
             //Handle unloading & caching loaded porject
             Store.commit("unloadPlugins");
             state.current_loaded_project = selected;
 
             //SEARCH BRIDGE DIRECTORY
-            let index = 0, child = args.files.children[0];
-            while(child && child.name != "bridge" && index < args.files.children.length) {
+            let index = 0, child = directory[0];
+            while(child && child.name != "bridge" && index < directory.length) {
                 index++;
-                child = args.files.children[index];
+                child = directory[index];
             }
             //Do stuff if bridge directory exists
             if(child && child.name == "bridge") {
@@ -51,7 +51,7 @@ const mutations = {
                 });
                 
                 state.cache = {
-                    args,
+                    directory,
                     base_path,
                     selected
                 };
@@ -68,7 +68,7 @@ const mutations = {
                 Store.commit("setPluginCache", {
                     args: { files },
                     selected: state.current_loaded_project,
-                    base_path: state.cache.base_path 
+                    base_path: BASE_PATH
                 });
                 Store.commit("refreshAllPlugins");
             });

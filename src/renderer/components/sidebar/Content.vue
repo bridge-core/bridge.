@@ -1,10 +1,23 @@
 <template>
     <div>
-        <content-explorer v-if="menu_type == 'explorer'"></content-explorer>
-        <content-plugins v-else-if="menu_type == 'extensions'"></content-plugins>
-        <content-documentation v-else-if="menu_type == 'documentation'"></content-documentation>
-        <content-custom v-else-if="sidebar.is_plugin" :content="sidebar.content" :toolbar="sidebar.toolbar"></content-custom>
-        <content-not-implemented v-else></content-not-implemented>
+        <content-explorer
+            v-if="menu_type === 'explorer'"
+            key="explorer"
+            explorer_type="explorer"
+            :base_path="BASE_PATH"
+            :load_plugins="true"
+        />
+        <content-explorer
+            v-else-if="menu_type === 'resource_pack'"
+            key="resource_pack"
+            explorer_type="resource_pack"
+            :base_path="RP_BASE_PATH"
+            :load_plugins="false"
+        />
+        <content-plugins v-else-if="menu_type === 'extensions'"/>
+        <content-documentation v-else-if="menu_type === 'documentation'"/>
+        <content-custom v-else-if="sidebar.is_plugin" :content="sidebar.content" :toolbar="sidebar.toolbar"/>
+        <content-not-implemented v-else/>
     </div>
 </template>
 
@@ -14,6 +27,7 @@
     import ContentPlugins from "./content/Plugins";
     import ContentCustom from "./content/Custom";
     import ContentNotImplemented from "./content/NotImplemented";
+    import { BASE_PATH, RP_BASE_PATH } from "../../scripts/constants";
 
     export default {
         name: "sidebar-content",
@@ -27,6 +41,12 @@
             ContentCustom,
             ContentNotImplemented,
             ContentDocumentation
+        },
+        data() {
+            return {
+                BASE_PATH,
+                RP_BASE_PATH
+            }
         }
     }
 </script>

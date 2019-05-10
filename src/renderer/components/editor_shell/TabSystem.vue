@@ -41,7 +41,7 @@ export default {
     },
     computed: {
         selected_project() {
-            return this.$store.state.Explorer.project;
+            return this.$store.state.Explorer.project.explorer;
         },
         selected_tab: {
             set(val) {

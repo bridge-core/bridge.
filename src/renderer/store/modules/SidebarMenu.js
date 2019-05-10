@@ -12,6 +12,11 @@ const state = {
             menu_type: "explorer"
         },
         {
+            title: "Resource Pack",
+            icon: "mdi-file-image",
+            menu_type: "resource_pack"
+        },
+        {
             title: "Documentation",
             icon: "mdi-book-open-page-variant",
             menu_type: "documentation"

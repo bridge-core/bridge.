@@ -124,7 +124,7 @@
             "error_message": "\"format_version\" is required",
             "fix": {
                 "type": "script",
-                "run": "self.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+                "run": "self.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
             }
         },
         "bridge:event_check": {

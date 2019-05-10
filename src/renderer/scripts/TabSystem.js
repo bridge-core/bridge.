@@ -22,7 +22,7 @@ class TabSystem {
         this.selected = 0;
     }
     get project() {
-        return Store.state.Explorer.project;
+        return Store.state.Explorer.project.explorer;
     }
 
     //Adding tab
@@ -38,7 +38,7 @@ class TabSystem {
         
         tab.file_path = tab.file_path.replace(/\//g, "\\");
         this.projects[this.project].unshift(Object.assign(tab, {
-            uuid: `${Store.state.Explorer.project}-${Math.random()}-${Math.random()}`,
+            uuid: `${this.project}-${Math.random()}-${Math.random()}`,
             file_navigation: "global",
             category: this.project,
             is_unsaved: false,

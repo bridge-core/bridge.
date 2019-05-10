@@ -61,7 +61,7 @@
             //     return this.$store.state.TabSystem.selected_tab;
             // },
             selected_project() {
-                return this.$store.state.Explorer.project;
+                return this.$store.state.Explorer.project.explorer;
             },
             footer_visible() {
                 return this.$store.state.Footer.elements.length > 0;
