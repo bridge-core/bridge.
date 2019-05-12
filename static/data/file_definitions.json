@@ -123,6 +123,7 @@
         "id": "particle",
         "start_state": "particle/main",
         
+        "highlighter": "particle",
         "file_creator": "particle"
     },
     {

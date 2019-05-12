@@ -8,6 +8,8 @@
                 "texture": {}
             }
         },
+        "curves": {},
+        "events": {},
         "components": {
             "minecraft:emitter_local_space": {
                 "position": "$general.boolean",
