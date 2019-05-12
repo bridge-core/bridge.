@@ -1,6 +1,5 @@
 import fs from "fs";
 import mkdirp from "mkdirp";
-import { BASE_PATH } from "./constants.js";
 import Store from "../store/index";
 import Vue from "../main";
 import TabSystem from "./TabSystem";
@@ -9,10 +8,6 @@ import Cache from "./utilities/Cache.js";
 import JSONTree from "./editor/JsonTree.js";
 import ProblemIterator from "./editor/problems/Problems.js";
 import LoadingWindow from "../windows/LoadingWindow";
-
-function getPath(path) {
-    return BASE_PATH + path;
-}
 
 document.addEventListener("dragover", event => {
     event.preventDefault();

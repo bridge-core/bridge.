@@ -45,5 +45,9 @@
     "animation/main",
     "animation/general",
 
-    "animation_controller/main"
+    "animation_controller/main",
+
+    "client_entity/main",
+    "client_item/main",
+    "render_controller/main"
 ]

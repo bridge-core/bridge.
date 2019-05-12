@@ -247,7 +247,18 @@ export default class Bridge {
 
         this.BuildableFile = {
             register(file) {
-                Runtime.CreationWindow.add(file);
+                function toObject(t) {
+                    let obj = {};
+                    t.forEach(e => obj[e.display_name] = e.content);
+                    return obj;
+                }
+                Provider.addPluginFileDef({
+                    file_creator: {
+                        ...file.sidebar_element,
+                        ...file.options,
+                        templates: toObject(file.templates)
+                    }
+                });
             }
         };
         this.File = {

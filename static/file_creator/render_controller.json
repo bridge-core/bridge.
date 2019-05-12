@@ -1,5 +1,5 @@
 {
-    "icon": "mdi-pencil-circle",
+    "icon": "mdi-crop",
     "title": "Render Controller",
     "extension": "json",
     "path": "render_controllers/"

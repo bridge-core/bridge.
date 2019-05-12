@@ -3,6 +3,15 @@
     "minecraft:client_entity": {
         "description": {
             "identifier": "$general.entity_identifier",
+            "min_engine_version": "$general.format_version",
+            "enable_attachables": "$general.boolean",
+            "spawn_egg": {
+                "texture": {},
+                "texture_index": "$general.number",
+                "base_color": {},
+                "overlay_color": {}
+            },
+
             "materials": {
                 "$placeholder": {}
             },
@@ -20,6 +29,15 @@
                 "animate": {
                     "$dynamic.list.next_index": {}
                 }
+            },
+            "animations": {
+                "$placeholder": {}
+            },
+            "animation_controllers": {
+                "$placeholder": {}
+            },
+            "render_controllers": {
+                "$dynamic.list.next_index": {}
             }
         }
     }

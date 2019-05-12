@@ -63,7 +63,7 @@ export default class FileType {
     static getHighlighter() {
         try {
             let hl = this.getData().highlighter;
-            if(typeof hl !== "string")
+            if(typeof hl === "object")
                 return hl;
             if(HIGHLIGHTER_CACHE[hl] === undefined)
                 HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(`${__static}\\highlighter\\${hl}.json`).toString());

@@ -1,7 +1,6 @@
 import FileSystem from "../scripts/FileSystem";
 import ContentWindow from "../scripts/commonWindows/Content";
 import Store from "../store/index";
-import Runtime from "../scripts/plugins/Runtime";
 import FileType from "../scripts/editor/FileType";
 import safeEval from "safe-eval";
 import { RP_BASE_PATH, BASE_PATH } from "../scripts/constants";

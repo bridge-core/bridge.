@@ -1,0 +1,17 @@
+{
+    "format_version": "$general.format_version",
+    "minecraft:item": {
+        "description": {
+            "identifier": "$general.item_identifier",
+            "category": "$general.item_category"
+        },
+
+        "components": {
+            "minecraft:icon": {},
+            "minecraft:use_animation": {},
+            "minecraft:hover_text_color": "$general.minecraft_color",
+
+            "minecraft:render_offsets": {}
+        }
+    }
+}

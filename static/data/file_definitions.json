@@ -103,7 +103,8 @@
         "rp_definition": true,
         "includes": "entity",
         "id": "client_entity",
-        
+        "start_state": "client_entity/main",
+
         "highlighter": "entity",
         "file_creator": "client_entity"
     },
@@ -111,6 +112,7 @@
         "rp_definition": true,
         "includes": "items",
         "id": "client_item",
+        "start_state": "client_item/main",
         
         "file_creator": "client_item"
     },
@@ -125,7 +127,9 @@
         "rp_definition": true,
         "includes": "render_controllers",
         "id": "render_controller",
+        "start_state": "render_controller/main",
         
-        "file_creator": "render_controller"
+        "file_creator": "render_controller",
+        "highlighter": "render_controller"
     }
 ]
