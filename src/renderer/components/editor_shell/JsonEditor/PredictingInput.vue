@@ -75,6 +75,8 @@
         },
         methods: {
             click(event, force) {
+                if(this.value === "")
+                    this.value = this.$refs.input.$el.querySelector("input").value;
                 if(this.value === "" || this.value === undefined || this.value === null) return;
 
                 if(force !== undefined)

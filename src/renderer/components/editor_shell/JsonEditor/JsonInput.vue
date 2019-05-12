@@ -94,7 +94,8 @@
         },
         methods: {
             click() {
-                // console.log(this.value, this.render_object.get(this.file_navigation));
+                if(this.value === "")
+                    this.value = this.$refs.input.$el.querySelector("input").value;
                 if(this.value == "" || !this.value) return;
                 let current = this.render_object.get(this.file_navigation);
                 let is_data_path = TabSystem.getSelected().content.isDataPath(this.file_navigation);

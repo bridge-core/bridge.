@@ -179,9 +179,7 @@ export default class JSONTree {
      * Adds a new child to calling node
      * @param {JSONTree} child 
      */
-    add(child, update_history=false) {
-        this.updateUUID();
-        
+    add(child, update_history=false) {        
         if(!this.is_array) {
             for(let c of this.children) {
                 if(c.parsed_key == child.parsed_key) return c;
@@ -193,6 +191,7 @@ export default class JSONTree {
 
         child.parent = this;
         this.children.push(child);
+        this.updateUUID();
         
         //PLUGIN HOOK
         PluginEnv.trigger("bridge:addedNode", {
