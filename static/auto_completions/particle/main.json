@@ -1,0 +1,32 @@
+{
+    "format_version": "$general.format_version",
+    "particle_effect": {
+        "description": {
+            "identifier": {},
+            "basic_render_parameters": {
+                "material": "$particle.general.material",
+                "texture": {}
+            }
+        },
+        "components": {
+            "minecraft:emitter_local_space": {
+                "position": "$general.boolean",
+                "rotation": "$general.boolean"
+            },
+            "minecraft:emitter_initialization": {
+                "creation_expression": "$particle.general.moLang",
+                "per_update_expression": "$particle.general.moLang"
+            },
+            "minecraft:emitter_rate_instant": {
+                "num_particles": "$general.number and $particle.general.moLang"
+            },
+            "minecraft:emitter_rate_steady": {
+                "spawn_rate": "$general.number and $particle.general.moLang",
+                "max_particles": "$general.number and $particle.general.moLang"
+            },
+            "minecraft:emitter_rate_manual": {
+                "max_particles": "$general.number and $particle.general.moLang"
+            }
+        }
+    }
+}

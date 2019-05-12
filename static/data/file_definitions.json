@@ -114,12 +114,14 @@
         "id": "client_item",
         "start_state": "client_item/main",
         
+        "highlighter": "item",
         "file_creator": "client_item"
     },
     {
         "rp_definition": true,
         "includes": "particles",
         "id": "particle",
+        "start_state": "particle/main",
         
         "file_creator": "particle"
     },

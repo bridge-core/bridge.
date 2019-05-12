@@ -49,5 +49,6 @@
 
     "client_entity/main",
     "client_item/main",
-    "render_controller/main"
+    "render_controller/main",
+    "particle/main"
 ]
