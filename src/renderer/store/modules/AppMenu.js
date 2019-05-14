@@ -19,7 +19,7 @@ const state = {
             {
                 title: "New File",
                 shortcut: "Ctrl + N",
-                action: () => new CreateFileWindow()
+                action: () => new CreateFileWindow(undefined, false)
             },
             {
                 title: "Open File",

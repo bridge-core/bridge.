@@ -6,12 +6,12 @@ import safeEval from "safe-eval";
 import { RP_BASE_PATH, BASE_PATH } from "../scripts/constants";
 
 class FileContent {
-    constructor(name, ext="json", parent, expand_path="", { location, ...add_content }={}, show_rp) {
+    constructor(name, ext="json", parent, expand_path="", { location, ...add_content }={}, use_rp_path) {
         this.parent = parent;
         this.update_function = parent.update;
         this.ext = ext;
         this.expand_path = expand_path;
-        this.show_rp = show_rp;
+        this.use_rp_path = use_rp_path;
 
         this.input = {
             type: "horizontal",
@@ -93,7 +93,11 @@ class FileContent {
     }
 
     getPath(val=this.input.content[0].input, ext=this.ext, expand=this.expand_path) {
-        return `${this.show_rp ? Store.state.Explorer.project.resource_pack : Store.state.Explorer.project.explorer}/${expand}${val}.${ext}`;
+        return `${this.use_rp_path ? Store.state.Explorer.project.resource_pack : Store.state.Explorer.project.explorer}/${expand}${val}.${ext}`;
+    }
+
+    getFullPath(val, ext, expand) {
+        return `${this.use_rp_path ? RP_BASE_PATH : BASE_PATH}${this.getPath(val, ext, expand)}`;
     }
 
     get() {
@@ -107,8 +111,11 @@ class FileContent {
 }
 
 export default class CreateFileWindow extends ContentWindow {
-    constructor(show_rp=false) {
-        const FILE_DATA = FileType.getFileCreator().filter(f => show_rp ? f.rp_definition : !f.rp_definition);
+    constructor(show_rp=false, apply_filter=true) {
+        let FILE_DATA;
+        if(apply_filter || Store.state.Explorer.project.resource_pack === undefined)
+            FILE_DATA = FileType.getFileCreator().filter(f => show_rp ? f.rp_definition : !f.rp_definition);
+        else FILE_DATA = FileType.getFileCreator();
 
         super({
             display_name: "New File",
@@ -129,7 +136,7 @@ export default class CreateFileWindow extends ContentWindow {
 
         this.createFile = () => {
             FileSystem.save(
-                `${show_rp ? RP_BASE_PATH : BASE_PATH}${this.current_content.getPath()}`, 
+                this.current_content.getFullPath(), 
                 this.chosen_template, 
                 true, 
                 true
@@ -150,7 +157,7 @@ export default class CreateFileWindow extends ContentWindow {
             }
         ];
         this.win_def.actions = this.actions;
-        this.contents = FILE_DATA.map(({ title, extension, path, add_content }) => new FileContent(title, extension, this, path, add_content, show_rp));
+        this.contents = FILE_DATA.map(({ title, extension, path, add_content, rp_definition }) => new FileContent(title, extension, this, path, add_content, rp_definition));
         this.templates = FILE_DATA.map(f => f.templates);
         this.chosen_template = "";
 
