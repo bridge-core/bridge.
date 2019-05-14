@@ -131,6 +131,7 @@
         "includes": "render_controllers",
         "id": "render_controller",
         "start_state": "render_controller/main",
+        "build_array_exceptions": [ "timeline", "gradient" ],
         
         "file_creator": "render_controller",
         "highlighter": "render_controller"

@@ -1,5 +1,4 @@
 import fs from "fs";
-import { BASE_PATH } from "../constants";
 import deepmerge from "deepmerge";
 import VersionMap from "../editor/VersionMap";
 import Store from "../../store/index";
@@ -151,6 +150,9 @@ class Provider {
                 .map(key => {
                     if(key.startsWith("$dynamic_template.")) {
                         return key.split(".").pop();
+                    } else if(key.startsWith("@value.")) {
+                        value.push(key.split(".").pop());
+                        return;
                     }
                     if(REMOVE_LIST.includes(key)) return undefined;
 

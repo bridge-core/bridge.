@@ -51,5 +51,6 @@
     "client_item/main",
     "render_controller/main",
     "particle/main",
-    "particle/general"
+    "particle/general",
+    "particle/components"
 ]

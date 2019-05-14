@@ -2,7 +2,7 @@
     "set": {},
     "define": {
         "keywords": ["minecraft", "description", "events", "components", "curves"],
-        "titles": ["format_version", "effect"],
-        "symbols": ["sequence", "randomize"]
+        "titles": ["format_version", "effect", "event"],
+        "symbols": ["sequence", "randomize", "particle_effect"]
     }
 }

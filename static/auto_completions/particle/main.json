@@ -8,27 +8,34 @@
                 "texture": {}
             }
         },
-        "curves": {},
-        "events": {},
-        "components": {
-            "minecraft:emitter_local_space": {
-                "position": "$general.boolean",
-                "rotation": "$general.boolean"
-            },
-            "minecraft:emitter_initialization": {
-                "creation_expression": "$particle.general.moLang",
-                "per_update_expression": "$particle.general.moLang"
-            },
-            "minecraft:emitter_rate_instant": {
-                "num_particles": "$general.number and $particle.general.moLang"
-            },
-            "minecraft:emitter_rate_steady": {
-                "spawn_rate": "$general.number and $particle.general.moLang",
-                "max_particles": "$general.number and $particle.general.moLang"
-            },
-            "minecraft:emitter_rate_manual": {
-                "max_particles": "$general.number and $particle.general.moLang"
+        "curves": {
+            "$placeholder": {
+                "type": [ "linear", "bezier", "catmull_rom" ],
+                "nodes": {
+                    "$dynamic.list.next_index": "$general.number and $particle.general.moLang"
+                },
+                "input": "$particle.general.moLang",
+                "horizontal_range": "$general.number and $particle.general.moLang"
             }
-        }
+        },
+        "events": {
+            "$placeholder": {
+                "sequence": {
+                    "$dynamic.list.next_index": "$particle.main.particle_effect.events.$placeholder"
+                },
+                "randomize": {
+                    "$dynamic.list.next_index": {
+                        "weight": "$general.number",
+                        "$load": "$particle.main.particle_effect.events.$placeholder"
+                    }
+                },
+                "particle_effect": {
+                    "effect": {},
+                    "type": [ "emitter", "emitter_bound", "particle", "particle_with_velocity" ],
+                    "pre_effect_expression": "$particle.general.moLang"
+                }
+            }
+        },
+        "components": "$particle.components"
     }
 }

@@ -132,9 +132,9 @@
                 //PLUGIN HOOK
                 PluginEnv.trigger("bridge:beforePropose", { propose, node: current });
                 if(propose.object !== undefined && propose.object.length > 0)
-                    propose = propose.object || [];
+                    propose = propose.object;
                 else if(propose.value !== undefined && propose.value.length > 0) {
-                    propose = propose.value || [];
+                    propose = propose.value;
                     this.mode = "value";
                 } else 
                     return this.items = [];
