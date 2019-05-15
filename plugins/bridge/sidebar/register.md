@@ -23,8 +23,7 @@ Bridge.Sidebar.register({
     id: "solved-mySidebars-sidebar1",
     title: "My Sidebar",
     icon: "my-material-design-icon",
-    content: {
-      toolbar: [
+    toolbar: [
         {
           display_name: "My action button",
           display_icon: "home",
@@ -32,7 +31,8 @@ Bridge.Sidebar.register({
             doSomething();
           }
         }
-      ]
+    ],
+    content: {
       text: "My sidebar content is cool.\nVery cool!"
     }
 });
