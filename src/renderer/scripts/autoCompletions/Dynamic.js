@@ -83,7 +83,6 @@ export const DYNAMIC = {
             try {
                 return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/events").toJSON());
             } catch(e) {
-                console.log(e);
                 return [];
             }
         },
@@ -94,7 +93,11 @@ export const DYNAMIC = {
             return JsonCacheUtils.events.map(e => "@s " + e);
         },
         animation_references() {
-            return JsonCacheUtils.animation_references;
+            try {
+                return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/description/animations").toJSON());
+            } catch(e) {
+                return [];
+            }
         }
     },
     recipe: {
@@ -103,7 +106,6 @@ export const DYNAMIC = {
                 let data = TabSystem.getSelected().content.get("minecraft:recipe_shaped/pattern").toJSON();
                 return data.map(e => e.split("")).reduce((acc, curr) => acc.concat(curr), []);
             } catch(e) {
-                console.log(e);
                 return [];
             }
         }

@@ -7,6 +7,7 @@ function getPath(path) {
     return BASE_PATH + path;
 }
 function getFileId(file_path) {
+    if(file_path === null) return;
     return file_path.replace(/\\/g, "/").replace(BASE_PATH.replace(/\\/g, "/"), "");
 }
 
@@ -38,7 +39,7 @@ export default class Cache {
         return new Promise((resolve, reject) => {
             this.getCache((cache) => {
                 let id = getFileId(file_path);
-                if(cache[id] == undefined) return reject(`File ${id} is not cached yet.`);
+                if(cache[id] === undefined) return reject(`File ${id} is not cached yet.`);
                 resolve(cache[id] || {});
             });
         });

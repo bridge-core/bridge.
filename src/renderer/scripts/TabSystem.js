@@ -282,6 +282,8 @@ class TabSystem {
             return JSON.stringify(Format.toJSON(modified_data.content), null, this.use_tabs ? "\t" : "  ");
         } else if(ext == "png") {
             return current.raw_content;
+        } else if(ext == "ogg") {
+            return current.raw_content;
         } else {
             FileSystem.Cache.save(current.file_path, current.content, PluginEnv.trigger("bridge:cacheFile", { 
                 file_path: current.file_path,

@@ -7,6 +7,7 @@
         </span>
         <v-select
             v-if="force_project_algorithm === undefined"
+            style="margin-bottom: 4px;"
             ref="project_select"
             :items="project_items" 
             :value="selected" 
@@ -16,6 +17,7 @@
             :loading="loading" 
             :disabled="items.length <= 1"
             @input="getDirectory"
+            hide-details
         />
         <v-subheader
             v-else

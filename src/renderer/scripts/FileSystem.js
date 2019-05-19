@@ -67,6 +67,8 @@ class FileSystem {
     }
 
     open(path, cb) {
+        if(typeof path !== "string") return;
+        
         this.Cache.get(path)
             .then((cache) => 
                 cache.content ? 
@@ -79,7 +81,7 @@ class FileSystem {
                     })
             )
             .catch((err) => {
-                console.log("[OPEN] Not opened from cache", err, );
+                console.log("[OPEN] Not opened from cache");
                 if(fs.statSync(path).isFile()) {
                     fs.readFile(path, (err, data) => {
                         if(err) throw err;

@@ -5,8 +5,8 @@
     "path": "entities/",
     "templates": {
         "Blank Entity": {
+            "format_version": {},
             "minecraft:entity": {
-                "format_version": {},
                 "description": {
                     "identifier": "",
                     "runtime_identifier": ""

@@ -1,8 +1,9 @@
 <template>
     <span>
-        <v-container v-if="extension == 'png'">
+        <v-container v-if="extension === 'png'">
             <v-img class="image" :src="image" :style="`max-height: ${available_height}px;`"/>
         </v-container>
+        <audio-player v-else-if="extension === 'ogg'" :src="audio"/>
         <json-error-screen v-else-if="extension === 'json' && json_object == 'error'"/>
         <json-editor-main
             v-else-if="extension === 'json'"
@@ -55,13 +56,16 @@
     import EventBus from "../../scripts/EventBus";
     import TextProvider from "../../scripts/autoCompletions/TextProvider";
     import { webContents } from "electron";
+    import DataUrl from "dataurl";
+    import AudioPlayer from "./AudioPlayer";
 
     export default {
         name: "file-manager",
         components: {
             JsonEditorMain,
             JsonErrorScreen,
-            TextAutoCompletions
+            TextAutoCompletions,
+            AudioPlayer
         },
         props: {
             file: Object,
@@ -104,7 +108,7 @@
         },
         computed: {
             extension() {
-                if (this.file) return this.file.file_name.split(".").pop().toLowerCase();
+                if(this.file) return this.file.file_name.split(".").pop().toLowerCase();
             },
             use_uuid() {
                 return `${this.uuid}-${Math.random()})`;
@@ -112,11 +116,12 @@
 
             //FILE CONTENT
             image() {
-                if (this.file) {
-                    this.$store.commit("removeLoadingWindow", { id: "open-file" });
-                    let base64Data = btoa(String.fromCharCode.apply(null, this.file.raw_content));
-                    return `data:image/${this.extension};base64,${base64Data}`;
-                }
+                this.$store.commit("removeLoadingWindow", { id: "open-file" });
+                return this.getEncoded("image", this.extension, this.file.raw_content);
+            },
+            audio() {
+                this.$store.commit("removeLoadingWindow", { id: "open-file" });
+                return this.getEncoded("audio", this.extension, this.file.raw_content);
             },
             text: {
                 get() {
@@ -211,6 +216,12 @@
             },
             shouldUpdateSuggestions(event) {
                 TextProvider.compile(event.doc, this.file.file_path);
+            },
+            getEncoded(type, ext, data) {
+                return DataUrl.convert({
+                    data,
+                    mimetype: `${type}/${ext}`
+                });
             }
         },
         watch: {
