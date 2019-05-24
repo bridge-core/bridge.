@@ -14,9 +14,6 @@
                             "$dynamic.animation_controller.current_states": "$animation.general.queries"
                         }
                     },
-                    "variables": {
-                        "$placeholder": {}
-                    },
                     
                     "on_entry": {
                         "$dynamic.list.next_index": "$animation.general.events"

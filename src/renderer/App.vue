@@ -27,7 +27,7 @@
         <footer-main></footer-main>
         <v-spacer></v-spacer>
         <v-divider v-if="footer_visible" vertical></v-divider>
-        <span style="padding: 0 1em; white-space: nowrap;">created by solvedDev</span>
+        <span style="padding: 0 1em; white-space: nowrap;">created by <a class="grey--text text--lighten-1" @click="openTwitter">solvedDev</a></span>
       </v-footer>
     </v-app>
   </div>
@@ -48,6 +48,8 @@
 
   import UpdateWindow from "./windows/UpdateApp";
   import SETTINGS from "./store/Settings";
+  import { shell } from 'electron';
+  
   
   export default {
     name: 'bridge',
@@ -91,6 +93,11 @@
         path: "",
         render_plugin_window: false
       };
+    },
+    methods: {
+      openTwitter() {
+        shell.openExternal("https://twitter.com/solvedDev");
+      }
     }
   }
 </script>

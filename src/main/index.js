@@ -89,20 +89,20 @@ function openFile(file) {
 
 const gotTheLock = app.requestSingleInstanceLock();
 if(!gotTheLock) {
-    if(process.argv.length >= 2)
+    if(process.platform === 'win32' && process.argv.length >= 2)
         app.quit();
 } else {
     app.on("second-instance", (event, argv, working_directory) => {
-        if(mainWindow) {
-            if (mainWindow.isMinimized()) mainWindow.restore();
-            mainWindow.focus();
-        }
-        if(loadingWindow) {
-            if (loadingWindow.isMinimized()) loadingWindow.restore();
-            loadingWindow.focus();
-        }
+        if(process.platform === 'win32' && argv.length >= 2) {
+            if(mainWindow) {
+                if (mainWindow.isMinimized()) mainWindow.restore();
+                mainWindow.focus();
+            }
+            if(loadingWindow) {
+                if (loadingWindow.isMinimized()) loadingWindow.restore();
+                loadingWindow.focus();
+            }
 
-        if(process.platform == 'win32' && argv.length >= 2) {
             openFile(argv[3]);
         }
     });

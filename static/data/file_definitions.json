@@ -86,6 +86,7 @@
         "rp_definition": true,
         "includes": "animations",
         "id": "rp_animation",
+        "start_state": "animation/rp_main",
         
         "build_array_exceptions": [ "timeline" ],
         "highlighter": "animation",
@@ -95,7 +96,9 @@
         "rp_definition": true,
         "includes": "animation_controllers",
         "id": "rp_animation_controller",
-        
+        "start_state": "animation_controller/rp_main",
+
+        "build_array_exceptions": [ "remap_curve" ],
         "highlighter": "animation_controller",
         "file_creator": "animation_controller"
     },

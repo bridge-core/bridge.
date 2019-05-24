@@ -6,6 +6,12 @@
             "light_color_multiplier": "$general.decimal",
             "ignore_lighting" : "$general.boolean",
 
+            "color": {
+                "r": "$animation.general.queries",
+                "g": "$animation.general.queries",
+                "b": "$animation.general.queries",
+                "a": "$animation.general.queries"
+            },
             "overlay_color": {
                 "r": "$animation.general.queries",
                 "g": "$animation.general.queries",

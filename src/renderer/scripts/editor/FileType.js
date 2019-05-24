@@ -78,4 +78,12 @@ export default class FileType {
             };
         }
     }
+
+    static DefaultBuildArrays(file_path) {
+        try {
+            return this.getData(file_path).default_build_arrays;
+        } catch(e) {
+            return false;
+        }
+    }
 }

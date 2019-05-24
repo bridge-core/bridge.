@@ -25,7 +25,43 @@
             }
         }
     },
+    "rp_animation": {
+        "bridge:format_version_check": {
+            "error_message": "\"format_version\" is required",
+            "fix": {
+                "type": "script",
+                "run": "node.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+            }
+        },
+        "bridge:child_must_start_with": {
+            "search": "animations",
+            "start": "animation.",
+            "error_message": "Animations must start with \"animation.<name>\"",
+            "fix": {
+                "type": "script",
+                "run": "History('edit-key', node, node.key); node.key = `animation.${node.key}`;"
+            }
+        }
+    },
     "animation_controller": {
+        "bridge:format_version_check": {
+            "error_message": "\"format_version\" is required",
+            "fix": {
+                "type": "script",
+                "run": "node.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+            }
+        },
+        "bridge:child_must_start_with": {
+            "search": "animation_controllers",
+            "start": "controller.animation.",
+            "error_message": "Animation controllers must start with \"controller.animation.<name>\"",
+            "fix": {
+                "type": "script",
+                "run": "History('edit-key', node, node.key); node.key = `controller.animation.${node.key.split('.').pop()}`;"
+            }
+        }
+    },
+    "rp_animation_controller": {
         "bridge:format_version_check": {
             "error_message": "\"format_version\" is required",
             "fix": {
@@ -160,6 +196,42 @@
         }
     },
     "spawn_rule": {
+        "bridge:format_version_check": {
+            "error_message": "\"format_version\" is required",
+            "fix": {
+                "type": "script",
+                "run": "node.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+            }
+        }
+    },
+    "item": {
+        "bridge:format_version_check": {
+            "error_message": "\"format_version\" is required",
+            "fix": {
+                "type": "script",
+                "run": "node.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+            }
+        }
+    },
+    "client_item": {
+        "bridge:format_version_check": {
+            "error_message": "\"format_version\" is required",
+            "fix": {
+                "type": "script",
+                "run": "node.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+            }
+        }
+    },
+    "client_entity": {
+        "bridge:format_version_check": {
+            "error_message": "\"format_version\" is required",
+            "fix": {
+                "type": "script",
+                "run": "node.parent.buildFromObject({ format_version: '1.10.0' }, undefined, true); Unsaved();"
+            }
+        }
+    },
+    "render_controller": {
         "bridge:format_version_check": {
             "error_message": "\"format_version\" is required",
             "fix": {

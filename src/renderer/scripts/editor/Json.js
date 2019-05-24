@@ -2,7 +2,7 @@ import saveEval from "safe-eval";
 import JSONTree from "./JsonTree";
 import ProblemIterator from "./problems/Problems";
 
-function private_toJSON(tree, build_arrays) {
+function private_toJSON(tree, build_arrays, default_build_arrays) {
     if(tree.type != "array" && tree.type != "object") {
         return toCorrectType(tree.data);
     } else {
@@ -10,8 +10,8 @@ function private_toJSON(tree, build_arrays) {
             let arr = [];
             tree.children.forEach(c => arr.push(private_toJSON(c, build_arrays)));
             return arr;
-        }
-        else {
+        } else {
+            if(default_build_arrays && tree.children.length == 0) return [];
             let obj = {};
             tree.children.forEach(c => obj[c.key] = private_toJSON(c, build_arrays));
             return obj;
@@ -41,8 +41,8 @@ function parse(string) {
 }
 
 export class Format {
-    static toJSON(tree, build_arrays=true) {
-        return private_toJSON(tree, build_arrays);
+    static toJSON(tree, build_arrays=true, default_build_arrays=false) {
+        return private_toJSON(tree, build_arrays, default_build_arrays);
     }
 
     static toTree(obj) {

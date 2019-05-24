@@ -152,7 +152,7 @@ class TabSystem {
     }
 
     //Utilities
-    select(val) {
+    select(val=0) {
         if(val < 0 || (
             this.projects[this.project] !== undefined
             && this.projects[this.project][val] !== undefined

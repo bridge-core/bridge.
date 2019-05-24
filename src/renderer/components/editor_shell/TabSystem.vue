@@ -5,7 +5,7 @@
                     v-for="(file, i) in open_files"
                     :key="`${selected_project}-${i}-${unsaved.join()}`"
                     bottom
-                    :ripple="selected_tab != i"
+                    :ripple="selected_tab !== i"
                     :class="`tab ${selected_tab == i ? 'selected' : ''}`"
                     color="red"
                 >
@@ -44,7 +44,7 @@ export default {
             return this.$store.state.Explorer.project.explorer;
         },
         selected_tab: {
-            set(val) {
+            set(val=0) {
                 this.internal_selected_tab = val;
                 TabSystem.select(val);
             },

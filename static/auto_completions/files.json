@@ -43,9 +43,11 @@
     "spawn_rule/beta_components",
 
     "animation/main",
+    "animation/rp_main",
     "animation/general",
 
     "animation_controller/main",
+    "animation_controller/rp_main",
 
     "client_entity/main",
     "client_item/main",

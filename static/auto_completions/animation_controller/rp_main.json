@@ -1,0 +1,35 @@
+{
+    "format_version": "$general.format_version",
+    "animation_controllers": {
+        "$placeholder": {
+            "states": {
+                "default": {
+                    "blend_transition": "$general.decimal",
+                    "parameters": {
+                        "$dynamic.list.next_index": "$animation.general.queries"
+                    },
+                    "variables": {
+                        "$placeholder": {
+                            "input": "$animation.general.queries",
+                            "remap_curve": {
+                                "$general.decimal": "$general.decimal"
+                            }
+                        }
+                    },
+
+                    "animations": {
+                        "$dynamic.list.next_index": {
+                            "$placeholder": "$animation.general.queries"
+                        }
+                    },
+                    "transitions": {
+                        "$dynamic.list.next_index": {
+                            "$dynamic.animation_controller.current_states": "$animation.general.queries"
+                        }
+                    }                 
+                },
+                "$placeholder": "$animation_controller.rp_main.animation_controllers.$placeholder.states.default"
+            }
+        }
+    }
+}

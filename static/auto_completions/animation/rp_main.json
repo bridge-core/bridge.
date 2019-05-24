@@ -1,0 +1,25 @@
+{
+    "format_version": "$general.format_version",
+    "animations": {
+        "$placeholder": {
+            "anim_time_update": "$animation.general.queries",
+            "animation_length": "$general.number",
+            "blend_weight": "$general.decimal",
+            "override_previous_animation": "$general.boolean",
+            "loop": "$general.boolean",
+            "bones": {
+                "$placeholder": {
+                    "rotation": {
+                        "$dynamic.list.index_triple": "$general.degree and $animation.general.queries"
+                    },
+                    "scale": {
+                        "$dynamic.list.index_triple": "$general.decimal and $animation.general.queries"
+                    },
+                    "position": {
+                        "$dynamic.list.index_triple": "$general.number and $animation.general.queries"
+                    }
+                }
+            }
+        }
+    }
+}
