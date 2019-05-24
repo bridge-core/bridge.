@@ -1,0 +1,21 @@
+{
+    "icon": "mdi-google-controller",
+    "title": "Animation Controller",
+    "extension": "json",
+    "path": "animation_controllers/",
+    
+    "templates": {
+        "Blank Animation Controller": {
+            "format_version": {},
+            "animation_controllers": {
+                "controller.animation.blank": {
+                    "states": {
+                        "default": {
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

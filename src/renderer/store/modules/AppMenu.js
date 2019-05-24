@@ -10,6 +10,7 @@ import ConfirmWindow from "../../scripts/commonWindows/Confirm";
 import EventBus from "../../scripts/EventBus";
 import { JSONAction } from "../../scripts/TabSystem/CommonHistory";
 import SnippetWindow from "../../windows/Snippets";
+import TemplateSetsWindow from "../../windows/TemplateSets";
 
 const state = {
     file: {
@@ -240,6 +241,11 @@ const state = {
                 title: "Snippets",
                 shortcut: "Ctrl + Q",
                 action: () => SnippetWindow.show()
+            },
+            {
+                title: "Template Sets",
+                shortcut: "Ctrl + T",
+                action: () => TemplateSetsWindow.show()
             }
         ]
     },

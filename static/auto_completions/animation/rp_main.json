@@ -19,6 +19,14 @@
                         "$dynamic.list.index_triple": "$general.number and $animation.general.queries"
                     }
                 }
+            },
+            "particle_effects": {
+                "$general.decimal": {
+                    "$dynamic.list.next_index": {
+                        "effect": {},
+                        "locator": {}
+                    }
+                }
             }
         }
     }

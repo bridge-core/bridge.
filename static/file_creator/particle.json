@@ -2,5 +2,18 @@
     "icon": "mdi-snowflake",
     "title": "Particle",
     "extension": "json",
-    "path": "particles/"
+    "path": "particles/",
+
+    "templates": {
+        "Blank Particle": {
+            "format_version": {},
+            "particle_effect": {
+                "description": {
+                    "identifier": {},
+                    "basic_render_parameters": {}
+                },
+                "components": {}
+            }
+        }
+    }
 }

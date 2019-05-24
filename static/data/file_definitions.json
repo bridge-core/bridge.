@@ -82,13 +82,15 @@
         "file_creator": "trade_table"
     },
 
+
+
     {
         "rp_definition": true,
         "includes": "animations",
         "id": "rp_animation",
         "start_state": "animation/rp_main",
         
-        "build_array_exceptions": [ "timeline" ],
+        "build_array_exceptions": [ "particle_effects" ],
         "highlighter": "animation",
         "file_creator": "animation"
     },

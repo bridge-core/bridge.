@@ -26,7 +26,13 @@
                         "$dynamic.list.next_index": {
                             "$dynamic.animation_controller.current_states": "$animation.general.queries"
                         }
-                    }                 
+                    },
+                    "particle_effects": {
+                        "$dynamic.list.next_index": {
+                            "effect": {},
+                            "locator": {}
+                        }
+                    }               
                 },
                 "$placeholder": "$animation_controller.rp_main.animation_controllers.$placeholder.states.default"
             }

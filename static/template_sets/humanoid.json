@@ -1,0 +1,43 @@
+{
+    "icon": "mdi-human",
+    "title": "Humanoid Entity",
+
+    "inputs": [
+        {
+            "label": "Identifier",
+            "bind": "identifier"
+        },
+        {
+            "label": "File Name",
+            "bind": "file_name",
+            "extend": ".json"
+        }
+    ],
+    "selects": [
+        {
+            "label": "AI Type",
+            "options": [ "passive", "aggressive" ],
+            "bind": "ai"
+        }
+    ],
+
+    "define": [
+        {
+            "if": [
+                {
+                    "condition": "ai === 'aggressive'",
+                    "path": "humanoid/entity_aggressive.json",
+                    "as": "`${BP}/entities/${file_name}.json`"
+                },
+                {
+                    "path": "humanoid/entity_passive.json",
+                    "as": "`${BP}/entities/${file_name}.json`"
+                }
+            ] 
+        },
+        {
+            "path": "./humanoid/client_entity.json",
+            "as": "`${RP}/entity/${file_name}.json`"
+        }
+    ]
+}

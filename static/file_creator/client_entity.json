@@ -2,5 +2,26 @@
     "icon": "mdi-chess-knight",
     "title": "Client Entity",
     "extension": "json",
-    "path": "entity/"
+    "path": "entity/",
+
+    "templates": {
+        "Blank Entity": {
+            "format_version": {},
+            "minecraft:client_entity": {
+                "description": {
+                    "identifier": {},
+                    "materials": {},
+                    "textures": {},
+                    "geometry": {},
+                    "scripts": {
+                        "pre_animation": {},
+                        "animate": {}
+                    },
+                    "animations": {},
+                    "render_controllers": {},
+                    "spawn_egg": {}
+                }
+            }
+        }
+    }
 }
