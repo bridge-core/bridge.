@@ -16,7 +16,7 @@ In general, dedicated add-on editors like bridge. have a few incredible advantag
 - Developing a behavior pack is significantly faster
 
 Additionally, "bridge." has a few specific features which other editors do not offer:
-- The ability to switch between auto-completions for multiple Minecraft versions seamlessly: We currently support v1.10 and v1.11 of Minecraft
+- The ability to switch between auto-completions for multiple Minecraft versions seamlessly: We always support the latest stable release and the latest beta
 - Packaging your behavior pack into a .mcpack file with only one click
 - Support for plugins: From custom components to searching files - bridge. plugins can do almost anything
 - bridge. interacts seamlessly with Minecraft and loads behavior packs from the com.mojang folder automatically
