@@ -173,7 +173,7 @@
                 });
             },
             getDirectory(dir=this.selected, force_reload=false) {
-                if(dir === undefined || dir === "/@NO-RP@/" || dir === '/@NO-DEPENDENCY@/') return;
+                if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return;
                 if(dir !== this.selected) {
                     this.$set(this, "selected", dir);
                     TabSystem.select(0);

@@ -10,6 +10,7 @@
         {
             "label": "File Name",
             "bind": "file_name",
+            "default_input": "unnamed",
             "extend": ".json"
         }
     ],
@@ -23,20 +24,21 @@
 
     "define": [
         {
-            "if": [
+            "filter": [
                 {
                     "condition": "ai === 'aggressive'",
                     "path": "humanoid/entity_aggressive.json",
                     "as": "`${BP}/entities/${file_name}.json`"
                 },
                 {
+                    "condition": "ai === 'passive'",
                     "path": "humanoid/entity_passive.json",
                     "as": "`${BP}/entities/${file_name}.json`"
                 }
             ] 
         },
         {
-            "path": "./humanoid/client_entity.json",
+            "path": "humanoid/client_entity.json",
             "as": "`${RP}/entity/${file_name}.json`"
         }
     ]
