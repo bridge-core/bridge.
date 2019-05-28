@@ -10,6 +10,7 @@ import { BASE_PATH } from "../constants";
 import JSONTree from "../editor/JsonTree";
 import Provider from "../autoCompletions/Provider";
 import { walkSync } from "../autoCompletions/Dynamic";
+import LoadingWindow from "../../windows/LoadingWindow";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -274,7 +275,7 @@ export default class Bridge {
 
         this.Utils = {
             get base_path() {
-                return BASE_PATH + Store.state.Explorer.project.explorer + "/";
+                return BASE_PATH + Store.state.Explorer.project.explorer + "\\";
             },
             get current_project() {
                 return Store.state.Explorer.project.explorer;
@@ -319,9 +320,13 @@ export default class Bridge {
         TabSystem.add({
             content,
             raw_content: content,
-            file_path: Runtime.Project.get() + "/" + file_path,
+            file_path,
             file_name
         });
+    }
+    openFile(path) {
+        new LoadingWindow("open-file").show();
+        setTimeout(() =>  FileSystem.open(path), 75);
     }
     openExternal(path) {
         shell.openExternal(path);
