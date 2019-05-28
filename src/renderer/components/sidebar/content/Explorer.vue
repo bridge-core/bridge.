@@ -173,6 +173,8 @@
                 });
             },
             getDirectory(dir=this.selected, force_reload=false) {
+                if(this.explorer_type === "explorer") EventBus.trigger("bridge:changedProject");
+
                 if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return;
                 if(dir !== this.selected) {
                     this.$set(this, "selected", dir);

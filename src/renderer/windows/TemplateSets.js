@@ -9,10 +9,18 @@ import findRP from "../scripts/utilities/FindRP";
 import mkdirp from "mkdirp";
 import LoadingWindow from "./LoadingWindow";
 import InformationWindow from "../scripts/commonWindows/Information";
+import EventBus from "../scripts/EventBus";
 
 loadTemplateSets();
 let SETS;
 let L_W;
+
+EventBus.on("bridge:changedProject", async () => {
+    let project = await findRP();
+    if(project === "/@NO-DEPENDENCY@/" || project === "/@NO-RP@/")
+        project = undefined;
+    Store.commit("setExplorerProject", { store_key: "resource_pack", project });
+});
 
 function evalFile(str, bindings) {
     for(let key in {
@@ -28,6 +36,8 @@ function evalFile(str, bindings) {
 async function evalStatement(str, bindings) {
     if(Store.state.Explorer.project.resource_pack === undefined) {
         let project = await findRP();
+        if(project === "/@NO-DEPENDENCY@/" || project === "/@NO-RP@/")
+            project = undefined;
         Store.commit("setExplorerProject", { store_key: "resource_pack", project });
     }
         

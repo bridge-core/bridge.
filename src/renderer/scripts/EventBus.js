@@ -3,7 +3,7 @@ export default class EventBus {
     static on(event, cb) {
         if(event in events) events[event].push(cb);
         else events[event] = [cb];
-        // console.log("Registered event " + event);
+        // console.log("Registered event " + event, events);
     }
 
     static off(event, cb) {
