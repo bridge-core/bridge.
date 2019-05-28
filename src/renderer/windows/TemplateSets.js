@@ -17,7 +17,7 @@ let L_W;
 function evalFile(str, bindings) {
     for(let key in {
         ...bindings,
-        RP: RP_BASE_PATH + ("uncategorized" || Store.state.Explorer.project.resource_pack),
+        RP: RP_BASE_PATH + (Store.state.Explorer.project.resource_pack || "uncategorized"),
         BP: BASE_PATH + Store.state.Explorer.project.explorer
     }) {
         str = str.replace(new RegExp(`\\$${key}`, "g"), bindings[key]);
@@ -33,7 +33,7 @@ async function evalStatement(str, bindings) {
         
     return safeEval(str, {
         ...bindings,
-        RP: RP_BASE_PATH + ("uncategorized" || Store.state.Explorer.project.resource_pack),
+        RP: RP_BASE_PATH + (Store.state.Explorer.project.resource_pack || "uncategorized"),
         BP: BASE_PATH + Store.state.Explorer.project.explorer
     });
 }
