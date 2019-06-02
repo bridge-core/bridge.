@@ -316,6 +316,9 @@ export default class Bridge {
             return trigger(name, arg);
         }
     }
+    /**
+     * @deprecated
+     */
     open({ content, file_name, file_path }) {
         TabSystem.add({
             content,

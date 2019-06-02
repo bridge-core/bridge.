@@ -1,6 +1,6 @@
 import fs from "fs";
 import mkdirp from "mkdirp";
-import { BASE_PATH } from "../constants.js";
+import { BASE_PATH, RP_BASE_PATH } from "../constants.js";
 import Store from "../../store/index";
 
 function getPath(path) {
@@ -8,7 +8,7 @@ function getPath(path) {
 }
 function getFileId(file_path) {
     if(file_path === null) return;
-    return file_path.replace(/\\/g, "/").replace(BASE_PATH.replace(/\\/g, "/"), "");
+    return file_path.replace(/\\/g, "/").replace(BASE_PATH.replace(/\\/g, "/"), "").replace(RP_BASE_PATH.replace(/\\/g, "/"), "");
 }
 
 export default class Cache {

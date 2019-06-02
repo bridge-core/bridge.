@@ -34,10 +34,13 @@
                 "$placeholder": {}
             },
             "animation_controllers": {
-                "$placeholder": {}
+                "$dynamic.list.next_index": {}
             },
             "render_controllers": {
                 "$dynamic.list.next_index": {}
+            },
+            "particle_effects": {
+                "$placeholder": {}
             }
         }
     }

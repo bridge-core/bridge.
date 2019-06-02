@@ -28,6 +28,9 @@
             "exploration_map": {
                 "destination": "$general.structures"
             },
+            "fill_container": {
+                "loot_table": "$dynamic.loot_table_files"
+            },
             "looting_enchant": {
                 "count": {
                     "min": "$general.number",
@@ -41,6 +44,13 @@
                 "type": {
                     "min": "$general.number",
                     "max": "$general.number"
+                }
+            },
+            "set_book_contents": {
+                "author": {},
+                "title": {},
+                "pages": {
+                    "$dynamic.list.next_index": {}
                 }
             },
             "set_count": {
@@ -59,6 +69,22 @@
                 "data": {
                     "min": "$general.number",
                     "max": "$general.number"
+                }
+            },
+            "set_lore": {
+                "lore": {
+                    "$dynamic.list.next_index": {}
+                }
+            },
+            "set_name": {
+                "name": {}
+            },
+            "specific_enchants": {
+                "enchants": {
+                    "$dynamic.list.next_index": {
+                        "id": "$general.enchantment_name",
+                        "level": "$general.number"
+                    }
                 }
             }
         }

@@ -90,7 +90,7 @@
         "id": "rp_animation",
         "start_state": "animation/rp_main",
         
-        "build_array_exceptions": [ "particle_effects" ],
+        "build_array_exceptions": [ "particle_effects", "rotation", "position", "scale" ],
         "highlighter": "animation",
         "file_creator": "animation"
     },
