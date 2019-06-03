@@ -192,6 +192,7 @@
             }
         },
         "bridge:behavior_check": {
+            "is_warning": true,
             "error_message": "$failure_name missing"
         }
     },

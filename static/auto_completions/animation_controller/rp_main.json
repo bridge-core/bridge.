@@ -32,7 +32,12 @@
                             "effect": {},
                             "locator": {}
                         }
-                    }               
+                    },
+                    "sound_effects" : {
+                        "$dynamic.list.next_index": {
+                            "$placeholder": {}
+                        }
+                    }
                 },
                 "$placeholder": "$animation_controller.rp_main.animation_controllers.$placeholder.states.default"
             }

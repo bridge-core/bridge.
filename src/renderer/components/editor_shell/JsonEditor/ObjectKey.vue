@@ -49,6 +49,14 @@
         {{ my_key }}
         </highlight-text>
         
+        <span v-if="node_context.data !== '' && !node_context.open && !$store.state.Settings.hide_data_next_to_nodes">
+            :
+            <highlight-attribute 
+                :data="node_context.data"
+                :as_block="false"
+            />
+        </span>
+
         <v-icon v-if="$store.state.Settings.error_icon_indicator && child_contains_error" color="error" small>mdi-alert-circle</v-icon>
         <v-tooltip
             v-if="$store.state.Settings.error_auto_fix && error && error.fix"
@@ -76,13 +84,15 @@
 <script>
     import Main from "./Main";
     import HighlightText from "./HighlightText";
+    import HighlightAttribute from "./HighlightAttribute";
     import TabSystem from "../../../scripts/TabSystem";
 
     export default {
         name: "object-key",
         components: {
             Main,
-            HighlightText
+            HighlightText,
+            HighlightAttribute
         },
         props: {
             my_key: [String, Number],

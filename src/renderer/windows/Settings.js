@@ -276,7 +276,12 @@ export default class SettingsWindow extends TabWindow {
                 new ReactiveSwitch(this, "inversed_arrows", {
                     color: "light-green",
                     text: "Inverse Arrows",
-                    key: `settings.editor.tab.arrows.${Math.random()}`
+                    key: `settings.appearance.tab.arrows.${Math.random()}`
+                }),
+                new ReactiveSwitch(this, "hide_data_next_to_nodes", {
+                    color: "light-green",
+                    text: "Hide Data Next To Nodes",
+                    key: `settings.appearance.tab.hide_data_next_to_nodes.${Math.random()}`
                 })
             ]
         });

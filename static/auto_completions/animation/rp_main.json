@@ -27,6 +27,11 @@
                         "locator": {}
                     }
                 }
+            },
+            "sound_effects" : {
+                "$dynamic.list.next_index": {
+                    "$placeholder": {}
+                }
             }
         }
     }

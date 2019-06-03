@@ -36,10 +36,16 @@
             "animation_controllers": {
                 "$dynamic.list.next_index": {}
             },
+            "sound_effects": {
+                "$placeholder": {}
+            },
             "render_controllers": {
                 "$dynamic.list.next_index": {}
             },
             "particle_effects": {
+                "$placeholder": {}
+            },
+            "particle_emitters": {
                 "$placeholder": {}
             }
         }

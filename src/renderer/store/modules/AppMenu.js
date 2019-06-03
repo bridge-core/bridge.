@@ -11,6 +11,7 @@ import EventBus from "../../scripts/EventBus";
 import { JSONAction } from "../../scripts/TabSystem/CommonHistory";
 import SnippetWindow from "../../windows/Snippets";
 import TemplateSetsWindow from "../../windows/TemplateSets";
+import CreditsWindow from "../../windows/Credits";
 
 const state = {
     file: {
@@ -255,7 +256,7 @@ const state = {
         elements: [
             {
                 title: "About",
-                action: () => shell.openExternal("https://www.github.com/solvedDev/bridge.")
+                action: () => new CreditsWindow()
             },
             {
                 title: "Latest Release",

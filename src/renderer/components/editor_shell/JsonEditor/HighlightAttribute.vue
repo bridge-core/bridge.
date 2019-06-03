@@ -1,8 +1,8 @@
 <template>
-    <div :style="styles">
+    <span :style="styles + (as_block ? 'display: block;' : '')">
         <highlight-text v-if="use_advanced_parsing">{{ text }}</highlight-text>
         <span v-else>{{ text }}</span>
-    </div>
+    </span>
 </template>
 
 <script>
@@ -11,7 +11,11 @@
     export default {
         name: "highlight-attribute",
         props: {
-            data: [ String, Boolean, Number ]
+            data: [ String, Boolean, Number ],
+            as_block: {
+                default: true,
+                type: Boolean
+            }
         },
         components: {
             HighlightText

@@ -59,6 +59,8 @@
         "includes": "recipes",
         "id": "recipe",
         "start_state": "recipe/main",
+
+        "build_array_exceptions": [ "key" ],
         "highlighter": "recipe",
         "file_creator": "recipe"
     },
