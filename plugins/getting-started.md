@@ -71,8 +71,8 @@ WIP Draft:
 
 #### [```Bridge.Store```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/Store.md)
 - [```.exists(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/exists.md)
-- [```.load(name, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/load.md)
-- [```.save(name, data, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/save.md)
+- [```.load(name)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/load.md)
+- [```.save(name, data)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/store/save.md)
 - ```.setup(namespace)```
 
 #### ```Bridge.Window```
