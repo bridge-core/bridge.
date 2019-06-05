@@ -6,7 +6,7 @@ import { trigger, overwriteTrigger } from "./EventTriggers";
 import PluginAssert from "./PluginAssert";
 import TabSystem from "../TabSystem";
 import FileSystem from "../FileSystem";
-import { BASE_PATH } from "../constants";
+import { BASE_PATH, APP_VERSION } from "../constants";
 import JSONTree from "../editor/JsonTree";
 import Provider from "../autoCompletions/Provider";
 import { walkSync } from "../autoCompletions/Dynamic";
@@ -293,6 +293,9 @@ export default class Bridge {
                 let arr = TabSystem.getSelected().file_path.split(/\/|\\/g).pop().split(".");
                 arr.pop();
                 return arr.join(".");
+            },
+            get APP_VERSION() {
+                return APP_VERSION;
             }
         };
     }

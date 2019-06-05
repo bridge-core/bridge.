@@ -26,6 +26,8 @@
     import { remote } from "electron";
     import MouseTrap from "mousetrap";
     import KeyManager from "../scripts/appMenu/KeyManager";
+import TabSystem from '../scripts/TabSystem';
+import ConfirmWindow from '../scripts/commonWindows/Confirm';
 
     export default {
         name: "app-toolbar",
@@ -56,7 +58,11 @@
         },
         methods: {
             closeWindow() {
-                remote.getCurrentWindow().close();
+                if(TabSystem.contains_unsaved) {
+                    new ConfirmWindow(() => remote.getCurrentWindow().close(), null, "Not all of your open tabs are saved. Do you really want to close \"bridge.\"?");
+                } else {
+                    remote.getCurrentWindow().close()
+                }
             },
             minWindow() {
                 remote.getCurrentWindow().minimize();

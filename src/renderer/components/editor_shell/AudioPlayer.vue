@@ -30,7 +30,6 @@
         },
         mounted() {
             this.player = this.$refs.audio || {};
-            setTimeout(() => console.log(this.player, this.$refs), 1000);
             requestAnimationFrame(this.updateTime);
         },
         destroyed() {

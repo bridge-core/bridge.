@@ -1,5 +1,6 @@
 import TabWindow from "../scripts/commonWindows/TabWindow";
 import { shell } from "electron";
+import { APP_VERSION } from "../scripts/constants";
 
 class Creator {
     constructor(content, creator, links) {
@@ -54,10 +55,20 @@ export default class CreditsWindow extends TabWindow {
                 title: "General"
             },
             content: [
+                {
+                    text: `\nYou are running bridge. ${APP_VERSION}\n\n`
+                },
+                {
+                    type: "divider"
+                },
                 new Creator("Developer", "solvedDev", [{
                     color: "primary",
                     text: "Twitter",
                     link: "https://twitter.com/lKanno_"
+                },
+                {
+                    text: "GitHub",
+                    link: "https://github.com/solvedDev"
                 }])
             ]
         });

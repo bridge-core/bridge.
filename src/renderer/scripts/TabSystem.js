@@ -24,6 +24,14 @@ class TabSystem {
     get project() {
         return Store.state.Explorer.project.explorer;
     }
+    //Whether the user has unsaved tabs open in any project
+    get contains_unsaved() {
+        for(let p in this.projects) {
+            for(let t of this.projects[p])
+                if(t.is_unsaved) return true;
+        }
+        return false;
+    }
 
     //Adding tab
     add(tab) {

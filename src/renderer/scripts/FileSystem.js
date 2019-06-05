@@ -8,6 +8,7 @@ import Cache from "./utilities/Cache.js";
 import JSONTree from "./editor/JsonTree.js";
 import ProblemIterator from "./editor/problems/Problems.js";
 import LoadingWindow from "../windows/LoadingWindow";
+import PluginEnv from "./plugins/PluginEnv";
 
 document.addEventListener("dragover", event => {
     event.preventDefault();
@@ -60,6 +61,7 @@ class FileSystem {
             if(open) {
                 this.addAsTab(path, content, content);
             }
+            PluginEnv.trigger("bridge:finishedSaving", path, true, false);
         });
     }
     basicSaveAs(path, content) {
