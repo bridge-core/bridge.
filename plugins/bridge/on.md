@@ -15,6 +15,7 @@ You may return a modified version of the object received inside the callback fun
 | ```bridge:saveFile``` | Triggers before "bridge." saves a file |
 | ```bridge:selectedNode``` | Triggers after the user selected a new node | ```{ node }```
 | ```bridge:startedSaving``` | Triggers before "bridge." initializes the file saving process
+| ```bridge:finishedSaving``` | Triggers after "bridge." saved a file | ```file_path```
 
 ### Example
 ```javascript
