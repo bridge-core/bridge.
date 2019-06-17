@@ -86,4 +86,8 @@ export default class FileType {
             return false;
         }
     }
+
+    static getDocumentation() {
+        return this.getData().documentation;
+    }
 }

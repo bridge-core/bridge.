@@ -1,4 +1,45 @@
 {
     "icon": "mdi-sword",
-    "title": "Item"
+    "title": "Item",
+
+    "inputs": [
+        {
+            "label": "Identifier",
+            "bind": "identifier"
+        },
+        {
+            "label": "File Name",
+            "bind": "file_name",
+            "default_input": "unnamed",
+            "extend": ".json"
+        }
+    ],
+    "selects": [
+        {
+            "label": "Item Type",
+            "options": [ "No Behavior", "Food" ],
+            "bind": "type"
+        }
+    ],
+
+    "define": [
+        {
+            "filter": [
+                {
+                    "condition": "type === 'No Behavior'",
+                    "path": "humanoid/item_standard.json",
+                    "as": "`${BP}/entities/${file_name}.json`"
+                },
+                {
+                    "condition": "type === 'Food'",
+                    "path": "humanoid/item_food.json",
+                    "as": "`${BP}/entities/${file_name}.json`"
+                }
+            ] 
+        },
+        {
+            "path": "humanoid/client_item.json",
+            "as": "`${RP}/entity/${file_name}.json`"
+        }
+    ]
 }

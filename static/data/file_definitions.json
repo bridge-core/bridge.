@@ -33,7 +33,9 @@
         "id": "entity",
         "start_state": "entity/main",
         "highlighter": "entity",
-        "file_creator": "entity"
+        "file_creator": "entity",
+        
+        "documentation": [ "add_entity_components", "entity" ]
     },
     {
         "includes": "functions",

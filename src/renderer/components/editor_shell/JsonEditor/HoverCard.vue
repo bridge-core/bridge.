@@ -56,8 +56,9 @@
 import TabSystem from "../../../scripts/TabSystem";
 import { clipboard } from "electron";
 import { JSONAction } from "../../../scripts/TabSystem/CommonHistory";
-import EventBus from '../../../scripts/EventBus';
-import { DOC_WINDOW } from '../../../scripts/documentation/main';
+import EventBus from "../../../scripts/EventBus";
+import { DOC_WINDOW } from "../../../scripts/documentation/main";
+import NodeShortcuts from "../../../scripts/editor/Shortcuts";
 
 export default {
     name: "json-editor-hover-card",
@@ -95,9 +96,7 @@ export default {
                     action: () => {
                         this.is_visible = false;
 
-                        let node = TabSystem.getCurrentNavObj();
-                        let obj = { [node.key]: node.toJSON() };
-                        clipboard.writeText(JSON.stringify(obj, null, "\t"));
+                        NodeShortcuts.copy();
                     }
                 },
                 {
@@ -107,15 +106,7 @@ export default {
                     action: () => {
                         this.is_visible = false;
 
-                        let node = TabSystem.getCurrentNavObj();
-                        //HISTORY
-                        TabSystem.getHistory().add(new JSONAction("add", node.parent, node));
-
-                        let obj = { [node.key]: node.toJSON() };
-                        clipboard.writeText(JSON.stringify(obj, null, "\t"));
-                        TabSystem.deleteCurrent();
-                        TabSystem.setCurrentFileNav("global");
-                        TabSystem.setCurrentUnsaved();
+                        NodeShortcuts.cut();
                     }
                 },
                 {
@@ -125,14 +116,7 @@ export default {
                     action: () => {
                         this.is_visible = false;
 
-                        try {
-                            TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
-                        } catch(e) {
-                            //Try again with a fix if the key was still in front
-                            try {
-                                TabSystem.getCurrentNavObj().buildFromObject(JSON.parse("{" + clipboard.readText() + "}"), undefined, true);
-                            } catch(e) {}
-                        }
+                        NodeShortcuts.paste();
                     }
                 },
                 {

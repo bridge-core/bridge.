@@ -1,17 +1,17 @@
 import KeyManager from "../../scripts/appMenu/KeyManager";
 import Vue from "vue";
 import Store from "../index";
-import { ipcRenderer, shell, clipboard } from "electron";
+import { ipcRenderer, shell } from "electron";
 import SettingsWindow from "../../windows/Settings";
 import CreateFileWindow from "../../windows/CreateFile";
 import TabSystem from "../../scripts/TabSystem";
 import FileSystem from "../../scripts/FileSystem";
 import ConfirmWindow from "../../scripts/commonWindows/Confirm";
 import EventBus from "../../scripts/EventBus";
-import { JSONAction } from "../../scripts/TabSystem/CommonHistory";
 import SnippetWindow from "../../windows/Snippets";
 import TemplateSetsWindow from "../../windows/TemplateSets";
 import CreditsWindow from "../../windows/Credits";
+import NodeShortcuts from "../../scripts/editor/Shortcuts";
 
 const state = {
     file: {
@@ -177,60 +177,33 @@ const state = {
                 shortcut: "Ctrl + C",
                 action: () => {
                     if(document.activeElement.tagName === "BODY" || window.getSelection().toString() == "") {
-                        try {
-                            let node = TabSystem.getCurrentNavObj();
-                            let obj = { [node.key]: node.toJSON() };
-                            clipboard.writeText(JSON.stringify(obj, null, "\t"));
-                        } catch(e) {}
+                        NodeShortcuts.copy();
                     } else {
                         document.execCommand("copy");
-                        // EventBus.trigger("getCMSelection", clipboard.writeText);
                     }
-                } 
+                }
             },
             {
                 title: "Cut",
                 shortcut: "Ctrl + X",
                 action: () => {
                     if(document.activeElement.tagName === "BODY"  || window.getSelection().toString() == "") {
-                        try {
-                            let node = TabSystem.getCurrentNavObj();
-                            //HISTORY
-                            TabSystem.getHistory().add(new JSONAction("add", node.parent, node));
-
-                            let obj = { [node.key]: node.toJSON() };
-                            clipboard.writeText(JSON.stringify(obj, null, "\t"));
-                            TabSystem.deleteCurrent();
-                            TabSystem.setCurrentFileNav("global");
-                            TabSystem.setCurrentUnsaved();
-                        } catch(e) {}
+                        NodeShortcuts.cut();
                     } else {
                         document.execCommand("cut");
-                        // EventBus.trigger("getCMSelection", clipboard.writeText);
-                        // EventBus.trigger("setCMSelection", "");
                     }
-                } 
+                }
             },
             {
                 title: "Paste",
                 shortcut: "Ctrl + V",
                 action: () => {
                     if(document.activeElement.tagName === "BODY") {
-                        try {
-                            TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
-                            TabSystem.setCurrentUnsaved();
-                        } catch(e) {
-                            //Try again with a fix if the key was still in front
-                            try {
-                                TabSystem.getCurrentNavObj().buildFromObject(JSON.parse("{" + clipboard.readText() + "}"), undefined, true);
-                                TabSystem.setCurrentUnsaved();
-                            } catch(e) {}
-                        }
+                        NodeShortcuts.paste();
                     } else {
                         document.execCommand("paste");
-                        // EventBus.trigger("setCMSelection", clipboard.readText());
                     }
-                } 
+                }
             }            
         ]
     },

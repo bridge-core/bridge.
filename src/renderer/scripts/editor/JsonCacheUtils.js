@@ -59,6 +59,11 @@ export default class JsonCacheUtils {
                 res = res.concat(Object.keys(a.toJSON()));
             }
         });
+
+        try {
+            res = res.concat(Object.keys(TabSystem.getSelected().content.get("minecraft:entity/description/animations").toJSON()));
+        } catch(e) { }
+
         return res;
     }
     static get animation_controller_ids() {
@@ -69,6 +74,11 @@ export default class JsonCacheUtils {
                 res = res.concat(Object.keys(a.toJSON()));
             }
         });
+
+        try {
+            res = res.concat(Object.keys(TabSystem.getSelected().content.get("minecraft:entity/description/animations").toJSON()));
+        } catch(e) { }
+
         return res;
     }
 }
