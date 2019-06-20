@@ -11,7 +11,7 @@
             "minecraft:use_animation": {},
             "minecraft:hover_text_color": "$general.minecraft_color",
 
-            "minecraft:render_offsets": {}
+            "minecraft:render_offsets": [ "apple", "tools" ]
         }
     }
 }

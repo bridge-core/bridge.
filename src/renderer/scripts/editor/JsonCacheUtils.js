@@ -48,6 +48,11 @@ export default class JsonCacheUtils {
                 res = res.concat(Object.keys(refs.toJSON()));
             }
         });
+
+        try {
+            res = res.concat(Object.keys(TabSystem.getSelected().content.get("minecraft:entity/description/animations").toJSON()));
+        } catch(e) { }
+
         return res;
     }
 
@@ -60,9 +65,7 @@ export default class JsonCacheUtils {
             }
         });
 
-        try {
-            res = res.concat(Object.keys(TabSystem.getSelected().content.get("minecraft:entity/description/animations").toJSON()));
-        } catch(e) { }
+        
 
         return res;
     }
@@ -74,10 +77,6 @@ export default class JsonCacheUtils {
                 res = res.concat(Object.keys(a.toJSON()));
             }
         });
-
-        try {
-            res = res.concat(Object.keys(TabSystem.getSelected().content.get("minecraft:entity/description/animations").toJSON()));
-        } catch(e) { }
 
         return res;
     }

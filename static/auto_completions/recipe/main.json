@@ -5,6 +5,7 @@
         "tags": {
             "$dynamic.list.next_index": "$recipe.general.tags"
         },
+        "group": {},
 
         "input": "$general.item_identifier",
         "output": "$general.item_identifier"
@@ -15,6 +16,7 @@
         "tags": {
             "$dynamic.list.next_index": "$recipe.general.tags"
         },
+        "group": {},
 
         "pattern": {
             "$dynamic.list.index_triple": {}
@@ -39,6 +41,7 @@
         "tags": {
             "$dynamic.list.next_index": "$recipe.general.tags"
         },
+        "group": {},
 
         "ingredients": {
             "$dynamic.list.next_index": {
