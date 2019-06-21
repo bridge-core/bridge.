@@ -181,7 +181,7 @@
                                 }
                             });
                         },
-                        "Enter": () => {
+                        "Tab": () => {
                             EventBus.trigger("bridge:textCompletionsOpen", (is_open) => {
                                 if(is_open) EventBus.trigger("bridge:textCompletionsEnter");
                                 else return this.setCMSelection("\n");

@@ -5,23 +5,29 @@
         >
             <component :is="toolbar_component" :selected="selected" :base_path="base_path"/>
         </span>
-        <v-select
-            v-if="force_project_algorithm === undefined"
-            style="margin-bottom: 4px;"
-            ref="project_select"
-            :items="project_items" 
-            :value="selected" 
-            :label="display_label" 
-            solo 
-            dense 
-            :loading="loading" 
-            :disabled="items.length <= 1"
-            @input="getDirectory"
-            hide-details
-        />
-        <v-subheader
-            v-else
-        >{{ selected }}</v-subheader>
+
+        <v-layout align-center>
+            <span style="padding: 0 4px;"><v-avatar size="36px"><img :src="project_icon"></v-avatar></span>
+            
+            <v-select
+                v-if="force_project_algorithm === undefined"
+                style="margin-bottom: 4px;"
+                ref="project_select"
+                :items="project_items" 
+                :value="selected" 
+                :label="display_label" 
+                solo 
+                dense 
+                :loading="loading" 
+                :disabled="items.length <= 1"
+                @input="getDirectory"
+                hide-details
+            />
+            <v-subheader
+                v-else
+            >{{ selected }}</v-subheader>
+        </v-layout>
+
         <v-divider></v-divider>
         <file-displayer
             v-if="selected !== undefined && selected !== '/@NO-RP@/' && selected !== '/@NO-DEPENDENCY@/'" 
@@ -37,6 +43,8 @@
             
         >
             It doesn't look like your current behavior pack has a corresponding resource pack registered inside its manifest file.
+            <br/><br/>
+            <v-btn color="success">Create</v-btn><v-btn color="primary" @click="link">Link</v-btn>
         </div>
         <div
             v-else
@@ -55,7 +63,11 @@
     import ExplorerRpToolbar from "./explorer/RpToolbar.vue";
     import EventBus from "../../../scripts/EventBus";
     import TabSystem from "../../../scripts/TabSystem";
-    
+    import { BASE_PATH } from '../../../scripts/constants';
+    import DataUrl from "dataurl";
+    import fs from "fs";
+    import LinkRPWindow from "../../../windows/LinkRP";
+
     export default {
         name: "content-explorer",
         components: {
@@ -92,6 +104,7 @@
             this.$root.$on("refreshExplorer", () => {
                 this.refresh();
             });
+            EventBus.on("bridge:refreshExplorer", this.refresh);
 
             ipcRenderer.on("readProjects", (event, args) => {
                 this.items = args.files;
@@ -118,6 +131,7 @@
                 ipcRenderer.removeAllListeners(e);
             });
             this.$root.$off("refreshExplorer");
+            EventBus.off("bridge:refreshExplorer", this.refresh);
 
             window.removeEventListener("resize", this.onResize);
         },
@@ -141,7 +155,7 @@
             },
 
             project_items() {
-                let size = Math.floor(this.project_select_size / 8.25);
+                let size = Math.floor(this.project_select_size / 10.5);
                 
                 let tmp = [];
                 this.items.forEach(e => tmp.push({ 
@@ -149,18 +163,37 @@
                     value: e 
                 }));
                 return tmp;
+            },
+            project_icon() {
+                try {
+                    return DataUrl.convert({
+                        data: fs.readFileSync(BASE_PATH + this.selected + "/pack_icon.png"),
+                        mimetype: `image/png`
+                    });
+                } catch(e) {
+                    return DataUrl.convert({
+                        data: fs.readFileSync(__static + "/images/pack_icon.png"),
+                        mimetype: `image/png`
+                    });
+                }
             }
         },
         methods: {
-            refresh() {
-                this.getProjects({
-                    event_name: "refreshExplorer",
-                    func: () => {
-                        this.$store.commit("forceReloadNextPluginRequest");
-                        console.log("[REFRESH] " + this.selected);
-                        this.getDirectory(undefined, true);
-                    }
-                });
+            refresh(force_val) {
+                if(this.force_project_algorithm) {
+                    this.selected = force_val;
+                    console.log(this.selected);
+                    this.getDirectory(this.selected);
+                } else {
+                    this.getProjects({
+                        event_name: "refreshExplorer",
+                        func: () => {
+                            this.$store.commit("forceReloadNextPluginRequest");
+                            console.log("[REFRESH] " + this.selected);
+                            this.getDirectory(undefined, true);
+                        }
+                    });
+                }
             },
             
 
@@ -213,6 +246,10 @@
                         return this.items[i];
                 }
                 return this.items[0];
+            },
+
+            link() {
+                new LinkRPWindow(this.$store.state.Explorer.project.explorer);
             }
         }
     }

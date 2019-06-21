@@ -11,6 +11,16 @@ export default class FileType {
         FILE_CREATOR_CACHE = [];
     }
 
+    //Special method to e.g. avoid "loot_tables/blocks/something.json" being considered a "block"
+    static pathIncludes(path, includes) {
+        path = path.split(/development_behavior_packs|development_resource_pack/g)[1].split(/\\|\//g);
+        path.shift();
+        path.shift();
+        path = path.join("/");
+
+        return path.startsWith(includes);
+    }
+
     static get(file_path) {
         let data = this.getData(file_path);
         if(data === undefined) return "unknown";
@@ -22,13 +32,16 @@ export default class FileType {
         let path = file_path;
         
         if(path === undefined) {
-                try {
+            try {
                 path = TabSystem.getSelected().file_path;
             } catch(e) { return; }
         }
+
+        
         
         for(let def of FILE_DEFS) {
-            if(path.includes(def.includes) && (path.includes("development_behavior_packs") || def.rp_definition)) return def;
+            // console.log(path);
+            if(this.pathIncludes(path, def.includes) && (path.includes("development_behavior_packs") || def.rp_definition)) return def;
         }
         return;
     }

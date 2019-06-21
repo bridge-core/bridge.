@@ -22,7 +22,7 @@ const mutations = {
             i++;
         }
 
-        if(i == state.elements.length) state.elements.push(detachObj({}, window));
+        if(i === state.elements.length) state.elements.push(detachObj({}, window));
         else if(id) throw new Error("Unknown window ID: " + id);
         
     },
@@ -47,13 +47,13 @@ const mutations = {
         if(i < state.elements.length) {
             Vue.set(state.elements[i], "is_visible", false);
             setTimeout(() => {
-                Store.commit("__plugin_window_internal_remove", i)
+                Store.commit("__plugin_window_internal_remove", { index: i, id });
             }, 400);
         } 
         else if(id) throw new Error("Unknown window ID: " + id);
     },
-    __plugin_window_internal_remove(state, index) {
-        if(state.elements.length > index) state.elements.splice(index, 1);
+    __plugin_window_internal_remove(state, { index, id }) {
+        if(state.elements.length > index && state.elements[index] === id) state.elements.splice(index, 1);
     },
     resetPluginWindows(state) {
         state.elements = [];

@@ -4,6 +4,9 @@ import { RP_BASE_PATH, BASE_PATH } from "../constants";
 
 let last_selected;
 let last_result;
+export function setRP(val) {
+    last_result = val;
+}
 export default async function findRP() {
     let selected = TabSystem.project;
     if(selected === last_selected && last_result !== undefined) return last_result;
@@ -24,7 +27,6 @@ export default async function findRP() {
     rps.forEach(rp => promises.push(readFile(`${RP_BASE_PATH}${rp}\\manifest.json`)));
     promises = await Promise.all(promises).then(data => data.map(e => e !== undefined ? JSON.parse(e) : e));
     
-    console.log("Test")
     for(let i = 0; i < promises.length; i++) {
         if(promises[i] !== undefined && promises[i].header.uuid === uuid) {
             last_result = rps[i];

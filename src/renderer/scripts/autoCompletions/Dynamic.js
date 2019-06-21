@@ -104,7 +104,9 @@ export const DYNAMIC = {
         pattern_keys() {
             try {
                 let data = TabSystem.getSelected().content.get("minecraft:recipe_shaped/pattern").toJSON();
-                return data.map(e => e.split("")).reduce((acc, curr) => acc.concat(curr), []);
+                let res = [];
+                data.forEach(e => res = res.concat(e.split("")));
+                return res.filter(e => e !== " ");
             } catch(e) {
                 return [];
             }

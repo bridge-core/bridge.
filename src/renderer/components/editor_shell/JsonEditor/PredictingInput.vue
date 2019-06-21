@@ -93,9 +93,9 @@
 
                     this.expandPath(this.value);
                 } else if(this.file_navigation !== "global" && this.mode === "value") {
-                    TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
+                    if(current.children.length > 0) return;
 
-                    current.open = true;
+                    TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
                     current.edit(this.value + "");
                     current.type = typeof this.value;
                     this.navigationBack();

@@ -1,7 +1,7 @@
 import uuidv4 from "uuid/v4";
 
 export default class Manifest {
-    constructor(type, name, description, client_data) {
+    constructor(type, name, description, client_data, dependency) {
         this.format_version = 1;
         this.header = {
             description,
@@ -25,6 +25,13 @@ export default class Manifest {
                 version: [ 1, 0, 0 ]
             });
         }
+        if(dependency !== undefined) {
+            this.dependencies = [ dependency ];
+        }
+    }
+
+    get uuid() {
+        return this.header.uuid;
     }
 
     get() {

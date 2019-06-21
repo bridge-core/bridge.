@@ -1,9 +1,10 @@
 <template>
-    <v-flex v-show="type != 'edit' || file_navigation != 'global'">
+    <v-flex>
         <v-layout>
             <v-text-field
                 ref="input"
                 @keydown.enter.native="click"
+                :disabled="file_navigation === 'global'"
                 v-if="type == 'edit'"
                 v-model="value"
             />
@@ -22,7 +23,7 @@
                 dense
                 class="json-input-menu"
             ></v-combobox>
-            <v-btn @click="click">
+            <v-btn @click="click" :disabled="type === 'edit' && file_navigation === 'global'">
                 +
             </v-btn>
         </v-layout>
@@ -107,6 +108,8 @@
 
                     this.expandPath(this.value);
                 } else if(this.file_navigation !== "global" && this.type === "value") {
+                    if(current.children.length > 0) return;
+
                     TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
                     current.edit(this.value);;
                     current.type = typeof this.value;

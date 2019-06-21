@@ -190,8 +190,8 @@ export default class CreateFileWindow extends ContentWindow {
             options: ["No template"].concat(Object.keys(templ)),
             text: "Select template",
             action: (val) => {
-                if(templ[val] == undefined) this.chosen_template = "";
-                if(typeof templ[val] == "string") this.chosen_template = templ[val];
+                if(templ[val] === undefined) this.chosen_template = "";
+                else if(typeof templ[val] === "string") this.chosen_template = templ[val];
                 else this.chosen_template = JSON.stringify(templ[val], null, "\t");
             }
         });

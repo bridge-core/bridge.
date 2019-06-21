@@ -4,13 +4,33 @@
     "extension": "json",
     "path": "recipes/",
     "templates": {
-        "Blank Recipe": {
+        "Blank Shaped Recipe": {
             "format_version": {},
             "minecraft:recipe_shaped": {
                 "description": {
                     "identifier": ""
                 },
                 "tags": {}
+            }
+        },
+        "Blank Shapeless Recipe": {
+            "format_version": {},
+            "minecraft:recipe_shapeless": {
+                "description": {
+                    "identifier": ""
+                },
+                "tags": {}
+            }
+        },
+        "Blank Furnace Recipe": {
+            "format_version": {},
+            "minecraft:recipe_furnace": {
+                "description": {
+                    "identifier": ""
+                },
+                "tags": {},
+                "input": {},
+                "output": {}
             }
         }
     }

@@ -6,6 +6,7 @@ import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from "./Dynamic";
 import detachObj from "../detachObj";
 import ComponentProvider from "./Components";
 import Assert from "../plugins/PluginAssert";
+import FileType from "../editor/FileType";
 
 let FILE_DEFS = [];
 let PLUGIN_FILE_DEFS = [];
@@ -112,7 +113,7 @@ class Provider {
     validator(path) {
         if(path === undefined) return this.start_state = "unknown";
         for(let def of this.FILE_DEFS) {
-            if(path.includes(def.includes) && (path.includes("development_behavior_packs") || def.rp_definition)) return this.start_state = def.start_state;
+            if(FileType.pathIncludes(path, def.includes) && (path.includes("development_behavior_packs") || def.rp_definition)) return this.start_state = def.start_state;
         }
         return this.start_state = "unknown";
     }
