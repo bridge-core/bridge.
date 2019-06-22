@@ -10,19 +10,16 @@ class Creator {
                 type: "header",
                 text: `\n${content}: ${creator}`
             },
-            {
-                type: "horizontal",
-                content: links.map(({ link, ...other }) => {
-                    return {
-                        type: "button",
-                        is_rounded: true,
-                        ...other,
-                        action: () => {
-                            shell.openExternal(link)
-                        }
+            ...links.map(({ link, ...other }) => {
+                return {
+                    type: "button",
+                    is_rounded: true,
+                    ...other,
+                    action: () => {
+                        shell.openExternal(link)
                     }
-                })
-            },
+                }
+            }),
             {
                 type: "divider"
             }
@@ -34,7 +31,7 @@ class Link {
         this.type = "container";
         this.content = [
             {
-                text: `\n${content} `
+                text: `${content}${content ? " " : ""}`
             },
             {
                 color: "grey",
@@ -56,7 +53,7 @@ export default class CreditsWindow extends TabWindow {
             },
             content: [
                 {
-                    text: `\nYou are running bridge. ${APP_VERSION}\n\n`
+                    text: `\n\tYou are running bridge. ${APP_VERSION}\n\n`
                 },
                 {
                     type: "divider"

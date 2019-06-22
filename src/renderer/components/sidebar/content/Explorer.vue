@@ -167,7 +167,7 @@
             project_icon() {
                 try {
                     return DataUrl.convert({
-                        data: fs.readFileSync(BASE_PATH + this.selected + "/pack_icon.png"),
+                        data: fs.readFileSync(this.base_path + this.selected + "/pack_icon.png"),
                         mimetype: `image/png`
                     });
                 } catch(e) {

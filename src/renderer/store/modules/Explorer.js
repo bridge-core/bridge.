@@ -7,15 +7,10 @@ function setIsOpen(path, is_open, current, first=true) {
     if(current === undefined) return;
 
     if(path.length === 0) {
-        console.log(current);
         return Vue.set(current, "is_open", is_open || !current.is_open);
     } else {
         let key = path.shift();
-
-        setIsOpen(path, is_open, current.child.find(e => {
-            console.log(e.name, key)
-            return e.name === key
-        }), false);
+        setIsOpen(path, is_open, current.child.find(e => e.name === key), false);
     }
 }
 

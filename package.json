@@ -2,7 +2,7 @@
   "name": "bridge",
   "productName": "bridge.",
   "version": "0.13.0",
-  "author": "solvedDev <33347616+solvedDev@users.noreply.github.com>",
+  "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
   "license": null,
   "main": "./dist/electron/main.js",
