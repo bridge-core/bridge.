@@ -24,9 +24,8 @@ function writeJSON(path, data) {
 
 export default class PackLinker {
     static async link(bp_name, rp_name) {
-        let lw;
+        let lw = new LoadingWindow();
         try {
-            lw = new LoadingWindow();
             let bp_data = await readJSON(`${BASE_PATH}${bp_name}/manifest.json`);
             let rp_data = await readJSON(`${RP_BASE_PATH}${rp_name}/manifest.json`);
 
@@ -44,7 +43,6 @@ export default class PackLinker {
         } catch(e) {
             lw.close();
             let i = new InformationWindow("Unable to link packs", `bridge. failed to link the packs ${bp_name} and ${rp_name}.`);
-            i.show();
         }
     }
 }

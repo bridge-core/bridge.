@@ -3,11 +3,19 @@
         This directory has no content.
     </p>
     <div :style="element_style" :class="element_class" v-else>
-        <details v-for="(file) in loop_files.filter(f => f.isDir)" :key="file.absolutePath">
-            <summary v-ripple>
-                <v-icon class="open" small>folder_open</v-icon><v-icon class="closed" small>folder</v-icon><span class="folder"> {{ file.name }}</span>
+        <details v-for="(file) in loop_files.filter(f => f.isDir)" :open="file.is_open" :key="file.absolutePath + file.is_open">
+            <summary @click="openDir(file.path)" v-ripple>
+                <v-icon class="open" small>folder_open</v-icon><v-icon class="closed" small>folder</v-icon>
+                <span class="folder"> {{ file.name }}</span>
             </summary>
-            <file-displayer :files="file.child" :first="false" :project="project" :base_path="base_path"></file-displayer>
+            <file-displayer
+                v-if="file.is_open"
+                :files="file.child"
+                :first="false"
+                :project="project"
+                :base_path="base_path"
+                :explorer_type="explorer_type"
+            />
         </details>
         <div 
             v-for="(file) in loop_files.filter(f => !f.isDir)"
@@ -47,7 +55,8 @@
                 default: true,
                 type: Boolean
             },
-            base_path: String
+            base_path: String,
+            explorer_type: String
         },
         data() {
             return {
@@ -84,6 +93,9 @@
                     new LoadingWindow("open-file").show();
                     FileSystem.open(path);
                 } 
+            },
+            openDir(path) {
+                this.$store.commit("setExplorerIsDirOpen", { store_key: this.explorer_type, path });
             },
             getExtension(name) {
                 return name.split(".").pop().toLowerCase();

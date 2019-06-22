@@ -34,6 +34,7 @@
             :files="directory"
             :project="selected"
             :base_path="base_path"
+            :explorer_type="explorer_type"
             class="file-displayer"
         />
         <v-progress-linear v-else-if="selected === undefined" indeterminate/>
@@ -119,7 +120,6 @@
             if(this.force_project_algorithm) {
                 this.selected = undefined;
                 this.selected = await this.force_project_algorithm();
-                this.getDirectory(this.selected);
             } else {
                 this.getProjects({ event_name: "initialProjectLoad", func () {} });
             }
@@ -142,7 +142,7 @@
                 },
                 set(project) {
                     this.$store.commit("setExplorerProject", { store_key: this.explorer_type, project });
-                    this.getDirectory(project, true);
+                    this.getDirectory(project);
                     EventBus.trigger("updateTabUI");
                     // EventBus.on("updateSelectedTab");
                 }
@@ -181,9 +181,9 @@
         methods: {
             refresh(force_val) {
                 if(this.force_project_algorithm) {
-                    this.selected = force_val;
-                    console.log(this.selected);
-                    this.getDirectory(this.selected);
+                    if(force_val) this.selected = force_val;
+                    console.log("[REFRESH RP] " + this.selected);
+                    this.getDirectory(this.selected, true);
                 } else {
                     this.getProjects({
                         event_name: "refreshExplorer",
@@ -205,7 +205,7 @@
                     event_name
                 });
             },
-            getDirectory(dir=this.selected, force_reload=false) {
+            getDirectory(dir=this.selected, force_reload) {
                 if(this.explorer_type === "explorer") EventBus.trigger("bridge:changedProject");
 
                 if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return;
