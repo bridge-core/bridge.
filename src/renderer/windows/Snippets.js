@@ -6,7 +6,7 @@ import JSONTree from "../scripts/editor/JsonTree";
 import Store from "../store/index";
 import deepmerge from "deepmerge";
 
-let SNIPPETS;
+let SNIPPETS = {};
 fs.readFile(__static + "/data/snippets.json", (err, data) => {
     if(err) throw err;
     SNIPPETS = JSON.parse(data.toString());

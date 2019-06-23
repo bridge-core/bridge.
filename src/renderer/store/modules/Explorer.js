@@ -35,7 +35,6 @@ const mutations = {
         }
     },
     setExplorerIsDirOpen(state, { store_key, path, is_open }) {
-        console.log("CLICK")
         setIsOpen(path.split("/"), is_open, state.files[store_key])
     }
 }

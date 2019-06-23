@@ -2,7 +2,7 @@
     {
         "id": "animation",
         "includes": "animations",
-        "is_json": true,
+        "file_viewer": "json",
         
         "build_array_exceptions": [ "timeline" ],
         "start_state": "animation/main",
@@ -12,7 +12,7 @@
     {
         "id": "animation_controller",
         "includes": "animation_controllers",
-        "is_json": true,
+        "file_viewer": "json",
 
         "start_state": "animation_controller/main",
         "highlighter": "animation_controller",
@@ -21,7 +21,7 @@
     {
         "id": "biome",
         "includes": "biomes",
-        "is_json": true,
+        "file_viewer": "json",
 
         "start_state": "biome/main",
         "highlighter": "biome",
@@ -30,7 +30,7 @@
     {
         "id": "block",
         "includes": "blocks",
-        "is_json": true,
+        "file_viewer": "json",
 
         "start_state": "block/main",
         "highlighter": "block",
@@ -39,7 +39,7 @@
     {
         "id": "entity",
         "includes": "entities",
-        "is_json": true,
+        "file_viewer": "json",
 
         "documentation": [ "add_entity_components", "entity" ],
         "start_state": "entity/main",
@@ -49,7 +49,7 @@
     {
         "id": "function",
         "includes": "functions",
-        "is_json": false,
+        "file_viewer": "text",
 
         "start_state": "function/main",
         "file_creator": "function"
@@ -57,7 +57,7 @@
     {
         "id": "item",
         "includes": "items",
-        "is_json": true,
+        "file_viewer": "json",
 
         "start_state": "item/main",
         "highlighter": "item",
@@ -66,7 +66,7 @@
     {
         "id": "loot_table",
         "includes": "loot_tables",
-        "is_json": true,
+        "file_viewer": "json",
 
         "start_state": "loot_table/main",
         "highlighter": "loot_table",
@@ -75,7 +75,7 @@
     {
         "id": "recipe",
         "includes": "recipes",
-        "is_json": true,
+        "file_viewer": "json",
 
         "build_array_exceptions": [ "key" ],
         "start_state": "recipe/main",
@@ -85,14 +85,14 @@
     {
         "id": "script",
         "includes": "scripts",
-        "is_json": false,
+        "file_viewer": "text",
 
         "file_creator": "script"
     },
     {
         "id": "spawn_rule",
         "includes": "spawn_rules",
-        "is_json": true,
+        "file_viewer": "json",
 
         "start_state": "spawn_rule/main",
         "highlighter": "spawn_rule",
@@ -101,7 +101,7 @@
     {
         "id": "trade_table",
         "includes": "trading",
-        "is_json": true,
+        "file_viewer": "json",
 
         "start_state": "trade_table/main",
         "highlighter": "trade_table",
@@ -113,7 +113,7 @@
     {
         "id": "rp_animation",
         "includes": "animations",
-        "is_json": true,
+        "file_viewer": "json",
         "rp_definition": true,
         
         "build_array_exceptions": [ "particle_effects", "rotation", "position", "scale" ],
@@ -124,7 +124,7 @@
     {
         "id": "rp_animation_controller",
         "includes": "animation_controllers",
-        "is_json": true,
+        "file_viewer": "json",
         "rp_definition": true,
         
         "build_array_exceptions": [ "remap_curve" ],
@@ -135,7 +135,7 @@
     {
         "id": "client_entity",
         "includes": "entity",
-        "is_json": true,
+        "file_viewer": "json",
         "rp_definition": true,
         
         "start_state": "client_entity/main",
@@ -145,7 +145,7 @@
     {
         "id": "client_item",
         "includes": "items",
-        "is_json": true,
+        "file_viewer": "json",
         "rp_definition": true,
         
         "start_state": "client_item/main",
@@ -155,7 +155,7 @@
     {
         "id": "particle",
         "includes": "particles",
-        "is_json": true,
+        "file_viewer": "json",
         "rp_definition": true,
         
         
@@ -166,7 +166,7 @@
     {
         "id": "render_controller",
         "includes": "render_controllers",
-        "is_json": true,
+        "file_viewer": "json",
         "rp_definition": true,
         
         "build_array_exceptions": [ "timeline", "gradient" ],

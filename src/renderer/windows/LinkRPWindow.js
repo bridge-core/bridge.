@@ -8,7 +8,7 @@ export default class LinkRPWindow extends ContentWindow {
         const PROJECTS = fs.readdirSync(RP_BASE_PATH);
 
         super({
-            display_name: "Link behavior pack to resource pack",
+            display_name: "Link Project To Resource Pack",
             options: {
                 is_persistent: false,
                 height: 160

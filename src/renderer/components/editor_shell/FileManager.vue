@@ -1,12 +1,12 @@
 <template>
     <span>
-        <v-container v-if="extension === 'png'">
+        <v-container v-if="file_viewer === 'image'">
             <v-img class="image" :src="image" :style="`max-height: ${available_height}px;`"/>
         </v-container>
-        <audio-player v-else-if="extension === 'ogg'" :src="audio"/>
-        <json-error-screen v-else-if="extension === 'json' && json_object == 'error'"/>
+        <audio-player v-else-if="file_viewer === 'audio'" :src="audio"/>
+        <json-error-screen v-else-if="file_viewer === 'json' && json_object == 'error'"/>
         <json-editor-main
-            v-else-if="extension === 'json'"
+            v-else-if="file_viewer === 'json'"
             :compiled="file.is_compiled"
             :tab_id="tab_id"
             :object="json_object"
@@ -16,8 +16,7 @@
         />
         <span v-else>
             <codemirror
-                
-                v-model="text"
+                v-model="content_as_string"
                 :options="cm_options"
                 ref="cm"
             />
@@ -58,6 +57,7 @@
     import { webContents } from "electron";
     import DataUrl from "dataurl";
     import AudioPlayer from "./AudioPlayer";
+    import FileType from '../../scripts/editor/FileType';
 
     export default {
         name: "file-manager",
@@ -107,6 +107,13 @@
             }
         },
         computed: {
+            file_viewer() {
+                let data = FileType.getData(this.file.file_path);
+                if(data !== undefined && data.file_viewer !== undefined) return data.file_viewer;
+                else if(this.extension === "png" || this.extension === "tga") return "image";
+                else if(this.extension === "ogg") return "audio";
+                return "text";
+            },
             extension() {
                 if(this.file) return this.file.file_name.split(".").pop().toLowerCase();
             },
@@ -123,9 +130,9 @@
                 this.$store.commit("removeLoadingWindow", { id: "open-file" });
                 return this.getEncoded("audio", this.extension, this.file.raw_content);
             },
-            text: {
+            content: {
                 get() {
-                    if (this.file) {
+                    if(this.file) {
                         return this.file.content;
                     }
                     return undefined;
@@ -135,18 +142,28 @@
                     TabSystem.setCurrentContent(val);
                 }
             },
+            content_as_string: {
+                get() {
+                    if(typeof this.content === "string") return this.content;
+                    return JSON.stringify(this.content, null, "\t");
+                },
+                set(val) {
+                    if(typeof this.content === "string") TabSystem.setCurrentContent(val);
+                    else TabSystem.setCurrentContent(JSON.parse(val));
+                }
+            },
             json_object() {
-                if(typeof this.text === "string") {
+                if(typeof this.content === "string") {
                     try {        
-                        return cJSON.parse(this.text, undefined, true);
+                        return cJSON.parse(this.content, undefined, true);
                     } catch(e) {
-                        if(this.text == "") return {};
+                        if(this.content == "") return {};
                         TabSystem.setCurrentInvalid();
                         this.$store.commit("removeLoadingWindow", { id: "open-file" });
                         return "error";
                     }
                 }
-                return this.text;
+                return this.content;
             },
 
             cm_options() {
@@ -228,8 +245,8 @@
             available_height() {
                 if(this.$refs.cm) this.$refs.cm.$el.childNodes[1].style.height = this.available_height + "px";
             },
-            text() {
-                if(this.extension !== 'json') TabSystem.setCurrentUnsaved();
+            content_as_string() {
+                if(this.file_viewer !== 'json') TabSystem.setCurrentUnsaved();
             }
         }
     }
