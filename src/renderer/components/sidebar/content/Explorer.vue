@@ -45,7 +45,7 @@
         >
             It doesn't look like your current behavior pack has a corresponding resource pack registered inside its manifest file.
             <br/><br/>
-            <v-btn color="success">Create</v-btn><v-btn color="primary" @click="link">Link</v-btn>
+            <v-btn color="success" @click="createRP">Create</v-btn><v-btn color="primary" @click="linkRP">Link</v-btn>
         </div>
         <div
             v-else
@@ -67,7 +67,9 @@
     import { BASE_PATH } from '../../../scripts/constants';
     import DataUrl from "dataurl";
     import fs from "fs";
-    import LinkRPWindow from "../../../windows/LinkRP";
+    import LinkRPWindow from "../../../windows/LinkRPWindow";
+    import CreateProjectWindow from '../../../windows/CreateProject';
+    import PackLinker from '../../../scripts/utilities/LinkPacks';
 
     export default {
         name: "content-explorer",
@@ -248,8 +250,13 @@
                 return this.items[0];
             },
 
-            link() {
+            linkRP() {
                 new LinkRPWindow(this.$store.state.Explorer.project.explorer);
+            },
+            createRP() {
+                new CreateProjectWindow(false, (rp_name) => {
+                    PackLinker.link(this.$store.state.Explorer.project.explorer, rp_name);
+                });
             }
         }
     }
