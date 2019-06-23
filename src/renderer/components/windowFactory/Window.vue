@@ -75,7 +75,7 @@
                 `">
                     <window-content 
                         v-for="(content, i) in win.content" 
-                        :key="content.key || `plugin-popup-window-content-${i}`" 
+                        :key="content.key || `plugin-popup-window-content-${Math.random()}-${i}`" 
                         :content="content"
                     />
                 </div>

@@ -5,35 +5,52 @@ import TabSystem from "../scripts/TabSystem";
 import JSONTree from "../scripts/editor/JsonTree";
 import Store from "../store/index";
 import deepmerge from "deepmerge";
+import EventBus from "../scripts/EventBus";
 
-let SNIPPETS = {};
-fs.readFile(__static + "/data/snippets.json", (err, data) => {
-    if(err) throw err;
-    SNIPPETS = JSON.parse(data.toString());
-    
-    if(Store.state.Settings.custom_snippets !== undefined) Store.state.Settings.custom_snippets.forEach(s => addSnippet(s));
-    fs.readFile(__static + "/data/hidden_snippets.json", (err, data) => {
-        if(err) throw err;
-        SNIPPETS = deepmerge(SNIPPETS, JSON.parse(data.toString()));
-    });
-});
+let SNIPPETS; 
 
-function toArr() {
-    let arr = [];
-    let for_file = SNIPPETS[FileType.get()];
-    if(for_file === undefined) return [];
-
-    for(let key in for_file) {
-        if(!for_file[key].is_hidden) {
-            arr.push({
-                value: key,
-                text: for_file[key].display_name
-            });
-        } 
-    }
-
-    return arr;
+async function assureLoadedSnippets() {
+    if(SNIPPETS === undefined)
+        SNIPPETS = await FileType.getSnippets();
 }
+
+async function convArr() {
+    await assureLoadedSnippets();
+
+    let snippets = SNIPPETS[FileType.get()];
+    if(snippets === undefined) return [];
+    return snippets.map((s, i) => (s.is_hidden ? undefined : { value: i, text: s.display_name })).filter(s => s !== undefined);
+}
+async function addSnippet(s) {
+    await assureLoadedSnippets();
+
+    if(SNIPPETS[s.file_type] === undefined) SNIPPETS[s.file_type] = [];
+    SNIPPETS[s.file_type].push(s);
+}
+async function removeSnippet(s) {
+    await assureLoadedSnippets();
+
+    SNIPPETS[s.file_type].splice(SNIPPETS[s.file_type].indexOf(s.id), 1);
+}
+async function insertSnippet(snippet_name, force_default_scope=false) {
+    let c = TabSystem.getSelected().content;
+    let templ = SNIPPETS[FileType.get()][snippet_name].template;
+
+    if(c instanceof JSONTree) {
+        if(Store.state.Settings.snippet_scope === "Default" || templ.force_default_scope || force_default_scope) {
+            c.get("global")
+                .buildFromObject(expandTemplateData(templ.data, templ.data_path), true, true, true);
+        } else {
+            TabSystem.getCurrentNavObj()
+                .buildFromObject(templ.data, true, true, true);
+        }
+        
+        TabSystem.setCurrentUnsaved();
+    } else {
+        EventBus.trigger("setCMSelection", String(templ.data));
+    }
+}
+
 function expandTemplateData(data, data_path="") {
     let keys = data_path.split("/");
     let return_data = {};
@@ -47,29 +64,6 @@ function expandTemplateData(data, data_path="") {
     }
     return return_data;
 }
-function addSnippet(s) {
-    if(SNIPPETS[s.file_type] === undefined) SNIPPETS[s.file_type] = {};
-    SNIPPETS[s.file_type][s.key] = s;
-}
-function removeSnippet(s) {
-    delete SNIPPETS[s.file_type][s.key];
-}
-function insertSnippet(snippet_name, force_default_scope=false) {
-    let c = TabSystem.getSelected().content;
-    let templ = SNIPPETS[FileType.get()][snippet_name].template;
-    
-    if(c instanceof JSONTree) {
-        if(Store.state.Settings.snippet_scope === "Default" || templ.force_default_scope || force_default_scope) {
-            c.get("global")
-                .buildFromObject(expandTemplateData(templ.data, templ.data_path), true, true, true);
-        } else {
-            TabSystem.getCurrentNavObj()
-                .buildFromObject(templ.data, true, true, true);
-        }
-        
-        TabSystem.setCurrentUnsaved();
-    }
-}
 
 class SnippetWindow extends ContentWindow {
     constructor() {
@@ -82,7 +76,6 @@ class SnippetWindow extends ContentWindow {
             }
         }, "snippets.");
 
-        this.snippet_list = toArr().sort((a, b) => a.text.localeCompare(b.text));
         this.content = [
             {
                 type: "header",
@@ -94,17 +87,16 @@ class SnippetWindow extends ContentWindow {
             {
                 type: "autocomplete",
                 text: "Search...",
-                focus: true,
-                options: this.snippet_list,
+                has_focus: true,
+
                 action: (val) => {
-                    console.log(val);
                     insertSnippet(val, false);
                     this.close();
                 }
             }
         ];
 
-        this.updateContent();
+        this.showWin();
     }
 
     updateContent() {
@@ -112,17 +104,26 @@ class SnippetWindow extends ContentWindow {
             content: this.content
         });
     }
+    async showWin() {
+        this.content[2].options = (await convArr()).sort((a, b) => a.text.localeCompare(b.text));
+        this.updateContent();
+        this.show();
+    }
 }
 
-let WIN;
+let WINDOW;
 export default {
-    show: () => {
-        if(SNIPPETS === undefined || toArr().length === 0) return;
+    show: async () => {
+        await assureLoadedSnippets();
+        console.log(SNIPPETS);
+
+        let type = FileType.get();
+        if(SNIPPETS === undefined || SNIPPETS[type] === undefined || SNIPPETS[type].length === 0) return;
 
         try {
-            WIN.show();
+            WINDOW.showWin();
         } catch(e) {
-            WIN = new SnippetWindow();
+            WINDOW = new SnippetWindow();
         }
     },
     addSnippet,

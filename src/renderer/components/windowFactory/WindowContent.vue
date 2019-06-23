@@ -122,6 +122,7 @@
         :color="content.color"
         :label="content.text"
         :value="content.input"
+        :autofocus="content.has_focus"
         ref="input"
     ></v-textarea>
     <v-switch
@@ -140,6 +141,7 @@
         :color="content.color"
         background-color="rgba(0, 0, 0, 0)"
         :value="content.input"
+        :autofocus="content.has_focus"
         solo
     />
     <v-combobox
@@ -153,6 +155,7 @@
         :value="content.input"
         :solo="content.is_box"
         :color="content.color"
+        :autofocus="content.has_focus"
         ref="input"
     />
     <v-autocomplete
@@ -168,6 +171,7 @@
         :value="content.input"
         :solo="content.is_box"
         :color="content.color"
+        :autofocus="content.has_focus"
         ref="input"
     />
     <v-container style="width: 90%;" v-else-if="content.type == 'slider'">

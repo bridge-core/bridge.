@@ -1,6 +1,6 @@
 {
-    "entity": {
-        "entity_description": {
+    "entity": [
+        {
             "display_name": "Entity Description",
             "template": {
                 "data_path": "minecraft:entity",
@@ -16,7 +16,7 @@
                 }
             }
         },
-        "default_components": {
+        {
             "display_name": "Default Components",
             "template": {
                 "data_path": "minecraft:entity/components",
@@ -49,7 +49,7 @@
                 }
             }
         },
-        "default_behavior": {
+        {
             "display_name": "Default Behavior",
             "template": {
                 "data_path": "minecraft:entity/components",
@@ -72,7 +72,7 @@
                 }
             }
         },
-        "marker": {
+        {
             "display_name": "Marker",
             "template": {
                 "data_path": "minecraft:entity/components",
@@ -95,7 +95,7 @@
                 
             }
         },
-        "trade": {
+        {
             "display_name": "Trade",
             "template": {
                 "data_path": "minecraft:entity/components",
@@ -113,7 +113,7 @@
                 }
             }
         },
-        "send_event": {
+        {
             "display_name": "Send Event",
             "template": {
                 "data_path": "minecraft:entity/components",
@@ -140,7 +140,7 @@
                 }
             }
         },
-        "target_selection": {
+        {
             "display_name": "Target Selection",
             "template": {
                 "data_path": "minecraft:entity/components",
@@ -164,7 +164,7 @@
                 }
             }
         },
-        "melee_attack": {
+        {
             "display_name": "Melee Attack",
             "template": {
                 "data_path": "minecraft:entity/components",
@@ -196,7 +196,7 @@
                 }
             }
         },
-        "ranged_attack": {
+        {
             "display_name": "Ranged Attack",
             "template": {
                 "data_path": "minecraft:entity/components",
@@ -230,7 +230,7 @@
                 }
             }
         },
-        "silent_kill": {
+        {
             "display_name": "Silent Kill",
             "template": {
                 "data_path": "minecraft:entity",
@@ -257,7 +257,7 @@
                 }
             }
         },
-        "rideable_component": {
+        {
             "display_name": "minecraft:rideable",
             "template": {
                 "data_path": "minecraft:entity/components",
@@ -277,7 +277,7 @@
                 }
             }
         },
-        "spawn_single": {
+        {
             "display_name": "minecraft:spawn_entity",
             "template": {
                 "data_path": "minecraft:entity/components",
@@ -293,5 +293,5 @@
                 }
             }
         }
-    }
+    ]
 }

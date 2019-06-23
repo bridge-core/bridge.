@@ -1,6 +1,7 @@
 import TabSystem from "../TabSystem";
 import Provider from "../autoCompletions/Provider";
 import fs from "fs";
+import { readJSON } from "../utilities/JsonFS";
 let FILE_DEFS;
 let HIGHLIGHTER_CACHE = {};
 let FILE_CREATOR_CACHE = [];
@@ -49,6 +50,10 @@ export default class FileType {
     static getAll() {
         if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
         return FILE_DEFS.map(def => def.id);
+    }
+    static getAllData() {
+        if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
+        return FILE_DEFS;
     }
 
     static getFileCreator() {
@@ -102,5 +107,20 @@ export default class FileType {
 
     static getDocumentation() {
         return this.getData().documentation;
+    }
+
+    static async getSnippets() {
+        let file_types = this.getAllData();
+        let snippets = {};
+        let proms = [];
+
+        for(let type of file_types) {
+            if(type.snippets !== undefined) {
+                proms.push(readJSON(`${__static}\\snippets\\${type.snippets}.json`).then(data => snippets[type.id] = data));
+            }
+        }
+
+        await Promise.all(proms);
+        return snippets;
     }
 }

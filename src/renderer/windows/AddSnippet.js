@@ -2,6 +2,7 @@ import ContentWindow from "../scripts/commonWindows/Content";
 import FileType from "../scripts/editor/FileType";
 import InformationWindow from "../scripts/commonWindows/Information";
 import Snippets from "./Snippets";
+import uuid4 from "uuid/v4";
 
 export default class AddSnippetWindow extends ContentWindow {
     constructor(parent) {
@@ -72,7 +73,7 @@ export default class AddSnippetWindow extends ContentWindow {
                     if(data === undefined) return new InformationWindow("Invalid Template", "\nThe provided snippet template does not contain valid JSON.");
                     
                     let s = {
-                        key: "custom_" + Math.random(),
+                        id: "custom_" + uuid4(),
                         file_type: this.data.file_type,
                         display_name: this.data.name,
                         template: {

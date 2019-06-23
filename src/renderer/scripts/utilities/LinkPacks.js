@@ -1,26 +1,10 @@
-import fs from "fs";
 import { BASE_PATH, RP_BASE_PATH } from "../constants";
 import InformationWindow from "../commonWindows/Information";
 import LoadingWindow from "../../windows/LoadingWindow";
 import { setRP } from "./FindRP";
 import EventBus from "../EventBus";
+import { writeJSON, readJSON } from "./JsonFS";
 
-function readJSON(path) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(path, (err, data) => {
-            if(err) reject(err);
-            else resolve(JSON.parse(data.toString()));
-        });
-    });
-}
-function writeJSON(path, data) {
-    return new Promise((resolve, reject) => {
-        fs.writeFile(path, JSON.stringify(data), (err) => {
-            if(err) reject(err);
-            else resolve();
-        });
-    });
-}
 
 export default class PackLinker {
     static async link(bp_name, rp_name) {

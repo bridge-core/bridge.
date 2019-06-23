@@ -1,6 +1,6 @@
 {
-    "entity": {
-        "example_hidden": {
+    "entity": [
+        {
             "is_hidden": true,
             "display_name": "",
             "template": {
@@ -10,5 +10,5 @@
                 }
             }
         }
-    }
+    ]
 }
