@@ -110,6 +110,7 @@
             file_viewer() {
                 let data = FileType.getData(this.file.file_path);
                 if(data !== undefined && data.file_viewer !== undefined) return data.file_viewer;
+                else if(this.extension === "json") return "json";
                 else if(this.extension === "png" || this.extension === "tga") return "image";
                 else if(this.extension === "ogg") return "audio";
                 return "text";
