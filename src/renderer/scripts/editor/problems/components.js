@@ -13,6 +13,7 @@ import EventCheck from "./components/EventCheck";
 import BehaviorCheck from "./components/BehaviorCheck";
 import FormatVersionCheck from "./components/FormatVersionCheck";
 import AnimationCheck from "./components/AnimationCheck";
+import EntityGroupCheck from "./components/GroupCheck";
 
 const MAP = {
     "bridge:two_incompatible": TwoIncompatible,
@@ -24,6 +25,7 @@ const MAP = {
     "bridge:child_must_start_with": ChildMustStartWith,
     "bridge:child_must_be_number": ChildMustBeNumber,
     "bridge:event_check": EventCheck,
+    "bridge:entity_group_check": EntityGroupCheck,
     "bridge:behavior_check": BehaviorCheck,
     "bridge:animation_check": AnimationCheck,
     "bridge:format_version_check": FormatVersionCheck

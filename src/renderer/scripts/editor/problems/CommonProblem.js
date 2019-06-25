@@ -7,6 +7,7 @@ import safeEval from "safe-eval";
 
 function run(code, node) {
     safeEval(code, {
+        globalNode: TabSystem.getSelected().content,
         node,
         History,
         Unsaved

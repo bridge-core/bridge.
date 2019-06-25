@@ -32,7 +32,7 @@ export default class CreateProjectWindow extends ContentWindow {
         this.content = [
             {
                 type: "input",
-                text: "Project Name",
+                text: `${create_bp ? "Project" : "Resource Pack"} Name`,
                 color: "success",
 
                 action: {
@@ -61,7 +61,7 @@ export default class CreateProjectWindow extends ContentWindow {
             },
             {
                 type: "input",
-                text: "Project Description",
+                text: `${create_bp ? "Project" : "Resource Pack"} Description`,
                 color: "success",
 
                 action: {

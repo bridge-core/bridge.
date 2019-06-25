@@ -8,8 +8,12 @@
                     :ripple="selected_tab !== i"
                     :class="`tab ${selected_tab == i ? 'selected' : ''}`"
                     color="red"
-                >
-                    <span :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ file.file_name }}</span>
+                > 
+                    <v-tooltip :open-delay="600" transition="scale-transition" :disabled="file.file_name.length <= 27" bottom>
+                        <span slot="activator" :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ getFileName(file.file_name) }}</span>
+                        <span>{{ file.file_name }}</span>
+                    </v-tooltip>
+                    
                     <v-btn @click.stop="closeTab(i)" flat icon small><v-icon small>close</v-icon></v-btn>
                 </v-tab>
             </v-tabs>
@@ -74,6 +78,9 @@ export default {
         },
         updateSavedUI() {
             this.unsaved = this.open_files.map(f => f.is_unsaved === undefined ? false : f.is_unsaved);
+        },
+        getFileName(file_name) {
+            return file_name.length > 27 && !file_name.includes(" ") ? file_name.substr(0, 27) + "\u2026" : file_name;
         }
     }
 }

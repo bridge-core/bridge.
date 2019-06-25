@@ -184,6 +184,14 @@
         "bridge:event_check": {
             "error_message": "Unknown event"
         },
+        "bridge:entity_group_check": {
+            "error_message": "Unknown component group",
+            "fix": {
+                "type": "script",
+                "run": "globalNode.get('minecraft:entity/component_groups').buildFromObject({ [node.data]: {} }); Unsaved();",
+                "display_text": "Add component group"
+            }
+        },
         "bridge:animation_check": {
             "fix": {
                 "type": "script",
