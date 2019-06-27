@@ -1,4 +1,5 @@
 import Store from "../../store/index";
+import uuidv4 from "uuid/v4";
 
 export default class InputWindow {
     constructor({ header, text, label, expand_text }, onConfirm) {
@@ -44,9 +45,11 @@ export default class InputWindow {
                 {
                     type: "horizontal",
                     center: true,
+                    key: uuidv4(),
                     content: [
                         {
                             type: "input",
+                            key: uuidv4(),
                             text: label,
                             input: text,
                             has_focus: true,

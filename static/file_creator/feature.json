@@ -1,0 +1,63 @@
+{
+    "icon": "mdi-flower",
+    "title": "Feature",
+    "extension": "json",
+    "path": "features/",
+    "templates": {
+        "Blank Ore Feature": {
+            "format_version": {},
+            "minecraft:ore_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "count": {},
+                "places_block": {},
+                "may_replace": [{
+                    "name": {},
+                    "states": {}
+                }]
+            }
+        },
+        "Blank Single Block Feature": {
+            "format_version": {},
+            "minecraft:single_block_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "places_block": {
+                    "name": "minecraft:double_plant",
+                    "states": {}
+                },
+                "enforce_survivability_rules": {},
+                "enforce_placement_rules": {},
+                "may_replace": {}
+            }
+        },
+        "Blank Aggregate Feature": {
+            "format_version": {},
+            "minecraft:aggregate_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "early_out": {},
+                "features": {}
+            }
+        },
+        "Blank Scatter Feature": {
+            "format_version": {},
+            "minecraft:scatter_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "iterations": {},
+                "project_input_to_floor": {},
+                "coordinate_eval_order": {},
+                "scatter_chance": {},
+                "x": {},
+                "z": {},
+                "y": {},
+                "places_feature": {}
+            }
+        }
+    }
+}

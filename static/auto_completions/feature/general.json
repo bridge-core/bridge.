@@ -1,0 +1,5 @@
+{
+    "distributions": [ "gaussian", "uniform" ],
+    "early_outs": [ "first_success" ],
+    "coordinate_eval_orders": [ "xyz", "zyx", "yxz", "xzy", "zxy", "yzx" ]
+}

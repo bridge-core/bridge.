@@ -14,12 +14,21 @@ export default class FileType {
 
     //Special method to e.g. avoid "loot_tables/blocks/something.json" being considered a "block"
     static pathIncludes(path, includes) {
-        path = path.split(/development_behavior_packs|development_resource_pack/g)[1].split(/\\|\//g);
-        path.shift();
-        path.shift();
-        path = path.join("/");
+        try {
+            path = path.split(/development_behavior_packs|development_resource_pack/g)[1].split(/\\|\//g);
+            path.shift();
+            path.shift();
+            path = path.join("/");
 
-        return path.startsWith(includes);
+            return path.startsWith(includes);
+        } catch(e) {
+            // console.log(path, includes,path.includes(includes));
+            return path.includes(includes);
+        }
+    }
+    //Load files which aren't in a "development_behavior_packs" folder correctly
+    static fallbackToBP(path) {
+        return path.split(/development_behavior_packs|development_resource_pack/g)[1] === undefined;
     }
 
     static get(file_path) {
@@ -42,7 +51,8 @@ export default class FileType {
         
         for(let def of FILE_DEFS) {
             // console.log(path);
-            if(this.pathIncludes(path, def.includes) && (path.includes("development_behavior_packs") || def.rp_definition)) return def;
+            if(this.pathIncludes(path, def.includes) && (path.includes("development_behavior_packs") || def.rp_definition || this.fallbackToBP(path)))
+                return def;
         }
         return;
     }
@@ -87,6 +97,7 @@ export default class FileType {
                 HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(`${__static}\\highlighter\\${hl}.json`).toString());
             return HIGHLIGHTER_CACHE[hl];
         } catch(e) {
+            console.log(e)
             return {
                 define: {
                     keywords: [],

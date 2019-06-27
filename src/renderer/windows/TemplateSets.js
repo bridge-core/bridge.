@@ -1,4 +1,3 @@
-import FileSystem from "../scripts/FileSystem";
 import TabWindow from "../scripts/commonWindows/TabWindow";
 import safeEval from "safe-eval";
 import { RP_BASE_PATH, BASE_PATH } from "../scripts/constants";
@@ -10,6 +9,7 @@ import mkdirp from "mkdirp";
 import LoadingWindow from "./LoadingWindow";
 import InformationWindow from "../scripts/commonWindows/Information";
 import EventBus from "../scripts/EventBus";
+import uuidv4 from "uuid/v4";
 
 loadTemplateSets();
 let SETS;
@@ -90,6 +90,7 @@ class TemplateSetsWindow extends TabWindow {
                             content: [
                                 {
                                     type: "input",
+                                    key: uuidv4(),
                                     text: label,
                                     input: default_input,
                                     action: (val) => this.BINDINGS[bind] = val

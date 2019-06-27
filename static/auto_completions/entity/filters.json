@@ -61,6 +61,7 @@
         "has_damage": "$general.damage_type",
         "is_color": "$general.color_palette",
         "is_biome": "$general.biome_name",
+        "is_block": "$general.block_identifier",
         "is_difficulty": "$general.game_difficulty",
         "is_temperature_type": [ "ocean", "cold", "mild", "warm" ],
         "moon_phase": [ "0", "1", "2", "3", "4", "5", "6", "7" ],

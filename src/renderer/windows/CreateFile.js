@@ -4,11 +4,11 @@ import Store from "../store/index";
 import FileType from "../scripts/editor/FileType";
 import safeEval from "safe-eval";
 import { RP_BASE_PATH, BASE_PATH } from "../scripts/constants";
+import uuidv4 from "uuid/v4";
 
 class FileContent {
     constructor(name, ext="json", parent, expand_path="", { location, ...add_content }={}, use_rp_path) {
         this.parent = parent;
-        this.update_function = parent.update;
         this.ext = ext;
         this.expand_path = expand_path;
         this.use_rp_path = use_rp_path;
@@ -21,30 +21,31 @@ class FileContent {
                     type: "input",
                     text: "Name",
                     input: "unnamed",
-                    focus: true,
+                    has_focus: true,
                     color: "success",
                     action: {
                         enter: () => {
                             this.parent.createFile();
                         },
                         default: (val) => {
-                            if(val == "") {
+                            this.input.content[0].input = val;
+
+                            if(val === "") {
                                 this.input.content[0].color = "error";
                                 this.parent.actions[1].is_disabled = true;
 
                                 this.path_info.text = "Invalid file name!\n\n"
                                 this.path_info.color = "error";
 
-                                this.update_function({ content: this.content, actions: this.parent.actions });
+                                this.parent.update({ content: this.content, actions: this.parent.actions });
                             } else {
-                                this.input.content[0].input = val;
                                 this.input.content[0].color = "success";
 
                                 this.path_info.text = this.getPath(val) + "\n\n";
                                 this.path_info.color = "grey";
 
                                 this.parent.win_def.actions[1].is_disabled = false;
-                                this.update_function({ content: this.content, actions: this.parent.win_def.actions });
+                                this.parent.update({ content: this.content, actions: this.parent.win_def.actions });
                             }
                         }
                     }

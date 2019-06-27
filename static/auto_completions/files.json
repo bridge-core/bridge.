@@ -1,5 +1,6 @@
 [
     "general",
+    "_general/block_states",
 
     "biome/main",
     "biome/general",
@@ -18,6 +19,12 @@
     "entity/behavior",
     "entity/filters",
 
+    "feature/main",
+    "feature/general",
+
+    "feature_rule/main",
+    "feature_rule/general",
+    
     "function/main",
     "function/general",
 

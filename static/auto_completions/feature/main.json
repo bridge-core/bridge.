@@ -1,0 +1,72 @@
+{
+    "format_version": "$general.format_version",
+    "minecraft:ore_feature": {
+        "description": {
+            "identifier": "$dynamic.current_file_name"
+        },
+        "count": "$general.number",
+        "places_block": {
+            "@import.value": "$general.block_identifier",
+            "name": "$general.block_identifier",
+            "states": "$_general.block_states"
+        },
+        "may_replace": {
+            "$dynamic.list.next_index": {
+                "@import.value": "$general.block_identifier",
+                "name": "$general.block_identifier",
+                "states": "$_general.block_states"
+            }
+        }
+    },
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": {}
+        },
+        "places_block": {
+            "@import.value": "$general.block_identifier",
+            "name": "$general.block_identifier",
+            "states": "$_general.block_states"
+        },
+        "enforce_survivability_rules": "$general.boolean",
+        "enforce_placement_rules": "$general.boolean",
+        "may_replace": {
+            "$dynamic.list.next_index": {
+                "@import.value": "$general.block_identifier",
+                "name": "$general.block_identifier",
+                "states": "$_general.block_states"
+            }
+        }
+    },
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": {}
+        },
+        "iterations": "$general.number",
+        "project_input_to_floor": "$general.boolean",
+        "coordinate_eval_order": "$feature.general.coordinate_eval_orders",
+        "scatter_chance": {
+            "numerator": "$general.number",
+            "denominator": "$general.number"
+        },
+        "x": {
+            "extent": {
+                "$dynamic.list.index_pair": "$general.number"
+            },
+            "distribution": "$feature.general.distributions"
+        },
+        "z": "$feature.main.minecraft:scatter_feature.x",
+        "y": "$feature.main.minecraft:scatter_feature.x",
+        "places_feature": {
+            "$dynamic.list.next_index": {}
+        }
+    },
+    "minecraft:aggregate_feature": {
+        "description": {
+            "identifier": {}
+        },
+        "early_out": "$feature.general.early_outs",
+        "features": {
+            "$dynamic.list.next_index": {}
+        }
+    }
+}

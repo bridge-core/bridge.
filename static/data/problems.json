@@ -231,6 +231,15 @@
             }
         }
     },
+    "block": {
+        "bridge:format_version_check": {
+            "error_message": "\"format_version\" is required",
+            "fix": {
+                "type": "script",
+                "run": "node.parent.buildFromObject({ format_version: '1.12.0' }, undefined, true); Unsaved();"
+            }
+        }
+    },
     "client_item": {
         "bridge:format_version_check": {
             "error_message": "\"format_version\" is required",

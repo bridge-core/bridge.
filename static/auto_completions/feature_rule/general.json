@@ -1,0 +1,3 @@
+{
+    "passes": [ "first_pass", "before_underground_pass", "underground_pass", "after_underground_pass", "before_surface_pass", "surface_pass", "after_surface_pass", "before_liquids_pass", "liquids_pass", "after_liquids_pass", "before_sky_pass", "sky_pass", "after_sky_pass", "final_pass" ]
+}

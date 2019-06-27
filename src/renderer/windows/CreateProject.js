@@ -4,6 +4,7 @@ import { BASE_PATH, RP_BASE_PATH } from "../scripts/constants";
 import Vue from "../main";
 import LoadingWindow from "./LoadingWindow";
 import Manifest from "../scripts/utilities/Manifest";
+import uuidv4 from "uuid/v4";
 
 export default class CreateProjectWindow extends ContentWindow {
     constructor(create_bp=true, cb) {
@@ -32,6 +33,8 @@ export default class CreateProjectWindow extends ContentWindow {
         this.content = [
             {
                 type: "input",
+                key: uuidv4(),
+                has_focus: true,
                 text: `${create_bp ? "Project" : "Resource Pack"} Name`,
                 color: "success",
 
@@ -61,6 +64,7 @@ export default class CreateProjectWindow extends ContentWindow {
             },
             {
                 type: "input",
+                key: uuidv4(),
                 text: `${create_bp ? "Project" : "Resource Pack"} Description`,
                 color: "success",
 

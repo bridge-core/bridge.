@@ -75,7 +75,7 @@
                 `">
                     <window-content 
                         v-for="(content, i) in win.content" 
-                        :key="content.key || `plugin-popup-window-content-${Math.random()}-${i}`" 
+                        :key="content.key || `plugin-popup-window-content-${uuid()}-${i}`" 
                         :content="content"
                     />
                 </div>
@@ -89,7 +89,7 @@
             <v-card-actions v-if="win.actions != undefined">
                 <window-content 
                     v-for="(content, i) in win.actions" 
-                    :key="content.key || `plugin-popup-window-actions-${Math.random()}-${i}`"
+                    :key="content.key || `plugin-popup-window-actions-${uuid()}-${i}`"
                     :content="content"
                     style="overflow-x: auto;"
                 />
@@ -102,6 +102,7 @@
 import WindowContent from "./WindowContent.vue";
 import ToolbarElement from "./ToolbarElement.vue";
 import SidebarElement from "./SidebarElement.vue";
+import uuidv4 from "uuid/v4";
 
 export default {
     name: "window",
@@ -190,6 +191,9 @@ export default {
     methods: {
         on_resize() {
             this.window_height = window.innerHeight;
+        },
+        uuid() {
+            return uuidv4();
         }
     },
 

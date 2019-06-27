@@ -48,6 +48,24 @@
         "snippets": "entity"
     },
     {
+        "id": "feature",
+        "includes": "features",
+        "file_viewer": "json",
+
+        "start_state": "feature/main",
+        "highlighter": "feature",
+        "file_creator": "feature"
+    },
+    {
+        "id": "feature_rule",
+        "includes": "feature_rules",
+        "file_viewer": "json",
+
+        "start_state": "feature_rule/main",
+        "highlighter": "feature_rule",
+        "file_creator": "feature_rule"
+    },
+    {
         "id": "function",
         "includes": "functions",
         "file_viewer": "text",

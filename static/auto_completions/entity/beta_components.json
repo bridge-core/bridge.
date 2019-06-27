@@ -35,5 +35,101 @@
     },
     "minecraft:water_movement": {
         "drag_factor": "$general.decimal"
+    },
+
+
+
+    "minecraft:damage_sensor": {
+        "triggers": {
+            "$dynamic.list.next_index": {
+                "on_damage": "$general.entity.event_definition",
+                "cause": "$general.damage_type",
+                "deals_damage": "$general.boolean"
+            }
+        }
+    },
+    "minecraft:trail": {
+        "block_type": "$general.block_identifier",
+        "spawn_filter": "$entity.filters"
+    },
+    "minecraft:hurt_on_condition": {
+        "damage_conditions": {
+            "$dynamic.list.next_index": {
+                "filters": "$entity.filters",
+                "cause": "$general.damage_type",
+                "damage_per_tick": "$general.number"
+            }
+        }
+    },
+    "minecraft:persistent": {},
+    "minecraft:pushable": {
+        "is_pushable": "$general.boolean",
+        "is_pushable_by_piston": "$general.boolean"
+    },
+    "minecraft:shareables": {
+        "all_items": "$general.boolean",
+        "all_items_max_amount": "$general.number",
+        "items": {
+            "$dynamic.list.next_index": {
+                "item": "$general.item_identifier",
+                "craft_into": "$general.item_identifier",
+                "want_amount": "$general.number",
+                "surplus_amount": "$general.number"
+            }
+        }
+    },
+    "minecraft:behavior.eat_carried_item": {
+        "priority": "$general.number",
+        "delay_before_eating": "$general.number"
+    },
+    "minecraft:behavior.nap": {
+        "priority": "$general.number",
+        "cooldown_min": "$general.decimal",
+        "cooldown_max": "$general.decimal",
+        "mob_detect_dist": "$general.number",
+        "mob_detect_height": "$general.number",
+        "can_nap_filters": "$entity.filters",
+        "wake_mob_exceptions": "$entity.filters"
+    },
+    "minecraft:behavior.nearest_prioritized_attackable_target": {},
+    "minecraft:behavior.find_cover": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "cooldown_time": "$general.decimal"
+    },
+    "minecraft:behavior.random_look_around_and_sit": {
+        "priority": "$general.number",
+        "min_look_count": "$general.number",
+        "max_look_count": "$general.number",
+        "min_look_time": "$general.number",
+        "max_look_time": "$general.number",
+        "probability": "$general.decimal"
+    },
+    "minecraft:behavior.stalk_and_pounce_on_target": {
+        "priority": "$general.number",
+        "stalk_speed": "$general.decimal",
+        "max_stalk_dist": "$general.number",
+        "leap_height": "$general.decimal",
+        "leap_dist": "$general.decimal",
+        "pounce_max_dist": "$general.number",
+        "interest_time": "$general.number",
+        "stuck_time": "$general.number",
+        "strike_dist": "$general.decimal",
+        "stuck_blocks": "$entity.filters"
+    },
+    "minecraft:behavior.nearest_prioritized_attackable_target": {
+        "priority": "$general.number",
+        "attack_interval": "$general.number",
+        "reselect_targets": "$general.boolean",
+        "entity_types": "$general.entity.prioritized_entity_types"
+    },
+    "minecraft:trust": {},
+    "minecraft:behavior.defend_trusted_target": {
+        "priority": "$general.number",
+        "within_radius": "$general.number",
+        "must_see": "$general.boolean",
+        "aggro_sound": {},
+        "sound_chance": "$general.decimal",
+        "on_defend_start": "$general.entity.event_definition"
     }
 }

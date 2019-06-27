@@ -18,9 +18,11 @@ document.addEventListener("drop", event => {
     event.preventDefault();
     let files = event.dataTransfer.files;
     if(files.length !== 0) win = new LoadingWindow("save-file").show();
+    console.log(event.dataTransfer.files)
 
     setTimeout(() => {
         for(let file of files) {
+            console.log(file);
             FILE_SYSTEM.open(file.path, () => win.close());
         }        
     }, 100);

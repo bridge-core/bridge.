@@ -155,7 +155,7 @@
 
                 let current = this.render_object.get(this.file_navigation);
                 if(current === undefined || current === null) return;
-                if(this.type == "value" && current.data !== "") {
+                if(current.data !== "") {
                     this.items = [];
                     return;
                 }
@@ -169,7 +169,10 @@
                 this.$nextTick(() => {
                     if(this.items && this.items.length > 0 && this.$refs.input) {
                         if(this.$store.state.Settings.auto_fill_inputs) this.value = this.items[0];
-                        if(this.$store.state.Settings.focus_json_inputs) this.$refs.input.focus();
+                        if(
+                            this.$store.state.Settings.focus_json_inputs 
+                            && (this.type === "object" || propose.object.length === 0 )
+                        ) this.$refs.input.focus();
                     }
                 });
             },

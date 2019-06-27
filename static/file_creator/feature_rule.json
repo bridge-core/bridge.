@@ -1,0 +1,27 @@
+{
+    "icon": "mdi-ruler",
+    "title": "Feature Rules",
+    "extension": "json",
+    "path": "feature_rules/",
+    "templates": {
+        "Blank Feature Rule": {
+            "format_version": {},
+            "minecraft:feature_rules": {
+                "description": {
+                    "identifier": {},
+                    "places_feature": {}
+                },
+                "conditions": {
+                    "placement_pass": {},
+                    "minecraft:biome_filter": {}
+                },
+                "distribution": {
+                    "iterations": {},
+                    "x": {},
+                    "y": {},
+                    "z": {}
+                }
+            }
+        }
+    }
+}

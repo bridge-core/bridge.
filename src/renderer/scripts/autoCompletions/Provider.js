@@ -113,7 +113,8 @@ class Provider {
     validator(path) {
         if(path === undefined) return this.start_state = "unknown";
         for(let def of this.FILE_DEFS) {
-            if(FileType.pathIncludes(path, def.includes) && (path.includes("development_behavior_packs") || def.rp_definition)) return this.start_state = def.start_state;
+            if(FileType.pathIncludes(path, def.includes) && (path.includes("development_behavior_packs") || def.rp_definition || FileType.fallbackToBP(path))) 
+                return this.start_state = def.start_state;
         }
         return this.start_state = "unknown";
     }
@@ -151,6 +152,11 @@ class Provider {
                 .map(key => {
                     if(key.startsWith("$dynamic_template.")) {
                         return key.split(".").pop();
+                    } else if(key === "@import.value") {
+                        let { object: object_internal, value: value_internal } = this.omegaExpression(object[key]);
+                        value.push(...value_internal);
+                        value.push(...Object.keys(object_internal));
+                        return;
                     } else if(key.startsWith("@value.")) {
                         value.push(key.split(".").pop());
                         return;
@@ -180,7 +186,10 @@ class Provider {
                 return { object: {}, value: current() };
             current = current();
         } else if(typeof current === "string") {
+            for(let i = 0; i < path_arr.length + 1; i++) CONTEXT_UP();
             let { object, value } = this.omegaExpression(current);
+            for(let i = 0; i < path_arr.length + 1; i++) CONTEXT_DOWN();
+
             if(path_arr.length === 0)
                 return { object, value };
 
@@ -228,6 +237,7 @@ class Provider {
             else
                 object = detachObj(object, tmp);
         });
+        
 
         return {
             object, 
