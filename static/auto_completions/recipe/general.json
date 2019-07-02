@@ -2,5 +2,5 @@
     "description": {
         "identifier": {}
     },
-    "tags": [ "crafting_table", "furnace", "blast_furnace", "smoker", "campfire" ]
+    "tags": [ "crafting_table", "furnace", "blast_furnace", "smoker", "campfire", "stonecutter" ]
 }

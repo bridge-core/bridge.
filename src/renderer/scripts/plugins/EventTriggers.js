@@ -33,6 +33,14 @@ export function trigger(name, arg, init=true) {
     }
     return arg;
 }
+
+export function booleanAnyOfTrigger(name, ...args) {
+    let trigger = false;
+    Runtime.Listeners.get(name).forEach(cb => trigger = trigger || cb(...args));
+    return trigger;
+}
+
+
 /**
  * Triggers the last registered plugin event
  * @param {String} name Event to trigger

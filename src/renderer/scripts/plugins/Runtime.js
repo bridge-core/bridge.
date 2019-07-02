@@ -34,7 +34,7 @@ function reset() {
 
 export default {
     Listeners: {
-        get: (id) => id !== undefined ? Runtime.listeners[id] : Runtime.listeners,
+        get: (id) => id !== undefined ? (Runtime.listeners[id] || []) : Runtime.listeners,
         add: (id, listener) => {
             if(Runtime.listeners[id] != undefined) {
                 Runtime.listeners[id].push(listener);

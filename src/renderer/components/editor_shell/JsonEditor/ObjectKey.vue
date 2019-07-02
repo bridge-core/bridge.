@@ -57,7 +57,7 @@
             />
         </span>
 
-        <v-icon v-if="$store.state.Settings.error_icon_indicator && child_contains_error" color="error" small>mdi-alert-circle</v-icon>
+        <v-icon v-if="$store.state.Settings.error_icon_indicator && child_contains_error && !node_context.open" color="error" small>mdi-alert-circle</v-icon>
         <v-tooltip
             v-if="$store.state.Settings.error_auto_fix && error && error.fix"
             color="amber darken-2"

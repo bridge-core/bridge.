@@ -10,6 +10,10 @@ import LoadingWindow from "../windows/LoadingWindow";
 import ConfirmWindow from "./commonWindows/Confirm";
 import { History } from "./TabSystem/CommonHistory";
 import ProblemIterator from "./editor/problems/Problems";
+import path from "path";
+import { booleanAnyOfTrigger } from "./plugins/EventTriggers";
+import FileType from "./editor/FileType";
+import OmegaCache from "./editor/OmegaCache";
 
 /**
  * @todo Refactor TabSystem to use dedicated classes IMGTab, CMTab, JSONTab,...
@@ -64,8 +68,8 @@ class TabSystem {
     //Closing tab
     internalCloseId(id, project=this.project) {
         this.projects[project].splice(id, 1);
-        if(id <= this.selected && this.selected > 0) {
-            this.select(this.selected - 1);
+        if(id <= this.selected && this.selected >= 0) {
+            this.select(this.selected === 0 ? 0 : this.selected - 1);
         }
 
         EventBus.trigger("updateTabUI");
@@ -253,115 +257,61 @@ class TabSystem {
         } catch(e) {}
     }
 
+    transformContent(c, raw) {
+        if(raw === c) return raw;
+        else if(typeof c === "string") return c;
+        else if(c instanceof JSONTree) return JSON.stringify(Format.toJSON(c), null, this.use_tabs ? "\t" : "  ");
+        return JSON.stringify(c, null, this.use_tabs ? "\t" : "  ");
+    }
+
     //SAVING
-    getSaveContent(current, previous) {
-        let ext = current.file_path.split(/\/|\\/).pop().split(".").pop();
+    async getSaveContent(current) {
+        let ext = path.extname(current.file_path);
+        if(current.content instanceof JSONTree)
+            ProblemIterator.findProblems(current.content);
 
-        if(ext  == "json") {
-            let j;  
-            // console.log(current.content instanceof JSONTree, current, previous);
-            
-            if(current.content instanceof JSONTree) {
-                ProblemIterator.findProblems(current.content);
-                j = Format.toJSON(current.content, false);
-            } else {
-                j = current.content;
-                current.content = new JSONTree("global").buildFromObject(j);
+        try {
+            if(booleanAnyOfTrigger("bridge:confirmCacheUse", { 
+                file_path: current.file_path, 
+                file_extension: ext, 
+                file_type: FileType.get(current.file_path)
+            })) {
+                await OmegaCache.save(current.file_path, this.transformContent(current.content, current.raw_content));
             }
-            
-            
-            if(!current.is_invalid) {
-                FileSystem.Cache.save(current.file_path, current.content.buildForCache(), PluginEnv.trigger("bridge:cacheFile", { 
-                    file_path: current.file_path,
-                    content: current.content,
-                    file_extension: ext,
-                    old_cache: FileSystem.Cache.getSync(current.file_path)
-                }, true, false), 1);
-            } 
-
-            let modified_data = PluginEnv.trigger("bridge:saveFile", { 
-                ...current,
-                file_path: current.file_path.replace(/\\/g, "/"),
-                content: new JSONTree("global").buildFromObject(j),
-                file_extension: ext,
-                previous
-            });
-            
-            return JSON.stringify(Format.toJSON(modified_data.content), null, this.use_tabs ? "\t" : "  ");
-        } else if(ext == "png") {
-            return current.raw_content;
-        } else if(ext == "ogg") {
-            return current.raw_content;
-        } else {
-            FileSystem.Cache.save(current.file_path, current.content, PluginEnv.trigger("bridge:cacheFile", { 
-                file_path: current.file_path,
-                content: current.content,
-                file_extension: ext
-            }, true, false));
-
-            let modified_data = PluginEnv.trigger("bridge:saveFile", { 
-                ...current,
-                file_path: current.file_path.replace(/\\/g, "/"),
-                file_extension: ext,
-                previous
-            });
-
-            return modified_data.content;
+        } catch(e) {
+            PluginAssert.throw("bridge:confirmCacheUsage", e);
         }
-    }
-    updateDependencies(file_path, previous, cap=100) {
-        if(cap <= 0) return PluginAssert.throw("Dependency Update Failed", new Error("Reached maximum update depth. Make sure you haven't created a dependency loop!"));
-        FileSystem.Cache.get(file_path)
-            .then(cache => {
-                if(cache.update !== undefined) {
-                    cache.update.forEach(file => {
-                        console.log("[UPDATE] Dependency " + file);
-                        FileSystem.Cache.get(file)
-                            .then(d_cache => {
-                                this.dependencyUpdate({ 
-                                    ...d_cache,
-                                    content: JSONTree.buildFromCache(d_cache.content),
-                                    file_path: file
-                                }, previous, cap);
-                            })
-                            // .catch(err => console.log("File \"" + file + "\" does not exist in cache. Cannot update."));
-                            .catch(err => console.error(err));
-                    });
-                }
-            })
-            .catch((err) => {
-                console.log("No file dependencies detected!");
-                throw err;
-            });
-    }
-    dependencyUpdate(current, previous, cap) {
-        FileSystem.basicSave(current.file_path, this.getSaveContent(current, previous));
-        //PluginEnv.trigger("bridge:updateFile", { file_path: current.file_path, content: this.getSaveContent(current) }, true);
-        this.updateDependencies(current.file_path, cap - 1);
-    }
-    saveCurrent() {
-        let win = new LoadingWindow("save-file").show();
 
+        return this.transformContent(PluginEnv.trigger("bridge:saveFile", { 
+            ...current,
+            file_path: current.file_path.replace(/\\/g, "/"),
+            content: current.content instanceof JSONTree ? 
+                new JSONTree("global").buildFromObject(current.content) :
+                current.content,
+            file_extension: ext
+        }).content, current.raw_content);
+    }
+    async saveCurrent() {
+        let win = new LoadingWindow("save-file").show();
         PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
-        if(current === undefined) return win.close();
+        if(current === undefined || current.is_invalid) return win.close();
 
-        FileSystem.basicSave(current.file_path, this.getSaveContent(current));
+        console.log(await this.getSaveContent(current))
+        // FileSystem.basicSave(current.file_path, await this.getSaveContent(current));
 
-        this.updateDependencies(current.file_path, current);
         this.setCurrentSaved();
         win.close();
     }
-    saveCurrentAs() {
+    async saveCurrentAs() {
         let win = new LoadingWindow("save-file").show();
 
         PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
-        if(current == undefined) return win.close();
+        if(current == undefined || current.is_invalid) return win.close();
 
-        FileSystem.basicSaveAs(current.file_path, this.getSaveContent(current));
+        FileSystem.basicSaveAs(current.file_path, await this.getSaveContent(current));
         
-        this.updateDependencies(current.file_path);
         this.setCurrentSaved();
         win.close();
     }

@@ -1,6 +1,6 @@
 {
     "effect_definition": {
-        "effect": "$general.effect_name",
+        "name": "$general.effect_name",
         "chance": "$general.decimal",
         "duration": "$general.number",
         "amplifier": "$general.number",
