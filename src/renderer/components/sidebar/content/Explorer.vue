@@ -70,6 +70,7 @@
     import LinkRPWindow from "../../../windows/LinkRPWindow";
     import CreateProjectWindow from '../../../windows/CreateProject';
     import PackLinker from '../../../scripts/utilities/LinkPacks';
+import OmegaCache from '../../../scripts/editor/OmegaCache';
 
     export default {
         name: "content-explorer",
@@ -209,6 +210,7 @@
             },
             getDirectory(dir=this.selected, force_reload) {
                 if(this.explorer_type === "explorer") EventBus.trigger("bridge:changedProject");
+                OmegaCache.init(dir);
 
                 if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return;
                 if(dir !== this.selected) {

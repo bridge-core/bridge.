@@ -257,11 +257,17 @@ class TabSystem {
         } catch(e) {}
     }
 
-    transformContent(c, raw) {
+    transformContent(c, raw, toJSON=true) {
         if(raw === c) return raw;
         else if(typeof c === "string") return c;
-        else if(c instanceof JSONTree) return JSON.stringify(Format.toJSON(c), null, this.use_tabs ? "\t" : "  ");
+        else if(c instanceof JSONTree) return JSON.stringify(toJSON ? Format.toJSON(c) : c.buildForCache(), null, this.use_tabs ? "\t" : "  ");
         return JSON.stringify(c, null, this.use_tabs ? "\t" : "  ");
+    }
+    transformForCache(c, raw) {
+        if(raw === c) return raw;
+        else if(typeof c === "string") return c;
+        else if(c instanceof JSONTree) return c.buildForCache();
+        return c;
     }
 
     //SAVING
@@ -269,18 +275,11 @@ class TabSystem {
         let ext = path.extname(current.file_path);
         if(current.content instanceof JSONTree)
             ProblemIterator.findProblems(current.content);
-
-        try {
-            if(booleanAnyOfTrigger("bridge:confirmCacheUse", { 
-                file_path: current.file_path, 
-                file_extension: ext, 
-                file_type: FileType.get(current.file_path)
-            })) {
-                await OmegaCache.save(current.file_path, this.transformContent(current.content, current.raw_content));
-            }
-        } catch(e) {
-            PluginAssert.throw("bridge:confirmCacheUsage", e);
-        }
+        
+        await OmegaCache.save(current.file_path, {
+            format_version: 1,
+            cache_content: this.transformForCache(current.content, current.raw_content)
+        });
 
         return this.transformContent(PluginEnv.trigger("bridge:saveFile", { 
             ...current,
@@ -297,8 +296,8 @@ class TabSystem {
         let current = this.getSelected();
         if(current === undefined || current.is_invalid) return win.close();
 
-        console.log(await this.getSaveContent(current))
-        // FileSystem.basicSave(current.file_path, await this.getSaveContent(current));
+        // console.log(await this.getSaveContent(current))
+        FileSystem.basicSave(current.file_path, await this.getSaveContent(current));
 
         this.setCurrentSaved();
         win.close();

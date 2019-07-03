@@ -9,6 +9,7 @@ export function setRP(val) {
 }
 export default async function findRP() {
     let selected = TabSystem.project;
+    if(selected === undefined) return "/@NO-RP@/";
     if(selected === last_selected && last_result !== undefined) return last_result;
     last_selected = selected;
     

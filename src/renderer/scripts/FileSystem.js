@@ -9,6 +9,11 @@ import JSONTree from "./editor/JsonTree.js";
 import ProblemIterator from "./editor/problems/Problems.js";
 import LoadingWindow from "../windows/LoadingWindow";
 import PluginEnv from "./plugins/PluginEnv";
+import path from "path";
+import OmegaCache from "./editor/OmegaCache";
+import PluginAssert from "./plugins/PluginAssert";
+import { booleanAnyOfTrigger } from "./plugins/EventTriggers";
+import FileType from "./editor/FileType";
 
 document.addEventListener("dragover", event => {
     event.preventDefault();
@@ -70,53 +75,71 @@ class FileSystem {
         ipcRenderer.send("saveAsFileDialog", { path, content });
     }
 
-    open(path, cb) {
-        if(typeof path !== "string") return;
-        
-        this.Cache.get(path)
-            .then((cache) => 
-                cache.content ? 
-                    this.addAsTab(path, cache.content, cache.format_version) : 
-                    fs.readFile(path, (err, data) => {
-                        if(err) throw err;
-                        this.addAsTab(path, data.toString(), 0, data);
+    async open(file_path, cb) {
+        if(typeof file_path !== "string") return;
+        let ext = path.extname(file_path);
+
+        try {
+            if(await OmegaCache.isCacheFresh(file_path)) {
+                let { cache_content, format_version } = await OmegaCache.load(file_path);
+                this.addAsTab(file_path, cache_content, format_version)
+                if(typeof cb === "function") cb();
+            } else if(booleanAnyOfTrigger("bridge:confirmCacheUse", { 
+                file_path: file_path, 
+                file_extension: ext, 
+                file_type: FileType.get(file_path)
+            })) {
+                OmegaCache.load(file_path)
+                    .then(({ cache_content, format_version }) => {
+                        this.addAsTab(file_path, cache_content, format_version);
 
                         if(typeof cb === "function") cb();
                     })
-            )
-            .catch((err) => {
-                console.log("[OPEN] Not opened from cache");
-                if(fs.statSync(path).isFile()) {
-                    fs.readFile(path, (err, data) => {
-                        if(err) throw err;
-                        this.addAsTab(path, data.toString(), 0, data);
-
-                        if(typeof cb === "function") cb();
-                    });
-                } else {
-                    fs.readdir(path, (err, files) => {
-                        if(err) throw err;
-                        setTimeout(() => {
-                            files.forEach((file, i, arr) => this.open(path + "\\" + file, arr.length - 1 === i ? cb : undefined));
-                        }, 1);
-                    });
-                }
-            });
+                    .catch(err => {
+                        console.log("[FS] Not opened from cache. Err:", err);
+                        this.loadFromDisk(file_path, cb);
+                    }) 
+            } else {
+                this.loadFromDisk(file_path, cb);
+            }
+        } catch(e) {
+            PluginAssert.throw("bridge:confirmCacheUsage", e);
+        }
     }
-    addAsTab(path, data, format_version=0, raw_data) {
+
+    loadFromDisk(file_path, cb) {
+        if(fs.statSync(file_path).isFile()) {
+            fs.readFile(file_path, (err, data) => {
+                if(err) throw err;
+                this.addAsTab(file_path, data.toString(), 0, data);
+
+                if(typeof cb === "function") cb();
+            });
+        } else {
+            fs.readdir(file_path, (err, files) => {
+                if(err) throw err;
+                setTimeout(() => {
+                    files.forEach((file, i, arr) => this.open(file_path + "\\" + file, arr.length - 1 === i ? cb : undefined));
+                }, 1);
+            });
+        }
+    }
+
+    addAsTab(file_path, data, format_version=0, raw_data) {
+        console.log(data);
         let tree;
         if(format_version === 1) {
             tree = JSONTree.buildFromCache(data);
-            ProblemIterator.findProblems(tree, path);
+            ProblemIterator.findProblems(tree, file_path);
         }
 
         TabSystem.add({ 
             content: format_version === 1 ? tree : data,
             raw_content: raw_data,
-            file_path: path,
+            file_path,
             is_compiled: format_version === 1,
             category: Store.state.Explorer.project.explorer,
-            file_name: path.split(/\/|\\/).pop()
+            file_name: file_path.split(/\/|\\/).pop()
         });
     }
 }

@@ -97,7 +97,6 @@ export default class FileType {
                 HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(`${__static}\\highlighter\\${hl}.json`).toString());
             return HIGHLIGHTER_CACHE[hl];
         } catch(e) {
-            console.log(e)
             return {
                 define: {
                     keywords: [],
