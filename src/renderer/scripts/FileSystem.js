@@ -14,6 +14,7 @@ import OmegaCache from "./editor/OmegaCache";
 import PluginAssert from "./plugins/PluginAssert";
 import { booleanAnyOfTrigger } from "./plugins/EventTriggers";
 import FileType from "./editor/FileType";
+import ConfirmWindow from "./commonWindows/Confirm";
 
 document.addEventListener("dragover", event => {
     event.preventDefault();
@@ -37,8 +38,10 @@ ipcRenderer.on("openFile", (event, path) => {
 });
 
 class FileSystem {
-    constructor() {
-        this.Cache = new Cache();
+    constructor() {}
+    get Cache() {
+        console.warn("Calling FileSystem.Cache is deprecated!");
+        return OmegaCache;
     }
     save(path, content, update=false, open=false) {
         let tmp_path = path.split("/");
@@ -78,32 +81,33 @@ class FileSystem {
     async open(file_path, cb) {
         if(typeof file_path !== "string") return;
         let ext = path.extname(file_path);
+        let is_fresh = await OmegaCache.isCacheFresh(file_path);
+        if(is_fresh === undefined) return this.loadFromDisk(file_path, cb);
 
-        try {
-            if(await OmegaCache.isCacheFresh(file_path)) {
-                let { cache_content, format_version } = await OmegaCache.load(file_path);
-                this.addAsTab(file_path, cache_content, format_version)
-                if(typeof cb === "function") cb();
-            } else if(booleanAnyOfTrigger("bridge:confirmCacheUse", { 
-                file_path: file_path, 
-                file_extension: ext, 
-                file_type: FileType.get(file_path)
-            })) {
+        if(is_fresh) {
+            let { cache_content, format_version } = await OmegaCache.load(file_path);
+            this.addAsTab(file_path, cache_content, format_version);
+            if(typeof cb === "function") cb();
+        } else if(is_fresh !== undefined) {
+            let needs_cache = booleanAnyOfTrigger("bridge:confirmCacheUse", { file_path: file_path, file_extension: ext, file_type: FileType.get(file_path) });
+            if(!needs_cache) return this.loadFromDisk(file_path, cb);
+
+            new ConfirmWindow(() => {
                 OmegaCache.load(file_path)
                     .then(({ cache_content, format_version }) => {
                         this.addAsTab(file_path, cache_content, format_version);
-
+    
                         if(typeof cb === "function") cb();
                     })
                     .catch(err => {
-                        console.log("[FS] Not opened from cache. Err:", err);
                         this.loadFromDisk(file_path, cb);
-                    }) 
-            } else {
+                    })
+            }, () => {
                 this.loadFromDisk(file_path, cb);
-            }
-        } catch(e) {
-            PluginAssert.throw("bridge:confirmCacheUsage", e);
+            }, `It looks like the file "${path.basename(file_path)}" was edited with a different editor. Do you want to open it from bridge.'s cache or from disk?`, {
+                confirm_text: "Cache",
+                cancel_text: "Disk"
+            });
         }
     }
 
@@ -126,7 +130,6 @@ class FileSystem {
     }
 
     addAsTab(file_path, data, format_version=0, raw_data) {
-        console.log(data);
         let tree;
         if(format_version === 1) {
             tree = JSONTree.buildFromCache(data);

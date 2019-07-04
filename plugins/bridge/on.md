@@ -8,6 +8,7 @@ You may return a modified version of the object received inside the callback fun
 | --- | --- | ---
 | ```bridge:addedNode``` | Triggers after the user added a new node to a JSON file | ```{ node }```
 | ```bridge:beforePropose``` | Triggers before bridge. shows auto-completions to the user | ```{ propose, node }```
+| ```bridge:confirmCacheUse``` | Confirm that it's necessary to load this file from cache. This will prompt the user with a confirmation winodw if a file conflict was detected | ```{ file_path, file_extension, file_type }```
 | ```bridge:cacheFile``` | Triggers before "bridge." caches a file. Allows to store additional data inside the cache 
 | ```bridge:changedTab``` | Triggers after the user switched to a different file | ```{ file_path, file_extension }```
 | ```bridge:modifiedNode``` | Triggers after the user modified a JSON node | ```{ node }```

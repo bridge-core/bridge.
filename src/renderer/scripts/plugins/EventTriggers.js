@@ -36,7 +36,12 @@ export function trigger(name, arg, init=true) {
 
 export function booleanAnyOfTrigger(name, ...args) {
     let trigger = false;
-    Runtime.Listeners.get(name).forEach(cb => trigger = trigger || cb(...args));
+    try {
+        Runtime.Listeners.get(name).forEach(cb => trigger = trigger || cb(...args));
+    } catch(err) {
+        PluginAssert.throw("Event: " + name, err)
+    }
+    
     return trigger;
 }
 

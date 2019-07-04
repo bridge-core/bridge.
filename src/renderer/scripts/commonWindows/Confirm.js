@@ -1,7 +1,7 @@
 import Store from "../../store/index";
 
 export default class ConfirmWindow {
-    constructor(on_confirm, on_cancel, text, opts) {
+    constructor(on_confirm, on_cancel, text, { cancel_text, confirm_text, ...opts }) {
         this.id = `main.core.windows.confirm_window.${Math.random()}`;
         this.actions = [
             {
@@ -9,7 +9,7 @@ export default class ConfirmWindow {
             },
             {
                 type: "button",
-                text: "Cancel",
+                text: cancel_text || "Cancel",
                 is_rounded: true,
                 action: () => {
                     this.close();
@@ -18,7 +18,7 @@ export default class ConfirmWindow {
             },
             {
                 type: "button",
-                text: "Confirm",
+                text: confirm_text || "Confirm",
                 color: "success",
                 is_rounded: true,
                 action: () => {

@@ -210,7 +210,7 @@ import OmegaCache from '../../../scripts/editor/OmegaCache';
             },
             getDirectory(dir=this.selected, force_reload) {
                 if(this.explorer_type === "explorer") EventBus.trigger("bridge:changedProject");
-                OmegaCache.init(dir);
+                if(this.explorer_type === "explorer") OmegaCache.init(dir);
 
                 if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return;
                 if(dir !== this.selected) {

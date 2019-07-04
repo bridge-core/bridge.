@@ -2,9 +2,13 @@ import { BASE_PATH, RP_BASE_PATH } from "../constants";
 import fs from "fs";
 import path from "path";
 import mkdirp from "mkdirp";
+import PluginEnv from "../plugins/PluginEnv";
+import FileType from "./FileType";
 
 export default class OmegaCache {
     static init(project) {
+        if(project === undefined) return console.warn("Called OmegaCache.init(..) with undefined project. Stopped initialization");
+
         this.project = project;
         this.current_base = path.join(BASE_PATH, project, "bridge/cache");
         fs.mkdir(this.current_base, (err) => {
@@ -27,10 +31,10 @@ export default class OmegaCache {
     static isCacheFresh(file_path) {
         return new Promise((resolve, reject) => {
             fs.stat(this.toCachePath(file_path), (err, cache_stats) => {
-                if(err) return resolve(false);
+                if(err) return resolve(undefined);
                 fs.stat(file_path, (err, other_stats) => {
                     if(err) console.log(err);
-                    console.log(cache_stats.mtime, other_stats.mtime, cache_stats.mtimeMs - other_stats.mtimeMs >= 0);
+                    console.log(cache_stats.mtime, other_stats.mtime)
                     resolve(cache_stats.mtimeMs - other_stats.mtimeMs + (1000 * 60 * 2) >= 0);
                 })
             })
@@ -48,11 +52,17 @@ export default class OmegaCache {
     static save(file_path, data) {
         return new Promise((resolve, reject) => {
             mkdirp(path.dirname(this.toCachePath(file_path)), (err) => {
-                fs.writeFile(this.toCachePath(file_path), JSON.stringify(data), (err) => {
-                    if(err) return reject("[O.CACHE] Error calling OmegaCache.save(..): ", err.message);
-                    else resolve();
-                    console.log("Cached file " + file_path);
-                });
+                fs.writeFile(
+                    this.toCachePath(file_path), JSON.stringify({
+                        ...PluginEv.trigger("bridge:cacheFile", { file_path, file_type: FileType.get(file_path) }), 
+                        ...data 
+                    }),
+                    (err) => {
+                        if(err) return reject("[O.CACHE] Error calling OmegaCache.save(..): ", err.message);
+                        else resolve();
+                        console.log("Cached file " + file_path);
+                    }
+                );
             });
         });
     }
