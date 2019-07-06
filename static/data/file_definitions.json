@@ -6,6 +6,7 @@
         
         "build_array_exceptions": [ "timeline" ],
         "start_state": "animation/main",
+        "lightning_cache": "animation",
         "highlighter": "animation",
         "file_creator": "animation"
     },
@@ -15,6 +16,7 @@
         "file_viewer": "json",
 
         "start_state": "animation_controller/main",
+        "lightning_cache": "animation_controller",
         "highlighter": "animation_controller",
         "file_creator": "animation_controller"
     },
@@ -33,6 +35,7 @@
         "file_viewer": "json",
 
         "start_state": "block/main",
+        "lightning_cache": "block",
         "highlighter": "block",
         "file_creator": "block"
     },
@@ -43,6 +46,7 @@
 
         "documentation": [ "add_entity_components", "entity" ],
         "start_state": "entity/main",
+        "lightning_cache": "entity",
         "highlighter": "entity",
         "file_creator": "entity",
         "snippets": "entity"
@@ -79,6 +83,7 @@
         "file_viewer": "json",
 
         "start_state": "item/main",
+        "lightning_cache": "item",
         "highlighter": "item",
         "file_creator": "item"
     },

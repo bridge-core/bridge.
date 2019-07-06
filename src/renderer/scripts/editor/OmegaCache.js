@@ -1,9 +1,13 @@
+/**
+ * A thin wrapper around the cached .json files ("./cache" folder)
+ */
+
 import { BASE_PATH, RP_BASE_PATH } from "../constants";
 import fs from "fs";
 import path from "path";
 import mkdirp from "mkdirp";
-import PluginEnv from "../plugins/PluginEnv";
 import FileType from "./FileType";
+import PluginEnv from "../plugins/PluginEnv";
 
 export default class OmegaCache {
     static init(project) {
@@ -20,12 +24,15 @@ export default class OmegaCache {
         console.log(`[O.CACHE] Comparing ${file_path} and ${BASE_PATH}`)
         return file_path.includes(BASE_PATH) || file_path.includes(RP_BASE_PATH);
     }
-    static toCachePath(file_path) {
+    static toCachePath(file_path, with_base=true) {
         if(!file_path) throw new Error("[O.CACHE] Called OmegaCache.toCachePath(..) with falsy argument. Expected string");
         if(this.current_base === undefined) throw new Error("[O.CACHE] Called OmegaCache.toCachePath(..) before calling OmegaCache.init(..)");
 
+        let is_bp = true;
+        if(file_path.replace(/\\|\//g, "/").includes(RP_BASE_PATH)) is_bp = false;
+
         let tmp_path = file_path.replace(BASE_PATH, "").replace(RP_BASE_PATH, "").split(this.project);
-        return path.join(this.current_base, tmp_path.pop());
+        return path.join(with_base ? this.current_base : "", is_bp ? "BP" : "RP", tmp_path.pop());
     }
 
     static isCacheFresh(file_path) {
@@ -34,7 +41,6 @@ export default class OmegaCache {
                 if(err) return resolve(undefined);
                 fs.stat(file_path, (err, other_stats) => {
                     if(err) console.log(err);
-                    console.log(cache_stats.mtime, other_stats.mtime)
                     resolve(cache_stats.mtimeMs - other_stats.mtimeMs + (1000 * 60 * 2) >= 0);
                 })
             })
@@ -54,7 +60,7 @@ export default class OmegaCache {
             mkdirp(path.dirname(this.toCachePath(file_path)), (err) => {
                 fs.writeFile(
                     this.toCachePath(file_path), JSON.stringify({
-                        ...PluginEv.trigger("bridge:cacheFile", { file_path, file_type: FileType.get(file_path) }), 
+                        ...PluginEnv.trigger("bridge:cacheFile", { file_path, file_type: FileType.get(file_path) }), 
                         ...data 
                     }),
                     (err) => {

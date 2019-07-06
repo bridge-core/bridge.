@@ -14,6 +14,7 @@ import path from "path";
 import { booleanAnyOfTrigger } from "./plugins/EventTriggers";
 import FileType from "./editor/FileType";
 import OmegaCache from "./editor/OmegaCache";
+import LightningCache from "./editor/LightningCache";
 
 /**
  * @todo Refactor TabSystem to use dedicated classes IMGTab, CMTab, JSONTab,...
@@ -276,10 +277,13 @@ class TabSystem {
         if(current.content instanceof JSONTree)
             ProblemIterator.findProblems(current.content);
         
-        await OmegaCache.save(current.file_path, {
-            format_version: 1,
-            cache_content: this.transformForCache(current.content, current.raw_content)
-        });
+        await Promise.all([
+            OmegaCache.save(current.file_path, {
+                format_version: 1,
+                cache_content: this.transformForCache(current.content, current.raw_content)
+            }), 
+            LightningCache.add(current.file_path, current.content)
+        ]);
 
         return this.transformContent(PluginEnv.trigger("bridge:saveFile", { 
             ...current,

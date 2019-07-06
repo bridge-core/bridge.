@@ -1,7 +1,7 @@
 import Store from "../../store/index";
 
 export default class ConfirmWindow {
-    constructor(on_confirm, on_cancel, text, { cancel_text, confirm_text, ...opts }) {
+    constructor(on_confirm, on_cancel, text, { cancel_text, confirm_text, ...opts }={}) {
         this.id = `main.core.windows.confirm_window.${Math.random()}`;
         this.actions = [
             {

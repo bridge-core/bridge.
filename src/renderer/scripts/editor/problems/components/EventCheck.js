@@ -1,13 +1,14 @@
 //@ts-check
 import CommonProblem from "../CommonProblem";
-import JsonCacheUtils from "../../JSONCacheUtils";
 import TabSystem from "../../../TabSystem";
+import LightningCache from "../../LightningCache";
 
 export default class EventCheck extends CommonProblem {
     constructor({ ...other }) {
         //@ts-ignore
         super(other);
         this.problem_found = false;
+        this.events = undefined;
     }
 
     peek(node) {
@@ -24,7 +25,16 @@ export default class EventCheck extends CommonProblem {
                     }
                 } catch(e) {}
             } else {
-                if(!JsonCacheUtils.events.includes(node.data)) {
+                if(this.events === undefined) {
+                    let c = LightningCache.getCompiledSync();
+                    try {
+                        this.events = c.entity.events;
+                    } catch(e) {
+                        this.events = [];
+                    }
+                } 
+
+                if(!this.events.includes(node.data)) {
                     this.problem_found = true;
                     return true;
                 } 
@@ -39,5 +49,6 @@ export default class EventCheck extends CommonProblem {
     reset() {
         super.reset();
         this.problem_found = false;
+        this.events = undefined;
     }
 }

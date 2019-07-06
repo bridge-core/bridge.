@@ -1,7 +1,5 @@
 //@ts-check
 import CommonProblem from "../CommonProblem";
-import JsonCacheUtils from "../../JSONCacheUtils";
-import TabSystem from "../../../TabSystem";
 
 export default class BehaviorCheck extends CommonProblem {
     constructor({ ...other }) {

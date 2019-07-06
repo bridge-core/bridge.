@@ -1,10 +1,10 @@
 import { BASE_PATH } from "../constants";
 import TabSystem from "../TabSystem";
-import JsonCacheUtils from "../editor/JSONCacheUtils";
 import Store from "../../store/index";
 import path from "path";
 import fs from "fs";
 import Provider from "./Provider";
+import LightningCache from "../editor/LightningCache";
 
 let PARENT_CONTEXT = {};
 let NODE_CONTEXT = {};
@@ -40,6 +40,9 @@ export function CONTEXT_DOWN() {
 }
 
 export const DYNAMIC = {
+    get cache() {
+        return LightningCache.getCompiledSync();
+    },
     list: {
         next_index() {
             if(NODE_CONTEXT.is_array) {
@@ -70,7 +73,7 @@ export const DYNAMIC = {
             return [];
         },
         cached_families() {
-            return JsonCacheUtils.families;
+            return LightningCache.getCompiledSync().entity.families;
         },
         component_groups() {
             try {
@@ -87,10 +90,10 @@ export const DYNAMIC = {
             }
         },
         all_events() {
-            return JsonCacheUtils.events.map(e => e);
+            return LightningCache.getCompiledSync().entity.events.map(e => "@s " + e);
         },
         "@events"() {
-            return JsonCacheUtils.events.map(e => "@s " + e);
+            return LightningCache.getCompiledSync().entity.events.map(e => "@s " + e);
         },
         animation_references() {
             try {
@@ -133,10 +136,10 @@ export const DYNAMIC = {
         }
     },
     animation_controller_ids() {
-        return JsonCacheUtils.animation_controller_ids;
+        return LightningCache.getCompiledSync().animation_controller.ids;
     },
     animation_ids() {
-        return JsonCacheUtils.animation_ids;
+        return LightningCache.getCompiledSync().animation.ids;
     },
     siblings() {
         return PARENT_CONTEXT.toJSON();

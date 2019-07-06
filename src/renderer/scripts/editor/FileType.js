@@ -133,4 +133,11 @@ export default class FileType {
         await Promise.all(proms);
         return snippets;
     }
+
+    static async getLightningCacheDefs(file_path) {
+        let data = this.getData(file_path);
+        if(data === undefined || data.lightning_cache === undefined) return;
+
+        return await readJSON(`${__static}\\lightning_cache\\${data.lightning_cache}.json`);
+    }
 }

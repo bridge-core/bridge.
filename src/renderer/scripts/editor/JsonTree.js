@@ -107,6 +107,13 @@ export default class JSONTree {
     updateUUID() {
         this.uuid = uuidv4();
     }
+    forEach(cb) {
+        if(typeof cb !== "function") return;
+
+        for(let c of this) {
+            cb(c);
+        }
+    }
 
     /**
      * @param {String|Array} inp 

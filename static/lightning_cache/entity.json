@@ -1,0 +1,12 @@
+[ 
+    { "key": "events", "path": "minecraft:entity/events" }, 
+    { "key": "identifiers", "path": "minecraft:entity/description/identifier" }, 
+    { 
+        "key": "families", 
+        "search": {
+            "key": "minecraft:type_family",
+            "locations": [ "minecraft:entity/components", "minecraft:entity/component_groups" ],
+            "data": "family"
+        } 
+    }
+]

@@ -228,6 +228,8 @@ class Provider {
         
         parts.forEach(part => {
             let tmp = this.dynamic(part);
+            if(tmp === undefined) return;
+            
             if(typeof tmp === "string") {
                 let { object: object_internal, value: value_internal } = this.omegaExpression(tmp);
                 value = value.concat(value_internal);
