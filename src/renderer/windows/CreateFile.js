@@ -16,6 +16,7 @@ class FileContent {
         this.input = {
             type: "horizontal",
             center: true,
+            key: uuidv4(),
             content: [
                 {
                     type: "input",
@@ -23,6 +24,7 @@ class FileContent {
                     input: "unnamed",
                     has_focus: true,
                     color: "success",
+                    key: uuidv4(),
                     action: {
                         enter: () => {
                             this.parent.createFile();
@@ -30,16 +32,19 @@ class FileContent {
                         default: (val) => {
                             this.input.content[0].input = val;
 
-                            if(val === "") {
+                            if(val === "" && !this.parent.actions[1].is_disabled) {
                                 this.input.content[0].color = "error";
+                                this.input.key = uuidv4();
                                 this.parent.actions[1].is_disabled = true;
 
                                 this.path_info.text = "Invalid file name!\n\n"
                                 this.path_info.color = "error";
 
                                 this.parent.update({ content: this.content, actions: this.parent.actions });
-                            } else {
+                            } else if(this.parent.actions[1].is_disabled) {
                                 this.input.content[0].color = "success";
+                                this.input.key = uuidv4();
+                                this.parent.actions[1].is_disabled = false;
 
                                 this.path_info.text = this.getPath(val) + "\n\n";
                                 this.path_info.color = "grey";
