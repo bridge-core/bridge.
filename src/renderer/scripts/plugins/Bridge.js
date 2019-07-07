@@ -11,6 +11,7 @@ import JSONTree from "../editor/JsonTree";
 import Provider from "../autoCompletions/Provider";
 import { walkSync } from "../autoCompletions/Dynamic";
 import LoadingWindow from "../../windows/LoadingWindow";
+import OmegaCache from "../editor/OmegaCache";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -25,33 +26,27 @@ export default class Bridge {
 
         this.Cache = {
             open(path, cb) {
-                FileSystem.Cache.get(path)
-                    .then(data => {
-                        if(typeof cb == "function") cb(data);
-                    })
-                    .catch(err => cb({}));
+                if(typeof cb !== "function") return;
+
+                OmegaCache.load(path)
+                    .then(cb)
+                    .catch(err => cb({}))
             },
-            openSync(path) {
-                let c =  FileSystem.Cache;
-                return c.openWith(c.cached_cache, path) || c.openWith(c.getCacheSync(), path);
+            openSync() {
+                console.warn("The Cache.openSync API is no longer supported in bridge. v0.13.0!");
             },
-            write(path, other) {
-                FileSystem.Cache.save(path, undefined, other);
+            write() {
+                console.warn("The Cache.write API is no longer supported in bridge. v0.13.0!");
             },
             Dependency: {
-                add(to, dependency, cb) {
-                    FileSystem.Cache.addDependency(to, dependency)
-                        .then(cache => cb(cache));
+                add() {
+                    console.warn("The Cache.Dependency API is no longer supported in bridge. v0.13.0!");
                 },
-                remove(from, dependency) {
-                    FileSystem.Cache.removeDependency(from, dependency);
+                remove() {
+                    console.warn("The Cache.Dependency API is no longer supported in bridge. v0.13.0!");
                 },
-                removeAll(sources=[], dependency) {
-                    if(!Array.isArray(sources)) sources = Array.prototype.slice.call({ ...sources, length: Object.keys(sources).length });
-                    let p =  Store.state.Explorer.project.explorer;
-                    FileSystem.Cache.removeAllDependencies(sources.map(
-                        s => s.includes(p) ? s : BASE_PATH + p + "/" + s
-                    ), dependency);
+                removeAll() {
+                    console.warn("The Cache.Dependency API is no longer supported in bridge. v0.13.0!");
                 }
             }
         };

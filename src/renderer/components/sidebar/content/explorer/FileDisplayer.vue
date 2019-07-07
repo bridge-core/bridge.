@@ -41,6 +41,8 @@
     import TabSystem from '../../../../scripts/TabSystem';
     import fs from "fs";
     import Assert from '../../../../scripts/plugins/PluginAssert';
+    import OmegaCache from '../../../../scripts/editor/OmegaCache';
+    import LightningCache from '../../../../scripts/editor/LightningCache';
 
     export default {
         name: "file-displayer",
@@ -122,7 +124,9 @@
                             action: () => {
                                 new ConfirmWindow(
                                     async () => {
-                                        FileSystem.Cache.clear(file_path);
+                                        OmegaCache.clear(file_path);
+                                        LightningCache.clear(file_path);
+
                                         await trash(file_path);
                                         this.$root.$emit("refreshExplorer");
                                         TabSystem.closeByPath(file_path);
@@ -149,7 +153,8 @@
                                     let closed = TabSystem.closeByPath(file_path);
 
                                     let new_path = `${excl_path}${new_name}`;
-                                    FileSystem.Cache.rename(file_path, new_path);
+                                    OmegaCache.rename(file_path, new_path);
+                                    LightningCache.rename(file_path, new_path);
                                     fs.rename(file_path, new_path, (err) => {
                                         if(err) Assert.throw("bridge. Core", err);
                                         this.$root.$emit("refreshExplorer");

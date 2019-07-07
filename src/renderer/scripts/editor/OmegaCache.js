@@ -72,6 +72,7 @@ export default class OmegaCache {
             });
         });
     }
+    
     static clear(file_path) {
         fs.unlink(this.toCachePath(file_path), (err) => {
             if(err) throw new Error("[O.CACHE] Error calling OmegaCache.clear(..): ", err.message);

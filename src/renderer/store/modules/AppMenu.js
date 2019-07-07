@@ -12,6 +12,8 @@ import SnippetWindow from "../../windows/Snippets";
 import TemplateSetsWindow from "../../windows/TemplateSets";
 import CreditsWindow from "../../windows/Credits";
 import NodeShortcuts from "../../scripts/editor/Shortcuts";
+import OmegaCache from "../../scripts/editor/OmegaCache";
+import LightningCache from "../../scripts/editor/LightningCache";
 
 const state = {
     file: {
@@ -55,7 +57,8 @@ const state = {
                     if(TabSystem.getSelected()) new ConfirmWindow(() => {
                         try {
                             let path = TabSystem.getSelected().file_path;
-                            FileSystem.Cache.clear(path);
+                            OmegaCache.clear(path);
+                            LightningCache.clear(path);
                             TabSystem.closeSelected();
                             FileSystem.open(path);
                         } catch(err) {}

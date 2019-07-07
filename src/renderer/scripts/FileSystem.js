@@ -4,14 +4,12 @@ import Store from "../store/index";
 import Vue from "../main";
 import TabSystem from "./TabSystem";
 import { ipcRenderer } from "electron";
-import Cache from "./utilities/Cache.js";
 import JSONTree from "./editor/JsonTree.js";
 import ProblemIterator from "./editor/problems/Problems.js";
 import LoadingWindow from "../windows/LoadingWindow";
 import PluginEnv from "./plugins/PluginEnv";
 import path from "path";
 import OmegaCache from "./editor/OmegaCache";
-import PluginAssert from "./plugins/PluginAssert";
 import { booleanAnyOfTrigger } from "./plugins/EventTriggers";
 import FileType from "./editor/FileType";
 import ConfirmWindow from "./commonWindows/Confirm";
@@ -41,7 +39,6 @@ class FileSystem {
     constructor() {}
     get Cache() {
         console.warn("Calling FileSystem.Cache is deprecated!");
-        return OmegaCache;
     }
     save(path, content, update=false, open=false) {
         let tmp_path = path.split("/");
