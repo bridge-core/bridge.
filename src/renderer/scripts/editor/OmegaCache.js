@@ -74,16 +74,12 @@ export default class OmegaCache {
     }
     
     static clear(file_path) {
-        fs.unlink(this.toCachePath(file_path), (err) => {
-            if(err) throw new Error("[O.CACHE] Error calling OmegaCache.clear(..): ", err.message);
-        });
+        fs.unlink(this.toCachePath(file_path), (err) => {});
     }
     static rename(old_path, new_path) {
         if(!this.mayBeCached(new_path))
             return this.clear(old_path);
         
-        fs.rename(this.toCachePath(old_path), this.toCachePath(new_path), (err) => {
-            if(err) throw new Error("[O.CACHE] Error calling OmegaCache.rename(..): ", err.message);
-        });
+        fs.rename(this.toCachePath(old_path), this.toCachePath(new_path), (err) => {});
     }
 }

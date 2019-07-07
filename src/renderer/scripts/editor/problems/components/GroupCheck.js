@@ -12,7 +12,10 @@ export default class EntityGroupCheck extends CommonProblem {
     peek(node) {
         if(node.parent === undefined) return false;
         if(node.parent.key === "component_groups" && node.path.includes("minecraft:entity/events")) {
-            let groups = TabSystem.getSelected().content.get("minecraft:entity/component_groups").children.map(c => c.key);
+            let groups = [];
+            try {
+                groups = TabSystem.getSelected().content.get("minecraft:entity/component_groups").children.map(c => c.key);
+            } catch(e) {}
             
             if(node.data !== "" && !groups.includes(node.data)) {
                 this.problem_found = true;
