@@ -21,21 +21,26 @@ function toUnifiedObj(obj) {
 }
 
 export default class LightningCache {
+    global_cache = undefined;
+
     static async add(file_path, content) {
         if(!content instanceof JSONTree) return;
         let type = FileType.get(file_path);
         if(type === "unknown") return;
 
-        let global_cache, defs = await FileType.getLightningCacheDefs(file_path);
-        try {
-            global_cache = await readJSON(path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache"));
-        } catch(e) {
-            global_cache = {};
+        let defs = await FileType.getLightningCacheDefs(file_path);
+        if(this.global_cache === undefined) {
+            try {
+                this.global_cache = await readJSON(path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache"));
+            } catch(e) {
+                this.global_cache = {};
+            }
         }
+        
         let cache_key = OmegaCache.toCachePath(file_path, false);
-        if(global_cache[type] === undefined) global_cache[type] = {};
-        if(global_cache[type][cache_key] === undefined) global_cache[type][cache_key] = {};
-        let cache = global_cache[type][cache_key];
+        if(this.global_cache[type] === undefined) this.global_cache[type] = {};
+        if(this.global_cache[type][cache_key] === undefined) this.global_cache[type][cache_key] = {};
+        let cache = this.global_cache[type][cache_key];
 
         defs.forEach(def => {
             if(def.path !== undefined) {
@@ -78,31 +83,36 @@ export default class LightningCache {
             }
         });
 
-        await writeJSON(path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache"), global_cache);
+        this.cached_cache = cached_cache;
+        await writeJSON(path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache"), this.global_cache);
     }
     static async load() {
+        if(this.global_cache !== undefined) return this.global_cache;
         return await readJSON(path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache"));
     }
     static loadSync() {
+        if(this.global_cache !== undefined) return this.global_cache;
         return JSON.parse(fs.readFileSync(path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache")).toString());
     }
 
     static async getCompiled() {
-        let global_cache = await this.load();
+        let cache = await this.load();
         let res = {};
 
-        for(let key in global_cache) {
-            res[key] = toUnifiedObj(global_cache[key]);
+        for(let key in cache) {
+            if(cache[key] !== null)
+                res[key] = toUnifiedObj(cache[key]);
         }
 
         return res;
     }
     static getCompiledSync() {
-        let global_cache = this.loadSync();
+        let cache = this.loadSync();
         let res = {};
 
-        for(let key in global_cache) {
-            res[key] = toUnifiedObj(global_cache[key]);
+        for(let key in cache) {
+            if(cache[key] !== null)
+                res[key] = toUnifiedObj(cache[key]);
         }
 
         return res;
@@ -112,17 +122,17 @@ export default class LightningCache {
         let type = FileType.get(file_path);
         if(type === "unknown") return;
 
-        let global_cache = await readJSON(path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache"));
-        global_cache[type][OmegaCache.toCachePath(new_path, false)] = global_cache[type][OmegaCache.toCachePath(old_path, false)];
-        global_cache[type][OmegaCache.toCachePath(old_path, false)] = null;
-        await writeJSON(file_path, global_cache);
+        this.global_cache = await this.load();
+        this.global_cache[type][OmegaCache.toCachePath(new_path, false)] = this.global_cache[type][OmegaCache.toCachePath(old_path, false)];
+        this.global_cache[type][OmegaCache.toCachePath(old_path, false)] = null;
+        await writeJSON(file_path, this.global_cache);
     }
     static async delete(file_path) {
         let type = FileType.get(file_path);
         if(type === "unknown") return;
 
-        let global_cache = await readJSON(path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache"));
-        global_cache[type][OmegaCache.toCachePath(file_path, false)] = null;
-        await writeJSON(file_path, global_cache);
+        this.global_cache = await this.load();
+        this.global_cache[type][OmegaCache.toCachePath(file_path, false)] = null;
+        await writeJSON(file_path, this.global_cache);
     }
 }
