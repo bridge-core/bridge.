@@ -27,11 +27,12 @@ export default class LightningCache {
     }
 
     static async add(file_path, content) {
-        if(!content instanceof JSONTree) return;
+        if(!(content instanceof JSONTree)) return;
         let type = FileType.get(file_path);
         if(type === "unknown") return;
 
         let defs = await FileType.getLightningCacheDefs(file_path);
+        if(defs === undefined) return;
         if(this.global_cache === undefined) {
             try {
                 this.global_cache = await readJSON(this.l_cache_path);
@@ -90,11 +91,20 @@ export default class LightningCache {
     }
     static async load() {
         if(this.global_cache !== undefined) return this.global_cache;
-        return await readJSON(this.l_cache_path);
+        try {
+            return await readJSON(this.l_cache_path);
+        } catch(err) {
+            return {};
+        }
+        
     }
     static loadSync() {
         if(this.global_cache !== undefined) return this.global_cache;
-        return JSON.parse(fs.readFileSync(this.l_cache_path).toString());
+        try {
+            return JSON.parse(fs.readFileSync(this.l_cache_path).toString());
+        } catch(err) {
+            return {};
+        }  
     }
 
     static async rename(old_path, new_path) {
@@ -102,8 +112,11 @@ export default class LightningCache {
         if(type === "unknown") return;
 
         this.global_cache = await this.load();
-        this.global_cache[type][OmegaCache.toCachePath(new_path, false)] = this.global_cache[type][OmegaCache.toCachePath(old_path, false)];
-        delete this.global_cache[type][OmegaCache.toCachePath(old_path, false)];
+        try {
+            this.global_cache[type][OmegaCache.toCachePath(new_path, false)] = this.global_cache[type][OmegaCache.toCachePath(old_path, false)];
+            delete this.global_cache[type][OmegaCache.toCachePath(old_path, false)];
+        } catch(e) {}
+        
         await writeJSON(this.l_cache_path, this.global_cache);
     }
     static async clear(file_path) {
@@ -111,7 +124,9 @@ export default class LightningCache {
         if(type === "unknown") return;
 
         this.global_cache = await this.load();
-        delete this.global_cache[type][OmegaCache.toCachePath(file_path, false)];
+        try {
+            delete this.global_cache[type][OmegaCache.toCachePath(file_path, false)];
+        } catch(e) {}
         await writeJSON(this.l_cache_path, this.global_cache);
     }
 

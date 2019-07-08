@@ -132,4 +132,4 @@ ipcMain.on("bridge:setOverlayIcon", (event, project) => {
     } catch(e) {
         mainWindow.setOverlayIcon(null, "");
     }
-})
+});

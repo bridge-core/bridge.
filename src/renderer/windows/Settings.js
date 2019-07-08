@@ -8,6 +8,10 @@ import AddSnippetWindow from "./AddSnippet";
 import Snippets from "./Snippets";
 import ProblemIterator from "../scripts/editor/problems/Problems";
 import { ipcRenderer } from "electron";
+import ConfirmWindow from "../scripts/commonWindows/Confirm";
+
+ipcRenderer.on("forceReloadApp", () => location.reload());
+
 
 class ReactiveListEntry {
     constructor(text, parent, watch_key, index) {
@@ -111,7 +115,10 @@ export default class SettingsWindow extends TabWindow {
     constructor() {     
         super("Settings", { is_persistent: false }, "bridge.core.settings_window.");
         this.data = SETTINGS.load();
-        const PROJECTS = fs.readdirSync(BASE_PATH);
+        let PROJECTS = [];
+        try {
+            PROJECTS = fs.readdirSync(BASE_PATH);
+        } catch(e) {}
 
         this.addTab({
             sidebar_element: {
@@ -252,6 +259,20 @@ export default class SettingsWindow extends TabWindow {
                 title: "Explorer"
             },
             content: [
+                {
+                    type: "button",
+                    text: "Default Directory",
+                    color: "error",
+                    is_rounded: true,
+                    action: () => {
+                        new ConfirmWindow(() => {
+                            ipcRenderer.send("chooseDefaultDirectory");
+                        }, () => {}, "Setting a new default directory requires an app restart. Make sure to save your progress first!", {
+                            cancel_text: "Cancel",
+                            confirm_text: "Continue"
+                        })
+                    }
+                },
                 {
                     color: "grey",
                     text: "\nDefault Project"
