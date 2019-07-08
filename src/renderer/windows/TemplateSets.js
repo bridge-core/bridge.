@@ -3,6 +3,7 @@ import safeEval from "safe-eval";
 import { RP_BASE_PATH, BASE_PATH } from "../scripts/constants";
 import { getTemplateSets, loadTemplateSets } from "../scripts/TemplateSets";
 import fs from "fs";
+import { join, sep as pathSep } from "path";
 import Store from "../store/index";
 import findRP from "../scripts/utilities/FindRP";
 import mkdirp from "mkdirp";
@@ -49,7 +50,7 @@ async function evalStatement(str, bindings) {
 }
 
 function parseDefine(path, as, bindings, cb) {
-    fs.readFile(`${__static}\\template_sets\\${path}`, async (err, data) => {
+    fs.readFile(path.join(__static, 'template_sets', path), async (err, data) => {
         // console.log(await evalStatement(as, bindings));
         if(err) 
             throw err;
@@ -57,7 +58,7 @@ function parseDefine(path, as, bindings, cb) {
             let path = await evalStatement(as, bindings);
             let folder = path.split(/\\|\//g);
             folder.pop();
-            folder = folder.join("\\");
+            folder = folder.join(pathSep);
 
             mkdirp.sync(folder);
             fs.writeFile(

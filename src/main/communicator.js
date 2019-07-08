@@ -4,7 +4,8 @@ import fs from "fs";
 import DirToJSON from "dir-to-json";
 
 ipcMain.on("getProjects", (event, args) => {
-    fs.readdir(args.path, (err, files) => {
+    console.log(args);
+    fs.readdir(args.path || '.', (err, files) => {
         if(err) console.log(err);
         event.sender.send("readProjects", { files, ...args });
         if(args.event_name) event.sender.send(args.event_name, { files, ...args });

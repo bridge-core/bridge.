@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import "./communicator.js";
 import "./Discord";
-import { BP_BASE_PATH } from "../shared/paths.js";
+import { BP_BASE_PATH } from "../shared/Paths.js";
 
 //Set __static path to static files in production
 if (process.env.NODE_ENV !== "development") {

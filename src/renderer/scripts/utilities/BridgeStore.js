@@ -1,15 +1,16 @@
 import fs from "fs";
 import mkdirp from "mkdirp";
+import { sep } from "path";
 
 export default class BridgeStore {
     constructor(path, namespace) {
-        this.namespace = namespace + "\\";
+        this.namespace = namespace + sep;
         this.path = path;
     }
 
     setup(namespace) {
         if(namespace === undefined) throw new Error("You need to define a namespace");
-        this.namespace = namespace + "\\";
+        this.namespace = namespace + sep;
         mkdirp.sync(this.path + this.namespace);
     }
     load(name) {

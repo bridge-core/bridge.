@@ -67,6 +67,7 @@
     "mime": "^2.4.2",
     "mkdirp": "^0.5.1",
     "mousetrap": "^1.6.2",
+    "register-scheme": "0.0.2",
     "safe-eval": "^0.4.1",
     "trash": "^5.2.0",
     "uuid": "^3.3.2",
