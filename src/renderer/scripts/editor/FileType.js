@@ -1,6 +1,7 @@
 import TabSystem from "../TabSystem";
 import Provider from "../autoCompletions/Provider";
 import fs from "fs";
+import { join } from "path";
 import { readJSON } from "../utilities/JsonFS";
 let FILE_DEFS;
 let HIGHLIGHTER_CACHE = {};
@@ -74,7 +75,7 @@ export default class FileType {
                     if(typeof file.file_creator === "string")
                         acc.push({
                             rp_definition: file.rp_definition,
-                            ...JSON.parse(fs.readFileSync(`${__static}\\file_creator\\${file.file_creator}.json`).toString())
+                            ...JSON.parse(fs.readFileSync(join(__static, "file_creator", `${file.file_creator}.json`)).toString())
                         });
                     else
                         acc.push({
@@ -94,7 +95,7 @@ export default class FileType {
             if(typeof hl === "object")
                 return hl;
             if(HIGHLIGHTER_CACHE[hl] === undefined)
-                HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(`${__static}\\highlighter\\${hl}.json`).toString());
+                HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(path.join(__static, "highlighter", `${hl}.json`)).toString());
             return HIGHLIGHTER_CACHE[hl];
         } catch(e) {
             return {
@@ -126,7 +127,7 @@ export default class FileType {
 
         for(let type of file_types) {
             if(type.snippets !== undefined) {
-                proms.push(readJSON(`${__static}\\snippets\\${type.snippets}.json`).then(data => snippets[type.id] = data));
+                proms.push(readJSON(join(__static, "snippets", `${type.snippets}.json`)).then(data => snippets[type.id] = data));
             }
         }
 
@@ -138,6 +139,6 @@ export default class FileType {
         let data = this.getData(file_path);
         if(data === undefined || data.lightning_cache === undefined) return;
 
-        return await readJSON(`${__static}\\lightning_cache\\${data.lightning_cache}.json`);
+        return await readJSON(join(__static, "lightning_cache", `${data.lightning_cache}.json`));
     }
 }

@@ -51,6 +51,7 @@
     import CreateProjectWindow from "../../../../windows/CreateProject";
     import LoadingWindow from "../../../../windows/LoadingWindow";
     import ZipFolder from "zip-a-folder";
+    import { join } from "path";
 
     export default {
         name: "explorer-toolbar",
@@ -72,7 +73,7 @@
                 let lw = new LoadingWindow();
                 let project = this.selected;
                 let path = this.base_path + project;
-                ZipFolder.zipFolder(path, `${path}\\${project}.mcpack`, err => {
+                ZipFolder.zipFolder(path, join(path, `${project}.mcpack`), err => {
                     if(err) console.error(err);
                     this.refresh();
                     lw.close();

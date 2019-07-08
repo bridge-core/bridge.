@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import "./communicator.js";
 import "./Discord";
 import { BP_BASE_PATH } from "../shared/Paths.js";
+import { join } from "path";
 
 //Set __static path to static files in production
 if (process.env.NODE_ENV !== "development") {
@@ -128,7 +129,7 @@ app.on("activate", () => {
 ipcMain.on("toggleDevTools", () => { mainWindow.toggleDevTools(); });
 ipcMain.on("bridge:setOverlayIcon", (event, project) => {
     try {
-        mainWindow.setOverlayIcon((BP_BASE_PATH + project + "/pack_icon.png").replace(/\//g, "\\"), project);
+        mainWindow.setOverlayIcon(join(BP_BASE_PATH, project, "/pack_icon.png"), project);
     } catch(e) {
         mainWindow.setOverlayIcon(null, "");
     }

@@ -1,6 +1,7 @@
 import TabSystem from "../TabSystem";
 import fs from "fs";
 import { RP_BASE_PATH, BASE_PATH } from "../constants";
+import path from "path"
 
 let last_selected;
 let last_result;
@@ -16,7 +17,7 @@ export default async function findRP() {
     let manifest;
     let uuid;
     try {
-        manifest = JSON.parse(await readFile(`${BASE_PATH}${selected}\\manifest.json`));
+        manifest = JSON.parse(await readFile(path.join(BASE_PATH, selected, "manifest.json")));
         uuid = manifest.dependencies[0].uuid;
     } catch(e) {
         last_result = "/@NO-DEPENDENCY@/";
@@ -25,7 +26,7 @@ export default async function findRP() {
 
     let rps = await readDirectory(RP_BASE_PATH);
     let promises = [];
-    rps.forEach(rp => promises.push(readFile(`${RP_BASE_PATH}${rp}\\manifest.json`)));
+    rps.forEach(rp => promises.push(readFile(path.join(RP_BASE_PATH, rp, "manifest.json"))));
     promises = await Promise.all(promises).then(data => data.map(e => e !== undefined ? JSON.parse(e) : e));
     
     for(let i = 0; i < promises.length; i++) {

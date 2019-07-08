@@ -120,7 +120,7 @@ class FileSystem {
             fs.readdir(file_path, (err, files) => {
                 if(err) throw err;
                 setTimeout(() => {
-                    files.forEach((file, i, arr) => this.open(file_path + "\\" + file, arr.length - 1 === i ? cb : undefined));
+                    files.forEach((file, i, arr) => this.open(path.join(file_path, file), arr.length - 1 === i ? cb : undefined));
                 }, 1);
             });
         }
