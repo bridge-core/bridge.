@@ -400,6 +400,13 @@ export default class JSONTree {
         if(first) this.updateUUID();
         return this;
     }
+    /**
+    * Can be used by plugins to hook into how a node is saved to disk. 
+    * Overwriting this method is more efficient than looping over all nodes inside the plugin itself
+    */
+    identity() {
+        return this;
+    }
     //Tree -> JSON
     toJSON(build_arrays=true) {
         return Json.Format.toJSON(this, build_arrays);

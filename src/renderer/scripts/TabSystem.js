@@ -5,13 +5,11 @@ import FileSystem from "./FileSystem";
 import PluginEnv from "./plugins/PluginEnv";
 import JSONTree from "./editor/JsonTree";
 import { changeProvider } from "./editor/JsonTree";
-import PluginAssert from "./plugins/PluginAssert";
 import LoadingWindow from "../windows/LoadingWindow";
 import ConfirmWindow from "./commonWindows/Confirm";
 import { History } from "./TabSystem/CommonHistory";
 import ProblemIterator from "./editor/problems/Problems";
 import path from "path";
-import { booleanAnyOfTrigger } from "./plugins/EventTriggers";
 import FileType from "./editor/FileType";
 import OmegaCache from "./editor/OmegaCache";
 import LightningCache from "./editor/LightningCache";
@@ -175,13 +173,15 @@ class TabSystem {
         this.selected = val;
         
         if(this.getSelected()) {
+            let sel = this.getSelected();
             //UPDATES AUTO_COMPLETIONS
-            changeProvider(this.getSelected().file_path);
+            changeProvider(sel.file_path);
 
             //PLUGIN TRIGGER
             PluginEnv.trigger("bridge:changedTab", { 
-                file_path: this.getSelected().file_path,
-                file_extension: this.getSelected().file_path.split(/\\|\//g).pop()
+                file_path: sel.file_path,
+                file_extension: path.extname(sel.file_path),
+                file_type: FileType.get(sel.file_path)
             }, true);
         }
         

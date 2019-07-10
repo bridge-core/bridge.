@@ -43,13 +43,13 @@
             style="padding: 4px;"
             
         >
-            <p>It doesn't look like your current behavior pack has a corresponding resource pack registered inside its manifest file.</p>
+            <p style="word-break: break-word;">It doesn't look like your current behavior pack has a corresponding resource pack registered inside its manifest file.</p>
 
             <v-btn color="success" @click="createRP">Create</v-btn><v-btn color="primary" @click="linkRP">Link</v-btn>
         </div>
         <p
             v-else
-            style="padding: 4px;"
+            style="padding: 4px; word-break: break-word;"
         >
             The resource pack which belongs to this behavior pack does not exist.
         </p>

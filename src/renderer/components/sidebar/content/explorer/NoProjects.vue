@@ -5,9 +5,9 @@
     >
         <v-subheader>No Behavior Packs Detected</v-subheader>
         <v-divider/>
-        <p>It looks like you do not have any projects inside the "development_behavior_packs" folder yet.</p>
+        <p style="word-break: break-word;">It looks like you do not have any projects inside the "development_behavior_packs" folder yet.</p>
         
-        <v-btn color="success" @click="createBP">Create A Project</v-btn>
+        <v-btn color="success" @click="createBP">Create</v-btn>
         <v-divider/>
     </div>
 </template>

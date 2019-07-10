@@ -18,5 +18,15 @@
                 "child_path": ""
             }
         ]
+    },
+    "minecraft:environment_sensor": {
+        "description": "Define events to trigger if the provided environment criterias are met.",
+        "arguments": [
+            {
+                "name": "on_environment",
+                "description": "Movement speed",
+                "child_path": ""
+            }
+        ]
     }
 }
