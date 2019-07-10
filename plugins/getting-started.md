@@ -15,7 +15,7 @@
 - [```.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
 
 #### ```Bridge.AutoCompletions```
-- ```.register(path, data)```
+- ```.add(path, data)```
 
 #### ```Bridge.BuildableFile```
 - [```.register(file_def)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/buildableFile/register.md)
