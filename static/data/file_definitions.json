@@ -75,6 +75,7 @@
         "file_viewer": "text",
 
         "start_state": "function/main",
+        "highlighter": "function",
         "file_creator": "function"
     },
     {

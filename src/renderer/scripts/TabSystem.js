@@ -48,13 +48,14 @@ class TabSystem {
         }
         
         tab.file_path = tab.file_path.replace(/\//g, "\\");
-        this.projects[this.project].unshift(Object.assign(tab, {
+        this.projects[this.project].unshift({
+            ...tab,
             uuid: `${this.project}-${Math.random()}-${Math.random()}`,
             file_navigation: "global",
             category: this.project,
             is_unsaved: false,
             history: new History()
-        }));
+        });
  
         EventBus.trigger("updateTabUI");
         this.select(0);
