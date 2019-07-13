@@ -1,6 +1,11 @@
 ## Plugins
 
-### Overview
+### Internal JSON Formats
+- [```Auto-Completions```](https://github.com/solvedDev/bridge./blob/master/plugins/auto_completions/main.md)
+  - [```Dynamic References```](https://github.com/solvedDev/bridge./blob/master/plugins/auto_completions/dynamic_references.md)
+- [```Lightning Cache```](https://github.com/solvedDev/bridge./blob/master/plugins/lightning_cache.md)
+
+### JS API Overview
 #### General
 - [```provide(data)```](https://github.com/solvedDev/bridge./blob/master/plugins/provide.md)
 - [```use(path)```](https://github.com/solvedDev/bridge./blob/master/plugins/use.md)
