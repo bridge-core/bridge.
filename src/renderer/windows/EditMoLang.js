@@ -16,7 +16,7 @@ export default class EditMoLangWindow extends ContentWindow {
                 {
                     type: "codemirror",
                     key: uuidv4(),
-                    input: moLang,
+                    input: moLang.replace(/\; /g, ";\n"),
                     file_path: "@/molang/fake",
                     options: {
                         lineNumbers: true,
@@ -28,8 +28,8 @@ export default class EditMoLangWindow extends ContentWindow {
                         mode: "molang"
                     },
                     action: (val) => {
-                        // let arr = 
-                        this.input = val.replace(/\s\.\s/g, ".").replace(/\;\\n/g, ";");
+                        val = val.split(/\n/g).filter(e => e !== '').join("\n");
+                        this.input = val.replace(/\s\.\s/g, ".").replace(/\;\n/g, "; ").replace(/\n/g, "; ");
                     }
                 }
             ],
@@ -52,6 +52,6 @@ export default class EditMoLangWindow extends ContentWindow {
             ]
         });
 
-        this.input = moLang;
+        this.input = moLang.replace(/\; /g, ";\n");
     }
 }
