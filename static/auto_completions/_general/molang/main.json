@@ -1,4 +1,5 @@
 {
+    "test": {},
     "$moLang.general.query": {
         "$moLang.general.operator": "$moLang.main"
     }

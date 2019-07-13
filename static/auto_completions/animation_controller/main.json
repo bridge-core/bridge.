@@ -6,12 +6,22 @@
                 "default": {
                     "animations": {
                         "$dynamic.list.next_index": {
-                            "$dynamic.entity.animation_references": "$animation.general.queries"
+                            "$dynamic.entity.animation_references": {
+                                "@import.value": "$animation.general.queries",
+                                "@meta": {
+                                    "is_molang": true
+                                }
+                            }
                         }
                     },
                     "transitions": {
                         "$dynamic.list.next_index": {
-                            "$dynamic.animation_controller.current_states": "$animation.general.queries"
+                            "$dynamic.animation_controller.current_states": {
+                                "@import.value": "$animation.general.queries",
+                                "@meta": {
+                                    "is_molang": true
+                                }
+                            }
                         }
                     },
                     

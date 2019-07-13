@@ -14,10 +14,10 @@ export default class TextProvider {
             let path = text.split(/\s+/);
             let current = path.pop();
             path = path.join("/");
-            // console.log(path);
+            // console.log(DEF_PROVIDER.start_state, path);
             let { object, value } = DEF_PROVIDER.get(path !== "" ? "global/" + path : "global");
             let propose = object.concat(value).filter(e => e !== current && e.includes(current));
-            
+            console.log(object, value);
             EventBus.trigger("bridge:textProviderUpdate", propose, [
                 { 
                     line: line_number,

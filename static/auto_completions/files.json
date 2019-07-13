@@ -40,8 +40,8 @@
     "loot_table/functions",
     "loot_table/conditions",
 
-    "moLang/main",
-    "moLang/general",
+    "molang/main",
+    "molang/general",
 
     "trade_table/main",
     "trade_table/general",

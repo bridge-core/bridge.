@@ -7,7 +7,6 @@ export default function loadAllTextHighlighters() {
     FileType.getTextHighlighters().forEach(({ set, define }) => {
         const { extension, line_comment, string_character } = set;
         const { titles, atoms, symbols, operators, keywords } = define;
-        console.log(set, define);
     
         CodeMirror.defineSimpleMode(extension, {
             start: [
