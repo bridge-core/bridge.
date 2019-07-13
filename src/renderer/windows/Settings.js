@@ -1,7 +1,7 @@
 import TabWindow from "../scripts/commonWindows/TabWindow";
 import Store from "../store/index";
 import SETTINGS from "../store/Settings";
-import { MINECRAFT_VERSIONS, BASE_PATH } from "../scripts/constants";
+import { MINECRAFT_VERSIONS, BASE_PATH, MOJANG_PATH } from "../scripts/constants";
 import EventBus from "../scripts/EventBus";
 import fs from "fs";
 import AddSnippetWindow from "./AddSnippet";
@@ -259,6 +259,13 @@ export default class SettingsWindow extends TabWindow {
                 title: "Explorer"
             },
             content: [
+                {
+                    text: "Chosen Default Directory:\n"
+                },
+                {
+                    text: MOJANG_PATH + "\n",
+                    color: "grey"
+                },
                 {
                     type: "button",
                     text: "Default Directory",
