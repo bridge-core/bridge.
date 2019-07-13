@@ -6,12 +6,8 @@
         "string_character": "'"
     },
     "define": {
-        "keywords": [ 
-            "query", "temp", "variable", "math"
-        ],
-        "titles": [ ],
-        "atoms": [ ],
-        "symbols": [ ],
+        "keywords": [ "query", "temp", "variable", "math", "return" ],
+        "atoms": [ "this" ],
         "operators": [ "+", "-", "*", "/", "!", "&&", "||", "<", "<=", ">=", ">", "==", "!=" ]
     }
 }

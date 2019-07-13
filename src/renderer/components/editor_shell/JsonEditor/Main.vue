@@ -36,6 +36,7 @@
                 :class="`key ${key_selected_class}`"
                 :data="value_data"
                 :meta="render_object.meta"
+                :node_context="render_object"
                 @click="attrClick"
             />
         </div>

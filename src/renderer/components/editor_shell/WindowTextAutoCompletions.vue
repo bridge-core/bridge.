@@ -4,7 +4,7 @@
         v-model="show_menu"
         :max-height="200"
         :position-x="x + 100 + (this.is_sidebar_expanded ? 202 : 0)"
-        :position-y="y + 56 + 24 + 24 + 90"
+        :position-y="y + 56 + 24 + 24 + 240"
         absolute
         :z-index="100000"
         ref="menu"

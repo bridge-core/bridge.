@@ -1,4 +1,6 @@
 export default function escapeRegExp(str) {
+    if(str === undefined) return [];
+
     if(typeof str === "string")
         return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     else

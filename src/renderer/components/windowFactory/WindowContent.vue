@@ -204,7 +204,7 @@
 
 <script>
     import CodeMirror from "codemirror";
-    import TextAutoCompletions from "../editor_shell/TextAutoCompletions";
+    import TextAutoCompletions from "../editor_shell/WindowTextAutoCompletions";
     import deepmerge from "deepmerge";
     import EventBus from "../../scripts/EventBus";
     import TextProvider from "../../scripts/autoCompletions/TextProvider";

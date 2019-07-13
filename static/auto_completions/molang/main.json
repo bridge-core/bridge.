@@ -1,6 +1,27 @@
 {
-    "test": {},
-    "$moLang.general.query": {
-        "$moLang.general.operator": "$moLang.main"
-    }
+    "temp": {
+        ".": {
+            "$placeholder": {
+                "$molang.general.operator": "$molang.main"
+            }
+        }
+    },
+    "variable": {
+        ".": {
+            "attack_time": {}
+        }
+    },
+    "math": {
+        ".": "$molang.general.math"
+    },
+    "query": {
+        ".": {
+            "$molang.general.query": {
+                "$molang.general.operator": "$molang.main"
+            }
+        }
+    },
+    "this": {},
+    "return": "$molang.main",
+    "$general.decimal": "$molang.main"
 }

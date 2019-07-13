@@ -2,6 +2,8 @@ import TabSystem from "../TabSystem";
 import Provider from "../autoCompletions/Provider";
 import fs from "fs";
 import { readJSON } from "../utilities/JsonFS";
+import eRE from "../utilities/EscapeRegExp";
+
 let FILE_DEFS;
 let HIGHLIGHTER_CACHE = {};
 let FILE_CREATOR_CACHE = [];
@@ -155,5 +157,15 @@ export default class FileType {
         if(data === undefined || data.lightning_cache === undefined) return;
 
         return await readJSON(`${__static}\\lightning_cache\\${data.lightning_cache}.json`);
+    }
+
+    static transformTextSeparators(file_path, text) {
+        try {
+            let { text_separators } = this.getData(file_path);
+            text_separators.forEach(s => text = text.replace(new RegExp(eRE(s), "g"), (val) => ` ${val} `));
+            return text;
+        } catch(e) {
+            return text;
+        }
     }
 }

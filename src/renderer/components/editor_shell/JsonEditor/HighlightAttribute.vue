@@ -39,7 +39,7 @@
         props: {
             data: [ String, Boolean, Number ],
             meta: Object,
-            node: Object,
+            node_context: Object,
             as_block: {
                 default: true,
                 type: Boolean
@@ -63,7 +63,7 @@
                 }
             },
             use_advanced_parsing() {
-                return isNaN(this.text) && !(this.text == "true" || this.text == "false" || this.text == "undfined") && this.text.match(/:|<|>/g) != null;
+                return isNaN(this.text) && !(this.text === "true" || this.text === "false" || this.text === "undfined") && this.text.match(/:|<|>|\.|\s/g) != null;
             },
 
             is_dark_mode() {
@@ -75,7 +75,7 @@
         },
         methods: {
             editMoLang() {
-                new EditMoLangWindow(this.text);
+                new EditMoLangWindow(this.text, this.node_context);
             }
         }
     }

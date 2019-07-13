@@ -100,6 +100,7 @@
     {
         "id": "molang",
         "includes": "molang",
+        "text_separators": [ "." ],
 
         "start_state": "molang/main",
         "highlighter": "molang"
