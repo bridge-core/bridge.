@@ -1,5 +1,6 @@
 import TabSystem from "../TabSystem";
 import { clipboard } from "electron";
+import { JSONAction } from "../TabSystem/CommonHistory";
 
 export default class NodeShortcuts {
     static paste() {
