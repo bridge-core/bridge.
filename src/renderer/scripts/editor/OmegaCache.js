@@ -21,7 +21,6 @@ export default class OmegaCache {
     }
 
     static mayBeCached(file_path) {
-        console.log(`[O.CACHE] Comparing ${file_path} and ${BASE_PATH}`)
         return file_path.includes(BASE_PATH) || file_path.includes(RP_BASE_PATH);
     }
     static toCachePath(file_path, with_base=true) {
