@@ -33,7 +33,9 @@ export default class InformationWindow {
                     text: "Okay",
                     action: () => this.close()
                 }
-            ], id: this.id, onClose: () => this.close() 
+            ],
+            id: this.id,
+            onClose: () => this.close() 
         });
 
         this.update = (opts) => {

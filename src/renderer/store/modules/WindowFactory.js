@@ -53,7 +53,7 @@ const mutations = {
         else if(id) throw new Error("Unknown window ID: " + id);
     },
     __plugin_window_internal_remove(state, { index, id }) {
-        if(state.elements.length > index && state.elements[index] === id) state.elements.splice(index, 1);
+        if(state.elements.length > index && state.elements[index].id === id) state.elements.splice(index, 1);
     },
     resetPluginWindows(state) {
         state.elements = [];

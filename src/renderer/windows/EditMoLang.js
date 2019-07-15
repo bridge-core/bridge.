@@ -8,7 +8,7 @@ export default class EditMoLangWindow extends ContentWindow {
         super({
             display_name: "Edit MoLang",
             options: {
-                is_persistent: true,
+                is_persistent: false,
                 is_maximizable: false,
                 height: 316
             },

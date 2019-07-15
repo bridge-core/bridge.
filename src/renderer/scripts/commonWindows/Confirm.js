@@ -48,7 +48,8 @@ export default class ConfirmWindow {
             options: { 
                 is_frameless: true, 
                 height: 130 
-            }, is_visible: true, id: this.id 
+            }, is_visible: true, id: this.id,
+            onClose: () => this.close()
         });
         this.update(opts);
     }
