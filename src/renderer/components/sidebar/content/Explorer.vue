@@ -73,7 +73,8 @@
     import PackLinker from '../../../scripts/utilities/LinkPacks';
     import OmegaCache from '../../../scripts/editor/OmegaCache';
     import ExplorerNoProjects from "./explorer/NoProjects";
-
+    import PluginLoader from "../../../scripts/plugins/PluginLoader";
+    
     export default {
         name: "content-explorer",
         components: {
@@ -229,11 +230,12 @@
                     force_reload
                 });
                 if(this.load_plugins) {
-                    this.$store.commit("loadAllPlugins", {
-                        directory: this.$store.state.Explorer.files[this.explorer_type],
-                        selected: this.selected, 
-                        base_path: this.base_path 
-                    });
+                    // this.$store.commit("loadAllPlugins", {
+                    //     directory: this.$store.state.Explorer.files[this.explorer_type],
+                    //     selected: this.selected, 
+                    //     base_path: this.base_path 
+                    // });
+                    PluginLoader.loadPlugins(dir);
                 } 
             },
 

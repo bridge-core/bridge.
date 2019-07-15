@@ -79,12 +79,10 @@ class FileSystem {
         if(typeof file_path !== "string") return;
         if(!fs.statSync(file_path).isFile()) return this.loadDir(file_path);
         let ext = path.extname(file_path);
-        let cache, file = await this.readFile(file_path);
-        try {
-            cache = await OmegaCache.load(file_path);
-        } catch(e) {
-            return this.loadFromDisk(file_path, file, cb);
-        }
+        let file;
+        try { file = await this.readFile(file_path); } catch(e) { return; }
+        let cache; 
+        try { cache = await OmegaCache.load(file_path); } catch(e) { return this.loadFromDisk(file_path, file, cb); }
         
 
 
