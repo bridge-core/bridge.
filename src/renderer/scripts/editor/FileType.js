@@ -168,4 +168,8 @@ export default class FileType {
             return text;
         }
     }
+
+    static getCommentChar(file_path) {
+        return this.getData(file_path).comment_character || "//";
+    }
 }

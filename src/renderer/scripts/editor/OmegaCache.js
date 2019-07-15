@@ -35,16 +35,27 @@ export default class OmegaCache {
         return path.join(with_base ? this.current_base : "", is_bp ? "BP" : "RP", tmp_path.pop());
     }
 
-    static isCacheFresh(file_path) {
-        return new Promise((resolve, reject) => {
-            fs.stat(this.toCachePath(file_path), (err, cache_stats) => {
-                if(err) return resolve(undefined);
-                fs.stat(file_path, (err, other_stats) => {
-                    if(err) console.log(err);
-                    resolve(cache_stats.mtimeMs - other_stats.mtimeMs + (1000 * 60 * 2) >= 0);
-                })
-            })
-        })
+    static extractFileVersion(file_path, file_str) { 
+        try {
+            let str = file_str.split("\n").shift();
+            let version_templ = `${FileType.getCommentChar(file_path)}bridge-file-version: #`;
+
+            if(str.startsWith(version_templ)) {
+                return Number(str.replace(version_templ, ""));
+            }
+        } catch(e) {}
+    }
+
+    static isCacheFresh(file_path, cache, otherFile) {
+        let file_version = this.extractFileVersion(file_path, otherFile);
+
+        if(file_version !== undefined) {
+            if(file_version <= cache.file_version) return true;
+            else return false;
+        } else {
+            if(cache.file_version !== undefined) return false;
+            else return true;
+        }
     }
 
     static load(file_path) {

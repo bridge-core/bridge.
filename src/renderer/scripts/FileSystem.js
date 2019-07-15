@@ -38,7 +38,7 @@ ipcRenderer.on("openFile", (event, path) => {
 class FileSystem {
     constructor() {}
     get Cache() {
-        console.warn("Calling FileSystem.Cache is deprecated!");
+        throw new Error("Calling FileSystem.Cache is deprecated!");
     }
     save(path, content, update=false, open=false) {
         let tmp_path = path.split("/");
@@ -77,30 +77,32 @@ class FileSystem {
 
     async open(file_path, cb) {
         if(typeof file_path !== "string") return;
+        if(!fs.statSync(file_path).isFile()) return this.loadDir(file_path);
         let ext = path.extname(file_path);
-        let is_fresh = await OmegaCache.isCacheFresh(file_path);
-        if(is_fresh === undefined) return this.loadFromDisk(file_path, cb);
+        let file = await this.readFile(file_path);
+        let cache = await OmegaCache.load(file_path);
 
-        if(is_fresh) {
-            let { cache_content, format_version } = await OmegaCache.load(file_path);
-            this.addAsTab(file_path, cache_content, format_version);
+
+        if(OmegaCache.isCacheFresh(file_path, cache, file.toString())) {
+            let { cache_content, format_version, file_version } = cache;
+            this.addAsTab(file_path, cache_content, format_version, null, file_version);
             if(typeof cb === "function") cb();
-        } else if(is_fresh !== undefined) {
+        } else {
             let needs_cache = booleanAnyOfTrigger("bridge:confirmCacheUse", { file_path: file_path, file_extension: ext, file_type: FileType.get(file_path) });
-            if(!needs_cache) return this.loadFromDisk(file_path, cb);
+            if(!needs_cache) return this.loadFromDisk(file_path, file, cb);
 
             new ConfirmWindow(() => {
                 OmegaCache.load(file_path)
-                    .then(({ cache_content, format_version }) => {
-                        this.addAsTab(file_path, cache_content, format_version);
+                    .then(({ cache_content, format_version, file_version }) => {
+                        this.addAsTab(file_path, cache_content, format_version, null, file_version);
     
                         if(typeof cb === "function") cb();
                     })
                     .catch(err => {
-                        this.loadFromDisk(file_path, cb);
+                        this.loadFromDisk(file_path, file, cb);
                     })
             }, () => {
-                this.loadFromDisk(file_path, cb);
+                this.loadFromDisk(file_path, file, cb);
             }, `It looks like the file "${path.basename(file_path)}" was edited with a different editor. Do you want to open it from bridge.'s cache or from disk?`, {
                 confirm_text: "Cache",
                 cancel_text: "Disk"
@@ -108,32 +110,30 @@ class FileSystem {
         }
     }
 
-    loadFromDisk(file_path, cb) {
-        if(fs.statSync(file_path).isFile()) {
-            fs.readFile(file_path, (err, data) => {
-                if(err) throw err;
-                this.addAsTab(file_path, data.toString(), 0, data);
-
-                if(typeof cb === "function") cb();
-            });
-        } else {
-            fs.readdir(file_path, (err, files) => {
-                if(err) throw err;
-                setTimeout(() => {
-                    files.forEach((file, i, arr) => this.open(file_path + "\\" + file, arr.length - 1 === i ? cb : undefined));
-                }, 1);
-            });
-        }
+    loadFromDisk(file_path, file, cb) {
+        let file_str = file.toString();
+        this.addAsTab(file_path, file_str, 0, file, OmegaCache.extractFileVersion(file_path, file_str));
+        if(typeof cb === "function") cb();
+    }
+    loadDir(file_path) {
+        fs.readdir(file_path, (err, files) => {
+            if(err) throw err;
+            setTimeout(() => {
+                files.forEach((file, i, arr) => this.open(file_path + "\\" + file, arr.length - 1 === i ? cb : undefined));
+            }, 1);
+        });
     }
 
-    addAsTab(file_path, data, format_version=0, raw_data) {
+    addAsTab(file_path, data, format_version=0, raw_data, file_version) {
         let tree;
         if(format_version === 1) {
             tree = JSONTree.buildFromCache(data);
             ProblemIterator.findProblems(tree, file_path);
         }
 
-        TabSystem.add({ 
+        TabSystem.add({
+            file_version,
+
             content: format_version === 1 ? tree : data,
             raw_content: raw_data,
             file_path,
@@ -141,6 +141,15 @@ class FileSystem {
             category: Store.state.Explorer.project.explorer,
             file_name: file_path.split(/\/|\\/).pop()
         });
+    }
+
+    async readFile(file_path) {
+        return new Promise((resolve, reject) => {
+            fs.readFile(file_path, (err, data) => {
+                if(err) reject(err);
+                else resolve(data);
+            })
+        })
     }
 }
 

@@ -73,6 +73,7 @@
         "id": "function",
         "includes": "functions",
         "file_viewer": "text",
+        "comment_character": "#",
 
         "start_state": "function/main",
         "highlighter": "function",
@@ -87,6 +88,12 @@
         "lightning_cache": "item",
         "highlighter": "item",
         "file_creator": "item"
+    },
+    {
+        "id": "lang",
+        "includes": "texts",
+        "file_viewer": "text",
+        "comment_character": "##"
     },
     {
         "id": "loot_table",
@@ -184,6 +191,13 @@
         "start_state": "client_item/main",
         "highlighter": "item",
         "file_creator": "client_item"
+    },
+    {
+        "id": "client_lang",
+        "includes": "texts",
+        "file_viewer": "text",
+        "comment_character": "##",
+        "rp_definition": true
     },
     {
         "id": "particle",

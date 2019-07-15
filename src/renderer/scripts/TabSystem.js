@@ -273,7 +273,7 @@ class TabSystem {
     }
 
     //SAVING
-    async getSaveContent(current) {
+    async getSaveContent(current, updateCache=true) {
         let ext = path.extname(current.file_path);
         let format_version = 0;
         if(current.content instanceof JSONTree) {
@@ -281,13 +281,16 @@ class TabSystem {
             format_version = 1;
         }
         
-        await Promise.all([
-            OmegaCache.save(current.file_path, {
-                format_version,
-                cache_content: this.transformForCache(current.content, current.raw_content)
-            }), 
-            LightningCache.add(current.file_path, current.content)
-        ]);
+        if(updateCache && OmegaCache.mayBeCached(current.file_path)) {
+            await Promise.all([
+                OmegaCache.save(current.file_path, {
+                    format_version,
+                    file_version: current.file_version,
+                    cache_content: this.transformForCache(current.content, current.raw_content)
+                }), 
+                LightningCache.add(current.file_path, current.content)
+            ]);
+        }
 
         return this.transformContent(PluginEnv.trigger("bridge:saveFile", { 
             ...current,
@@ -298,29 +301,27 @@ class TabSystem {
             file_extension: ext
         }).content, current.raw_content);
     }
-    async saveCurrent() {
+    async saveCurrent(fsMethod="basicSave", updateCache=true) {
         let win = new LoadingWindow("save-file").show();
         PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
         if(current === undefined || current.is_invalid) return win.close();
 
-        // console.log(await this.getSaveContent(current))
-        FileSystem.basicSave(current.file_path, await this.getSaveContent(current));
+        if(current.file_version === undefined) current.file_version = 0;
+        else current.file_version++;
+        console.log(current.file_version);
+        let comment_char = FileType.getCommentChar(current.file_path);
+
+        FileSystem[fsMethod](
+            current.file_path, 
+            `${comment_char}bridge-file-version: #${current.file_version}\n${await this.getSaveContent(current, updateCache)}`
+        );
 
         this.setCurrentSaved();
         win.close();
     }
-    async saveCurrentAs() {
-        let win = new LoadingWindow("save-file").show();
-
-        PluginEnv.trigger("bridge:startedSaving", null);
-        let current = this.getSelected();
-        if(current == undefined || current.is_invalid) return win.close();
-
-        FileSystem.basicSaveAs(current.file_path, await this.getSaveContent(current));
-        
-        this.setCurrentSaved();
-        win.close();
+    saveCurrentAs() {
+        this.saveCurrent("basicSaveAs", false);
     }
 
     //MOVING & NAVIGATING
