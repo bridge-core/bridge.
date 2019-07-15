@@ -23,7 +23,7 @@ The folder in which you place a auto-completion file matters because auto-comple
 ```
 
 ### File Structure
-You simulate the actual structure of a file with the JSON format "bridge." uses. It may not contain arrays so you need to use the [dynamic reference](https://github.com/solvedDev/bridge./blob/master/plugins/auto_completions/dynamic_references.md) ```$dynamic.list.next_index``` if you want to propose array indices. Only string arays are valid and they are only allowed in order to define values. (See example 2)
+You simulate the actual structure of a file with the JSON format "bridge." uses. It may not contain arrays so you need to use the [dynamic reference](https://github.com/solvedDev/bridge./blob/master/plugins/auto_completions/dynamic_references.md) ```$dynamic.list.next_index``` if you want to propose array indices. Only string arrays are valid and they are only allowed in order to define values. (See example 2)
 
 #### Example 1 from ```static/auto_completions/recipe/main```
 ```javascript
