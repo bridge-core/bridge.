@@ -1,18 +1,21 @@
 import TabSystem from "../TabSystem";
 import { clipboard } from "electron";
-import { JSONAction } from "../TabSystem/CommonHistory";
 
 export default class NodeShortcuts {
     static paste() {
         try {
             TabSystem.getCurrentNavObj().buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
             TabSystem.setCurrentUnsaved();
+            return true;
         } catch(e) {
             //Try again with a fix if the key was still in front
             try {
                 TabSystem.getCurrentNavObj().buildFromObject(JSON.parse("{" + clipboard.readText() + "}"), undefined, true);
                 TabSystem.setCurrentUnsaved();
-            } catch(e) {}
+                return true;
+            } catch(e) {
+                return false;
+            }
         }
     }
     static copy(node=TabSystem.getCurrentNavObj()) {

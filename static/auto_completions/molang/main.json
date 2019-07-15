@@ -8,11 +8,15 @@
     },
     "variable": {
         ".": {
-            "attack_time": {}
+            "attack_time": { "$molang.general.operator": "$molang.main" }
         }
     },
     "math": {
-        ".": "$molang.general.math"
+        ".": {
+            "$molang.general.math": {
+                "$molang.general.operator": "$molang.main"
+            }
+        }
     },
     "query": {
         ".": {
@@ -21,7 +25,7 @@
             }
         }
     },
-    "this": {},
+    "this": { "$molang.general.operator": "$molang.main" },
     "return": "$molang.main",
     "$general.decimal": "$molang.main"
 }
