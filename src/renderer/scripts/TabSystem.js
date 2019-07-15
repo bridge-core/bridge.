@@ -275,12 +275,15 @@ class TabSystem {
     //SAVING
     async getSaveContent(current) {
         let ext = path.extname(current.file_path);
-        if(current.content instanceof JSONTree)
+        let format_version = 0;
+        if(current.content instanceof JSONTree) {
             ProblemIterator.findProblems(current.content);
+            format_version = 1;
+        }
         
         await Promise.all([
             OmegaCache.save(current.file_path, {
-                format_version: 1,
+                format_version,
                 cache_content: this.transformForCache(current.content, current.raw_content)
             }), 
             LightningCache.add(current.file_path, current.content)
