@@ -1,7 +1,12 @@
 import BridgeStore from "../scripts/utilities/BridgeStore";
 import VueStore from "./index";
+import path from "path";
 
-let STORE = new BridgeStore(`C:${process.env.HOMEPATH}\\.bridge\\`, "data");
+let STORE;
+if (process.platform === "win32")
+    STORE = new BridgeStore(path.join(process.env.HOMEDRIVE, process.env.HOMEPATH, ".bridge/"), "data");
+else
+    STORE = new BridgeStore(path.join(process.env.HOME, ".bridge/"), "data");
 let DATA;
 
 function setup() {
