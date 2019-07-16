@@ -44,7 +44,7 @@
     import "codemirror/keymap/sublime.js";
     
     //Files
-    import "../../scripts/editor/mcfunction.js";
+    import loadAllTextHighlighters from "../../scripts/editor/CMLanguage.js";
 
     import JsonEditorMain from "./JsonEditor/Main";
     import JsonErrorScreen from "./JsonErrorScreen";
@@ -72,6 +72,9 @@
             available_height: Number,
             tab_id: Number, 
             uuid: String
+        },
+        created() {
+            loadAllTextHighlighters();
         },
         mounted() { 
             if(this.$refs.cm) {

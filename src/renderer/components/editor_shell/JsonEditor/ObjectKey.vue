@@ -54,6 +54,8 @@
             <highlight-attribute 
                 :data="node_context.data"
                 :as_block="false"
+                :meta="node_context.meta"
+                :node_context="node_context"
             />
         </span>
 

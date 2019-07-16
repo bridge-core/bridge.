@@ -3,7 +3,7 @@
         This directory has no content.
     </p>
     <div :style="element_style" :class="element_class" v-else>
-        <details v-for="(file) in loop_files.filter(f => f.isDir)" :open="file.is_open" :key="file.absolutePath + file.is_open">
+        <details v-for="(file) in only_folders" :open="file.is_open" :key="file.absolutePath + file.is_open">
             <summary @click="openDir(file.path)" v-ripple>
                 <v-icon class="open" small>folder_open</v-icon><v-icon class="closed" small>folder</v-icon>
                 <span class="folder"> {{ file.name }}</span>
@@ -18,7 +18,7 @@
             />
         </details>
         <div 
-            v-for="(file) in loop_files.filter(f => !f.isDir)"
+            v-for="(file) in only_files"
             :key="file.absolutePath"
             class="file"
             @click.stop="openFile(file.absolutePath)"
@@ -87,6 +87,12 @@
                     if(a.name < b.name) return -1;
                     return 0;
                 });
+            },
+            only_folders() {
+                return this.loop_files.filter(f => f.isDir && f.name !== "cache");
+            },
+            only_files() {
+                return this.loop_files.filter(f => !f.isDir);
             }
         },
         methods: {

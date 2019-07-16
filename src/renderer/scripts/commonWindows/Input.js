@@ -73,7 +73,10 @@ export default class InputWindow {
                 is_frameless: true, 
                 height: 160,
                 is_persistent: false
-            }, is_visible: true, id: this.id 
+            },
+            is_visible: true,
+            id: this.id,
+            onClose: () => this.close()
         });
     }
 

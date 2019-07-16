@@ -11,7 +11,7 @@ import EventBus from "../../scripts/EventBus";
 import SnippetWindow from "../../windows/Snippets";
 import TemplateSetsWindow from "../../windows/TemplateSets";
 import CreditsWindow from "../../windows/Credits";
-import NodeShortcuts from "../../scripts/editor/Shortcuts";
+import NodeShortcuts from "../../scripts/editor/NodeShortcuts";
 import OmegaCache from "../../scripts/editor/OmegaCache";
 import LightningCache from "../../scripts/editor/LightningCache";
 
@@ -201,9 +201,7 @@ const state = {
                 title: "Paste",
                 shortcut: "Ctrl + V",
                 action: () => {
-                    if(document.activeElement.tagName === "BODY") {
-                        NodeShortcuts.paste();
-                    } else {
+                    if(!NodeShortcuts.paste()) {
                         document.execCommand("paste");
                     }
                 }

@@ -30,7 +30,6 @@
             }
         }
     },
-    "daylock": "$general.boolean",
     "difficulty": "$general.game_difficulty",
     "effect": {
         "$function.general.target_selector": {

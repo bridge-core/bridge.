@@ -35,7 +35,9 @@
                 v-else
                 :class="`key ${key_selected_class}`"
                 :data="value_data"
-                @click.stop.native="attrClick"
+                :meta="render_object.meta"
+                :node_context="render_object"
+                @click="attrClick"
             />
         </div>
         <v-divider v-if="first"></v-divider>

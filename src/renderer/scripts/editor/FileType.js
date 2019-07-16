@@ -3,6 +3,8 @@ import Provider from "../autoCompletions/Provider";
 import fs from "fs";
 import { join } from "path";
 import { readJSON } from "../utilities/JsonFS";
+import eRE from "../utilities/EscapeRegExp";
+
 let FILE_DEFS;
 let HIGHLIGHTER_CACHE = {};
 let FILE_CREATOR_CACHE = [];
@@ -89,9 +91,9 @@ export default class FileType {
         return FILE_CREATOR_CACHE;
     }
 
-    static getHighlighter() {
+    static getHighlighter(data=this.getData()) {
         try {
-            let hl = this.getData().highlighter;
+            let hl = data.highlighter;
             if(typeof hl === "object")
                 return hl;
             if(HIGHLIGHTER_CACHE[hl] === undefined)
@@ -106,6 +108,22 @@ export default class FileType {
                 }
             };
         }
+    }
+    static getTextHighlighters() {
+        let defs = this.getAllData();
+        defs = defs.filter(({ highlighter: hl }) => {
+            try {
+                if(typeof hl === "object")
+                    return hl;
+                if(HIGHLIGHTER_CACHE[hl] === undefined)
+                    HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(`${__static}\\highlighter\\${hl}.json`).toString());
+                return HIGHLIGHTER_CACHE[hl].set.is_text_highlighter;
+            } catch(e) {
+                return false;
+            }
+        });
+
+        return defs.map(def => this.getHighlighter(def));
     }
 
     static DefaultBuildArrays(file_path) {
@@ -140,5 +158,19 @@ export default class FileType {
         if(data === undefined || data.lightning_cache === undefined) return;
 
         return await readJSON(join(__static, "lightning_cache", `${data.lightning_cache}.json`));
+    }
+
+    static transformTextSeparators(file_path, text) {
+        try {
+            let { text_separators } = this.getData(file_path);
+            text_separators.forEach(s => text = text.replace(new RegExp(eRE(s), "g"), (val) => ` ${val} `));
+            return text;
+        } catch(e) {
+            return text;
+        }
+    }
+
+    static getCommentChar(file_path) {
+        return this.getData(file_path).comment_character || "//";
     }
 }

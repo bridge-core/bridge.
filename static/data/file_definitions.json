@@ -73,8 +73,10 @@
         "id": "function",
         "includes": "functions",
         "file_viewer": "text",
+        "comment_character": "#",
 
         "start_state": "function/main",
+        "highlighter": "function",
         "file_creator": "function"
     },
     {
@@ -88,6 +90,12 @@
         "file_creator": "item"
     },
     {
+        "id": "lang",
+        "includes": "texts",
+        "file_viewer": "text",
+        "comment_character": "##"
+    },
+    {
         "id": "loot_table",
         "includes": "loot_tables",
         "file_viewer": "json",
@@ -95,6 +103,14 @@
         "start_state": "loot_table/main",
         "highlighter": "loot_table",
         "file_creator": "loot_table"
+    },
+    {
+        "id": "molang",
+        "includes": "molang",
+        "text_separators": [ "." ],
+
+        "start_state": "molang/main",
+        "highlighter": "molang"
     },
     {
         "id": "recipe",
@@ -175,6 +191,13 @@
         "start_state": "client_item/main",
         "highlighter": "item",
         "file_creator": "client_item"
+    },
+    {
+        "id": "client_lang",
+        "includes": "texts",
+        "file_viewer": "text",
+        "comment_character": "##",
+        "rp_definition": true
     },
     {
         "id": "particle",

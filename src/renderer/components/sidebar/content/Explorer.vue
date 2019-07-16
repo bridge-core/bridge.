@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container v-if="!no_projects">
         <span 
             v-if="selected !== undefined && selected !== '/@NO-RP@/' && selected !== '/@NO-DEPENDENCY@/'"
         >
@@ -43,18 +43,19 @@
             style="padding: 4px;"
             
         >
-            It doesn't look like your current behavior pack has a corresponding resource pack registered inside its manifest file.
-            <br/><br/>
+            <p style="word-break: break-word;">It doesn't look like your current behavior pack has a corresponding resource pack registered inside its manifest file.</p>
+
             <v-btn color="success" @click="createRP">Create</v-btn><v-btn color="primary" @click="linkRP">Link</v-btn>
         </div>
-        <div
+        <p
             v-else
-            style="padding: 4px;"
+            style="padding: 4px; word-break: break-word;"
         >
             The resource pack which belongs to this behavior pack does not exist.
-        </div>
+        </p>
         <v-divider></v-divider>
     </v-container>
+    <explorer-no-projects v-else/>
 </template>
 
 <script>
@@ -70,14 +71,16 @@
     import LinkRPWindow from "../../../windows/LinkRPWindow";
     import CreateProjectWindow from '../../../windows/CreateProject';
     import PackLinker from '../../../scripts/utilities/LinkPacks';
-import OmegaCache from '../../../scripts/editor/OmegaCache';
+    import OmegaCache from '../../../scripts/editor/OmegaCache';
+    import ExplorerNoProjects from "./explorer/NoProjects";
 
     export default {
         name: "content-explorer",
         components: {
             FileDisplayer,
             ExplorerToolbar,
-            ExplorerRpToolbar
+            ExplorerRpToolbar,
+            ExplorerNoProjects
         },
         provide: {
             base_path: this.base_path,
@@ -101,7 +104,8 @@ import OmegaCache from '../../../scripts/editor/OmegaCache';
                 listeners: ["readDir", "readProjects"],
                 items: [],
                 display_label: "Loading...",
-                project_select_size: window.innerWidth / 7.5
+                project_select_size: window.innerWidth / 7.5,
+                no_projects: false
             };
         },
         async mounted() {
@@ -112,9 +116,10 @@ import OmegaCache from '../../../scripts/editor/OmegaCache';
 
             ipcRenderer.on("readProjects", (event, args) => {
                 this.items = args.files;
+                this.no_projects = false;
                 
-                if (this.items.length == 0) {
-                    this.display_label = "No projects found";
+                if (this.items.length === 0 || this.items[0] === "undefined") {
+                    this.no_projects = true;
                 } else if(this.selected === "" || this.selected === undefined) {
                     this.getDirectory(this.findDefaultProject());
                 }

@@ -32,6 +32,7 @@ export default class JSONTree {
         this.mark_color = undefined;
         this.error = undefined;
         this.uuid = uuidv4();
+        this.meta = {};
 
         this.TreeIterator = class {
             constructor(tree) {
@@ -271,12 +272,18 @@ export default class JSONTree {
     propose(path=this.path) {
         //console.log(PROVIDER.get(path), path)
         if(Store.state.Settings.bridge_predictions) {
+            let { META, ...propose } = PROVIDER.get(path, this);
+            this.meta = META;
+
             this.propose_cache = null;
             this.propose_cache_uses = 0;
-            return PROVIDER.get(path, this);
+            return propose;
         } else {
             if(this.propose_cache_uses === 0) {
-                this.propose_cache = PROVIDER.get(path, this);
+                let { META, ...propose } = PROVIDER.get(path, this);
+                this.meta = META;
+
+                this.propose_cache = propose;
                 this.propose_cache_uses++;
             } else {
                 this.propose_cache_uses = 0;
@@ -400,6 +407,13 @@ export default class JSONTree {
         if(first) this.updateUUID();
         return this;
     }
+    /**
+    * Can be used by plugins to hook into how a node is saved to disk. 
+    * Overwriting this method is more efficient than looping over all nodes inside the plugin itself
+    */
+    identity() {
+        return this;
+    }
     //Tree -> JSON
     toJSON(build_arrays=true) {
         return Json.Format.toJSON(this, build_arrays);
@@ -411,6 +425,7 @@ export default class JSONTree {
             data: this.data,
             key: this.key,
             type: this.type,
+            meta: this.meta,
             children: this.children.map(c => c.buildForCache())
         };
     }
@@ -421,6 +436,7 @@ export default class JSONTree {
         //Load attributes which cannot be set with constructor
         this.comment = c.comment;
         this.type = c.type || (c.data === "" ? "object" : typeof Json.toCorrectType(c.data));
+        this.meta = c.meta || {};
 
         if(c.children)
             this.children = c.children.map(child => new JSONTree(child.key, child.data, this, undefined, child.open).buildFromCache(child));

@@ -185,7 +185,8 @@ export default {
     },
     watch: {
         is_window_visible(new_val) {
-            if(!new_val && typeof this.win.onClose == "function") this.win.onClose();
+            if(!new_val && typeof this.win.onClose === "function") this.win.onClose();
+            if(new_val && typeof this.win.onOpen === "function") this.win.onOpen();
         }
     },
     methods: {

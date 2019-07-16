@@ -2,7 +2,7 @@ import Bridge from "../../scripts/plugins/PluginEnv";
 import Store from "../index";
 import Vue from "vue";
 import fs from "fs";
-import DirToJSON from "dir-to-json";
+import dirTree from "../../../../node_modules/dirtree2json/lib/index";
 import { BASE_PATH } from "../../scripts/constants";
 import Provider from "../../scripts/autoCompletions/Provider";
 import FileType from "../../scripts/editor/FileType";
@@ -61,18 +61,15 @@ const mutations = {
         }
     },
     refreshAllPlugins(state, load_dir=false) {
-        if(load_dir) {
-            DirToJSON(BASE_PATH + state.current_loaded_project, (err, files) => {
-                if(err) console.log(err);
-        
-                Store.commit("setPluginCache", {
-                    args: { files },
-                    selected: state.current_loaded_project,
-                    base_path: BASE_PATH
-                });
-                Store.commit("refreshAllPlugins");
+        if(load_dir) {        
+            Store.commit("setPluginCache", {
+                directory: dirTree.dirTojson(BASE_PATH + state.current_loaded_project, {
+                    includeAbsolutePath: true
+                }),
+                selected: state.current_loaded_project,
+                base_path: BASE_PATH
             });
-            
+            Store.commit("refreshAllPlugins");           
         } else {
             Store.commit("forceReloadNextPluginRequest");
             Store.commit("loadAllPlugins", state.cache);

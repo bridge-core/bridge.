@@ -1,0 +1,13 @@
+{
+    "set": {
+        "is_text_highlighter": true,
+        "extension": "molang",
+        "line_comment": "#",
+        "string_character": "'"
+    },
+    "define": {
+        "keywords": [ "query", "temp", "variable", "math", "return" ],
+        "atoms": [ "this" ],
+        "operators": [ "+", "-", "*", "/", "!", "&&", "||", "<", "<=", ">=", ">", "==", "!=" ]
+    }
+}

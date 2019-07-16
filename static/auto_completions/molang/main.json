@@ -1,0 +1,31 @@
+{
+    "temp": {
+        ".": {
+            "$placeholder": {
+                "$molang.general.operator": "$molang.main"
+            }
+        }
+    },
+    "variable": {
+        ".": {
+            "attack_time": { "$molang.general.operator": "$molang.main" }
+        }
+    },
+    "math": {
+        ".": {
+            "$molang.general.math": {
+                "$molang.general.operator": "$molang.main"
+            }
+        }
+    },
+    "query": {
+        ".": {
+            "$molang.general.query": {
+                "$molang.general.operator": "$molang.main"
+            }
+        }
+    },
+    "this": { "$molang.general.operator": "$molang.main" },
+    "return": "$molang.main",
+    "$general.decimal": "$molang.main"
+}

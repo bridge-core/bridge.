@@ -1,6 +1,6 @@
 <template>
     <span class="hl-wrapper">
-        <span v-for="(string, i) in text_as_array" :key="i" :style="styles(string)">{{ string }}</span>
+        <span v-for="(string, i) in text_as_array" :key="`${text}.${i}`" :style="styles(string)">{{ string }}</span>
     </span>
 </template>
 
@@ -30,7 +30,7 @@
                 return "";
             },
             text_as_array() {
-                return this.text.replace(/:|<|>/g, (match) => {
+                return this.text.replace(/:|<|>|\.|\s|\(|\)/g, (match) => {
                     return `&bridge.split-point;${match}&bridge.split-point;`
                 }).split("&bridge.split-point;");
             },

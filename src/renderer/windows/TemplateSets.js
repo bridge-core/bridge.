@@ -11,6 +11,7 @@ import LoadingWindow from "./LoadingWindow";
 import InformationWindow from "../scripts/commonWindows/Information";
 import EventBus from "../scripts/EventBus";
 import uuidv4 from "uuid/v4";
+import FILE_SYSTEM from "../scripts/FileSystem";
 
 loadTemplateSets();
 let SETS;
@@ -64,7 +65,11 @@ function parseDefine(path, as, bindings, cb) {
             fs.writeFile(
                 path,
                 evalFile(data.toString(), bindings), 
-                (err) => { if(err) throw err; if(typeof cb === "function") cb(); }
+                (err) => { 
+                    if(err) throw err; 
+                    if(typeof cb === "function") cb(); 
+                    FILE_SYSTEM.open(path); 
+                }
             );
         }        
     });
@@ -139,13 +144,15 @@ class TemplateSetsWindow extends TabWindow {
                                 if(condition === undefined || await evalStatement(condition, this.BINDINGS)) 
                                     parseDefine(path, as, this.BINDINGS, () => {
                                         total_created++;
-                                        if(this.BINDINGS.length <= total_created) L_W.close();
+                                        if(define.length <= total_created) L_W.close();
                                     });
+                                else
+                                    total_created++;
                             });
                         } else {
                             parseDefine(path, as, this.BINDINGS, () => {
                                 total_created++;
-                                if(this.BINDINGS.length <= total_created) L_W.close();
+                                if(define.length <= total_created) L_W.close();
                             });
                         }
                         

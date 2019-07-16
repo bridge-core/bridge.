@@ -120,7 +120,7 @@ class Provider {
     }
 
     get(path, context) {
-        if(this.start_state === "unknown") return { object: [], value: [] };
+        if(this.start_state === "unknown") return { object: [], value: [], META: {} };
         path = path.replace("global", 
             VersionMap.convert(this.start_state, Store.state.Settings.target_version)
         );
@@ -134,6 +134,7 @@ class Provider {
     preparePropose(propose, context) {
         if(propose.object === LIB) return { value: [], object: [] };
         let { object, value } = propose;
+        let META = {};
 
         if(object.$load !== undefined) {
             let { object: object_internal, value: value_internal } = this.omegaExpression(object.$load);
@@ -160,6 +161,9 @@ class Provider {
                     } else if(key.startsWith("@value.")) {
                         value.push(key.split(".").pop());
                         return;
+                    } else if(key === "@meta") {
+                        META = deepmerge(META, object["@meta"]);
+                        return;
                     }
                     if(REMOVE_LIST.includes(key)) return undefined;
 
@@ -176,7 +180,8 @@ class Provider {
                         return propose.concat(element.filter((e) => !context.includes(e)));
                     return propose;
                 }, []),
-            value
+            value,
+            META
         }
     }
 

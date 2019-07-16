@@ -1,6 +1,11 @@
 ## Plugins
 
-### Overview
+### Internal JSON Formats
+- [```Auto-Completions```](https://github.com/solvedDev/bridge./blob/master/plugins/auto_completions/main.md)
+  - [```Dynamic References```](https://github.com/solvedDev/bridge./blob/master/plugins/auto_completions/dynamic_references.md)
+- [```Lightning Cache```](https://github.com/solvedDev/bridge./blob/master/plugins/lightning_cache.md)
+
+### JS API Overview
 #### General
 - [```provide(data)```](https://github.com/solvedDev/bridge./blob/master/plugins/provide.md)
 - [```use(path)```](https://github.com/solvedDev/bridge./blob/master/plugins/use.md)
@@ -9,13 +14,13 @@
 - [```.on(event, callback)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/on.md)
 - ```.off(event, callback)```
 - [```.open(file)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/open.md) **<DEPRECATED!>**
-- .openFile(file_path)
+- ```.openFile(file_path)```
 - [```.openExternal(path)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/openExternal.md)
 - [```.registerPlugin(plugin_info)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/registerPlugin.md)
 - [```.trigger(event, arguments)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/trigger.md)
 
 #### ```Bridge.AutoCompletions```
-- ```.register(path, data)```
+- ```.add(path, data)```
 
 #### ```Bridge.BuildableFile```
 - [```.register(file_def)```](https://github.com/solvedDev/bridge./blob/master/plugins/bridge/buildableFile/register.md)

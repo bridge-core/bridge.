@@ -58,7 +58,7 @@ import { clipboard } from "electron";
 import { JSONAction } from "../../../scripts/TabSystem/CommonHistory";
 import EventBus from "../../../scripts/EventBus";
 import { DOC_WINDOW } from "../../../scripts/documentation/main";
-import NodeShortcuts from "../../../scripts/editor/Shortcuts";
+import NodeShortcuts from "../../../scripts/editor/NodeShortcuts";
 
 export default {
     name: "json-editor-hover-card",
