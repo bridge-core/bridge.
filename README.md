@@ -30,6 +30,7 @@ Additionally, "bridge." has a few specific features which other editors do not o
    - Cut, Copy, Paste, Undo, Redo and all other features you would expect
    - Powerful shortcuts to reorder and navigate through a JSON file
    - JSON displays as a tree structure with collapsible/expandable elements
+   - Easily restructure JSON files by dragging elements
    - Beautiful syntax highlighting for all behavior pack files
    - Snippets to quickly import common JSON patterns
    - Error/Mistake detection and auto-fixes for some of them
