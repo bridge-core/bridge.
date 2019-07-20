@@ -20,7 +20,7 @@
                 dense 
                 :loading="loading" 
                 :disabled="items.length <= 1"
-                @input="getDirectory"
+                @input="(choice) => selected = choice"
                 hide-details
             />
             <v-subheader
@@ -119,7 +119,7 @@
                 this.items = args.files;
                 this.no_projects = false;
                 
-                if (this.items.length === 0 || this.items[0] === "undefined") {
+                if(this.items.length === 0 || this.items[0] === "undefined") {
                     this.no_projects = true;
                 } else if(this.selected === "" || this.selected === undefined) {
                     this.getDirectory(this.findDefaultProject());
@@ -215,14 +215,14 @@
                 });
             },
             getDirectory(dir=this.selected, force_reload) {
-                if(this.explorer_type === "explorer") EventBus.trigger("bridge:changedProject");
-                if(this.explorer_type === "explorer") OmegaCache.init(dir);
-
                 if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return;
                 if(dir !== this.selected) {
-                    this.$set(this, "selected", dir);
+                    this.selected = dir;
                     TabSystem.select(0);
+                    return;
                 }
+                if(this.explorer_type === "explorer") EventBus.trigger("bridge:changedProject");
+                if(this.explorer_type === "explorer") OmegaCache.init(dir);
                 
                 this.$store.commit("loadExplorerDirectory", {
                     store_key: this.explorer_type,
