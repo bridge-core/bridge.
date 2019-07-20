@@ -10,9 +10,6 @@ import ProblemIterator from "../scripts/editor/problems/Problems";
 import { ipcRenderer } from "electron";
 import ConfirmWindow from "../scripts/commonWindows/Confirm";
 
-ipcRenderer.on("forceReloadApp", () => location.reload());
-
-
 class ReactiveListEntry {
     constructor(text, parent, watch_key, index) {
         this.type = "card";
