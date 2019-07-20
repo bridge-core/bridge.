@@ -314,9 +314,11 @@ class TabSystem {
 
         FileSystem[fsMethod](
             current.file_path, 
-            `${comment_char}bridge-file-version: #${current.file_version}\n${await this.getSaveContent(current, updateCache)}`
+            `${comment_char}bridge-file-version: #${current.file_version}\n${await this.getSaveContent(current, updateCache)}`,
+            false,
+            true
         );
-
+        
         this.setCurrentSaved();
         win.close();
     }

@@ -33,6 +33,10 @@ export default class LoadingWindow extends ContentWindow {
             this.updateVisibility(false);
             return this;
         };
+        this.close = () => {
+            Store.commit("removePluginWindow", this.id);
+            Store.commit("removeLoadingWindow", { id: this.store_id });
+        }
         this.store_id = id;
     }
 
@@ -47,8 +51,5 @@ export default class LoadingWindow extends ContentWindow {
             id: this.id,
             val: true
         });
-    }
-    close() {
-        Store.commit("removeLoadingWindow", { id: this.store_id });
     }
 }

@@ -10,7 +10,7 @@
                 >
                     <object-key 
                         @mainClick="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
-                        @arrowClick="e.toggleOpen()"
+                        @arrowClick="$event.ctrlKey ? e.toggleOpenDeep() : e.toggleOpen()"
                         :object="e"
                         :my_key="e.key"
                         :comment="e.comment"
@@ -186,11 +186,11 @@
                 if(event.target.tagName === "I" || event.target.tagName === "BUTTON")
                     return;
                 event.preventDefault();
-
+                
                 let path = `${this.object_key}/${key.replace(/\//g, "#;slash;#")}`;
                 let context = this.render_object.get(key);
                 
-                if(!this.$store.state.Settings.cade_node_click) {
+                if(!this.$store.state.Settings.cade_node_click && !event.ctrlKey) {
                     if(context.open && !this.is_selected(path)) {
                         
                     } else if(!context.open) {
@@ -198,6 +198,8 @@
                     } else {
                         context.openNode(false);
                     }
+                } else if(event.ctrlKey) {
+                    context.toggleOpenDeep();
                 }
                 
                 TabSystem.setCurrentFileNav(path);

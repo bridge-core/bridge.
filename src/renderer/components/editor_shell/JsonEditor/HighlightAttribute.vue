@@ -38,7 +38,10 @@
         name: "highlight-attribute",
         props: {
             data: [ String, Boolean, Number ],
-            meta: Object,
+            meta: {
+                type: Object,
+                default: () => ({})
+            },
             node_context: Object,
             as_block: {
                 default: true,

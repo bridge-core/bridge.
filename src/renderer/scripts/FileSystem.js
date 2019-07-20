@@ -66,7 +66,7 @@ class FileSystem {
                 Vue.$root.$emit("refreshExplorer");
             }
             if(open) {
-                this.addAsTab(path, content, content);
+                this.addAsTab(path, content, 0, content);
             }
             PluginEnv.trigger("bridge:finishedSaving", path, true, false);
         });

@@ -5,14 +5,14 @@
         v-on:keydown.enter="open_current"
         :id="'summary.' + object_key"
         @click="(event) => $emit('mainClick', event)"
-        @dblclick="() => $store.state.Settings.cade_node_click ? $emit('arrowClick') : undefined"
+        @dblclick="(event) => $store.state.Settings.cade_node_click ? $emit('arrowClick', event) : undefined"
     >
         <v-btn
             icon
             flat
             small
             style="margin: 0; height: 16px; width: 16px;"
-            @click="$emit('arrowClick')"
+            @click="(event) => $emit('arrowClick', event)"
         >
             <v-icon
                 v-if="inversed_arrows && node_context.open || !inversed_arrows && !node_context.open"
