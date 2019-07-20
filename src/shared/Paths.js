@@ -1,4 +1,4 @@
-import { DefaultDir } from "../main/DefaultDir";
+import { DefaultDir } from "./DefaultDir";
 
 let default_dir = DefaultDir.get();
 export const MOJANG_PATH = default_dir !== "" ? 
