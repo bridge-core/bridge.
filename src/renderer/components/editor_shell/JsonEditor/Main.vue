@@ -2,33 +2,39 @@
     <span>
         <div v-if="open" :style="element_style">
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
-                <details 
-                    v-for="e in render_object.children"
-                    :key="e.uuid"
-                    :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
-                    :open="e.open"
+                <draggable 
+                    v-model="render_object.children"
+                    :options="{ group: 'key', disabled: $store.state.Settings.disable_node_dragging }"
+                    @change="draggedKey"
                 >
-                    <object-key 
-                        @mainClick="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
-                        @arrowClick="$event.ctrlKey ? e.toggleOpenDeep() : e.toggleOpen()"
-                        :object="e"
-                        :my_key="e.key"
-                        :comment="e.comment"
-                        :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
-                        :mark="e.mark_color"
-                        :error="e.error"
-                        :child_contains_error="e.child_contains_error"
-                        :node_context="e"
-                    />
+                    <details 
+                        v-for="e in render_object.children"
+                        :key="e.uuid"
+                        :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
+                        :open="e.open"
+                    >
+                        <object-key 
+                            @mainClick="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
+                            @arrowClick="$event.ctrlKey ? e.toggleOpenDeep() : e.toggleOpen()"
+                            :object="e"
+                            :my_key="e.key"
+                            :comment="e.comment"
+                            :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
+                            :mark="e.mark_color"
+                            :error="e.error"
+                            :child_contains_error="e.child_contains_error"
+                            :node_context="e"
+                        />
 
-                    <json-editor-main 
-                        :glob_object="first ? render_object : glob_object"
-                        :object="e"
-                        :first="false"
-                        :tab_id="tab_id"
-                        :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
-                    />
-                </details>
+                        <json-editor-main 
+                            :glob_object="first ? render_object : glob_object"
+                            :object="e"
+                            :first="false"
+                            :tab_id="tab_id"
+                            :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
+                        />
+                    </details>
+                </draggable>
             </span>
             
             <highlight-attribute 
@@ -84,6 +90,7 @@
     import EventBus from '../../../scripts/EventBus';
     import JSONTree from '../../../scripts/editor/JsonTree';
     import FileType from '../../../scripts/editor/FileType';
+    import draggable from "vuedraggable";
 
     export default {
         name: "json-editor-main",
@@ -91,7 +98,8 @@
             HighlightAttribute,
             ObjectKey,
             JsonInput,
-            PredictingInput
+            PredictingInput,
+            draggable
         },
         props: {
             available_height: Number,
@@ -186,7 +194,7 @@
                 if(event.target.tagName === "I" || event.target.tagName === "BUTTON")
                     return;
                 event.preventDefault();
-                
+
                 let path = `${this.object_key}/${key.replace(/\//g, "#;slash;#")}`;
                 let context = this.render_object.get(key);
                 
@@ -215,6 +223,10 @@
 
                     if(depth == deepest) this.$store.commit("removeLoadingWindow", { id: "open-file" });
                 }, 5);
+            },
+            draggedKey() {
+                TabSystem.setCurrentUnsaved();
+                TabSystem.setCurrentFileNav("global");
             },
 
             isKnownFileType() {
