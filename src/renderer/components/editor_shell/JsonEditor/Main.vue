@@ -4,7 +4,7 @@
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
                 <draggable 
                     v-model="render_object.children"
-                    :options="{ group: 'key', disabled: $store.state.Settings.disable_node_dragging }"
+                    v-bind="{ group: 'key', disabled: $store.state.Settings.disable_node_dragging }"
                     @change="draggedKey"
                 >
                     <details 

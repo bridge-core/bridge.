@@ -1,8 +1,10 @@
 <template>
-    <span :style="styles + (as_block ? 'display: block;' : '')">
+    <span
+        :style="styles + (as_block ? 'display: block;' : '')"
+        @click.stop="attrClick"
+    >
         <highlight-text
             v-if="use_advanced_parsing"
-            @click.stop.native="(event) => $emit('click', event)"
         >{{ text }}</highlight-text>
         <span
             v-else
@@ -79,6 +81,11 @@
         methods: {
             editMoLang() {
                 new EditMoLangWindow(this.text, this.node_context);
+            },
+            attrClick(event) {
+                if(event.target.tagName === "I" || event.target.tagName === "BUTTON" || event.target.tagName === "DIV") return;
+                
+                this.$emit('click', event);
             }
         }
     }
