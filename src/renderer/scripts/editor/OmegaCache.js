@@ -39,7 +39,7 @@ export default class OmegaCache {
             let str = file_str.split("\n").shift();
             let version_templ = `${FileType.getCommentChar(file_path)}bridge-file-version: #`;
 
-            if(str.startsWith(version_templ)) {
+            if(str.startsWith(version_templ) && !isNaN(Number(str.replace(version_templ, "")))) {
                 return Number(str.replace(version_templ, ""));
             }
         } catch(e) {}
