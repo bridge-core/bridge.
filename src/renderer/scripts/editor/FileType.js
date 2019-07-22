@@ -170,6 +170,11 @@ export default class FileType {
     }
 
     static getCommentChar(file_path) {
-        return this.getData(file_path).comment_character || "//";
+        try {
+            return this.getData(file_path).comment_character || "//";
+        } catch(e) {
+            return "//";
+        }
+        
     }
 }
