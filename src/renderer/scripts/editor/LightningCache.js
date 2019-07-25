@@ -25,6 +25,9 @@ export default class LightningCache {
     static get l_cache_path() {
         return path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache");
     }
+    static init() {
+        this.global_cache = undefined;
+    }
 
     static async add(file_path, content) {
         if(!(content instanceof JSONTree)) return;

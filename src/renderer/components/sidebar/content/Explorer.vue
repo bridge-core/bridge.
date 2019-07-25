@@ -73,6 +73,7 @@
     import PackLinker from '../../../scripts/utilities/LinkPacks';
     import OmegaCache from '../../../scripts/editor/OmegaCache';
     import ExplorerNoProjects from "./explorer/NoProjects";
+    import LightningCache from '../../../scripts/editor/LightningCache';
 
     export default {
         name: "content-explorer",
@@ -214,8 +215,12 @@
                 });
             },
             getDirectory(dir=this.selected, force_reload) {
-                if(this.explorer_type === "explorer") EventBus.trigger("bridge:changedProject");
-                if(this.explorer_type === "explorer") OmegaCache.init(dir);
+                if(this.explorer_type === "explorer") 
+                if(this.explorer_type === "explorer") {
+                    EventBus.trigger("bridge:changedProject");
+                    OmegaCache.init(dir);
+                    LightningCache.init();
+                }
 
                 if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return;
                 if(dir !== this.selected) {
