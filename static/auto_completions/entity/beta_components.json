@@ -1,12 +1,6 @@
 {
-    "minecraft:ambient_sound_interval": {
-        "min": "$general.number",
-        "max": "$general.number",
-        "event_name": "$general.sound"
-    },
-    "minecraft:boss": {
-        "should_darken_sky": "$general.boolean",
-        "hud_range": "$general.number"
+    "@meta": {
+        "expand_path_exceptions": [ "minecraft:persistent", "minecraft:trust" ]
     },
     "minecraft:npc": {
         "npc_data": {
@@ -32,9 +26,6 @@
                 }
             }
         }
-    },
-    "minecraft:water_movement": {
-        "drag_factor": "$general.decimal"
     },
 
 
@@ -92,7 +83,6 @@
         "can_nap_filters": "$entity.filters",
         "wake_mob_exceptions": "$entity.filters"
     },
-    "minecraft:behavior.nearest_prioritized_attackable_target": {},
     "minecraft:behavior.find_cover": {
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal",
@@ -129,7 +119,7 @@
         "priority": "$general.number",
         "within_radius": "$general.number",
         "must_see": "$general.boolean",
-        "aggro_sound": {},
+        "aggro_sound": "$general.sound",
         "sound_chance": "$general.decimal",
         "on_defend_start": "$general.entity.event_definition"
     }

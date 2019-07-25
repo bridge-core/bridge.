@@ -75,6 +75,8 @@
         "is_skin_id": "$general.number",
         "is_altitude": "$general.number",
         "is_brightness": "$general.decimal",
-        "is_temperature_value": "$general.decimal"
+        "is_temperature_value": "$general.decimal",
+        
+        "has_tag": { "@meta": { "is_value": true } }
     }
 }

@@ -3,7 +3,7 @@ import deepmerge from "deepmerge";
 import VersionMap from "../editor/VersionMap";
 import Store from "../../store/index";
 import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from "./Dynamic";
-import detachObj from "../detachObj";
+import { detachMerge as detachObj } from "../detachObj";
 import ComponentProvider from "./Components";
 import Assert from "../plugins/PluginAssert";
 import FileType from "../editor/FileType";
@@ -252,11 +252,12 @@ class Provider {
         };
     }
     compileTemplate(template) {
-        return template[this.dynamic(template["$key"])];
+        return template[this.dynamic(template["$key"]) || "$fallback"] || template["$default"];
     }
 
     //OMEGA HELPERS
     dynamic(expression) {
+        if(expression === undefined) return;
         let path = expression.substring(1, expression.length).split(".");
         let current = LIB;
         while(path.length > 0 && current !== undefined) {

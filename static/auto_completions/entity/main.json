@@ -1,6 +1,9 @@
 {
     "format_version": "$general.format_version",
     "minecraft:entity": {
+        "@meta": {
+            "expand_path_exceptions": [ "do_not_upgrade" ]
+        },
         "do_not_upgrade": {},
         "description": {
             "identifier": "$general.entity_identifier",

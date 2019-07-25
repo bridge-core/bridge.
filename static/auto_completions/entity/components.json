@@ -1,4 +1,7 @@
 {
+    "@meta": {
+        "expand_path_exceptions": [ "minecraft:burns_in_daylight", "minecraft:can_climb", "minecraft:can_fly", "minecraft:can_power_jump", "minecraft:hide", "minecraft:home", "minecraft:is_baby", "minecraft:is_charged", "minecraft:is_chested", "minecraft:is_hidden_when_invisible", "minecraft:is_ignited", "minecraft:is_illager_captain", "minecraft:is_saddled", "minecraft:is_shaking", "minecraft:is_sheared", "minecraft:is_stackable", "minecraft:is_stunned", "minecraft:is_tamed", "minecraft:item_hopper", "minecraft:jump.dynamic", "minecraft:managed_wandering_trader", "minecraft:scaffolding_climber", "minecraft:trade_resupply", "minecraft:wants_jockey" ]
+    },
     "minecraft:addrider": {
         "entity_type": "$general.entity_identifier",
         "spawn_event": "$dynamic.entity.all_events"
@@ -18,14 +21,15 @@
     },
     "minecraft:ambient_sound_interval": {
         "range": "$general.number",
-        "value": "$general.number"
+        "value": "$general.number",
+        "event_name": "$general.sound"
     },
     "minecraft:angry": {
         "broadcastAnger": "$general.boolean",
         "broadcastRange": "$general.number",
         "broadcast_filters": "$entity.filters",
         "broadcast_targets": {
-            "$dynamic.list.next_index": {}
+            "$dynamic.list.next_index": { "@meta": { "is_value": true } }
         },
         "calm_event": "$general.entity.event_definition",
         "duration": "$general.number",
@@ -52,6 +56,10 @@
                 "replaceItem": "$general.item_identifier"
             }
         }
+    },
+    "minecraft:boss": {
+        "should_darken_sky": "$general.boolean",
+        "hud_range": "$general.number"
     },
     "minecraft:break_blocks": {
         "breakable_blocks": {
@@ -157,7 +165,7 @@
     },
 
     "minecraft:economy_trade_table": {
-        "display_name": {},
+        "display_name": "$general.translatable_text",
         "table": "$dynamic.trade_table_files",
         "new_screen": "$general.boolean",
         "hero_demand_discount": "$general.number",
@@ -184,7 +192,7 @@
                 "accepted_items": {
                     "$dynamic.list.next_index": "$general.item_identifier"
                 },
-                "interact_text": {},
+                "interact_text": "$general.translatable_text",
                 "item": "$general.item_identifier",
                 "on_equip": "$general.entity.event_definition",
                 "on_unequip": "$general.entity.event_definition",
@@ -227,7 +235,7 @@
         "mutation_rate": "$general.decimal",
         "genes": {
             "$dynamic.list.next_index": {
-                "name": {},
+                "name": { "@meta": { "is_value": true } },
                 "allele_range": "$general.number",
                 "genetic_variants": {
                     "$dynamic.list.next_index": {
@@ -296,7 +304,7 @@
             },
             "cooldown": "$general.number",
             "hurt_item": "$general.number",
-            "interact_text": {},
+            "interact_text": "$general.translatable_text",
             "on_interact": "$general.entity.event_definition",
             "particle_on_start": "$general.entity.particle_definition",
             "play_sounds": "$general.sound",
@@ -323,7 +331,7 @@
     "minecraft:is_baby": {},
     "minecraft:is_charged": {},
     "minecraft:is_chested": {},
-    "minecraft:is_dyeable": { "interact_text": {} },
+    "minecraft:is_dyeable": { "interact_text": "$general.translatable_text" },
     "minecraft:is_hidden_when_invisible": {},
     "minecraft:is_ignited": {},
     "minecraft:is_illager_captain": {},
@@ -409,7 +417,7 @@
         "default_trigger": "$general.entity.event_definition",
         "name_actions": {
             "$dynamic.list.next_index": {
-                "name_filter": {},
+                "name_filter": { "@meta": { "is_value": true } },
                 "on_named": "$general.entity.event_definition"
             }
         }
@@ -510,7 +518,7 @@
                 "reapplication_delay": "$general.number"
             },
             "impact_damage": {
-                "filter": {},
+                "filter": { "@meta": { "is_value": true } },
                 "damage": {
                     "$dynamic.list.index_pair": "$general.number"
                 },
@@ -527,7 +535,7 @@
                 "secondSpawnChance": "$general.number",
                 "firstSpawnCount": "$general.number",
                 "secondSpawnCount": "$general.number",
-                "spawnMob": {},
+                "spawnMob": { "@meta": { "is_value": true } },
                 "spawnDefinition": "$general.entity_identifier",
                 "spawnBaby": "$general.boolean"
             },
@@ -608,9 +616,9 @@
         "controlling_seat": "$general.number",
         "crouching_skip_interact": "$general.boolean",
         "family_types": {
-            "$dynamic.list.next_index": "$general.family"
+            "$dynamic.list.next_index": "$dynamic.cache.entity.families"
         },
-        "interact_text": {},
+        "interact_text": "$general.translatable_text",
         "pull_in_entities": "$general.boolean",
         "rider_can_interact": "$general.boolean",
         "seat_count": "$general.number",
@@ -655,7 +663,7 @@
         }
     },
     "minecraft:shooter": {
-        "type": {},
+        "type": { "@meta": { "is_value": true } },
         "def": "$general.entity_identifier",
         "auxVal": "$general.potion_number_id"
     },
@@ -714,10 +722,10 @@
                 "temperMod": "$general.number"
             }
         },
-        "feed_text": {},
+        "feed_text": "$general.translatable_text",
         "minTemper": "$general.number",
         "maxTemper": "$general.number",
-        "ride_text": {},
+        "ride_text": "$general.translatable_text",
         "tame_event": "$general.entity.event_definition"
     },
     "minecraft:target_nearby_sensor": {
@@ -759,7 +767,7 @@
     },
     "minecraft:trade_resupply": {},
     "minecraft:trade_table": {
-        "display_name": {},
+        "display_name": "$general.translatable_text",
         "table": "$dynamic.trade_table_files",
         "new_screen": "$general.boolean",
         "hero_demand_discount": "$general.number",
@@ -804,5 +812,8 @@
     "minecraft:walk_animation_speed": {
         "value": "$general.decimal"
     },
-    "minecraft:wants_jockey": {}
+    "minecraft:wants_jockey": {},
+    "minecraft:water_movement": {
+        "drag_factor": "$general.decimal"
+    }
 }

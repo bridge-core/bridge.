@@ -487,14 +487,14 @@
                 "max_activation_range": "$general.decimal",
                 "cooldown_time": "$general.decimal",
                 "cast_duration": "$general.decimal",
-                "particle_color": {},
+                "particle_color": { "@meta": { "is_value": true } },
                 "weight": "$general.number",
                 "filters": "$entity.filters",
                 "start_sound_event": "$general.sound",
                 "sequence": {
                     "$dynamic.list.next_index": {
                         "base_delay": "$general.decimal",
-                        "event": {},
+                        "event": "$dynamic.cache.entity.events",
                         "sound_event": "$general.sound"
                     }
                 }
@@ -548,18 +548,18 @@
         "prepare_time": "$general.number",
         "sound": "$general.sound"
     },
-    "minecraft:behavior.squid_move_away_from_ground":{ "priority": "$general.number" },
-    "minecraft:behavior.squid_flee":{ "priority": "$general.number" },
-    "minecraft:behavior.squid_idle":{ "priority": "$general.number" },
-    "minecraft:behavior.squid_dive":{ "priority": "$general.number" },
-    "minecraft:behavior.squid_out_of_water":{ "priority": "$general.number" },
+    "minecraft:behavior.squid_move_away_from_ground": { "priority": "$general.number" },
+    "minecraft:behavior.squid_flee": { "priority": "$general.number" },
+    "minecraft:behavior.squid_idle": { "priority": "$general.number" },
+    "minecraft:behavior.squid_dive": { "priority": "$general.number" },
+    "minecraft:behavior.squid_out_of_water": { "priority": "$general.number" },
     "minecraft:behavior.stay_while_sitting": {
         "priority": "$general.number"
     },
     "minecraft:behavior.stomp_attack": {
       "priority": "$general.number",
       "attack_once": "$general.boolean",
-      "attack_types": {},
+      "attack_types": { "@meta": { "is_value": true } },
       "random_stop_interval": "$general.number",
       "reach_multiplier": "$general.decimal",
       "track_target": "$general.boolean",
@@ -586,7 +586,7 @@
                 "cooldown_time": "$general.decimal",
                 "weight": "$general.number",
                 "cast_duration": "$general.decimal",
-                "particle_color": {},
+                "particle_color": { "@meta": { "is_value": true } },
                 "start_sound_event": "$general.sound",
                 "sequence": {
                     "$dynamic.list.next_index": {
