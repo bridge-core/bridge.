@@ -158,8 +158,9 @@
         
         "build_array_exceptions": [ "particle_effects", "rotation", "position", "scale" ],
         "start_state": "animation/rp_main",
+        "lightning_cache": "rp_animation",
         "highlighter": "animation",
-        "file_creator": "animation"
+        "file_creator": "rp_animation"
     },
     {
         "id": "rp_animation_controller",
@@ -169,8 +170,9 @@
         
         "build_array_exceptions": [ "remap_curve" ],
         "start_state": "animation_controller/rp_main",
+        "lightning_cache": "rp_animation_controller",
         "highlighter": "animation_controller",
-        "file_creator": "animation_controller"
+        "file_creator": "rp_animation_controller"
     },
     {
         "id": "client_entity",
@@ -179,6 +181,7 @@
         "rp_definition": true,
         
         "start_state": "client_entity/main",
+        "lightning_cache": "client_entity",
         "highlighter": "entity",
         "file_creator": "client_entity"
     },
@@ -205,8 +208,8 @@
         "file_viewer": "json",
         "rp_definition": true,
         
-        
         "start_state": "particle/main",
+        "lightning_cache": "particle",
         "highlighter": "particle",
         "file_creator": "particle"
     },
@@ -218,6 +221,7 @@
         
         "build_array_exceptions": [ "timeline", "gradient" ],
         "start_state": "render_controller/main",
+        "lightning_cache": "render_controller",
         "file_creator": "render_controller",
         "highlighter": "render_controller"
     }

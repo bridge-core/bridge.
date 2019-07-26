@@ -2,7 +2,7 @@
     "format_version": "$general.format_version",
     "minecraft:spawn_groups": {
         "description": {
-            "identifier": {}
+            "identifier": { "@meta": { "is_value": true } }
         },
         "conditions": {
             "$dynamic.list.next_index": "$spawn_rule.components and $spawn_rule.beta_components and $spawn_group.components"

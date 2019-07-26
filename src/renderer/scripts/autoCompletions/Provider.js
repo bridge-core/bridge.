@@ -153,7 +153,7 @@ class Provider {
                 .map(key => {
                     if(key.startsWith("$dynamic_template.")) {
                         return key.split(".").pop();
-                    } else if(key === "@import.value") {
+                    } else if(key.startsWith("@import.value")) {
                         let { object: object_internal, value: value_internal } = this.omegaExpression(object[key]);
                         value.push(...value_internal);
                         value.push(...Object.keys(object_internal));
@@ -177,10 +177,10 @@ class Provider {
                     if(!Array.isArray(element)) element = [element];
                     
                     if(element[0] !== undefined)
-                        return propose.concat(element.filter((e) => !context.includes(e)));
+                        return propose.concat(element.filter(e => !context.includes(e)));
                     return propose;
                 }, []),
-            value,
+            value: value.filter(e => typeof e === "string" && e !== ""),
             META
         }
     }
@@ -227,6 +227,37 @@ class Provider {
     }
 
     omegaExpression(expression) {
+        let parts = expression.split(" + ");
+        let object = {};
+        let value = [];
+        let prefix = "";
+        
+        parts.forEach(part => {
+            if(part[0] === "'" && part[part.length - 1] === "'") {
+                prefix += part.substring(1, part.length - 1);
+            } else if(prefix === "") {
+                let { object: object_internal, value: value_internal } = this.dynamicExpression(part);
+                value = value.concat(value_internal);
+                object = detachObj(object, object_internal);
+            } else {
+                let { object: object_internal, value: value_internal } = this.dynamicExpression(part);
+                value = value.concat(value_internal.map(v => prefix + v));
+                for(let key in object_internal) {
+                    if(object[prefix + key] === undefined) {
+                        object[prefix + key] = object_internal[key];
+                    } else {
+                        object[prefix + key] = detachObj(object[prefix + key], object_internal[key]);
+                    }
+                }
+
+                prefix = "";
+            }
+        });
+
+        return { object, value };
+    }
+
+    dynamicExpression(expression) {
         let parts = expression.split(" and ");
         let object = {};
         let value = [];
@@ -245,12 +276,9 @@ class Provider {
                 object = detachObj(object, tmp);
         });
         
-
-        return {
-            object, 
-            value 
-        };
+        return { object, value };
     }
+
     compileTemplate(template) {
         return template[this.dynamic(template["$key"]) || "$fallback"] || template["$default"];
     }

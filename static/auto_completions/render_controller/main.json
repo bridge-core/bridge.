@@ -20,46 +20,83 @@
             },
             "uv_anim": {
                 "offset": {
-                    "$dynamic.list.index_pair": "$general.number and $animation.general.queries"
+                    "$dynamic.list.index_pair": {
+                        "@meta": { "is_molang": true },
+                        "@import.value": "$general.number and $animation.general.queries"
+                    }
                 },
-                "offset": {
-                    "$dynamic.list.index_pair": "$general.number and $animation.general.queries"
+                "scale": {
+                    "$dynamic.list.index_pair": {
+                        "@meta": { "is_molang": true },
+                        "@import.value": "$general.number and $animation.general.queries"
+                    }
                 }
             },
 
             "arrays": {
                 "textures": {
                     "$placeholder": {
-                        "$dynamic.list.next_index": {}
+                        "$dynamic.list.next_index": {
+                            "@meta": { "is_value": true },
+                            "@import.value": "'Texture.' + $dynamic.cache.client_entity.texture_references"
+                        }
                     }
                 },
                 "geometries": {
                     "$placeholder": {
-                        "$dynamic.list.next_index": {}
+                        "$dynamic.list.next_index": {
+                            "@meta": { "is_value": true },
+                            "@import.value": "'Geometry.' + $dynamic.cache.client_entity.geometry_references"
+                        }
                     }
                 },
                 "materials": {
                     "$placeholder": {
-                        "$dynamic.list.next_index": {}
+                        "$dynamic.list.next_index": {
+                            "@meta": { "is_value": true },
+                            "@import.value": "'Material.' + $dynamic.cache.client_entity.material_references"
+                        }
                     }
                 }
             },
 
-            "geometry": {},
+            "geometry": {
+                "@meta": { "is_molang": true },
+                "@import.value_1": "'Geometry.' + $dynamic.cache.client_entity.geometry_references",
+                "@import.value_2": "$animation.general.queries"
+            },
             "part_visibility": {
                 "$dynamic.list.next_index": {
-                    "*": "$animation.general.queries",
-                    "$placeholder": "$animation.general.queries"
+                    "*": {
+                        "@meta": { "is_molang": true },
+                        "@import.value": "$animation.general.queries"
+                    },
+                    "$placeholder": {
+                        "@meta": { "is_molang": true },
+                        "@import.value": "$animation.general.queries"
+                    }
                 }
             },
             "materials": {
                 "$dynamic.list.next_index": {
-                    "*": "$animation.general.queries",
-                    "$placeholder": "$animation.general.queries"
+                    "*": {
+                        "@meta": { "is_molang": true },
+                        "@import.value_1": "'Material.' + $dynamic.cache.client_entity.material_references",
+                        "@import.value_2": "$animation.general.queries"
+                    },
+                    "$placeholder": {
+                        "@meta": { "is_molang": true },
+                        "@import.value_1": "'Material.' + $dynamic.cache.client_entity.material_references",
+                        "@import.value_2": "$animation.general.queries"
+                    }
                 }
             },
             "textures": {
-                "$dynamic.list.next_index": {}
+                "$dynamic.list.next_index": {
+                    "@meta": { "is_molang": true },
+                    "@import.value_1": "'Texture.' + $dynamic.cache.client_entity.texture_references",
+                    "@import.value_2": "$animation.general.queries"
+                }
             }
         }
     }

@@ -5,12 +5,19 @@
             "states": {
                 "default": {
                     "blend_transition": "$general.decimal",
+                    "blend_via_shortest_path": "$general.boolean",
                     "parameters": {
-                        "$dynamic.list.next_index": "$animation.general.queries"
+                        "$dynamic.list.next_index": {
+                            "@meta": { "is_molang": true },
+                            "@import.value": "$animation.general.queries"
+                        }
                     },
                     "variables": {
                         "$placeholder": {
-                            "input": "$animation.general.queries",
+                            "input": {
+                                "@meta": { "is_molang": true },
+                                "@import.value": "$animation.general.queries"
+                            },
                             "remap_curve": {
                                 "$general.decimal": "$general.decimal"
                             }
@@ -19,23 +26,29 @@
 
                     "animations": {
                         "$dynamic.list.next_index": {
-                            "$placeholder": "$animation.general.queries"
+                            "$dynamic.cache.client_entity.animation_references": {
+                                "@meta": { "is_molang": true },
+                                "@import.value": "$animation.general.queries"
+                            }
                         }
                     },
                     "transitions": {
                         "$dynamic.list.next_index": {
-                            "$dynamic.animation_controller.current_states": "$animation.general.queries"
+                            "$dynamic.animation_controller.current_states": {
+                                "@meta": { "is_molang": true },
+                                "@import.value": "$animation.general.queries"
+                            }
                         }
                     },
                     "particle_effects": {
                         "$dynamic.list.next_index": {
-                            "effect": {},
-                            "locator": {}
+                            "effect": "$dynamic.cache.client_entity.particle_references",
+                            "locator": { "@meta": { "is_value": true } }
                         }
                     },
                     "sound_effects" : {
                         "$dynamic.list.next_index": {
-                            "$placeholder": {}
+                            "$placeholder": "$dynamic.cache.client_entity.sound_references"
                         }
                     }
                 },

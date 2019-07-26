@@ -60,6 +60,8 @@
     "animation_controller/rp_main",
 
     "client_entity/main",
+    "client_entity/general",
+    
     "client_item/main",
     "render_controller/main",
     "particle/main",

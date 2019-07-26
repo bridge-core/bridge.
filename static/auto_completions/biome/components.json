@@ -1,4 +1,8 @@
 {
+    "@meta": {
+        "expand_path_exceptions": [ "minecraft:nether_surface", "minecraft:the_end_surface" ]
+    },
+
     "minecraft:climate": {
         "downfall": "$general.decimal",
         "snow_accumulation": {

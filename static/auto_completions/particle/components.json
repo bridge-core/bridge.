@@ -1,7 +1,8 @@
 {
     "minecraft:emitter_local_space": {
         "position": "$general.boolean",
-        "rotation": "$general.boolean"
+        "rotation": "$general.boolean",
+        "velocity": "$general.boolean"
     },
     "minecraft:emitter_initialization": {
         "creation_expression": "$particle.general.moLang",
@@ -31,15 +32,15 @@
     },
     "minecraft:emitter_lifetime_events": {
         "creation_event": {
-            "$dynamic.list.next_index": {}
+            "$dynamic.list.next_index": { "@meta": { "is_value": true } }
         },
         "expiration_event": {
-            "$dynamic.list.next_index": {}
+            "$dynamic.list.next_index": { "@meta": { "is_value": true } }
         },
 
         "timeline": {
             "time": {
-               "$dynamic.list.next_index": {}
+               "$dynamic.list.next_index": { "@meta": { "is_value": true } }
             }
         }
     },
@@ -149,7 +150,7 @@
         "collision_radius": "$general.number and $particle.general.moLang",
         "events": {
             "$dynamic.list.next_index": {
-                "event": {},
+                "event": { "@meta": { "is_value": true } },
                 "min_speed": "$general.decimal"
             }
         }
@@ -186,9 +187,7 @@
     },
     "minecraft:particle_appearance_tinting": {
         "color": {
-            "gradient": {
-                "$general.decimal": {}
-            },
+            "gradient": "$general.decimal",
             "interpolant": "$general.number and $particle.general.moLang"
         }
     },
@@ -200,15 +199,15 @@
     },
     "minecraft:particle_lifetime_events": {
         "creation_event": {
-            "$dynamic.list.next_index": {}
+            "$dynamic.list.next_index": { "@meta": { "is_value": true } }
         },
         "expiration_event": {
-            "$dynamic.list.next_index": {}
+            "$dynamic.list.next_index": { "@meta": { "is_value": true } }
         },
 
         "timeline": {
             "time": {
-               "$dynamic.list.next_index": {}
+               "$dynamic.list.next_index": { "@meta": { "is_value": true } }
             }
         }
     },

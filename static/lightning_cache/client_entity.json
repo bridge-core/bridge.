@@ -1,0 +1,9 @@
+[ 
+    { "key": "particle_references", "path": "minecraft:client_entity/description/particle_effects" }, 
+    { "key": "animation_references", "path": "minecraft:client_entity/description/animations" },
+    { "key": "sound_references", "path": "minecraft:client_entity/description/sound_effects" }, 
+
+    { "key": "texture_references", "path": "minecraft:client_entity/description/textures" }, 
+    { "key": "material_references", "path": "minecraft:client_entity/description/materials" }, 
+    { "key": "geometry_references", "path": "minecraft:client_entity/description/geometry" }
+]

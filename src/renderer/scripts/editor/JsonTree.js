@@ -70,10 +70,11 @@ export default class JSONTree {
         let d = FileType.getData();
         // INCLUDE BUILD ARRAY EXCEPTIONS IF ABLE TO ACCESS DATA
         if(d !== undefined) {
-            return this.only_numerical_children && (d.build_array_exceptions === undefined || !d.build_array_exceptions.includes(this.internal_key));
+            return this.children.length > 0 && this.only_numerical_children 
+                && (d.build_array_exceptions === undefined || !d.build_array_exceptions.includes(this.internal_key));
         }
 
-        return this.only_numerical_children;
+        return this.children.length > 0 && this.only_numerical_children;
     }
     get only_numerical_children() {
         for(let c of this.children) {
