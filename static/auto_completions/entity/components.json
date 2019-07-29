@@ -4,7 +4,7 @@
     },
     "minecraft:addrider": {
         "entity_type": "$general.entity_identifier",
-        "spawn_event": "$dynamic.entity.all_events"
+        "spawn_event": "$dynamic.cache.entity.events"
     },
     "minecraft:ageable": {
         "duration": "$general.number",
