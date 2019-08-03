@@ -299,7 +299,7 @@ export default class JSONTree {
         //console.log(PROVIDER.get(path), path)
         if(Store.state.Settings.bridge_predictions) {
             let { META, ...propose } = PROVIDER.get(path, this);
-            this.meta = META || {};
+            this.meta = Object.assign(this.meta, META || {});
 
             this.propose_cache = null;
             this.propose_cache_uses = 0;
@@ -307,7 +307,7 @@ export default class JSONTree {
         } else {
             if(this.propose_cache_uses === 0) {
                 let { META, ...propose } = PROVIDER.get(path, this);
-                this.meta = META || {};
+                this.meta = Object.assign(this.meta, META || {});
 
                 this.propose_cache = propose;
                 this.propose_cache_uses++;

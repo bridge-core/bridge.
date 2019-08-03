@@ -29,7 +29,7 @@
                 >
                     <v-spacer v-if="btn === 'space'" :key="i"/>
                     <v-tooltip
-                        v-else
+                        v-else-if="btn.condition === undefined || btn.condition()"
                         :key="i"
                         bottom
                         :color="btn.color || 'primary'"
@@ -79,6 +79,38 @@ export default {
                     }
                 },
                 "space",
+                {
+                    title: "Ignore Error",
+                    color: "orange",
+                    condition: () => {
+                        let c = TabSystem.getCurrentNavObj();
+                        return c.error !== undefined && c.meta.ignore_error === undefined;
+                    },
+                    icon: "mdi-cancel",
+                    action: () => {
+                        this.is_visible = false;
+                        
+                        let c = TabSystem.getCurrentNavObj();
+                        c.meta.ignore_error = true;
+                        c.updateUUID();
+                    }
+                },
+                {
+                    title: "Reveal Error",
+                    color: "success",
+                    condition: () => {
+                        let c = TabSystem.getCurrentNavObj();
+                        return c.error !== undefined && c.meta.ignore_error !== undefined;
+                    },
+                    icon: "mdi-check",
+                    action: () => {
+                        this.is_visible = false;
+                        
+                        let c = TabSystem.getCurrentNavObj();
+                        delete c.meta.ignore_error;
+                        c.updateUUID();
+                    }
+                },
                 {
                     title: "Move Down",
                     icon: "mdi-chevron-down",

@@ -25,7 +25,7 @@
         </v-btn>
 
         <v-tooltip
-            v-if="error && error.show"
+            v-if="error && error.show && !node_context.meta.ignore_error"
             :open-delay="1400"
             right
             :nudge-right="error.fix ? 12 : 0"
@@ -64,7 +64,7 @@
 
         <v-icon v-if="$store.state.Settings.error_icon_indicator && child_contains_error && !node_context.open" color="error" small>mdi-alert-circle</v-icon>
         <v-tooltip
-            v-if="$store.state.Settings.error_auto_fix && error && error.fix"
+            v-if="$store.state.Settings.error_auto_fix && error && error.fix && !node_context.meta.ignore_error"
             color="amber darken-2"
             right
         >
