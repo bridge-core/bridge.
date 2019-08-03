@@ -131,7 +131,7 @@
                     else {
                         TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
                         current.edit(this.value);
-                        TabSystem.setCurrentFileNav(current.path + "/" +  this.value);
+                        TabSystem.setCurrentFileNav(current.path + "/" +  this.value.replace(/\//g, "#;slash;#"));
                     }
 
                     //PLUGIN HOOK

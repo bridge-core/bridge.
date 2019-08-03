@@ -104,7 +104,7 @@ export default class JSONTree {
     }
     get path() {
         if(!this.parent) return "global";
-        return this.parent.path + "/" + this.key.replace(/\//g, "#;slash;#");
+        return this.parent.path + "/" + this.parsed_key;
     }
     
     get next_sibling() {

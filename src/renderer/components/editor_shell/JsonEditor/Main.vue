@@ -14,7 +14,7 @@
                         :open="e.open"
                     >
                         <object-key 
-                            @mainClick="click($event, `load(${tab_id}):${object_key}/${e.key}`, e.key)"
+                            @mainClick="click($event, e.parsed_key)"
                             @arrowClick="$event.ctrlKey ? e.toggleOpenDeep() : e.toggleOpen()"
                             :object="e"
                             :my_key="e.key"
@@ -190,17 +190,15 @@
             is_selected(path=this.object_key, expand="") {
                 return TabSystem.getCurrentNavigation() == path + expand;
             },
-            click(event, event_to_send, key) {
+            click(event, key) {
                 if(event.target.tagName === "I" || event.target.tagName === "BUTTON")
                     return;
                 event.preventDefault();
+                let context = this.object.get(key);
 
-                let path = `${this.object_key}/${key.replace(/\//g, "#;slash;#")}`;
-                let context = this.render_object.get(key);
-                
-                if(!this.$store.state.Settings.cade_node_click && !event.ctrlKey) {
-                    if(context.open && !this.is_selected(path)) {
-                        
+                if(!this.$store.state.Settings.cade_node_click && !event.ctrlKey) {              
+                    if(context.open && !this.is_selected(context.path)) {
+                        //CANNOT BE EARLY RETURN; PATH NEEDS TO BE SET FURTHER BELOW
                     } else if(!context.open) {
                         context.openNode(true);
                     } else {
@@ -210,7 +208,7 @@
                     context.toggleOpenDeep();
                 }
                 
-                TabSystem.setCurrentFileNav(path);
+                TabSystem.setCurrentFileNav(context.path);
             },
             attrClick() {
                 let path = `${this.object_key}/${(this.render_object.data + "").replace(/\//g, "#;slash;#")}`;
