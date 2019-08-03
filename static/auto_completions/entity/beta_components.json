@@ -36,7 +36,7 @@
                 "on_damage": "$general.entity.event_definition",
                 "cause": "$general.damage_type",
                 "deals_damage": "$general.boolean",
-                "damage_multiplier": "$general.boolean"
+                "damage_multiplier": "$general.decimal"
             }
         }
     },

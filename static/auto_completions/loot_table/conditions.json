@@ -16,7 +16,7 @@
             },
             "random_chance_with_looting": {
                 "chance": "$general.decimal",
-                "looting_multiplayer": "$general.decimal"
+                "looting_multiplier": "$general.decimal"
             },
             "random_difficulty_change": {
                 "default_chance": "$general.decimal",
