@@ -67,24 +67,11 @@ export default {
             current_comment: "",
             buttons: [
                 {
-                    title: "Documentation",
-                    icon: "mdi-book-open-page-variant",
-                    color: "orange",
-                    action: () => {
-                        this.is_visible = false;
-                        
-                        DOC_WINDOW.open("entities");
-                        let e = document.getElementById(TabSystem.getCurrentNavContent());
-                        window.setTimeout(() => { if(e) e.scrollIntoView() }, 1000);
-                    }
-                },
-                "space",
-                {
                     title: "Ignore Error",
                     color: "orange",
                     condition: () => {
                         let c = TabSystem.getCurrentNavObj();
-                        return c.error !== undefined && c.meta.ignore_error === undefined;
+                        return c && c.error !== undefined && c.meta.ignore_error === undefined;
                     },
                     icon: "mdi-cancel",
                     action: () => {
@@ -100,7 +87,7 @@ export default {
                     color: "success",
                     condition: () => {
                         let c = TabSystem.getCurrentNavObj();
-                        return c.error !== undefined && c.meta.ignore_error !== undefined;
+                        return c && c.error !== undefined && c.meta.ignore_error !== undefined;
                     },
                     icon: "mdi-check",
                     action: () => {
@@ -111,6 +98,19 @@ export default {
                         c.updateUUID();
                     }
                 },
+                {
+                    title: "Documentation",
+                    icon: "mdi-book-open-page-variant",
+                    color: "orange",
+                    action: () => {
+                        this.is_visible = false;
+                        
+                        DOC_WINDOW.open("entities");
+                        let e = document.getElementById(TabSystem.getCurrentNavContent());
+                        window.setTimeout(() => { if(e) e.scrollIntoView() }, 1000);
+                    }
+                },
+                "space",
                 {
                     title: "Move Down",
                     icon: "mdi-chevron-down",
