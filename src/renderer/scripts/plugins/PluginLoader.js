@@ -44,25 +44,31 @@ export default class PluginLoader {
                 manifest = await readJSON(path.join(plugin_path, "manifest.json"));
             } catch(e) { return; }
 
-            await this.loadScripts(plugin_path);
+            await this.loadScripts(plugin_path, manifest.api_version);
             PLUGIN_DATA.push(manifest);
         }
     }
 
-    static async loadScripts(plugin_path) {
+    static async loadScripts(plugin_path, api_version) {
         let scripts;
         try {
             scripts = await fs.readdir(path.join(plugin_path, "scripts"));
         } catch(e) { return; }
 
         let data = await Promise.all(scripts.map(s => fs.readFile(path.join(plugin_path, "scripts", s))));
-        data.forEach(
-            (d, i) => Bridge.Interpreter.execute(
-                d.toString(), 
-                path.join(plugin_path, "scripts", scripts[i]),
-                undefined,
-                true
-            )
-        );
+        data.forEach((d, i) => {
+            if(api_version === 1) {
+                Bridge.Interpreter.execute(
+                    d.toString(), 
+                    path.join(plugin_path, "scripts", scripts[i]),
+                    undefined,
+                    true
+                )
+            } else if(api_version === 2 || api_version === undefined) {
+
+            } else {
+                throw new Error("Undefined API Version: " + api_version);
+            }
+        });
     }
 }

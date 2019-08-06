@@ -76,7 +76,7 @@ export default class OmegaCache {
                     (err) => {
                         if(err) return reject("[O.CACHE] Error calling OmegaCache.save(..): ", err.message);
                         else resolve();
-                        console.log("Cached file " + file_path);
+                        // console.log("Cached file " + file_path);
                     }
                 );
             });
