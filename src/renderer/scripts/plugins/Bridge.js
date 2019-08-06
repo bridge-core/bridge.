@@ -233,21 +233,23 @@ export default class Bridge {
         this.Window = {
             register(window) {
                 if(window.id === undefined) throw new Error("No window id defined.");
-                Store.commit("addPluginWindow", window);
+                Store.commit("addPluginWindow", { ...window, is_plugin: true });
             },
             update(window) {
-                Store.commit("updatePluginWindow", window);
+                Store.commit("updatePluginWindow", { ...window, is_plugin: true });
             },
             open(id) {
                 Store.commit("setWindowIsVisible", {
                     id,
-                    val: true
+                    val: true,
+                    is_plugin: true
                 });
             },
             close(id) {
                 Store.commit("setWindowIsVisible", {
                     id,
-                    val: false
+                    val: false,
+                    is_plugin: true
                 });
             },
             remove(id) {

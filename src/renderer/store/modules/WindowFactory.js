@@ -23,7 +23,7 @@ const mutations = {
         }
 
         if(i === state.elements.length) state.elements.push(detachObj({}, window));
-        else if(id) throw new Error("Unknown window ID: " + id);
+        else if(window.id) throw new Error("Unknown window ID: " + window.id);
         
     },
     updatePluginWindow(state, window) {
@@ -36,7 +36,7 @@ const mutations = {
             let tmp = detachObj(state.elements[i], window);
             Vue.set(state.elements, i, tmp);
         }
-        else if(id) throw new Error("Unknown window ID: " + id);
+        else if(window.id) throw new Error("Unknown window ID: " + window.id);
     },
     removePluginWindow(state, id) {
         let i = 0;
@@ -55,7 +55,7 @@ const mutations = {
         if(state.elements.length > index && state.elements[index].id === id) state.elements.splice(index, 1);
     },
     resetPluginWindows(state) {
-        state.elements = [];
+        state.elements = state.elements.filter(w => !w.is_plugin);
     }
 }
 

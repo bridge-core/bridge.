@@ -68,6 +68,7 @@
     },
     created() {
       SETTINGS.setup();
+      new UpdateWindow();
     },
     computed: {
       is_sidebar_open() {
