@@ -1,6 +1,6 @@
 {
     "@meta": {
-        "expand_path_exceptions": [ "minecraft:burns_in_daylight", "minecraft:can_climb", "minecraft:can_fly", "minecraft:can_power_jump", "minecraft:hide", "minecraft:home", "minecraft:is_baby", "minecraft:is_charged", "minecraft:is_chested", "minecraft:is_hidden_when_invisible", "minecraft:is_ignited", "minecraft:is_illager_captain", "minecraft:is_saddled", "minecraft:is_shaking", "minecraft:is_sheared", "minecraft:is_stackable", "minecraft:is_stunned", "minecraft:is_tamed", "minecraft:item_hopper", "minecraft:jump.dynamic", "minecraft:managed_wandering_trader", "minecraft:scaffolding_climber", "minecraft:trade_resupply", "minecraft:wants_jockey" ]
+        "expand_path_exceptions": [ "minecraft:burns_in_daylight", "minecraft:can_climb", "minecraft:can_power_jump", "minecraft:hide", "minecraft:home", "minecraft:is_baby", "minecraft:is_charged", "minecraft:is_chested", "minecraft:is_hidden_when_invisible", "minecraft:is_ignited", "minecraft:is_illager_captain", "minecraft:is_saddled", "minecraft:is_shaking", "minecraft:is_sheared", "minecraft:is_stackable", "minecraft:is_stunned", "minecraft:is_tamed", "minecraft:item_hopper", "minecraft:jump.dynamic", "minecraft:managed_wandering_trader", "minecraft:scaffolding_climber", "minecraft:trade_resupply", "minecraft:wants_jockey" ]
     },
     "minecraft:addrider": {
         "entity_type": "$general.entity_identifier",
@@ -122,7 +122,7 @@
     "minecraft:burns_in_daylight": {},
 
     "minecraft:can_climb": {},
-    "minecraft:can_fly": {},
+    "minecraft:can_fly": { "value": "$general.boolean" },
     "minecraft:can_power_jump": {},
 
     "minecraft:collision_box": {
@@ -497,6 +497,9 @@
     },
     "minecraft:projectile": {
         "onHit": {
+            "@meta": { 
+                "expand_path_exceptions": [ "thrown_potion_effect", "douse_fire", "arrow_effect", "remove_on_hit", "teleport_owner" ]
+            },
             "definition_event": {
                 "affectProjectile": "$general.boolean",
                 "eventTrigger": "$general.entity.event_definition"

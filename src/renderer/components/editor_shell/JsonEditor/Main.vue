@@ -222,9 +222,16 @@
                     if(depth == deepest) this.$store.commit("removeLoadingWindow", { id: "open-file" });
                 }, 5);
             },
-            draggedKey() {
+            draggedKey(data) {
                 TabSystem.setCurrentUnsaved();
-                TabSystem.setCurrentFileNav("global");
+
+                if("added" in data) {
+                    let c = data.added.element;
+                    let update_path = false;
+                    if(TabSystem.getCurrentNavigation() === c.path) update_path = true;
+                    c.parent = this.object;
+                    if(update_path) TabSystem.setCurrentFileNav(c.path);
+                }               
             },
 
             isKnownFileType() {
