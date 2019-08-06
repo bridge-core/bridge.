@@ -237,11 +237,6 @@
                     force_reload
                 });
                 if(this.load_plugins) {
-                    // this.$store.commit("loadAllPlugins", {
-                    //     directory: this.$store.state.Explorer.files[this.explorer_type],
-                    //     selected: this.selected, 
-                    //     base_path: this.base_path 
-                    // });
                     PluginLoader.loadPlugins(dir);
                 } 
             },

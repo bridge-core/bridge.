@@ -44,7 +44,7 @@ const mutations = {
 function copyOpenFolders(oldTree, newTree) {
     if(!oldTree || !oldTree.child) return;
     oldTree.child.forEach(c => {
-        if(!newTree.child) return;
+        if(!newTree || !newTree.child) return;
         let nC = newTree.child.find((nC) => nC.name === c.name);
         if(c.is_open) Vue.set(nC, "is_open", true);
         copyOpenFolders(c, nC);
