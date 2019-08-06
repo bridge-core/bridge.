@@ -45,7 +45,6 @@ export default class PluginLoader {
             try {
                 manifest = await readJSON(path.join(plugin_path, "manifest.json"));
             } catch(e) {
-                console.log(e);
                 return;
             }
             PLUGIN_DATA.push(manifest);

@@ -37,7 +37,6 @@ const mutations = {
     },
     finishedPluginLoading(state, addPlugins) {
         Vue.set(state, "installed_plugins", addPlugins.concat(Bridge.getPlugins()));
-        console.log(state.installed_plugins, addPlugins);
     },
 
     //GENERAL
