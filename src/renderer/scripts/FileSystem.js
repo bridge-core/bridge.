@@ -22,7 +22,7 @@ document.addEventListener("drop", event => {
     event.preventDefault();
     let files = event.dataTransfer.files;
     if(files.length !== 0) win = new LoadingWindow("save-file").show();
-    console.log(event.dataTransfer.files)
+    // console.log(event.dataTransfer.files)
 
     setTimeout(() => {
         for(let file of files) {
@@ -66,7 +66,7 @@ class FileSystem {
                 Vue.$root.$emit("refreshExplorer");
             }
             if(open) {
-                this.addAsTab(path, content, content);
+                this.addAsTab(path, content, 0, content);
             }
             PluginEnv.trigger("bridge:finishedSaving", path, true, false);
         });
@@ -84,7 +84,6 @@ class FileSystem {
         let cache; 
         try { cache = await OmegaCache.load(file_path); } catch(e) { return this.loadFromDisk(file_path, file, cb); }
         
-
 
         if(OmegaCache.isCacheFresh(file_path, cache, file.toString())) {
             let { cache_content, format_version, file_version } = cache;

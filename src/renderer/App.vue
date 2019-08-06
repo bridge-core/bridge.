@@ -68,6 +68,7 @@
     },
     created() {
       SETTINGS.setup();
+      new UpdateWindow();
     },
     computed: {
       is_sidebar_open() {
@@ -103,8 +104,7 @@
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons');
-  @import url('https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css');
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
   /* Global CSS */
   html {

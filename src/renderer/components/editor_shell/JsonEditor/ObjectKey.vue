@@ -5,27 +5,27 @@
         v-on:keydown.enter="open_current"
         :id="'summary.' + object_key"
         @click="(event) => $emit('mainClick', event)"
-        @dblclick="() => $store.state.Settings.cade_node_click ? $emit('arrowClick') : undefined"
+        @dblclick="(event) => $store.state.Settings.cade_node_click ? $emit('arrowClick', event) : undefined"
     >
         <v-btn
             icon
             flat
             small
             style="margin: 0; height: 16px; width: 16px;"
-            @click="$emit('arrowClick')"
+            @click="(event) => $emit('arrowClick', event)"
         >
             <v-icon
                 v-if="inversed_arrows && node_context.open || !inversed_arrows && !node_context.open"
                 small
-            >keyboard_arrow_down</v-icon>
+            >mdi-chevron-down</v-icon>
             <v-icon
                 v-if="!inversed_arrows && node_context.open || inversed_arrows && !node_context.open"
                 small
-            >keyboard_arrow_up</v-icon>
+            >mdi-chevron-up</v-icon>
         </v-btn>
 
         <v-tooltip
-            v-if="error && error.show"
+            v-if="error && error.show && !node_context.meta.ignore_error"
             :open-delay="1400"
             right
             :nudge-right="error.fix ? 12 : 0"
@@ -56,12 +56,15 @@
                 :as_block="false"
                 :meta="node_context.meta"
                 :node_context="node_context"
+
+                @click="(event) => $emit('mainClick', event)"
+                @dblclick.native="(event) => $store.state.Settings.cade_node_click ? $emit('arrowClick', event) : undefined"
             />
         </span>
 
         <v-icon v-if="$store.state.Settings.error_icon_indicator && child_contains_error && !node_context.open" color="error" small>mdi-alert-circle</v-icon>
         <v-tooltip
-            v-if="$store.state.Settings.error_auto_fix && error && error.fix"
+            v-if="$store.state.Settings.error_auto_fix && error && error.fix && !node_context.meta.ignore_error"
             color="amber darken-2"
             right
         >

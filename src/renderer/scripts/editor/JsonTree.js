@@ -20,7 +20,7 @@ export function changeProvider(new_path) {
 
 export default class JSONTree {
     constructor(key="", data="", parent, children=[], open=false) {
-        this.key = key + "";
+        this.internal_key = key + "";
         this.data = data + "";
         this.children = children;
         this.open = open;
@@ -69,18 +69,44 @@ export default class JSONTree {
     get is_array() {
         let d = FileType.getData();
         // INCLUDE BUILD ARRAY EXCEPTIONS IF ABLE TO ACCESS DATA
-        if(d !== undefined)
-            return this.children[0] !== undefined && !Number.isNaN(Number(this.children[0].key)) 
-            && (d.build_array_exceptions === undefined || !d.build_array_exceptions.includes(this.key));
-        return this.children[0] !== undefined && !Number.isNaN(Number(this.children[0].key));
+        if(d !== undefined) {
+            return this.children.length > 0 && this.only_numerical_children 
+                && (d.build_array_exceptions === undefined || !d.build_array_exceptions.includes(this.internal_key));
+        }
+
+        return this.children.length > 0 && this.only_numerical_children;
     }
-    get path() {
-        if(!this.parent) return "global";
-        return this.parent.path + "/" + this.key.replace(/\//g, "#;slash;#");
+    get only_numerical_children() {
+        for(let c of this.children) {
+            if(Number.isNaN(Number(c.internal_key)))
+                return false;
+        }
+        return true;
     }
+
+    //THIN WRAPPER AROUND KEY ATTR FOR BETTER ARRAY SUPPORT
+    get key() {
+        if(this.parent !== undefined && this.parent.is_array) {
+            let k = `${this.parent.find(this)}`;
+            if(this.internal_key !== k && k !== "-1") {
+                this.internal_key = k;
+                this.updateUUID();
+            }
+        }
+        return this.internal_key;
+    }
+    set key(val) {
+        this.internal_key = val;
+    }
+
     get parsed_key() {
         return this.key.replace(/\//g, "#;slash;#");
     }
+    get path() {
+        if(!this.parent) return "global";
+        return this.parent.path + "/" + this.parsed_key;
+    }
+    
     get next_sibling() {
         if(this.parent == undefined) return;
         return this.parent.children[this.parent.find(this) + 1];
@@ -175,7 +201,7 @@ export default class JSONTree {
     find(child) {
         let i = 0;
         for(let c of this.children) {
-            if(c.parsed_key == child.parsed_key) {
+            if(c === child) {
                 return i;
             }
 
@@ -273,7 +299,7 @@ export default class JSONTree {
         //console.log(PROVIDER.get(path), path)
         if(Store.state.Settings.bridge_predictions) {
             let { META, ...propose } = PROVIDER.get(path, this);
-            this.meta = META;
+            this.meta = Object.assign(this.meta, META || {});
 
             this.propose_cache = null;
             this.propose_cache_uses = 0;
@@ -281,7 +307,7 @@ export default class JSONTree {
         } else {
             if(this.propose_cache_uses === 0) {
                 let { META, ...propose } = PROVIDER.get(path, this);
-                this.meta = META;
+                this.meta = Object.assign(this.meta, META || {});
 
                 this.propose_cache = propose;
                 this.propose_cache_uses++;

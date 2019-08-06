@@ -55,7 +55,7 @@
         "has_equipment": "$general.item_identifier and $general.block_identifier",
         "has_component": "$dynamic.entity.component_list",
         "has_ability": "$general.ability",
-        "is_family": "$dynamic.entity.cached_families",
+        "is_family": "$general.entity.family",
         "has_mob_effect": "$general.effect_name",
         "has_biome_tag": "$general.biome_tag",
         "has_damage": "$general.damage_type",
@@ -75,6 +75,8 @@
         "is_skin_id": "$general.number",
         "is_altitude": "$general.number",
         "is_brightness": "$general.decimal",
-        "is_temperature_value": "$general.decimal"
+        "is_temperature_value": "$general.decimal",
+        
+        "has_tag": { "@meta": { "is_value": true } }
     }
 }

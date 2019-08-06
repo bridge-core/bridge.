@@ -236,19 +236,44 @@
             "force_default_scope": true,
             "data": {
                 "component_groups": {
-                    "bridge:silent_kill_group": {
-                        "minecraft:explode": {
-                            "fuseLength": 0,
-                            "fuseLit": true,
-                            "power": 0
+                    "bridge:despawn": {
+                        "minecraft:despawn": {}
+                    }
+                },
+                "events": {
+                    "bridge:on_despawn": {
+                        "add": {
+                            "component_groups": [
+                                "bridge:despawn"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "display_name": "Drop Data Item",
+        "template": {
+            "data_path": "minecraft:entity",
+            "force_default_scope": true,
+            "data": {
+                "component_groups": {
+                    "bridge:drop_data_item": {
+                        "minecraft:transformation": {
+                            "into": {},
+                            "drop_equipment": true
+                        },
+                        "minecraft:equipment": {
+                            "table": {}
                         }
                     }
                 },
                 "events": {
-                    "bridge:kill_silently": {
+                    "bridge:on_drop_data_item": {
                         "add": {
                             "component_groups": [
-                                "bridge:silent_kill_group"
+                                "bridge:drop_data_item"
                             ]
                         }
                     }

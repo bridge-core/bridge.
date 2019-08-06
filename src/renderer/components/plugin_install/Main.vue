@@ -9,10 +9,10 @@
                     <span class="window-title">Extensions</span>
                     <v-spacer></v-spacer>
                     <v-btn small icon @click.stop="is_fullscreen = !is_fullscreen">
-                        <v-icon small>add</v-icon>
+                        <v-icon small>mdi-plus</v-icon>
                     </v-btn>
                     <v-btn small icon @click.stop="is_menu_open = false" class="last-btn">
-                        <v-icon small>close</v-icon>
+                        <v-icon small>mdi-close</v-icon>
                     </v-btn>
                 </v-toolbar>
             </v-card-title>
@@ -31,17 +31,17 @@
                 >
                     <v-btn flat value="active">
                         <span>Active</span>
-                        <v-icon>bookmark</v-icon>
+                        <v-icon>mdi-bookmark</v-icon>
                     </v-btn>
 
                     <v-btn flat value="available">
                         <span>Available</span>
-                        <v-icon>apps</v-icon>
+                        <v-icon>mdi-apps</v-icon>
                     </v-btn>
 
                     <v-btn flat value="web">
                         <span>Web</span>
-                        <v-icon>cloud</v-icon>
+                        <v-icon>mdi-cloud</v-icon>
                     </v-btn>
                 </v-bottom-nav>
             </v-card-actions>

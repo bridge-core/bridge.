@@ -1,0 +1,19 @@
+{
+    "bridge:child_must_start_with": {
+        "search": "animations",
+        "start": "animation.",
+        "error_message": "Animations must start with \"animation.<name>\"",
+        "fix": {
+            "type": "script",
+            "run": "History('edit-key', node, node.key); node.key = `animation.${node.key}`;"
+        }
+    },
+    "bridge:child_must_be_number": {
+        "search": "timeline",
+        "error_message": "Timeline attributes need to be a valid number.",
+        "fix": {
+            "type": "script",
+            "run": "History('edit-key', node, node.key); node.key = String(Math.floor(Math.random() * 100000));"
+        }
+    }
+}

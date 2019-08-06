@@ -5,7 +5,7 @@
         "tags": {
             "$dynamic.list.next_index": "$recipe.general.tags"
         },
-        "group": {},
+        "group": { "@meta": { "is_value": true } },
 
         "input": "$general.item_identifier",
         "output": "$general.item_identifier"
@@ -16,10 +16,10 @@
         "tags": {
             "$dynamic.list.next_index": "$recipe.general.tags"
         },
-        "group": {},
+        "group": { "@meta": { "is_value": true } },
 
         "pattern": {
-            "$dynamic.list.index_triple": {}
+            "$dynamic.list.index_triple": { "@meta": { "is_value": true } }
         },
         "key": {
             "$dynamic.recipe.pattern_keys": {
@@ -41,7 +41,7 @@
         "tags": {
             "$dynamic.list.next_index": "$recipe.general.tags"
         },
-        "group": {},
+        "group": { "@meta": { "is_value": true } },
 
         "ingredients": {
             "$dynamic.list.next_index": {

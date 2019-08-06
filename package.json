@@ -1,10 +1,10 @@
 {
   "name": "bridge",
   "productName": "bridge.",
-  "version": "0.13.0",
+  "version": "0.13.2",
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
-  "license": null,
+  "license": "GNU",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -54,7 +54,7 @@
     }
   },
   "dependencies": {
-    "@mdi/font": "^3.3.92",
+    "@mdi/font": "^3.9.95",
     "clean-css": "^4.2.1",
     "comment-json": "^1.1.3",
     "dataurl": "^0.1.0",
@@ -72,6 +72,7 @@
     "uuid": "^3.3.2",
     "vue": "^2.6.10",
     "vue-electron": "^1.0.6",
+    "vuedraggable": "^2.23.0",
     "vuetify": "^1.2.5",
     "vuex": "^3.1.0",
     "zip-a-folder": "0.0.7"

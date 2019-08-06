@@ -74,7 +74,8 @@
     import OmegaCache from '../../../scripts/editor/OmegaCache';
     import ExplorerNoProjects from "./explorer/NoProjects";
     import PluginLoader from "../../../scripts/plugins/PluginLoader";
-    
+    import LightningCache from '../../../scripts/editor/LightningCache';
+
     export default {
         name: "content-explorer",
         components: {
@@ -215,6 +216,12 @@
                 });
             },
             getDirectory(dir=this.selected, force_reload) {
+                if(this.explorer_type === "explorer") {
+                    EventBus.trigger("bridge:changedProject");
+                    OmegaCache.init(dir);
+                    LightningCache.init();
+                }
+                
                 if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return;
                 if(dir !== this.selected) {
                     this.selected = dir;

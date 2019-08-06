@@ -2,7 +2,7 @@
     <v-toolbar flat height="30px">
         <v-tooltip bottom class="first">
             <v-btn icon flat @click.stop="refresh" slot="activator" small>
-                <v-icon small>refresh</v-icon>
+                <v-icon small>mdi-refresh</v-icon>
             </v-btn>
             <span>Refresh</span>
         </v-tooltip>
@@ -38,7 +38,7 @@
         <v-spacer></v-spacer>
         <v-tooltip bottom>
             <v-btn icon flat @click.stop="" slot="activator" small>
-                <v-icon small>more_vert</v-icon>
+                <v-icon small>mdi-dots-vertical</v-icon>
             </v-btn>
             <span>More...</span>
         </v-tooltip>

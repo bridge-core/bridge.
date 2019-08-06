@@ -5,7 +5,7 @@
     <div :style="element_style" :class="element_class" v-else>
         <details v-for="(file) in only_folders" :open="file.is_open" :key="file.absolutePath + file.is_open">
             <summary @click="openDir(file.path)" v-ripple>
-                <v-icon class="open" small>folder_open</v-icon><v-icon class="closed" small>folder</v-icon>
+                <v-icon class="open" small>mdi-folder-open</v-icon><v-icon class="closed" small>mdi-folder</v-icon>
                 <span class="folder"> {{ file.name }}</span>
             </summary>
             <file-displayer

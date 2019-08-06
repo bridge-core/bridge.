@@ -20,7 +20,7 @@
     },
     "minecraft:single_block_feature": {
         "description": {
-            "identifier": {}
+            "identifier": "$dynamic.current_file_name"
         },
         "places_block": {
             "@import.value": "$general.block_identifier",
@@ -39,7 +39,7 @@
     },
     "minecraft:scatter_feature": {
         "description": {
-            "identifier": {}
+            "identifier": "$dynamic.current_file_name"
         },
         "iterations": "$general.number",
         "project_input_to_floor": "$general.boolean",
@@ -57,16 +57,22 @@
         "z": "$feature.main.minecraft:scatter_feature.x",
         "y": "$feature.main.minecraft:scatter_feature.x",
         "places_feature": {
-            "$dynamic.list.next_index": {}
+            "$dynamic.list.next_index": {
+                "@meta": { "is_value": true },
+                "@import.value": "$dynamic.biome.feature_references"
+            }
         }
     },
     "minecraft:aggregate_feature": {
         "description": {
-            "identifier": {}
+            "identifier": "$dynamic.current_file_name"
         },
         "early_out": "$feature.general.early_outs",
         "features": {
-            "$dynamic.list.next_index": {}
+            "$dynamic.list.next_index": {
+                "@meta": { "is_value": true },
+                "@import.value": "$dynamic.biome.feature_references"
+            }
         }
     }
 }

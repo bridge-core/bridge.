@@ -29,7 +29,7 @@
                     :class="has_close_button ? '' : 'last-btn'"
                     v-if="has_maximize_button"
                 >
-                    <v-icon small>add</v-icon>
+                    <v-icon small>mdi-plus</v-icon>
                 </v-btn>
                 <v-btn 
                     small
@@ -38,7 +38,7 @@
                     class="last-btn"
                     v-if="has_close_button"
                 >
-                    <v-icon small>close</v-icon>
+                    <v-icon small>mdi-close</v-icon>
                 </v-btn>
             </v-toolbar>
             

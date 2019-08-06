@@ -10,9 +10,6 @@ import ProblemIterator from "../scripts/editor/problems/Problems";
 import { ipcRenderer } from "electron";
 import ConfirmWindow from "../scripts/commonWindows/Confirm";
 
-ipcRenderer.on("forceReloadApp", () => location.reload());
-
-
 class ReactiveListEntry {
     constructor(text, parent, watch_key, index) {
         this.type = "card";
@@ -162,6 +159,11 @@ export default class SettingsWindow extends TabWindow {
                     color: "light-green",
                     text: "Word Wrap",
                     key: `settings.editor.tab.line_wraps.${Math.random()}`
+                }),
+                new ReactiveSwitch(this, "disable_node_dragging", {
+                    color: "light-green",
+                    text: "Disable Node Dragging",
+                    key: `settings.editor.tab.disable_node_dragging.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "focus_json_inputs", {
                     color: "light-green",

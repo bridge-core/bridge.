@@ -8,7 +8,8 @@
         "start_state": "animation/main",
         "lightning_cache": "animation",
         "highlighter": "animation",
-        "file_creator": "animation"
+        "file_creator": "animation",
+        "problems": [ "animation", "format_version" ]
     },
     {
         "id": "animation_controller",
@@ -18,7 +19,8 @@
         "start_state": "animation_controller/main",
         "lightning_cache": "animation_controller",
         "highlighter": "animation_controller",
-        "file_creator": "animation_controller"
+        "file_creator": "animation_controller",
+        "problems": [ "animation_controller", "format_version" ]
     },
     {
         "id": "biome",
@@ -27,7 +29,8 @@
 
         "start_state": "biome/main",
         "highlighter": "biome",
-        "file_creator": "biome"
+        "file_creator": "biome",
+        "problems": [ "format_version" ]
     },
     {
         "id": "block",
@@ -37,7 +40,8 @@
         "start_state": "block/main",
         "lightning_cache": "block",
         "highlighter": "block",
-        "file_creator": "block"
+        "file_creator": "block",
+        "problems": [ "format_version" ]
     },
     {
         "id": "entity",
@@ -49,7 +53,8 @@
         "lightning_cache": "entity",
         "highlighter": "entity",
         "file_creator": "entity",
-        "snippets": "entity"
+        "snippets": "entity",
+        "problems": [ "entity", "format_version" ]
     },
     {
         "id": "feature",
@@ -58,7 +63,8 @@
 
         "start_state": "feature/main",
         "highlighter": "feature",
-        "file_creator": "feature"
+        "file_creator": "feature",
+        "problems": [ "format_version" ]
     },
     {
         "id": "feature_rule",
@@ -67,7 +73,8 @@
 
         "start_state": "feature_rule/main",
         "highlighter": "feature_rule",
-        "file_creator": "feature_rule"
+        "file_creator": "feature_rule",
+        "problems": [ "format_version" ]
     },
     {
         "id": "function",
@@ -87,7 +94,8 @@
         "start_state": "item/main",
         "lightning_cache": "item",
         "highlighter": "item",
-        "file_creator": "item"
+        "file_creator": "item",
+        "problems": [ "format_version" ]
     },
     {
         "id": "lang",
@@ -120,7 +128,8 @@
         "build_array_exceptions": [ "key" ],
         "start_state": "recipe/main",
         "highlighter": "recipe",
-        "file_creator": "recipe"
+        "file_creator": "recipe",
+        "problems": [ "format_version" ]
     },
     {
         "id": "script",
@@ -136,7 +145,8 @@
 
         "start_state": "spawn_rule/main",
         "highlighter": "spawn_rule",
-        "file_creator": "spawn_rule"
+        "file_creator": "spawn_rule",
+        "problems": [ "format_version" ]
     },
     {
         "id": "trade_table",
@@ -158,8 +168,10 @@
         
         "build_array_exceptions": [ "particle_effects", "rotation", "position", "scale" ],
         "start_state": "animation/rp_main",
+        "lightning_cache": "rp_animation",
         "highlighter": "animation",
-        "file_creator": "animation"
+        "file_creator": "rp_animation",
+        "problems": [ "rp_animation", "format_version" ]
     },
     {
         "id": "rp_animation_controller",
@@ -169,8 +181,10 @@
         
         "build_array_exceptions": [ "remap_curve" ],
         "start_state": "animation_controller/rp_main",
+        "lightning_cache": "rp_animation_controller",
         "highlighter": "animation_controller",
-        "file_creator": "animation_controller"
+        "file_creator": "rp_animation_controller",
+        "problems": [ "rp_animation_controller", "format_version" ]
     },
     {
         "id": "client_entity",
@@ -179,8 +193,10 @@
         "rp_definition": true,
         
         "start_state": "client_entity/main",
+        "lightning_cache": "client_entity",
         "highlighter": "entity",
-        "file_creator": "client_entity"
+        "file_creator": "client_entity",
+        "problems": [ "format_version" ]
     },
     {
         "id": "client_item",
@@ -190,7 +206,8 @@
         
         "start_state": "client_item/main",
         "highlighter": "item",
-        "file_creator": "client_item"
+        "file_creator": "client_item",
+        "problems": [ "format_version" ]
     },
     {
         "id": "client_lang",
@@ -205,10 +222,11 @@
         "file_viewer": "json",
         "rp_definition": true,
         
-        
         "start_state": "particle/main",
+        "lightning_cache": "particle",
         "highlighter": "particle",
-        "file_creator": "particle"
+        "file_creator": "particle",
+        "problems": [ "format_version" ]
     },
     {
         "id": "render_controller",
@@ -218,7 +236,9 @@
         
         "build_array_exceptions": [ "timeline", "gradient" ],
         "start_state": "render_controller/main",
+        "lightning_cache": "render_controller",
         "file_creator": "render_controller",
-        "highlighter": "render_controller"
+        "highlighter": "render_controller",
+        "problems": [ "render_controller", "format_version" ]
     }
 ]

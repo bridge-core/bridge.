@@ -6,47 +6,68 @@
             "min_engine_version": "$general.format_version",
             "enable_attachables": "$general.boolean",
             "spawn_egg": {
-                "texture": {},
+                "texture": { 
+                    "@meta": { "is_value": true } ,
+                    "@import.value": "$dynamic.rp.item_textures"
+                },
                 "texture_index": "$general.number",
-                "base_color": {},
-                "overlay_color": {}
+                "base_color": { "@meta": { "is_value": true } },
+                "overlay_color": { "@meta": { "is_value": true } }
             },
 
             "materials": {
-                "$placeholder": {}
+                "$placeholder": {
+                    "@meta": { "is_value": true },
+                    "@import.value": "$client_entity.general.material"
+                }
             },
             "textures": {
-                "$placeholder": {}
+                "$placeholder": {
+                    "@meta": { "is_value": true },
+                    "@import.value": "$dynamic.rp.entity_textures"
+                }
             },
             "geometry": {
-                "$placeholder": {}
+                "$placeholder": { "@meta": { "is_value": true } }
+            },
+            "animations": {
+                "$placeholder": { 
+                    "@meta": { "is_value": true },
+                    "@import.value": "$dynamic.cache.rp_animation.ids and $dynamic.cache.rp_animation_controller.ids"
+                }
             },
             "scripts": {
                 "scale": "$general.decimal",
                 "pre_animation": {
-                    "$dynamic.list.next_index": {}
+                    "$dynamic.list.next_index": { "@meta": { "is_value": true, "is_molang": true } }
                 },
                 "animate": {
-                    "$dynamic.list.next_index": {}
+                    "$dynamic.list.next_index": {
+                        "$dynamic.client_entity.animation_references": {
+                            "@meta": { "is_molang": true },
+                            "@import.value": "$animation.general.queries"
+                        },
+                        "@import.value": "$dynamic.client_entity.animation_references"
+                    }
                 }
             },
-            "animations": {
-                "$placeholder": {}
-            },
-            "animation_controllers": {
-                "$dynamic.list.next_index": {}
-            },
             "sound_effects": {
-                "$placeholder": {}
+                "$placeholder": { "@meta": { "is_value": true } }
             },
             "render_controllers": {
-                "$dynamic.list.next_index": {}
+                "$dynamic.list.next_index": {
+                    "@meta": { "is_value": true },
+                    "@import.value": "$dynamic.cache.render_controller.ids"
+                }
             },
             "particle_effects": {
-                "$placeholder": {}
+                "$placeholder": { 
+                    "@meta": { "is_value": true },
+                    "@import.value": "$dynamic.cache.particle.ids"
+                }
             },
             "particle_emitters": {
-                "$placeholder": {}
+                "$placeholder": { "@meta": { "is_value": true } }
             }
         }
     }

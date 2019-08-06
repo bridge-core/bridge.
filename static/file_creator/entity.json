@@ -9,7 +9,9 @@
             "minecraft:entity": {
                 "description": {
                     "identifier": "",
-                    "runtime_identifier": ""
+                    "runtime_identifier": "",
+                    "is_summonable": true,
+                    "is_spawnable": true
                 },
                 "component_groups": {},
                 "components": {},
