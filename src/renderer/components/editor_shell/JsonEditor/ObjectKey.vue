@@ -17,11 +17,11 @@
             <v-icon
                 v-if="inversed_arrows && node_context.open || !inversed_arrows && !node_context.open"
                 small
-            >keyboard_arrow_down</v-icon>
+            >mdi-chevron-down</v-icon>
             <v-icon
                 v-if="!inversed_arrows && node_context.open || inversed_arrows && !node_context.open"
                 small
-            >keyboard_arrow_up</v-icon>
+            >mdi-chevron-up</v-icon>
         </v-btn>
 
         <v-tooltip

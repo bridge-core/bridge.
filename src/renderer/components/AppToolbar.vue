@@ -9,13 +9,13 @@
 
         <v-toolbar-items>
             <v-btn small icon flat @click.stop="minWindow">
-                <v-icon small>minimize</v-icon>
+                <v-icon small>mdi-minus</v-icon>
             </v-btn>
             <v-btn small icon flat @click.stop="maxWindow">
-                <v-icon small>add</v-icon>
+                <v-icon small>mdi-plus</v-icon>
             </v-btn>
             <v-btn small icon flat @click.stop="closeWindow" class="last-btn">
-                <v-icon small>close</v-icon>
+                <v-icon small>mdi-close</v-icon>
             </v-btn>
         </v-toolbar-items>
     </v-toolbar>
@@ -26,8 +26,8 @@
     import { remote } from "electron";
     import MouseTrap from "mousetrap";
     import KeyManager from "../scripts/appMenu/KeyManager";
-import TabSystem from '../scripts/TabSystem';
-import ConfirmWindow from '../scripts/commonWindows/Confirm';
+    import TabSystem from '../scripts/TabSystem';
+    import ConfirmWindow from '../scripts/commonWindows/Confirm';
 
     export default {
         name: "app-toolbar",

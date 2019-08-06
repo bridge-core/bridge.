@@ -12,7 +12,7 @@
                 <v-list-tile-action-text>{{ plugin.version }}</v-list-tile-action-text>
                 <v-tooltip :right="!is_fullscreen" :left="is_fullscreen" v-if="!is_update">
                     <v-btn slot="activator" @click.stop="download()" :disabled="!is_compatible" :loading="loading" icon>
-                        <v-icon>cloud_download</v-icon>
+                        <v-icon>mdi-cloud-download</v-icon>
                     </v-btn>
                     <span>Download</span>
                 </v-tooltip>

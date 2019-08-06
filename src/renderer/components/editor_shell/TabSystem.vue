@@ -14,7 +14,7 @@
                         <span>{{ file.file_name }}</span>
                     </v-tooltip>
                     
-                    <v-btn @click.stop="closeTab(i)" flat icon small><v-icon small>close</v-icon></v-btn>
+                    <v-btn @click.stop="closeTab(i)" flat icon small><v-icon small>mdi-close</v-icon></v-btn>
                 </v-tab>
             </v-tabs>
     </v-layout>

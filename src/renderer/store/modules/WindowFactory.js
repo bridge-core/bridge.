@@ -55,6 +55,7 @@ const mutations = {
         if(state.elements.length > index && state.elements[index].id === id) state.elements.splice(index, 1);
     },
     resetPluginWindows(state) {
+        //Filter out plugin windows and keep native windows
         state.elements = state.elements.filter(w => !w.is_plugin);
     }
 }
