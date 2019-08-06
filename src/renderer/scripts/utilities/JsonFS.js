@@ -1,11 +1,12 @@
 import fs from "fs";
+import cJSON from "comment-json";
 
 export function readJSON(path) {
     return new Promise((resolve, reject) => {
         fs.readFile(path, (err, data) => {
             if(err) return reject(err);
             try {
-                resolve(JSON.parse(data.toString()));
+                resolve(cJSON.parse(data, undefined, true));
             } catch(e) {
                 reject(e);
             }

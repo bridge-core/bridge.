@@ -26,7 +26,7 @@ export default class PluginLoader {
         await Promise.all(PLUGIN_FOLDERS.map(plugin_folder => this.loadPlugin(project, plugin_folder)));
 
         //INIT LEGACY PLUGIN DATA FOR UI
-        Store.commit("finishedPluginLoading");
+        Store.commit("finishedPluginLoading", PLUGIN_DATA);
         console.log(PLUGIN_DATA);
     }
 
@@ -45,6 +45,7 @@ export default class PluginLoader {
             try {
                 manifest = await readJSON(path.join(plugin_path, "manifest.json"));
             } catch(e) {
+                console.log(e);
                 return;
             }
             PLUGIN_DATA.push(manifest);
