@@ -54,105 +54,106 @@
 </template>
 
 <script>
-import fs from "fs";
-import PluginEnv from "../../scripts/plugins/PluginEnv";
+    import fs from "fs";
+    import PluginEnv from "../../scripts/plugins/PluginEnv";
+    import PluginLoader from '../../scripts/plugins/PluginLoader';
 
-export default {
-    name: "plugin-list",
-    props: {
-        plugins: Array,
-        is_fullscreen: Boolean,
-        filter: String
-    },
-    created() {
-        this.loadPlugins();
-    },
-    data() {
-        return {
-            plugins_to_show: [],
-            notification: false,
-            notification_type: "success"
-        }
-    },
-    computed: {
-        show_uninstall: {
-            get() {
-                return this.filter == 'active';
-            },
-            set() {
-
-            }
+    export default {
+        name: "plugin-list",
+        props: {
+            plugins: Array,
+            is_fullscreen: Boolean,
+            filter: String
         },
-        no_plugins_message() {
-            if(this.filter == "active") return "There are currently no activated plugins inside this project. Plugins can speed up your work by providing new features to bridge.";
-            if(this.filter == "available") return "There are currently no deactivated plugins inside this project. Plugins can speed up your work by providing new features to bridge.";
-        },
-        show_list() {
-            return this.plugins_to_show.length > 0;
-        }
-    },
-    methods: {
-        loadPlugins() {
-            let uninstalled = this.uninstalled_plugins();
-            
-            if(this.show_uninstall) {
-                this.plugins_to_show = this.plugins.filter(plugin => plugin != 'unknown' && plugin != 'module' && !uninstalled.includes(plugin.id));
-            } else {
-                this.plugins_to_show = this.plugins.filter(plugin => plugin != 'unknown' && plugin != 'module' && uninstalled.includes(plugin.id));
-            }
-        },
-        uninstalled_plugins() {
-            let path = PluginEnv.Runtime.getBridgePath() + "uninstalled_plugins.json";
-            if(fs.existsSync(path)) return JSON.parse(fs.readFileSync(path));
-            return [];
-        },
-
-        uninstall(id) {
-            let path = PluginEnv.Runtime.getBridgePath() + "uninstalled_plugins.json";
-            fs.readFile(path, (err, data) => {
-                if(err) console.error(err);
-                let content = JSON.parse(data.toString());
-                if(!content.includes(id)) content.push(id);
-                
-                fs.writeFile(path, JSON.stringify(content), (err) => {
-                    if(err) console.error(err);
-                    this.loadPlugins();
-
-                    this.notification = true;
-                    this.notification_type = "error";
-                    this.refresh();
-                });
-            });
-            
-        },
-        install(id) {
-            let path = PluginEnv.Runtime.getBridgePath() + "uninstalled_plugins.json";
-            fs.readFile(path, (err, data) => {
-                if(err) console.error(err);
-                let content = JSON.parse(data.toString());
-                content.splice(content.indexOf(id), 1);
-                
-                fs.writeFile(path, JSON.stringify(content), (err) => {
-                    if(err) console.error(err);
-                    this.loadPlugins();
-
-                    this.notification = true;
-                    this.notification_type = "success";
-                    this.refresh();
-                });
-            });
-           
-        },
-        refresh() {  
-            this.$store.commit("refreshAllPlugins");
-        }
-    },
-    watch: {
-        filter() {
+        created() {
             this.loadPlugins();
+        },
+        data() {
+            return {
+                plugins_to_show: [],
+                notification: false,
+                notification_type: "success"
+            }
+        },
+        computed: {
+            show_uninstall: {
+                get() {
+                    return this.filter == 'active';
+                },
+                set() {
+
+                }
+            },
+            no_plugins_message() {
+                if(this.filter == "active") return "There are currently no activated plugins inside this project. Plugins can speed up your work by providing new features to bridge.";
+                if(this.filter == "available") return "There are currently no deactivated plugins inside this project. Plugins can speed up your work by providing new features to bridge.";
+            },
+            show_list() {
+                return this.plugins_to_show.length > 0;
+            }
+        },
+        methods: {
+            loadPlugins() {
+                let uninstalled = this.uninstalled_plugins();
+                
+                if(this.show_uninstall) {
+                    this.plugins_to_show = this.plugins.filter(plugin => plugin != 'unknown' && plugin != 'module' && !uninstalled.includes(plugin.id));
+                } else {
+                    this.plugins_to_show = this.plugins.filter(plugin => plugin != 'unknown' && plugin != 'module' && uninstalled.includes(plugin.id));
+                }
+            },
+            uninstalled_plugins() {
+                let path = PluginEnv.Runtime.getBridgePath() + "uninstalled_plugins.json";
+                if(fs.existsSync(path)) return JSON.parse(fs.readFileSync(path));
+                return [];
+            },
+
+            uninstall(id) {
+                let path = PluginEnv.Runtime.getBridgePath() + "uninstalled_plugins.json";
+                fs.readFile(path, (err, data) => {
+                    if(err) console.error(err);
+                    let content = JSON.parse(data.toString());
+                    if(!content.includes(id)) content.push(id);
+                    
+                    fs.writeFile(path, JSON.stringify(content), (err) => {
+                        if(err) console.error(err);
+                        this.loadPlugins();
+
+                        this.notification = true;
+                        this.notification_type = "error";
+                        this.refresh();
+                    });
+                });
+                
+            },
+            install(id) {
+                let path = PluginEnv.Runtime.getBridgePath() + "uninstalled_plugins.json";
+                fs.readFile(path, (err, data) => {
+                    if(err) console.error(err);
+                    let content = JSON.parse(data.toString());
+                    content.splice(content.indexOf(id), 1);
+                    
+                    fs.writeFile(path, JSON.stringify(content), (err) => {
+                        if(err) console.error(err);
+                        this.loadPlugins();
+
+                        this.notification = true;
+                        this.notification_type = "success";
+                        this.refresh();
+                    });
+                });
+            
+            },
+            refresh() {  
+                PluginLoader.loadPlugins(this.$store.state.Explorer.project.explorer);
+            }
+        },
+        watch: {
+            filter() {
+                this.loadPlugins();
+            }
         }
     }
-}
 </script>
 
 <style scoped>

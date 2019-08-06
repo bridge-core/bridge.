@@ -1,7 +1,7 @@
 <template>
 <div>
     <v-text-field
-        prepend-icon="search"
+        prepend-icon="mdi-magnify"
         v-model="search"
     ></v-text-field>
     <v-divider/>

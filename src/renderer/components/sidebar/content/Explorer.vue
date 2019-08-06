@@ -198,7 +198,6 @@
                     this.getProjects({
                         event_name: "refreshExplorer",
                         func: () => {
-                            this.$store.commit("forceReloadNextPluginRequest");
                             console.log("[REFRESH] " + this.selected);
                             this.getDirectory(undefined, true);
                         }
