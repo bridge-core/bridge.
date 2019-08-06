@@ -72,7 +72,7 @@ export default class OmegaCache {
                     this.toCachePath(file_path), JSON.stringify({
                         ...PluginEnv.trigger("bridge:cacheFile", { file_path, file_type: FileType.get(file_path) }), 
                         ...data 
-                    }),
+                    }, null, "\t"),
                     (err) => {
                         if(err) return reject("[O.CACHE] Error calling OmegaCache.save(..): ", err.message);
                         else resolve();

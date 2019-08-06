@@ -90,7 +90,7 @@ export default class LightningCache {
             }
         });
 
-        await writeJSON(this.l_cache_path, this.global_cache);
+        await writeJSON(this.l_cache_path, this.global_cache, true);
     }
     static async load() {
         if(this.global_cache !== undefined) return this.global_cache;

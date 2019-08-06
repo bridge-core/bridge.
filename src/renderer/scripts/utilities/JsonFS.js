@@ -8,9 +8,9 @@ export function readJSON(path) {
         });
     });
 }
-export function writeJSON(path, data) {
+export function writeJSON(path, data, beautify=false) {
     return new Promise((resolve, reject) => {
-        fs.writeFile(path, JSON.stringify(data), (err) => {
+        fs.writeFile(path, JSON.stringify(data, null, beautify ? "\t" : undefined), (err) => {
             if(err) reject(err);
             else resolve();
         });
