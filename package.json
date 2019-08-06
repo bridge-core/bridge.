@@ -1,10 +1,10 @@
 {
   "name": "bridge",
   "productName": "bridge.",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
-  "license": null,
+  "license": "GNU",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
