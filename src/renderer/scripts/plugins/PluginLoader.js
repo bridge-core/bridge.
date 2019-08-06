@@ -21,13 +21,11 @@ export default class PluginLoader {
             PLUGIN_FOLDERS = [];
         }
         
-        console.log(PLUGIN_FOLDERS);
         PLUGIN_DATA = [];
         await Promise.all(PLUGIN_FOLDERS.map(plugin_folder => this.loadPlugin(project, plugin_folder)));
 
         //INIT LEGACY PLUGIN DATA FOR UI
         Store.commit("finishedPluginLoading", PLUGIN_DATA);
-        console.log(PLUGIN_DATA);
     }
 
     static async loadPlugin(project, plugin_folder) {
@@ -44,10 +42,27 @@ export default class PluginLoader {
             let manifest;
             try {
                 manifest = await readJSON(path.join(plugin_path, "manifest.json"));
-            } catch(e) {
-                return;
-            }
+            } catch(e) { return; }
+
+            await this.loadScripts(plugin_path);
             PLUGIN_DATA.push(manifest);
         }
+    }
+
+    static async loadScripts(plugin_path) {
+        let scripts;
+        try {
+            scripts = await fs.readdir(path.join(plugin_path, "scripts"));
+        } catch(e) { return; }
+
+        let data = await Promise.all(scripts.map(s => fs.readFile(path.join(plugin_path, "scripts", s))));
+        data.forEach(
+            (d, i) => Bridge.Interpreter.execute(
+                d.toString(), 
+                path.join(plugin_path, "scripts", scripts[i]),
+                undefined,
+                true
+            )
+        );
     }
 }
