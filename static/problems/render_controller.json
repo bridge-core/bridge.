@@ -1,0 +1,11 @@
+{
+    "bridge:child_must_start_with": {
+        "search": "render_controllers",
+        "start": "controller.render.",
+        "error_message": "Render controllers must start with \"controller.render.<name>\"",
+        "fix": {
+            "type": "script",
+            "run": "History('edit-key', node, node.key); node.key = `controller.render.${node.key}`;"
+        }
+    }
+}
