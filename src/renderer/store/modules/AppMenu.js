@@ -100,6 +100,14 @@ const state = {
                         action: () => TabSystem.setCurrentFileNav("global")
                     },
                     {
+                        title: "Select Parent",
+                        shortcut: "Ctrl + P",
+                        action: () => {
+                            let p = TabSystem.getCurrentNavObj().parent;
+                            if(p !== undefined) TabSystem.setCurrentFileNav(p.path);
+                        }
+                    },
+                    {
                         title: "Select Next",
                         shortcut: "Ctrl + D",
                         action: () => TabSystem.moveSelectionDown()
