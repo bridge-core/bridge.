@@ -13,10 +13,10 @@ EventBus.on("updateSelectedTab", () => {
 });
 
 class ProblemIterator {
-    static findProblems(node_tree, file_path) {
+    static async findProblems(node_tree, file_path) {
         if(this.last_tree !== node_tree) this.last_tree = node_tree;
         
-        let arr = PROBLEM_STORE[FileType.get(file_path)];
+        let arr = (await PROBLEM_STORE())[FileType.get(file_path)];
         if(arr === undefined) return;
         arr.forEach(p => p.reset());
 

@@ -1,3 +1,6 @@
+/**
+ * Base class for managing and accessing data-driven features
+ */
 import TabSystem from "../TabSystem";
 import Provider from "../autoCompletions/Provider";
 import fs from "fs";
@@ -142,14 +145,33 @@ export default class FileType {
         let snippets = {};
         let proms = [];
 
-        for(let type of file_types) {
-            if(type.snippets !== undefined) {
-                proms.push(readJSON(`${__static}\\snippets\\${type.snippets}.json`).then(data => snippets[type.id] = data));
-            }
+        for(let { id, snippets } of file_types) {
+            if(snippets === undefined) continue;
+            proms.push(readJSON(`${__static}\\snippets\\${snippets}.json`).then(data => snippets[id] = data));
         }
 
         await Promise.all(proms);
         return snippets;
+    }
+    static async getProblems() {
+        let file_types = this.getAllData();
+        let data = {};
+        let proms = [];
+
+        for(let { problems, id } of file_types) {
+            if(problems === undefined) continue;
+            data[id] = {};
+            if(Array.isArray(problems))
+                problems.forEach(
+                    problem => proms.push(readJSON(`${__static}\\problems\\${problem}.json`)
+                        .then(p => Object.assign(data[id], p)))
+                );
+            else
+                proms.push(readJSON(`${__static}\\problems\\${problems}.json`).then(p => data[id] = p)) 
+        }
+        
+        await Promise.all(proms);
+        return data;
     }
 
     static async getLightningCacheDefs(file_path) {
