@@ -4,6 +4,7 @@ import path from "path"
 let default_dir = DefaultDir.get();
 
 export const MOJANG_PATH = (() => {
+    // Taken from minecraft-addon-tools/minecraft-addon-toolchain by @AtomicBlom
     let platformRoot = null;
     switch (os.platform()) {
         case "win32":
