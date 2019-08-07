@@ -17,7 +17,9 @@ If applicable, add screenshots to help explain your problem.
 **Device:**
  - OS: [e.g. Windows 10]
  - Version [e.g. version 0.13.0-pre7]
-
+ 
+ **bridge. Version:**
+  - e.g. bridge. v0.13.0-pre6
 
 **Additional context:**
 Add any other context about the problem here.
