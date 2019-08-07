@@ -9,10 +9,10 @@
                     <span class="window-title">Documentation</span>
                     <v-spacer></v-spacer>
                     <v-btn small icon @click.stop="is_fullscreen = !is_fullscreen">
-                        <v-icon small>add</v-icon>
+                        <v-icon small>mdi-plus</v-icon>
                     </v-btn>
                     <v-btn small icon @click.stop="DOC_WINDOW.close" class="last-btn">
-                        <v-icon small>close</v-icon>
+                        <v-icon small>mdi-close</v-icon>
                     </v-btn>
                 </v-toolbar>
             </v-card-title>

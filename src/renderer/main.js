@@ -4,11 +4,13 @@ import "vuetify/dist/vuetify.css";
 import VueCodeMirror from "vue-codemirror";
 import App from "./App";
 import store from "./store";
+import "@mdi/font/css/materialdesignicons.css";
 
 Vue.use(Vuetify, {
   options: {
     customProperties: true
-  }
+  },
+  iconfont: 'mdi'
 });
 Vue.use(VueCodeMirror);
 

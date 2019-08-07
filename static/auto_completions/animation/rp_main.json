@@ -2,7 +2,10 @@
     "format_version": "$general.format_version",
     "animations": {
         "$placeholder": {
-            "anim_time_update": "$animation.general.queries",
+            "anim_time_update": {
+                "@meta": { "is_molang": true },
+                "@import.value": "$animation.general.queries"
+            },
             "animation_length": "$general.number",
             "blend_weight": "$general.decimal",
             "override_previous_animation": "$general.boolean",
@@ -10,27 +13,36 @@
             "bones": {
                 "$placeholder": {
                     "rotation": {
-                        "$dynamic.list.index_triple": "$general.degree and $animation.general.queries"
+                        "$dynamic.list.index_triple": {
+                            "@meta": { "is_molang": true },
+                            "@import.value": "$general.degree and $animation.general.queries"
+                        }
                     },
                     "scale": {
-                        "$dynamic.list.index_triple": "$general.decimal and $animation.general.queries"
+                        "$dynamic.list.index_triple": {
+                            "@meta": { "is_molang": true },
+                            "@import.value": "$general.degree and $animation.general.queries"
+                        }
                     },
                     "position": {
-                        "$dynamic.list.index_triple": "$general.number and $animation.general.queries"
+                        "$dynamic.list.index_triple": {
+                            "@meta": { "is_molang": true },
+                            "@import.value": "$general.number and $animation.general.queries"
+                        }
                     }
                 }
             },
             "particle_effects": {
                 "$general.decimal": {
                     "$dynamic.list.next_index": {
-                        "effect": {},
+                        "effect": "$dynamic.cache.client_entity.particle_references",
                         "locator": {}
                     }
                 }
             },
             "sound_effects" : {
                 "$dynamic.list.next_index": {
-                    "$placeholder": {}
+                    "$placeholder": "$dynamic.cache.client_entity.sound_references"
                 }
             }
         }

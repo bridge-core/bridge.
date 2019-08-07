@@ -26,7 +26,7 @@ export default class PackLinker {
             lw.close();
         } catch(e) {
             lw.close();
-            let i = new InformationWindow("Unable to link packs", `bridge. failed to link the packs ${bp_name} and ${rp_name}.`);
+            new InformationWindow("Unable to link packs", `bridge. failed to link the packs ${bp_name} and ${rp_name}. ${e.message}`);
         }
     }
 }

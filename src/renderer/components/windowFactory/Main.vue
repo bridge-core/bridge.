@@ -2,7 +2,7 @@
     <div>
         <window 
             v-for="(win, i) in windows"
-            :key="`plugin-popup-window-${i}`"
+            :key="`plugin-popup-window-${i}-${win.id}`"
             :win="win"
         />
     </div>

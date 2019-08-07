@@ -12,6 +12,7 @@ import Provider from "../autoCompletions/Provider";
 import { walkSync } from "../autoCompletions/Dynamic";
 import LoadingWindow from "../../windows/LoadingWindow";
 import OmegaCache from "../editor/OmegaCache";
+import FileType from "../editor/FileType";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -96,7 +97,7 @@ export default class Bridge {
                 }
                 
             },
-            writeFile(path, data, cb, check=true) {
+            writeFile(path, data, cb, check=true, add_file_version=true) {
                 let folder = path.split(/\\|\//g);
                 folder.pop();
                 folder = folder.join("\\");
@@ -104,6 +105,19 @@ export default class Bridge {
                 if(check && !this.exists(Runtime.Paths.project() + folder)) {
                     fs.mkdir(Runtime.Paths.project() + folder, err => {
                         this.writeFile(path, data, cb, false);
+                    });
+                } else if(add_file_version) {
+                    fs.readFile(path, (err, read_file) => {
+                        let fv;
+                        if(err)
+                            fv = `${FileType.getCommentChar(Runtime.Paths.project() + path)}bridge-file-version: #0\n`;
+                        else
+                            fv = `${FileType.getCommentChar(Runtime.Paths.project() + path)}bridge-file-version: #${OmegaCache.extractFileVersion(path, read_file.toString()) || 0}\n`;
+
+                        fs.writeFile(Runtime.Paths.project() + path, fv + data, (err) => {
+                            if(err && !cb) PluginAssert.throw(this.__file_path__, err);
+                            else cb(err);
+                        });
                     });
                 } else {
                     fs.writeFile(Runtime.Paths.project() + path, data, (err) => {
@@ -219,21 +233,23 @@ export default class Bridge {
         this.Window = {
             register(window) {
                 if(window.id === undefined) throw new Error("No window id defined.");
-                Store.commit("addPluginWindow", window);
+                Store.commit("addPluginWindow", { ...window, is_plugin: true });
             },
             update(window) {
-                Store.commit("updatePluginWindow", window);
+                Store.commit("updatePluginWindow", { ...window, is_plugin: true });
             },
             open(id) {
                 Store.commit("setWindowIsVisible", {
                     id,
-                    val: true
+                    val: true,
+                    is_plugin: true
                 });
             },
             close(id) {
                 Store.commit("setWindowIsVisible", {
                     id,
-                    val: false
+                    val: false,
+                    is_plugin: true
                 });
             },
             remove(id) {

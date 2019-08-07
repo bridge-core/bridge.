@@ -1,4 +1,4 @@
-import { BASE_PATH } from "../constants";
+import { BASE_PATH, RP_BASE_PATH } from "../constants";
 import TabSystem from "../TabSystem";
 import Store from "../../store/index";
 import path from "path";
@@ -78,16 +78,12 @@ export const DYNAMIC = {
         component_groups() {
             try {
                 return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/component_groups").toJSON());
-            } catch(e) {
-                return [];
-            }
+            } catch(e) { return []; }
         },
         events() {
             try {
                 return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/events").toJSON());
-            } catch(e) {
-                return [];
-            }
+            } catch(e) { return []; }
         },
         all_events() {
             return LightningCache.getCompiledSync().entity.events.map(e => "@s " + e);
@@ -98,9 +94,7 @@ export const DYNAMIC = {
         animation_references() {
             try {
                 return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/description/animations").toJSON());
-            } catch(e) {
-                return [];
-            }
+            } catch(e) { return []; }
         }
     },
     recipe: {
@@ -110,14 +104,17 @@ export const DYNAMIC = {
                 let res = [];
                 data.forEach(e => res = res.concat(e.split("")));
                 return res.filter(e => e !== " ");
-            } catch(e) {
-                return [];
-            }
+            } catch(e) { return []; }
         }
     },
     biome: {
         name_references() {
             return walkSync(BASE_PATH + Store.state.Explorer.project.explorer + "\\biomes").map(e => {
+                return e.split(/\\|\//g).pop().replace(".json", "");
+            });
+        },
+        feature_references() {
+            return walkSync(BASE_PATH + Store.state.Explorer.project.explorer + "\\features").map(e => {
                 return e.split(/\\|\//g).pop().replace(".json", "");
             });
         }
@@ -133,6 +130,35 @@ export const DYNAMIC = {
             }
             if(current.key === "states") return Object.keys(current.toJSON());
             return [];
+        }
+    },
+    client_entity: {
+        animation_references() {
+            try {
+                return Object.keys(TabSystem.getSelected().content.get("minecraft:client_entity/description/animations").toJSON());
+            } catch(e) { return []; }
+        }
+    },
+    rp: {
+        item_textures() {
+            try {
+                let data = JSON.parse(fs.readFileSync(path.join(RP_BASE_PATH, Store.state.Explorer.project.resource_pack, "/textures/item_texture.json")).toString());
+                return Object.keys(data.texture_data);
+            } catch(e) { return []; }
+        },
+        terrain_textures() {
+            try {
+                let data = JSON.parse(fs.readFileSync(path.join(RP_BASE_PATH, Store.state.Explorer.project.resource_pack, "/textures/terrain_texture.json")).toString());
+                return Object.keys(data.texture_data);
+            } catch(e) { return []; }
+        },
+        entity_textures() {
+            try {
+                return walkSync(path.join(RP_BASE_PATH, Store.state.Explorer.project.resource_pack + "/textures/entity"))
+                    .map(e => {
+                        return e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
+                    });
+            } catch(e) { return []; }
         }
     },
     animation_controller_ids() {
@@ -157,26 +183,20 @@ export const DYNAMIC = {
             return walkSync(BASE_PATH + Store.state.Explorer.project.explorer + "\\loot_tables").map(e => {
                 return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.explorer + "\\", "").replace(/\\/g, "/");
             });
-        } catch(e) {
-            return [];
-        }
+        } catch(e) { return []; }
     },
     trade_table_files() {
         try {
             return walkSync(BASE_PATH + Store.state.Explorer.project.explorer + "\\trading").map(e => {
                 return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.explorer + "\\", "").replace(/\\/g, "/");
             });
-        } catch(e) {
-            return [];
-        }
+        } catch(e) { return []; }
     },
     function_files() {
         try {
             return walkSync(BASE_PATH + Store.state.Explorer.project.explorer + "\\functions").map(e => {
                 return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.explorer + "\\functions\\", "").replace(/\\/g, "/").replace(".mcfunction", "");
             });
-        } catch(e) {
-            return [];
-        }
+        } catch(e) { return []; }
     }
 };

@@ -2,10 +2,10 @@
     "format_version": "$general.format_version",
     "particle_effect": {
         "description": {
-            "identifier": {},
+            "identifier": { "@meta": { "is_value": true } },
             "basic_render_parameters": {
                 "material": "$particle.general.material",
-                "texture": {}
+                "texture": { "@meta": { "is_value": true } }
             }
         },
         "curves": {
@@ -30,7 +30,7 @@
                     }
                 },
                 "particle_effect": {
-                    "effect": {},
+                    "effect": { "@meta": { "is_value": true } },
                     "type": [ "emitter", "emitter_bound", "particle", "particle_with_velocity" ],
                     "pre_effect_expression": "$particle.general.moLang"
                 }

@@ -5,6 +5,7 @@
     "boolean": [ "true", "false" ],
     "number_boolean": [ "0", "1" ],
     "format_version": [ "1.8.0", "1.9.0", "1.10.0", "1.11.0", "1.12.0", "1.13.0" ],
+    "translatable_text": { "@meta": { "is_value": true } },
     "entity": {
         "built_in_event": [ "minecraft:entity_born", "minecraft:entity_spawned", "minecraft:entity_transformed", "minecraft:on_prime" ],
         "effect_definition": {
@@ -16,8 +17,15 @@
             "display_on_screen_animation": "$general.boolean"
         },
         "event_definition": {
-            "event": "$dynamic.entity.events",
             "filters": "$entity.filters",
+            "$dynamic_template.event": {
+                "$key": "$dynamic.siblings.target",
+
+                "$fallback": "$dynamic.entity.events",
+                "$default": "$dynamic.cache.entity.events",
+        
+                "self": "$dynamic.entity.events"
+            },
             "target": "$general.entity.filter_targets"
         },
         "entity_types": {
@@ -45,18 +53,21 @@
             "particle_y_offset": "$general.decimal", 
             "particle_offset_towards_interactor": "$general.boolean"
         },
-        "family": {},
         "filters": [ 
             "clock_time", "distance_to_nearest_player", "hourly_clock_time", "has_ability", "has_biome_tag", "has_component", "has_damage", "has_equipment", "has_mob_effect", "has_tag", "has_trade_supply", "in_caravan", "in_clouds", "in_lava", "in_water", "in_water_or_rain", "is_altitude", "is_avoiding_mobs", "is_biome", "is_brightness", "is_climbing", "is_color", "is_daytime", "is_difficulty", "is_family", "is_game_rule", "is_humid", "is_immobile", "is_in_village", "is_leashed", "is_leashed_to", "is_moving", "is_owner", "is_riding", "is_skin_id", "is_sneaking", "is_snow_covered", "is_target", "is_temperature_type", "is_temperature_value", "is_underground", "is_underwater", "is_variant", "is_visible", "moon_intensity", "moon_phase", "on_ground", "on_ladder"
         ],
         "filter_targets": [ "other", "parent", "player", "self", "target", "baby", "block" ],
-        "filter_operators": [ "==", "!=", "<", "<=", "<>", "=", ">", ">=", "equals", "not" ]
+        "filter_operators": [ "==", "!=", "<", "<=", "<>", "=", ">", ">=", "equals", "not" ],
+        "family": {
+            "@meta": { "is_value": true },
+            "@import.value": "$dynamic.cache.entity.families"
+        }
     },
     "inventory_type": [
         "minecart_chest", "horse", "minecart_hopper", "container"
     ],
     "damage_type": [
-        "override", "contact", "none", "lava", "entity_attack", "fire_tick", "projectile", "suffocation", "fall", "starve", "fire", "drowning", "block_explosion", "entity_explosion", "void", "suicide", "magic", "wither", "charging", "anvil", "thorns", "falling_block", "piston", "magma", "fireworks", "temperature", "all"
+        "override", "contact", "none", "lava", "entity_attack", "fire_tick", "projectile", "suffocation", "fall", "fatal", "starve", "fire", "drowning", "block_explosion", "entity_explosion", "void", "suicide", "magic", "wither", "charging", "anvil", "thorns", "falling_block", "piston", "magma", "fireworks", "temperature", "all"
     ],
     "potion_number_id": [ 
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "34", "35", "36", "37", "38", "39", "40", "41"
@@ -103,7 +114,7 @@
     "biome_name": [
         "ice", "forest", "extreme_hills", "beach", "jungle", "desert", "flat", "the_nether", "mesa", "plain", "mushroom_island", "ocean", "river", "savanna", "stone_beach", "swamp", "taiga", "the_end"
     ],
-    "sound": [],
+    "sound": { "@meta": { "is_value": true } },
     "minecraft_color": [
         "dark_red", "red", "gold", "yellow", "dark_green", "green", "aqua", "dark_aqua", "dark_blue", "blue", "light_purple", "dark_purple", "white", "gray", "dark_gray", "black"
     ],

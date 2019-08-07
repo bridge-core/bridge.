@@ -8,7 +8,7 @@
     },
     "variable": {
         ".": {
-            "attack_time": { "$molang.general.operator": "$molang.main" }
+            "$molang.general.variable": { "$molang.general.operator": "$molang.main" }
         }
     },
     "math": {

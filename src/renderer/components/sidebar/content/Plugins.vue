@@ -3,7 +3,7 @@
         <v-toolbar flat height="30px">
             <v-tooltip bottom class="first">
                 <v-btn slot="activator" @click.stop="is_menu_open = true" class="first" small icon>
-                    <v-icon small>settings</v-icon>
+                    <v-icon small>mdi-settings</v-icon>
                 </v-btn>
                 <span>Manage</span>
             </v-tooltip>
@@ -27,7 +27,7 @@
                                     flat
                                     icon
                                     small>
-                                    <v-icon small>info</v-icon>
+                                    <v-icon small>mdi-information</v-icon>
                                 </v-btn>
                                 <span>More...</span>
                             </v-tooltip>
@@ -50,20 +50,20 @@
 
                             <v-tooltip right v-if="plugin.link != undefined">
                                 <v-icon @click.stop.native="openLink(plugin.link)" slot="activator" color="primary">
-                                    language
+                                    mdi-earth
                                 </v-icon>
                                 <span>More...</span>
                             </v-tooltip>
 
                             <v-tooltip right v-if="!uninstalled_plugins().includes(plugin.id)">
                                 <v-icon slot="activator" color="success">
-                                    done
+                                    mdi-check
                                 </v-icon>
                                 <span>Active</span>
                             </v-tooltip>
                             <v-tooltip right v-else>
                                 <v-icon slot="activator" color="error">
-                                    close
+                                    mdi-close
                                 </v-icon>
                                 <span>Inactive</span>
                             </v-tooltip>

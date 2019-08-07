@@ -18,9 +18,9 @@ export default class AnimationCheck extends CommonProblem {
                 this.ids = c.animation.ids.concat(c.animation_controller.ids);
             } else if(c.animation !== undefined || c.animation_controller !== undefined) {
                 this.ids = c.animation ? c.animation.id : c.animation_controller.ids;
-            } else {
+            } 
+            if(this.ids === undefined)
                 this.ids = [];
-            }
         } 
         if(node.parent !== undefined && node.parent.key === "animations") {
             if(!this.ids.includes(node.data)) {

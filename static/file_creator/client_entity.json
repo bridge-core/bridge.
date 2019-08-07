@@ -10,14 +10,20 @@
             "minecraft:client_entity": {
                 "description": {
                     "identifier": {},
-                    "materials": {},
-                    "textures": {},
-                    "geometry": {},
+                    "materials": {
+                        "default": {}
+                    },
+                    "textures": {
+                        "default": {}
+                    },
+                    "geometry": {
+                        "default": {}
+                    },
+                    "animations": {},
                     "scripts": {
                         "pre_animation": {},
                         "animate": {}
                     },
-                    "animations": {},
                     "render_controllers": {},
                     "spawn_egg": {}
                 }

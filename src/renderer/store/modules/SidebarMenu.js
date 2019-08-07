@@ -8,7 +8,7 @@ const state = {
     items: [
         {
             title: "Explorer",
-            icon: "folder",
+            icon: "mdi-folder",
             menu_type: "explorer"
         },
         {
@@ -23,7 +23,7 @@ const state = {
         },
         {
             title: "Extensions",
-            icon: "extension",
+            icon: "mdi-puzzle",
             menu_type: "extensions"
         }
     ],

@@ -9,7 +9,7 @@
         "value": "$general.decimal"
     },
     "minecraft:map_color": {
-        "color": {}
+        "color": { "@meta": { "is_value": true } }
     },
     "minecraft:flammable": {
         "burn_odds": "$general.decimal",
@@ -19,9 +19,6 @@
         "value": "$general.decimal"
     },
     "minecraft:explosion_resistance": {
-        "value": "$general.decimal"
-    },
-    "minecraft:destroy_time": {
         "value": "$general.decimal"
     },
     "minecraft:loot": {

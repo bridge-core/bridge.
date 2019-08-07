@@ -29,14 +29,26 @@ const mutations = {
     loadExplorerDirectory(state, { store_key, path, force_reload }) {
         if(state.loaded_project[store_key] !== state.project[store_key] || state.files[store_key] === undefined || force_reload) {
             Vue.set(state.loaded_project, store_key, state.project[store_key]);
-            Vue.set(state.files, store_key, dirTree.dirTojson(path, {
+            let tree = dirTree.dirTojson(path, {
                 includeAbsolutePath: true
-            }));
+            });
+            copyOpenFolders(state.files[store_key], tree);
+            Vue.set(state.files, store_key, tree);
         }
     },
     setExplorerIsDirOpen(state, { store_key, path, is_open }) {
         setIsOpen(path.split("/"), is_open, state.files[store_key])
     }
+}
+
+function copyOpenFolders(oldTree, newTree) {
+    if(!oldTree || !oldTree.child) return;
+    oldTree.child.forEach(c => {
+        if(!c || !newTree || !newTree.child) return;
+        let nC = newTree.child.find((nC) => nC.name === c.name);
+        if(nC && c.is_open) Vue.set(nC, "is_open", true);
+        copyOpenFolders(c, nC);
+    });
 }
 
 export default {

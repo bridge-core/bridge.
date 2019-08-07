@@ -85,18 +85,22 @@
                     this.mode = "value";
 
                 let current = this.render_object.get(this.file_navigation);
+                if(current.meta.is_value) this.mode = "value";
+
+
                 if(this.mode === "object") {
                     let node = new JSONTree(this.value + "");
                     current.add(node, true);
-                    current.type = "object";
                     current.openNode();
+                    current.type = "object";
 
-                    this.expandPath(this.value);
+                    if(!current.meta.expand_path_exceptions || !current.meta.expand_path_exceptions.includes(this.value))
+                        this.expandPath(this.value);
                 } else if(this.file_navigation !== "global" && this.mode === "value") {
                     if(current.children.length > 0) return;
 
                     TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
-                    current.edit(this.value + "");
+                    current.edit(this.value);
                     current.type = typeof this.value;
                     this.navigationBack();
 
@@ -121,7 +125,6 @@
                     this.items = [];
                     return;
                 }
-
                 
                 let current = this.render_object.get(this.file_navigation);
                 if(current == undefined || current == null) return;

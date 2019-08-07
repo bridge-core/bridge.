@@ -1,4 +1,8 @@
 {
+    "@meta": {
+        "expand_path_exceptions": [ "minecraft:spawns_on_surface", "minecraft:spawns_underwater" ]
+    },
+
     "minecraft:spawns_on_surface": {},
     "minecraft:spawns_underwater": {},
 
@@ -21,7 +25,15 @@
         "min_size": "$general.number",
         "max_size": "$general.number",
         "event_skip_count": "$general.number",
-        "event": {}
+        "event": {
+            "@meta": { "is_value": true },
+            "@import.value": "$dynamic.cache.entity.events"
+        },
+        "initial_event_count": "$general.number",
+        "initial_event": {
+            "@meta": { "is_value": true },
+            "@import.value": "$dynamic.cache.entity.events"
+        }
     },
     "minecraft:density_limit": {
         "surface": "$general.number",
@@ -54,11 +66,6 @@
         "min": "$general.number",
         "max": "$general.number"
     },
-    "minecraft:herd": {
-        "initial_event": {},
-        "initial_event_count": "$general.number"
-    },
-    "minecraft:is_persistent": {},
     "minecraft:permute_type": {
         "$dynamic.list.next_index": {
             "weight": "$general.number",

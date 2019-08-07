@@ -20,7 +20,7 @@
                 dense 
                 :loading="loading" 
                 :disabled="items.length <= 1"
-                @input="getDirectory"
+                @input="(choice) => selected = choice"
                 hide-details
             />
             <v-subheader
@@ -73,6 +73,8 @@
     import PackLinker from '../../../scripts/utilities/LinkPacks';
     import OmegaCache from '../../../scripts/editor/OmegaCache';
     import ExplorerNoProjects from "./explorer/NoProjects";
+    import PluginLoader from "../../../scripts/plugins/PluginLoader";
+    import LightningCache from '../../../scripts/editor/LightningCache';
 
     export default {
         name: "content-explorer",
@@ -118,7 +120,7 @@
                 this.items = args.files;
                 this.no_projects = false;
                 
-                if (this.items.length === 0 || this.items[0] === "undefined") {
+                if(this.items.length === 0 || this.items[0] === "undefined") {
                     this.no_projects = true;
                 } else if(this.selected === "" || this.selected === undefined) {
                     this.getDirectory(this.findDefaultProject());
@@ -196,7 +198,6 @@
                     this.getProjects({
                         event_name: "refreshExplorer",
                         func: () => {
-                            this.$store.commit("forceReloadNextPluginRequest");
                             console.log("[REFRESH] " + this.selected);
                             this.getDirectory(undefined, true);
                         }
@@ -214,14 +215,20 @@
                 });
             },
             getDirectory(dir=this.selected, force_reload) {
-                if(this.explorer_type === "explorer") EventBus.trigger("bridge:changedProject");
-                if(this.explorer_type === "explorer") OmegaCache.init(dir);
-
+                if(this.explorer_type === "explorer") {
+                    EventBus.trigger("bridge:changedProject");
+                    OmegaCache.init(dir);
+                    LightningCache.init();
+                }
+                
                 if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return;
                 if(dir !== this.selected) {
-                    this.$set(this, "selected", dir);
+                    this.selected = dir;
                     TabSystem.select(0);
+                    return;
                 }
+                if(this.explorer_type === "explorer") EventBus.trigger("bridge:changedProject");
+                if(this.explorer_type === "explorer") OmegaCache.init(dir);
                 
                 this.$store.commit("loadExplorerDirectory", {
                     store_key: this.explorer_type,
@@ -229,11 +236,7 @@
                     force_reload
                 });
                 if(this.load_plugins) {
-                    this.$store.commit("loadAllPlugins", {
-                        directory: this.$store.state.Explorer.files[this.explorer_type],
-                        selected: this.selected, 
-                        base_path: this.base_path 
-                    });
+                    PluginLoader.loadPlugins(dir);
                 } 
             },
 

@@ -162,14 +162,6 @@ export class JSONAction extends Action {
     }
 
     push(arr, action) {
-        if(
-            action.context === this.context 
-            && action.type === this.type 
-            && (this.type == "edit-key" || this.type == "edit-data")
-        ) {
-            return;
-        } else {
-            arr.unshift(action);
-        }
+        arr.unshift(action);
     }
 }

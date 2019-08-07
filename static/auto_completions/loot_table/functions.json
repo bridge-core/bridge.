@@ -47,10 +47,10 @@
                 }
             },
             "set_book_contents": {
-                "author": {},
-                "title": {},
+                "author": { "@meta": { "is_value": true } },
+                "title": { "@meta": { "is_value": true } },
                 "pages": {
-                    "$dynamic.list.next_index": {}
+                    "$dynamic.list.next_index": { "@meta": { "is_value": true } }
                 }
             },
             "set_count": {
@@ -73,11 +73,11 @@
             },
             "set_lore": {
                 "lore": {
-                    "$dynamic.list.next_index": {}
+                    "$dynamic.list.next_index": { "@meta": { "is_value": true } }
                 }
             },
             "set_name": {
-                "name": {}
+                "name": { "@meta": { "is_value": true } }
             },
             "specific_enchants": {
                 "enchants": {

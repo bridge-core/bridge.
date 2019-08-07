@@ -1,8 +1,8 @@
-import { ipcMain, ipcRenderer } from "electron";
+import { ipcMain, app } from "electron";
 import { dialog } from "electron";
 import fs from "fs";
 import DirToJSON from "dir-to-json";
-import { DefaultDir } from "./DefaultDir";
+import { DefaultDir } from "../shared/DefaultDir";
 
 ipcMain.on("getProjects", (event, args) => {
     fs.readdir(args.path || '.', (err, files) => {
@@ -47,7 +47,8 @@ ipcMain.on("chooseDefaultDirectory", (event, args) => {
     }, (file_path) => {
         if(file_path) {
             DefaultDir.set(file_path);
-            event.sender.send("forceReloadApp");
+            app.relaunch();
+            app.quit();
         } 
     });
 });

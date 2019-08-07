@@ -42,7 +42,7 @@ export default class OmegaCache {
             let str = file_str.split("\n").shift();
             let version_templ = `${FileType.getCommentChar(file_path)}bridge-file-version: #`;
 
-            if(str.startsWith(version_templ)) {
+            if(str.startsWith(version_templ) && !isNaN(Number(str.replace(version_templ, "")))) {
                 return Number(str.replace(version_templ, ""));
             }
         } catch(e) {}
@@ -75,11 +75,11 @@ export default class OmegaCache {
                     this.toCachePath(file_path), JSON.stringify({
                         ...PluginEnv.trigger("bridge:cacheFile", { file_path, file_type: FileType.get(file_path) }), 
                         ...data 
-                    }),
+                    }, null, "\t"),
                     (err) => {
                         if(err) return reject("[O.CACHE] Error calling OmegaCache.save(..): ", err.message);
                         else resolve();
-                        console.log("Cached file " + file_path);
+                        // console.log("Cached file " + file_path);
                     }
                 );
             });

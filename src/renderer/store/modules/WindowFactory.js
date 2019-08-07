@@ -13,18 +13,16 @@ const mutations = {
         }
 
         if(i < state.elements.length) Vue.set(state.elements[i], "is_visible", val);
-        else if(id) throw new Error("Unknown window ID: " + id);
+        else if(id) console.error("Unknown window ID: " + id);
     },
 
     addPluginWindow(state, window) {
         let i = 0;
-        while(i < state.elements.length && state.elements[i].id != window.id) {
+        while(i < state.elements.length && state.elements[i].id !== window.id) {
             i++;
         }
 
-        if(i === state.elements.length) state.elements.push(detachObj({}, window));
-        else if(id) throw new Error("Unknown window ID: " + id);
-        
+        if(i === state.elements.length) state.elements.push(detachObj({}, window));       
     },
     updatePluginWindow(state, window) {
         let i = 0;
@@ -36,27 +34,27 @@ const mutations = {
             let tmp = detachObj(state.elements[i], window);
             Vue.set(state.elements, i, tmp);
         }
-        else if(id) throw new Error("Unknown window ID: " + id);
+        else if(window.id) console.error("Unknown window ID: " + window.id);
     },
     removePluginWindow(state, id) {
         let i = 0;
         while(i < state.elements.length && state.elements[i].id != id) {
             i++;
         }
-
         if(i < state.elements.length) {
             Vue.set(state.elements[i], "is_visible", false);
             setTimeout(() => {
                 Store.commit("__plugin_window_internal_remove", { index: i, id });
             }, 400);
         } 
-        else if(id) throw new Error("Unknown window ID: " + id);
+        else if(id) console.error("Unknown window ID: " + id);
     },
     __plugin_window_internal_remove(state, { index, id }) {
         if(state.elements.length > index && state.elements[index].id === id) state.elements.splice(index, 1);
     },
     resetPluginWindows(state) {
-        state.elements = [];
+        //Filter out plugin windows and keep native windows
+        state.elements = state.elements.filter(w => !w.is_plugin);
     }
 }
 

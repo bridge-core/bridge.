@@ -11,19 +11,19 @@
                     "on_fire": "$general.boolean"
                 }
             },
-            "random_chance":{
+            "random_chance": {
                 "chance": "$general.decimal"
             },
-            "random_chance_with_looting":{
+            "random_chance_with_looting": {
                 "chance": "$general.decimal",
-                "looting_multiplayer": "$general.decimal"
+                "looting_multiplier": "$general.decimal"
             },
-            "random_difficulty_change":{
+            "random_difficulty_change": {
                 "default_chance": "$general.decimal",
                 "peaceful": "$general.decimal",
                 "hard": "$general.decimal"
             },
-            "random_regional_difficulty_chance":{
+            "random_regional_difficulty_chance": {
                 "max_chance": "$general.decimal"
             }
         }

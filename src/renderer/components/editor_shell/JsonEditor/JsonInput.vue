@@ -102,16 +102,18 @@
                 let is_data_path = TabSystem.getSelected().content.isDataPath(this.file_navigation);
                 if(this.type === "object") {
                     let node = new JSONTree(this.value + "");
-                    current.add(node, true).openNode();
+                    current.add(node, true);
+                    current.openNode();
                     current.type = "object";
                     EventBus.trigger("setWatcherInactive");
 
-                    this.expandPath(this.value);
+                     if(!current.meta.expand_path_exceptions || !current.meta.expand_path_exceptions.includes(this.value))
+                        this.expandPath(this.value);
                 } else if(this.file_navigation !== "global" && this.type === "value") {
                     if(current.children.length > 0) return;
 
                     TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
-                    current.edit(this.value);;
+                    current.edit(this.value);
                     current.type = typeof this.value;
                     this.navigationBack();
 
@@ -129,7 +131,7 @@
                     else {
                         TabSystem.getHistory().add(new JSONAction("edit-data", current, current.data));
                         current.edit(this.value);
-                        TabSystem.setCurrentFileNav(current.path + "/" +  this.value);
+                        TabSystem.setCurrentFileNav(current.path + "/" +  this.value.replace(/\//g, "#;slash;#"));
                     }
 
                     //PLUGIN HOOK
@@ -155,24 +157,22 @@
 
                 let current = this.render_object.get(this.file_navigation);
                 if(current === undefined || current === null) return;
-                if(current.data !== "") {
-                    this.items = [];
-                    return;
-                }
+                if(current.data !== "") return this.items = [];
 
                 //PLUGIN HOOK
                 let propose = current.propose(this.file_navigation);
                 PluginEnv.trigger("bridge:beforePropose", { propose, node: current });
                 this.items = propose[this.type];
 
-                
                 this.$nextTick(() => {
                     if(this.items && this.items.length > 0 && this.$refs.input) {
                         if(this.$store.state.Settings.auto_fill_inputs) this.value = this.items[0];
                         if(
                             this.$store.state.Settings.focus_json_inputs 
-                            && (this.type === "object" || propose.object.length === 0 )
+                            && (this.type === "object" || propose.object.length === 0)
                         ) this.$refs.input.focus();
+                    } else if(this.type === "value" && this.$store.state.Settings.focus_json_inputs && current.meta.is_value) {
+                        this.$refs.input.focus();
                     }
                 });
             },
