@@ -27,11 +27,12 @@ export default class OmegaCache {
         if(!file_path) throw new Error("[O.CACHE] Called OmegaCache.toCachePath(..) with falsy argument. Expected string");
         if(this.current_base === undefined) throw new Error("[O.CACHE] Called OmegaCache.toCachePath(..) before calling OmegaCache.init(..)");
 
-        let is_bp = true;
-        if(file_path.replace(/\\|\//g, "/").includes(RP_BASE_PATH)) is_bp = false;
+        const rel_bp = path.relative(BASE_PATH, file_path);
+        const rel_rp = path.relative(RP_BASE_PATH, file_path);
+        const is_bp = rel_bp.startsWith('../');
+        const tmp_path = is_bp ? rel_bp : rel_rp;
 
-        let tmp_path = file_path.replace(BASE_PATH, "").replace(RP_BASE_PATH, "").split(this.project);
-        return path.join(with_base ? this.current_base : "", is_bp ? "BP" : "RP", tmp_path.pop());
+        return path.join(with_base ? this.current_base : "", is_bp ? "BP" : "RP", tmp_path.slice(this.project.length)).replace(/\\/g, '/');
     }
 
     static extractFileVersion(file_path, file_str) { 
