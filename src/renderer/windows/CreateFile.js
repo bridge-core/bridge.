@@ -12,6 +12,7 @@ class FileContent {
         this.ext = ext;
         this.expand_path = expand_path;
         this.use_rp_path = use_rp_path;
+        this.curr_input = "unnamed";
 
         this.input = {
             type: "horizontal",
@@ -21,7 +22,7 @@ class FileContent {
                 {
                     type: "input",
                     text: "Name",
-                    input: "unnamed",
+                    input: this.curr_input,
                     has_focus: true,
                     color: "success",
                     key: uuidv4(),
@@ -30,27 +31,28 @@ class FileContent {
                             this.parent.createFile();
                         },
                         default: (val) => {
-                            this.input.content[0].input = val;
+                            this.curr_input = val;
 
                             if(val === "" && !this.parent.actions[1].is_disabled) {
                                 this.input.content[0].color = "error";
-                                this.input.key = uuidv4();
+                                this.input.content[0].key = uuidv4();
+                                this.input.content[0].input = this.curr_input;
                                 this.parent.actions[1].is_disabled = true;
 
-                                this.path_info.text = "Invalid file name!\n\n"
-                                this.path_info.color = "error";
+                                // this.path_info.text = "Invalid file name!\n\n"
+                                // this.path_info.color = "error";
 
                                 this.parent.update({ content: this.content, actions: this.parent.actions });
                             } else if(this.parent.actions[1].is_disabled) {
                                 this.input.content[0].color = "success";
-                                this.input.key = uuidv4();
+                                this.input.content[0].key = uuidv4();
+                                this.input.content[0].input = this.curr_input;
                                 this.parent.actions[1].is_disabled = false;
 
-                                this.path_info.text = this.getPath(val) + "\n\n";
-                                this.path_info.color = "grey";
+                                // this.path_info.text = this.getPath(val) + "\n\n";
+                                // this.path_info.color = "grey";
 
-                                this.parent.win_def.actions[1].is_disabled = false;
-                                this.parent.update({ content: this.content, actions: this.parent.win_def.actions });
+                                this.parent.update({ content: this.content, actions: this.parent.actions });
                             }
                         }
                     }
@@ -61,9 +63,11 @@ class FileContent {
                 }
             ]
         };
-        this.path_info = {
-            text: this.getPath("unnamed", ext) + "\n\n",
-            color: "grey"
+        this.path_info = () => {
+            return {
+                text: this.getPath("[File Name]", ext) + "\n\n",
+                color: "grey"
+            };
         };
 
         this.content = [
@@ -98,7 +102,7 @@ class FileContent {
             }, ...location);
     }
 
-    getPath(val=this.input.content[0].input, ext=this.ext, expand=this.expand_path) {
+    getPath(val=this.curr_input, ext=this.ext, expand=this.expand_path) {
         return `${this.use_rp_path ? Store.state.Explorer.project.resource_pack : Store.state.Explorer.project.explorer}/${expand}${val}.${ext}`;
     }
 
@@ -178,7 +182,6 @@ export default class CreateFileWindow extends ContentWindow {
         this.win_def.content = this.contents[id].get() || [ { text: "Nothing to show yet" } ];
 
         if(this.templates[id] && !this.win_def.content.added_select) this.compileTemplate(this.templates[id]);
-
         this.update();
     }
 

@@ -61,9 +61,9 @@
                     `"
                 >
                     <sidebar-element
-                        v-for="(item, i) in win.sidebar"
-                        :key="`plugin-popup-window-sidebar-${i}`"
-                        :action="typeof item.action != 'function' ? () => {} : item.action"
+                        v-for="(item) in win.sidebar"
+                        :key="key(item)"
+                        :action="typeof item.action !== 'function' ? () => {} : item.action"
                         :opacity="item.opacity"
                         :item="item"
                     />
@@ -74,9 +74,9 @@
                     overflow-y: auto;
                 `">
                     <window-content 
-                        v-for="(content, i) in win.content" 
-                        :key="content.key || `plugin-popup-window-content-${uuid()}-${i}`" 
-                        :content="content"
+                        v-for="(content) in win.content" 
+                        :key="key(content)" 
+                        :content="typeof content === 'function' ? content() : content"
                     />
                 </div>
             </v-card-text>
@@ -88,9 +88,9 @@
             <v-divider v-if="win.actions != undefined"/>
             <v-card-actions v-if="win.actions != undefined">
                 <window-content 
-                    v-for="(content, i) in win.actions" 
-                    :key="content.key || `plugin-popup-window-actions-${uuid()}-${i}`"
-                    :content="content"
+                    v-for="(content) in win.actions" 
+                    :key="key(content)"
+                    :content="typeof content === 'function' ? content() : content"
                     style="overflow-x: auto;"
                 />
             </v-card-actions>
@@ -103,6 +103,7 @@ import WindowContent from "./WindowContent.vue";
 import ToolbarElement from "./ToolbarElement.vue";
 import SidebarElement from "./SidebarElement.vue";
 import uuidv4 from "uuid/v4";
+import { setInterval, clearInterval } from 'timers';
 
 export default {
     name: "window",
@@ -195,6 +196,9 @@ export default {
         },
         uuid() {
             return uuidv4();
+        },
+        key(c) {
+            return (typeof c === 'function' ? c().key : c.key) || uuidv4();
         }
     },
 
