@@ -5,26 +5,22 @@
 
 
 ## About bridge.
-bridge. is a powerful **add-on editor** designed to speed up your development. It can open all files inside a behavior pack (JavaScript, JSON and functions) and provides a **powerful work environment**.
+bridge. is a powerful **add-on editor** designed to speed up your development. It provides a rich editing experience for all files inside behavior and resource packs (JavaScript, JSON and functions) and provides a **powerful work environment**.
 Unleash the full power of add-ons with bridge. plugins and make use of rich auto-completions provided as you navigate through a file. **Creating Minecraft add-ons was never more convenient!**
 
 ## Why *you* should use bridge.
-In general, dedicated add-on editors like bridge. have a few incredible advantages over normal text editors:
-- You cannot write invalid JSON
-- You cannot make general file structure mistakes because auto-completions guide you through the file
+Most importantly, JSON editors like bridge. guarantee that you cannot write invalid JSON.
+Additionally, "bridge." has a few more specific features which other editors do not offer:
+- bridge. interacts seamlessly with Minecraft and loads behavior packs and the corresponding resource pack from the com.mojang folder automatically
+- You cannot make general file structure mistakes because rich auto-completions guide you through the file
 - You do not need to study vanilla files and/or the incorrect documentation to find out which arguments a component has
-- Developing a behavior pack is significantly faster
-
-Additionally, "bridge." has a few specific features which other editors do not offer:
-- The ability to switch between auto-completions for multiple Minecraft versions seamlessly: We always support the latest stable release and the latest beta
-- Packaging your behavior pack into a .mcpack file with only one click
 - Support for plugins: From custom components to searching files - bridge. plugins can do almost anything
-- bridge. interacts seamlessly with Minecraft and loads behavior packs from the com.mojang folder automatically
+- Developing is generally significantly faster
 
 ## Feature Overview
 #### General
-   - Create new behavior pack files through a clear interface
-   - Create new projects with an automatically generated manifest.json
+   - Create new behavior packs and resource packs with an automatically generated manifest.json
+   - Create new behavior pack and resource pack files through a clear interface
    - Package your behavior pack with only one click
 #### Editor
    - Cut, Copy, Paste, Undo, Redo and all other features you would expect
@@ -36,9 +32,11 @@ Additionally, "bridge." has a few specific features which other editors do not o
    - Error/Mistake detection and auto-fixes for some of them
    - bridge. file structure predictions for users who want to be even faster writing add-ons
 #### Auto-Completions
-   - Rich auto-completions for entities, loot tables, trades, spawn rules, biomes, items, blocks, recipes, animations and animation controllers
+   - Rich auto-completions for entities, loot tables, trades, spawn rules, biomes, items, blocks, recipes, features, feature rules, animations and animation controllers
    - Handcrafted: We don't trust the Minecraft documentation and you shouldn't either. That's why we wrote all suggestions by hand
-   - Context sensitive: bridge. proposes different data depending on what you wrote before (events, component groups, filters, etc.)
+   - Context sensitive: bridge. proposes different data depending on what you wrote before. Adding e.g. a new item results in the corresponding identifier being proposed whenever an item identifier is a valid value throughout your behavior and resource pack files.
+   - Ability to switch between auto-completions for multiple Minecraft versions seamlessly: We always support the latest stable release and the latest beta
+
 #### Documentation
    - Easy access to the Minecraft add-on documentation
    - Shortcut to lookup specific components in your file

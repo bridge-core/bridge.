@@ -18,7 +18,7 @@
         <v-container v-if="content.content !== undefined" fill-height fluid>
             <v-layout fill-height>
                 <v-flex xs12 align-end flexbox>
-                    <window-content v-for="(c, i) in content.content" :content="c" :key="`img.inner_content.${i}`" />
+                    <window-content v-for="(c) in content.content" :content="c" :key="key(c)"/>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -33,11 +33,11 @@
         v-else-if="content.type == 'container'"
         :style="`background-color: ${content.color}; padding: 4px; width: ${content.full_width ? '100%' : 'unset'}; height: ${content.height}px; overflow-y: ${content.scroll ? 'auto' : 'hidden'};`"
     >
-        <window-content v-for="(c, i) in content.content" :key="`window-div-${i}`" :content="c"/>
+        <window-content v-for="(c) in content.content" :key="key(c)" :content="c"/>
     </div>
     <!-- HORIZONTAL GROUPS -->
     <v-layout :align-end="!content.center" :align-center="content.center" v-else-if="content.type == 'horizontal' && Array.isArray(content.content)">
-        <v-flex v-for="(c, i) in content.content" :key="`horizontal-window-content-${i}`">
+        <v-flex v-for="(c) in content.content" :key="key(c)">
             <window-content :content="c"/>
         </v-flex>
     </v-layout>
@@ -49,15 +49,15 @@
     <!-- CARDS -->
     <v-card v-else-if="content.type == 'card'">
         <v-card-title v-if="content.above_content">
-            <window-content v-for="(a_c, i) in content.above_content" :key="`card-window-above-content-${i}`" :content="a_c"/>
+            <window-content v-for="(a_c) in content.above_content" :key="key(a_c)" :content="a_c"/>
         </v-card-title>
 
         <v-card-text v-if="content.content">
-            <window-content v-for="(c, i) in content.content" :key="`card-window-content-${i}`" :content="c"/>
+            <window-content v-for="(c) in content.content" :key="key(c)" :content="c"/>
         </v-card-text>
 
         <v-card-actions v-if="content.below_content">
-            <window-content v-for="(b_c, i) in content.below_content" :key="`card-window-below-content-${i}`" :content="b_c"/>
+            <window-content v-for="(b_c) in content.below_content" :key="key(b_c)" :content="b_c"/>
         </v-card-actions>
     </v-card>
     <!-- LOADER -->
@@ -208,6 +208,7 @@
     import deepmerge from "deepmerge";
     import EventBus from "../../scripts/EventBus";
     import TextProvider from "../../scripts/autoCompletions/TextProvider";
+    import uuidv4 from "uuid/v4";
 
     export default {
         name: "window-content",
@@ -326,6 +327,9 @@
             makeFunction(action) {
                 if(typeof action != "function") return () => {};
                 return action;
+            },
+            key(c) {
+                return (typeof c === 'function' ? c().key : c.key) || uuidv4();
             },
 
             setCMTextSelection(sel_obj_1, sel_obj_2) {

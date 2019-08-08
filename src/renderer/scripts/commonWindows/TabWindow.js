@@ -45,7 +45,7 @@ export default class TabWindow extends CommonWindow {
             { type: "divider" },
             { text: "\nThis page looks pretty empty. Make sure to revisit it in future versions of bridge." } 
         ];
-        if(force_update) this.update(this.win_def)
+        if(force_update) this.update(this.win_def);
     }
 
     buildContent(id) {

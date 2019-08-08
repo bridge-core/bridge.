@@ -63,7 +63,7 @@ export default class PluginLoader {
                     path.join(plugin_path, "scripts", scripts[i]),
                     undefined,
                     true
-                )
+                );
             } else if(api_version === 2 || api_version === undefined) {
 
             } else {

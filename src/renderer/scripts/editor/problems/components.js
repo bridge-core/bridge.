@@ -1,6 +1,4 @@
 //@ts-check
-import fs from "fs";
-import path from "path";
 //Components
 import TwoIncompatible from "./components/TwoIncompatible";
 import NeedsBoth from "./components/NeedsBoth";
@@ -15,6 +13,7 @@ import BehaviorCheck from "./components/BehaviorCheck";
 import FormatVersionCheck from "./components/FormatVersionCheck";
 import AnimationCheck from "./components/AnimationCheck";
 import EntityGroupCheck from "./components/GroupCheck";
+import FileType from "../FileType";
 
 const MAP = {
     "bridge:two_incompatible": TwoIncompatible,
@@ -32,24 +31,33 @@ const MAP = {
     "bridge:format_version_check": FormatVersionCheck
 };
 
-//@ts-ignore
-const DEF = JSON.parse(fs.readFileSync(path.join(__static, "data/problems.json")).toString());
-
 //Load
 let PROBLEM_STORE = {};
-for(let file_type in DEF) {
-    PROBLEM_STORE[file_type] = [];
+let loaded = false;
 
-    for(let key in DEF[file_type]) {
-        let current = DEF[file_type][key];
-        if(MAP[key] === undefined) throw new Error("Unknown component: " + key);
-
-        if(Array.isArray(current)) {
-            current.forEach(e => PROBLEM_STORE[file_type].push(new MAP[key](e)));
-        } else {
-            PROBLEM_STORE[file_type].push(new MAP[key](current));
+async function loadStore() {
+    const DEF = await FileType.getProblems();
+    
+    for(let file_type in DEF) {
+        PROBLEM_STORE[file_type] = [];
+    
+        for(let key in DEF[file_type]) {
+            let current = DEF[file_type][key];
+            if(MAP[key] === undefined) throw new Error("Unknown component: " + key);
+    
+            if(Array.isArray(current)) {
+                current.forEach(e => PROBLEM_STORE[file_type].push(new MAP[key](e)));
+            } else {
+                PROBLEM_STORE[file_type].push(new MAP[key](current));
+            }
         }
     }
+    return PROBLEM_STORE;
 }
 
-export default PROBLEM_STORE;
+export default async () => {
+    if(loaded) return PROBLEM_STORE;
+
+    loaded = true;
+    return await loadStore();
+};

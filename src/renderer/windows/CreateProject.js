@@ -15,19 +15,7 @@ export default class CreateProjectWindow extends ContentWindow {
             options: {
                 is_persistent: false,
                 height: 260
-            },
-            actions: [
-                {
-                    type: "space"
-                },
-                {
-                    type: "button",
-                    text: "Create!",
-                    color: "success",
-                    is_rounded: true,
-                    action: () => this.createProject(create_bp, cb)
-                }
-            ]
+            }
         });
 
         this.content = [
@@ -43,19 +31,23 @@ export default class CreateProjectWindow extends ContentWindow {
                         this.createProject(create_bp, cb);
                     },
                     default: (val) => {
-                        if(val == "") {
+                        if(val === "") {
                             this.content[0].color = "error";
                             this.content[2].color = "error";
                             this.content[2].text = `Please enter a valid ${create_bp ? "project" : "resource pack"} name!`;
+                            this.actions[1].is_disabled = true;
                             this.update({
-                                content: this.content
+                                content: this.content,
+                                actions: this.actions
                             });
                         } else {
                             this.content[0].color = "success";
                             this.content[2].color = "grey";
                             this.content[2].text = DEFAULT_TEXT;
+                            if(this.des !== "") this.actions[1].is_disabled = false;
                             this.update({
-                                content: this.content
+                                content: this.content,
+                                actions: this.actions
                             });
                         }
                         this.input = val;
@@ -77,15 +69,19 @@ export default class CreateProjectWindow extends ContentWindow {
                             this.content[1].color = "error";
                             this.content[2].color = "error";
                             this.content[2].text = `Please enter a valid ${create_bp ? "project" : "resource pack"} description!`;
+                            this.actions[1].is_disabled = true;
                             this.update({
-                                content: this.content
+                                content: this.content,
+                                actions: this.actions
                             });
                         } else {
                             this.content[1].color = "success";
                             this.content[2].color = "grey";
                             this.content[2].text = DEFAULT_TEXT;
+                            if(this.input !== "") this.actions[1].is_disabled = false;
                             this.update({
-                                content: this.content
+                                content: this.content,
+                                actions: this.actions
                             });
                         }
                         this.des = val;
@@ -108,11 +104,26 @@ export default class CreateProjectWindow extends ContentWindow {
                 }
             }: {})
         ];
+        this.actions = [
+            {
+                type: "space"
+            },
+            {
+                type: "button",
+                text: "Create!",
+                color: "success",
+                is_disabled: true,
+                is_rounded: true,
+                action: () => this.createProject(create_bp, cb)
+            }
+        ];
+
         this.input = "";
         this.des = "";
         this.client_data = false;
         this.update({
-            content: this.content
+            content: this.content,
+            actions: this.actions
         });
     }
 
