@@ -1,47 +1,59 @@
 <template>
-    <v-toolbar flat height="30px">
+    <v-toolbar height="30px">
         <v-tooltip bottom class="first">
-            <v-btn icon flat @click.stop="refresh" slot="activator" small>
-                <v-icon small>mdi-refresh</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="refresh" v-on="on" small>
+                    <v-icon small>mdi-refresh</v-icon>
+                </v-btn>
+            </template>
             <span>Refresh</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-            <v-btn icon flat @click.stop="openCreateProjectWindow" slot="activator" small>
-                <v-icon small>mdi-folder-plus</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="openCreateProjectWindow" v-on="on" small>
+                    <v-icon small>mdi-folder-plus</v-icon>
+                </v-btn>
+            </template>
             <span>New Project</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-            <v-btn icon flat @click.stop="openCreateFileWindow" slot="activator" small>
-                <v-icon small>mdi-file-document</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="openCreateFileWindow" v-on="on" small>
+                    <v-icon small>mdi-file-document</v-icon>
+                </v-btn>
+            </template>
             <span>New File</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-            <v-btn icon flat @click.stop="packageProject" slot="activator" small>
-                <v-icon small>mdi-package-variant-closed</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="packageProject" v-on="on" small>
+                    <v-icon small>mdi-package-variant-closed</v-icon>
+                </v-btn>
+            </template>
             <span>Package</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-            <v-btn icon flat @click.stop="openInExplorer" slot="activator" small>
-                <v-icon small>mdi-folder-multiple</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="openInExplorer" v-on="on" small>
+                    <v-icon small>mdi-folder-multiple</v-icon>
+                </v-btn>
+            </template>
             <span>Open In Explorer</span>
         </v-tooltip>
 
-        <v-spacer></v-spacer>
+        <!-- <v-spacer></v-spacer>
         <v-tooltip bottom>
-            <v-btn icon flat @click.stop="" slot="activator" small>
-                <v-icon small>mdi-dots-vertical</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="" v-on="on" small>
+                    <v-icon small>mdi-dots-vertical</v-icon>
+                </v-btn>
+            </template>
             <span>More...</span>
-        </v-tooltip>
+        </v-tooltip> -->
     </v-toolbar>
 </template>
 

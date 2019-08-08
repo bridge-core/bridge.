@@ -19,14 +19,12 @@
                 <toolbar-element
                     v-for="(icon, i) in win.toolbar"
                     :key="`plugin-popup-window-toolbar-element-${i}`"
-                    :class="has_close_button || has_maximize_button ? '' : 'last-btn'"
                     :element="icon"
                 />
                 <v-btn 
                     small 
                     icon 
                     @click.stop="is_fullscreen = !is_fullscreen"
-                    :class="has_close_button ? '' : 'last-btn'"
                     v-if="has_maximize_button"
                 >
                     <v-icon small>mdi-plus</v-icon>
@@ -35,7 +33,6 @@
                     small
                     icon
                     @click.stop="is_window_visible = false"
-                    class="last-btn"
                     v-if="has_close_button"
                 >
                     <v-icon small>mdi-close</v-icon>
@@ -255,9 +252,6 @@ export default {
     }
     .v-btn {
         margin: 0 unset;
-    }
-    .last-btn {
-        margin-right: 4px !important;
     }
     .window-title {
         margin-left: 8px;

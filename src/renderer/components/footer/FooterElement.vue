@@ -1,12 +1,26 @@
 <template>
     <v-tooltip :disabled="!show_display_name" top>
-        <v-badge :class="has_click_action ? 'change-cursor' : ''" @click.stop.native="click" v-model="show_badge" slot="activator" overlap bottom left small :color="badge_color">
-            <span slot="badge">
-                <v-icon small v-if="badge_type == 'icon'">{{ badge_content }}</v-icon>
-                <span v-else>{{ badge_content }}</span>
-            </span>
-            <v-icon>{{ display_icon }}</v-icon>
-        </v-badge>
+        <template v-slot:activator="{ on }">
+            <div style="display: inline-block;" v-on="on">
+                <v-badge
+                    :class="has_click_action ? 'change-cursor' : ''"
+                    @click.stop.native="click"
+                    v-model="show_badge"
+                    overlap
+                    bottom
+                    left
+                    small
+                    :color="badge_color"
+                >
+                    <template v-slot:badge>
+                        <v-icon small v-if="badge_type == 'icon'">{{ badge_content }}</v-icon>
+                        <span v-else>{{ badge_content }}</span>
+                    </template>
+                    <v-icon>{{ display_icon }}</v-icon>
+                </v-badge>
+            </div>
+        </template>
+        
 
         <span>{{ display_name }}</span>
     </v-tooltip>
@@ -39,11 +53,11 @@ export default {
             return this.element.display_name;
         },
         show_display_name() {
-            return this.display_name && this.display_name != "";
+            return this.display_name && this.display_name !== "";
         },
 
         display_icon() {
-            if(!this.element.display_icon || this.element.display_icon == "") return "assignment";
+            if(!this.element.display_icon || this.element.display_icon === "") return "mdi-crop-square";
             return this.element.display_icon;
         },
 

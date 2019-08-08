@@ -7,19 +7,22 @@
         min-width="260px"
         :class="is_submenu ? 'sidemenu' : ''"
     >
-        <v-btn v-if="!is_submenu" slot="activator" style="border-radius: 0;" small flat>
-            {{ menu.display_name }}
-        </v-btn>
-        <v-list-tile v-else slot="activator">
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ submenu.title }}</v-list-tile-title>
-                    <v-list-tile-sub-title v-if="submenu.subtitle">{{ submenu.subtitle }}</v-list-tile-sub-title>
-                </v-list-tile-content>
+        <template v-slot:activator="{ on }">
+            <v-btn v-if="!is_submenu" v-on="on" tile class="app-menu-item" small text>
+                {{ menu.display_name }}
+            </v-btn>
+
+            <v-list-item v-else v-on="on">
+                <v-list-item-content>
+                    <v-list-item-title>{{ submenu.title }}</v-list-item-title>
+                    <v-list-item-subtitle v-if="submenu.subtitle">{{ submenu.subtitle }}</v-list-item-subtitle>
+                </v-list-item-content>
                 
-    	        <v-list-tile-action>
+                <v-list-item-action>
                     <v-icon small>mdi-chevron-right</v-icon>
-                </v-list-tile-action>
-        </v-list-tile>
+                </v-list-item-action>
+            </v-list-item>
+        </template>
 
         <v-list ref="main_menu" class="list app-menu" dense>
             <app-menu-element 
@@ -85,6 +88,7 @@
     .v-btn {
         -webkit-app-region: no-drag;
         min-width: 0;
+        padding: 0;
     }
     .sidemenu, .sidemenu div {
         width: 100%;
@@ -92,10 +96,12 @@
     .list {
         overflow-y: auto;
     }
-    
 </style>
 <style>
     .app-menu .v-list__tile {
         height: 30px !important;
+    }
+    .app-menu-item {
+        padding: 0;
     }
 </style>

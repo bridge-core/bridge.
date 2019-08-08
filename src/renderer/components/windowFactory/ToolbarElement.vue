@@ -3,9 +3,12 @@
             right 
             :disabled="!show_tooltip"
         >
-            <v-btn slot="activator" @click.stop="click" class="tb-actual-btn" small icon>
-                <v-icon :color="element.color" small>{{ display_icon }}</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn v-on="on" @click.stop="click" class="tb-actual-btn" small icon>
+                    <v-icon :color="element.color" small>{{ display_icon }}</v-icon>
+                </v-btn>
+            </template>
+            
             <span>{{ display_name }}</span>
         </v-tooltip>
 </template>

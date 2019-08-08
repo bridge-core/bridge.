@@ -1,20 +1,28 @@
 <template>
-    <v-layout :style="`overflow-x: ${is_mandatory ? 'scroll' : 'auto'}`" row wrap>
-            <v-tabs slider-color="success" v-model="selected_tab" :mandatory="is_mandatory" :show-arrows="false">
+    <v-layout v-if="has_tabs" :style="`overflow-x: ${has_tabs ? 'scroll' : 'auto'}`" row wrap>
+            <v-tabs
+                slider-color="success"
+                v-model="selected_tab"
+                :mandatory="has_tabs"
+                :show-arrows="false"
+            >
                 <v-tab 
                     v-for="(file, i) in open_files"
                     :key="`${selected_project}-${i}-${unsaved.join()}`"
                     bottom
+                    color="success"
                     :ripple="selected_tab !== i"
                     :class="`tab ${selected_tab == i ? 'selected' : ''}`"
-                    color="red"
+                    style="margin: 0;"
                 > 
                     <v-tooltip :open-delay="600" transition="scale-transition" :disabled="file.file_name.length <= 27" bottom>
-                        <span slot="activator" :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ getFileName(file.file_name) }}</span>
+                        <template v-slot:activator="{ on }">
+                            <span v-on="on" :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ getFileName(file.file_name) }}</span>
+                        </template>
                         <span>{{ file.file_name }}</span>
                     </v-tooltip>
                     
-                    <v-btn @click.stop="closeTab(i)" flat icon small><v-icon small>mdi-close</v-icon></v-btn>
+                    <v-btn @click.stop="closeTab(i)" text icon small><v-icon small>mdi-close</v-icon></v-btn>
                 </v-tab>
             </v-tabs>
     </v-layout>
@@ -60,7 +68,7 @@ export default {
             return TabSystem.filtered();
         },
 
-        is_mandatory() {
+        has_tabs() {
             return this.open_files.length > 0;
         }
     },
@@ -94,7 +102,6 @@ export default {
     .tab {
         text-transform: none;
         opacity: 0.5;
-        
     }
     .tab:hover{
         opacity: 1;

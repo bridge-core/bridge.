@@ -8,7 +8,7 @@
     export default {
         name: "highlight-text",
         props: {
-            
+
         },
         data() {
             return {

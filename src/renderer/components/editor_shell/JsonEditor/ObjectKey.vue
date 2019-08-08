@@ -9,7 +9,7 @@
     >
         <v-btn
             icon
-            flat
+           text
             small
             style="margin: 0; height: 16px; width: 16px;"
             @click="(event) => $emit('arrowClick', event)"
@@ -31,18 +31,21 @@
             :nudge-right="error.fix ? 12 : 0"
             :color="error.is_warning ? 'amber darken-2' : 'error'"
         >
-            <highlight-text
-                slot="activator"
-                :style="`background: ${mark.replace(/;|:/g, '')};`"
-                :class="`object ${error.is_warning ? 'warning-line' : 'error-line'}`"
-            >
-            {{ my_key }}
-            </highlight-text>
+            <template v-slot:activator="{ on }">
+                <span v-on="on">
+                    <highlight-text 
+                        :style="`background: ${mark.replace(/;|:/g, '')};`"
+                        :class="`object ${error.is_warning ? 'warning-line' : 'error-line'}`"
+                    >
+                    {{ my_key }}
+                    </highlight-text>
+                </span>
+            </template>
+
             <span>{{ error.message }}</span>
         </v-tooltip>
         <highlight-text
             v-else
-            slot="activator"
             :style="`background: ${mark.replace(/;|:/g, '')};`"
             class="object"
         >
@@ -68,17 +71,20 @@
             color="amber darken-2"
             right
         >
-            <v-btn
-                slot="activator"
-                color="amber darken-1"
-                @click="error.fix.function(node_context)"
-                style="margin: 0; height: 20px; width: 20px;"
-                flat
-                small
-                icon
-            >
-                <v-icon small>mdi-lightbulb</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    v-on="on"
+                    color="amber darken-1"
+                    @click="error.fix.function(node_context)"
+                    style="margin: 0; height: 20px; width: 20px;"
+                    text
+                    small
+                    icon
+                >
+                    <v-icon small>mdi-lightbulb</v-icon>
+                </v-btn>
+            </template>
+            
             <span>{{ error.fix.text || 'Auto-fix' }}</span>
         </v-tooltip>
 

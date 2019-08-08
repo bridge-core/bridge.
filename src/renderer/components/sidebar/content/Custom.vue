@@ -1,6 +1,6 @@
 <template>
     <div v-if="content != undefined || sidebar != undefined">
-        <v-toolbar v-if="show_toolbar" flat height="30px">
+        <v-toolbar v-if="show_toolbar" text height="30px">
             <toolbar-element
                 v-for="(el, i) in toolbar" 
                 :key="`plugin-toolbar-element-${i}`"

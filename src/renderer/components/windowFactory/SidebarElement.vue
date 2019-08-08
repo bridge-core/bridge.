@@ -1,14 +1,15 @@
 <template>
     <v-tooltip right>
-        <v-list-tile slot="activator" @click.stop="action">
-
-            <v-list-tile-action>
-                <v-layout align-center>
-                    <v-icon medium :style="`opacity: ${opacity};`" :color="item.color">{{ item.icon }}</v-icon>
-                </v-layout>
-
-            </v-list-tile-action>
-        </v-list-tile>
+        <template v-slot:activator="{ on }">
+            <v-list-item v-on="on" @click.stop="action">
+                <v-list-item-action>
+                    <v-layout align-center>
+                        <v-icon medium :style="`opacity: ${opacity};`" :color="item.color">{{ item.icon }}</v-icon>
+                    </v-layout>
+                </v-list-item-action>
+            </v-list-item>
+        </template>
+        
         <span>{{ item.title }}</span>
     </v-tooltip>
 </template>

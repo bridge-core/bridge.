@@ -1,27 +1,29 @@
 <template>
 <div>
     <div v-if="meets_search && !plugin.is_dependency_only && (!installed || is_update)">
-        <v-list-tile>
-            <v-list-tile-content>
-                <v-list-tile-title>{{ plugin.name }}</v-list-tile-title>
-                <v-list-tile-sub-title class="text--primary">by {{ plugin.author }}</v-list-tile-sub-title>
-                <v-list-tile-sub-title>{{ plugin.description }}</v-list-tile-sub-title>
-            </v-list-tile-content>
+        <v-list-item>
+            <v-list-item-content>
+                <v-list-item-title>{{ plugin.name }}</v-list-item-title>
+                <v-list-item-subtitle class="text--primary">by {{ plugin.author }}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{ plugin.description }}</v-list-item-subtitle>
+            </v-list-item-content>
 
-            <v-list-tile-action>
-                <v-list-tile-action-text>{{ plugin.version }}</v-list-tile-action-text>
+            <v-list-item-action>
+                <v-list-item-action-text>{{ plugin.version }}</v-list-item-action-text>
                 <v-tooltip :right="!is_fullscreen" :left="is_fullscreen" v-if="!is_update">
-                    <v-btn slot="activator" @click.stop="download()" :disabled="!is_compatible" :loading="loading" icon>
-                        <v-icon>mdi-cloud-download</v-icon>
-                    </v-btn>
+                    <template v-slot:activator="{ on }">
+                        <v-btn v-on="on" @click.stop="download()" :disabled="!is_compatible" :loading="loading" icon>
+                            <v-icon>mdi-cloud-download</v-icon>
+                        </v-btn>
+                    </template>
                     <span>Download</span>
                 </v-tooltip>
-                <v-btn slot="activator" @click.stop="download()" :disabled="!is_compatible" :loading="loading" flat round color="success" v-else>
+                <v-btn @click.stop="download()" :disabled="!is_compatible" :loading="loading" text round color="success" v-else>
                     Update
                 </v-btn>
                 
-            </v-list-tile-action>
-        </v-list-tile>
+            </v-list-item-action>
+        </v-list-item>
         <div style="padding: 0 16px; cursor: default;" v-if="!is_compatible && !is_update" class="error--text">You cannot install this plugin because it requires a higher version of bridge.</div>
         <div style="padding: 0 16px; cursor: default;" v-if="!is_compatible && is_update" class="error--text">You cannot install this update because it requires a higher version of bridge.</div>
         <v-divider/>
@@ -65,26 +67,27 @@
                     || this.plugin_key.includes(this.search);
             },
             installed() {
-                if(this.installed_plugins.length == 0) return false;
+                if(this.installed_plugins.length === 0) return false;
 
                 let i = 0;
                 let current = this.installed_plugins[0];
-                if(typeof current == "string") current = { id: "" };
+                if(typeof current === "string") current = { id: "" };
+                if(current.id === undefined) current.id = current.uuid;
 
-                while(i < this.installed_plugins.length && current.id.split(/\\|\//g).pop() != this.plugin_key + ".js") {
+                while(i < this.installed_plugins.length && current.id.split(/\\|\//g).pop() !== this.plugin_key + ".js") {
                     i++;
                     current = this.installed_plugins[i];
                     
-                    if(typeof current == "string") current = { id: "" };
+                    if(typeof current === "string") current = { id: "" };
                 }
-                return i != this.installed_plugins.length;
+                return i !== this.installed_plugins.length;
             },
             is_update() {
-                if(this.installed_plugins.length == 0) return false;
+                if(this.installed_plugins.length === 0) return false;
 
                 let i = 0;
                 let current = this.installed_plugins[0];
-                if(typeof current == "string") current = { id: "" };
+                if(typeof current === "string") current = { id: "" };
 
                 while(i < this.installed_plugins.length && current.id.split(/\\|\//g).pop() != this.plugin_key + ".js") {
                     i++;

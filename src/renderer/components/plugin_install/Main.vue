@@ -4,18 +4,16 @@
         :max-width="is_fullscreen ? 2000 : 500"
     >
         <v-card>
-            <v-card-title>
-                <v-toolbar @dblclick.native="is_fullscreen = !is_fullscreen" height="30px">
-                    <span class="window-title">Extensions</span>
-                    <v-spacer></v-spacer>
-                    <v-btn small icon @click.stop="is_fullscreen = !is_fullscreen">
-                        <v-icon small>mdi-plus</v-icon>
-                    </v-btn>
-                    <v-btn small icon @click.stop="is_menu_open = false" class="last-btn">
-                        <v-icon small>mdi-close</v-icon>
-                    </v-btn>
-                </v-toolbar>
-            </v-card-title>
+            <v-toolbar @dblclick.native="is_fullscreen = !is_fullscreen" height="30px">
+                <span class="window-title">Extensions</span>
+                <v-spacer></v-spacer>
+                <v-btn small icon @click.stop="is_fullscreen = !is_fullscreen">
+                    <v-icon small>mdi-plus</v-icon>
+                </v-btn>
+                <v-btn small icon @click.stop="is_menu_open = false">
+                    <v-icon small>mdi-close</v-icon>
+                </v-btn>
+            </v-toolbar>
             
 
             <v-card-text :style="`max-height: ${window_height * 0.75}px; height: ${is_fullscreen ? window_height * 0.75 : 500}px; overflow-y: auto;`">
@@ -24,26 +22,26 @@
             </v-card-text>
 
             <v-card-actions>
-                <v-bottom-nav
-                    :active.sync="filter"
+                <v-bottom-navigation
+                    v-model="filter"
                     :value="true"
                     color="transparent"
                 >
-                    <v-btn flat value="active">
+                    <v-btn text value="active">
                         <span>Active</span>
                         <v-icon>mdi-bookmark</v-icon>
                     </v-btn>
 
-                    <v-btn flat value="available">
+                    <v-btn text value="available">
                         <span>Available</span>
                         <v-icon>mdi-apps</v-icon>
                     </v-btn>
 
-                    <v-btn flat value="web">
+                    <v-btn text value="web">
                         <span>Web</span>
                         <v-icon>mdi-cloud</v-icon>
                     </v-btn>
-                </v-bottom-nav>
+                </v-bottom-navigation>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -103,9 +101,6 @@ export default {
 </script>
 
 <style scoped>
-    .last-btn {
-        margin-right: 4px !important;
-    }
     .window-title {
         margin-left: 8px;
         cursor: default;

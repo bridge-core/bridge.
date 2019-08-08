@@ -9,14 +9,14 @@
             transition="scale-transition"
         >
             <v-list class="context-menu">
-                <v-list-tile
+                <v-list-item
                     v-for="(item, i) in items"
                     :key="`${y_position}.${x_position}.${i}`"
                     @click="item.action"
                     dense
                 >
-                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                </v-list-tile>
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
             </v-list>
         </v-menu>
         <div

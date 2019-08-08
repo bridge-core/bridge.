@@ -1,9 +1,13 @@
 <template>
-    <v-navigation-drawer :style="`max-height: ${nav_height}px;`" fixed mini-variant-width="60" mini-variant stateless :value="true" app>
-        <v-toolbar fixed height="24px" width="60">
-            <h4>bridge.</h4>
-        </v-toolbar>
-
+    <v-navigation-drawer
+        :style="`max-height: ${nav_height}px;`"
+        fixed
+        mini-variant-width="60"
+        mini-variant
+        stateless
+        :value="true"
+        app
+    >
         <v-list :style="`max-height: ${nav_height}px;`">
             <sidebar-element
                 v-for="(item, i) in menu_items"

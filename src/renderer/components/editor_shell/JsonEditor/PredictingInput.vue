@@ -1,6 +1,6 @@
 <template>
     <v-flex>
-        <v-layout>
+        <v-layout align-center>
             <v-combobox
                 ref="input"
 
@@ -16,13 +16,15 @@
                 class="json-input-menu"
             ></v-combobox>
 
-            <v-btn @click="click(null, 'object')">
+            <v-btn rounded @click="click(null, 'object')">
                 <v-icon>mdi-code-braces</v-icon>
             </v-btn>
             <v-tooltip bottom>
-                <v-btn slot="activator" @click="click(null, 'value')">
-                    <v-icon>mdi-format-quote-close</v-icon>
-                </v-btn>
+                <template v-slot:activator="{ on }">
+                    <v-btn v-on="on" rounded @click="click(null, 'value')">
+                        <v-icon>mdi-format-quote-close</v-icon>
+                    </v-btn>
+                </template>
                 <span>Shift + Enter</span>
             </v-tooltip>           
         </v-layout>

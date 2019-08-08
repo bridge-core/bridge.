@@ -1,15 +1,15 @@
 <template>
     <span v-if="!element.is_hidden">
-        <v-list-tile v-if="!element.type || element.type == 'standard'" @click.stop="click()">
-            <v-list-tile-content>
-                <v-list-tile-title>{{ element.title }}</v-list-tile-title>
-                <v-list-tile-sub-title v-if="element.subtitle">{{ element.subtitle }}</v-list-tile-sub-title>
-            </v-list-tile-content>
+        <v-list-item v-if="!element.type || element.type == 'standard'" @click.stop="click()">
+            <v-list-item-content>
+                <v-list-item-title>{{ element.title }}</v-list-item-title>
+                <v-list-item-subtitle v-if="element.subtitle">{{ element.subtitle }}</v-list-item-subtitle>
+            </v-list-item-content>
 
-            <v-list-tile-action>
-                <v-list-tile-action-text>{{ element.shortcut }}</v-list-tile-action-text>
-            </v-list-tile-action>
-        </v-list-tile>
+            <v-list-item-action>
+                <v-list-item-action-text>{{ element.shortcut }}</v-list-item-action-text>
+            </v-list-item-action>
+        </v-list-item>
 
         <slot
             v-else-if="element.type == 'submenu'"

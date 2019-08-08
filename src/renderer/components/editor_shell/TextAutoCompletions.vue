@@ -10,15 +10,15 @@
         ref="menu"
     >
         <v-list class="text-auto-completion-list " dense>
-            <v-list-tile
+            <v-list-item
                 v-for="(e, i) in propose"
                 :class="selected === i ? 'selected' : ''"
                 :ref="selected === i ? 'selected' : null"
                 :key="e"
                 @click="insert(e)"
             >
-                <v-list-tile-title>{{ e }}</v-list-tile-title>
-            </v-list-tile>
+                <v-list-item-title>{{ e }}</v-list-item-title>
+            </v-list-item>
         </v-list>
     </v-menu>
 </template>

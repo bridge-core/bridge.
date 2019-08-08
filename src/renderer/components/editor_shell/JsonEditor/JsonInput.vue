@@ -1,6 +1,6 @@
 <template>
     <v-flex>
-        <v-layout>
+        <v-layout align-center>
             <v-text-field
                 ref="input"
                 @keydown.enter.native="click"
@@ -20,11 +20,10 @@
                 :menu-props="{ maxHeight: 130, top: false }"
                 :hide-no-data="true"
                 no-data-text="No suggestions available..."
-                dense
                 class="json-input-menu"
             ></v-combobox>
-            <v-btn @click="click" :disabled="type === 'edit' && file_navigation === 'global'">
-                +
+            <v-btn rounded @click="click" :disabled="type === 'edit' && file_navigation === 'global'">
+                <v-icon>mdi-plus</v-icon>
             </v-btn>
         </v-layout>
     </v-flex>
