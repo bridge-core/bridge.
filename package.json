@@ -54,7 +54,7 @@
     }
   },
   "dependencies": {
-    "@mdi/font": "^3.9.95",
+    "@mdi/font": "^3.9.97",
     "clean-css": "^4.2.1",
     "comment-json": "^1.1.3",
     "dataurl": "^0.1.0",
