@@ -1,8 +1,8 @@
 <template>
-    <v-toolbar height="30px">
+    <v-toolbar flat height="30px">
         <v-tooltip bottom class="first">
             <template v-slot:activator="{ on }">
-                <v-btn icon text @click.stop="refresh" v-on="on" small>
+                <v-btn icon text @click.stop="refresh" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-refresh</v-icon>
                 </v-btn>
             </template>
@@ -11,7 +11,7 @@
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-                <v-btn icon text @click.stop="openCreateFileWindow" v-on="on" small>
+                <v-btn icon text @click.stop="openCreateFileWindow" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-file-document</v-icon>
                 </v-btn>
             </template>
@@ -20,7 +20,7 @@
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-                <v-btn icon text @click.stop="packageProject" v-on="on" small>
+                <v-btn icon text @click.stop="packageProject" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-package-variant-closed</v-icon>
                 </v-btn>
             </template>
@@ -29,7 +29,7 @@
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-                <v-btn icon text @click.stop="openInExplorer" v-on="on" small>
+                <v-btn icon text @click.stop="openInExplorer" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-folder-multiple</v-icon>
                 </v-btn>
             </template>
@@ -74,23 +74,9 @@
     }
 </script>
 
-<style>
-    nav .v-toolbar__content {
-        padding: 0;
-    }
-</style>
-
-
 <style scoped>
-    button {
-        padding: 0;
-        width: 16px;
+    .toolbar-button {
         height: 28px;
-    }
-    .v-btn {
-        margin: 0;
-    }
-    .first {
-        padding-left: 0.1em;
+        width: 28px;
     }
 </style>

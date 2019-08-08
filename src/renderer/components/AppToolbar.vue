@@ -1,11 +1,10 @@
 <template>
     <v-system-bar fixed app clipped padless height="24px">
-        <img :src="icon_path" style="height: 16px; padding-right: 2px;"/>
+        <img :src="icon_path" style="height: 16px; padding-right: 4px;"/>
         <v-toolbar-items>
             <app-menu v-for="(menu, i) in menu_details" :key="i" :menu="menu"></app-menu>
         </v-toolbar-items>
         
-
         <v-spacer></v-spacer>
 
         <v-toolbar-items>

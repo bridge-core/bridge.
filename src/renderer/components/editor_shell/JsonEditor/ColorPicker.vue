@@ -11,7 +11,8 @@
         </template>
         <v-color-picker
             v-model="color"
-            :disableAlpha="true"
+            mode="hexa"
+            :hide-mode-switch="true"
         />
         </v-menu>
 </template>

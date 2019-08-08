@@ -1,20 +1,20 @@
 <template>
   <div id="app">
     <v-app>
-      <app-toolbar></app-toolbar>
+      <app-toolbar/>
 
       <v-content :style="`padding-bottom: ${footer_visible ? 44 : 22}px;`">
         <v-container class="no-padding" fluid fill-height align>
           <v-layout row align-space-between all fill-height>
-            <sidebar-navigation></sidebar-navigation>
-            <sidebar-main style="padding-left: 12px;"></sidebar-main>
+            <sidebar-navigation/>
+            <sidebar-main style="padding-left: 12px;"/>      
 
             <v-flex :xs10="is_sidebar_open" :xs12="!is_sidebar_open" style="padding-left: 0.5em;">
-              <editor-shell-tab-system></editor-shell-tab-system>
-              <editor-shell-content-manager></editor-shell-content-manager>
+              <editor-shell-tab-system/>
+              <editor-shell-content-manager/>
 
               <plugin-install-main v-if="render_plugin_window"/>
-              <window-factory-main></window-factory-main>
+              <window-factory-main/>
               <documentation-main/>
               <context-menu-main/>
               <json-editor-hover-card/>
@@ -119,6 +119,9 @@
   html {
     overflow: hidden;
     overscroll-behavior: contain;
+  }
+  .px14-font {
+    font-size: 14px;
   }
   body {
     overflow: unset;

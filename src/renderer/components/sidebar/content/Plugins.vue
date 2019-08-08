@@ -1,15 +1,15 @@
 <template>
     <div>
-        <v-app-bar text height="30px">
+        <v-toolbar flat text height="30px">
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                    <v-btn icon text @click.stop="is_menu_open = true" v-on="on" small class="first">
+                    <v-btn icon text @click.stop="is_menu_open = true" v-on="on" small class="toolbar-button">
                         <v-icon small>mdi-settings</v-icon>
                     </v-btn>
                 </template>
                 <span>Manage</span>
             </v-tooltip>
-        </v-app-bar>
+        </v-toolbar>
 
         <v-container :style="`max-height: ${plugin_height}px;`">
             <span v-if="plugins.length == 0">It doesn't look like you have installed an extension yet.</span>
@@ -154,10 +154,9 @@
     i {
         cursor: pointer;
     }
-    button {
-        padding: 0;
-        width: 16px;
+    .toolbar-button {
         height: 28px;
+        width: 28px;
     }
 
     .padding {
@@ -165,11 +164,5 @@
     }
     .v-expansion-panel {
         margin-bottom: 0.2em;
-    }
-    .v-btn {
-        margin: 0;
-    }
-    .first {
-        padding-left: 0.1em;
     }
 </style>

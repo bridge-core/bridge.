@@ -28,17 +28,6 @@
                     v-for="(btn, i) in buttons"
                 >
                     <v-spacer v-if="btn === 'space'" :key="i"/>
-                    <!-- <v-btn
-                        v-else-if="btn.condition === undefined || btn.condition()"
-                        :key="i"
-                        :color="btn.color || 'primary'" 
-                        rounded
-                        small
-                        :style="`margin-right: ${ i + 1 <= buttons.length ? 4 : 0}px;`"
-                        @click="btn.action"
-                    >
-                        <v-icon color="white">{{ btn.icon }}</v-icon>
-                    </v-btn> -->
                     <v-tooltip
                         v-else-if="btn.condition === undefined || btn.condition()"
                         :key="i"
@@ -49,7 +38,7 @@
                         <template v-slot:activator="{ on }">
                             <v-btn
                                 v-on="on"
-                                :color="btn.color || 'primary'" 
+                                :color="btn.color || 'info'" 
                                 rounded
                                 small
                                 @click="btn.action"

@@ -1,8 +1,8 @@
 <template>
-    <v-toolbar height="30px">
-        <v-tooltip bottom class="first">
+    <v-toolbar flat height="30px">
+        <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-                <v-btn icon text @click.stop="refresh" v-on="on" small>
+                <v-btn icon text @click.stop="refresh" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-refresh</v-icon>
                 </v-btn>
             </template>
@@ -11,7 +11,7 @@
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-                <v-btn icon text @click.stop="openCreateProjectWindow" v-on="on" small>
+                <v-btn icon text @click.stop="openCreateProjectWindow" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-folder-plus</v-icon>
                 </v-btn>
             </template>
@@ -20,7 +20,7 @@
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-                <v-btn icon text @click.stop="openCreateFileWindow" v-on="on" small>
+                <v-btn icon text @click.stop="openCreateFileWindow" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-file-document</v-icon>
                 </v-btn>
             </template>
@@ -29,7 +29,7 @@
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-                <v-btn icon text @click.stop="packageProject" v-on="on" small>
+                <v-btn icon text @click.stop="packageProject" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-package-variant-closed</v-icon>
                 </v-btn>
             </template>
@@ -38,7 +38,7 @@
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-                <v-btn icon text @click.stop="openInExplorer" v-on="on" small>
+                <v-btn icon text @click.stop="openInExplorer" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-folder-multiple</v-icon>
                 </v-btn>
             </template>
@@ -48,7 +48,7 @@
         <!-- <v-spacer></v-spacer>
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-                <v-btn icon text @click.stop="" v-on="on" small>
+                <v-btn icon text @click.stop="" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-dots-vertical</v-icon>
                 </v-btn>
             </template>
@@ -113,7 +113,8 @@
     .v-btn {
         margin: 0;
     }
-    .first {
-        padding-left: 0.1em;
+    .toolbar-button {
+        height: 28px;
+        width: 28px;
     }
 </style>

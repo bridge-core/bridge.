@@ -11,12 +11,12 @@
             
             <v-select
                 v-if="force_project_algorithm === undefined"
-                style="margin-bottom: 4px;"
+                style="margin: 4px 0; border-radius: 0;"
                 ref="project_select"
                 :items="project_items" 
                 :value="selected" 
                 :label="display_label" 
-                solo 
+                solo
                 dense 
                 :loading="loading" 
                 :disabled="items.length <= 1"

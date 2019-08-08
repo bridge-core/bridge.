@@ -9,7 +9,6 @@
     >
         <v-btn
             icon
-           text
             small
             style="margin: 0; height: 16px; width: 16px;"
             @click="(event) => $emit('arrowClick', event)"
@@ -187,7 +186,8 @@
     .warning-line {
         border-bottom: 2px dotted #FFA000;
     }
-    button::before {
-        opacity: 0.2;
+    button i {
+        position: relative;
+        bottom: 4px;
     }
 </style>
