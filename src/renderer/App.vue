@@ -7,7 +7,7 @@
         <v-container class="no-padding" fluid fill-height align>
           <v-layout row align-space-between all fill-height>
             <sidebar-navigation></sidebar-navigation>
-            <sidebar-main style="padding-left: 0.5em;"></sidebar-main>
+            <sidebar-main style="padding-left: 12px;"></sidebar-main>
 
             <v-flex :xs10="is_sidebar_open" :xs12="!is_sidebar_open" style="padding-left: 0.5em;">
               <editor-shell-tab-system></editor-shell-tab-system>
@@ -23,7 +23,7 @@
         </v-container>
       </v-content>
 
-      <v-footer style="z-index: 10;" :class="footer_visible ? 'big' : ''" fixed padless app>
+      <v-footer :class="footer_visible ? 'big' : ''" fixed padless app>
         <footer-main></footer-main>
         <v-spacer></v-spacer>
         <v-divider v-if="footer_visible" vertical></v-divider>

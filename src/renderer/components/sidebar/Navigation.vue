@@ -76,3 +76,8 @@
         overflow-x: hidden;
     }
 </style>
+<style>
+    .v-navigation-drawer--fixed {
+        z-index: 0;
+    }
+</style>

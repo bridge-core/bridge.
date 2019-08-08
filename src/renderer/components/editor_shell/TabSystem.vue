@@ -1,5 +1,5 @@
 <template>
-    <v-layout v-if="has_tabs" :style="`overflow-x: ${has_tabs ? 'scroll' : 'auto'}`" row wrap>
+    <v-layout v-if="has_tabs" style="overflow-x: scroll;" row wrap>
             <v-tabs
                 slider-color="success"
                 v-model="selected_tab"
