@@ -4,6 +4,7 @@
             v-if="selected !== undefined && selected !== '/@NO-RP@/' && selected !== '/@NO-DEPENDENCY@/'"
         >
             <component :is="toolbar_component" :selected="selected" :base_path="base_path"/>
+            <v-divider/>
         </span>
 
         <v-layout align-center>

@@ -9,7 +9,7 @@
             <sidebar-navigation/>
             <sidebar-main style="padding-left: 12px;"/>      
 
-            <v-flex :xs10="is_sidebar_open" :xs12="!is_sidebar_open" style="padding-left: 0.5em;">
+            <v-flex :xs10="is_sidebar_open" :xs12="!is_sidebar_open">
               <editor-shell-tab-system/>
               <editor-shell-content-manager/>
 
@@ -154,6 +154,12 @@
 
   v-application--wrap > main.v-content {
     padding-left: 60px !important;
+  }
+  .v-system-bar {
+    padding-right: 0;
+  }
+  .v-system-bar .v-icon {
+    margin: 0;
   }
 </style>
 

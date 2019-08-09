@@ -8,13 +8,13 @@
         <v-spacer></v-spacer>
 
         <v-toolbar-items>
-            <v-btn small icon text @click.stop="minWindow">
+            <v-btn small icon @click.stop="minWindow">
                 <v-icon small>mdi-minus</v-icon>
             </v-btn>
-            <v-btn small icon text @click.stop="maxWindow">
+            <v-btn small icon @click.stop="maxWindow">
                 <v-icon small>mdi-plus</v-icon>
             </v-btn>
-            <v-btn small icon text @click.stop="closeWindow">
+            <v-btn color="error" small icon @click.stop="closeWindow">
                 <v-icon small>mdi-close</v-icon>
             </v-btn>
         </v-toolbar-items>

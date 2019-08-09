@@ -5,6 +5,7 @@
         :offset-x="is_submenu"
         :open-on-hover="is_submenu"
         min-width="260px"
+        tile
         :class="is_submenu ? 'sidemenu app-menu' : 'app-menu'"
     >
         <template v-slot:activator="{ on }">

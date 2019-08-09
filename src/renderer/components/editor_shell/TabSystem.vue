@@ -1,31 +1,26 @@
 <template>
-    <v-layout v-if="has_tabs" style="overflow-x: scroll; padding-left: 4px;" row wrap>
-            <v-tabs
-                slider-color="success"
-                v-model="selected_tab"
-                :mandatory="has_tabs"
-                :show-arrows="false"
-            >
-                <v-tab 
-                    v-for="(file, i) in open_files"
-                    :key="`${selected_project}-${i}-${unsaved.join()}`"
-                    bottom
-                    color="success"
-                    :ripple="selected_tab !== i"
-                    :class="`tab ${selected_tab == i ? 'selected' : ''}`"
-                    style="margin: 0;"
-                > 
-                    <v-tooltip :open-delay="600" transition="scale-transition" :disabled="file.file_name.length <= 27" bottom>
-                        <template v-slot:activator="{ on }">
-                            <span v-on="on" :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ getFileName(file.file_name) }}</span>
-                        </template>
-                        <span>{{ file.file_name }}</span>
-                    </v-tooltip>
-                    
-                    <v-btn @click.stop="closeTab(i)" text icon small><v-icon small>mdi-close</v-icon></v-btn>
-                </v-tab>
-            </v-tabs>
-    </v-layout>
+    <div
+        v-if="has_tabs"
+        :style="`display: inline-block; overflow-x: scroll; white-space: nowrap; width: 100%; margin-left: ${is_sidebar_open ? 0 : 0.75}em;`"
+    >
+        <v-tab 
+            v-for="(file, i) in open_files"
+            :key="`${selected_project}-${i}-${unsaved.join()}`"
+            :ripple="selected_tab !== i"
+            :class="`tab ${selected_tab == i ? 'selected' : ''}`"
+            :style="`display: inline-block; background: ${is_dark_mode ? '#424242' : 'rgba(119, 119, 119, 0.1)'};`"
+            @click.native="selected_tab = i"
+        > 
+            <v-tooltip :open-delay="600" transition="scale-transition" :disabled="file.file_name.length <= 27" bottom>
+                <template v-slot:activator="{ on }">
+                    <span v-on="on" :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ getFileName(file.file_name) }}</span>
+                </template>
+                <span>{{ file.file_name }}</span>
+            </v-tooltip>
+
+            <v-btn @click.stop="closeTab(i)" text icon small><v-icon small>mdi-close</v-icon></v-btn>
+        </v-tab>
+    </div>
 </template>
 
 <script>
@@ -70,6 +65,12 @@ export default {
 
         has_tabs() {
             return this.open_files.length > 0;
+        },
+        is_dark_mode() {
+            return this.$store.state.Appearance.is_dark_mode;
+        },
+        is_sidebar_open() {
+            return this.$store.state.SidebarMenu.menu_state > 0;
         }
     },
     methods: {
@@ -100,6 +101,7 @@ export default {
     }
 
     .tab {
+        padding-top: 6px;
         text-transform: none;
         opacity: 0.5;
     }
@@ -108,6 +110,8 @@ export default {
     }
     .tab.selected {
         opacity: 1;
+        border-bottom: 2px solid #4caf50;
+        color: #4caf50;
     }
     *::-webkit-scrollbar-track {
         border-bottom-left-radius: 2px;

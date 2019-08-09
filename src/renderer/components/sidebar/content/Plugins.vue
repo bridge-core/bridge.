@@ -10,6 +10,7 @@
                 <span>Manage</span>
             </v-tooltip>
         </v-toolbar>
+        <v-divider/>
 
         <v-container :style="`max-height: ${plugin_height}px;`">
             <span v-if="plugins.length == 0">It doesn't look like you have installed an extension yet.</span>
