@@ -10,7 +10,7 @@
             <v-progress-circular
                 :size="70"
                 :width="5"
-                color="primary"
+                color="info"
                 indeterminate
             ></v-progress-circular>
         </v-layout>

@@ -62,6 +62,7 @@
                         :key="key(item)"
                         :action="typeof item.action !== 'function' ? () => {} : item.action"
                         :opacity="item.opacity"
+                        :selected="item.is_selected"
                         :item="item"
                     />
                 </v-list>

@@ -4,7 +4,7 @@
             :disabled="!show_tooltip"
         >
             <template v-slot:activator="{ on }">
-                <v-btn v-on="on" @click.stop="click" class="tb-actual-btn" small icon>
+                <v-btn v-on="on" @click.stop="click" class="toolbar-button" small icon>
                     <v-icon :color="element.color" small>{{ display_icon }}</v-icon>
                 </v-btn>
             </template>
@@ -40,7 +40,8 @@ export default {
 </script>
 
 <style scoped>
-    .tb-actual-btn {
-        margin: 0;
+    .toolbar-button {
+        height: 28px;
+        width: 28px;
     }
 </style>

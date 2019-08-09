@@ -11,10 +11,11 @@
         <v-list :style="`max-height: ${nav_height}px;`">
             <sidebar-element
                 v-for="(item, i) in menu_items"
-                :key="i"
+                :key="`${i}-${sidebar_menu_state}`"
                 :item="item"
                 :action="toggleMenu(i+1)"
                 :opacity="getOpacity(i)"
+                :selected="isActive(i)"
             />
         </v-list>
     </v-navigation-drawer>

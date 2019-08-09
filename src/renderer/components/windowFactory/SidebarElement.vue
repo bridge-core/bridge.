@@ -1,8 +1,8 @@
 <template>
     <v-tooltip right>
         <template v-slot:activator="{ on }">
-            <v-list-item v-on="on" @click.stop="action">
-                <v-list-item-action>
+            <v-list-item :style="`border-left: 2px solid ${selected ? '#4caf50' : 'rgab(0, 0, 0, 0)'};`" v-on="on" @click.stop="action">
+                <v-list-item-action class="sidebar-action">
                     <v-layout align-center>
                         <v-icon medium :style="`opacity: ${opacity};`" :color="item.color">{{ item.icon }}</v-icon>
                     </v-layout>
@@ -23,7 +23,8 @@
                 type: Number,
                 default: 1
             },
-            action: Function
+            action: Function,
+            selected: Boolean
         }
     }
 </script>
@@ -31,5 +32,10 @@
 <style scoped>
     span {
         cursor: pointer;
+    }
+</style>
+<style>
+    .sidebar-action {
+        margin: 0 !important;
     }
 </style>

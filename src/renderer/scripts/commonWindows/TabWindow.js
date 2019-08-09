@@ -35,11 +35,15 @@ export default class TabWindow extends CommonWindow {
     }
 
     select(id=this.selected_tab, force_update=false) {
-        if(this.selected_tab == id && !force_update) return;
+        if(this.selected_tab === id && !force_update) return;
 
         this.selected_tab = id;
-        this.win_def.sidebar.forEach(e => e.opacity = 0.25);
+        this.win_def.sidebar.forEach(e => {
+            e.opacity = 0.25;
+            e.is_selected = false;
+        });
         this.win_def.sidebar[id].opacity = 1;
+        this.win_def.sidebar[id].is_selected = true;
         this.win_def.content = this.buildContent(id) || [ 
             { type: "header", text: "Oops :(" },
             { type: "divider" },

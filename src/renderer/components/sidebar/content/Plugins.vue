@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-toolbar flat text height="30px">
+        <v-toolbar flat height="30px">
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                     <v-btn icon text @click.stop="is_menu_open = true" v-on="on" small class="toolbar-button">
@@ -54,7 +54,7 @@
 
                             <v-tooltip right v-if="plugin.link !== undefined">
                                 <template v-slot:activator="{ on }">
-                                    <v-icon @click.stop.native="openLink(plugin.link)" v-on="on" color="primary">
+                                    <v-icon @click.stop.native="openLink(plugin.link)" v-on="on" color="info">
                                         mdi-earth
                                     </v-icon>
                                 </template>

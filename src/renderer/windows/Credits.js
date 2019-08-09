@@ -59,7 +59,7 @@ export default class CreditsWindow extends TabWindow {
                     type: "divider"
                 },
                 new Creator("Developer", "solvedDev", [{
-                    color: "primary",
+                    color: "info",
                     text: "Twitter",
                     link: "https://twitter.com/lKanno_"
                 },
@@ -76,7 +76,7 @@ export default class CreditsWindow extends TabWindow {
             },
             content: [
                 new Creator("Logo", "Matteo Simonetti", [{
-                    color: "primary",
+                    color: "info",
                     text: "Twitter",
                     link: "https://twitter.com/lKanno_"
                 }])
