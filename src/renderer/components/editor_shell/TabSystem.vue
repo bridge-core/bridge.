@@ -1,14 +1,14 @@
 <template>
     <div
         v-if="has_tabs"
-        :style="`display: inline-block; overflow-x: scroll; white-space: nowrap; width: 100%; margin-left: ${is_sidebar_open ? 0 : 0.75}em;`"
+        :style="`display: inline-block; overflow-x: scroll; white-space: nowrap; width: 100%;`"
     >
         <v-tab 
             v-for="(file, i) in open_files"
             :key="`${selected_project}-${i}-${unsaved.join()}`"
             :ripple="selected_tab !== i"
             :class="`tab ${selected_tab == i ? 'selected' : ''}`"
-            :style="`display: inline-block; background: ${is_dark_mode ? '#424242' : 'rgba(119, 119, 119, 0.1)'};`"
+            :style="`display: inline-block; border-bottom: 2px solid ${is_dark_mode ? '#525252' : 'rgba(119, 119, 119, 0.3)'}; background: ${is_dark_mode ? '#424242' : 'rgba(119, 119, 119, 0.1)'};`"
             @click.native="selected_tab = i"
         > 
             <v-tooltip :open-delay="600" transition="scale-transition" :disabled="file.file_name.length <= 27" bottom>
@@ -110,7 +110,7 @@ export default {
     }
     .tab.selected {
         opacity: 1;
-        border-bottom: 2px solid #4caf50;
+        border-bottom: 2px solid #4caf50 !important;
         color: #4caf50;
     }
     *::-webkit-scrollbar-track {

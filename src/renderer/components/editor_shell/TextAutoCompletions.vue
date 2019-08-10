@@ -1,31 +1,25 @@
 <template>
-    <v-overlay
-        :style="`display: ${show_menu ? 'block' : 'none'};`"
-        @contextmenu="() => show_menu = false"
-        :opacity="0"
+    <v-menu
+        class="text-auto-completion-menu"
+        v-model="show_menu"
+        :max-height="200"
+        :position-x="x + 260 - 190 * is_sidebar_closed"
+        :position-y="y + 120"
+        relative
+        ref="menu"
     >
-        <v-menu
-            class="text-auto-completion-menu"
-            v-model="show_menu"
-            :max-height="200"
-            :position-x="x + 260 - 190 * is_sidebar_closed"
-            :position-y="y + 120"
-            absolute
-            ref="menu"
-        >
-            <v-list class="text-auto-completion-list " dense>
-                <v-list-item
-                    v-for="(e, i) in propose"
-                    :class="selected === i ? 'selected' : ''"
-                    :ref="selected === i ? 'selected' : null"
-                    :key="e"
-                    @click="insert(e)"
-                >
-                    <v-list-item-title>{{ e }}</v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-menu>
-    </v-overlay>
+        <v-list class="text-auto-completion-list " dense>
+            <v-list-item
+                v-for="(e, i) in propose"
+                :class="selected === i ? 'selected' : ''"
+                :ref="selected === i ? 'selected' : null"
+                :key="e"
+                @click="insert(e)"
+            >
+                <v-list-item-title>{{ e }}</v-list-item-title>
+            </v-list-item>
+        </v-list>
+    </v-menu>
 </template>
 
 <script>
@@ -68,6 +62,9 @@
             }
         },
         methods: {
+            close() {
+                this.show_menu = false;
+            },
             updateSuggestions(propose, sel_obj) {
                 last_sel_object = sel_obj;
                 if(cursors.children[0] !== undefined) {

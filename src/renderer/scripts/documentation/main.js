@@ -32,6 +32,10 @@ class DocumentationLoader {
                     //this.html_data[doc].body.innerHTML = str;
                     this.html_data[doc] = str;
                     window.setTimeout(() => this.loading_status++, this.loading_status*100 + 1000);
+                })
+                .catch(() => {
+                    this.html_data[doc] = "<h3>No Internet Connection</h3>";
+                    window.setTimeout(() => this.loading_status++, this.loading_status*100 + 1000);
                 });
         });
     }

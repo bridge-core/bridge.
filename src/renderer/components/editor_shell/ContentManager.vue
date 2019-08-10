@@ -50,6 +50,7 @@
                 this.open_files = TabSystem.filtered();
             },
             updateSelectedTab() {
+                EventBus.trigger("bridge:closeTextCompletions");
                 this.selected_tab = TabSystem.selected;
             }
         },

@@ -5,9 +5,9 @@
 
       <v-content :style="`padding-bottom: ${footer_visible ? 44 : 22}px;`">
         <v-container class="no-padding" fluid fill-height align>
-          <v-layout row align-space-between all fill-height>
+          <v-layout style="margin: 0;" row align-space-between all fill-height>
             <sidebar-navigation/>
-            <sidebar-main style="padding-left: 12px;"/>      
+            <sidebar-main/>      
 
             <v-flex :xs10="is_sidebar_open" :xs12="!is_sidebar_open">
               <editor-shell-tab-system/>
