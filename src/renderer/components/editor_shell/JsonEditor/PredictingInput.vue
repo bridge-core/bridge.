@@ -5,10 +5,10 @@
                 ref="input"
 
                 v-model="value"
-                @keydown.enter.native="click"
+                @input="click"
+                chips
                 label="Add"
                 :items="items"
-                :auto-select-first="true"
                 :menu-props="{ maxHeight: 130, top: false }"
                 :hide-no-data="true"
                 no-data-text="No suggestions available..."
@@ -16,7 +16,7 @@
                 class="json-input-menu"
             ></v-combobox>
 
-            <v-btn rounded @click="click(null, 'object')">
+            <v-btn rounded @click="click">
                 <v-icon>mdi-code-braces</v-icon>
             </v-btn>
             <v-tooltip bottom>
@@ -25,8 +25,8 @@
                         <v-icon>mdi-format-quote-close</v-icon>
                     </v-btn>
                 </template>
-                <span>Shift + Enter</span>
-            </v-tooltip>           
+                <span>Force Value</span>
+            </v-tooltip>
         </v-layout>
     </v-flex>
 </template>
@@ -76,15 +76,13 @@
             }
         },
         methods: {
-            click(event, force) {
+            click(val, force) {
                 if(this.value === "")
-                    this.value = this.$refs.input.$el.querySelector("input").value;
+                    this.value = val || this.$refs.input.$el.querySelector("input").value;
                 if(this.value === "" || this.value === undefined || this.value === null) return;
 
                 if(force !== undefined)
                     this.mode = force;
-                else if(event !== null && event.shiftKey)
-                    this.mode = "value";
 
                 let current = this.render_object.get(this.file_navigation);
                 if(current.meta.is_value) this.mode = "value";

@@ -8,11 +8,11 @@
         </span>
 
         <v-layout align-center>
-            <span style="padding: 0 4px;"><v-avatar size="36px"><img :src="project_icon"></v-avatar></span>
+            <span style="padding: 0 4px;"><v-avatar tile size="36px"><img :src="project_icon"></v-avatar></span>
             
             <v-select
                 v-if="force_project_algorithm === undefined"
-                style="margin: 4px 0; border-radius: 0;"
+                style="margin: 4px 0; margin-right: 4px; border-radius: 0;"
                 ref="project_select"
                 :items="project_items" 
                 :value="selected" 

@@ -1,13 +1,17 @@
 <template>
-    <v-system-bar fixed app clipped padless height="24px">
-        <img :src="icon_path" style="height: 16px; padding-right: 4px;"/>
-        <v-toolbar-items>
-            <app-menu v-for="(menu, i) in menu_details" :key="i" :menu="menu"></app-menu>
+    <v-system-bar :style="`padding-left: ${is_mac_os ? 0: 8}px;`" fixed app clipped padless height="24px">
+        <img v-if="!is_mac_os" :src="icon_path" style="height: 16px; padding-right: 4px;"/>
+        <v-toolbar-items class="px14-font">
+            <v-divider vertical/>
+            <template v-for="(menu, i) in menu_details">
+                <app-menu :key="`app-menu-${i}`" :menu="menu"></app-menu>
+                <v-divider :key="`divider-${i}`" vertical/>
+            </template>
         </v-toolbar-items>
         
         <v-spacer></v-spacer>
 
-        <v-toolbar-items>
+        <v-toolbar-items v-if="!is_mac_os">
             <v-btn small icon @click.stop="minWindow">
                 <v-icon small>mdi-minus</v-icon>
             </v-btn>
@@ -61,6 +65,9 @@
         computed: {
             menu_details() {
                 return this.$store.state.AppMenu;
+            },
+            is_mac_os() {
+                return process.platform === "darwin";
             }
         },
         methods: {

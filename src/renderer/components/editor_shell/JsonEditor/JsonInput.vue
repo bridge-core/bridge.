@@ -13,10 +13,10 @@
 
                 v-else
                 v-model="value"
-                @keydown.enter.native="click"
+                @input="click"
+                chips
                 :label="label"
                 :items="items"
-                :auto-select-first="true"
                 :menu-props="{ maxHeight: 130, top: false }"
                 :hide-no-data="true"
                 no-data-text="No suggestions available..."

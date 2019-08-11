@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import "./communicator.js";
 import "./Discord";
 import { BP_BASE_PATH } from "../shared/paths.js";
+import MENU from "./menuBuilder";
 
 //Set __static path to static files in production
 if (process.env.NODE_ENV !== "development") {
@@ -11,9 +12,9 @@ if (process.env.NODE_ENV !== "development") {
 let mainWindow, loadingWindow, windowOptions = {
     height: 600,
     useContentSize: true,
-    width: 1000,
-    frame: false,
-    minWidth: 900,
+    width: 1080,
+    frame: process.platform === "darwin",
+    minWidth: 1080,
     minHeight: 600,
     show: false,
     webPreferences: {
@@ -42,21 +43,13 @@ function createWindow () {
     mainWindow.webContents.on("did-finish-load", () => {
         if(loadingWindow) {
             mainWindow.setPosition(...loadingWindow.getPosition());
-            // mainWindow.toggleDevTools();
             loadingWindow.close();
             mainWindow.show();
         }
     });
 
-    if(process.env.NODE_ENV === "development") mainWindow.setMenu(Menu.buildFromTemplate([
-        {
-            label: "View",
-            submenu: [
-                { role: "reload" }
-            ]
-        }
-    ]));
-    if(process.env.NODE_ENV !== "development") mainWindow.setMenu(null);
+    if(MENU === null) mainWindow.removeMenu();
+    else mainWindow.setMenu(Menu.buildFromTemplate(MENU));
 }
 
 function createSplashScreen() {

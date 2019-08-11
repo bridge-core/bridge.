@@ -1,4 +1,3 @@
-// @ts-check
 import Stack from "../utilities/Stack";
 import Json from "./Json";
 import Provider from "../autoCompletions/Provider";
@@ -299,7 +298,7 @@ export default class JSONTree {
         //console.log(PROVIDER.get(path), path)
         if(Store.state.Settings.bridge_predictions) {
             let { META, ...propose } = PROVIDER.get(path, this);
-            this.meta = Object.assign(this.meta, META || {});
+            this.addMeta(META);
 
             this.propose_cache = null;
             this.propose_cache_uses = 0;
@@ -307,7 +306,7 @@ export default class JSONTree {
         } else {
             if(this.propose_cache_uses === 0) {
                 let { META, ...propose } = PROVIDER.get(path, this);
-                this.meta = Object.assign(this.meta, META || {});
+                this.addMeta(META);
 
                 this.propose_cache = propose;
                 this.propose_cache_uses++;
@@ -316,7 +315,13 @@ export default class JSONTree {
             } 
             return this.propose_cache;
         }
-    }   
+    }
+    addMeta(META={}) {
+        this.meta = Object.assign(this.meta, META);
+
+        const { is_color } = META;
+        if(is_color && this.data === "") this.data = "#4caf50";
+    }
     openNode(val=true) {
         this.updateUUID();
 

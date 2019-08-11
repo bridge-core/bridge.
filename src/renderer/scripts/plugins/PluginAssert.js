@@ -3,7 +3,7 @@ import AssertWindow from "../../windows/AssertWindow";
 import Store from "../../store/index";
 
 window.onerror = (message) => {
-    if(typeof message === "string" && message.split(" ").includes("getBoundingClientRec")) return;
+    if(typeof message === "string" && message.split(" ").includes("'getBoundingClientRect'")) return;
     Assert.throw("bridge. core", undefined, message);
 };
 window.onunhandledrejection = (event) => {
