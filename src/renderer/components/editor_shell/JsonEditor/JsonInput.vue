@@ -116,6 +116,9 @@
                     current.type = typeof this.value;
                     this.navigationBack();
 
+                    if(current.parent !== undefined && current.parent.propose().object.length === 0)
+                        this.navigationBack();
+
                     //PLUGIN HOOK
                     PluginEnv.trigger("bridge:modifiedNode", {
                         node: current

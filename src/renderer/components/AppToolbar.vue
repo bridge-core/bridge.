@@ -62,13 +62,24 @@
                 })
             };
         },
+        // watch: {
+        //     is_dark_mode(is_dark_mode) {
+        //         this.icon_path = DataUrl.convert({
+        //             data: fs.readFileSync(path.join(__static, is_dark_mode ? "/icon.png" : "/icon_light.png")),
+        //             mimetype: `image/png`
+        //         })
+        //     }
+        // },
         computed: {
             menu_details() {
                 return this.$store.state.AppMenu;
             },
             is_mac_os() {
                 return process.platform === "darwin";
-            }
+            },
+            // is_dark_mode() {
+            //     return this.$store.state.Appearance.is_dark_mode;
+            // }
         },
         methods: {
             closeWindow() {

@@ -58,7 +58,10 @@ function createSplashScreen() {
         useContentSize: true,
         width: 300,
         frame: false,
-        resizable: false
+        resizable: false,
+        webPreferences: {
+            nodeIntegration: true
+        }
     });
 
     loadingWindow.loadURL(`file://${__static}/loading.html`);
