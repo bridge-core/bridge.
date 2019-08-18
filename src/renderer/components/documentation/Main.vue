@@ -12,6 +12,7 @@
                     <v-btn small icon @click.stop="is_fullscreen = !is_fullscreen">
                         <v-icon small>mdi-plus</v-icon>
                     </v-btn>
+                    <v-divider vertical/>
                     <v-btn color="error" small icon @click.stop="DOC_WINDOW.close">
                         <v-icon small>mdi-close</v-icon>
                     </v-btn>

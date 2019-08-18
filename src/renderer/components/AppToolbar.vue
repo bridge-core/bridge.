@@ -3,9 +3,9 @@
         <img v-if="!is_mac_os" :src="icon_path" style="height: 16px; padding-right: 4px;"/>
         <v-toolbar-items class="px14-font">
             <v-divider vertical/>
-            <template v-for="(menu, i) in menu_details">
-                <app-menu :key="`app-menu-${i}`" :menu="menu"></app-menu>
-                <v-divider v-if="i < menu_details.length" :key="`divider-${i}`" vertical/>
+            <template v-for="(menu, key, i) in menu_details">
+                <app-menu :key="`app-menu-${key}`" :menu="menu"></app-menu>
+                <v-divider v-if="i + 1 < Object.keys(menu_details).length" :key="`divider-${key}`" vertical/>
             </template>
         </v-toolbar-items>
         

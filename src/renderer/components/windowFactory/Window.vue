@@ -17,11 +17,17 @@
                 <span class="px14-font">{{ window_title }}</span>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
-                    <toolbar-element
-                        v-for="(icon, i) in win.toolbar"
-                        :key="`plugin-popup-window-toolbar-element-${i}`"
-                        :element="icon"
-                    />
+                    <template v-for="(icon, i) in win.toolbar">
+                        <toolbar-element
+                            :key="`plugin-popup-window-toolbar-element-${i}`"
+                            :element="icon"
+                        />
+                        <v-divider
+                            :key="`plugin-popup-window-toolbar-divider-${i}`"
+                            v-if="i + 1 < win.toolbar.length || has_close_button || has_maximize_button"
+                            vertical
+                        />
+                    </template>
                     <v-btn 
                         small 
                         icon 
@@ -30,6 +36,7 @@
                     >
                         <v-icon small>mdi-plus</v-icon>
                     </v-btn>
+                    <v-divider v-if="has_close_button" vertical/>
                     <v-btn 
                         small
                         icon
