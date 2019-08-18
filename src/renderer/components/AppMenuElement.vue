@@ -31,7 +31,7 @@ export default {
     },
     
     components: {
-        AppMenu: AppMenu || this.AppMenu
+        AppMenu: AppMenu
     },
     computed: {
         

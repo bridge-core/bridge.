@@ -101,7 +101,7 @@ export default {
     }
 
     .tab {
-        padding-top: 6px;
+        padding: 8px 16px;
         text-transform: none;
         opacity: 0.5;
     }

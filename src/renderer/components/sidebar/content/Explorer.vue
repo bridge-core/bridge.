@@ -85,10 +85,6 @@
             ExplorerRpToolbar,
             ExplorerNoProjects
         },
-        provide: {
-            base_path: this.base_path,
-            selected: this.selected
-        },
         props: {
             load_plugins: Boolean,
             base_path: String,
