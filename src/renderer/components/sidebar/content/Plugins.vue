@@ -12,7 +12,7 @@
         </v-toolbar>
         <v-divider/>
 
-        <v-container :style="`max-height: ${plugin_height}px;`">
+        <v-container :style="`height: ${plugin_height}px;`">
             <span v-if="plugins.length == 0">It doesn't look like you have installed an extension yet.</span>
 
             <v-expansion-panel v-if="unknown_plugins > 0">
@@ -41,8 +41,8 @@
                 </v-expansion-panel-content>
             </v-expansion-panel>
 
-            <v-card>
-                <v-list v-for="(plugin, i) in plugins" :key="`plugin-sidebar-display-${i}`" three-line>
+            <v-card v-for="(plugin, i) in plugins" style="margin-bottom: 8px;" :key="`plugin-sidebar-display-${i}`">
+                <v-list three-line>
                     <v-list-item>
                         <v-list-item-content>
                             <v-list-item-title>{{ plugin.name }}</v-list-item-title>
@@ -71,7 +71,7 @@
                             </v-tooltip>
                             <v-tooltip color="error" right v-else>
                                 <template v-slot:activator="{ on }">
-                                    <v-icon v-on="on" color="success">
+                                    <v-icon v-on="on" color="error">
                                         mdi-close
                                     </v-icon>
                                 </template>
@@ -80,7 +80,6 @@
                         </v-list-item-action>
                     </v-list-item>
                     <div class="padding">{{ plugin.description }}</div>
-                    <v-divider v-if="i < plugins.length - 1"></v-divider>
                 </v-list>
             </v-card>
         </v-container>

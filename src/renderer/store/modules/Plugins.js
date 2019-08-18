@@ -3,7 +3,6 @@ import Store from "../index";
 import Vue from "vue";
 import Provider from "../../scripts/autoCompletions/Provider";
 import FileType from "../../scripts/editor/FileType";
-import PluginLoader from "../../scripts/plugins/PluginLoader";
 
 const state = {
     installed_plugins: [],

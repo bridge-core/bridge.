@@ -14,6 +14,8 @@ export default class PluginLoader {
         //INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
         Store.commit("unloadPlugins");
         Bridge.Interpreter.init(project);
+        let unloaded_plugins = await readJSON(path.join(Bridge.Runtime.getBridgePath(), "uninstalled_plugins.json"));
+        console.log(unloaded_plugins);
 
         try {
             PLUGIN_FOLDERS = await fs.readdir(path.join(BASE_PATH, project, "bridge/plugins"));
@@ -22,21 +24,21 @@ export default class PluginLoader {
         }
         
         PLUGIN_DATA = [];
-        await Promise.all(PLUGIN_FOLDERS.map(plugin_folder => this.loadPlugin(project, plugin_folder)));
+        await Promise.all(PLUGIN_FOLDERS.map(plugin_folder => this.loadPlugin(project, plugin_folder, unloaded_plugins)));
 
         //INIT LEGACY PLUGIN DATA FOR UI
         Store.commit("finishedPluginLoading", PLUGIN_DATA);
     }
 
-    static async loadPlugin(project, plugin_folder) {
+    static async loadPlugin(project, plugin_folder, unloaded_plugins) {
         let plugin_path = path.join(BASE_PATH, project, "bridge/plugins", plugin_folder);
 
         if((await fs.lstat(plugin_path)).isFile()) {
             //LEGACY PLUGINS
-            Store.commit("loadPlugin", { 
+            Store.commit("loadPlugin", {
                 code: (await fs.readFile(plugin_path)).toString(), 
                 path: plugin_path, 
-                blocked: false
+                blocked: unloaded_plugins.includes(plugin_path)
             });
         } else {
             let manifest;
@@ -44,7 +46,7 @@ export default class PluginLoader {
                 manifest = await readJSON(path.join(plugin_path, "manifest.json"));
             } catch(e) { return; }
 
-            await this.loadScripts(plugin_path, manifest.api_version);
+            if(!unloaded_plugins.includes(plugin_path)) await this.loadScripts(plugin_path, manifest.api_version);
             PLUGIN_DATA.push(manifest);
         }
     }
