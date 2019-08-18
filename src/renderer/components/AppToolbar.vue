@@ -1,11 +1,11 @@
 <template>
-    <v-system-bar :style="`padding-left: ${is_mac_os ? 0: 8}px;`" fixed app clipped padless height="24px">
+    <v-system-bar class="main-app-toolbar" :style="`padding-left: ${is_mac_os ? 0: 8}px;`" fixed app clipped padless height="24px">
         <img v-if="!is_mac_os" :src="icon_path" style="height: 16px; padding-right: 4px;"/>
         <v-toolbar-items class="px14-font">
             <v-divider vertical/>
             <template v-for="(menu, i) in menu_details">
                 <app-menu :key="`app-menu-${i}`" :menu="menu"></app-menu>
-                <v-divider :key="`divider-${i}`" vertical/>
+                <v-divider v-if="i < menu_details.length" :key="`divider-${i}`" vertical/>
             </template>
         </v-toolbar-items>
         
@@ -15,9 +15,11 @@
             <v-btn small icon @click.stop="minWindow">
                 <v-icon small>mdi-minus</v-icon>
             </v-btn>
+            <v-divider vertical/>
             <v-btn small icon @click.stop="maxWindow">
                 <v-icon small>mdi-plus</v-icon>
             </v-btn>
+            <v-divider vertical/>
             <v-btn color="error" small icon @click.stop="closeWindow">
                 <v-icon small>mdi-close</v-icon>
             </v-btn>
@@ -106,11 +108,11 @@
 </script>
 
 <style>
-    .v-system-bar {
+    .v-system-bar.main-app-toolbar {
         -webkit-app-region: drag;
     }
 
-    .v-system-bar button, .v-btn {
+    .v-system-bar.main-app-toolbar button, .v-btn {
         -webkit-app-region: no-drag;
         min-width: 0;
     }

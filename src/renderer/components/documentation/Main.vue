@@ -5,16 +5,18 @@
         :max-width="is_fullscreen ? 2000 : 500"
     >
         <v-card>
-            <v-toolbar @dblclick.native="is_fullscreen = !is_fullscreen" height="30px">
-                <span class="window-title">Documentation</span>
+            <v-system-bar @dblclick.native="is_fullscreen = !is_fullscreen" height="30px" style="padding-right: 0;">
+                <span class="px14-font">Documentation</span>
                 <v-spacer></v-spacer>
-                <v-btn small icon @click.stop="is_fullscreen = !is_fullscreen">
-                    <v-icon small>mdi-plus</v-icon>
-                </v-btn>
-                <v-btn small icon @click.stop="DOC_WINDOW.close">
-                    <v-icon small>mdi-close</v-icon>
-                </v-btn>
-            </v-toolbar>
+                <v-toolbar-items>
+                    <v-btn small icon @click.stop="is_fullscreen = !is_fullscreen">
+                        <v-icon small>mdi-plus</v-icon>
+                    </v-btn>
+                    <v-btn color="error" small icon @click.stop="DOC_WINDOW.close">
+                        <v-icon small>mdi-close</v-icon>
+                    </v-btn>
+                </v-toolbar-items>
+            </v-system-bar>
             
 
             <v-card-text :style="`max-height: ${window_height * 0.75}px; height: ${is_fullscreen ? window_height * 0.75 : 500}px; overflow-y: auto;`">

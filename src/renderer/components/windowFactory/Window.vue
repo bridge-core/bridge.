@@ -7,38 +7,40 @@
         :max-width="is_fullscreen ? maxWidth : width"
     >
         <v-card ref="movable_card" :color="win.options ? win.options.main_color : undefined">
-            <v-toolbar 
+            <v-system-bar 
                 v-if="has_toolbar" 
                 ref="drag_region" 
                 height="30px"
                 :color="win.options ? win.options.toolbar_color : undefined"
                 style="overflow-x: auto; overflow-y: hidden;"
             >
-                <span class="window-title">{{ window_title }}</span>
+                <span class="px14-font">{{ window_title }}</span>
                 <v-spacer></v-spacer>
-                <toolbar-element
-                    v-for="(icon, i) in win.toolbar"
-                    :key="`plugin-popup-window-toolbar-element-${i}`"
-                    :element="icon"
-                />
-                <v-btn 
-                    small 
-                    icon 
-                    @click.stop="is_fullscreen = !is_fullscreen"
-                    v-if="has_maximize_button"
-                >
-                    <v-icon small>mdi-plus</v-icon>
-                </v-btn>
-                <v-btn 
-                    small
-                    icon
-                    @click.stop="is_window_visible = false"
-                    v-if="has_close_button"
-                >
-                    <v-icon small>mdi-close</v-icon>
-                </v-btn>
-            </v-toolbar>
-            
+                <v-toolbar-items>
+                    <toolbar-element
+                        v-for="(icon, i) in win.toolbar"
+                        :key="`plugin-popup-window-toolbar-element-${i}`"
+                        :element="icon"
+                    />
+                    <v-btn 
+                        small 
+                        icon 
+                        @click.stop="is_fullscreen = !is_fullscreen"
+                        v-if="has_maximize_button"
+                    >
+                        <v-icon small>mdi-plus</v-icon>
+                    </v-btn>
+                    <v-btn 
+                        small
+                        icon
+                        color="error"
+                        @click.stop="is_window_visible = false"
+                        v-if="has_close_button"
+                    >
+                        <v-icon small>mdi-close</v-icon>
+                    </v-btn>
+                </v-toolbar-items>
+            </v-system-bar>
 
             <v-card-text v-if="Array.isArray(win.content)" class="main-content" :style="`
                 max-height: ${maxHeight}px;

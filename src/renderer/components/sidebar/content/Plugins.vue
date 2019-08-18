@@ -61,7 +61,7 @@
                                 <span>More...</span>
                             </v-tooltip>
 
-                            <v-tooltip right v-if="!uninstalled_plugins().includes(plugin.id)">
+                            <v-tooltip color="primary" right v-if="!uninstalled_plugins().includes(plugin.id)">
                                 <template v-slot:activator="{ on }">
                                     <v-icon v-on="on" color="success">
                                         mdi-check
@@ -69,7 +69,7 @@
                                 </template>
                                 <span>Active</span>
                             </v-tooltip>
-                            <v-tooltip right v-else>
+                            <v-tooltip color="error" right v-else>
                                 <template v-slot:activator="{ on }">
                                     <v-icon v-on="on" color="success">
                                         mdi-close
