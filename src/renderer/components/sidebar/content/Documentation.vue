@@ -1,14 +1,5 @@
 <template>
     <div>
-        <!-- <v-toolbar flat height="30px">
-            <v-tooltip bottom class="first">
-                <v-btn slot="activator" class="first" small icon>
-                    <v-icon small>settings</v-icon>
-                </v-btn>
-                <span>Manage</span>
-            </v-tooltip>
-        </v-toolbar> -->
-
         <v-container :style="`max-height: ${sidebar_height}px;`">
             <v-progress-linear
                 :color="show_loading ? 'warning' : 'success'"
@@ -22,7 +13,7 @@
                         :key="`btn.${i}`"
                         @click.stop="() => DOC_WINDOW.open(doc)"
                         block
-                        flat
+                       text
                     >
                         <span>{{ doc }}</span>
                         <v-spacer/>

@@ -11,8 +11,8 @@
                     "@import.value": "$dynamic.rp.item_textures"
                 },
                 "texture_index": "$general.number",
-                "base_color": { "@meta": { "is_value": true } },
-                "overlay_color": { "@meta": { "is_value": true } }
+                "base_color": { "@meta": { "is_value": true, "is_color": true } },
+                "overlay_color": { "@meta": { "is_value": true, "is_color": true } }
             },
 
             "materials": {

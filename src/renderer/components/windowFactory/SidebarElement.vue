@@ -1,14 +1,15 @@
 <template>
-    <v-tooltip right>
-        <v-list-tile slot="activator" @click.stop="action">
-
-            <v-list-tile-action>
-                <v-layout align-center>
-                    <v-icon medium :style="`opacity: ${opacity};`" :color="item.color">{{ item.icon }}</v-icon>
-                </v-layout>
-
-            </v-list-tile-action>
-        </v-list-tile>
+    <v-tooltip :disabled="selected" right>
+        <template v-slot:activator="{ on }">
+            <v-list-item :style="`border-left: 2px solid ${selected ? '#4caf50' : 'rgab(0, 0, 0, 0)'};`" v-on="on" @click.stop="action">
+                <v-list-item-action class="sidebar-action">
+                    <v-layout align-center>
+                        <v-icon medium :style="`opacity: ${opacity};`" :color="item.color">{{ item.icon }}</v-icon>
+                    </v-layout>
+                </v-list-item-action>
+            </v-list-item>
+        </template>
+        
         <span>{{ item.title }}</span>
     </v-tooltip>
 </template>
@@ -22,7 +23,8 @@
                 type: Number,
                 default: 1
             },
-            action: Function
+            action: Function,
+            selected: Boolean
         }
     }
 </script>
@@ -30,5 +32,10 @@
 <style scoped>
     span {
         cursor: pointer;
+    }
+</style>
+<style>
+    .sidebar-action {
+        margin: 0 !important;
     }
 </style>

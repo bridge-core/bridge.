@@ -7,7 +7,7 @@
     },
     "define": {
         "keywords": [ 
-            "minecraft", "alwaysday", "difficulty", "execute", "effect", "summon", "setblock", "fill", "scoreboard", "detect", "tellraw", "testfor", "testforblock", "testforblocks", "say", "tellraw", "kill", "setworldspawn", "spawnpoint", "gamemode", "tp", "teleport", "replaceitem", "clear", "enchant", "give", "weather", "xp", "clone", "title", "stopsound", "spreadplayers", "playsound", "tag", "help", "function", "locate", "tickingarea"
+            "minecraft", "alwaysday", "clear", "difficulty", "execute", "effect", "summon", "setblock", "fill", "scoreboard", "detect", "tellraw", "testfor", "testforblock", "testforblocks", "say", "tellraw", "kill", "setworldspawn", "spawnpoint", "gamemode", "gamerule", "tp", "teleport", "replaceitem", "clear", "enchant", "give", "weather", "xp", "clone", "title", "stopsound", "spreadplayers", "playsound", "tag", "help", "function", "locate", "tickingarea"
         ],
         "titles": [ "@a", "@e", "@p", "@r", "@s"],
         "atoms": [ "true", "false" ],

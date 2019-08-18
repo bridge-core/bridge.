@@ -4,30 +4,30 @@
             <v-progress-circular
                 :size="70"
                 :width="5"
-                color="primary"
+                color="info"
                 indeterminate
             ></v-progress-circular>
         </v-layout>
 
         <div v-else-if="show_list">
             <template v-for="(plugin, i) in plugins_to_show">
-                <v-list-tile :key="`plugin-window-element-${Math.random()}-${i}`">
-                    <v-list-tile-content>
-                        <v-list-tile-title>{{ plugin.name }}</v-list-tile-title>
-                        <v-list-tile-sub-title class="font-weight-light">by {{ plugin.author }}</v-list-tile-sub-title>
-                    </v-list-tile-content>
+                <v-list-item :key="`plugin-window-element-${Math.random()}-${i}`">
+                    <v-list-item-content>
+                        <v-list-item-title>{{ plugin.name }}</v-list-item-title>
+                        <v-list-item-subtitle class="font-weight-light">by {{ plugin.author }}</v-list-item-subtitle>
+                    </v-list-item-content>
 
-                    <v-list-tile-action>
-                        <v-list-tile-action-text>{{ plugin.version }}</v-list-tile-action-text>
+                    <v-list-item-action>
+                        <v-list-item-action-text>{{ plugin.version }}</v-list-item-action-text>
 
-                        <v-btn v-if="show_uninstall" @click.stop.native="uninstall(plugin.id)" color="error" slot="activator" small>
+                        <v-btn v-if="show_uninstall" @click.stop.native="uninstall(plugin.id)" color="error" small>
                             Uninstall
                         </v-btn>
-                        <v-btn v-else @click.stop.native="install(plugin.id)" color="success" slot="activator" small>
+                        <v-btn v-else @click.stop.native="install(plugin.id)" color="success" small>
                             Install
                         </v-btn>
-                    </v-list-tile-action>
-                </v-list-tile>
+                    </v-list-item-action>
+                </v-list-item>
 
                 <span class="plugin-desc text--secondary font-weight-light" :key="`plugin-popup-desc-${Math.random()}-${i}`">{{ plugin.description }}</span>
 

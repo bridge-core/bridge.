@@ -32,18 +32,21 @@
                         v-else-if="btn.condition === undefined || btn.condition()"
                         :key="i"
                         bottom
-                        :color="btn.color || 'primary'"
-                        :style="`margin-right: ${ i + 1 !== buttons.length ? 4 : 0}px;`"
+                        :color="btn.color || 'info'"
+                        :style="`margin-right: ${ i + 1 <= buttons.length ? 4 : 0}px;`"
                     >
-                        <v-btn
-                            slot="activator"
-                            :color="btn.color || 'primary'" 
-                            round
-                            icon
-                            @click="btn.action"
-                        >
-                            <v-icon color="white">{{ btn.icon }}</v-icon>
-                        </v-btn>
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                v-on="on"
+                                :color="btn.color || 'info'" 
+                                rounded
+                                small
+                                @click="btn.action"
+                            >
+                                <v-icon color="white">{{ btn.icon }}</v-icon>
+                            </v-btn>
+                        </template>
+
                         <span>{{ btn.title }}</span>
                     </v-tooltip>
                 </template>

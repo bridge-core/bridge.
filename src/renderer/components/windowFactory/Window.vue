@@ -7,41 +7,47 @@
         :max-width="is_fullscreen ? maxWidth : width"
     >
         <v-card ref="movable_card" :color="win.options ? win.options.main_color : undefined">
-            <v-toolbar 
+            <v-system-bar 
                 v-if="has_toolbar" 
                 ref="drag_region" 
                 height="30px"
                 :color="win.options ? win.options.toolbar_color : undefined"
                 style="overflow-x: auto; overflow-y: hidden;"
             >
-                <span class="window-title">{{ window_title }}</span>
+                <span class="px14-font">{{ window_title }}</span>
                 <v-spacer></v-spacer>
-                <toolbar-element
-                    v-for="(icon, i) in win.toolbar"
-                    :key="`plugin-popup-window-toolbar-element-${i}`"
-                    :class="has_close_button || has_maximize_button ? '' : 'last-btn'"
-                    :element="icon"
-                />
-                <v-btn 
-                    small 
-                    icon 
-                    @click.stop="is_fullscreen = !is_fullscreen"
-                    :class="has_close_button ? '' : 'last-btn'"
-                    v-if="has_maximize_button"
-                >
-                    <v-icon small>mdi-plus</v-icon>
-                </v-btn>
-                <v-btn 
-                    small
-                    icon
-                    @click.stop="is_window_visible = false"
-                    class="last-btn"
-                    v-if="has_close_button"
-                >
-                    <v-icon small>mdi-close</v-icon>
-                </v-btn>
-            </v-toolbar>
-            
+                <v-toolbar-items>
+                    <template v-for="(icon, i) in win.toolbar">
+                        <toolbar-element
+                            :key="`plugin-popup-window-toolbar-element-${i}`"
+                            :element="icon"
+                        />
+                        <v-divider
+                            :key="`plugin-popup-window-toolbar-divider-${i}`"
+                            v-if="i + 1 < win.toolbar.length || has_close_button || has_maximize_button"
+                            vertical
+                        />
+                    </template>
+                    <v-btn 
+                        small 
+                        icon 
+                        @click.stop="is_fullscreen = !is_fullscreen"
+                        v-if="has_maximize_button"
+                    >
+                        <v-icon small>mdi-plus</v-icon>
+                    </v-btn>
+                    <v-divider v-if="has_close_button" vertical/>
+                    <v-btn 
+                        small
+                        icon
+                        color="error"
+                        @click.stop="is_window_visible = false"
+                        v-if="has_close_button"
+                    >
+                        <v-icon small>mdi-close</v-icon>
+                    </v-btn>
+                </v-toolbar-items>
+            </v-system-bar>
 
             <v-card-text v-if="Array.isArray(win.content)" class="main-content" :style="`
                 max-height: ${maxHeight}px;
@@ -65,6 +71,7 @@
                         :key="key(item)"
                         :action="typeof item.action !== 'function' ? () => {} : item.action"
                         :opacity="item.opacity"
+                        :selected="item.is_selected"
                         :item="item"
                     />
                 </v-list>
@@ -255,9 +262,6 @@ export default {
     }
     .v-btn {
         margin: 0 unset;
-    }
-    .last-btn {
-        margin-right: 4px !important;
     }
     .window-title {
         margin-left: 8px;

@@ -1,20 +1,20 @@
 <template>
   <div id="app">
-    <v-app :dark="$store.state.Appearance.is_dark_mode">
-      <sidebar-navigation></sidebar-navigation>
+    <v-app>
+      <app-toolbar/>
 
-      <app-toolbar></app-toolbar>
-
-      <v-content :style="`padding-bottom: ${footer_visible ? 44 : 20}px;`">
+      <v-content :style="`padding-bottom: ${footer_visible ? 44 : 22}px;`">
         <v-container class="no-padding" fluid fill-height align>
-          <v-layout row align-space-between all fill-height>
-            <sidebar-main fill-height></sidebar-main>
-            <v-flex :xs10="is_sidebar_open" :xs12="!is_sidebar_open" style="padding-left: 0.5em;">
-              <editor-shell-tab-system></editor-shell-tab-system>
-              <editor-shell-content-manager></editor-shell-content-manager>
+          <v-layout style="margin: 0;" row align-space-between all fill-height>
+            <sidebar-navigation/>
+            <sidebar-main/>      
 
-              <plugin-install-main v-if="render_plugin_window"></plugin-install-main>
-              <window-factory-main></window-factory-main>
+            <v-flex :xs10="is_sidebar_open" :xs12="!is_sidebar_open">
+              <editor-shell-tab-system/>
+              <editor-shell-content-manager/>
+
+              <plugin-install-main v-if="render_plugin_window"/>
+              <window-factory-main/>
               <documentation-main/>
               <context-menu-main/>
               <json-editor-hover-card/>
@@ -23,11 +23,13 @@
         </v-container>
       </v-content>
 
-      <v-footer :class="footer_visible ? 'big' : ''" fixed app>
+      <v-footer :class="footer_visible ? 'big' : ''" fixed padless app>
         <footer-main></footer-main>
         <v-spacer></v-spacer>
         <v-divider v-if="footer_visible" vertical></v-divider>
-        <span style="padding: 0 1em; white-space: nowrap;">created by <a class="grey--text text--lighten-1" @click="openTwitter">solvedDev</a></span>
+        <span style="padding: 0 1em; white-space: nowrap;">
+          created by <a class="grey--text text--lighten-1" @click="openTwitter">solvedDev</a>
+        </span>
       </v-footer>
     </v-app>
   </div>
@@ -67,6 +69,7 @@
       DocumentationMain
     },
     created() {
+      this.$vuetify.theme.dark = this.$store.state.Appearance.is_dark_mode;
       SETTINGS.setup();
       new UpdateWindow();
     },
@@ -79,12 +82,18 @@
       },
       is_plugin_window_open() {
         return this.$store.state.Plugins.is_menu_open;
+      },
+      is_dark_mode() {
+        return this.$store.state.Appearance.is_dark_mode;
       }
     },
     watch: {
       is_plugin_window_open(to) {
         if(to) this.render_plugin_window = true
         else window.setTimeout(() => this.render_plugin_window = false, 100)
+      },
+      is_dark_mode(to) {
+        this.$vuetify.theme.dark = to;
       }
     },
     data() {
@@ -110,6 +119,9 @@
   html {
     overflow: hidden;
     overscroll-behavior: contain;
+  }
+  .px14-font {
+    font-size: 14px;
   }
   body {
     overflow: unset;
@@ -140,17 +152,14 @@
     user-select: none;
   }
 
-  /* PADDING FIXES */
-  aside {
-    padding-top: 24px;
+  v-application--wrap > main.v-content {
+    padding-left: 60px !important;
   }
-  aside nav div.v-toolbar__content {
-    padding: 0;
-    padding-left: 0.5em;
+  .v-system-bar {
+    padding-right: 0;
   }
-  .v-content .v-content__wrap > .container {
-    padding-left: 0;
-    padding-top: 0;
+  .v-system-bar .v-icon {
+    margin: 0;
   }
 </style>
 
@@ -160,7 +169,7 @@
   }
   .v-footer {
     transition: all ease-in-out 200ms;
-    height: 20px !important;
+    height: 22px !important;
     min-height: 12px;
   }
   .v-footer.big {

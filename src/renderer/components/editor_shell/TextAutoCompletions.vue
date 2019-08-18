@@ -3,22 +3,21 @@
         class="text-auto-completion-menu"
         v-model="show_menu"
         :max-height="200"
-        :position-x="x + 100 + (this.is_sidebar_expanded ? 202 : 0)"
-        :position-y="y + 56 + 24 + 24 + 90"
-        absolute
-        :z-index="100000"
+        :position-x="x + 260 - 190 * is_sidebar_closed"
+        :position-y="y + 120"
+        relative
         ref="menu"
     >
         <v-list class="text-auto-completion-list " dense>
-            <v-list-tile
+            <v-list-item
                 v-for="(e, i) in propose"
                 :class="selected === i ? 'selected' : ''"
                 :ref="selected === i ? 'selected' : null"
                 :key="e"
                 @click="insert(e)"
             >
-                <v-list-tile-title>{{ e }}</v-list-tile-title>
-            </v-list-tile>
+                <v-list-item-title>{{ e }}</v-list-item-title>
+            </v-list-item>
         </v-list>
     </v-menu>
 </template>
@@ -33,7 +32,7 @@
         name: "text-auto-completions",
         data() {
             return {
-                show_menu: true,
+                show_menu: false,
                 x: 100,
                 y: 100,
                 selected: 0,
@@ -58,11 +57,14 @@
             EventBus.off("bridge:closeTextCompletions", this.close);
         },
         computed: {
-            is_sidebar_expanded() {
-                return this.$store.state.SidebarMenu.menu_state !== 0;
+            is_sidebar_closed() {
+                return this.$store.state.SidebarMenu.menu_state === 0;
             }
         },
         methods: {
+            close() {
+                this.show_menu = false;
+            },
             updateSuggestions(propose, sel_obj) {
                 last_sel_object = sel_obj;
                 if(cursors.children[0] !== undefined) {
@@ -91,13 +93,13 @@
             textCompletionsUp() {
                 if(this.selected > 0) this.selected--;
                 this.$nextTick(() => {
-                    if(this.$refs.selected[0] !== undefined) this.$refs.selected[0].$el.scrollIntoView({ block: "nearest", inline: "start" }); 
+                    if(this.$refs.selected[0] !== undefined) this.$refs.selected[0].$el.scrollIntoViewIfNeeded({ block: "nearest", inline: "start" }); 
                 });
             },
             textCompletionsDown() {
                 if(this.selected < this.propose.length - 1) this.selected++;
                 this.$nextTick(() => {
-                    if(this.$refs.selected[0] !== undefined) this.$refs.selected[0].$el.scrollIntoView({ block: "nearest", inline: "start" }); 
+                    if(this.$refs.selected[0] !== undefined) this.$refs.selected[0].$el.scrollIntoViewIfNeeded({ block: "nearest", inline: "start" }); 
                 });
             },
             textCompletionsEnter() {

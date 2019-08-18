@@ -1,30 +1,38 @@
 <template>
     <v-toolbar flat height="30px">
         <v-tooltip bottom class="first">
-            <v-btn icon flat @click.stop="refresh" slot="activator" small>
-                <v-icon small>mdi-refresh</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="refresh" v-on="on" class="toolbar-button" small>
+                    <v-icon small>mdi-refresh</v-icon>
+                </v-btn>
+            </template>
             <span>Refresh</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-            <v-btn icon flat @click.stop="openCreateFileWindow" slot="activator" small>
-                <v-icon small>mdi-file-document</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="openCreateFileWindow" v-on="on" class="toolbar-button" small>
+                    <v-icon small>mdi-file-document</v-icon>
+                </v-btn>
+            </template>
             <span>New File</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-            <v-btn icon flat @click.stop="packageProject" slot="activator" small>
-                <v-icon small>mdi-package-variant-closed</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="packageProject" v-on="on" class="toolbar-button" small>
+                    <v-icon small>mdi-package-variant-closed</v-icon>
+                </v-btn>
+            </template>
             <span>Package</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-            <v-btn icon flat @click.stop="openInExplorer" slot="activator" small>
-                <v-icon small>mdi-folder-multiple</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="openInExplorer" v-on="on" class="toolbar-button" small>
+                    <v-icon small>mdi-folder-multiple</v-icon>
+                </v-btn>
+            </template>
             <span>Open In Explorer</span>
         </v-tooltip>
     </v-toolbar>
@@ -66,23 +74,9 @@
     }
 </script>
 
-<style>
-    nav .v-toolbar__content {
-        padding: 0;
-    }
-</style>
-
-
 <style scoped>
-    button {
-        padding: 0;
-        width: 16px;
+    .toolbar-button {
         height: 28px;
-    }
-    .v-btn {
-        margin: 0;
-    }
-    .first {
-        padding-left: 0.1em;
+        width: 28px;
     }
 </style>

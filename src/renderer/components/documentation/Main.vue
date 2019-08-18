@@ -1,21 +1,23 @@
 <template>
     <v-dialog
+        :eager="true"
         v-model="DOC_WINDOW.is_open"
         :max-width="is_fullscreen ? 2000 : 500"
     >
         <v-card>
-            <v-card-title>
-                <v-toolbar @dblclick.native="is_fullscreen = !is_fullscreen" height="30px">
-                    <span class="window-title">Documentation</span>
-                    <v-spacer></v-spacer>
+            <v-system-bar @dblclick.native="is_fullscreen = !is_fullscreen" height="30px" style="padding-right: 0;">
+                <span class="px14-font">Documentation</span>
+                <v-spacer></v-spacer>
+                <v-toolbar-items>
                     <v-btn small icon @click.stop="is_fullscreen = !is_fullscreen">
                         <v-icon small>mdi-plus</v-icon>
                     </v-btn>
-                    <v-btn small icon @click.stop="DOC_WINDOW.close" class="last-btn">
+                    <v-divider vertical/>
+                    <v-btn color="error" small icon @click.stop="DOC_WINDOW.close">
                         <v-icon small>mdi-close</v-icon>
                     </v-btn>
-                </v-toolbar>
-            </v-card-title>
+                </v-toolbar-items>
+            </v-system-bar>
             
 
             <v-card-text :style="`max-height: ${window_height * 0.75}px; height: ${is_fullscreen ? window_height * 0.75 : 500}px; overflow-y: auto;`">
@@ -56,7 +58,7 @@
             },
 
             updateContent() {
-                if(DOC_WINDOW.equals()) return;
+                if(DOC_WINDOW.equals() || this.$refs["attach-documentation"] === undefined) return;
                 DOC_WINDOW.update();
                 this.$refs["attach-documentation"].innerHTML = DOC_LOADER.get(DOC_WINDOW.get());
             }
@@ -65,9 +67,6 @@
 </script>
 
 <style scoped>
-    .last-btn {
-        margin-right: 4px !important;
-    }
     .window-title {
         margin-left: 8px;
         cursor: default;

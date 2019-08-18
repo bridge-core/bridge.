@@ -76,8 +76,8 @@
         v-else-if="content.type == 'button'"
         @click.stop.native="action.default"
         :color="content.color"
-        :round="content.is_rounded"
-        :flat="content.is_flat"
+        :rounded="content.is_rounded"
+        :text="content.is_flat"
         :disabled="content.is_disabled"
     >
         {{ content.text }}
@@ -86,8 +86,8 @@
         v-else-if="content.type == 'icon-button'"
         @click.stop.native="action.default"
         :color="content.color"
-        :round="content.is_rounded"
-        :flat="content.is_flat"
+        :rounded="content.is_rounded"
+        :text="content.is_flat"
         :disabled="content.is_disabled"
         :icon="content.only_icon"
     >

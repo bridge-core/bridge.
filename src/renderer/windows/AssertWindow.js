@@ -3,7 +3,7 @@ import ContentWindow from "../scripts/commonWindows/Content";
 export default class AssertWindow extends ContentWindow {
     constructor(plugin_id, assert_msg) {
         super({
-            display_name: "Assert",
+            display_name: "Error",
             options: {
                 is_frameless: true,
                 main_color: "error darken-1",
@@ -12,7 +12,7 @@ export default class AssertWindow extends ContentWindow {
             content: [
                 {
                     type: "header",
-                    text: `ASSERT: ${plugin_id}`
+                    text: `ERROR: ${plugin_id}`
                 },
                 {
                     type: "divider"

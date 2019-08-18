@@ -76,7 +76,7 @@
                 return this.first ? `max-height: ${this.file_displayer_height}px;` : "";
             },
             element_class() {
-                return this.first ? "file-displayer" : "";
+                return this.first ? "file-displayer px14-font" : "px14-font";
             },
 
             loop_files() {

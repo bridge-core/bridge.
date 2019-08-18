@@ -28,7 +28,7 @@ class FileContent {
                     key: uuidv4(),
                     action: {
                         enter: () => {
-                            this.parent.createFile();
+                            if(this.curr_input !== "") this.parent.createFile();
                         },
                         default: (val) => {
                             this.curr_input = val;
@@ -177,8 +177,9 @@ export default class CreateFileWindow extends ContentWindow {
     select(id) {
         this.current_content = this.contents[id];
 
-        this.win_def.sidebar.forEach(e => e.opacity = 0.25);
+        this.win_def.sidebar.forEach(e => { e.opacity = 0.25; e.is_selected = false; });
         this.win_def.sidebar[id].opacity = 1;
+        this.win_def.sidebar[id].is_selected = true;
         this.win_def.content = this.contents[id].get() || [ { text: "Nothing to show yet" } ];
 
         if(this.templates[id] && !this.win_def.content.added_select) this.compileTemplate(this.templates[id]);

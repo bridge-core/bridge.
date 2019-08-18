@@ -1,20 +1,23 @@
 <template>
     <div>
         <v-toolbar flat height="30px">
-            <v-tooltip bottom class="first">
-                <v-btn slot="activator" @click.stop="is_menu_open = true" class="first" small icon>
-                    <v-icon small>mdi-settings</v-icon>
-                </v-btn>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn icon text @click.stop="is_menu_open = true" v-on="on" small class="toolbar-button">
+                        <v-icon small>mdi-settings</v-icon>
+                    </v-btn>
+                </template>
                 <span>Manage</span>
             </v-tooltip>
         </v-toolbar>
+        <v-divider/>
 
-        <v-container :style="`max-height: ${plugin_height}px;`">
+        <v-container :style="`height: ${plugin_height}px;`">
             <span v-if="plugins.length == 0">It doesn't look like you have installed an extension yet.</span>
 
             <v-expansion-panel v-if="unknown_plugins > 0">
+                <v-expansion-panel-header>Unknown Plugins</v-expansion-panel-header>
                 <v-expansion-panel-content>
-                    <span slot="header">Unknown Plugins</span>
                     <v-card>
                         <v-list dense>
                             <p>
@@ -22,13 +25,15 @@
                                 Please update {{ unknown_plugins > 1 ? "them" : "it" }} accordingly. In the future this might cause a plugin to not load!
                             </p>
                             <v-tooltip right>
-                                <v-btn slot="activator"
-                                    @click.stop="openLink('https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md')"
-                                    flat
-                                    icon
-                                    small>
-                                    <v-icon small>mdi-information</v-icon>
-                                </v-btn>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn v-on="on"
+                                        @click.stop="openLink('https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md')"
+                                        text
+                                        icon
+                                        small>
+                                        <v-icon small>mdi-information</v-icon>
+                                    </v-btn>
+                                </template>
                                 <span>More...</span>
                             </v-tooltip>
                         </v-list>
@@ -36,41 +41,45 @@
                 </v-expansion-panel-content>
             </v-expansion-panel>
 
-            <v-card>
-                <v-list v-for="(plugin, i) in plugins" :key="`plugin-sidebar-display-${i}`" three-line>
-                    <v-list-tile>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{ plugin.name }}</v-list-tile-title>
-                            <v-list-tile-sub-title class="text--primary">by {{ plugin.author }}</v-list-tile-sub-title>
-                            
-                        </v-list-tile-content>
+            <v-card v-for="(plugin, i) in plugins" style="margin-bottom: 8px;" :key="`plugin-sidebar-display-${i}`">
+                <v-list three-line>
+                    <v-list-item>
+                        <v-list-item-content>
+                            <v-list-item-title>{{ plugin.name }}</v-list-item-title>
+                            <v-list-item-subtitle class="text--primary">by {{ plugin.author }}</v-list-item-subtitle>
+                        </v-list-item-content>
 
-                        <v-list-tile-action>
-                            <v-list-tile-action-text>{{ plugin.version }}</v-list-tile-action-text>
+                        <v-list-item-action>
+                            <v-list-item-action-text>{{ plugin.version }}</v-list-item-action-text>
 
-                            <v-tooltip right v-if="plugin.link != undefined">
-                                <v-icon @click.stop.native="openLink(plugin.link)" slot="activator" color="primary">
-                                    mdi-earth
-                                </v-icon>
+                            <v-tooltip right v-if="plugin.link !== undefined">
+                                <template v-slot:activator="{ on }">
+                                    <v-icon @click.stop.native="openLink(plugin.link)" v-on="on" color="info">
+                                        mdi-earth
+                                    </v-icon>
+                                </template>
                                 <span>More...</span>
                             </v-tooltip>
 
-                            <v-tooltip right v-if="!uninstalled_plugins().includes(plugin.id)">
-                                <v-icon slot="activator" color="success">
-                                    mdi-check
-                                </v-icon>
+                            <v-tooltip color="primary" right v-if="!uninstalled_plugins().includes(plugin.id)">
+                                <template v-slot:activator="{ on }">
+                                    <v-icon v-on="on" color="success">
+                                        mdi-check
+                                    </v-icon>
+                                </template>
                                 <span>Active</span>
                             </v-tooltip>
-                            <v-tooltip right v-else>
-                                <v-icon slot="activator" color="error">
-                                    mdi-close
-                                </v-icon>
+                            <v-tooltip color="error" right v-else>
+                                <template v-slot:activator="{ on }">
+                                    <v-icon v-on="on" color="error">
+                                        mdi-close
+                                    </v-icon>
+                                </template>
                                 <span>Inactive</span>
                             </v-tooltip>
-                        </v-list-tile-action>
-                    </v-list-tile>
+                        </v-list-item-action>
+                    </v-list-item>
                     <div class="padding">{{ plugin.description }}</div>
-                    <v-divider v-if="i < plugins.length - 1"></v-divider>
                 </v-list>
             </v-card>
         </v-container>
@@ -145,10 +154,9 @@
     i {
         cursor: pointer;
     }
-    button {
-        padding: 0;
-        width: 16px;
+    .toolbar-button {
         height: 28px;
+        width: 28px;
     }
 
     .padding {
@@ -156,11 +164,5 @@
     }
     .v-expansion-panel {
         margin-bottom: 0.2em;
-    }
-    .v-btn {
-        margin: 0;
-    }
-    .first {
-        padding-left: 0.1em;
     }
 </style>

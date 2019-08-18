@@ -245,6 +245,10 @@ const state = {
                 action: () => shell.openExternal("https://github.com/solvedDev/bridge./releases/latest")
             },
             {
+                title: "Bug Report",
+                action: () => shell.openExternal("https://github.com/solvedDev/bridge./issues/new/choose")
+            },
+            {
                 title: "Plugin API",
                 action: () => shell.openExternal("https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md")
             }
