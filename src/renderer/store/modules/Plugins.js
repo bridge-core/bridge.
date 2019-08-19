@@ -3,6 +3,7 @@ import Store from "../index";
 import Vue from "vue";
 import Provider from "../../scripts/autoCompletions/Provider";
 import FileType from "../../scripts/editor/FileType";
+import EventBus from "../../scripts/EventBus";
 
 const state = {
     installed_plugins: [],
@@ -32,6 +33,7 @@ const mutations = {
         FileType.reset();
         Bridge.reset();
         
+        EventBus.trigger("bridge:unloadPlugins");
         Vue.set(state, "installed_plugins", []);
     },
     finishedPluginLoading(state, addPlugins) {

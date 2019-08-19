@@ -4,6 +4,7 @@ import { promises as fs } from "fs";
 import { readJSON } from "../utilities/JsonFS";
 import Store from "../../store/index";
 import Bridge from "../../scripts/plugins/PluginEnv";
+import EventBus from "../EventBus";
 
 let PLUGIN_FOLDERS;
 let PLUGIN_DATA = [];
@@ -28,6 +29,7 @@ export default class PluginLoader {
 
         //INIT LEGACY PLUGIN DATA FOR UI
         Store.commit("finishedPluginLoading", PLUGIN_DATA);
+        EventBus.trigger("bridge:pluginsLoaded");
     }
 
     static async loadPlugin(project, plugin_folder, unloaded_plugins) {
