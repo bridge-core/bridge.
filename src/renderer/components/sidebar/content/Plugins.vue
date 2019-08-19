@@ -12,7 +12,7 @@
         </v-toolbar>
         <v-divider/>
 
-        <v-container :style="`height: ${plugin_height}px;`">
+        <div class="container" :style="`height: ${plugin_height}px;`">
             <span v-if="plugins.length == 0">It doesn't look like you have installed an extension yet.</span>
 
             <v-expansion-panel v-if="unknown_plugins > 0">
@@ -82,7 +82,7 @@
                     <div class="padding">{{ plugin.description }}</div>
                 </v-list>
             </v-card>
-        </v-container>
+        </div class="container">
     </div>
 </template>
 
