@@ -14,9 +14,9 @@ export default class PluginLoader {
         if(project === undefined) return;
         //INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
         Store.commit("unloadPlugins");
-        Bridge.Interpreter.init(project);
-        let unloaded_plugins = await readJSON(path.join(Bridge.Runtime.getBridgePath(), "uninstalled_plugins.json"));
-        console.log(unloaded_plugins);
+        
+        let unloaded_plugins = await Bridge.Interpreter.init(project);
+        // console.log(unloaded_plugins);
 
         try {
             PLUGIN_FOLDERS = await fs.readdir(path.join(BASE_PATH, project, "bridge/plugins"));
