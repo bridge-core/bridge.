@@ -1,0 +1,36 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "frozen_ocean_after_surface_ice_feature",
+      "places_feature": "minecraft:legacy:ice_feature"
+    },
+    "conditions": {
+      "placement_pass": "after_surface_pass",
+      "minecraft:biome_filter": [
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "frozen"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "ocean"
+        },
+        // Needed to distinguish between frozen_ocean and legacy_frozen_ocean
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "monster"
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 1,
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

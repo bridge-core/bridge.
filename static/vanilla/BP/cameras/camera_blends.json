@@ -1,0 +1,18 @@
+[
+    {
+        "camera_from": "strategic",
+        "camera_to": "orbit",
+        "ease": "in_out_cubic",
+        "blend_time": 0.0,
+        "camera_from_accepts_input": false,
+        "camera_to_accepts_input": false
+    },
+    {
+        "camera_from": "strategic",
+        "camera_to": "first_person",
+        "ease": "in_out_cubic",
+        "blend_time": 0.0,
+        "camera_from_accepts_input": false,
+        "camera_to_accepts_input": false
+    }
+]

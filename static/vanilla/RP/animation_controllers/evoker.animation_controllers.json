@@ -1,0 +1,36 @@
+{
+	"format_version" : "1.10.0",
+	"animation_controllers" : {
+		"controller.animation.evoker.general" : {
+			"initial_state" : "default",
+			"states" : {
+				"casting" : {
+					"animations" : [ "look_at_target", "casting" ],
+					"particle_effects" : [
+						{
+							"effect" : "spell",
+							"locator" : "left_hand"
+						},
+						{
+							"effect" : "spell",
+							"locator" : "right_hand"
+						}
+					],
+					"transitions" : [
+						{
+							"default" : "!query.is_casting"
+						}
+					]
+				},
+				"default" : {
+					"animations" : [ "look_at_target", "general" ],
+					"transitions" : [
+						{
+							"casting" : "query.is_casting"
+						}
+					]
+				}
+			}
+		}
+	}
+}

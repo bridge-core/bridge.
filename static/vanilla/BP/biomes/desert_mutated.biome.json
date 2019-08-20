@@ -1,0 +1,32 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "desert_mutated"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.0,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 2.0
+      },
+      "minecraft:overworld_height": {
+        "noise_params": [ 0.225, 0.25 ]
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 7,
+        "floor_material": "minecraft:gravel",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:sand",
+        "top_material": "minecraft:sand"
+      },
+
+      "desert": {},
+      "monster": {},
+      "mutated": {},
+      // "overworld" tag cannot be present in order to match legacy behavior, but is
+      // required for correct world generation -- hence: overworld_generation
+      "overworld_generation": {}
+    }
+  }
+}

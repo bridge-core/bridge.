@@ -1,0 +1,392 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:string",
+                  "quantity": 20,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 1,
+              "max_uses": 6,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:coal:0",
+                  "quantity": 10,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 1,
+              "max_uses": 6,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 3,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:bucket:2",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 2,
+              "max_uses": 4,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1,
+                  "price_multiplier": 0.05
+                },
+                {
+                  "item": "minecraft:fish",
+                  "quantity": 6
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:cooked_fish",
+                  "quantity": 6
+                }
+              ],
+              "trader_exp": 2,
+              "max_uses": 5,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 10,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:fish",
+                  "quantity": 15,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 5,
+              "max_uses": 5,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 2,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:campfire",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 10,
+              "max_uses": 4,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1,
+                  "price_multiplier": 0.05
+                },
+                {
+                  "item": "minecraft:salmon",
+                  "quantity": 6
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:cooked_salmon",
+                  "quantity": 6
+                }
+              ],
+              "trader_exp": 10,
+              "max_uses": 5,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 60,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:salmon",
+                  "quantity": 13,
+                  "price_multiplier": 0.05
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 10,
+              "max_uses": 5,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 6,
+                  "price_multiplier": 0.1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:fishing_rod",
+                  "quantity": 1,
+                  "functions": [
+                    {
+                      "function": "enchant_with_levels",
+                      "treasure": false,
+                      "levels": {
+                        "min": 5,
+                        "max": 19
+                      }
+                    }
+                  ]
+                }
+              ],
+              "trader_exp": 20,
+              "max_uses": 2,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 160,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:clownfish",
+                  "quantity": 1,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 15,
+              "max_uses": 5,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:boat:0",
+                  "quantity": 1,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 15,
+              "max_uses": 5,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:boat:1",
+                  "quantity": 1,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 15,
+              "max_uses": 5,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:boat:2",
+                  "quantity": 1,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 15,
+              "max_uses": 5,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:boat:3",
+                  "quantity": 1,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 15,
+              "max_uses": 5,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:boat:4",
+                  "quantity": 1,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 15,
+              "max_uses": 5,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:boat:5",
+                  "quantity": 1,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 15,
+              "max_uses": 5,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 310,
+      "groups": [
+        {
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:pufferfish",
+                  "quantity": 1,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 0,
+              "max_uses": 5,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

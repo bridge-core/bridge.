@@ -1,0 +1,27 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "minecraft:tnt_minecart"
+    },
+
+    
+    "tags": [ "crafting_table" ],
+    "pattern": [
+      "A",
+      "B"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:tnt",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:minecart"
+      }
+    },
+    "result": {
+      "item": "minecraft:tnt_minecart"
+    }
+  }
+}

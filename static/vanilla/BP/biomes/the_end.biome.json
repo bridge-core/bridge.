@@ -1,0 +1,18 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "the_end"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.5,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 0.5
+      },
+      "minecraft:the_end_surface": {},
+
+      "the_end": {}
+    }
+  }
+}

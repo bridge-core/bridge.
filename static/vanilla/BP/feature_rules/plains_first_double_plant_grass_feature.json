@@ -1,0 +1,35 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "plains_first_double_plant_grass_feature",
+      "places_feature": "grass_double_plant_patch_feature"
+    },
+    "conditions": {
+      "placement_pass": "first_pass",
+      "minecraft:biome_filter": [
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "plains"
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 7,
+      "scatter_chance": "((query.noise((variable.originx + 8) / 200.0, (variable.originz + 8) / 200.0) >= -.8) && variable.is_legacy == 0.0) ? 100.0 : 0.0",
+      "x": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      },
+      "y": {
+        "distribution": "uniform",
+        "extent": [ 0, "query.heightmap(variable.worldx, variable.worldz) + 32" ]
+      },
+      "z": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      }
+    }
+  }
+}

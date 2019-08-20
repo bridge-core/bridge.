@@ -4,6 +4,9 @@
     "extension": "json",
     "path": "recipes/",
     "templates": {
+        "$default_pack": {
+            "path": "recipes/"
+        },
         "Blank Shaped Recipe": {
             "format_version": {},
             "minecraft:recipe_shaped": {

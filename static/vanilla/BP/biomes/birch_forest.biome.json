@@ -1,0 +1,38 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "birch_forest"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.6,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 0.6
+      },
+      "minecraft:overworld_height": {
+        "noise_type": "default"
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 7,
+        "floor_material": "minecraft:gravel",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:dirt",
+        "top_material": "minecraft:grass"
+      },
+      "minecraft:world_generation_rules": {
+        "hills_transformation": "birch_forest_hills",
+        "mutate_transformation": "birch_forest_mutated",
+        "generate_for_climates": [
+          [ "medium", 1 ]
+        ]
+      },
+
+      "animal": {},
+      "birch": {},
+      "forest": {},
+      "monster": {},
+      "overworld": {}
+    }
+  }
+}

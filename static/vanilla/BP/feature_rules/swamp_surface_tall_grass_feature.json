@@ -1,0 +1,35 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "swamp_surface_tall_grass_feature",
+      "places_feature": "minecraft:tall_grass_feature"
+    },
+    "conditions": {
+      "placement_pass": "surface_pass",
+      "minecraft:biome_filter": [
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "swamp"
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 5,
+      "scatter_chance": "variable.is_legacy ? 0.0 : 100.0",
+      "x": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      },
+      "y": {
+        "distribution": "uniform",
+        "extent": [ 0, "query.heightmap(variable.worldx, variable.worldz) * 2" ]
+      },
+      "z": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      }
+    }
+  }
+}

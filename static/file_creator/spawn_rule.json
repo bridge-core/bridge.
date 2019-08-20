@@ -4,6 +4,9 @@
     "extension": "json",
     "path": "spawn_rules/",
     "templates": {
+        "$default_pack": {
+            "path": "spawn_rules/"
+        },
         "Blank Spawn Rule": {
             "format_version": {},
             "minecraft:spawn_rules": {

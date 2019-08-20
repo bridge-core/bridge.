@@ -1,0 +1,30 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "stone_beach"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.3,
+        "snow_accumulation": [ 0.0, 0.25 ],
+        "temperature": 0.2
+      },
+      "minecraft:overworld_height": {
+        "noise_type": "stone_beach"
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 7,
+        "floor_material": "minecraft:gravel",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:stone",
+        "top_material": "minecraft:stone"
+      },
+
+      "beach": {},
+      "monster": {},
+      "overworld": {},
+      "stone": {}
+    }
+  }
+}

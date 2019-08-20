@@ -161,6 +161,14 @@
   .v-system-bar .v-icon {
     margin: 0;
   }
+
+  .json-input-suggestions .v-list-item {
+    min-height: 28px !important;
+  }
+  .json-input-suggestions .v-list-item__content {
+    padding: 4px 0 !important;
+    
+  }
 </style>
 
 <style scoped>

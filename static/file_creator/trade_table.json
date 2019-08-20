@@ -4,6 +4,10 @@
     "extension": "json",
     "path": "trading/",
     "templates": {
+        "$default_pack": {
+            "deep": true,
+            "path": "trading/"
+        },
         "Blank Trade Table": {
             "tiers": [{
                 "trades": [{

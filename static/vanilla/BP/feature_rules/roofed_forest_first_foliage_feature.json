@@ -1,0 +1,30 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "roofed_forest_first_foliage_feature",
+      "places_feature": "minecraft:legacy:roofed_forest_foliage_feature"
+    },
+    "conditions": {
+      "placement_pass": "first_pass",
+      "minecraft:biome_filter": [
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "forest"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "roofed"
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 1,
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

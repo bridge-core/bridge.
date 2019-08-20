@@ -1,0 +1,2679 @@
+{
+  "namespace": "day_one_experience",
+
+  //---------------------------------------------------------------------------
+  // Common
+  //---------------------------------------------------------------------------
+
+  "alpha_scroll_background": {
+    "type": "image",
+    "texture": "textures/ui/Banners",
+    "size": [ 3, "100%" ],
+    "layer": 3,
+    "alpha": 0.75
+  },
+
+  "tip_text": {
+    "type": "label",
+    "color": "$body_text_color",
+    "size": [ "100%", "default" ],
+    "text_alignment": "center",
+    "text": "$text"
+  },
+
+  //---------------------------------------------------------------------------
+  // Common Icons Templates
+  //---------------------------------------------------------------------------
+
+  "desaturated": {
+    "type": "image",
+    "texture": "$desaturated_image_texture",
+    "size": "$icon_size",
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color",
+    "alpha": "$desaturated_alpha",
+    "bindings": [
+      {
+        "binding_name": "(#current_day_one_toggle_index < $toggle_group_forced_index)",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "saturated": {
+    "type": "image",
+    "texture": "$saturated_image_texture",
+    "size": "$icon_size",
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color",
+    "bindings": [
+      {
+        "binding_name": "(#current_day_one_toggle_index > $toggle_group_forced_index)",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "glyph_desaturated": {
+    "type": "panel",
+    "size": "$icon_size",
+    "$desaturated_alpha|default": 1,
+    "controls": [
+      {
+        "desaturated_icon@day_one_experience.desaturated": {}
+      },
+      {
+        "saturated_icon@day_one_experience.saturated": {}
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Common Icons
+  //---------------------------------------------------------------------------
+
+  "worlds_icon": {
+    "type": "image",
+    "texture": "textures/ui/worldsIcon",
+    "size": [ 16, 17 ]
+  },
+
+  "worlds_glyph": {
+    "type": "image",
+    "texture": "textures/ui/world_glyph",
+    "size": [ 16, 17 ],
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color"
+  },
+
+  "world_glyph_desaturated@day_one_experience.glyph_desaturated": {
+    "$desaturated_image_texture": "textures/ui/world_glyph_desaturated",
+    "$saturated_image_texture": "textures/ui/worldsIcon"
+  },
+
+  "worlds_glyph_color": {
+    "type": "image",
+    "texture": "textures/ui/worldsIcon",
+    "size": [ 16, 17 ],
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color"
+  },
+
+  "recap_icon": {
+    "type": "image",
+    "texture": "textures/ui/recap_glyph_2x",
+    "size": [ 22, 21 ],
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color"
+  },
+
+  "recap_icon_desaturated@day_one_experience.glyph_desaturated": {
+    "$desaturated_image_texture": "textures/ui/recap_glyph_desaturated",
+    "$saturated_image_texture": "textures/ui/recap_glyph_color_2x"
+  },
+
+  "recap_icon_color": {
+    "type": "image",
+    "texture": "textures/ui/recap_glyph_color_2x",
+    "size": [ 22, 21 ],
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color"
+  },
+
+  "settings_icon": {
+    "type": "image",
+    "texture": "textures/ui/settings_glyph_color_2x",
+    "size": [ 16, 16 ],
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color"
+  },
+
+  "settings_icon_desaturated@day_one_experience.glyph_desaturated": {
+    "$desaturated_image_texture": "textures/ui/settings_glyph_color_2x",
+    "$saturated_image_texture": "textures/ui/settings_glyph_color_2x",
+    "$desaturated_alpha": 0.5
+
+  },
+
+  "settings_icon_outline": {
+    "type": "image",
+    "texture": "textures/ui/settings_glyph_2x",
+    "size": [ 16, 16 ],
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color"
+  },
+
+  "skins_icon": {
+    "type": "image",
+    "texture": "textures/ui/Friend1",
+    "size": [ 10, 10 ],
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color"
+  },
+
+  "skins_icon_desaturated@day_one_experience.glyph_desaturated": {
+    "$desaturated_image_texture": "textures/ui/friend_glyph_desaturated",
+    "$saturated_image_texture": "textures/ui/Friend1"
+  },
+
+  "skins_icon_outline": {
+    "type": "image",
+    "texture": "textures/ui/friend_glyph",
+    "size": [ 10, 10 ],
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color"
+  },
+
+  "left_arrow_icon": {
+    "type": "image",
+    "texture": "textures/ui/arrowLeft",
+    "layer": 6
+  },
+
+  "right_arrow_icon": {
+    "type": "image",
+    "texture": "textures/ui/arrowRight",
+    "layer": 6
+  },
+
+  "controller_icon_color": {
+    "type": "image",
+    "texture": "textures/ui/controller_glyph_color",
+    "layer": 6
+  },
+
+  "controller_icon_outline": {
+    "type": "image",
+    "texture": "textures/ui/controller_glyph",
+    "layer": 6
+  },
+
+
+  "settings_icon_outline_2x": {
+    "type": "image",
+    "texture": "textures/ui/settings_glyph_2x",
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color",
+    "layer": 6
+  },
+
+  "settings_icon_color_2x": {
+    "type": "image",
+    "texture": "textures/ui/settings_glyph_color_2x",
+    "$glyph_color|default": [ 1, 1, 1 ],
+    "color": "$glyph_color",
+    "layer": 6
+  },
+
+  "sound_icon_outline_2x": {
+    "type": "image",
+    "texture": "textures/ui/sound_glyph_2x",
+    "layer": 6
+  },
+
+  "sound_icon_color_2x": {
+    "type": "image",
+    "texture": "textures/ui/sound_glyph_color_2x",
+    "layer": 6
+  },
+
+  "video_icon_2x": {
+    "type": "image",
+    "texture": "textures/ui/video_glyph_2x",
+    "layer": 6
+  },
+
+  "video_icon_color_2x": {
+    "type": "image",
+    "texture": "textures/ui/video_glyph_color_2x",
+    "layer": 6
+  },
+
+  //---------------------------------------------------------------------------
+  // Panel Templates
+  //---------------------------------------------------------------------------
+
+  "welcome_panel_template": {
+    "type": "panel",
+    "controls": [
+      {
+        "settings_tip_image@day_one_experience.$welcome_panel_image": {
+          "size": [ 50, 50 ]
+        }
+      },
+      {
+        "settings_tip@day_one_experience.tip_text": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "layer": 3,
+          "$text": "$welcome_panel_text"
+        }
+      }
+    ]
+  },
+
+  "glyph_image_template": {
+    "type": "panel",
+    "$glyph_outline_layer|default": 3,
+    "$glyph_color_layer|default": 1,
+
+    "controls": [
+      {
+        "glyph_outline@$glyph_outline_image_panel": {
+          "layer": "$glyph_outline_layer",
+          "bindings": [
+            {
+              "binding_name": "#settings_import_icon_alpha",
+              "binding_name_override": "#alpha"
+            }
+          ]
+        }
+      },
+      {
+        "glyph_color@$glyph_color_image_panel": {
+
+          "layer": "$glyph_color_layer",
+          "bindings": [
+            {
+              "binding_name": "#settings_import_icon_alpha",
+              "binding_name_override": "#alpha"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "glyph_with_label": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "$glyph_size|default": [ 10, 10 ],
+    "$glyph_text|default": "",
+    "$glyph_outline_image_panel|default": "",
+    "$glyph_color_image_panel|default": "",
+    "$glyph_outline_layer": 3,
+    "$glyph_color_layer": 1,
+    "controls": [
+      {
+        "glyph_image@day_one_experience.glyph_image_template": {
+          "size": [ "100%", "80%" ]
+        }
+      },
+      {
+        "glyph_label": {
+          "type": "label",
+          "text": "$glyph_text",
+          "text_alignment": "center",
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "layer": 5,
+          "size": [ "100%", "20%" ],
+          "color": "$tab_secondary_unchecked_text_color",
+          "bindings": [
+            {
+              "binding_name": "#settings_import_icon_alpha",
+              "binding_name_override": "#alpha"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Recap & welcome Panels
+  //---------------------------------------------------------------------------
+
+  "skin_panel@day_one_experience.welcome_panel_template": {
+    "$welcome_panel_text": "dayOneExperience.skin",
+    "$welcome_panel_image": "skins_icon"
+  },
+
+  "settings_panel@day_one_experience.welcome_panel_template": {
+    "$welcome_panel_text": "dayOneExperience.settings",
+    "$welcome_panel_image": "settings_icon_color_2x"
+  },
+
+  "world_panel@day_one_experience.welcome_panel_template": {
+    "$welcome_panel_text": "dayOneExperience.worlds",
+    "$welcome_panel_image": "worlds_icon"
+  },
+
+  "welcome_stack_panel": {
+    "type": "stack_panel",
+    "size": [ "100%-3px", "80%-4px" ],
+    "orientation": "horizontal",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "padding_0_panel": {
+          "type": "panel",
+          "size": [ "6.25%", "80%" ]
+        }
+      },
+      {
+        "skin_section@common_dialogs.main_panel_no_title_no_buttons": {
+          "size": [ "25%", "80%" ],
+          "$child_control": "day_one_experience.skin_panel"
+        }
+      },
+      {
+        "padding_1_panel": {
+          "type": "panel",
+          "size": [ "6.25%", "80%" ]
+        }
+      },
+      {
+        "world_section@common_dialogs.main_panel_no_title_no_buttons": {
+          "size": [ "25%", "80%" ],
+          "$child_control": "day_one_experience.world_panel"
+        }
+      },
+      {
+        "padding_2_panel": {
+          "type": "panel",
+          "size": [ "6.25%", "80%" ]
+        }
+      },
+      {
+        "settings_section@common_dialogs.main_panel_no_title_no_buttons": {
+          "size": [ "25%", "80%" ],
+          "$child_control": "day_one_experience.settings_panel"
+        }
+      },
+      {
+        "padding_3_panel": {
+          "type": "panel",
+          "size": [ "6.25%", "80%" ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Skin Import Panels
+  //---------------------------------------------------------------------------
+
+  "skin_viewer_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "paper_doll_container": {
+          "type": "panel",
+          "size": [ "80%", "80%" ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "offset": [ 0, -15 ],
+          "controls": [
+            {
+              "paper_doll": {
+                "type": "custom",
+                "renderer": "paper_doll_renderer",
+                "layer": 2,
+                "rotation": "auto",
+                "use_selected_skin": false,
+                "property_bag": {
+                  "#skin_rotation": true
+                },
+                "animation_reset_name": "screen_animation_reset",
+                "anims": [
+                  "@common.screen_exit_size_animation_push",
+                  "@common.screen_exit_size_animation_pop",
+                  "@common.screen_entrance_size_animation_push",
+                  "@common.screen_entrance_size_animation_pop"
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#is_skin_retrieval_finished",
+                    "binding_name_override": "#visible"
+                  },
+                  {
+                    "binding_name": "#legacy_skin",
+                    "binding_type": "global"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "legacy_skin_loading_panel@common_store.progress_loading": {
+          "$hide_failure_text": true,
+          "$hide_progress_loading_outline": true,
+          "$source_control_name": "paper_doll",
+          "$source_property_name": "(not #visible)"
+        }
+      }
+    ]
+  },
+
+  "skin_import_screen": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "padding_0": {
+          "type": "panel",
+          "size": [ "100%", "5px" ]
+        }
+      },
+      {
+        "skin_viewer_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "skin_viewer@common_dialogs.main_panel_no_title_no_buttons": {
+                "size": [ "85px", "105px" ],
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "$child_control": "day_one_experience.skin_viewer_panel"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding_1": {
+          "type": "panel",
+          "size": [ "100%", "15px" ]
+        }
+      },
+      {
+        "skin_selection_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "skin_selection_buttons": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "size": [ "60%", "22px" ],
+                "controls": [
+                  {
+                    "previous_skin_button@common_toggles.button_with_checkbox_toggle": {
+                      "size": [ "47%", "100%" ],
+                      "$button_content_size": [ "100%", "100%" ],
+                      "$toggle_name": "dayOneExperience.previous_skin_toggle",
+                      "$toggle_state_binding_name": "#is_importing_previous_skin",
+                      "$toggle_binding_type": "global",
+                      "$toggle_default_state": true,
+                      "$button_text": "dayOneExperience.previous_skin",
+                      "$new_ui_label_offset": [ 10, 0 ],
+                      "$button_focus_precedence": 30,
+                      "$focus_override_left": "go_back",
+                      "bindings": [
+                        {
+                          "binding_type": "global",
+                          "binding_condition": "always",
+                          "binding_name": "#has_previous_skin",
+                          "binding_name_override": "#enabled"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "padding": {
+                      "type": "panel",
+                      "size": [ "fill", "100%" ]
+                    }
+                  },
+                  {
+                    "no_skin_button@common_toggles.button_with_checkbox_toggle": {
+                      "size": [ "47%", "100%" ],
+                      "$button_content_size": [ "100%", "100%" ],
+                      "$toggle_name": "dayOneExperience.no_skin_toggle",
+                      "$toggle_state_binding_name": "(not #is_importing_previous_skin)",
+                      "$toggle_binding_type": "global",
+                      "$toggle_default_state": false,
+                      "$button_text": "dayOneExperience.no_skin",
+                      "$new_ui_label_offset": [ 10, 0 ],
+                      "bindings": [
+                        {
+                          "binding_type": "global",
+                          "binding_condition": "always",
+                          "binding_name": "#has_previous_skin",
+                          "binding_name_override": "#enabled"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding_2": {
+          "type": "panel",
+          "size": [ "100%", "10px" ]
+        }
+      },
+      {
+        "no_network_message": {
+          "type": "custom",
+          "renderer": "name_tag_renderer",
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "size": [ "100%", 8 ],
+          "layer": 3,
+          "text_color": "$alert_label_text_color",
+          "background_color": "$alert_label_background_color",
+          "property_bag": {
+            "#playername": "dayOneExperience.no_internet",
+            "#x_padding": 5
+          },
+          "bindings": [
+            {
+              "binding_name": "(not #has_network_connection)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Settings Import Panels
+  //---------------------------------------------------------------------------
+
+  "settings_import_horizontal_icon_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%" ],
+    "$anchor": "top_middle",
+    "controls": [
+      {
+        "padding_1@how_to_play_common.padding": {
+          "size": [ "7.5%", "100%" ]
+        }
+      },
+      {
+        "controller_glyph@day_one_experience.glyph_with_label": {
+          "size": [ "20%", "90%" ],
+          "$glyph_size": [ 42, 28 ],
+          "$glyph_outline_image_panel": "controller_icon_outline",
+          "$glyph_color_image_panel": "controller_icon_color",
+          "$glyph_text": "options.controller"
+        }
+      },
+      {
+        "padding_2@how_to_play_common.padding": {
+          "size": [ "12.5%", "100%" ]
+
+        }
+      },
+      {
+        "video_glyph@day_one_experience.glyph_with_label": {
+          "size": [ "20%", "90%" ],
+          "$glyph_size": [ 30, 24 ],
+          "$glyph_outline_image_panel": "video_icon_2x",
+          "$glyph_color_image_panel": "video_icon_color_2x",
+          "$glyph_text": "options.video",
+          "$glyph_outline_layer": 1,
+          "$glyph_color_layer": 3
+        }
+      },
+      {
+        "padding_3@how_to_play_common.padding": {
+          "size": [ "12.5%", "100%" ]
+
+        }
+      },
+      {
+        "audio_glyph@day_one_experience.glyph_with_label": {
+          "size": [ "20%", "90%" ],
+          "$glyph_size": [ 32, 24 ],
+          "$glyph_outline_image_panel": "sound_icon_outline_2x",
+          "$glyph_color_image_panel": "sound_icon_color_2x",
+          "$glyph_text": "options.sounds"
+        }
+      },
+      {
+        "padding_4@how_to_play_common.padding": {
+          "size": [ "7.5%", "100%" ]
+        }
+      }
+    ]
+  },
+
+  "settings_import_horizontal_button_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%" ],
+    "$anchor": "top_middle",
+    "$panel_prefix": "settings",
+
+    "controls": [
+      {
+        "padding_0": {
+          "type": "panel",
+          "size": [ "12.5%", "100%" ]
+        }
+      },
+      {
+        "all_settings_button@common_toggles.button_with_checkbox_toggle": {
+          "size": [ "32.5%", "100%" ],
+          "$toggle_name": "dayOneExperience.all_settings_toggle",
+          "$toggle_state_binding_name": "#is_importing_settings",
+          "$toggle_binding_type": "global",
+          "$toggle_default_state": true,
+          "$button_text": "dayOneExperience.all_settings",
+          "$new_ui_label_offset": [ 10, 0 ]
+        }
+      },
+      {
+        "padding_1": {
+          "type": "panel",
+          "size": [ "10%", "100%" ]
+        }
+      },
+      {
+        "no_settings_button@common_toggles.button_with_checkbox_toggle": {
+          "size": [ "32.5%", "100%" ],
+          "$toggle_name": "dayOneExperience.no_settings_toggle",
+          "$toggle_state_binding_name": "(not #is_importing_settings)",
+          "$toggle_binding_type": "global",
+          "$toggle_default_state": false,
+          "$button_text": "dayOneExperience.no_settings",
+          "$new_ui_label_offset": [ 10, 0 ]
+        }
+      },
+      {
+        "padding_2": {
+          "type": "panel",
+          "size": [ "12.5%", "100%" ]
+        }
+      }
+    ]
+  },
+
+  "settings_import_vertical_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%" ],
+    "$anchor": "top_middle",
+    "controls": [
+      {
+        "padding_1@how_to_play_common.padding": {
+          "size": [ "100%", "5%" ]
+        }
+      },
+      {
+        "settings_import_text@day_one_experience.tip_text": {
+          "layer": 3,
+          "$text": "dayOneExperience.settings_import",
+          "size": [ "100%", "15%" ]
+        }
+      },
+      {
+        "settings_icon_panel@day_one_experience.settings_import_horizontal_icon_stack_panel": {
+          "size": [ "100%", "57.5%" ]
+        }
+      },
+      {
+        "settings_button_panel@day_one_experience.settings_import_horizontal_button_stack_panel": {
+          "size": [ "100%", "20%" ]
+        }
+      },
+      {
+        "padding_2@how_to_play_common.padding": {
+          "size": [ "100%", "2.5%" ]
+        }
+      }
+    ]
+  },
+
+  "settings_import_panel@common_dialogs.main_panel_no_title_no_buttons": {
+    "$child_control": "settings_import_vertical_stack_panel"
+  },
+
+  //---------------------------------------------------------------------------
+  // Simple World Panels
+  //---------------------------------------------------------------------------
+
+  "more_worlds_button_content": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "$chevron_texture|default": "textures/ui/chevron_new_grey_right",
+    "variables": [
+      {
+        "requires": "$hover_state",
+        "$chevron_texture": "textures/ui/chevron_new_white_right"
+      }
+    ],
+    "controls": [
+      {
+        "label_panel": {
+          "type": "panel",
+          "size": [ "default", "100%" ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "controls": [
+            {
+              "label": {
+                "type": "label",
+                "text_alignment": "center",
+                "text": "dayOneExperience.more_worlds",
+                "color": "$text_color"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "image": {
+          "type": "image",
+          "size": [ 11, 11 ],
+          "offset": [ -2, 0 ],
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle",
+          "texture": "$chevron_texture"
+        }
+
+      }
+    ]
+  },
+
+  "legacy_world_preview_name@play.world_list_text": {
+    "text": "#legacy_world_preview_name",
+    "localize": "#legacy_world_selected",
+    "color": "$text_color",
+    "bindings": [
+      {
+        "binding_name": "#legacy_world_preview_name"
+      },
+      {
+        "binding_name": "#legacy_world_selected"
+      }
+    ]
+  },
+
+  "legacy_world_preview_date@play.world_list_text": {
+    "text": "#legacy_world_preview_date",
+    "color": "$secondary_text_color",
+    "bindings": [
+      {
+        "binding_name": "#legacy_world_preview_date_visible",
+        "binding_name_override": "#visible"
+      },
+      {
+        "binding_name": "#legacy_world_preview_date"
+      }
+    ]
+  },
+
+  "legacy_world_preview_game_mode@play.world_list_text": {
+    "text": "#legacy_world_preview_game_mode",
+    "color": "$secondary_text_color",
+    "bindings": [
+      {
+        "binding_name": "#legacy_world_preview_game_mode"
+      }
+    ]
+  },
+
+  "legacy_world_preview_filesize@play.world_list_text": {
+    "text": "#legacy_world_preview_file_size",
+    "color": "$secondary_text_color",
+    "bindings": [
+      {
+        "binding_name": "#legacy_world_preview_file_size"
+      }
+    ]
+  },
+
+  "legacy_world_preview_text_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "text_indent": {
+          "type": "panel",
+          "size": [ "100% - 4px", "100% - 4px" ],
+          "offset": [ 1, 0 ],
+          "controls": [
+            {
+              "top_side": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100%", "50%" ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "controls": [
+                  {
+                    "legacy_world_name@day_one_experience.legacy_world_preview_name": {
+                      "size": [ "fill", 10 ],
+                      "layer": 7
+                    }
+                  },
+                  {
+                    "legacy_world_date@day_one_experience.legacy_world_preview_date": {
+                      "size": [ "default", 10 ],
+                      "layer": 7
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "bottom_side": {
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100%", "50%" ],
+                "controls": [
+                  {
+                    "legacy_world_game_mode@day_one_experience.legacy_world_preview_game_mode": {
+                      "size": [ "fill", 10 ],
+                      "layer": 7
+                    }
+                  },
+                  {
+                    "legacy_world_filesize@day_one_experience.legacy_world_preview_filesize": {
+                      "size": [ "default", 10 ],
+                      "layer": 7
+                    }
+                  }
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#legacy_world_selected",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "legacy_world_preview_panel": {
+    "type": "image",
+    "size": [ "100%", "28px" ],
+    "texture": "textures/ui/Banners",
+    "controls": [
+      {
+        "world_preview_content": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "size": [ "100% - 4px", "100% - 4px" ],
+          "controls": [
+            {
+              "legacy_world_screenshot@play.world_screenshot_base": {
+                "$border_texture": "textures/ui/default_indent",
+                "controls": [
+                  {
+                    "image_content": {
+                      "type": "panel",
+                      "size": [ "173.91%y", "100% - 2px" ],
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "offset": [ 1, 1 ],
+                      "controls": [
+                        {
+                          "picture": {
+                            "type": "image",
+                            "$fit_to_width": true,
+                            "force_texture_reload": true,
+                            "size": [ "100%", "100%" ],
+                            "fill": true,
+                            "layer": 5,
+                            "bindings": [
+                              {
+                                "binding_name": "#legacy_world_preview_image",
+                                "binding_name_override": "#texture"
+                              },
+                              {
+                                "binding_name": "#legacy_world_preview_texture_source",
+                                "binding_name_override": "#texture_file_system"
+                              },
+                              {
+                                "binding_name": "#legacy_world_selected",
+                                "binding_name_override": "#visible"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "empty": {
+                            "type": "image",
+                            "layer": 5,
+                            "texture": "textures/ui/White",
+                            "color": [ 0.1, 0.1, 0.1 ],
+                            "bindings": [
+                              {
+                                "binding_name": "(not #legacy_world_selected)",
+                                "binding_name_override": "#visible"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "legacy_world_text_panel@day_one_experience.legacy_world_preview_text_panel": {
+                "size": [ "fill", "100%" ],
+                "layer": 4,
+                "$text_color": "$dark_button_default_text_color",
+                "$secondary_text_color": "$dark_button_secondary_default_text_color"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "world_basic_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100% - 8px", "100%" ],
+    "$anchor": "top_middle",
+    "controls": [
+      {
+        "padding_0": {
+          "type": "panel",
+          "size": [ "100%", "5px" ]
+        }
+      },
+      {
+        "settings_tip_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "settings_tip@day_one_experience.tip_text": {
+                "size": [ "94%", "20px" ],
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "$text": "dayOneExperience.world_prompt",
+                "layer": 4
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding_1": {
+          "type": "panel",
+          "size": [ "100%", "18px" ]
+        }
+      },
+      {
+        "world_entry@day_one_experience.legacy_world_preview_panel": {
+          "layer": 4
+        }
+      },
+      {
+        "padding_2": {
+          "type": "panel",
+          "size": [ "100%", "14px" ]
+        }
+      },
+      {
+        "world_buttons": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", "22px" ],
+          "layer": 4,
+          "controls": [
+            {
+              "my_world_button@common_toggles.button_with_checkbox_toggle": {
+                "size": [ "33.33%", "100%" ],
+                "$button_content_size": [ "100%", "100%" ],
+                "$toggle_name": "dayOneExperience.my_world_toggle",
+                "$toggle_state_binding_name": "#is_importing_world",
+                "$toggle_binding_type": "global",
+                "$toggle_default_state": true,
+                "$button_text": "dayOneExperience.my_world",
+                "$new_ui_label_offset": [ 10, 0 ],
+                "$button_focus_precedence": 30,
+                "$focus_override_left": "go_back",
+                "bindings": [
+                  {
+                    "binding_type": "global",
+                    "binding_condition": "always",
+                    "binding_name": "#has_legacy_worlds",
+                    "binding_name_override": "#enabled"
+                  }
+                ]
+              }
+            },
+            {
+              "no_world_button@common_toggles.button_with_checkbox_toggle": {
+                "size": [ "33.33%", "100%" ],
+                "$button_content_size": [ "100%", "100%" ],
+                "$toggle_name": "dayOneExperience.no_world_toggle",
+                "$toggle_state_binding_name": "(not #is_importing_world)",
+                "$toggle_binding_type": "global",
+                "$toggle_default_state": false,
+                "$button_text": "dayOneExperience.no_world",
+                "$new_ui_label_offset": [ 10, 0 ],
+                "bindings": [
+                  {
+                    "binding_type": "global",
+                    "binding_condition": "always",
+                    "binding_name": "#has_legacy_worlds",
+                    "binding_name_override": "#enabled"
+                  }
+                ]
+              }
+            },
+            {
+              "more_worlds_button@common_buttons.light_content_button": {
+                "size": [ "33.33%", "100%" ],
+                "$pressed_button_name": "button.more_worlds",
+                "$button_content": "day_one_experience.more_worlds_button_content",
+                "$light_button_locked_text_color": "$light_toggle_default_text_color",
+                "$focus_override_right": "go_forward",
+                "bindings": [
+                  {
+                    "binding_type": "global",
+                    "binding_condition": "always",
+                    "binding_name": "#has_legacy_worlds",
+                    "binding_name_override": "#enabled"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "simple_worlds_screen": {
+    "type": "stack_panel",
+    "size": [ "76%", "100%" ],
+    "orientation": "vertical",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "main_panel@common_dialogs.main_panel_no_title_no_buttons": {
+          "size": [ "100%", "65% + 4px" ],
+          "layer": 3,
+          "$child_control": "day_one_experience.world_basic_panel"
+        }
+      },
+      {
+        "padding_0": {
+          "type": "panel",
+          "size": [ 0, 15 ]
+        }
+      },
+      {
+        "worlds_help_label": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "import_time": {
+                "type": "custom",
+                "renderer": "name_tag_renderer",
+                "size": [ "100%", 8 ],
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "layer": 3,
+                "property_bag": {
+                  "#x_padding": 5
+                },
+                "bindings": [
+                  {
+                    "binding_name": "#world_import_time",
+                    "binding_name_override": "#playername"
+                  },
+                  {
+                    "binding_name": "#legacy_world_selected",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "no_found_worlds": {
+                "type": "custom",
+                "renderer": "name_tag_renderer",
+                "size": [ "100%", 8 ],
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "layer": 3,
+                "property_bag": {
+                  "#playername": "dayOneExperience.no_found_worlds",
+                  "#x_padding": 5
+                },
+                "bindings": [
+                  {
+                    "binding_name": "(not #has_legacy_worlds)",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#retrieving_worlds",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Advanced World Panels
+  //---------------------------------------------------------------------------
+
+  "legacy_world_content_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "93%", "100%" ],
+    "$border_texture|default": "textures/ui/default_indent",
+    "$secondary_text_color": "$dark_button_secondary_default_text_color",
+
+    "variables": [
+      {
+        "requires": "($toggle_unchecked or $toggle_checked)",
+        "$border_texture": "textures/ui/default_indent"
+      },
+      {
+        "requires": "($toggle_unchecked_hover or $toggle_checked_hover)",
+        "$border_texture": "textures/ui/world_screenshot_focus_border"
+      }
+    ],
+    "controls": [
+      {
+        "legacy_world_screenshot@play.collection_world_screenshot": {
+          "$fit_image_to_width": true,
+          "$collection_binding_name": "legacy_worlds",
+          "$image_binding_name": "#legacy_world_image",
+          "$texture_source_binding_name": "#legacy_world_texture_source"
+        }
+      },
+      {
+        "legacy_world_text_panel@play.legacy_world_text_panel": {
+          "size": [ "fill", "100%" ]
+        }
+      }
+    ]
+  },
+
+  "world_picker_toggle_base@common.toggle": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.world_picker_select",
+        "mapping_type": "pressed"
+      }
+    ]
+  },
+
+  "world_picker_toggle_control_base": {
+    "type": "panel",
+    "controls": [
+      {
+        "border@$toggle_type": {
+          "layer": 2
+        }
+      },
+      {
+        "checkbox@$checkbox_image": {
+          "layer": 4,
+          "offset": [ 6, 0 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle"
+        }
+      }
+    ]
+  },
+
+  "world_picker_content_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "content@$button_content": {
+          "layer": 2,
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle"
+        }
+      }
+    ]
+  },
+
+  "world_picker_toggle_unchecked@world_picker_toggle_control_base": {
+    "$toggle_type": "common_toggles.toggle_unchecked",
+    "$checkbox_image": "common.unchecked_image"
+  },
+
+  "world_picker_toggle_checked@world_picker_toggle_control_base": {
+    "$toggle_type": "common_toggles.toggle_checked",
+    "$checkbox_image": "common.checked_image"
+  },
+
+  "world_picker_toggle_unchecked_hover@world_picker_toggle_control_base": {
+    "$toggle_type": "common_toggles.toggle_unchecked_hover",
+    "$checkbox_image": "common.unchecked_hover_image"
+  },
+
+  "world_picker_toggle_checked_hover@world_picker_toggle_control_base": {
+    "$toggle_type": "common_toggles.toggle_checked_hover",
+    "$checkbox_image": "common.checked_hover_image"
+  },
+
+  "world_picker_toggle@common_toggles.dark_ui_toggle_collection": {
+    "size": [ "100% - 4px", 29 ],
+
+    "$toggle_name": "world_picker_toggle",
+    "$toggle_binding_type": "collection",
+
+    "$toggle_grid_collection_name": "legacy_worlds",
+    "$toggle_state_binding_name": "#world_picker_toggle_state",
+
+    "$button_type_panel": "day_one_experience.world_picker_content_panel",
+    "$button_content": "day_one_experience.legacy_world_content_panel",
+
+    "$hover_texture": "$default_texture",
+    "$pressed_texture": "$default_texture",
+    "$pressed_no_hover_texture": "$default_texture",
+
+    "$unchecked_control": "day_one_experience.world_picker_toggle_unchecked",
+    "$checked_control": "day_one_experience.world_picker_toggle_checked",
+    "$unchecked_hover_control": "day_one_experience.world_picker_toggle_unchecked_hover",
+    "$checked_hover_control": "day_one_experience.world_picker_toggle_checked_hover"
+  },
+
+  "legacy_world_item_grid@play.world_item_grid_base": {
+    "grid_item_template": "day_one_experience.world_picker_toggle",
+    "grid_dimension_binding": "#legacy_world_item_grid_dimension",
+    "collection_name": "legacy_worlds",
+    "bindings": [
+      {
+        "binding_name": "#legacy_world_item_grid_dimension"
+      }
+    ]
+  },
+
+  "world_picker_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "size": [ "100% - 4px", "default" ],
+          "offset": [ 2, 4 ],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "$scrolling_pane_size": [ "100% - 1px", "100% - 4px" ],
+          "$scrolling_content": "day_one_experience.legacy_world_item_grid",
+          "$scroll_size": [ 5, "100% - 4px" ],
+          "$show_background": false
+        }
+      }
+    ]
+  },
+
+  "advanced_worlds_screen@day_one_experience": {
+    "type": "stack_panel",
+    "size": [ "76%", "100%" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "orientation": "vertical",
+    "controls": [
+      {
+        "world_picker@common_dialogs.main_panel_no_buttons": {
+          "size": [ "default", "85%" ],
+          "$text_name": "dayOneExperience.world_picker_title",
+          "$child_control": "day_one_experience.world_picker_content"
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ "100%", 8 ]
+        }
+      },
+      {
+        "back_prompt": {
+          "type": "label",
+          "size": [ "100%", "default" ],
+          "color": "$main_header_text_color",
+          "text": "#world_picker_back_prompt",
+          "text_alignment": "center",
+          "shadow": false,
+          "bindings": [
+            {
+              "binding_name": "#world_picker_back_prompt"
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#advanced_picker_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Buttons
+  //---------------------------------------------------------------------------
+
+  "common_button_text": {
+    "type": "label",
+    "color": "$tab_secondary_unchecked_text_color",
+    "layer": 1,
+    "shadow": false,
+    "text": "$common_button_text_text"
+  },
+
+  "next_screen_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "dayOneExperience.next_screen",
+    "$button_text": "dayOneExperience.next",
+    "$button_focus_precedence": 15,
+    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+    "$focus_override_left": "go_back",
+    "$focus_override_down": "FOCUS_OVERRIDE_STOP",
+    "$focus_id": "go_forward"
+  },
+
+  "go_back_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "dayOneExperience.back",
+    "$button_text": "gui.back",
+    "$button_focus_precedence": 10,
+    "$focus_override_left": "FOCUS_OVERRIDE_STOP",
+    "$focus_override_right": "go_forward",
+
+    "$focus_override_down": "FOCUS_OVERRIDE_STOP",
+    "$focus_id": "go_back"
+  },
+
+  "go_back_panel": {
+    "type": "panel",
+    "size": [ "20%", "10%" ],
+    "offset": [ 10, -20 ],
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+    "controls": [
+      {
+        "left_arrow": {
+          "size": [ "25%", "25%" ],
+          "type": "image",
+          "texture": "textures/ui/arrowLeft",
+          "layer": 20,
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle"
+        }
+      },
+      {
+        "back_button@day_one_experience.go_back_button": {
+          "layer": 4
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "(#show_back_button)",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "next_panel": {
+    "type": "panel",
+    "size": [ "20%", "10%" ],
+    "offset": [ -10, -20 ],
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+    "controls": [
+      {
+        "right_arrow": {
+          "size": [ "25%", "25%" ],
+          "type": "image",
+          "texture": "textures/ui/arrowRight",
+          "layer": 20,
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle"
+        }
+      },
+      {
+        "next_button@day_one_experience.next_screen_button": {
+          "layer": 4
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "(#show_next_button)",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "main_button@common_buttons.light_text_button": {
+    "size": [ "50%-2px", "50%-2px" ],
+    "anchor_from": "center",
+    "anchor_to": "center"
+  },
+
+  //TODO::User Story 193525 Clean up anywhere this button is used, it is meant as a placeholder until these screens design is finalized
+  "wizard_button@day_one_experience.main_button": {
+    "$pressed_button_name": "button.menu_day_one_experience_wizard",
+    "$button_text": "achievement.unknown"
+  },
+
+  "tip_text_sections": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "$anchor": "top_middle"
+  },
+
+  "tip_image": {
+    "type": "image",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "texture": "$tip_image",
+    "layer": 6,
+    "size": [ "100%", "100%" ]
+  },
+
+  "base_tip_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%" ],
+    "$anchor": "top_middle",
+    "$tip_text|default": "dayOneExperience.settings_tip",
+    "$tip_image|default": "textures/ui/day_one_experience_settings_tip",
+    "controls": [
+      { "padding_0@how_to_play_common.padding": {} },
+      {
+        "settings_tip@day_one_experience.tip_text": {
+          "layer": 3,
+          "$text": "$tip_text"
+        }
+      },
+      { "padding_1@how_to_play_common.padding": {} },
+      {
+        "horizontal_dialog_centering_stack_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", "96px" ],
+          "controls": [
+            {
+              "padding_0_panel": {
+                "type": "panel",
+                "size": [ "25%", "100%" ]
+              }
+            },
+            {
+              "image_section@common_dialogs.main_panel_no_title_no_buttons": {
+                "size": [ "50%", "100%" ],
+                "$child_control": "day_one_experience.tip_image"
+              }
+            }
+          ]
+        }
+
+      }
+
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Scroll panels
+  //---------------------------------------------------------------------------
+
+  "common_scrolling_panel@common.scrolling_panel": {
+    "layer": 1,
+    "$scrolling_pane_size": [ "100%-1px", "100%" ],
+    "$scrolling_content": "$scrolling_content",
+    "$scroll_size": [ 5, "100%-4px" ],
+    "$show_background": true,
+    "$scroll_background_image_control": "day_one_experience.alpha_scroll_background",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle"
+  },
+
+  "welcome_scroll_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "welcome_panel@day_one_experience.welcome_stack_panel": {}
+      }
+    ]
+  },
+
+  "skin_import_scroll_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "skin_import_screen@day_one_experience.skin_import_screen": {}
+      }
+    ]
+  },
+
+  "skin_tip_scroll_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "skin_tip@day_one_experience.base_tip_panel": {}
+      }
+    ]
+  },
+
+  "worlds_import_scroll_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "simple_screen@day_one_experience.simple_worlds_screen": {
+          "bindings": [
+            {
+              "binding_name": "(not #advanced_picker_visible)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "advanced_screen@day_one_experience.advanced_worlds_screen": {
+          "bindings": [
+            {
+              "binding_name": "#advanced_picker_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "worlds_tip_scroll_panel": {
+    "type": "panel",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "worlds_tip@day_one_experience.base_tip_panel": {}
+      }
+    ]
+  },
+
+  "settings_import_scroll_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "settings_import_screen@day_one_experience.settings_import_panel": {
+          "size": [ "80%", "80%" ],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle"
+        }
+      }
+    ]
+  },
+
+  "settings_tip_scroll_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "settings_tip@day_one_experience.base_tip_panel": {}
+      }
+    ]
+  },
+
+  "recap_import_scroll_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "recap_screen@day_one_experience.wizard_button": {}
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Scroll content
+  //---------------------------------------------------------------------------
+
+  "common_content": {
+    "type": "input_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "focus_container": true,
+    "use_last_focus": true,
+    "focus_nagivation_mode_down": "contained",
+    "focus_nagivation_mode_up": "contained",
+    "focus_nagivation_mode_right": "contained",
+    "focus_nagivation_mode_left": "contained"
+  },
+
+  "scrolling_offsets@day_one_experience.common_scrolling_panel": {
+    "size": [ "100%-4px", "100%-4px" ],
+    "offset": [ 2, 2 ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle"
+  },
+
+  "welcome_scroll_content@day_one_experience.common_content": {
+    "controls": [
+      {
+        "scrolling_panel@day_one_experience.scrolling_offsets": {
+          "$show_background": false,
+          "layer": 1,
+          "$scrolling_content": "day_one_experience.welcome_scroll_panel"
+        }
+      }
+    ]
+  },
+
+  "skin_import_scroll_content@day_one_experience.common_content": {
+    "controls": [
+      {
+        "scrolling_panel@day_one_experience.scrolling_offsets": {
+          "$show_background": false,
+          "layer": 1,
+          "$scrolling_content": "day_one_experience.skin_import_scroll_panel"
+        }
+      }
+    ]
+  },
+
+  "skin_tip_scroll_content@day_one_experience.common_content": {
+    "controls": [
+      {
+        "scrolling_panel@day_one_experience.scrolling_offsets": {
+          "$show_background": true,
+          "layer": 1,
+          "$scrolling_content": "day_one_experience.skin_tip_scroll_panel"
+        }
+      }
+    ]
+  },
+
+  "world_import_scroll_content@day_one_experience.common_content": {
+    "controls": [
+      {
+        "scrolling_panel@day_one_experience.scrolling_offsets": {
+          "$show_background": false,
+          "layer": 1,
+          "$scrolling_content": "day_one_experience.worlds_import_scroll_panel"
+        }
+      }
+    ]
+  },
+
+  "world_tip_scroll_content@day_one_experience.common_content": {
+    "controls": [
+      {
+        "scrolling_panel@day_one_experience.scrolling_offsets": {
+          "$show_background": true,
+          "layer": 1,
+          "$scrolling_content": "day_one_experience.skin_tip_scroll_panel"
+        }
+      }
+    ]
+  },
+
+  "settings_import_scroll_content@day_one_experience.common_content": {
+    "controls": [
+      {
+        "scrolling_panel@day_one_experience.scrolling_offsets": {
+          "$show_background": false,
+          "layer": 1,
+          "$scrolling_content": "day_one_experience.settings_import_scroll_panel"
+        }
+      }
+    ]
+  },
+
+  "settings_tip_scroll_content@day_one_experience.common_content": {
+    "controls": [
+      {
+        "scrolling_panel@day_one_experience.scrolling_offsets": {
+          "$show_background": true,
+          "layer": 1,
+          "$scrolling_content": "day_one_experience.skin_tip_scroll_panel"
+        }
+      }
+    ]
+  },
+
+  "recap_import_scroll_content@day_one_experience.common_content": {
+    "controls": [
+      {
+        "scrolling_panel@day_one_experience.scrolling_offsets": {
+          "$show_background": false,
+          "layer": 1,
+          "$scrolling_content": "day_one_experience.recap_import_scroll_panel"
+        }
+      }
+    ]
+  },
+  //---------------------------------------------------------------------------
+  // Navigation Tabs Topbar template
+  //---------------------------------------------------------------------------
+
+  "base_tab": {
+    "type": "panel",
+    "$unchecked_text_color": "$place_holder_text_color",
+    "$unchecked_hover_text_color": "$place_holder_text_color",
+    "$unchecked_locked_text_color": "$place_holder_text_color",
+    "$unchecked_locked_hover_text_color": "$place_holder_text_color",
+    "$checked_text_color": "$tab_secondary_checked_hover_text_color",
+    "$checked_hover_text_color": "$tab_secondary_checked_hover_text_color",
+    "$checked_locked_text_color": "$tab_secondary_checked_hover_text_color",
+    "$checked_locked_hover_text_color": "$tab_secondary_checked_hover_text_color",
+    "$checked_tab_layer|default": 2,
+
+    "$unchecked_secondary_text_color": "$place_holder_text_color",
+    "$unchecked_hover_secondary_text_color": "$place_holder_text_color",
+    "$unchecked_locked_secondary_text_color": "$place_holder_text_color",
+    "$unchecked_locked_hover_secondary_text_color": "$place_holder_text_color",
+    "$checked_secondary_text_color": "$tab_secondary_checked_hover_text_color",
+    "$checked_hover_secondary_text_color": "$tab_secondary_checked_hover_text_color",
+    "$checked_locked_secondary_text_color": "$tab_secondary_checked_hover_text_color",
+    "$checked_locked_hover_secondary_text_color": "$tab_secondary_checked_hover_text_color",
+
+    "$unchecked_glyph_color": "$tab_unchecked_glyph_color",
+    "$unchecked_hover_glyph_color": "$tab_unchecked_hover_glyph_color",
+    "$unchecked_locked_glyph_color": "$tab_unchecked_locked_glyph_color",
+    "$unchecked_locked_hover_glyph_color": "$tab_unchecked_locked_hover_glyph_color",
+    "$checked_glyph_color": "$tab_secondary_checked_hover_text_color",
+    "$checked_hover_glyph_color": "$tab_secondary_checked_hover_text_color",
+    "$checked_locked_glyph_color": "$tab_secondary_checked_hover_text_color",
+    "$checked_locked_hover_glyph_color": "$tab_secondary_checked_hover_text_color",
+    "$hide_toggle_index|default": -1,
+    "$tab_view_binding_name|default": "tab",
+    "$tab_panel|default": "common_tabs.tab_panel",
+
+    "controls": [
+      {
+        "$tab_view_binding_name@common.toggle": {
+          "$toggle_tts_name": "accessibility.tab.tts.title",
+          "$toggle_tts_enabled_binding_type": "none",
+          "$toggle_focus_enabled": false,
+
+          "controls": [
+            {
+              "unchecked@$tab_panel": {
+                "$text_color": "$unchecked_text_color",
+                "$secondary_text_color": "$unchecked_secondary_text_color",
+                "$glyph_color": "$checked_glyph_color",
+                "$tab_texture": "$unchecked_default_image",
+                "$tab_state": "unchecked",
+                "$arrow_texture": "$unchecked_arrow_image",
+                "$icon_outline_layer": "$unchecked_icon_outline_layer",
+                "$icon_color_layer": "$unchecked_icon_color_layer",
+                "$tab_glyph_outline": "$unchecked_tab_glyph_outline",
+                "$tab_glyph_color": "$unchecked_tab_glyph_color",
+                "layer": 1,
+                "bindings": [
+                  {
+                    "binding_name": "(not (#current_day_one_toggle_index = $hide_toggle_index))",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "unchecked_hover@$tab_panel": {
+                "$text_color": "$unchecked_hover_text_color",
+                "$secondary_text_color": "$unchecked_hover_secondary_text_color",
+                "$glyph_color": "$checked_glyph_color",
+                "$tab_texture": "$unchecked_hover_image",
+                "$tab_state": "unchecked_hover",
+                "$arrow_texture": "$unchecked_arrow_image",
+                "$icon_outline_layer": "$unchecked_icon_outline_layer",
+                "$icon_color_layer": "$unchecked_icon_color_layer",
+                "$tab_glyph_outline": "$unchecked_tab_glyph_outline",
+                "$tab_glyph_color": "$unchecked_tab_glyph_color",
+                "layer": 1,
+                "bindings": [
+                  {
+                    "binding_name": "(not (#current_day_one_toggle_index = $hide_toggle_index))",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "unchecked_locked@$tab_panel": {
+                "$text_color": "$unchecked_locked_text_color",
+                "$secondary_text_color": "$unchecked_locked_secondary_text_color",
+                "$glyph_color": "$checked_glyph_color",
+                "$tab_texture": "$unchecked_locked_image",
+                "$tab_state": "unchecked_locked",
+                "$arrow_texture": "$unchecked_arrow_image",
+                "$icon_outline_layer": "$unchecked_icon_outline_layer",
+                "$icon_color_layer": "$unchecked_icon_color_layer",
+                "$tab_glyph_outline": "$unchecked_tab_glyph_outline",
+                "$tab_glyph_color": "$unchecked_tab_glyph_color",
+                "layer": 1,
+                "bindings": [
+                  {
+                    "binding_name": "(not (#current_day_one_toggle_index = $hide_toggle_index))",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "unchecked_locked_hover@$tab_panel": {
+                "$text_color": "$unchecked_locked_hover_text_color",
+                "$secondary_text_color": "$unchecked_locked_hover_secondary_text_color",
+                "$glyph_color": "$checked_glyph_color",
+                "$tab_texture": "$unchecked_locked_hover_image",
+                "$tab_state": "unchecked_locked_hover",
+                "$arrow_texture": "$unchecked_arrow_image",
+                "$icon_outline_layer": "$unchecked_icon_outline_layer",
+                "$icon_color_layer": "$unchecked_icon_color_layer",
+                "$tab_glyph_outline": "$unchecked_tab_glyph_outline",
+                "$tab_glyph_color": "$unchecked_tab_glyph_color",
+                "layer": 1
+              }
+            },
+            {
+              "checked@$tab_panel": {
+                "$text_color": "$checked_text_color",
+                "$secondary_text_color": "$checked_secondary_text_color",
+                "$glyph_color": "$checked_glyph_color",
+                "$tab_texture": "$checked_default_image",
+                "$tab_state": "checked",
+                "layer": "$checked_tab_layer",
+                "$arrow_texture": "$checked_arrow_image",
+                "$icon_outline_layer": "$checked_icon_outline_layer",
+                "$icon_color_layer": "$checked_icon_color_layer",
+                "$tab_glyph_outline": "$checked_tab_glyph_outline",
+                "$tab_glyph_color": "$checked_tab_glyph_color"
+              }
+            },
+            {
+              "checked_hover@$tab_panel": {
+                "$text_color": "$checked_hover_text_color",
+                "$secondary_text_color": "$checked_hover_secondary_text_color",
+                "$glyph_color": "$checked_hover_glyph_color",
+                "$tab_texture": "$checked_hover_image",
+                "$tab_state": "checked_hover",
+                "layer": "$checked_tab_layer",
+                "$arrow_texture": "$checked_arrow_image",
+                "$icon_outline_layer": "$checked_icon_outline_layer",
+                "$icon_color_layer": "$checked_icon_color_layer",
+                "$tab_glyph_outline": "$checked_tab_glyph_outline",
+                "$tab_glyph_color": "$checked_tab_glyph_color"
+              }
+            },
+            {
+              "checked_locked@$tab_panel": {
+                "$text_color": "$checked_locked_text_color",
+                "$secondary_text_color": "$checked_locked_secondary_text_color",
+                "$glyph_color": "$checked_locked_glyph_color",
+                "$tab_texture": "$checked_locked_image",
+                "$tab_state": "checked_locked",
+                "layer": "$checked_tab_layer",
+                "$arrow_texture": "$checked_arrow_image",
+                "$icon_outline_layer": "$checked_icon_outline_layer",
+                "$icon_color_layer": "$checked_icon_color_layer",
+                "$tab_glyph_outline": "$checked_tab_glyph_outline",
+                "$tab_glyph_color": "$checked_tab_glyph_color"
+              }
+            },
+            {
+              "checked_locked_hover@$tab_panel": {
+                "$text_color": "$checked_locked_hover_text_color",
+                "$secondary_text_color": "$checked_locked_hover_secondary_text_color",
+                "$glyph_color": "$checked_locked_hover_glyph_color",
+                "$tab_texture": "$checked_locked_hover_image",
+                "$tab_state": "checked_locked_hover",
+                "layer": "$checked_tab_layer",
+                "$arrow_texture": "$checked_arrow_image",
+                "$icon_outline_layer": "$checked_icon_outline_layer",
+                "$icon_color_layer": "$checked_icon_color_layer",
+                "$tab_glyph_outline": "$checked_tab_glyph_outline",
+                "$tab_glyph_color": "$checked_tab_glyph_color"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "tab_panel_with_arrow": {
+    "type": "panel",
+    "$tab_content|default": "common_tabs.empty_tab_content",
+    "$tab_image|default": "common_tabs.tab_image",
+    "controls": [
+      {
+        "tab_image@$tab_image": {
+          "size": [ "100%", "100%" ], // We need to explicitly set the size here.
+          "layer": 2,
+          "bindings": [
+            {
+              "binding_name": "(not (#current_day_one_toggle_index = $hide_toggle_index))",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "tab_content_sizer": {
+          "type": "panel",
+          "$tab_content_size|default": [ "100% - 4px", "100% - 4px" ],
+          "size": "$tab_content_size",
+          "controls": [
+            {
+              "tab_content@$tab_content": {
+                "layer": 3
+              }
+            }
+          ]
+        }
+      },
+      {
+        "tab_arrow_point": {
+          "type": "panel",
+          "anchor_to": "right_middle",
+          "anchor_from": "right_middle",
+          "$tab_arrow_size|default": [ 13, 25 ],
+          "size": "$tab_arrow_size",
+          "$arrow_offset|default": [ 13, 0 ],
+          "layer": 3,
+          "controls": [
+            {
+              "tab_arrow": {
+                "type": "image",
+                "size": [ "100%", "100%" ],
+                "texture": "$arrow_texture",
+                "offset": "$arrow_offset",
+                "layer": 3
+              }
+            }
+          ]
+        }
+      }
+    ]
+
+  },
+
+  "tab_panel": {
+    "type": "panel",
+    "$tab_content|default": "common_tabs.empty_tab_content",
+    "$tab_image|default": "common_tabs.tab_image",
+    "controls": [
+      {
+        "tab_image@$tab_image": {
+          "size": [ "100%", "100%" ], // We need to explicitly set the size here.
+          "layer": 2
+        }
+      },
+      {
+        "tab_content_sizer": {
+          "type": "panel",
+          "$tab_content_size|default": [ "100% - 4px", "100% - 4px" ],
+          "size": "$tab_content_size",
+          "controls": [
+            {
+              "tab_content@$tab_content": {
+                "layer": 3
+              }
+            }
+          ]
+        }
+      }
+    ]
+
+  },
+
+  "topbar_arrow_tab@day_one_experience.base_tab": {
+    "$is_left_most_tab|default": false,
+    "$is_right_most_tab|default": false,
+    "$unchecked_default_image": "textures/ui/topbar_off_middle",
+    "$unchecked_hover_image": "textures/ui/topbar_off_middle",
+    "$unchecked_locked_image": "textures/ui/topbar_off_middle",
+    "$unchecked_locked_hover_image": "textures/ui/topbar_off_middle",
+    "$unchecked_arrow_image|default": "textures/ui/topbar_off_point",
+
+    "$checked_default_image|default": "textures/ui/topbar_on_middle",
+    "$checked_hover_image|default": "textures/ui/topbar_on_middle",
+    "$checked_locked_image|default": "textures/ui/topbar_on_middle",
+    "$checked_locked_hover_image|default": "textures/ui/topbar_on_middle",
+    "$checked_arrow_image|default": "textures/ui/topbar_on_point",
+
+    "variables": [
+      {
+        "requires": "($is_left_most_tab and not $is_right_most_tab)",
+        "$unchecked_default_image": "textures/ui/topbar_off_left",
+        "$unchecked_hover_image": "textures/ui/topbar_off_left",
+        "$unchecked_locked_image": "textures/ui/topbar_off_left",
+        "$unchecked_locked_hover_image": "textures/ui/topbar_off_left",
+
+        "$checked_default_image": "textures/ui/topbar_on_left",
+        "$checked_hover_image": "textures/ui/topbar_on_left",
+        "$checked_locked_image": "textures/ui/topbar_on_left",
+        "$checked_locked_hover_image": "textures/ui/topbar_on_left"
+      },
+      {
+        "requires": "($is_right_most_tab and not $is_left_most_tab)",
+        "$unchecked_default_image": "textures/ui/topbar_off_right",
+        "$unchecked_hover_image": "textures/ui/topbar_off_right",
+        "$unchecked_locked_image": "textures/ui/topbar_off_right",
+        "$unchecked_locked_hover_image": "textures/ui/topbar_off_right",
+
+        "$checked_default_image": "textures/ui/topbar_on_right",
+        "$checked_hover_image": "textures/ui/topbar_on_right",
+        "$checked_locked_image": "textures/ui/topbar_on_right",
+        "$checked_locked_hover_image": "textures/ui/topbar_on_right"
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Toggle tab buttons
+  //---------------------------------------------------------------------------
+
+  "common_navigation_tab_content": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "$icon_outline_layer|default": 1,
+    "$icon_color_layer|default": 2,
+    "$icon_size|default": [ 12, 12 ],
+    "$icon_text_offset|default": [ 7, 2 ],
+    "controls": [
+      {
+        "icon_and_text": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "50%", "100%" ],
+          "offset": "$icon_text_offset",
+          "controls": [
+            {
+
+              "icon_section": {
+                "type": "panel",
+                "size": [ 16, "80%" ],
+                "controls": [
+                  {
+                    "icon@$tab_glyph_outline": {
+                      "anchor_from": "center",
+                      "anchor_to": "center",
+                      "layer": "$icon_outline_layer",
+                      "size": "$icon_size",
+                      "offset": [ 0, 1 ] //magic offset to center next to text
+                    }
+                  },
+                  {
+                    "icon_color@$tab_glyph_color": {
+                      "anchor_from": "center",
+                      "anchor_to": "center",
+                      "layer": "$icon_color_layer",
+                      "size": "$icon_size",
+                      "offset": [ 0, 1 ] //magic offset to center next to text
+                    }
+                  },
+                  {
+                    "icon_check": {
+                      "type": "image",
+                      "anchor_from": "center",
+                      "anchor_to": "center",
+                      "layer": 4,
+                      "size": [ 10, 10 ],
+                      "texture": "textures/ui/check",
+                      "offset": [ 4, 4 ], //magic offset to center next to text
+                      "visible": false,
+                      "bindings": [
+                        {
+                          "binding_name": "((#current_day_one_toggle_index > $toggle_group_forced_index))",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "padding": {
+                "type": "panel",
+                "size": [ 7, "100%" ]
+              }
+            },
+            {
+              "text_section": {
+                "type": "panel",
+                "size": [ "fill", "100%" ],
+                "controls": [
+                  {
+                    "text@day_one_experience.common_button_text": {
+                      "layer": 3,
+                      "text": "$tab_text_name",
+                      "anchor_from": "left_middle",
+                      "anchor_to": "left_middle",
+                      "offset": [ -1, -1 ],
+                      "color": "$text_color"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "(not (#current_day_one_toggle_index = $hide_toggle_index))",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // navigation tab toggles
+  //---------------------------------------------------------------------------
+
+  "horizontal_navigation_tab@day_one_experience.topbar_arrow_tab": {
+    "$toggle_tts_enabled_binding_type": "none",
+    "$radio_toggle_group": false,
+    "$toggle_name": "navigation_tab",
+    "$toggle_group_default_selected": "$default_tab",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "$toggle_tts_type_priority": 1001,
+    "$toggle_tts_toggle_on_text": "Toggled On",
+    "$toggle_tts_toggle_off_text": "Toggled Off",
+    "$unchecked_icon_outline_layer": 1,
+    "$unchecked_icon_color_layer": 2,
+    "$checked_icon_outline_layer": 2,
+    "$checked_icon_color_layer": 1,
+    "$tab_panel": "day_one_experience.tab_panel_with_arrow",
+    "$tab_content": "day_one_experience.common_navigation_tab_content",
+    "$toggle_focus_enabled": false
+  },
+
+  "skin_import_navigation_tab@day_one_experience.horizontal_navigation_tab": {
+    "$tab_view_binding_name": "skin_import_navigation_tab_toggle",
+    "$unchecked_tab_glyph_outline": "common.empty_panel",
+    "$unchecked_tab_glyph_color": "skins_icon_desaturated",
+    "$checked_tab_glyph_outline": "skins_icon_outline",
+    "$checked_tab_glyph_color": "skins_icon",
+    "$tab_text_name": "dayOneExperience.skin",
+    "$toggle_group_forced_index": 0,
+    "$is_left_most_tab": true,
+    "$icon_size": [ 10, 10 ],
+    "$hide_toggle_index": 1,
+    "$toggle_focus_enabled": false
+  },
+
+  "skin_tip_navigation_tab@day_one_experience.horizontal_navigation_tab": {
+    "$tab_view_binding_name": "skin_tip_navigation_tab_toggle",
+    "$unchecked_tab_glyph_outline": "common.empty_panel",
+    "$unchecked_tab_glyph_color": "skins_icon_desaturated",
+    "$checked_tab_glyph_outline": "skins_icon_outline",
+    "$checked_tab_glyph_color": "skins_icon",
+    "$tab_text_name": "dayOneExperience.skin",
+    "$toggle_group_forced_index": 1,
+    "$is_left_most_tab": true,
+    "$icon_size": [ 10, 10 ],
+    "$hide_toggle_index": 0
+  },
+
+  "worlds_import_navigation_tab@day_one_experience.horizontal_navigation_tab": {
+    "$tab_view_binding_name": "world_import_navigation_tab_toggle",
+    "$unchecked_tab_glyph_outline": "common.empty_panel",
+    "$unchecked_tab_glyph_color": "world_glyph_desaturated",
+    "$checked_tab_glyph_outline": "worlds_glyph",
+    "$checked_tab_glyph_color": "worlds_glyph_color",
+    "$tab_text_name": "dayOneExperience.worlds",
+    "$toggle_group_forced_index": 2,
+    "$hide_toggle_index": 3
+
+  },
+
+  "worlds_tip_navigation_tab@day_one_experience.horizontal_navigation_tab": {
+    "$tab_view_binding_name": "world_tip_navigation_tab_toggle",
+    "$unchecked_tab_glyph_outline": "common.empty_panel",
+    "$unchecked_tab_glyph_color": "world_glyph_desaturated",
+    "$checked_tab_glyph_outline": "worlds_glyph",
+    "$checked_tab_glyph_color": "worlds_glyph_color",
+    "$tab_text_name": "dayOneExperience.worlds",
+    "$toggle_group_forced_index": 3,
+    "$hide_toggle_index": 2
+  },
+
+  "settings_import_navigation_tab@day_one_experience.horizontal_navigation_tab": {
+    "$tab_view_binding_name": "settings_import_navigation_tab_toggle",
+    "$unchecked_tab_glyph_outline": "common.empty_panel",
+    "$unchecked_tab_glyph_color": "settings_icon_desaturated",
+    "$checked_tab_glyph_outline": "settings_icon_outline",
+    "$checked_tab_glyph_color": "settings_icon",
+    "$tab_text_name": "dayOneExperience.settings",
+    "$toggle_group_forced_index": 4,
+    "$hide_toggle_index": 5
+  },
+
+  "settings_tip_navigation_tab@day_one_experience.horizontal_navigation_tab": {
+    "$tab_view_binding_name": "settings_tip_navigation_tab_toggle",
+    "$unchecked_tab_glyph_outline": "common.empty_panel",
+    "$unchecked_tab_glyph_color": "settings_icon_desaturated",
+    "$checked_tab_glyph_outline": "settings_icon_outline",
+    "$checked_tab_glyph_color": "settings_icon",
+    "$tab_text_name": "dayOneExperience.settings",
+    "$toggle_group_forced_index": 5,
+    "$hide_toggle_index": 4
+  },
+
+  "recap_import_navigation_tab@day_one_experience.horizontal_navigation_tab": {
+    "$tab_view_binding_name": "recap_import_navigation_tab_toggle",
+    "$unchecked_tab_glyph_outline": "common.empty_panel",
+    "$unchecked_tab_glyph_color": "recap_icon_desaturated",
+    "$checked_tab_glyph_outline": "recap_icon",
+    "$checked_tab_glyph_color": "recap_icon_color",
+    "$tab_text_name": "dayOneExperience.recap",
+    "$toggle_group_forced_index": 6,
+    "$tab_content": "day_one_experience.common_navigation_tab_content",
+    "$is_right_most_tab": true,
+    "$tab_panel": "day_one_experience.tab_panel",
+    "$icon_text_offset": [ -5, 2 ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Content tabs panel
+  //---------------------------------------------------------------------------
+
+  "common_tab_content_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "content@$scroll_tab_content": {
+          "layer": 2,
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "size": [ "90% - 12px", "100%" ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "$visible_bind_toggle_source_control",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+
+  "welcome_tab_content_panel@day_one_experience.common_tab_content_panel": {
+    "$visible_bind_toggle_source_control": "welcome_navigation_tab_toggle",
+    "$scroll_tab_content": "day_one_experience.welcome_scroll_content"
+  },
+
+  "skin_import_tab_content_panel@day_one_experience.common_tab_content_panel": {
+    "$visible_bind_toggle_source_control": "skin_import_navigation_tab_toggle",
+    "$scroll_tab_content": "day_one_experience.skin_import_scroll_content"
+  },
+
+  "skin_tip_tab_content_panel@day_one_experience.common_tab_content_panel": {
+    "$visible_bind_toggle_source_control": "skin_tip_navigation_tab_toggle",
+    "$scroll_tab_content": "day_one_experience.skin_tip_scroll_content"
+  },
+
+  "world_import_tab_content_panel@day_one_experience.common_tab_content_panel": {
+    "$visible_bind_toggle_source_control": "world_import_navigation_tab_toggle",
+    "$scroll_tab_content": "day_one_experience.world_import_scroll_content"
+  },
+
+  "world_tip_tab_content_panel@day_one_experience.common_tab_content_panel": {
+    "$visible_bind_toggle_source_control": "world_tip_navigation_tab_toggle",
+    "$scroll_tab_content": "day_one_experience.world_tip_scroll_content"
+  },
+
+  "settings_import_tab_content_panel@day_one_experience.common_tab_content_panel": {
+    "$visible_bind_toggle_source_control": "settings_import_navigation_tab_toggle",
+    "$scroll_tab_content": "day_one_experience.settings_import_scroll_content"
+  },
+
+  "settings_tip_tab_content_panel@day_one_experience.common_tab_content_panel": {
+    "$visible_bind_toggle_source_control": "settings_tip_navigation_tab_toggle",
+    "$scroll_tab_content": "day_one_experience.settings_tip_scroll_content"
+  },
+
+  "recap_import_tab_content_panel@day_one_experience.common_tab_content_panel": {
+    "$visible_bind_toggle_source_control": "recap_import_navigation_tab_toggle",
+    "$scroll_tab_content": "day_one_experience.recap_import_scroll_content"
+  },
+
+  //---------------------------------------------------------------------------
+  // Content layout panels
+  //---------------------------------------------------------------------------
+
+  "common_tab_content_panel_type": {
+    "type": "input_panel",
+    "anchor_to": "bottom_middle",
+    "anchor_from": "bottom_middle",
+    "size": [ "100%", "100%-50px" ]
+  },
+
+  "default_tab_content_panel_layout@day_one_experience.common_tab_content_panel_type": {
+    "offset": [ 0, -20 ],
+    "controls": [
+      { "skin_import_tab_content@day_one_experience.skin_import_tab_content_panel": {} },
+      { "skin_tip_tab_content@day_one_experience.skin_tip_tab_content_panel": {} },
+      { "world_import_tab_content@day_one_experience.world_import_tab_content_panel": {} },
+      { "world_tip_tab_content@day_one_experience.world_tip_tab_content_panel": {} },
+      { "settings_import_tab_content@day_one_experience.settings_import_tab_content_panel": {} },
+      { "settings_tip_tab_content@day_one_experience.settings_tip_tab_content_panel": {} },
+      { "recap_import_tab_content@day_one_experience.recap_import_tab_content_panel": {} }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Tabs layout panels
+  //---------------------------------------------------------------------------
+
+  "tab_navigation_panel_layout": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle",
+    "size": [ "100%", 30 ],
+    "controls": [
+      {
+        "navigation_tabs": {
+          "type": "panel",
+          "size": [ "fill", "100%" ],
+          "controls": [
+            {
+              "content@$navigation_tab": {
+                "anchor_to": "top_left",
+                "anchor_from": "top_left"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "common_tab_navigation_panel_layout": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%+2px", 50 ]
+  },
+
+  "tab_sizer": {
+    "type": "panel",
+    "$tab_size|default": [ "25%", 27 ],
+    "size": "$tab_size",
+    "controls": [
+      {
+        "nav_tab@$navigation_tab": {
+          "size": [ "100%", "100%" ]
+        }
+      }
+    ]
+  },
+
+
+  "default_tab_navigation_panel_layout@day_one_experience.common_tab_navigation_panel_layout": {
+    "controls": [
+      {
+        "skin_tab_sizer@day_one_experience.tab_sizer": {
+          "type": "panel",
+          "$tab_size": [ "25%", 27 ],
+          "$navigation_tab": "day_one_experience.skin_import_navigation_tab"
+        }
+      },
+      {
+        "world_tab_sizer@day_one_experience.tab_sizer": {
+          "type": "panel",
+          "$tab_size": [ "25%", 27 ],
+          "$navigation_tab": "day_one_experience.worlds_import_navigation_tab"
+        }
+      },
+      {
+        "settings_tab_sizer@day_one_experience.tab_sizer": {
+          "type": "panel",
+          "$tab_size": [ "25%", 27 ],
+          "$navigation_tab": "day_one_experience.settings_import_navigation_tab"
+        }
+      },
+      {
+        "recap_tab_sizer@day_one_experience.tab_sizer": {
+          "type": "panel",
+          "$tab_size": [ "25%", 27 ],
+          "$navigation_tab": "day_one_experience.recap_import_navigation_tab"
+        }
+      }
+    ]
+  },
+
+  "tip_tab_navigation_panel_layout@day_one_experience.common_tab_navigation_panel_layout": {
+    "controls": [
+      {
+        "skin_tip_tab_sizer@day_one_experience.tab_sizer": {
+          "type": "panel",
+          "$tab_size": [ "25%", 27 ],
+          "$navigation_tab": "day_one_experience.skin_tip_navigation_tab"
+        }
+      },
+      {
+        "world_tip_tab_sizer@day_one_experience.tab_sizer": {
+          "type": "panel",
+          "$tab_size": [ "25%", 27 ],
+          "$navigation_tab": "day_one_experience.worlds_tip_navigation_tab"
+        }
+      },
+      {
+        "settings_tip_tab_sizer@day_one_experience.tab_sizer": {
+          "type": "panel",
+          "$tab_size": [ "25%", 27 ],
+          "$navigation_tab": "day_one_experience.settings_tip_navigation_tab"
+        }
+      },
+      {
+        "padding_panel@common.empty_panel": {
+          "size": [ "fill", 27 ]
+
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Recap and Welcome Stack panel
+  //---------------------------------------------------------------------------
+
+  "recap_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%+2px", "100%" ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Default panels
+  //---------------------------------------------------------------------------
+
+  "common_wizard_screen_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%" ]
+  },
+
+  "wizard_screen_panel@day_one_experience.common_wizard_screen_panel": {
+    "controls": [
+      {
+        "tab_navigation_panel@day_one_experience.tab_navigation_panel_layout": {
+          "offset": [ -1, -1 ],
+          "layer": 1
+        }
+      },
+      {
+        "tip_tab_navigation_panel@day_one_experience.tab_navigation_panel_layout": {
+          "offset": [ -1, -1 ],
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "anchor_to": "top_middle",
+          "anchor_from": "top_middle",
+          "size": [ "100%", 30 ],
+          "controls": [
+            {
+              "navigation_tabs": {
+                "type": "panel",
+                "size": [ "fill", "100%" ],
+                "controls": [
+                  {
+                    "content@day_one_experience.tip_tab_navigation_panel_layout": {
+                      "anchor_to": "top_left",
+                      "anchor_from": "top_left"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "layer": 1
+        }
+      },
+      {
+        "tab_content_panel@$tab_content_panel": {
+          "layer": 1
+        }
+      },
+      {
+        "gamepad_helper_left_bumper@common.gamepad_helper_left_bumper": {
+          "offset": [ 0, 0 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "$hide_description": true,
+          "layer": 20,
+          "bindings": [
+            {
+              "binding_name": "((not #advanced_picker_visible))",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "gamepad_helper_right_bumper@common.gamepad_helper_right_bumper": {
+          "offset": [ 0, 0 ],
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "$hide_description": true,
+          "layer": 20,
+          "bindings": [
+            {
+              "binding_name": "((not #advanced_picker_visible))",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "keyboard_helper_left_bracket@common.keyboard_left_trigger": {
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "$hide_description": true,
+          "layer": 5
+        }
+      },
+      {
+        "keyboard_helper_right_bracket@common.keyboard_right_trigger": {
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "$hide_description": true,
+          "layer": 5
+        }
+      }
+    ]
+  },
+
+  "welcome_wizard_screen@day_one_experience.common_wizard_screen_panel": {
+    "offset": [ 0, 40 ],
+    "controls": [
+      {
+        "welcome_next_button@day_one_experience.welcome_scroll_content": {}
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "(not #passed_welcome)",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "default_wizard_screen@day_one_experience.wizard_screen_panel": {
+    "$navigation_tab": "day_one_experience.default_tab_navigation_panel_layout",
+    "$tab_content_panel": "day_one_experience.default_tab_content_panel_layout",
+    "bindings": [
+      {
+        "binding_name": "#passed_welcome",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "wizard_screen@common.base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_tab_left",
+        "to_button_id": "button.day_one_tab_left",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_tab_right",
+        "to_button_id": "button.day_one_tab_right",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_content": "day_one_experience.wizard_screen_content"
+  },
+
+  "wizard_screen_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "welcome_screen@day_one_experience.welcome_wizard_screen": {}
+      },
+      {
+        "main_control@day_one_experience.default_wizard_screen": {}
+      },
+      {
+        "next_button@day_one_experience.next_panel": {
+          "layer": 10
+        }
+      },
+      {
+        "back_button@day_one_experience.go_back_panel": {
+          "layer": 10
+        }
+      }
+    ]
+  }
+
+}

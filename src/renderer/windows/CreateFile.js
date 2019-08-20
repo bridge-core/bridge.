@@ -5,6 +5,10 @@ import FileType from "../scripts/editor/FileType";
 import safeEval from "safe-eval";
 import { RP_BASE_PATH, BASE_PATH } from "../scripts/constants";
 import uuidv4 from "uuid/v4";
+import { walkSync } from "../scripts/autoCompletions/Dynamic";
+import { join } from "path";
+import { promises as fs } from "fs";
+import cJSON from "comment-json";
 
 class FileContent {
     constructor(name, ext="json", parent, expand_path="", { location, ...add_content }={}, use_rp_path) {
@@ -130,6 +134,7 @@ export default class CreateFileWindow extends ContentWindow {
         super({
             display_name: "New File",
             options: {
+                is_visible: false,
                 is_persistent: false
             },
             sidebar: FILE_DATA.map(({ icon, title }, index) => {
@@ -168,26 +173,46 @@ export default class CreateFileWindow extends ContentWindow {
         ];
         this.win_def.actions = this.actions;
         this.contents = FILE_DATA.map(({ title, extension, path, add_content, rp_definition }) => new FileContent(title, extension, this, path, add_content, rp_definition));
-        this.templates = FILE_DATA.map(f => f.templates);
+        //Templates
+        this.templates = FILE_DATA.map(({ templates, rp_definition }) => {
+            return {
+                ...templates,
+                rp_definition
+            }
+        });
         this.chosen_template = "";
 
         this.select(0);
     }
 
-    select(id) {
+    async select(id) {
         this.current_content = this.contents[id];
 
         this.win_def.sidebar.forEach(e => { e.opacity = 0.25; e.is_selected = false; });
         this.win_def.sidebar[id].opacity = 1;
         this.win_def.sidebar[id].is_selected = true;
+        this.win_def.options.is_visible = true;
         this.win_def.content = this.contents[id].get() || [ { text: "Nothing to show yet" } ];
 
-        if(this.templates[id] && !this.win_def.content.added_select) this.compileTemplate(this.templates[id]);
+        if(this.templates[id] && !this.win_def.content.added_select) await this.compileTemplate(this.templates[id]);
         this.update();
     }
 
-    compileTemplate(templ) {
-        this.win_def.content.added_select = true;
+    async compileTemplate(templ) {
+        const { $default_pack, rp_definition, ...templates } = templ;
+        if($default_pack !== undefined) {
+            let arr;
+            let p = join(__static, "vanilla", rp_definition ? "RP" : "BP", $default_pack.path);
+            if($default_pack.deep) arr = walkSync(p, true);
+            else arr = await fs.readdir(p);
+
+            arr.forEach(f => {
+                templates[f] = async () => (await fs.readFile(join(p, f))).toString();
+            })
+        }
+        let options = ["No template"].concat(Object.keys(templates));
+        
+
         this.win_def.content.push({
             type: "header",
             text: "Templates"
@@ -196,14 +221,17 @@ export default class CreateFileWindow extends ContentWindow {
             type: "divider"
         },
         {
-            type: "select",
-            options: ["No template"].concat(Object.keys(templ)),
+            type: options.length <= 6 ? "select" : "autocomplete",
+            is_box: true,
+            options,
             text: "Select template",
-            action: (val) => {
-                if(templ[val] === undefined) this.chosen_template = "";
-                else if(typeof templ[val] === "string") this.chosen_template = templ[val];
-                else this.chosen_template = JSON.stringify(templ[val], null, "\t");
+            action: async (val) => {
+                if(templates[val] === undefined) this.chosen_template = "";
+                else if(typeof templates[val] === "function") this.chosen_template = await templates[val]();
+                else if(typeof templates[val] === "string") this.chosen_template = templates[val];
+                else this.chosen_template = JSON.stringify(templates[val], null, "\t");
             }
         });
+        this.win_def.content.added_select = true;
     }
 }

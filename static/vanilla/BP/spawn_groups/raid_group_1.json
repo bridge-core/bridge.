@@ -1,0 +1,60 @@
+{
+  "format_version": "1.11.0",
+  "minecraft:spawn_groups": {
+    "description": {
+      "identifier": "minecraft:raid_group_1"
+    },
+    "conditions": [
+      {
+        "minecraft:mob_event_filter": {
+          "event": "minecraft:village_raid"
+        },
+        "minecraft:distance_filter": {
+          "min": 0,
+          "max": 1024
+        },
+        "minecraft:spawns_on_surface": {},
+        "minecraft:difficulty_filter": {
+          "min": "easy",
+          "max": "hard"
+        },
+        "minecraft:herd": {
+          "min_size": 3,
+          "max_size": 3,
+          "event": "minecraft:spawn_for_raid"
+        },
+        "minecraft:permute_type": [
+          {
+            "weight": 100,
+            "entity_type": "minecraft:pillager"
+          }
+        ]
+      },
+      {
+        "minecraft:mob_event_filter": {
+          "event": "minecraft:village_raid"
+        },
+        "minecraft:distance_filter": {
+          "min": 0,
+          "max": 1024
+        },
+        "minecraft:spawns_on_surface": {},
+        "minecraft:difficulty_filter": {
+          "min": "easy",
+          "max": "hard"
+        },
+        "minecraft:herd": {
+          "min_size": 2,
+          "max_size": 2,
+          "event": "minecraft:spawn_for_raid"
+        },
+        "minecraft:permute_type": [
+          {
+            "weight": 100,
+            "entity_type": "minecraft:vindicator"
+          }
+        ]
+      }
+    ]
+  }
+}

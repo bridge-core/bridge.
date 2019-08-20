@@ -7,7 +7,7 @@
         "Blank Animation": {
             "format_version": {},
             "animations": {
-                "animation.test_events": {
+                "animation.blank": {
                     "timeline": {
                         "0.0": []
                     },

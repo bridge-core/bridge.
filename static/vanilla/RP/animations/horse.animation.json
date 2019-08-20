@@ -1,0 +1,152 @@
+{
+	"format_version" : "1.8.0",
+	"animations" : {
+		"animation.horse.baby_transform" : {
+			"loop" : true,
+			"bones" : {
+				"body" : {
+					"position" : [ 0.0, "variable.horse.baby_body_pos", 0.0 ],
+					"scale" : "variable.horse.baby_body_scale"
+				},
+				"head" : {
+					"scale" : "1.0 + 0.5 * (1.0 - this)"
+				},
+				"leg1a" : {
+					"scale" : [ 1.0, "variable.horse.baby_leg_scale", 1.0 ]
+				},
+				"leg2a" : {
+					"scale" : [ 1.0, "variable.horse.baby_leg_scale", 1.0 ]
+				},
+				"leg3a" : {
+					"scale" : [ 1.0, "variable.horse.baby_leg_scale", 1.0 ]
+				},
+				"leg4a" : {
+					"scale" : [ 1.0, "variable.horse.baby_leg_scale", 1.0 ]
+				}
+			}
+		},
+		"animation.horse.eat" : {
+			"loop" : true,
+			"bones" : {
+				"lmouth" : {
+					"position" : [ 0.0, "-this", "-this + variable.horse.mouth_anim" ],
+					"rotation" : [ "9.0 * variable.horse.mouth_anim - this", "-this", 0.0 ]
+				},
+				"neck" : {
+					"position" : [ 0.0, "math.lerp(variable.horse.prev_eat_anim, variable.horse.eat_anim, query.frame_alpha) * -7.0", 0.0 ],
+					"rotation" : [ "math.lerp(variable.horse.prev_eat_anim, variable.horse.eat_anim, query.frame_alpha) * 125.0", 0.0, 0.0 ]
+				},
+				"umouth" : {
+					"position" : [ 0.0, "-this + 0.02", "-this + 0.02 - variable.horse.mouth_anim" ],
+					"rotation" : [ "-5.4 * variable.horse.mouth_anim - this", "-this", 0.0 ]
+				}
+			}
+		},
+		"animation.horse.saddle" : {
+			"loop" : true,
+			"bones" : {
+				"saddlel" : {
+					"rotation" : [ "-this + ((query.has_rider) ? -60 : (variable.horse.leg_x_rot * 18.9));", 0.0, "-this + ((query.has_rider) ? 0.0 : (variable.horse.leg_x_rot * 28.65));" ]
+				},
+				"saddlel2" : {
+					"rotation" : [ "-this + ((query.has_rider) ? -60 : (variable.horse.leg_x_rot * 18.9));", 0.0, "-this + ((query.has_rider) ? 0.0 : (variable.horse.leg_x_rot * 28.65));" ]
+				},
+				"saddlemouthline" : {
+					"rotation" : [ "variable.horse.head_x_rot - this", 0.0, 0.0 ]
+				},
+				"saddlemouthliner" : {
+					"rotation" : [ "variable.horse.head_x_rot - this", 0.0, 0.0 ]
+				},
+				"saddler" : {
+					"rotation" : [ "-this + ((query.has_rider) ? -60 : (variable.horse.leg_x_rot * 18.9));", 0.0, "-this + ((query.has_rider) ? 0.0 : (variable.horse.leg_x_rot * 28.65));" ]
+				},
+				"saddler2" : {
+					"rotation" : [ "-this + ((query.has_rider) ? -60 : (variable.horse.leg_x_rot * 18.9));", 0.0, "-this + ((query.has_rider) ? 0.0 : (variable.horse.leg_x_rot * 28.65));" ]
+				}
+			}
+		},
+		"animation.horse.setup" : {
+			"loop" : true,
+			"bones" : {
+				"bag1" : {
+					"rotation" : [ 0.0, 90.0, 0.0 ]
+				},
+				"bag2" : {
+					"rotation" : [ 0.0, 90.0, 0.0 ]
+				},
+				"body" : {
+					"position" : [ "-this", 0.0, 0.0 ],
+					"rotation" : [ "-this", 0.0, 0.0 ]
+				},
+				"ear1" : {
+					"rotation" : [ 0.0, 0.0, 5.0 ]
+				},
+				"ear2" : {
+					"rotation" : [ 0.0, 0.0, -5.0 ]
+				},
+				"head" : {
+					"rotation" : [ "30 -this", "-this", "-this" ]
+				},
+				"muleearl" : {
+					"position" : [ 0.0, "-this", "-this" ],
+					"rotation" : [ "-this", "-this", 15.0 ]
+				},
+				"muleearr" : {
+					"position" : [ 0.0, "-this", "-this" ],
+					"rotation" : [ "-this", "-this", -15.0 ]
+				}
+			}
+		},
+		"animation.horse.stand" : {
+			"loop" : true,
+			"bones" : {
+				"bag1" : {
+					"rotation" : [ "variable.horse.leg_x_rot * 0.2", 0.0, 0.0 ]
+				},
+				"bag2" : {
+					"rotation" : [ "-variable.horse.leg_x_rot * 0.2", 0.0, 0.0 ]
+				},
+				"body" : {
+					"rotation" : [ "variable.horse.delta_stand_anim * variable.horse.body_standing_angle", 0.0, 0.0 ]
+				},
+				"neck" : {
+					"rotation" : [ "variable.horse.delta_stand_anim * (15.0 + variable.horse.head_x_rot) + variable.horse.inverse_max_anim * (0.52 + variable.horse.head_x_rot) - this", "(variable.horse.delta_stand_anim + variable.horse.inverse_max_anim) * query.head_y_rotation(20.0) - this", 0.0 ]
+				}
+			}
+		},
+		"animation.horse.tail" : {
+			"loop" : true,
+			"bones" : {
+				"taila" : {
+					"rotation" : [ "variable.horse.delta_stand_anim * 80.0 + (1.0 - variable.horse.delta_stand_anim) * 25.0 - this", "((variable.horse.tail_counter != 0.0) ? math.cos((query.life_time * 20.0 + query.frame_alpha) * 40.11) * 57.3 : 0.0) - this", 0.0 ]
+				},
+				"tailc" : {
+					"rotation" : [ -0.26, 0.0, 0.0 ]
+				}
+			}
+		},
+		"animation.horse.walk" : {
+			"loop" : true,
+			"bones" : {
+				"bag1" : {
+					"rotation" : [ 0.0, 0.0, "variable.horse.leg_x_rot * 0.2 * 57.3" ]
+				},
+				"bag2" : {
+					"rotation" : [ 0.0, 0.0, "-variable.horse.leg_x_rot * 0.2 * 57.3" ]
+				},
+				"leg1a" : {
+					"rotation" : [ "(variable.horse.leg_standing_angle - variable.horse.body_standing_angle) * variable.horse.delta_stand_anim - 57.3 * (variable.horse.leg_anim * 0.5 * query.modified_move_speed) * (1.0 - variable.horse.delta_stand_anim) - this", 0.0, 0.0 ]
+				},
+				"leg2a" : {
+					"rotation" : [ "(variable.horse.leg_standing_angle - variable.horse.body_standing_angle) * variable.horse.delta_stand_anim  + 57.3 * (variable.horse.leg_anim * 0.5 * query.modified_move_speed) * (1.0 - variable.horse.delta_stand_anim)- this", 0.0, 0.0 ]
+				},
+				"leg3a" : {
+					"rotation" : [ "(variable.horse.leg_default_angle +  57.3 * variable.horse.leg_standing_factor) * variable.horse.delta_stand_anim + 57.3 * variable.horse.leg_x_rot * (1.0 - variable.horse.delta_stand_anim)- this", 0.0, 0.0 ]
+				},
+				"leg4a" : {
+					"rotation" : [ "(variable.horse.leg_default_angle -  57.3 * variable.horse.leg_standing_factor) * variable.horse.delta_stand_anim - 57.3 * variable.horse.leg_x_rot * (1.0 - variable.horse.delta_stand_anim)- this", 0.0, 0.0 ]
+				}
+			}
+		}
+	}
+}

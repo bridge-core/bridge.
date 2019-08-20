@@ -1,0 +1,17 @@
+{
+    "field_of_view": 80.0,
+    "near_clipping_plane": 0.025,
+    "far_clipping_plane": 2500.0,
+    "render_player_model": true,
+    "priority": 1,
+    "behaviors": {
+        "fly": {
+            "speed": 10.0,
+            "speed_alt": 20.0
+        },
+        "first_person_look": {
+            "pitch_min": -90.0,
+            "pitch_max": 90.0
+        }
+    }
+}

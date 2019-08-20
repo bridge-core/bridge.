@@ -1,0 +1,37 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "ice_plains"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.5,
+        "snow_accumulation": [ 0.25, 1.0 ],
+        "temperature": 0.0
+      },
+      "minecraft:overworld_height": {
+        "noise_type": "lowlands"
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 7,
+        "floor_material": "minecraft:gravel",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:dirt",
+        "top_material": "minecraft:grass"
+      },
+      "minecraft:world_generation_rules": {
+        "hills_transformation": "ice_mountains",
+        "mutate_transformation": "ice_plains_spikes",
+        "generate_for_climates": [
+          [ "frozen", 3 ]
+        ]
+      },
+
+      "frozen": {},
+      "ice": {},
+      "ice_plains": {},
+      "overworld": {}
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "mega_taiga_surface_trees_feature",
+      "places_feature": "minecraft:legacy:mega_taiga_tree_feature"
+    },
+    "conditions": {
+      "placement_pass": "surface_pass",
+      "minecraft:biome_filter": [
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "taiga"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "mega"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "mutated"
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 1,
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

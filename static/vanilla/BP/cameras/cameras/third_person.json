@@ -1,0 +1,45 @@
+{
+  "field_of_view": 66.0,
+  "near_clipping_plane": 0.025,
+  "far_clipping_plane": 2500.0,
+  "render_player_model": true,
+  "priority": 1,
+  "player_rotation_offset": [ 0.0, 180.0 ],
+  "blend_in_default": {
+    "blend_time": 0.0,
+    "ease": "in_out_cubic",
+    "camera_from_accepts_input": false,
+    "camera_to_accepts_input": false
+  },
+  "behaviors": {
+    "orbit": {
+      "azimuth_smoothing_spring": 0,
+      "polar_angle_smoothing_spring": 0,
+      "distance_smoothing_spring": 0,
+      "polar_angle_min": 0.1,
+      "polar_angle_max": 179.9,
+      "radius": 4.0
+    },
+    "look_at": {
+      "soft_bounds": [ 0.0, 0.0, 0.0, 0.0 ],
+      "hard_bounds": [ 0.0, 0.0, 0.0, 0.0 ],
+      "soft_bounds_smoothing_spring": 64
+    },
+    "avoidance": {
+      "relax_distance_smoothing_spring": 0.0,
+      "distance_constraint_min": 0.25
+    },
+    "sneak": {
+      "camera_interpolation_rate": 0.03,
+      "sneak_offset": -0.125
+    },
+    "bob": {},
+    "portal": {},
+    "liquid_offset": {},
+    "ride_rotation": {}
+  },
+  "activation_rule": {
+    "type": "option",
+    "camera_option": "third_person"
+  }
+}

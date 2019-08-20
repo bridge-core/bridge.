@@ -5,6 +5,9 @@
     "path": "animations/",
     
     "templates": {
+        "$default_pack": {
+            "path": "animations/"
+        },
         "Blank Animation": {
             "format_version": {},
             "animations": {

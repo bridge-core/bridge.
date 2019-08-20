@@ -1,0 +1,271 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:mooshroom",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+
+    "component_groups": {
+      "minecraft:mooshroom_become_cow": {
+        "minecraft:transformation": {
+          "into": "minecraft:cow"
+        }
+      },
+      "minecraft:cow_baby": {
+        "minecraft:is_baby": {
+        },
+        "minecraft:scale": {
+          "value":0.5
+        },
+        "minecraft:ageable": {
+          "duration": 1200,
+          "feed_items": "wheat",
+          "grow_up": {
+            "event": "minecraft:ageable_grow_up",
+            "target": "self"
+          }
+        },
+        "minecraft:behavior.follow_parent": {
+          "priority": 6,
+          "speed_multiplier": 1.1
+        }
+      },
+
+      "minecraft:cow_adult": {
+        "minecraft:loot": {
+          "table": "loot_tables/entities/mooshroom.json"
+        },
+        "minecraft:behavior.breed": {
+          "priority": 3,
+          "speed_multiplier": 1.0
+        },
+        "minecraft:breedable": {
+          "require_tame": false,
+          "breed_items": "wheat",
+          "breeds_with": {
+            "mate_type": "minecraft:mooshroom",
+            "baby_type": "minecraft:mooshroom",
+            "breed_event": {
+              "event": "minecraft:entity_born",
+              "target": "baby"
+            }
+          }
+        },
+        "minecraft:interact": [
+          {
+            "filters": {
+              "all_of": [
+                { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "bowl"},
+                { "test" :  "is_family", "subject" : "other", "value" :  "player"},
+                { "test" :  "has_component", "operator": "!=", "value" :  "minecraft:transformation"}
+              ]
+            },
+            "use_item": true,
+            "transform_to_item": "mushroom_stew:0",
+            "interact_text": "action.interact.moostew"
+          },
+          {
+            "filters": {
+              "all_of": [
+                { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "shears"},
+                { "test" :  "has_component", "operator": "!=", "value" :  "minecraft:transformation"}
+              ]
+            },
+            "event": "become_cow",
+            "target": "self",
+            "use_item": false,
+            "hurt_item": 1,
+            "play_sounds": "shear",
+            "spawn_items": { "table": "loot_tables/entities/mooshroom_shear.json" },
+            "particle_on_start": { "particle_type": "largeexplode", "particle_y_offset": 0.25, "particle_offset_towards_interactor": true },
+            "interact_text": "action.interact.mooshear"
+          },
+          {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "bucket:0"},
+                  { "test" :  "is_family", "subject" : "other", "value" :  "player"}
+                ]
+              }
+            },
+            "use_item": true,
+            "transform_to_item": "bucket:1",
+            "play_sounds": "milk",
+            "interact_text": "action.interact.milk"
+          }
+        ]
+      }
+    },
+
+    "components": {
+      "minecraft:type_family": {
+        "family": [ "mushroomcow" ]
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0
+      },
+      "minecraft:collision_box": {
+        "width": 0.9,
+        "height": 1.3
+      },
+      "minecraft:nameable": {
+      },
+      "minecraft:health": {
+        "value": 10,
+        "max": 10
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:movement": {
+        "value": 0.25
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true,
+        "avoid_water": true,
+        "avoid_damage_blocks": true
+      },
+      "minecraft:movement.basic": {
+        
+      },
+      "minecraft:jump.static": {
+      },
+      "minecraft:can_climb": {
+      },
+      "minecraft:leashable": {
+        "soft_distance": 4.0,
+        "hard_distance": 6.0,
+        "max_distance": 10.0
+      },
+      "minecraft:balloonable": {
+      },
+      "minecraft:rideable": {
+        "seat_count": 1,
+        "family_types": [
+          "zombie"
+        ],
+        "seats": {
+          "position": [0.0, 1.105, 0.0]
+        }
+      },
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:behavior.panic": {
+        "priority": 1,
+        "speed_multiplier": 1.25
+      },
+      "minecraft:behavior.mount_pathing": {
+        "priority": 2,
+        "speed_multiplier": 1.5,
+        "target_dist": 0.0,
+        "track_target": true
+      },
+      "minecraft:behavior.breed": {
+        "priority": 3,
+        "speed_multiplier": 1.0
+      },
+      "minecraft:behavior.tempt": {
+        "priority": 4,
+        "speed_multiplier": 1.25,
+        "items": [
+          "wheat"
+        ]
+      },
+      "minecraft:behavior.follow_parent": {
+        "priority": 5,
+        "speed_multiplier": 1.1
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 0.8
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 7,
+        "look_distance": 6.0,
+        "probability": 0.02
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 9
+      },
+	    "minecraft:physics": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      }
+    },
+
+
+    "events": {
+      "become_cow": {
+        "remove": {
+        },
+        "add": {
+          "component_groups": [
+            "minecraft:mooshroom_become_cow"
+          ]
+        }
+      },
+      "minecraft:entity_spawned": {
+        "randomize": [
+          {
+            "weight": 95,
+            "remove": {
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:cow_adult"
+              ]
+            }
+          },
+          {
+            "weight": 5,
+            "remove": {
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:cow_baby"
+              ]
+
+            }
+          }
+        ]
+      },
+
+      "minecraft:entity_born": {
+        "remove": {
+        },
+        "add": {
+          "component_groups": [
+            "minecraft:cow_baby"
+          ]
+        }
+      },
+
+      "minecraft:ageable_grow_up": {
+        "remove": {
+          "component_groups": [
+            "minecraft:cow_baby"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "minecraft:cow_adult"
+          ]
+        }
+      }
+    }
+  }
+}

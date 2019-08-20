@@ -1,0 +1,115 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:pufferfish",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "minecraft:pufferfish_puffed": {
+        "minecraft:movement": {
+          "value": 0.13
+        },
+        "minecraft:underwater_movement": {
+          "value": 0.13
+        }
+      },
+      "minecraft:pufferfish_deflated": {
+        "minecraft:movement": {
+          "value": 0.13
+        },
+        "minecraft:underwater_movement": {
+          "value": 0.13
+        }
+      }
+    },
+
+    "components": {
+      "minecraft:type_family": {
+        "family": [ "pufferfish", "fish" ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.8,
+        "height": 0.8
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/pufferfish.json"
+      },
+      "minecraft:scale": {
+        "value": 1.2
+      },
+      "minecraft:health": {
+        "value": 6,
+        "max": 6
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0,
+        "breathes_air": false,
+        "breathes_water": true
+      },
+      "minecraft:navigation.generic": { // Allows the mob to go through water
+        "is_amphibious": false,
+        "can_path_over_water": false,
+        "can_swim": true,
+        "can_walk": false,
+        "can_breach": false,
+        "can_sink": false
+      },
+      "minecraft:movement.sway": {
+        "sway_amplitude": 0.0
+      },
+      "minecraft:behavior.random_swim": { // Randomly selects points to go to, even in water
+        "priority": 3,
+        "speed_multiplier": 1.0,
+        "xz_dist": 16,
+        "y_dist": 4,
+        "interval": 0
+      },
+      "minecraft:behavior.swim_wander": {
+        "priority": 5,
+        "speed_multiplier": 1.0,
+        "interval": 0,
+        "look_ahead": 2.0
+      },
+      "minecraft:nameable": {
+      },
+      "minecraft:physics": {
+        "has_gravity": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      }
+    },
+
+    "events": {
+      "minecraft:entity_spawned": {
+        "add": {
+          "component_groups": [ "minecraft:pufferfish_deflated" ]
+        }
+      },
+
+      "minecraft:on_puff": {
+        "add": { "component_groups": [ "minecraft:pufferfish_puffed" ] },
+        "remove": { "component_groups": [ "minecraft:pufferfish_deflated" ] }
+      },
+
+      "minecraft:on_deflate": {
+        "add": { "component_groups": [ "minecraft:pufferfish_deflated" ] },
+        "remove": { "component_groups": [ "minecraft:pufferfish_puffed" ] }
+      }
+    }
+  }
+}

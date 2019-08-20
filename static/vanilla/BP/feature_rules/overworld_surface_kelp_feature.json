@@ -1,0 +1,87 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "overworld_surface_kelp_feature",
+      "places_feature": "minecraft:kelp_feature"
+    },
+    "conditions": {
+      "placement_pass": "surface_pass",
+      "minecraft:biome_filter": [
+        // (overworld && !ocean) || (ocean && (warm || (frozen && monster)))
+        {
+          "any_of": [
+            {
+              "all_of": [
+                {
+                  "any_of": [
+                    {
+                      "test": "has_biome_tag",
+                      "operator": "==",
+                      "value": "overworld"
+                    },
+                    {
+                      "test": "has_biome_tag",
+                      "operator": "==",
+                      "value": "overworld_generation"
+                    }
+                  ]
+                },
+                {
+                  "test": "has_biome_tag",
+                  "operator": "!=",
+                  "value": "ocean"
+                }
+              ]
+            },
+            {
+              "all_of": [
+                {
+                  "test": "has_biome_tag",
+                  "operator": "==",
+                  "value": "ocean"
+                },
+                {
+                  "any_of": [
+                    {
+                      "test": "has_biome_tag",
+                      "operator": "==",
+                      "value": "warm"
+                    },
+                    {
+                      // frozen_ocean should receive this kelp feature, but legacy_frozen_ocean
+                      // should not. The only distinguishing tag between the two is "monster",
+                      // which is only present on frozen_ocean
+                      "all_of": [
+                        {
+                          "test": "has_biome_tag",
+                          "operator": "==",
+                          "value": "frozen"
+                        },
+                        {
+                          "test": "has_biome_tag",
+                          "operator": "==",
+                          "value": "monster"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 0, // most biomes no-op, but we still need to roll our scatter chance to keep rand consistent
+      "scatter_chance": {
+        "numerator": 1,
+        "denominator": 18
+      },
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

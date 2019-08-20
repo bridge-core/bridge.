@@ -1,0 +1,18 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "hell"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.0,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 2.0
+      },
+      "minecraft:nether_surface": {},
+
+      "nether": {}
+    }
+  }
+}

@@ -5,6 +5,9 @@
     "path": "render_controllers/",
 
     "templates": {
+        "$default_pack": {
+            "path": "render_controllers/"
+        },
         "Blank Render Controller": {
             "format_version": {},
             "render_controllers": {

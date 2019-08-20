@@ -4,6 +4,9 @@
     "extension": "json",
     "path": "items/",
     "templates": {
+        "$default_pack": {
+            "path": "items/"
+        },
         "Blank Item": {
             "format_version": {},
             "minecraft:item": {

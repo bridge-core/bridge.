@@ -1,0 +1,34 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "savanna_plateau"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.0,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 1.0
+      },
+      "minecraft:overworld_height": {
+        "noise_type": "highlands"
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 7,
+        "floor_material": "minecraft:gravel",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:dirt",
+        "top_material": "minecraft:grass"
+      },
+      "minecraft:world_generation_rules": {
+        "mutate_transformation": "savanna_plateau_mutated"
+      },
+
+      "animal": {},
+      "monster": {},
+      "overworld": {},
+      "plateau": {},
+      "savanna": {}
+    }
+  }
+}

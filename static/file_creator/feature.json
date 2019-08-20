@@ -4,6 +4,9 @@
     "extension": "json",
     "path": "features/",
     "templates": {
+        "$default_pack": {
+            "path": "features/"
+        },
         "Blank Ore Feature": {
             "format_version": {},
             "minecraft:ore_feature": {

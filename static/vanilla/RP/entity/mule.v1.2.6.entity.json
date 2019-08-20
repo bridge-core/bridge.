@@ -1,0 +1,94 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "minecraft:mule",
+      "min_engine_version": "1.2.6",
+      "materials": {
+        "default": "horse",
+        "horse_leather_armor": "horse_leather_armor",
+        "horse_hair": "horse_hair",
+        "horse_saddle": "horse_saddle"
+      },
+      "textures": {
+        "base_brown": "textures/entity/horse2/horse_brown",
+        "base_white": "textures/entity/horse2/horse_white",
+        "base_creamy": "textures/entity/horse2/horse_creamy",
+        "base_chestnut": "textures/entity/horse2/horse_chestnut",
+        "base_black": "textures/entity/horse2/horse_black",
+        "base_gray": "textures/entity/horse2/horse_gray",
+        "base_darkbrown": "textures/entity/horse2/horse_darkbrown",
+        "markings_none": "textures/entity/horse2/horse_markings_none",
+        "markings_white": "textures/entity/horse2/horse_markings_white",
+        "markings_whitefield": "textures/entity/horse2/horse_markings_whitefield",
+        "markings_whitedots": "textures/entity/horse2/horse_markings_whitedots",
+        "markings_blackdots": "textures/entity/horse2/horse_markings_blackdots",
+        "mule": "textures/entity/horse2/mule",
+        "donkey": "textures/entity/horse2/donkey",
+        "skeleton": "textures/entity/horse2/horse_skeleton",
+        "zombie": "textures/entity/horse2/horse_zombie",
+        "armor_none": "textures/entity/horse2/armor/horse_armor_none",
+        "armor_leather": "textures/entity/horse2/armor/horse_armor_leather",
+        "armor_iron": "textures/entity/horse2/armor/horse_armor_iron",
+        "armor_gold": "textures/entity/horse2/armor/horse_armor_gold",
+        "armor_diamond": "textures/entity/horse2/armor/horse_armor_diamond"
+      },
+      "geometry": {
+        "default": "geometry.horse.v2"
+      },
+      "animations": {
+        "setup": "animation.horse_v1.2.6.setup",
+        "head_realignment": "animation.horse_v2.head_realignment",
+        "stand": "animation.horse_v2.stand",
+        "walk": "animation.horse_v2.walk",
+        "tail": "animation.horse_v2.tail",
+        "eat": "animation.horse_v2.eat",
+        "saddle": "animation.horse_v2.saddle",
+        "baby_transform": "animation.horse_v2.baby_transform"
+      },
+      "scripts": {
+        "pre_animation": [
+          "variable.horse.tail_random_trigger = (Math.Random(0.0, 200.0) < 1.0);",
+          "variable.horse.tail_counter = query.life_time > 0.0 ? (variable.horse.tail_random_trigger ? 8.0 : (variable.horse.tail_counter > 0.0 ? (variable.horse.tail_counter - 1.0) : 0.0)) : 0.0;",
+          "variable.horse.is_horse = (query.sub_variant == 0.0);",
+          "variable.horse.large_ears = ((query.sub_variant == 1.0) || (query.sub_variant == 2.0));",
+          "variable.horse.prev_eat_anim = query.life_time > 0.0 ? variable.horse.eat_anim : 0.0;",
+          "variable.horse.eat_anim = query.is_eating * query.life_time > 0.0 ? ((query.is_standing) ? 0.0 : 1.0) * math.clamp((0.6 * variable.horse.eat_anim + (query.is_eating ? 0.45 : 0.05)), 0.0, 1.0) : 0.0;",
+          "variable.horse.prev_stand_anim = query.life_time > 0.0 ? variable.horse.stand_anim : 0.0;",
+          "variable.horse.stand_anim = query.life_time > 0.0 ? math.clamp((query.is_standing ? (0.45 + 0.6 * variable.horse.stand_anim) : (.48 * variable.horse.stand_anim * variable.horse.stand_anim * variable.horse.stand_anim + 0.4 * variable.horse.stand_anim - 0.05)), 0.0, 1.0) : 0.0;",
+          "variable.horse.delta_stand_anim = Math.lerp(variable.horse.prev_stand_anim, variable.horse.stand_anim, query.frame_alpha);",
+          "variable.horse.head_x_rot = query.target_x_rotation + (query.modified_move_speed > 0.2 ? ((math.cos(query.modified_distance_moved * 11.46) + 1.0) * query.modified_move_speed * 11.46) : 0.0);",
+          "variable.horse.sin_factor = math.sin((query.life_time * 20.0 + query.frame_alpha) * 57.3);",
+          "variable.horse.inverse_max_anim = (1.0f - (variable.horse.stand_anim < variable.horse.eat_anim ? variable.horse.eat_anim : variable.horse.stand_anim));",
+          "variable.horse.mouth_anim = query.life_time > 0.0 ? (variable.horse.mouth_anim + ((query.open_mouth ? 0.75f : 0.05) - variable.horse.mouth_anim * 1.7f) * query.frame_alpha) : 0.0;",
+          "variable.horse.base_head_angle = variable.horse.inverse_max_anim * (variable.horse.head_x_rot + variable.horse.mouth_anim * variable.horse.sin_factor * 2.87);",
+          "variable.horse.leg_anim = math.cos((query.modified_distance_moved * 38.2) + 180.0);",
+          "variable.horse.leg_x_rot = math.cos((query.modified_distance_moved * 38.2) + 180.0) * 0.8 * query.modified_move_speed;",
+          "variable.horse.body_standing_angle = -45.0;",
+          "variable.horse.leg_standing_angle = 5.0;",
+          "variable.horse.leg_standing_factor = math.cos((query.life_time * 20.0 + query.frame_alpha) * 34.38 + 180.0);",
+          "variable.horse.leg_default_angle = -60.0;",
+          "variable.horse.baby_body_scale = 1.0;",
+          "variable.horse.baby_body_pos = 5.0;",
+          "variable.horse.baby_leg_scale = 1.5;"
+        ],
+        "scale": "0.92",
+        "animate": [
+          "setup",
+          "head_realignment",
+          "stand",
+          "eat",
+          "walk",
+          "saddle",
+          "tail",
+          { "baby_transform": "query.is_baby" }
+        ]
+      },
+      "render_controllers": [ "controller.render.horse" ],
+      "spawn_egg": {
+        "texture": "spawn_egg",
+        "texture_index": 31
+      }
+    }
+  }
+}

@@ -17,7 +17,7 @@
                 chips
                 :label="label"
                 :items="items"
-                :menu-props="{ maxHeight: 130, top: false }"
+                :menu-props="{ maxHeight: 120, top: false, contentClass: 'json-input-suggestions' }"
                 :hide-no-data="true"
                 no-data-text="No suggestions available..."
                 class="json-input-menu"

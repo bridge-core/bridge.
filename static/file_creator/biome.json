@@ -3,5 +3,9 @@
     "title": "Biome",
     "extension": "json",
     "path": "biomes/",
-    "templates": {}
+    "templates": {
+        "$default_pack": {
+            "path": "biomes/"
+        }
+    }
 }

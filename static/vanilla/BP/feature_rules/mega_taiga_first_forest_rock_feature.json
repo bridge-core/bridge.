@@ -1,0 +1,30 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "mega_taiga_first_forest_rock_feature",
+      "places_feature": "minecraft:legacy:forest_rock_feature"
+    },
+    "conditions": {
+      "placement_pass": "first_pass",
+      "minecraft:biome_filter": [
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "taiga"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "mega"
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 1,
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  }
+}

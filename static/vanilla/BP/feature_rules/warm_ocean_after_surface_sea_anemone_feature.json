@@ -1,0 +1,36 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "warm_ocean_after_surface_sea_anemone_feature",
+      "places_feature": "minecraft:sea_anemone_feature"
+    },
+    "conditions": {
+      "placement_pass": "after_surface_pass",
+      "minecraft:biome_filter": [
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "warm"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "ocean"
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 20,
+      "x": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      },
+      "y": 62,
+      "z": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      }
+    }
+  }
+}

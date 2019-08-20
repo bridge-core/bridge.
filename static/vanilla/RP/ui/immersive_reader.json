@@ -1,0 +1,112 @@
+/********************************************************
+*   (c) Mojang. All rights reserved                     *
+*   (c) Microsoft. All rights reserved.                 *
+*********************************************************/
+{
+  "namespace": "im_reader",
+
+  "reader_button_contents": {
+    "type": "image",
+    "texture": "textures/ui/immersive_reader"
+  },
+
+  "reader_button@common_buttons.light_content_button": {
+    "size": [ 16, 16 ],
+    "$pressed_button_name": "button.immersive_reader",
+    "$button_content": "im_reader.reader_button_contents"
+  },
+
+  "webview": {
+    // Ignored until fully implemented
+    "ignored": true,
+    "type": "custom",
+    "layer": 1,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ "100%", "100%" ],
+    "renderer": "web_view_renderer",
+    "bindings": [
+      {
+        "binding_type": "global",
+        "binding_condition": "visible",
+        // Binding itself doesn't do anything, but the callback is used to fill the property bag
+        "binding_name": "#webview_update"
+      }
+    ]
+  },
+
+  "debug_reader_text": {
+    "ignored": "$is_publish",
+    "type": "label",
+    "color": "$body_text_color",
+    "max_size": [ "100% - 20px", "100% - 20px" ],
+    "size": [ "default", "default" ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "text": "#debug_reader_text",
+    "text_alignment": "center",
+    "font_type": "smooth",
+    "bindings": [
+      {
+        "binding_name": "#debug_reader_text"
+      }
+    ]
+  },
+
+  "immersive_reader_screen_content": {
+    "type": "stack_panel",
+    "size": ["100%", "100%"],
+    "controls": [
+      {
+        "top_bar@common_store.store_top_bar": {
+          "size": [ "100%", 23 ],
+          "controls": [
+            {
+              "back_button_content_panel@chat.back_content_panel": {
+                "offset": [ 2, 0 ]
+              }
+            },
+            {
+              "title": {
+                "type": "label",
+                "offset": [ 0, -1 ],
+                "text": "Immersive Reader",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "color": "$title_text_color"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "screen_contents": {
+          "type": "panel",
+          "size": [ "100%", "fill" ],
+          "controls": [
+            { "debug_text@im_reader.debug_reader_text": { } },
+            { "webview@im_reader.webview": { } }
+          ]
+        }
+      }
+    ]
+  },
+
+  "background": {
+    "type": "image",
+    "texture": "textures/ui/Banners",
+    "layer": -1
+  },
+
+  "immersive_reader_screen@common.base_screen": {
+    "$screen_content": "im_reader.immersive_reader_screen_content",
+    "$screen_bg_content": "im_reader.background",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ]
+  }
+}
