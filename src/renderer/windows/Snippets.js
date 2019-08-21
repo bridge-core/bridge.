@@ -98,6 +98,10 @@ class SnippetWindow extends ContentWindow {
 
         this.showWin();
     }
+    close() {
+        super.close();
+        WINDOW = undefined;
+    }
 
     updateContent() {
         this.update({
@@ -115,7 +119,7 @@ let WINDOW;
 export default {
     show: async () => {
         await assureLoadedSnippets();
-        console.log(SNIPPETS);
+        // console.log(SNIPPETS);
 
         let type = FileType.get();
         if(SNIPPETS === undefined || SNIPPETS[type] === undefined || SNIPPETS[type].length === 0) return;

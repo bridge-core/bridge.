@@ -203,12 +203,13 @@ export default class CreateFileWindow extends ContentWindow {
         if($default_pack !== undefined) {
             let arr;
             let p = join(__static, "vanilla", rp_definition ? "RP" : "BP", $default_pack.path);
+            console.log(p);
             if($default_pack.deep) arr = walkSync(p, true);
             else arr = await fs.readdir(p);
 
             arr.forEach(f => {
                 templates[f] = async () => (await fs.readFile(join(p, f))).toString();
-            })
+            });
         }
         let options = ["No template"].concat(Object.keys(templates));
         
