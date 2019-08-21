@@ -27,7 +27,7 @@ If applicable, add screenshots to help explain your problem or upload files to h
 
 **Platform (please complete the following information):**
  - OS: [e.g. Windows 10]
- - App Version [e.g. 0.13.3]
+ - App Version: [e.g. 0.13.3]
 
 **Additional context**
 Add any other context about the problem here.
