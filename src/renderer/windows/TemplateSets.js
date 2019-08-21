@@ -162,6 +162,10 @@ class TemplateSetsWindow extends TabWindow {
 
         this.update();
     }
+    close() {
+        super.close();
+        WIN = undefined;
+    }
 
     select(id, force_update) {
         this.BINDINGS = {};
