@@ -8,7 +8,6 @@ import uuidv4 from "uuid/v4";
 import { walkSync } from "../scripts/autoCompletions/Dynamic";
 import { join } from "path";
 import { promises as fs } from "fs";
-import cJSON from "comment-json";
 
 class FileContent {
     constructor(name, ext="json", parent, expand_path="", { location, ...add_content }={}, use_rp_path) {
@@ -203,7 +202,8 @@ export default class CreateFileWindow extends ContentWindow {
         if($default_pack !== undefined) {
             let arr;
             let p = join(__static, "vanilla", rp_definition ? "RP" : "BP", $default_pack.path);
-            console.log(p);
+            p = p.substring(0, p.length - 1);
+  
             if($default_pack.deep) arr = walkSync(p, true);
             else arr = await fs.readdir(p);
 
