@@ -2,5 +2,6 @@
     "description": {
         "identifier": { "@meta": { "is_value": true } }
     },
-    "tags": [ "crafting_table", "furnace", "blast_furnace", "smoker", "campfire", "stonecutter" ]
+    "tags": [ "crafting_table", "furnace", "blast_furnace", "smoker", "campfire", "stonecutter" ],
+    "item_block_identifier": "$general.item_identifier and $general.block_identifier"
 }
