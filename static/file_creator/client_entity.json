@@ -6,7 +6,7 @@
 
     "templates": {
         "$default_pack": {
-            "path": "entity/"
+            "path": "RP/entity"
         },
         "Blank Entity": {
             "format_version": {},

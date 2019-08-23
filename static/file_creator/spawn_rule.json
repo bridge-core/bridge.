@@ -5,7 +5,7 @@
     "path": "spawn_rules/",
     "templates": {
         "$default_pack": {
-            "path": "spawn_rules/"
+            "path": "BP/spawn_rules"
         },
         "Blank Spawn Rule": {
             "format_version": {},

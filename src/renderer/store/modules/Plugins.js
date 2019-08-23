@@ -4,6 +4,7 @@ import Vue from "vue";
 import Provider from "../../scripts/autoCompletions/Provider";
 import FileType from "../../scripts/editor/FileType";
 import EventBus from "../../scripts/EventBus";
+import { PluginSnippets } from "../../windows/Snippets";
 
 const state = {
     installed_plugins: [],
@@ -32,6 +33,7 @@ const mutations = {
         Provider.removePluginCompletions();
         FileType.reset();
         Bridge.reset();
+        PluginSnippets.removeAll();
         
         EventBus.trigger("bridge:unloadPlugins");
         Vue.set(state, "installed_plugins", []);

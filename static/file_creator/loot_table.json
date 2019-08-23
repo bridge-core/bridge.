@@ -6,7 +6,7 @@
     "templates": {
         "$default_pack": {
             "deep": true,
-            "path": "loot_tables/"
+            "path": "BP/loot_tables"
         },
         "Blank Loot Table": {
             "pools": [{

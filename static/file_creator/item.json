@@ -5,7 +5,7 @@
     "path": "items/",
     "templates": {
         "$default_pack": {
-            "path": "items/"
+            "path": "BP/items"
         },
         "Blank Item": {
             "format_version": {},

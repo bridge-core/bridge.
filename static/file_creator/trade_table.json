@@ -6,7 +6,7 @@
     "templates": {
         "$default_pack": {
             "deep": true,
-            "path": "trading/"
+            "path": "BP/trading"
         },
         "Blank Trade Table": {
             "tiers": [{

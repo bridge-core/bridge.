@@ -5,7 +5,7 @@
     "path": "entities/",
     "templates": {
         "$default_pack": {
-            "path": "entities/"
+            "path": "BP/entities"
         },
         "Blank Entity": {
             "format_version": {},

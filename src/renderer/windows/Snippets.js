@@ -1,10 +1,8 @@
 import ContentWindow from "../scripts/commonWindows/Content";
-import fs from "fs";
 import FileType from "../scripts/editor/FileType";
 import TabSystem from "../scripts/TabSystem";
 import JSONTree from "../scripts/editor/JsonTree";
 import Store from "../store/index";
-import deepmerge from "deepmerge";
 import EventBus from "../scripts/EventBus";
 
 let SNIPPETS; 
@@ -112,6 +110,20 @@ class SnippetWindow extends ContentWindow {
         this.content[2].options = (await convArr()).sort((a, b) => a.text.localeCompare(b.text));
         this.updateContent();
         this.show();
+    }
+}
+
+export class PluginSnippets {
+    static add(s) {
+        addSnippet({
+            ...s,
+            is_plugin: true
+        });
+    }
+    static removeAll() {
+        for(let type in SNIPPETS) {
+            SNIPPETS[type] = SNIPPETS[type].filter(s => !s.is_plugin);
+        }
     }
 }
 

@@ -5,7 +5,7 @@
     "path": "biomes/",
     "templates": {
         "$default_pack": {
-            "path": "biomes/"
+            "path": "BP/biomes"
         }
     }
 }

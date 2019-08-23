@@ -5,7 +5,7 @@
     "path": "feature_rules/",
     "templates": {
         "$default_pack": {
-            "path": "feature_rules/"
+            "path": "BP/feature_rules"
         },
         "Blank Feature Rule": {
             "format_version": {},

@@ -201,8 +201,7 @@ export default class CreateFileWindow extends ContentWindow {
         const { $default_pack, rp_definition, ...templates } = templ;
         if($default_pack !== undefined) {
             let arr;
-            let p = join(__static, "vanilla", rp_definition ? "RP" : "BP", $default_pack.path);
-            p = p.substring(0, p.length - 1);
+            let p = join(__static, "vanilla", $default_pack.path);
   
             if($default_pack.deep) arr = walkSync(p, true);
             else arr = await fs.readdir(p);

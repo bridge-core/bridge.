@@ -5,7 +5,8 @@ import { readJSON } from "../utilities/JsonFS";
 import Store from "../../store/index";
 import Bridge from "../../scripts/plugins/PluginEnv";
 import EventBus from "../EventBus";
-
+import { PluginSnippets } from "../../windows/Snippets";
+import cJSON from "comment-json";
 let PLUGIN_FOLDERS;
 let PLUGIN_DATA = [];
 
@@ -48,7 +49,13 @@ export default class PluginLoader {
                 manifest = await readJSON(path.join(plugin_path, "manifest.json"));
             } catch(e) { return; }
 
-            if(!unloaded_plugins.includes(plugin_path)) await this.loadScripts(plugin_path, manifest.api_version);
+            //IF ACTIVE: LOAD PLUGIN
+            if(!unloaded_plugins.includes(plugin_path)) {
+                await Promise.all([
+                    this.loadScripts(plugin_path, manifest.api_version),
+                    this.loadSnippets(plugin_path)
+                ]);
+            } 
             PLUGIN_DATA.push(manifest);
         }
     }
@@ -73,6 +80,20 @@ export default class PluginLoader {
             } else {
                 throw new Error("Undefined API Version: " + api_version);
             }
+        });
+    }
+
+    static async loadSnippets(plugin_path) {
+        let snippets = await fs.readdir(path.join(plugin_path, "snippets"));
+
+        snippets = await Promise.all(
+            snippets.map(s => 
+                fs.readFile(path.join(plugin_path, "snippets", s))
+                    .catch(e => {})
+            )
+        );
+        snippets.forEach(s => {
+            if(s !== undefined) PluginSnippets.add(cJSON.parse(s.toString(), undefined, true));
         });
     }
 }

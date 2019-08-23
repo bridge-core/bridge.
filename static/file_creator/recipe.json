@@ -5,7 +5,7 @@
     "path": "recipes/",
     "templates": {
         "$default_pack": {
-            "path": "recipes/"
+            "path": "BP/recipes"
         },
         "Blank Shaped Recipe": {
             "format_version": {},
