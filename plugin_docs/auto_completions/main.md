@@ -1,4 +1,4 @@
-## Auto-Completions
+# Auto-Completions
 bridge.'s auto-completions are fully data-driven with JSON files. The internal files are located inside the ```static/auto_completions``` folder. As always, it can be of great help to browse through the files to understand how the format works. This JSON format is also in use for text auto-completions but data is interpreted differently.
 
 ### Basics
