@@ -26,7 +26,12 @@ export default async function findRP() {
     }
 
     let rps = await fs.readdir(RP_BASE_PATH);
-    let rp_data = await Promise.all(rps.map(rp => readJSON(path.join(RP_BASE_PATH, rp, "manifest.json"))));
+    let rp_data = await Promise.all(rps.map(
+        rp => readJSON(path.join(RP_BASE_PATH, rp, "manifest.json"))
+            .catch(err => {
+                return undefined;
+            })
+    ));
     
     for(let i = 0; i < rp_data.length; i++) {
         if(rp_data[i] !== undefined && rp_data[i].header.uuid === uuid) {

@@ -202,6 +202,5 @@ export default class FileType {
         } catch(e) {
             return "//";
         }
-        
     }
 }
