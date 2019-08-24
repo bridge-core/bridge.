@@ -112,6 +112,7 @@
         :label="content.text"
         :value="content.input"
         :autofocus="content.has_focus"
+        hide-details
         ref="input"
     />
     <v-textarea
@@ -198,7 +199,6 @@
     <div v-else>
         <br>
         <strong class="error--text" >Invalid UI type: "{{ content.type }}"</strong>
-
     </div>
 </template>
 

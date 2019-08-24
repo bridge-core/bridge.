@@ -16,7 +16,7 @@ export default class OmegaCache {
         this.project = project;
         this.current_base = path.join(BASE_PATH, project, "bridge/cache");
         fs.mkdir(this.current_base, (err) => {
-            if(err) console.log("[O.CACHE] Did not create new cache folder: ", err.message);
+            // if(err) console.error("[O.CACHE] Did not create new cache folder: ", err.message);
         });
     }
 

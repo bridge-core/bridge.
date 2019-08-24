@@ -12,17 +12,14 @@ class Creator {
             },
             ...links.map(({ link, ...other }) => {
                 return {
-                    type: "button",
-                    is_rounded: true,
+                    type: "icon-button",
+                    is_flat: true,
                     ...other,
                     action: () => {
                         shell.openExternal(link)
                     }
                 }
-            }),
-            {
-                type: "divider"
-            }
+            })
         ]
     }
 }
@@ -53,20 +50,24 @@ export default class CreditsWindow extends TabWindow {
             },
             content: [
                 {
-                    text: `\n\tYou are running bridge. ${APP_VERSION}\n\n`
+                    type: "header",
+                    text: `\nYou are running bridge. ${APP_VERSION}\n\n`
                 },
                 {
                     type: "divider"
                 },
                 new Creator("Developer", "solvedDev", [{
                     color: "info",
-                    text: "Twitter",
-                    link: "https://twitter.com/lKanno_"
+                    text: "mdi-twitter",
+                    link: "https://twitter.com/solvedDev"
                 },
                 {
-                    text: "GitHub",
+                    text: "mdi-github-circle",
                     link: "https://github.com/solvedDev"
-                }])
+                }]),
+                {
+                    type: "divider"
+                }
             ]
         });
         this.addTab({
@@ -77,9 +78,12 @@ export default class CreditsWindow extends TabWindow {
             content: [
                 new Creator("Logo", "Matteo Simonetti", [{
                     color: "info",
-                    text: "Twitter",
+                    text: "mdi-twitter",
                     link: "https://twitter.com/lKanno_"
-                }])
+                }]),
+                {
+                    type: "divider"
+                }
             ]
         });
         this.addTab({

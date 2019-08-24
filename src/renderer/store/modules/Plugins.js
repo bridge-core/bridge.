@@ -18,9 +18,9 @@ const mutations = {
         Bridge.Interpreter.execute(code, path, undefined, undefined, blocked);
 
         //CONSOLE INFO
-        console.groupCollapsed(path.split(/\\|\//g).pop());
-        console.log(code);
-        console.groupEnd();
+        // console.groupCollapsed(path.split(/\\|\//g).pop());
+        // console.log(code);
+        // console.groupEnd();
     },
     unloadPlugins(state) {
         if(Bridge.getMenus()) Bridge.getMenus().forEach(menu => Store.commit("removeFromAppMenu", menu));
