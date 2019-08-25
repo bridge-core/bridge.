@@ -1,7 +1,10 @@
-# bridge.
-
-## Download
-#### [Latest version!](https://github.com/solvedDev/bridge./releases/latest)
+<h1 align="center">bridge.</h1>
+<p align="center">
+  <a href="https://github.com/solvedDev/bridge./releases/latest">
+    <img width="256" height="256" src="https://raw.githubusercontent.com/solvedDev/bridge./master/images/1024x1024.png">
+    <h4 align="center">Download the latest version</h4>
+  </a>
+</p>
 
 
 ## About bridge.
