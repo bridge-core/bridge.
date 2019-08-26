@@ -25,7 +25,7 @@ export class Omega {
                 this.combine(res, this.eval(data, value_cast || prev_data === "asValue"), prefix);
                 prefix = "";
             } else if(!OPS.includes(data)) {
-                this.combine(res, this.dynamic(data, value_cast), prefix);
+                this.combine(res, this.dynamic(data, value_cast || prev_data === "asValue"), prefix);
                 prefix = "";
             }
 

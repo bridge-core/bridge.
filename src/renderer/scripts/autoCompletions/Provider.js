@@ -228,7 +228,7 @@ class Provider {
     }
 
     omegaExpression(expression) {
-        console.log(Omega.eval(expression));
+        // console.log(Omega.eval(expression));
         return Omega.eval(expression);
     }
 

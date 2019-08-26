@@ -62,7 +62,7 @@
             close() {
                 this.show_menu = false;
             },
-            updateSuggestions(propose, sel_obj, { top, left }) {
+            updateSuggestions(propose, sel_obj, { top, left }={}) {
                 last_sel_object = sel_obj;
                 this.x = left;
                 this.y = top;
