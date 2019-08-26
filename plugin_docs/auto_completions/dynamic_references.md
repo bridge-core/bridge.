@@ -18,7 +18,7 @@ Since v0.13.0-pre10 it is possible to define which file data you want to cache. 
 | ```$dynamic.entity.events``` | Returns event names inside the current file
 | ```$dynamic.entity.animation_references``` | Returns animation references inside the current file
 | ```$dynamic.entity.all_events``` | Returns all event names
-| ```$dynamic.entity.@events``` | Returns all event names prefixed with an "@ "
+| ```$dynamic.entity.@events``` | DEPRECATED - Use ```('@s ' + $dynamic.entity.all_events)``` for prefixing
 | ```$dynamic.recipe.pattern_keys``` | Returns pattern keys defined inside the "pattern" array
 | ```$dynamic.biome.name_references``` | Returns all available biome names
 | ```$dynamic.animation_controller.current_states``` | Returns currently defined states
