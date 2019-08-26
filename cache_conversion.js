@@ -12,11 +12,10 @@ let data = JSON.parse(fs.readFileSync("./bridge/.editor-cache").toString());
 
 for(let file_name in data) {
     let path = "./bridge/cache/BP/" + file_name.replace("<PROJECT NAME>", "");
-    if(path.includes("Wilson")) continue;
     let folder_path = path.split("/");
     folder_path.pop();
     folder_path = folder_path.join("/");
-    console.log(path, folder_path);
+
     try {
         mkdirp.sync(folder_path);
         const { content, format_version } = data[file_name];
