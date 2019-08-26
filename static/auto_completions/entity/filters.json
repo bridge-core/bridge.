@@ -57,10 +57,9 @@
             "$key": "$dynamic.setting.target_version",
             "$default": "$entity.main.minecraft:entity.components as value",
 
-            "Stable": "$entity.main.minecraft:entity.components as value",
-            "Beta": "$entity.main_beta.minecraft:entity.components as value"
+            "Stable": "('minecraft:effect.' + $general.effect_name) and asValue($entity.main.minecraft:entity.components)",
+            "Beta": "('minecraft:effect.' + $general.effect_name) and asValue($entity.main_beta.minecraft:entity.components)"
         },
-        "@value.has_component": "'minecraft:effect.' + $general.effect_name",
         "has_ability": "$general.ability",
         "is_family": "$general.entity.family",
         "has_mob_effect": "$general.effect_name",

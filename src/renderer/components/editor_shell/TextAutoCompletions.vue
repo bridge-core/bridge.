@@ -3,9 +3,8 @@
         class="text-auto-completion-menu"
         v-model="show_menu"
         :max-height="200"
-        :position-x="x + 260 - 190 * is_sidebar_closed"
-        :position-y="y + 120"
-        relative
+        :position-x="x"
+        :position-y="y + 32"
         ref="menu"
     >
         <v-list class="text-auto-completion-list " dense>
@@ -26,7 +25,6 @@
     import TextProvider from "../../scripts/autoCompletions/TextProvider";
     import EventBus from "../../scripts/EventBus";
     let last_sel_object = null;
-    let cursors;
 
     export default {
         name: "text-auto-completions",
@@ -46,7 +44,6 @@
             EventBus.on("bridge:textCompletionsEnter", this.textCompletionsEnter);
             EventBus.on("bridge:textCompletionsOpen", this.isOpen);
             EventBus.on("bridge:closeTextCompletions", this.close);
-            cursors = document.getElementsByClassName("CodeMirror-cursors")[0];
         },
         destroyed() {
             EventBus.off("bridge:textProviderUpdate", this.updateSuggestions);
@@ -65,12 +62,10 @@
             close() {
                 this.show_menu = false;
             },
-            updateSuggestions(propose, sel_obj) {
+            updateSuggestions(propose, sel_obj, { top, left }) {
                 last_sel_object = sel_obj;
-                if(cursors.children[0] !== undefined) {
-                    this.x = Number(cursors.children[0].style.left.replace("px", ""));
-                    this.y = Number(cursors.children[0].style.top.replace("px", ""));
-                }
+                this.x = left;
+                this.y = top;
 
                 if(propose.length > 0) {
                     this.propose = propose;
@@ -120,8 +115,8 @@
 
 
 <style>
-    .text-auto-completion-list a.v-list__tile {
-        height: 26px !important;
+    .text-auto-completion-list .v-list-item {
+        min-height: 26px !important;
         overscroll-behavior: none;
     }
     .text-auto-completion-list {

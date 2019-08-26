@@ -9,5 +9,5 @@
         "worldx", "worldz", "attackTime"
     ],
     "math": [ "abs", "sin", "cos", "exp", "ln", "pow", "sqrt", "random", "ceil", "round", "trunc", "floor", "mod", "min", "max", "clamp", "lerp", "lerprotate" ],
-    "operator": [ "+", "-", "*", "/", "!", "&&", "||", "<", "<=", ">=", ">", "==", "!=" ]
+    "operator": [ "+", "-", "*", "/", "!", "&&", "||", "<", "<=", ">=", ">", "==", "!=", "=" ]
 }

@@ -7,6 +7,7 @@ import { detachMerge as detachObj } from "../detachObj";
 import ComponentProvider from "./Components";
 import Assert from "../plugins/PluginAssert";
 import FileType from "../editor/FileType";
+import { Omega } from "./Omega";
 
 let FILE_DEFS = [];
 let PLUGIN_FILE_DEFS = [];
@@ -14,7 +15,7 @@ let PLUGIN_COMPLETIONS = [];
 let PLUGINS_TO_LOAD = [];
 let LIB_LOADED = false;
 const REMOVE_LIST = [ "$load", "$dynamic_template", "$placeholder" ];
-let LIB = { dynamic: DYNAMIC };
+export let LIB = { dynamic: DYNAMIC };
 
 class Provider {
     constructor(current) {
@@ -227,87 +228,16 @@ class Provider {
     }
 
     omegaExpression(expression) {
-        let parts = expression.split(" + ");
-        let object = {};
-        let value = [];
-        let prefix = "";
-        
-        parts.forEach(part => {
-            if(part[0] === "'" && part[part.length - 1] === "'") {
-                prefix += part.substring(1, part.length - 1);
-            } else if(prefix === "") {
-                let { object: object_internal, value: value_internal } = this.dynamicExpression(part);
-                value = value.concat(value_internal);
-                object = detachObj(object, object_internal);
-            } else {
-                let { object: object_internal, value: value_internal } = this.dynamicExpression(part);
-                value = value.concat(value_internal.map(v => prefix + v));
-                for(let key in object_internal) {
-                    if(object[prefix + key] === undefined) {
-                        object[prefix + key] = object_internal[key];
-                    } else {
-                        object[prefix + key] = detachObj(object[prefix + key], object_internal[key]);
-                    }
-                }
-
-                prefix = "";
-            }
-        });
-
-        return { object, value };
-    }
-
-    dynamicExpression(expression) {
-        let parts = expression.split(" and ");
-        let object = {};
-        let value = [];
-        
-        parts.forEach(part => {
-            let value_cast = false;
-            if(part.endsWith(" as value")) {
-                part = part.replace(" as value", "");
-                value_cast = true;
-            }
-            let tmp = this.dynamic(part);
-            if(tmp === undefined) return;
-            
-            if(typeof tmp === "string") {
-                let { object: object_internal, value: value_internal } = this.omegaExpression(tmp);
-                value = value.concat(value_internal);
-                object = detachObj(object, object_internal);
-            } else if(Array.isArray(tmp))
-                value.push(...tmp);
-            else
-                object = detachObj(object, tmp);
-
-            if(value_cast) {
-                value.push(...Object.keys(object).filter(k => k !== "@meta"));
-                object = {};
-            }
-        });
-        
-        return { object, value };
+        console.log(Omega.eval(expression));
+        return Omega.eval(expression);
     }
 
     compileTemplate(template) {
-        let dyn = this.dynamic(template["$key"]);
+        let dyn = Omega.walk(template["$key"]);
         if(template[`$dynamic_template.${dyn}`] !== undefined) {
             return this.compileTemplate(template[`$dynamic_template.${dyn}`]);
         }
         return template[dyn || "$fallback"] || template["$default"];
-    }
-
-    //OMEGA HELPERS
-    dynamic(expression) {
-        if(expression === undefined) return;
-        let path = expression.substring(1, expression.length).split(".");
-        let current = LIB;
-        while(path.length > 0 && current !== undefined) {
-            current = current[path.shift().replace(/\&dot\;/g, ".")];
-            if(typeof current === "function") current = current();
-        }
-
-        return current;
     }
 }
 Provider.loadAssets();

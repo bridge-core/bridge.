@@ -204,7 +204,7 @@
 
 <script>
     import CodeMirror from "codemirror";
-    import TextAutoCompletions from "../editor_shell/WindowTextAutoCompletions";
+    import TextAutoCompletions from "../editor_shell/TextAutoCompletions";
     import deepmerge from "deepmerge";
     import EventBus from "../../scripts/EventBus";
     import TextProvider from "../../scripts/autoCompletions/TextProvider";
@@ -316,9 +316,10 @@
                         "Tab": () => {
                             EventBus.trigger("bridge:textCompletionsOpen", (is_open) => {
                                 if(is_open) EventBus.trigger("bridge:textCompletionsEnter");
-                                else return this.setCMSelection("\n");
+                                else return this.setCMSelection("\t");
                             });
-                        }
+                        },
+                        "Esc": () => EventBus.trigger("bridge:closeTextCompletions")
                     }
                 }, this.content.options || {});
             }
@@ -351,7 +352,7 @@
                 this.codemirror.focus();
             },
             shouldUpdateSuggestions(event) {
-                TextProvider.compile(event.doc, this.content.file_path);
+                TextProvider.compile(event.doc, this.content.file_path, this.codemirror.cursorCoords(true));
             }
         },
         watch: {

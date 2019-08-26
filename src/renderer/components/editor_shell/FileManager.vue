@@ -234,7 +234,7 @@
                 this.codemirror.focus();
             },
             shouldUpdateSuggestions(event) {
-                TextProvider.compile(event.doc, this.file.file_path);
+                TextProvider.compile(event.doc, this.file.file_path, this.codemirror.cursorCoords(true));
             },
             getEncoded(type, ext, data) {
                 return DataUrl.convert({
