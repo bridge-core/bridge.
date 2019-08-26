@@ -53,7 +53,14 @@
         "has_trade_supply": "$general.boolean",
 
         "has_equipment": "$general.item_identifier and $general.block_identifier",
-        "has_component": "$dynamic.entity.component_list",
+        "$dynamic_template.has_component": {
+            "$key": "$dynamic.setting.target_version",
+            "$default": "$entity.main.minecraft:entity.components as value",
+
+            "Stable": "$entity.main.minecraft:entity.components as value",
+            "Beta": "$entity.main_beta.minecraft:entity.components as value"
+        },
+        "@value.has_component": "'minecraft:effect.' + $general.effect_name",
         "has_ability": "$general.ability",
         "is_family": "$general.entity.family",
         "has_mob_effect": "$general.effect_name",

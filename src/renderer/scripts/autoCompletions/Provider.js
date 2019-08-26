@@ -263,6 +263,11 @@ class Provider {
         let value = [];
         
         parts.forEach(part => {
+            let value_cast = false;
+            if(part.endsWith(" as value")) {
+                part = part.replace(" as value", "");
+                value_cast = true;
+            }
             let tmp = this.dynamic(part);
             if(tmp === undefined) return;
             
@@ -274,13 +279,22 @@ class Provider {
                 value.push(...tmp);
             else
                 object = detachObj(object, tmp);
+
+            if(value_cast) {
+                value.push(...Object.keys(object).filter(k => k !== "@meta"));
+                object = {};
+            }
         });
         
         return { object, value };
     }
 
     compileTemplate(template) {
-        return template[this.dynamic(template["$key"]) || "$fallback"] || template["$default"];
+        let dyn = this.dynamic(template["$key"]);
+        if(template[`$dynamic_template.${dyn}`] !== undefined) {
+            return this.compileTemplate(template[`$dynamic_template.${dyn}`]);
+        }
+        return template[dyn || "$fallback"] || template["$default"];
     }
 
     //OMEGA HELPERS
