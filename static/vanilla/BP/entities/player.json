@@ -46,6 +46,9 @@
     },
 
     "components": {
+      "minecraft:experience_reward": {
+        "on_death": "Math.Min(query.player_level * 7, 100)"
+      },
       "minecraft:type_family": {
         "family": [ "player" ]
       },
@@ -132,21 +135,23 @@
       },
       "minecraft:scaffolding_climber": {},
       "minecraft:environment_sensor": {
-        "filters": {
-          "all_of": [
-            {
-              "test": "has_mob_effect",
-              "subject": "self",
-              "value": "bad_omen"
-            },
-            {
-              "test": "is_in_village",
-              "subject": "self",
-              "value": true
-            }
-          ]
-        },
-        "event": "minecraft:trigger_raid"
+        "triggers": {
+          "filters": {
+            "all_of": [
+              {
+                "test": "has_mob_effect",
+                "subject": "self",
+                "value": "bad_omen"
+              },
+              {
+                "test": "is_in_village",
+                "subject": "self",
+                "value": true
+              }
+            ]
+          },
+          "event": "minecraft:trigger_raid"
+        }
       }
     },
 

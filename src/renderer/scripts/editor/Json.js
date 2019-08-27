@@ -2,8 +2,8 @@ import saveEval from "safe-eval";
 import JSONTree from "./JsonTree";
 import ProblemIterator from "./problems/Problems";
 
-function private_toJSON(tree, build_arrays, default_build_arrays) {
-    if(tree.type != "array" && tree.type != "object") {
+function private_toJSON(tree, build_arrays, default_build_arrays=false) {
+    if(tree.type !== "array" && tree.type !== "object") {
         return toCorrectType(tree.data);
     } else {
         if(build_arrays && tree.is_array) {
@@ -11,7 +11,7 @@ function private_toJSON(tree, build_arrays, default_build_arrays) {
             tree.children.forEach(c => arr.push(private_toJSON(c.identity(), build_arrays)));
             return arr;
         } else {
-            if(default_build_arrays && tree.children.length == 0) return [];
+            if(default_build_arrays && tree.children.length === 0) return [];
             let obj = {};
             tree.children.forEach(c => obj[c.key] = private_toJSON(c.identity(), build_arrays));
             return obj;

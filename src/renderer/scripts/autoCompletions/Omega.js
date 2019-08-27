@@ -39,7 +39,7 @@ export class Omega {
         if(object === undefined && value === undefined) return;
 
         if(prefix === "") {
-            original.value = original.value.concat(value);
+            original.value.push(...value);
             original.object = detachObj(original.object, object);
         } else {
             let new_value = value.map(v => prefix + v);

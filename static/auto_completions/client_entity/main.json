@@ -2,7 +2,7 @@
     "format_version": "$general.format_version",
     "minecraft:client_entity": {
         "description": {
-            "identifier": "$general.entity_identifier",
+            "identifier": "$general.file_identifier and $general.entity_identifier",
             "min_engine_version": "$general.format_version",
             "enable_attachables": "$general.boolean",
             "spawn_egg": {
@@ -45,7 +45,7 @@
                     "$dynamic.list.next_index": {
                         "$dynamic.client_entity.animation_references": {
                             "@meta": { "is_molang": true },
-                            "@import.value": "$animation.general.queries"
+                            "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
                         },
                         "@import.value": "$dynamic.client_entity.animation_references"
                     }

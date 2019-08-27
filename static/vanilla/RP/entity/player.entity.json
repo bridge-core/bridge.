@@ -17,6 +17,7 @@
         "cape": "geometry.cape"
       },
       "scripts": {
+        "scale": "0.9375",
         "initialize": [
           "variable.is_holding_right = 0.0;"
         ],
@@ -84,7 +85,8 @@
         "crossbow_hold": "animation.player.crossbow_hold",
         "crossbow_controller": "controller.animation.player.crossbow",
         "shield_block_main_hand": "animation.player.shield_block_main_hand",
-        "shield_block_off_hand": "animation.player.shield_block_off_hand"
+        "shield_block_off_hand": "animation.player.shield_block_off_hand",
+        "blink": "controller.animation.persona.blink"
       },
       "render_controllers": [
         { "controller.render.player.first_person": "variable.is_first_person" },

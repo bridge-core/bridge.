@@ -175,6 +175,14 @@
         :autofocus="content.has_focus"
         ref="input"
     />
+    <v-color-picker
+        v-else-if="content.type == 'color-picker'"
+        :mode="content.mode || 'hexa'"
+        :hide-mode-switch="true"
+        @input="action.default"
+        :value="content.input"
+        :style="`border-radius: ${content.is_rounded === undefined || content.is_rounded ? 'unset' : '0px'};`"
+    />
     <v-container style="width: 90%;" v-else-if="content.type == 'slider'">
         <v-slider
             @change="action"

@@ -14,7 +14,8 @@
   },
 
   "library_learn_more_button@common_buttons.light_content_button": {
-    "size": [ 150, 30 ]
+    "max_size": [ 200, 30 ],
+    "size": [ "100%", 30 ]
   },
 
   "feedback_icon": {
@@ -50,11 +51,12 @@
     "size": [ 44, 44 ]
   },
 
-  "creator_label@library.base_label": {
+  "creator_label@edu_common.readable_label": {
+    "$default_font_scale_factor": 0.85,
+    "$normalized_font_scale_factor": 1.0,
     "text": "#creator",
     "size": [ "100%", "default" ],
     "max_size": "$max_label_size",
-    "font_scale_factor": 0.85,
     "bindings": [
       {
         "binding_type": "collection",
@@ -66,10 +68,9 @@
 
   "search_bar@common.text_edit_box": {
     "max_length": 50,
-    "anchor_from": "top_right",
-    "anchor_to": "top_right",
-    "size": [ 200, 15 ],
-    "offset": [ -2, 3 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100% - 4px", 18 ],
     "layer": 5,
     "visible": "$library_screen_show_search_bar",
     "$place_holder_text": "store.search.title",
@@ -111,21 +112,20 @@
   },
 
   "buttons_stack_panel": {
-    "size": [ "100%", 90 ],
+    "size": [ "100%", "100%c" ],
     "type": "stack_panel",
     "orientation": "horizontal",
     "visible": "$library_screen_show_world_and_feedback_buttons",
     "controls": [
       {
         "worlds_wrapper": {
-          "size": [ "50%", "100%" ],
+          "size": [ "50%", 20 ],
           "type": "panel",
           "controls": [
             {
               "library_find_more_worlds_button@library.library_learn_more_button": {
-                "offset": [ "-5%", -10 ],
-                "anchor_from": "bottom_right",
-                "anchor_to": "bottom_right",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
                 "$learn_more_text": "library.findMoreWorlds",
                 "$learn_more_content": "library.find_more_worlds_icon",
                 "$button_content": "library.learn_more_content",
@@ -137,14 +137,13 @@
       },
       {
         "feedback_wrapper": {
-          "size": [ "50%", "100%" ],
+          "size": [ "50%", 20 ],
           "type": "panel",
           "controls": [
             {
               "library_leave_feedback_button@library.library_learn_more_button": {
-                "offset": [ "5%", -10 ],
-                "anchor_from": "bottom_left",
-                "anchor_to": "bottom_left",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
                 "$learn_more_text": "library.leaveFeedback",
                 "$learn_more_content": "library.feedback_icon",
                 "$button_content": "library.learn_more_content",
@@ -162,15 +161,27 @@
     "orientation": "vertical",
     "size": [ "100%", "100%c" ],
     "controls": [
-      { "padding_top@common.empty_panel": { "size": [ "100%", 2 ] } },
+      {
+        "search_bar_wrapper": {
+          "type": "stack_panel",
+          "size": [ "100%", "100%cm" ],
+          "orientation": "horizontal",
+          "controls": [
+            { "padding_left@common.empty_panel": { "size": [ 2, "100%sm" ] } },
+            { "library_search_bar@library.search_bar": {} }
+          ]
+        }
+      },
+      { "padding_middle@common.empty_panel": { "size": [ "100%", 4 ] } },
       { "grid_content@library.grid_content": {} },
+      { "padding_bottom@common.empty_panel": { "size": [ "100%", 4 ] } },
       { "buttons_stack_panel@library.buttons_stack_panel": {} }
     ]
   },
 
   "scrolling_content": {
     "type": "panel",
-    "size": [ "100%-2px", "100%c" ],
+    "size": [ "100%", "100%c" ],
     "$scrolling_content_anchor_from": "top_middle",
     "$scrolling_content_anchor_to": "top_middle",
     "controls": [
@@ -444,20 +455,20 @@
 
   "title_creator_panel@common.empty_panel": {
     "size": [ "100%", "100%cm" ],
+    "$max_label_size": [ "50%", "24px" ],
     "controls": [
       {
         // The title for this item uses slightly different styling than the default Library labels
-        "title_label": {
-          "type": "label",
+        "title_label@edu_common.readable_label": {
+          "$default_font_scale_factor": 1,
+          "$normalized_font_scale_factor": 1.2,
+          "offset": [ 0, 0 ],
           "text": "#library_item_title",
           "size": [ "50%", "default" ],
           // Keeps the title constrained to two lines.
-          "max_size": [ "50%", "24px" ],
-          "layer": 1,
-          "anchor_to": "bottom_left",
-          "anchor_from": "bottom_left",
-          "color": "$body_text_color",
-          "text_alignment": "left",
+          "max_size": "$max_label_size",
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
           "bindings": [
             {
               "binding_type": "collection",
@@ -471,8 +482,8 @@
         "creator_label@library.creator_label": {
           // Subtract 2px to create slim border between the title and the creator.
           "size": [ "50% - 2px", "default" ],
-          // Keeps the creator name to one line.
-          "max_size": [ "50%", "12px" ],
+          // Keeps the creator name constrained to two lines.
+          "max_size": "$max_label_size",
           // Revert the offsetting from the default label.
           "offset": [ 0, 0 ],
           "anchor_to": "bottom_right",
@@ -493,12 +504,13 @@
       // Need to stick description in an empty panel to center description text.
       { "padding_middle@common.empty_panel": { "size": [ "100%", "2px" ] } },
       {
-        "description@library.base_label": {
+        "description@edu_common.readable_label": {
+          "$default_font_scale_factor": 0.85,
+          "$normalized_font_scale_factor": 1.0,
           "anchor_to": "top_middle",
           "anchor_from": "top_middle",
           "text": "#description",
           "size": [ "100%", "default" ],
-          "font_scale_factor": 0.85,
           // Keeps the max size to roughly about four lines.
           "max_size": [ "100%", "48px" ],
           "bindings": [
@@ -534,30 +546,42 @@
   "screen_content": {
     "type": "panel",
     "controls": [
-      {
-        "header@common.fullscreen_header": {
-          "$back_button_has_title": true,
-          "$button_text": "$library_screen_header",
-          "$child_control": "library.main_panel"
-        }
-      },
+      { "screen_content_stack@library.screen_content_stack": {} },
       {
         "welcome_panel@library_modal.welcome_panel": {
-          // Make the input_panel be above the header's back button
+          // Make the input_panel be above the header's back button and the "new" tags
           "layer": 201
         }
+      }
+    ]
+  },
+
+  "screen_content_stack": {
+    "type": "stack_panel",
+    "size": ["100%", "100%"],
+    "controls": [
+      {
+        "header@edu_common.edu_screen_header": {
+          "$title_texture": "textures/ui/icon_bookshelf",
+          "$title_has_image": true,
+          "$title_text": "$library_screen_header"
+        }
       },
-      { "search_bar@library.search_bar": {} }
+      { "padding_middle@common.empty_panel": { "size": [ "100%", 4 ] } },
+      { "main_panel@library.main_panel": {} },
+      { "padding_bottom@common.empty_panel": { "size": [ "100%", 4 ] } }
     ]
   },
 
   "main_panel@common.scrolling_panel": {
-    "$scroll_size": [ 6, "100%-4px" ],
+    "$scrolling_pane_size": ["100%", "100%-21px"],
+    "$scroll_size": [ 6, "100% - 10px" ],
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
     "$scrolling_content": "library.scrolling_content",
     "$scrolling_content_anchor_from": "top_middle",
     "$scrolling_content_anchor_to": "top_middle",
+    "$scroll_track_anchor": "top_middle",
     "$scroll_bar_left_padding_size": [ 0, 0 ],
     "$scroll_bar_right_padding_size": [ 2, 0 ],
     "$show_background": false

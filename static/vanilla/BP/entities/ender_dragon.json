@@ -47,7 +47,7 @@
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "dragon" ]
+        "family": [ "dragon", "mob" ]
       },
       "minecraft:health": {
         "value": 200,

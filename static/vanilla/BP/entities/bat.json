@@ -12,7 +12,7 @@
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "bat" ]
+        "family": [ "bat", "mob" ]
       },
       "minecraft:breathable": {
         "total_supply": 15,

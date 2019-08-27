@@ -63,6 +63,9 @@
     },
 
     "components": {
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      },
       "minecraft:nameable": {
       },
       "minecraft:collision_box": {
@@ -158,7 +161,7 @@
         "priority": 9
       },
       "minecraft:type_family": {
-        "family": [ "guardian", "monster" ]
+        "family": [ "guardian", "monster", "mob" ]
       },
 	    "minecraft:physics": {
       },

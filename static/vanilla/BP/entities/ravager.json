@@ -8,6 +8,25 @@
       "is_experimental": false
     },
     "component_groups": {
+      "minecraft:celebrate": {
+        "minecraft:behavior.celebrate": {
+          "priority": 5,
+          "celebration_sound": "celebrate",
+          "sound_interval": {
+            "range_min": 2.0,
+            "range_max": 7.0
+          },
+          "jump_interval": {
+            "range_min": 1.0,
+            "range_max": 3.5
+          },
+          "duration": 30.0,
+          "on_celebration_end_event": {
+            "event": "minecraft:stop_celebrating",
+            "target": "self"
+          }
+        }
+      },
       "minecraft:pillager_rider": {
         "minecraft:addrider": {
           "entity_type": "minecraft:pillager"
@@ -199,6 +218,9 @@
       }
     },
     "components": {
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 20 : 0"
+      },
       "minecraft:behavior.float": {
         "priority": 0
       },
@@ -317,7 +339,8 @@
         "family": [
           "monster",
           "illager",
-          "ravager"
+          "ravager", 
+          "mob"
         ]
       }
     },
@@ -422,6 +445,12 @@
             "roaring"
           ]
         }
+      },
+      "minecraft:start_celebrating": { // Event must be called exactly this for village to fire it when a raid is lost
+        "add": { "component_groups": [ "minecraft:celebrate" ] }
+      },
+      "minecraft:stop_celebrating": {
+        "remove": { "component_groups": [ "minecraft:celebrate" ] }
       }
     }
   }

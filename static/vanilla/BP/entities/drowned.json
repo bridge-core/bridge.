@@ -9,6 +9,9 @@
     },
     "component_groups": {
       "minecraft:baby_drowned": {
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 12 + (query.equipment_count * Math.Random(1,3)) : 0"
+        },
         "minecraft:is_baby": {},
         "minecraft:scale": {
           "value": 0.5
@@ -22,6 +25,9 @@
       },
 
       "minecraft:adult_drowned": {
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 + (query.equipment_count * Math.Random(1,3)) : 0"
+        },
         "minecraft:loot": {
           "table": "loot_tables/entities/drowned.json"
         }
@@ -112,7 +118,7 @@
 
       // Zombie Components
       "minecraft:type_family": {
-        "family": [ "drowned", "zombie", "undead", "monster" ]
+        "family": [ "drowned", "zombie", "undead", "monster", "mob" ]
       },
       "minecraft:collision_box": {
         "width": 0.6,
@@ -213,7 +219,7 @@
                 {
                   "any_of": [
                     { "test": "in_water", "subject": "other", "value": true },
-                    { "test": "is_brightness", "subject": "other", "operator": "<", "value": 0.49 }
+                    { "test": "is_daytime", "value": false }
                   ]
                 }
               ]
@@ -232,7 +238,7 @@
                 {
                   "any_of": [
                     { "test": "in_water", "subject": "other", "value": true },
-                    { "test": "is_brightness", "subject": "other", "operator": "<", "value": 0.49 }
+                    { "test": "is_daytime", "value": false }
                   ]
                 }
               ]

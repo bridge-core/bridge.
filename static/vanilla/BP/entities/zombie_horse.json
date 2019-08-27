@@ -28,6 +28,9 @@
         }
       },
       "minecraft:horse_adult": {
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? Math.Random(1,3) : 0"
+        },
         "minecraft:loot": {
           "table": "loot_tables/entities/zombie_horse.json"
         },
@@ -56,7 +59,7 @@
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "zombiehorse", "undead" ]
+        "family": [ "zombiehorse", "undead", "mob" ]
       },
       "minecraft:breathable": {
         "total_supply": 15,

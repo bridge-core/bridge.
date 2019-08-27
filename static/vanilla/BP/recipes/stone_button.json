@@ -17,8 +17,7 @@
       }
     },
     "result": {
-      "item": "minecraft:stone_button",
-      "data": 5
+      "item": "minecraft:stone_button"
     }
   }
 }

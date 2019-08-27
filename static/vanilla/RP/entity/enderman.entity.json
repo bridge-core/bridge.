@@ -4,7 +4,10 @@
     "description": {
       "identifier": "minecraft:enderman",
       "min_engine_version": "1.8.0",
-      "materials": { "default": "enderman" },
+      "materials": {
+        "default": "enderman",
+        "invisible": "enderman_invisible"
+      },
       "textures": {
         "default": "textures/entity/enderman/enderman"
       },

@@ -61,6 +61,8 @@
   },
 
   "focus_border": {
+    "$focus_border_size|default": [ "100%", "100%" ],
+    "size": "$focus_border_size",
     "type": "image",
     "texture": "textures/ui/focus_border_white"
   },
@@ -305,6 +307,7 @@
     "$button_pressed_offset|default": [ 0, 1 ],
     "$button_text|default": "",
     "$button_font_size|default": "normal",
+    "$button_font_scale_factor|default": 1.0,
     "$pressed_alpha|default": 1,
     "$default_button_alpha|default": 1,
     "$default_hover_alpha|default": 1,
@@ -470,6 +473,8 @@
     "$font_type|default": "default",
     "font_type": "$font_type",
     "font_size": "$button_font_size",
+    "$button_font_scale_factor|default": 1.0,
+    "font_scale_factor": "$button_font_scale_factor",
     "$button_font_size|default": "normal",
     "$new_ui_label_offset|default": "$button_offset",
     "offset": "$new_ui_label_offset",
@@ -1109,7 +1114,6 @@
     "texture": "$nested_asset_texture",
     "alpha": "$nested_asset_alpha",
     "color": "$nested_asset_color",
-    "force_texture_reload": true,
     "$nested_asset_texture|default": "",
 
     "$nested_asset_alpha|default": "$nested_default_alpha",
@@ -1194,6 +1198,7 @@
   "nested_transparent_label_content_background_assets": {
     "type": "panel",
     "$transparent_label_color|default": "$nested_transparent_label_default_color",
+    "$transparent_label_hover_color|default": "$transparent_label_color",
     "$transparent_label_pressed_color|default": "$nested_transparent_label_default_pressed_color",
 
     "controls": [
@@ -1204,7 +1209,7 @@
           "$nested_asset_default_color": "$transparent_label_color",
           "$nested_asset_default_alpha": "$nested_transparent_label_alpha",
           "$nested_asset_hover_texture": "textures/ui/White",
-          "$nested_asset_hover_color": "$transparent_label_color",
+          "$nested_asset_hover_color": "$transparent_label_hover_color",
           "$nested_asset_pressed_texture": "textures/ui/White",
           "$nested_asset_pressed_color": "$transparent_label_pressed_color",
           "$nested_asset_locked_texture": "textures/ui/White",
@@ -1255,7 +1260,7 @@
     "controls": [
       {
         "label@common_buttons.nested_base_label": {
-          "$nested_label_max_size": [ "100% - 2px", "100% - 2px" ],
+          "$nested_label_max_size|default": [ "100% - 2px", "100% - 2px" ],
           "max_size": "$nested_label_max_size"
         }
       }
@@ -1446,10 +1451,20 @@
   // If using nested content all variables in this section required
   // setUpCallbacksForNestedButton(
   //   $pressed_button_name,
-  //   $nested_content_visibility_binding - The binding name for nested visibility
+  //   $nested_content_visibility_binding, - The binding name for nested visibility
+  //   firstControlName - The name of the control that will recieve focus after the base button is pressed
+  //   ignoredButtons - (optional) A vector of button names to ignore (default: { StringHash("button.scrollbar_touch") })
   // );
   // $nested_content_controls - The nested controls (parent size based on its sibling)
   // $has_nested_controls - Set to true to use
+  //
+  // -- Advanced Nested Content --
+  // For factory built nestable buttons
+  // $has_special_nested_controls - Set to true to use
+  // $nested_content_controls - The nested controls (parent size based on its sibling)
+  // $special_nested_content_bindings - Bindings array for the nested controls
+  // $special_nested_button_bindings - Bindings array for the button
+  //
   //
   // -- Required Variables --
   // $pressed_button_name, - The button name for the base button
@@ -1483,12 +1498,14 @@
 
     "type": "panel",
     "$has_nested_controls|default": false,
+    "$has_special_nested_controls|default": false,
+    "$has_special_button_bindings|default": false,
     "$has_padding_for_content_and_label|default": false,
     "$nested_content_visibility_binding|default": "",
     "controls": [
       {
         "nested_controls_panel": {
-          "ignored": "(not $has_nested_controls)",
+          "ignored": "(not $has_nested_controls and not $has_special_nested_controls)",
           "$nested_content_dark_alpha|default": 0.8,
           "type": "input_panel",
           "size": [ "100%sm", "100%sm" ],
@@ -1505,12 +1522,19 @@
               "mapping_type": "focused"
             }
           ],
-          "bindings": [
+          "$_nested_content_visibility_binding|default": [
             {
               "binding_name": "$nested_content_visibility_binding",
               "binding_name_override": "#visible"
             }
           ],
+          "variables": [
+            {
+              "requires": "$has_special_nested_controls",
+              "$_nested_content_visibility_binding": "$special_nested_content_bindings"
+            }
+          ],
+          "bindings": "$_nested_content_visibility_binding",
           "controls": [
             {
               "locked_overlay": {
@@ -1543,6 +1567,10 @@
                   "binding_name_override": "#enabled"
                 }
               ]
+            },
+            {
+              "requires": "($has_special_nested_controls or $has_special_button_bindings)",
+              "$button_bindings": "$special_nested_button_bindings"
             },
             {
               "requires": "$use_parent_size",

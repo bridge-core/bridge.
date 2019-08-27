@@ -294,10 +294,7 @@
 
     "entity_custom:entity": {
       "+states": [ "Blending" ],
-      "+defines": [ "ALPHA_TEST", "Blending", "USE_OVERLAY", "USE_MASK" ],
-
-      "blendSrc": "SourceColor",
-      "blendDst": "Zero"
+      "+defines": [ "ALPHA_TEST", "Blending", "USE_OVERLAY", "USE_MASK" ]
     },
 
     "item_in_hand:entity": {
@@ -497,7 +494,7 @@
       ]
     },
 
-    "entity_alphatest_multicolor_tint:entity_glint": {
+    "entity_alphatest_multicolor_tint:entity": {
       "+states": [ "DisableAlphaWrite" ],
       "+defines": [
         "ALPHA_TEST",
@@ -777,6 +774,7 @@
 
     "entity_beam_additive:entity_alphablend": {
       "+defines": [ "COLOR_BASED", "NO_TEXTURE" ],
+      "-defines": [ "USE_OVERLAY" ],
       "+states": [ "Blending", "DisableDepthWrite" ],
 
       "blendSrc": "SourceAlpha",
@@ -876,7 +874,7 @@
     "tropicalfish:entity_multitexture_multiplicative_blend": {},
     "ghast:entity_emissive_alpha": {},
     "guardian:entity_alphatest": {},
-    "horse:entity_multitexture_alpha_test": {},
+    "horse:entity_multitexture_alpha_test_color_mask": {},
     "horse_leather_armor:entity_multitexture_alpha_test_color_mask": {},
     "horse_saddle:entity_alphatest": {},
     "horse_hair:entity_alphatest": {},

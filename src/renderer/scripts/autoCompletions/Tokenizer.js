@@ -13,6 +13,10 @@ export class Tokenizer {
         while(i < str.length) {
             if(str[i] === " ") {
                 i++;
+            } else if(str[i] === "'") {
+                let substr = str.substring(i, str.indexOf("'", i + 1) + 1);
+                res.push(new Token("REGULAR", substr));
+                i += substr.length;
             } else if(str[i] === "(") {
                 let substr = str.substring(i + 1, str.indexOf(")", i + 1));
                 res.push(new Token("NESTED", substr));

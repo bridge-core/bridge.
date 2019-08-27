@@ -5,8 +5,8 @@
 			"loop" : true,
 			"bones" : {
 				"rightarm" : {
-					"position" : [ "-5.0 * math.sin(variable.first_person_rotation_factor * variable.attack_time * 112.0)", "math.sin(variable.first_person_rotation_factor * (1.0 - variable.attack_time) * (1.0 - variable.attack_time) * 200.0) * 8.75 - variable.first_person_rotation_factor * variable.attack_time * 15.0 + variable.short_arm_offset_right", "math.sin(variable.first_person_rotation_factor * variable.attack_time * 120.0) * 3.75" ],
-					"rotation" : [ "30.7 * math.sin(variable.first_person_rotation_factor * variable.attack_time * -180.0 - 45.0) * 1.5", "-15.0 * math.sin(variable.first_person_rotation_factor * (1.0 - variable.attack_time) * -100.0 + 10.0) * 4.75", "21.8 * math.sin(variable.first_person_rotation_factor * variable.attack_time * 200.0 + 30.0) * 1.25" ]
+					"position" : [ "math.clamp(-15.5 * math.sin(variable.first_person_rotation_factor * variable.attack_time * 112.0), -7.0, 999.0) * math.sin(variable.first_person_rotation_factor * variable.attack_time * 112.0)", "math.sin(variable.first_person_rotation_factor * (1.0 - variable.attack_time) * (1.0 - variable.attack_time) * 200.0) * 7.5 - variable.first_person_rotation_factor * variable.attack_time * 15.0 + variable.short_arm_offset_right", "math.sin(variable.first_person_rotation_factor * variable.attack_time * 120.0) * 1.75" ],
+					"rotation" : [ "math.sin(variable.first_person_rotation_factor * (1.0 - variable.attack_time) * (1.0 - variable.attack_time) * 280.0) * -60.0", "math.sin(variable.first_person_rotation_factor * (1.0 - variable.attack_time) * (1.0 - variable.attack_time) * 280.0) * 40.0", "math.sin(variable.first_person_rotation_factor * (1.0 - variable.attack_time) * (1.0 - variable.attack_time) * 280.0) * 20.0" ]
 				}
 			}
 		},
@@ -17,8 +17,8 @@
 					"rotation" : [ "query.target_x_rotation", "query.target_y_rotation", 0.0 ]
 				},
 				"rightarm" : {
-					"position" : [ 12.5, -10.5, 12.0 ],
-					"rotation" : [ "80.0 + variable.is_using_vr * 7.5", "-50.0 + variable.is_using_vr * 7.5", "120.0 + variable.is_using_vr * -2.5" ]
+					"position" : [ 13.5, -10.0, 12.0 ],
+					"rotation" : [ "95.0 + variable.is_using_vr * 7.5", "-45.0 + variable.is_using_vr * 7.5", "115.0 + variable.is_using_vr * -2.5" ]
 				}
 			}
 		},

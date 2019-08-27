@@ -176,6 +176,13 @@
               }
             },
             {
+              "view_subscriptions_button@general_section.view_subscriptions_button": {
+                "$toggle_group_forced_index": "$view_subscriptions_forced_index",
+                "$tts_section_header": "$general_section_header",
+                "visible": "$realms_plus_on"
+              }
+            },
+            {
               "vr_button@general_section.vr_button": {
                 "ignored": "(not $is_holographic)",
                 "$toggle_group_forced_index": "$vr_forced_index",
@@ -310,6 +317,7 @@
             { "global_texture_pack_section@general_section.global_texture_pack_section": { "visible": false } },
             { "storage_management_section@general_section.storage_management_section": { "visible": false } },
             { "video_section@general_section.video_section": { "visible": false } },
+            { "view_subscriptions_section@general_section.view_subscriptions_section": { "ignored": "$education_edition", "visible": false } },
             {
               "vr_section@general_section.vr_section": {
                 "ignored": "(not $is_holographic)",

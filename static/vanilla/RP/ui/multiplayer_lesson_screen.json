@@ -5,6 +5,11 @@
 {
   "namespace": "multiplayer_lesson",
 
+  "vertical_stack_item": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ]
+  },
+
   "join_ip_button@common_buttons.light_text_button": {
     "$button_text_binding_type": "none"
   },
@@ -37,6 +42,13 @@
           "controls": "$popup_controls"
         }
       }
+    ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.active_lesson.popup_close",
+        "mapping_type": "global"
+      }
     ]
   },
 
@@ -58,6 +70,46 @@
     "offset": [ 0, 8 ],
     "color": "$title_text_color",
     "size": [ "default", 20 ]
+  },
+
+  "loading_animation_and_text": {
+    "type": "stack_panel",
+    "size": [ 128, "100%c" ],
+    "controls": [
+      {
+        "loading_animation_item@multiplayer_lesson.vertical_stack_item": {
+          "controls": [
+            {
+              "loading_animation@edu_common.edu_loading_animation": {
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "size": [ 64, 64 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "bottom_text_padding@common.empty_panel": {
+          "size": [ 0, 4 ]
+        }
+      },
+      {
+        "loading_text_item@multiplayer_lesson.vertical_stack_item": {
+          "controls": [
+            {
+              "searching_text": {
+                "type": "label",
+                "text": "$bottom_text",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "color": "$text_box_text_color"
+              }
+            }
+          ]
+        }
+      }
+    ]
   },
 
   "friends_scroll_panel@play.common_scroll_pane": {
@@ -88,13 +140,34 @@
     ]
   },
 
-
   "join_list_content@play.common_content": {
     "controls": [
       {
         "scrolling_panel@play.scrolling_offsets": {
           "layer": 1,
           "$scrolling_content": "multiplayer_lesson.friends_scroll_panel"
+        }
+      },
+      {
+        "searching_anim": {
+          "type": "panel",
+          "size": [ "100%", "100%" ],
+          "offset": [ 0, -2 ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "controls": [
+            {
+              "loading_animation_and_text@multiplayer_lesson.loading_animation_and_text": {
+                "$bottom_text": "course.edu.searching"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "(not #has_worlds)",
+              "binding_name_override": "#visible"
+            }
+          ]
         }
       }
     ]

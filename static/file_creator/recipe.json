@@ -35,6 +35,18 @@
                 "input": {},
                 "output": {}
             }
+        },
+        "Blank Brewing Recipe": {
+            "format_version": "1.12",
+            "minecraft:recipe_brewing_mix": {
+                "description": {
+                    "identifier": {}
+                },
+                "tags": {},
+                "input": {},
+                "reagent": {},
+                "output": {}
+            }
         }
     }
 }

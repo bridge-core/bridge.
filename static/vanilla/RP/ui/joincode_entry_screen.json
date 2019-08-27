@@ -12,7 +12,8 @@
       "joincode_entry": "@joincode.entry_popup",
       "connecting": "@joincode.connecting_popup",
       "error": "@joincode.error_popup",
-      "server_found": "@joincode.found_popup"
+      "server_found": "@joincode.found_popup",
+      "ip_entry": "@joincode.ip_popup"
     }
   },
 
@@ -82,15 +83,15 @@
     ]
   },
 
-  "apple_and_text": {
+  "loading_animation_and_text": {
     "type": "stack_panel",
     "size": [ 128, "100%c" ],
     "controls": [
       {
-        "apple_item@joincode.vertical_stack_item": {
+        "loading_animation_item@joincode.vertical_stack_item": {
           "controls": [
             {
-              "apple@edu_common.apple_animation": {
+              "loading_animation@edu_common.edu_loading_animation": {
                 "anchor_from": "top_middle",
                 "anchor_to": "top_middle",
                 "size": [ 64, 64 ]
@@ -105,7 +106,7 @@
         }
       },
       {
-        "apple_text_item@joincode.vertical_stack_item": {
+        "loading_text_item@joincode.vertical_stack_item": {
           "controls": [
             {
               "searching_text": {
@@ -294,6 +295,8 @@
     "$collection_name": "entry_selection",
     "collection_name": "$collection_name",
     "$pressed_button_name": "button.entered_entries",
+    "$code_entry_enabled|default": true,
+    "enabled": "$code_entry_enabled",
     "controls": [
       {
         "entry_selection_1@joincode.entered_button": {
@@ -323,6 +326,11 @@
   // Entry Input Panel
   //---------------------------------------------------------------------------
 
+  "ip_entry_button_content": {
+    "type": "image",
+    "texture": "textures/ui/elipses"
+  },
+
   "entry_input_button_grid": {
     "type": "grid",
     "$button_type": "joincode.entry_popup.icon_button",
@@ -333,13 +341,18 @@
     "$pressed_button_name": "button.entry_grid_button"
   },
 
+  "entry_padding": {
+    "type": "panel",
+    "size": [ 3, "100%sm" ]
+  },
+
   "entry_input_clear_confirm_panel": {
     "type": "stack_panel",
     "orientation": "horizontal",
     "controls": [
       {
         "clear_button@common_buttons.light_text_button": {
-          "size": [ "50% - 3px", "100%" ],
+          "size": [ "fill", "100%" ],
           "$pressed_button_name": "button.entry_clear",
           "$button_text": "gui.clear",
           "bindings": [
@@ -350,10 +363,10 @@
           ]
         }
       },
-      { "horizontal_padding@joincode.horizontal_padding": {} },
+      { "horizontal_padding@joincode.entry_padding": {} },
       {
         "confirm_button@common_buttons.light_text_button": {
-          "size": [ "50% - 3px", "100%" ],
+          "size": [ "fill", "100%" ],
           "$pressed_button_name": "button.entry_confirm",
           "$button_text": "gui.confirm",
           "bindings": [
@@ -362,6 +375,15 @@
               "binding_name_override": "#enabled"
             }
           ]
+        }
+      },
+      { "ip_padding@joincode.entry_padding": {} },
+      {
+        "ip_entry@common_buttons.light_content_button": {
+          "size": [ 20, "100%" ],
+          "$button_tts_header": "joincode.ip_entry.button_tts",
+          "$pressed_button_name": "button.entry_ip",
+          "$button_content": "joincode.ip_entry_button_content"
         }
       }
     ]
@@ -433,7 +455,7 @@
     "size": [ "100% - 4px", "100% - 4px" ],
     "controls": [
       {
-        "apple_and_text@joincode.apple_and_text": {
+        "loading_animation_and_text@joincode.loading_animation_and_text": {
           "offset": [ 0, -12 ],
           "$bottom_text": "joincode.connecting.lower_text"
         }
@@ -461,9 +483,9 @@
   // Server Found Popup
   //---------------------------------------------------------------------------
 
-  "found_content": {
+  "found_text_label": {
     "type": "stack_panel",
-    "size": [ 218, "100%c" ],
+    "size": [ "100%", "100%c" ],
     "controls": [
       {
         "found_message_top": {
@@ -507,6 +529,19 @@
               "binding_name": "#found_host_name"
             }
           ]
+        }
+      }
+    ]
+  },
+
+  "found_content": {
+    "type": "stack_panel",
+    "size": [ 218, "100%c" ],
+    "controls": [
+      {
+        "found_text@common.tts_label_focus_wrapper": {
+          "size": [ "100%", "100%cm" ],
+          "$tts_label_panel": "joincode.found_text_label"
         }
       },
       {
@@ -652,21 +687,26 @@
     ]
   },
 
+  "error_text_label": {
+    "size": [ "100%", "default" ],
+    "type": "label",
+    "text": "#error_message",
+    "color": "$body_text_color",
+    "bindings": [
+      {
+        "binding_name": "#error_message"
+      }
+    ]
+  },
+
   "error_content": {
     "type": "stack_panel",
     "size": [ 218, "100%c" ],
     "controls": [
       {
-        "error_text": {
-          "size": [ "100%", "default" ],
-          "type": "label",
-          "text": "#error_message",
-          "color": "$body_text_color",
-          "bindings": [
-            {
-              "binding_name": "#error_message"
-            }
-          ]
+        "error_text@common.tts_label_focus_wrapper": {
+          "size": [ "100%", "100%cm" ],
+          "$tts_label_panel": "joincode.error_text_label"
         }
       },
       {
@@ -690,5 +730,54 @@
     "$modal_contents": "joincode.error_content",
     "$modal_contents_padding": [ 6, 6 ],
     "$popup_dialog_escape_button_name": "button.error_close"
+  },
+
+  //---------------------------------------------------------------------------
+  // IP Entry Popup
+  //---------------------------------------------------------------------------
+
+  // If ip entry is reached by pushing the button it's not supposed to have the join code entry frame,
+  // but for service errors it is supposed to have the frame.
+  "ip_popup": {
+    "type": "panel",
+    "controls": [
+      {
+        "plain@joincode.ip_popup_plain": {
+          "bindings": [
+            {
+              "binding_name": "(not #is_ip_fallback)",
+              "binding_name_override": "#visible",
+              "binding_condition": "once"
+            }
+          ]
+        }
+      },
+      {
+        "with_code@joincode.ip_popup_with_code": {
+          "bindings": [
+            {
+              "binding_name": "#is_ip_fallback",
+              "binding_name_override": "#visible",
+              "binding_condition": "once"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "ip_popup_plain@popup_dialog.form_fit_modal_dialog_popup": {
+    "layer": 18,
+    "$modal_title": "joincode.found.title",
+    "$popup_dialog_escape_button_name": "button.close_to_code_entry",
+    "$modal_contents": "ip_join.join_ip_content"
+  },
+
+  "ip_popup_with_code@joincode.popup_window_with_joincode": {
+    "$title": "joincode.entry_popup.title",
+    "$code_entry_enabled": false,
+    "$close_button_to_button_id": "button.popup_escape",
+    "$popup_dialog_escape_button_name": "button.popup_escape",
+    "$contents": "ip_join.join_ip_content"
   }
 }

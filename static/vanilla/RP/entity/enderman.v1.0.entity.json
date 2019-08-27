@@ -3,7 +3,10 @@
   "minecraft:client_entity": {
     "description": {
       "identifier": "minecraft:enderman",
-      "materials": { "default": "enderman" },
+      "materials": {
+        "default": "enderman",
+        "invisible": "enderman_invisible"
+      },
       "textures": {
         "default": "textures/entity/enderman/enderman"
       },

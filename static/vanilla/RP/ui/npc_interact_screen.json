@@ -233,7 +233,7 @@
   // Basic Panel
   //---------------------------------------------------------------------------
   "name_edit@npc_interact.text_edit_control": {
-    "max_length": 32,
+    "max_length": 128,
     "size": [ "100%", 14 ],
     "$wrap": false,
     "$text_edit_box_content_binding_name": "#name_text",
@@ -412,7 +412,7 @@
   },
 
   "button_name_edit@npc_interact.text_edit_control": {
-    "max_length": 16,
+    "max_length": 128,
     "size": [ "100%", 14 ],
     "$wrap": false,
     "$text_edit_box_content_binding_type": "collection",

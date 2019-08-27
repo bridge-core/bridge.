@@ -9,7 +9,7 @@
     },
     "components": {
       "minecraft:type_family": {
-        "family": [ "armor_stand", "inanimate" ]
+        "family": [ "armor_stand", "inanimate", "mob" ]
       },
       "minecraft:collision_box": {
         "width": 0.5,

@@ -14,8 +14,11 @@
     },
 
     "components": {
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 5 : 0"
+      },
       "minecraft:type_family": {
-        "family": [ "phantom", "undead", "monster" ]
+        "family": [ "phantom", "undead", "monster", "mob" ]
       },
       "minecraft:loot": {
         "table": "loot_tables/entities/phantom.json"

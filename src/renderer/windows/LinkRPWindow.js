@@ -11,7 +11,7 @@ export default class LinkRPWindow extends ContentWindow {
             display_name: "Link Project To Resource Pack",
             options: {
                 is_persistent: false,
-                height: 160
+                height: 170
             },
             content: [
                 {

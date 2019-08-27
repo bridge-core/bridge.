@@ -85,9 +85,10 @@ export const DYNAMIC = {
             } catch(e) { return []; }
         },
         all_events() {
-            return LightningCache.getCompiledSync().entity.events.map(e => "@s " + e);
+            return LightningCache.getCompiledSync().entity.events;
         },
         "@events"() {
+            console.warn("[DEPRECATION] \"@events\" - Use \"('@s ' + $dynamic.entity.all_events) instead\"");
             return LightningCache.getCompiledSync().entity.events.map(e => "@s " + e);
         },
         animation_references() {

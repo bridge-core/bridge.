@@ -14,7 +14,7 @@
       },
       "despawning": {
         "minecraft:type_family": {
-          "family": [ "wandering_trader", "wandering_trader_despawning" ]
+          "family": [ "wandering_trader", "wandering_trader_despawning", "mob" ]
         }
       },
       "minecraft:scared": {
@@ -30,7 +30,7 @@
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "wandering_trader" ]
+        "family": [ "wandering_trader", "mob" ]
       },
       "minecraft:is_hidden_when_invisible": {
       },

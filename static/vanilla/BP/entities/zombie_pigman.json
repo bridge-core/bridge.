@@ -1,5 +1,5 @@
 {
-  "format_version": "1.12.0",
+  "format_version": "1.13.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:zombie_pigman",
@@ -9,6 +9,9 @@
     },
     "component_groups": {
       "minecraft:pig_zombie_baby": {
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 12 + (query.equipment_count * Math.Random(1,3)) : 0"
+        },
         "minecraft:is_baby": {
         },
         "minecraft:scale": {
@@ -17,6 +20,19 @@
       },
 
       "minecraft:pig_zombie_adult": {
+        "minecraft:rideable": {
+          "seat_count": 1,
+          "family_types": [
+            "zombie"
+          ],
+          "seats": {
+            "position": [ 0.0, 1.1, -0.35 ],
+            "lock_rider_rotation": 0
+          }
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 + (query.equipment_count * Math.Random(1,3)) : 0"
+        }
       },
       "minecraft:pig_zombie_angry": {
         "minecraft:angry": {
@@ -65,7 +81,7 @@
       "minecraft:fire_immune": true,
       "minecraft:burns_in_daylight": false,
       "minecraft:type_family": {
-        "family": [ "zombie_pigman", "undead", "monster" ]
+        "family": [ "zombie_pigman", "undead", "monster", "mob" ]
       },
       "minecraft:loot": {
         "table": "loot_tables/entities/zombie_pigman.json"

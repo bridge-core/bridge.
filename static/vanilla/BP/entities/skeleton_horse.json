@@ -32,6 +32,9 @@
         }
       },
       "minecraft:skeleton_horse_adult": {
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? Math.Random(1,3) : 0"
+        },
         "minecraft:loot": {
           "table": "loot_tables/entities/skeleton_horse.json"
         },
@@ -79,7 +82,7 @@
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "skeletonhorse", "undead" ]
+        "family": [ "skeletonhorse", "undead", "mob" ]
       },
       "minecraft:breathable": {
         "total_supply": 15,

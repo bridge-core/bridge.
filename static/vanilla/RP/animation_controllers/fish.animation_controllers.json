@@ -8,7 +8,7 @@
 					"animations" : [ "flop" ],
 					"transitions" : [
 						{
-							"swimming" : "query.is_in_water"
+							"swimming" : "query.is_in_water || query.is_levitating"
 						}
 					]
 				},
@@ -16,7 +16,7 @@
 					"animations" : [ "swim" ],
 					"transitions" : [
 						{
-							"flopping" : "!query.is_in_water"
+							"flopping" : "!query.is_in_water && !query.is_levitating"
 						}
 					]
 				}

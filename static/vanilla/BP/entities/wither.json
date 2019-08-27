@@ -9,6 +9,9 @@
     },
 
     "components": {
+      "minecraft:experience_reward": {
+        "on_death": "50"
+      },
       "minecraft:breathable": {
         "total_supply": 15,
         "suffocate_time": 0
@@ -115,7 +118,7 @@
         "priority": 7
       },
       "minecraft:type_family": {
-        "family": [ "wither", "skeleton", "monster", "undead" ]
+        "family": [ "wither", "skeleton", "monster", "undead", "mob" ]
       },
       "minecraft:persistent": {
       },

@@ -6,6 +6,15 @@
 {
   "namespace": "structure_editor",
 
+  "help_icon": {
+    "type": "image",
+    "texture": "textures/ui/how_to_play_button_default",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 3,
+    "size": [ 32, 16 ]
+  },
+
   "common_text_label": {
     "type": "label",
     "color": "$main_header_text_color",
@@ -158,6 +167,11 @@
   "reset_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.structure_reset",
     "$button_text": "structure_block.reset"
+  },
+
+  "help_button@common_buttons.light_glyph_button": {
+    "$pressed_button_name": "button.help",
+    "$button_content": "structure_editor.help_icon"
   },
 
   "toggle_option_panel": {
@@ -766,20 +780,49 @@
     ]
   },
 
+  "help_button_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ 34, 30 ],
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+    "controls": [
+      {
+        "help@structure_editor.help_button": {
+          "size": [ 30, 30 ]
+        }
+      },
+      {
+        "help_divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      }
+    ]
+  },
+
   "save_button_panel": {
     "type": "stack_panel",
     "orientation": "horizontal",
-    "size": [ "100% - 16px", 30 ],
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
     "controls": [
       {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      },
+      {
         "save@structure_editor.save_button": {
-          "size": [ "33% - 2px", "100%" ]
+          "size": [ "33% - 3px", "100%" ]
         }
       },
       {
         "save_divider": {
           "type": "panel",
-          "size": [ 4, "100%" ]
+          "size": [ "2px", "100%" ]
         }
       },
       {
@@ -790,42 +833,18 @@
       {
         "export_divider": {
           "type": "panel",
-          "size": [ 4, "100%" ]
+          "size": [ "2px", "100%" ]
         }
       },
       {
         "reset@structure_editor.reset_button": {
-          "size": [ "33% - 2px", "100%" ]
-        }
-      }
-    ],
-    "bindings": [
-      {
-        "binding_name": "#save_visible",
-        "binding_name_override": "#visible"
-      }
-    ]
-  },
-
-  "save_button_panel_no_export": {
-    "type": "stack_panel",
-    "orientation": "horizontal",
-    "size": [ "100% - 16px", 30 ],
-    "controls": [
-      {
-        "save@structure_editor.save_button": {
-          "size": [ "50% - 2px", "100%" ]
+          "size": [ "33% - 3px", "100%" ]
         }
       },
       {
-        "save_divider": {
+        "reset_divider": {
           "type": "panel",
-          "size": [ 4, "100%" ]
-        }
-      },
-      {
-        "reset@structure_editor.reset_button": {
-          "size": [ "50% - 2px", "100%" ]
+          "size": [ "2px", "100%" ]
         }
       }
     ],
@@ -840,17 +859,25 @@
   "load_button_panel": {
     "type": "stack_panel",
     "orientation": "horizontal",
-    "size": [ "100% - 16px", 30 ],
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
     "controls": [
       {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      },
+      {
         "load@structure_editor.load_button": {
-          "size": [ "33% - 2px", "100%" ]
+          "size": [ "33% - 3px", "100%" ]
         }
       },
       {
         "load_divider": {
           "type": "panel",
-          "size": [ 4, "100%" ]
+          "size": [ "2px", "100%" ]
         }
       },
       {
@@ -861,12 +888,18 @@
       {
         "export_divider": {
           "type": "panel",
-          "size": [ 4, "100%" ]
+          "size": [ "2px", "100%" ]
         }
       },
       {
         "reset@structure_editor.reset_button": {
-          "size": [ "33% - 2px", "100%" ]
+          "size": [ "33% - 3px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
         }
       }
     ],
@@ -881,22 +914,36 @@
   "load_button_panel_no_export": {
     "type": "stack_panel",
     "orientation": "horizontal",
-    "size": [ "100% - 16px", 30 ],
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
     "controls": [
       {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      },
+      {
         "load@structure_editor.load_button": {
-          "size": [ "50% - 2px", "100%" ]
+          "size": [ "50% - 4px", "100%" ]
         }
       },
       {
         "load_divider": {
           "type": "panel",
-          "size": [ 4, "100%" ]
+          "size": [ "2px", "100%" ]
         }
       },
       {
         "reset@structure_editor.reset_button": {
-          "size": [ "50% - 2px", "100%" ]
+          "size": [ "50% - 4px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
         }
       }
     ],
@@ -911,22 +958,36 @@
   "3d_export_button_panel": {
     "type": "stack_panel",
     "orientation": "horizontal",
-    "size": [ "100% - 16px", 30 ],
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
     "controls": [
       {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      },
+      {
         "3d_export@structure_editor.3d_export_button": {
-          "size": [ "50% - 2px", "100%" ]
+          "size": [ "50% - 4px", "100%" ]
         }
       },
       {
         "3d_export_divider": {
           "type": "panel",
-          "size": [ 4, "100%" ]
+          "size": [ "2px", "100%" ]
         }
       },
       {
         "reset@structure_editor.reset_button": {
-          "size": [ "50% - 2px", "100%" ]
+          "size": [ "50% - 4px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
         }
       }
     ],
@@ -938,12 +999,63 @@
     ]
   },
 
+
   "data_button_panel": {
-    "type": "panel",
-    "size": [ "100% - 16px", 30 ],
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
     "controls": [
       {
-        "reset@structure_editor.reset_button": {}
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", " 100%" ]
+        }
+      },
+      {
+        "reset@structure_editor.reset_button": {
+          "size": [ "100% - 6px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#data_mode_panel_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "corner_button_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      },
+      {
+        "reset@structure_editor.reset_button": {
+          "size": [ "100% - 2px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
       }
     ],
     "bindings": [
@@ -961,39 +1073,64 @@
     "offset": [ 0, 2 ],
     "controls": [
       {
-        "save_panel_no_export@structure_editor.save_button_panel_no_export": {
-          "layer": 3,
-          "ignored": "($file_picking_supported or not $save_support)"
-        }
-      },
-      {
-        "save_panel@structure_editor.save_button_panel": {
-          "layer": 3,
-          "ignored": "(not $file_picking_supported or not $save_support)"
-        }
-      },
-      {
-        "load_panel_no_export@structure_editor.load_button_panel_no_export": {
-          "layer": 3,
-          "ignored": "($file_picking_supported or not $load_support)"
-        }
-      },
-      {
-        "load_panel@structure_editor.load_button_panel": {
-          "layer": 3,
-          "ignored": "(not $file_picking_supported or not $load_support)"
-        }
-      },
-      {
-        "3d_export_panel@structure_editor.3d_export_button_panel": {
-          "ignored": "(not $3DExport_support)",
-          "layer": 3
-        }
-      },
-      {
-        "data_panel@structure_editor.data_button_panel": {
-          "layer": 3,
-          "ignored": "(not $data_support)"
+        "panel": {
+          "type": "panel",
+          "size": [ "100% - 6px", "100% - 6px" ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "controls": [
+            {
+              "divider": {
+                "type": "panel",
+                "size": [ "4px", "100%" ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left"
+              }
+            },
+            {
+              "save_panel@structure_editor.save_button_panel": {
+                "layer": 3,
+                "ignored": "(not $file_picking_supported)"
+              }
+            },
+            {
+              "load_panel_no_export@structure_editor.load_button_panel_no_export": {
+                "layer": 3,
+                "ignored": "($file_picking_supported)"
+              }
+            },
+            {
+              "load_panel@structure_editor.load_button_panel": {
+                "layer": 3,
+                "ignored": "(not $file_picking_supported)"
+              }
+            },
+            {
+              "3d_export_panel@structure_editor.3d_export_button_panel": {
+                "ignored": "(not $3DExport_support)",
+                "layer": 3
+              }
+            },
+            {
+              "data_panel@structure_editor.data_button_panel": {
+                "layer": 3,
+                "ignored": "(not $data_support)"
+              }
+            },
+            {
+              "how_to_play_button@structure_editor.help_button_panel": {
+                "layer": 3
+              }
+            },
+            {
+              "end_divider": {
+                "type": "panel",
+                "size": [ "4px", "100%" ],
+                "anchor_from": "top_right",
+                "anchor_to": "top_right"
+              }
+            }
+          ]
         }
       }
     ]
@@ -1059,27 +1196,13 @@
       {
         "structure_save_mode@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#structure_save_mode",
-          "$radio_label_text|default": "structure_block.mode.save",
-          "variables": [
-            {
-              "requires": "(not $save_support)",
-              "$radio_label_text": "structure_block.mode.save.experimental"
-
-            }
-          ]
+          "$radio_label_text|default": "structure_block.mode.save"
         }
       },
       {
         "structure_load_mode@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#structure_load_mode",
-          "$radio_label_text|default": "structure_block.mode.load",
-          "variables": [
-            {
-              "requires": "(not $load_support)",
-              "$radio_label_text": "structure_block.mode.load.experimental"
-
-            }
-          ]
+          "$radio_label_text|default": "structure_block.mode.load"
         }
       },
       {
@@ -1107,19 +1230,6 @@
     "$option_enabled_binding_name": "#mode_dropdown_enabled",
     "$options_dropdown_toggle_label_binding": "#mode_dropdown_toggle_label",
     "$dropdown_scroll_content_size": [ "100%", "200%" ]
-  },
-
-  "experimental_warning_label": {
-    "type": "label",
-    "text": "structure_block.experimental",
-    "color": "$body_text_color",
-    "size": [ "100%", "default" ],
-    "bindings": [
-      {
-        "binding_name": "$warning_label_visible_binding",
-        "binding_name_override": "#visible"
-      }
-    ]
   },
 
   "scrolling_panel_wrapper@common.dialog_background_hollow_4": {
@@ -1177,24 +1287,10 @@
             },
             {
               "save_mode_panel@structure_editor.save_mode_panel": {
-                "ignored": "(not $save_support)"
-              }
-            },
-            {
-              "save_mode_experimental_warning_label@structure_editor.experimental_warning_label": {
-                "ignored": "$save_support",
-                "$warning_label_visible_binding": "#save_mode_panel_visible"
               }
             },
             {
               "load_mode_panel@structure_editor.load_mode_panel": {
-                "ignored": "(not $load_support)"
-              }
-            },
-            {
-              "load_mode_experimental_warning_label@structure_editor.experimental_warning_label": {
-                "ignored": "$load_support",
-                "$warning_label_visible_binding": "#load_mode_panel_visible"
               }
             },
             {
@@ -1215,12 +1311,6 @@
               "show_bounding_box_offset": {
                 "type": "panel",
                 "size": [ "100%", 2 ]
-              }
-            },
-            {
-              "data_mode_experimental_warning_label@structure_editor.experimental_warning_label": {
-                "ignored": "$data_support",
-                "$warning_label_visible_binding": "#data_mode_panel_visible"
               }
             },
             {
@@ -1545,7 +1635,7 @@
       {
         "image_offset": {
           "type": "panel",
-          "size": [ "100%", 2 ]
+          "size": [ "100%", 1 ]
         }
       },
       {
@@ -1554,8 +1644,7 @@
           "size": [ "100% - 6px", "46px" ],
           "controls": [
             {
-              "buttons@structure_editor.button_panel_wrapper": {
-              }
+              "buttons@structure_editor.button_panel_wrapper": {}
             }
           ]
 
@@ -1643,6 +1732,7 @@
       }
     ],
     "$screen_content": "structure_editor.structure_editor_content",
-    "$screen_bg_content": "common.screen_background"
+    "$screen_bg_content": "common.screen_background",
+    "$screen_background_alpha": 0.95
   }
 }
