@@ -40,7 +40,7 @@
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "irongolem" ]
+        "family": [ "irongolem", "mob" ]
       },
       "minecraft:nameable": {
       },

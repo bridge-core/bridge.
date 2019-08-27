@@ -9,6 +9,9 @@
     },
     "component_groups": {
       "minecraft:dolphin_adult": {
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? Math.Random(1,4) : 0"
+        },
         "minecraft:loot": {
           "table": "loot_tables/entities/dolphin.json"
         },
@@ -75,25 +78,27 @@
           "can_breach": true,
           "can_sink": false
         },
-        "minecraft:environment_sensor": [
-          {
-            "filters": {
-              "all_of": [
-                {
-                  "test": "on_ground",
-                  "operator": "==",
-                  "value": true
-                },
-                {
-                  "test": "in_water",
-                  "operator": "!=",
-                  "value": true
-                }
-              ]
-            },
-            "event": "minecraft:navigation_on_land"
-          }
-        ]
+        "minecraft:environment_sensor": {
+          "triggers": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "on_ground",
+                    "operator": "==",
+                    "value": true
+                  },
+                  {
+                    "test": "in_water",
+                    "operator": "!=",
+                    "value": true
+                  }
+                ]
+              },
+              "event": "minecraft:navigation_on_land"
+            }
+          ]
+        }
       },
       "minecraft:dolphin_on_land": {
         "minecraft:navigation.generic": {
@@ -111,16 +116,18 @@
             "event": "minecraft:dried_out"
           }
         },
-        "minecraft:environment_sensor": [
-          {
-            "filters": {
-              "test": "in_water_or_rain",
-              "operator": "==",
-              "value": true
-            },
-            "event": "minecraft:stop_dryingout"
-          }
-        ]
+        "minecraft:environment_sensor": {
+          "triggers": [
+            {
+              "filters": {
+                "test": "in_water_or_rain",
+                "operator": "==",
+                "value": true
+              },
+              "event": "minecraft:stop_dryingout"
+            }
+          ]
+        }
       },
       "minecraft:dolphin_on_land_in_rain": {
         "minecraft:navigation.generic": {
@@ -131,24 +138,26 @@
           "can_breach": false,
           "can_jump": false
         },
-        "minecraft:environment_sensor": [
-          {
-            "filters": {
-              "test": "in_water",
-              "operator": "==",
-              "value": true
+        "minecraft:environment_sensor": {
+          "triggers": [
+            {
+              "filters": {
+                "test": "in_water",
+                "operator": "==",
+                "value": true
+              },
+              "event": "minecraft:navigation_off_land"
             },
-            "event": "minecraft:navigation_off_land"
-          },
-          {
-            "filters": {
-              "test": "in_water_or_rain",
-              "operator": "!=",
-              "value": true
-            },
-            "event": "minecraft:start_dryingout"
-          }
-        ]
+            {
+              "filters": {
+                "test": "in_water_or_rain",
+                "operator": "!=",
+                "value": true
+              },
+              "event": "minecraft:start_dryingout"
+            }
+          ]
+        }
       }
     },
 
@@ -156,7 +165,7 @@
       "minecraft:nameable": {
       },
       "minecraft:type_family": {
-        "family": [ "dolphin" ]
+        "family": [ "dolphin", "mob" ]
       },
       "minecraft:collision_box": {
         "width": 0.9,
@@ -251,7 +260,7 @@
       },
       "minecraft:behavior.find_underwater_treasure": {
         "priority": 2,
-		"speed_multiplier": 2.0,
+        "speed_multiplier": 2.0,
         "search_range": 30,
         "stop_distance":  50
       },
@@ -262,6 +271,26 @@
       },
       "minecraft:behavior.hurt_by_target": {
         "priority": 1
+      },
+      "minecraft:flocking": {
+        "in_water": false,
+        "match_variants": false,
+        "use_center_of_mass": false,
+        "low_flock_limit": 4,
+        "high_flock_limit": 8,
+        "goal_weight": 2.0,
+        "loner_chance": 0.1,
+        "influence_radius": 6.0,
+        "breach_influence": 0.0,
+        "separation_weight": 1.75,
+        "separation_threshold": 3.0,
+        "cohesion_weight": 1.85,
+        "cohesion_threshold": 6.5,
+        "innner_cohesion_threshold": 3.5,
+        "min_height": 4.0,
+        "max_height": 4.0,
+        "block_distance": 1.0,
+        "block_weight": 0.0
       },
       "minecraft:on_target_acquired": {
         "event": "minecraft:become_angry",

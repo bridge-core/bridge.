@@ -6,8 +6,8 @@
         },
         "do_not_upgrade": {},
         "description": {
-            "identifier": "$general.entity_identifier",
-            "runtime_identifier": "$general.vanilla.entity_identifier",
+            "identifier": "$general.file_identifier and $general.entity_identifier",
+            "runtime_identifier": "$vanilla.entity_identifier",
             "is_spawnable": "$general.boolean",
             "is_summonable": "$general.boolean",
             "is_experimental": "$general.boolean",

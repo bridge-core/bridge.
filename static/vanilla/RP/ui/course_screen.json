@@ -903,6 +903,14 @@
   //---------------------------------------------------------------------------
 
   "course_screen@common.base_screen": {
+     // When the player hits Esc (menu_cancel button), they can exit the screen
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
     "$is_full_screen_layout": true,
     "$screen_content": "course.screen_content"
   },
@@ -954,6 +962,10 @@
         "download_progress_panel@edu_common.download_progress_modal_panel": {
           "$body_text": "library.item.progress.body"
         }
+      },
+      // Local World Loading progress modal window
+      {
+        "loading_progress_panel@edu_common.loading_progress_modal_panel": {}
       },
       {
         "popup_dialog_factory": {

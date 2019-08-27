@@ -4,7 +4,7 @@
         "$placeholder": {
             "anim_time_update": {
                 "@meta": { "is_molang": true },
-                "@import.value": "$animation.general.queries"
+                "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
             },
             "animation_length": "$general.number",
             "blend_weight": "$general.decimal",
@@ -15,19 +15,19 @@
                     "rotation": {
                         "$dynamic.list.index_triple": {
                             "@meta": { "is_molang": true },
-                            "@import.value": "$general.degree and $animation.general.queries"
+                            "@import.value": "$general.degree and $molang.general.boolean and ('query.' + $molang.general.query)"
                         }
                     },
                     "scale": {
                         "$dynamic.list.index_triple": {
                             "@meta": { "is_molang": true },
-                            "@import.value": "$general.degree and $animation.general.queries"
+                            "@import.value": "$general.degree and $molang.general.boolean and ('query.' + $molang.general.query)"
                         }
                     },
                     "position": {
                         "$dynamic.list.index_triple": {
                             "@meta": { "is_molang": true },
-                            "@import.value": "$general.number and $animation.general.queries"
+                            "@import.value": "$general.number and $molang.general.boolean and ('query.' + $molang.general.query)"
                         }
                     }
                 }

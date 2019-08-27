@@ -199,6 +199,20 @@
               "function": "enchant_randomly"
             }
           ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:suspicious_stew",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "random_aux_value",
+              "values": {
+                "min": 0,
+                "max": 6
+              }
+            }
+          ]
         }
       ]
     }

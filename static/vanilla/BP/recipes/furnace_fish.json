@@ -4,7 +4,6 @@
     "description": {
     "identifier": "minecraft:furnace_fish"
     },
-
     
     "tags": ["furnace", "smoker", "campfire"],
     "input": "minecraft:fish",

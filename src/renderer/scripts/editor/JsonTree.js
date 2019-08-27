@@ -235,10 +235,11 @@ export default class JSONTree {
         return child;
     }
     /**
-     * @param {String} new_data (Optional)
+     * @param {String} new_data 
      */
     edit(new_data) {
         if(!new_data) throw new Error("Data may not be undefined or null.");
+        if(this.type === "object" || this.type === "array") this.type = "string";
         this.data = new_data;
         this.updateUUID();
     }
@@ -320,7 +321,7 @@ export default class JSONTree {
         this.meta = Object.assign(this.meta, META);
 
         const { is_color } = META;
-        if(is_color && this.data === "") this.data = "#4caf50";
+        if(is_color && this.data === "") this.edit("#4CAF50");
     }
     openNode(val=true) {
         this.updateUUID();

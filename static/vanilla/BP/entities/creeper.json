@@ -59,8 +59,11 @@
       },
 
       "components": {
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 : 0"
+        },
         "minecraft:type_family": {
-          "family": [ "creeper", "monster" ]
+          "family": [ "creeper", "monster", "mob" ]
         },
         "minecraft:breathable": {
           "total_supply": 15,
@@ -135,34 +138,36 @@
           }
         },
         "minecraft:interact": {
-          "on_interact": {
-            "filters": {
-              "all_of": [
-                {
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "player"
-                },
-                {
-                  "test": "has_equipment",
-                  "domain": "hand",
-                  "subject": "other",
-                  "value": "flint_and_steel"
-                },
-                {
-                  "test": "has_component",
-                  "operator": "!=",
-                  "value": "minecraft:explode"
-                }
-              ]
+          "interactions": {
+            "on_interact": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "domain": "hand",
+                    "subject": "other",
+                    "value": "flint_and_steel"
+                  },
+                  {
+                    "test": "has_component",
+                    "operator": "!=",
+                    "value": "minecraft:explode"
+                  }
+                ]
+              },
+              "event": "minecraft:start_exploding_forced",
+              "target": "self"
             },
-            "event": "minecraft:start_exploding_forced",
-            "target": "self"
-          },
-          "hurt_item": 1,
-          "swing": true,
-          "play_sounds": "ignite",
-          "interact_text": "action.interact.creeper"
+            "hurt_item": 1,
+            "swing": true,
+            "play_sounds": "ignite",
+            "interact_text": "action.interact.creeper"
+          }
         },
         "minecraft:behavior.float": {
           "priority": 0

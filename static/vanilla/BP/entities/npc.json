@@ -16,7 +16,7 @@
         }
       },
       "minecraft:type_family": {
-        "family": [ "npc" ]
+        "family": [ "npc", "mob" ]
       },
       "minecraft:fire_immune": true,
       "minecraft:health": {

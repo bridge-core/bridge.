@@ -162,7 +162,7 @@
     "$scrolling_content": "popup_dialog.modal_label_text",
     "$scroll_size": [ 5, "100% - 4px" ],
     "$show_background": false,
-    "layer": 1,    
+    "layer": 1,
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
     "$always_handle_scrolling": true
@@ -463,6 +463,7 @@
     "type": "panel",
     "size": [ "100%c", "100%c" ],
     "layer": 1,
+    "$no_close_button|default": false,
     "controls": [
       {
         "panel_background@common.dialog_background_hollow_3": {
@@ -495,6 +496,7 @@
             },
             {
               "close_button_panel": {
+                "ignored": "$no_close_button",
                 "type": "panel",
                 "size": [ "100%c", 0 ],
                 "anchor_from": "top_right",
@@ -517,7 +519,7 @@
                 "anchor_to": "top_middle",
                 "offset": [ 0, 23 ],
                 "controls": [
-                  { "contents@$modal_contents": { } },
+                  { "contents@$modal_contents": {} },
                   {
                     "content_padding@common.empty_panel": {
                       "$modal_contents_padding|default": [ 0, 0 ],
@@ -545,12 +547,13 @@
   // $modal_contents_padding: The padding around the contents
   // $fill_alpha: The hollow content background alpha
   // $modal_background: The fullscreen background
+  // $no_close_button: Disable the close button (will need to change $popup_dialog_escape_button_name to prevent closing)
   "form_fit_modal_dialog_popup@popup_dialog.modal_input_panel": {
     "size": [ "100%", "100%" ],
     "$modal_background|default": "common.screen_background",
     "controls": [
-      { "background@$modal_background": { } },
-      { "content@popup_dialog.form_fit_screen_with_title_and_close": { } }
+      { "background@$modal_background": {} },
+      { "content@popup_dialog.form_fit_screen_with_title_and_close": {} }
     ]
   },
 

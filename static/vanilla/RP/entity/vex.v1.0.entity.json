@@ -13,7 +13,8 @@
       },
       "scripts": {
         "pre_animation": [
-          "variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"
+          "variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;",
+          "variable.attackbodyroty = Math.sin(Math.sqrt(variable.attack_time) * 360.0) * 11.46;"
         ],
         "scale": "0.4"
       },

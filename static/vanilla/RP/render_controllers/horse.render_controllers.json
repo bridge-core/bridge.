@@ -6,20 +6,17 @@
         "textures": {
           "Array.base": [
             "Texture.base_brown",
-            "Texture.donkey",
-            "Texture.mule",
-            "Texture.zombie",
-            "Texture.skeleton"
-          ],
-          "Array.variant": [
             "Texture.base_white",
             "Texture.base_creamy",
             "Texture.base_chestnut",
             "Texture.base_brown",
-            "Texture.base_brown",
             "Texture.base_black",
             "Texture.base_gray",
-            "Texture.base_darkbrown"
+            "Texture.base_darkbrown",
+            "Texture.mule",
+            "Texture.donkey",
+            "Texture.skeleton",
+            "Texture.zombie"
           ],
           "Array.markings": [
             "Texture.markings_none",
@@ -38,24 +35,16 @@
         }
       },
       "geometry": "Geometry.default",
-      "part_visibility": [
-        { "*saddle*": "query.is_saddled" },
-        { "SaddleMouthLine": "query.is_saddled && query.has_rider" },
-        { "SaddleMouthLineR": "query.is_saddled && query.has_rider" },
-        { "Ear*": "!variable.horse.large_ears" },
-        { "MuleEar*": "variable.horse.large_ears" },
-        { "Bag*": "query.is_chested" }
-      ],
       "materials": [
-        { "*": "(query.armor_texture_slot(1) == 1.0) ? Material.horse_leather_armor : Material.default" },
+        { "*": "Material.default" },
         { "TailA": "Material.horse_hair" },
         { "Mane": "Material.horse_hair" },
         { "*Saddle*": "Material.horse_saddle" }
       ],
       "textures": [
-        "variable.horse.is_horse ? Array.variant[query.variant] : Array.base[query.sub_variant] ",
-        "Array.markings[query.mark_variant]",
-        "Array.armor[query.armor_texture_slot(1)]"
+        "Array.base[variable.BaseTextureIndex]",
+        "Array.markings[variable.MarkingsTextureIndex]",
+        "Array.armor[variable.ArmorTextureIndex]"
       ]
     }
   }

@@ -78,6 +78,10 @@
         }
       },
       "minecraft:panda_adult": {
+        "minecraft:experience_reward": {
+          "on_bred": "Math.Random(1,7)",
+          "on_death": "query.last_hit_by_player ? Math.Random(1,4) : 0"
+        },
         "minecraft:loot": {
           "table": "loot_tables/entities/panda.json"
         },
@@ -257,7 +261,7 @@
       },
       "minecraft:panda_aggressive": {
         "minecraft:type_family": {
-          "family": [ "panda" , "panda_aggressive" ]
+          "family": [ "panda" , "panda_aggressive", "mob" ]
         },
         "minecraft:variant": {
           "value": 6
@@ -341,14 +345,16 @@
         "priority": 1
       },
       "minecraft:giveable": {
-        "cooldown": 3.0,
-        "items": [
-          "bamboo",
-          "cake"
-        ],
-        "on_give": {
-          "event": "minecraft:on_calm",
-          "target": "self"
+        "triggers": {
+          "cooldown": 3.0,
+          "items": [
+            "bamboo",
+            "cake"
+          ],
+          "on_give": {
+            "event": "minecraft:on_calm",
+            "target": "self"
+          }
         }
       },
       "minecraft:inventory": {

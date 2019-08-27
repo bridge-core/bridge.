@@ -426,91 +426,6 @@
     "size": [ "100%", "100% - 2px" ],
     "controls": [
       {
-        "p1@common_buttons.light_text_button": {
-          "anchor_to": "top_middle",
-          "anchor_from": "center",
-          "offset": [ 0, -130 ],
-          "layer": 7,
-          "size": [ "40%", 20 ],
-          "$pressed_button_name": "button.p1_action",
-          "$button_text": "P1",
-          "bindings": [
-            {
-              "binding_name": "#p_button_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
-        "p2@common_buttons.light_text_button": {
-          "anchor_to": "top_middle",
-          "anchor_from": "center",
-          "offset": [ 0, -150 ],
-          "layer": 7,
-          "size": [ "40%", 20 ],
-          "$pressed_button_name": "button.p2_action",
-          "$button_text": "P2",
-          "bindings": [
-            {
-              "binding_name": "#p_button_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
-        "addCape@common_buttons.light_text_button": {
-          "anchor_to": "top_middle",
-          "anchor_from": "center",
-          "offset": [ 0, -130 ],
-          "layer": 7,
-          "size": [ "40%", 20 ],
-          "$pressed_button_name": "button.add_cape",
-          "$button_text": "Add Cape",
-          "bindings": [
-            {
-              "binding_name": "#cape_button_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
-        "addCape2@common_buttons.light_text_button": {
-          "anchor_to": "top_middle",
-          "anchor_from": "center",
-          "offset": [ 0, -150 ],
-          "layer": 7,
-          "size": [ "40%", 20 ],
-          "$pressed_button_name": "button.add_cape2",
-          "$button_text": "Add Cape2",
-          "bindings": [
-            {
-              "binding_name": "#cape_button_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
-        "removeCape@common_buttons.light_text_button": {
-          "anchor_to": "top_middle",
-          "anchor_from": "center",
-          "offset": [ 0, -170 ],
-          "layer": 7,
-          "size": [ "40%", 20 ],
-          "$pressed_button_name": "button.remove_cape",
-          "$button_text": "Remove Cape",
-          "bindings": [
-            {
-              "binding_name": "#cape_button_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
         "preview@skin_picker.skin_viewer_panel": {
           "size": [ "100%", "100% - 54px" ]
         }
@@ -567,6 +482,7 @@
                             "controls": [
                               {
                                 "appearance_status_notification_panel@common_buttons.static_tooltip_notification_panel": {
+                                  "ignored": "$education_edition",
                                   "size": [ "100% - 4px", "100%" ],
                                   "button_mappings": [],
                                   "consume_hover_events": false,

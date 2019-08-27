@@ -10,7 +10,7 @@
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "tripodcamera", "inanimate" ]
+        "family": [ "tripodcamera", "inanimate", "mob" ]
       },
       "minecraft:health": {
         "value": 4,

@@ -1152,10 +1152,14 @@
     "sound_volume": 0.0,
     "$pressed_button_name|default": "button.focus_filler", // This event is not intended to be handled anywhere
     "$button_tts_name": "", // We don't want TTS to say "button" here
+    "$default_focus_border_control|default": "common.empty_panel",
+    "$hover_focus_border_control|default": "common.non_interact_focus_border",
+    "$pressed_focus_border_control|default": "common.non_interact_focus_border",
+
     "controls": [
-      { "default@common.empty_panel": {} },
-      { "hover@common.non_interact_focus_border": {} },
-      { "pressed@common.non_interact_focus_border": {} }
+      { "default@$default_focus_border_control": {} },
+      { "hover@$hover_focus_border_control": {} },
+      { "pressed@$pressed_focus_border_control": {} }
     ]
   },
 
@@ -1166,6 +1170,7 @@
     "$focus_border_anchor|default": "center",
     "$focus_border_offset|default": [ 0, 0 ],
     "$focus_border_precedence|default": 0,
+    "$focus_border_consume_hover_events|default": true,
     "size": [ "100%", "100%cm" ],
     "controls": [
       {
@@ -1180,10 +1185,14 @@
           "offset": "$focus_border_offset",
           "default_focus_precedence": "$focus_border_precedence",
           "$focus_border_visible_binding|default": "#tts_enabled",
+          "$focus_border_visible_binding_override|default": "#visible",
+          "$focus_border_visible_binding_type|default": "global",
+          "consume_hover_events": "$focus_border_consume_hover_events",
           "bindings": [
             {
+              "binding_type": "$focus_border_visible_binding_type",
               "binding_name": "$focus_border_visible_binding",
-              "binding_name_override": "#visible"
+              "binding_name_override": "$focus_border_visible_binding_override"
             }
           ]
         }
@@ -2420,6 +2429,12 @@
     "texture": "textures/ui/dialog_background_hollow_7"
   },
 
+  // Title Area has no space for controls
+  // small icon button area in bottom right corner, size of icon button area does not change with scaling
+  "dialog_background_hollow_8@dialog_background_hollow_common": {
+    "texture": "textures/ui/dialog_background_hollow_8"
+  },
+
   "dialog_divider": {
     "type": "image",
     "texture": "textures/ui/dialog_divider",
@@ -2444,6 +2459,59 @@
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "color": "$title_text_color"
+  },
+
+  "section_divider": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "$top_padding_size|default": [ "100%", 2 ],
+    "$bottom_padding_size|default": [ "100%", 2 ],
+    "controls": [
+      {
+        "padding1": {
+          "type": "panel",
+          "size": "$top_padding_size"
+        }
+      },
+      {
+        "divider_parent": {
+          "type": "panel",
+          "size": [ "100%", 1 ],
+          "controls": [
+            {
+              "divider": {
+                "type": "image",
+                "texture": "textures/ui/divider2",
+                "alpha": 0.2,
+                "size": [ "100% - 10px", 1 ],
+                "layer": 1
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding2": {
+          "type": "panel",
+          "size": "$bottom_padding_size"
+        }
+      }
+    ]
+  },
+
+  "minecraftTenLabel": {
+    "type": "label",
+    "font_type": "MinecraftTen",
+    "backup_font_type": "DefaultFont",
+    "color": "$generic_button_text_color", // We have to specify a color for unit tests - expect to override this when used.
+    "variables": [
+      {
+        "requires": "(not $is_low_memory_device and not $is_berwick)", // We don't load MinecraftTen in these cases so we need to revert to Mojangles.
+        "font_scale_factor": 1.39,
+        "offset": [ 0, -2 ] // Because of how the font is rendered it looks like it is offset down from the center of the render area
+      }
+    ]
   },
 
   "close_button_image": {
@@ -3070,8 +3138,11 @@
                     "centered_panel": {
                       "type": "panel",
                       "size": "$scroll_size",
-                      "anchor_from": "center",
-                      "anchor_to": "center",
+                      "$scroll_track_anchor|default": "center",
+                      "anchor_from": "$scroll_track_anchor",
+                      "anchor_to": "$scroll_track_anchor",
+                      "$scroll_track_offset|default": [ 0, 0 ],
+                      "offset": "$scroll_track_offset",
                       "controls": [
                         {
                           "track@common.scrollbar_track": {
@@ -3152,7 +3223,8 @@
 
           "anchor_to": "top_left",
           "anchor_from": "top_left",
-          "size": [ "100%", "100%" ],
+          "$scroll_view_stack_panel_size|default":  ["100%", "100%"],
+          "size": "$scroll_view_stack_panel_size",
           "controls": [
             { "background_and_viewport@common.scroll_background_and_viewport": {} },
             { "bar_and_track@common.scroll_bar_and_track": {} }
@@ -3166,6 +3238,8 @@
           "anchor_to": "top_left",
           "anchor_from": "top_left",
           "$view_port_size|default": [ "100%", "100%" ],
+          "$scroll_view_port_panel_size|default": [ "100%", "100%" ],
+          "size":  "$scroll_view_port_panel_size",
           "controls": [
             { "background_and_viewport@common.scroll_background_and_viewport": {} },
             { "bar_and_track@common.scroll_bar_and_track": {} }
@@ -4707,7 +4781,11 @@
               "$mob_effect_screen_size": [ "90%", "90%" ], // Mob Effect Screen
               "$purchase_coin_screen_size": [ "90%", "17%x + 82px" ], //Coin Purchase Screen
               "$choose_realm_screen_size": [ "70%", "85%" ], //Choose Realm Screen
-              "$world_modal_screen_size": [ 290, 100 ] // world convert and world loading modal progress screens
+              "$custom_templates_screen_size": [ "70%", "85%" ], //Custom Templates Screen
+              "$world_modal_screen_size": [ 290, 100 ], // world convert and world loading modal progress screens
+              "$day_one_experience_intro_screen_size": [ "60%", "85%" ], // Day One Experience intro popup
+              "$day_one_experience_import_progress_screen_size": [ "80%", "90%" ], // Day One Experience import progress modal screen
+              "$world_conversion_complete_screen_size": [ 290, 160 ] // World Conversion complete modal screen
             },
             // PE edition and VR
             {
@@ -4744,7 +4822,11 @@
               "$mob_effect_screen_size": [ "90%", "90%" ], // Mob Effect Screen
               "$purchase_coin_screen_size": [ "90%", "17%x + 82px" ], //Coin Purchase Screen
               "$choose_realm_screen_size": [ "70%", "85%" ], //Choose Realm Screen
-              "$world_modal_screen_size": [ 290, 100 ] // world convert and world loading modal progress screens
+              "$custom_templates_screen_size": [ "70%", "85%" ], //Custom Templates Screen
+              "$world_modal_screen_size": [ 290, 100 ], // world convert and world loading modal progress screens
+              "$day_one_experience_intro_screen_size": [ "60%", "85%" ], // Day One Experience intro popup
+              "$day_one_experience_import_progress_screen_size": [ "80%", "90%" ], // Day One Experience import progress modal screen
+              "$world_conversion_complete_screen_size": [ 290, 160 ] // World Conversion complete modal screen
             }
           ],
           "button_mappings": [
@@ -5252,6 +5334,8 @@
 
   "tooltip_button_content@common.tooltip_background": {
     "size": "$tooltip_button_content_size",
+    "$tooltip_panel_content_background_alpha|default": 1.0,
+    "alpha": "$tooltip_panel_content_background_alpha",
     "controls": [
       {
         "tooltip_panel_content@$tooltip_panel_content": {}
@@ -5266,8 +5350,9 @@
     "$ignore_tooltip_popup_chevron|default": false,
     "$tooltip_popup_visible_binding|default": "",
     "$tooltip_panel_offset|default": [ 0, "-100%c - 2px" ],
+    "$tooltip_panel_size|default": [ "100%", "100%cm + 8px" ],
 
-    "size": [ "100%", "100%cm + 8px" ],
+    "size": "$tooltip_panel_size",
     "offset": "$tooltip_panel_offset",
     "layer": 200, // always on top
     "anchor_to": "top_middle",
@@ -5337,11 +5422,14 @@
                 "text": "$tooltip_text_binding_name",
                 "$tooltip_text_color|default": "$f_color_format",
                 "color": "$tooltip_text_color",
+                "$tooltip_text_font_type|default": "default",
+                "font_type": "$tooltip_text_font_type",
+                "$tooltip_text_binding_type|default": "$tooltip_button_binding_type",
                 "bindings": [
                   {
                     "binding_name": "$tooltip_text_binding_name",
                     "binding_collection_name": "$tooltip_button_collection_name",
-                    "binding_type": "$tooltip_button_binding_type",
+                    "binding_type": "$tooltip_text_binding_type",
                     "binding_condition": "visibility_changed"
                   }
                 ]
@@ -5458,6 +5546,7 @@
                 "max_size": "$tool_tip_text_max_size",
                 "size": [ "default", "default" ],
                 "$tooltip_text_binding_name|default": "#tooltip_text",
+                "$tooltip_text_binding_type|default": "$tooltip_button_binding_type",
                 "text": "$tooltip_text_binding_name",
                 "$tooltip_text_color|default": "$f_color_format",
                 "color": "$tooltip_text_color",
@@ -5465,7 +5554,7 @@
                   {
                     "binding_name": "$tooltip_text_binding_name",
                     "binding_collection_name": "$tooltip_button_collection_name",
-                    "binding_type": "$tooltip_button_binding_type",
+                    "binding_type": "$tooltip_text_binding_type",
                     "binding_condition": "visibility_changed"
                   }
                 ]
@@ -5577,5 +5666,20 @@
         "binding_name_override": "#visible"
       }
     ]
+  },
+  
+  
+  ///////////////////////////////////////////////////////////////////////////
+  // Common Icons //
+  ///////////////////////////////////////////////////////////////////////////
+
+  "info_icon":  {
+    "type":  "image",
+    "texture":  "textures/ui/infobulb"
+  },
+
+  "error_glyph": {
+    "type": "image",
+    "texture": "textures/ui/ErrorGlyph"
   }
 }

@@ -52,7 +52,8 @@
             <v-card-text v-if="Array.isArray(win.content)" class="main-content" :style="`
                 max-height: ${maxHeight}px;
                 height: ${is_fullscreen ? maxHeight : height}px;
-                padding-left: ${has_sidebar ? 0 : 8}px;
+                padding-right: ${has_no_padding ? '0px' : '16px'};
+                padding-left: ${has_sidebar || has_no_padding ? 0 : 8}px;
             `">
                 <v-list
                     class="sidebar"
@@ -77,7 +78,7 @@
                 </v-list>
                 <div :style="`
                     margin-left: ${has_sidebar ? 60 : 0}px;
-                    padding-left: 8px;
+                    padding-left: ${has_no_padding ? '0px' : '8px'};
                     overflow-y: auto;
                 `">
                     <window-content 
@@ -157,6 +158,9 @@ export default {
         },
         has_toolbar() {
             return !this.win.options || this.win.options.is_frameless == undefined || !this.win.options.is_frameless;
+        },
+        has_no_padding() {
+            return !this.win.options || this.win.options.no_padding;
         },
 
         //DIALOG

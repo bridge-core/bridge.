@@ -8,6 +8,25 @@
       "is_experimental": false
     },
     "component_groups": {
+      "minecraft:celebrate": {
+        "minecraft:behavior.celebrate": {
+          "priority": 5,
+          "celebration_sound": "celebrate",
+          "sound_interval": {
+            "range_min": 2.0,
+            "range_max": 7.0
+          },
+          "jump_interval": {
+            "range_min": 1.0,
+            "range_max": 3.5
+          },
+          "duration": 30.0,
+          "on_celebration_end_event": {
+            "event": "minecraft:stop_celebrating",
+            "target": "self"
+          }
+        }
+      },
       "minecraft:raid_configuration": {
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -31,6 +50,9 @@
       }
     },
     "components": {
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? (query.is_baby ? 12 : 5) + (Math.die_roll(query.equipment_count,1,3)) : 0"
+      },
       "minecraft:breathable": {
         "total_supply": 15,
         "suffocate_time": 0
@@ -120,7 +142,11 @@
         "must_reach": true
       },
       "minecraft:type_family": {
-        "family": [ "witch", "monster" ]
+        "family": [ "witch", "monster", "mob" ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.9
       },
       "minecraft:physics": {
       },
@@ -139,6 +165,12 @@
             "minecraft:raid_configuration"
           ]
         }
+      },
+      "minecraft:start_celebrating": { // Event must be called exactly this for village to fire it when a raid is lost
+        "add": { "component_groups": [ "minecraft:celebrate" ] }
+      },
+      "minecraft:stop_celebrating": {
+        "remove": { "component_groups": [ "minecraft:celebrate" ] }
       }
     }
   }

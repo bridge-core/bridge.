@@ -10,16 +10,21 @@
     "ignored": "$ignore_content_toggle_image",
     "type": "panel",
     "size": [ "100%c", "100%" ],
-
+    "$content_toggle_variables|default": [],
+    "variables": "$content_toggle_variables",
     "controls": [
       {
         "icon": {
           "type": "image",
           "$content_toggle_image_size|default": [ 24, 24 ],
+          "$content_toggle_image_uv|default": [],
+          "$content_toggle_image_uv_size|default": [],
           "size": "$content_toggle_image_size",
           "texture": "$content_toggle_image",
           "$content_toggle_image_color_binding|default": "$f_color_format",
           "color": "$content_toggle_image_color_binding",
+          "uv": "$content_toggle_image_uv",
+          "uv_size": "$content_toggle_image_uv_size",
           "$content_toggle_image_binding_type|default": "none",
           "$content_toggle_image_binding_condition|default": "none",
           "bindings": [
@@ -265,6 +270,11 @@
     "$toggle_unchecked|default": false,
     "$toggle_unchecked_hover|default": false,
     "$toggle_checked_hover|default": false,
+
+    "$default_state|default": false,
+    "$hover_state|default": false,
+    "$pressed_state|default": false,
+    "$locked_state|default": false,
 
     "$button_mappings|default": [
       {
@@ -602,6 +612,7 @@
     "$border_layer": 1,
     "$border_color": "$default_border_color",
     "$toggle_unchecked": true,
+    "$default_state": true,
     "layer": 1
   },
 
@@ -614,6 +625,7 @@
     "$border_layer": 2,
     "$border_color": "$default_border_color",
     "$toggle_checked": true,
+    "$pressed_state": true,
     "layer": 2
   },
 
@@ -626,6 +638,7 @@
     "$border_layer": 3,
     "$border_color": "$hover_border_color",
     "$toggle_unchecked_hover": true,
+    "$hover_state": true,
     "layer": 3
   },
 
@@ -638,6 +651,7 @@
     "$border_layer": 4,
     "$border_color": "$hover_border_color",
     "$toggle_checked_hover": true,
+    "$pressed_state": true,
     "layer": 4
   },
 
@@ -651,6 +665,7 @@
     "$border_layer": 1,
     "$border_color": "$default_border_color",
     "$toggle_locked": true,
+    "$default_state": true,
     "layer": 1
   },
 
@@ -663,6 +678,7 @@
     "$border_layer": 1,
     "$border_color": "$default_border_color",
     "$toggle_locked": true,
+    "$default_state": true,
     "layer": 1
   },
 
@@ -675,6 +691,7 @@
     "$border_layer": 1,
     "$border_color": "$default_border_color",
     "$toggle_locked": true,
+    "$pressed_state": true,
     "layer": 1
   },
 

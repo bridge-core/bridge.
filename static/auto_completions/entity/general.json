@@ -1,3 +1,58 @@
 {
-    "filters_beta": [ "is_block" ]
+    "built_in_event": [ "minecraft:entity_born", "minecraft:entity_spawned", "minecraft:entity_transformed", "minecraft:on_prime", "minecraft:start_celebrating" ],
+    "effect_definition": {
+        "effect": "$general.effect_name",
+        "duration": "$general.number",
+        "amplifier": "$general.number",
+        "visible": "$general.number_boolean",
+        "ambient": "$general.number_boolean",
+        "display_on_screen_animation": "$general.boolean"
+    },
+    "event_definition": {
+        "filters": "$entity.filters",
+        "$dynamic_template.event": {
+            "$key": "$dynamic.siblings.target",
+
+            "$fallback": "$dynamic.entity.events",
+            "$default": "$dynamic.cache.entity.events",
+    
+            "self": "$dynamic.entity.events"
+        },
+        "target": "$entity.general.filter_targets"
+    },
+    "entity_types": {
+        "$dynamic.list.next_index": {
+            "filters": "$entity.filters",
+            "max_dist": "$general.number",
+            "must_see": "$general.boolean",
+            "sprint_speed_multiplier": "$general.decimal",
+            "walk_speed_multiplier": "$general.decimal"
+        }
+    },
+    "prioritized_entity_types": {
+        "$dynamic.list.next_index": {
+            "priority": "$general.number",
+            "filters": "$entity.filters",
+            "max_dist": "$general.number",
+            "must_see": "$general.boolean",
+            "sprint_speed_multiplier": "$general.decimal",
+            "walk_speed_multiplier": "$general.decimal"
+            
+        }
+    },
+    "particle_definition": {
+        "particle_type": "$general.particle_name", 
+        "particle_y_offset": "$general.decimal", 
+        "particle_offset_towards_interactor": "$general.boolean"
+    },
+    "filters": [ 
+        "clock_time", "distance_to_nearest_player", "hourly_clock_time", "has_ability", "has_biome_tag", "has_component", "has_damage", "has_equipment", "has_mob_effect", "has_tag", "has_trade_supply", "in_caravan", "in_clouds", "in_lava", "in_water", "in_water_or_rain", "is_altitude", "is_avoiding_mobs", "is_biome", "is_brightness", "is_climbing", "is_color", "is_daytime", "is_difficulty", "is_family", "is_game_rule", "is_humid", "is_immobile", "is_in_village", "is_leashed", "is_leashed_to", "is_moving", "is_owner", "is_riding", "is_skin_id", "is_sneaking", "is_snow_covered", "is_target", "is_temperature_type", "is_temperature_value", "is_underground", "is_underwater", "is_variant", "is_visible", "moon_intensity", "moon_phase", "on_ground", "on_ladder", "rider_count"
+    ],
+    "filters_beta": [ "is_block", "trusts" ],
+    "filter_targets": [ "other", "parent", "player", "self", "target", "baby", "block" ],
+    "filter_operators": [ "==", "!=", "<", "<=", "<>", "=", ">", ">=", "equals", "not" ],
+    "family": {
+        "@meta": { "is_value": true },
+        "@import.value": "$dynamic.cache.entity.families"
+    }
 }

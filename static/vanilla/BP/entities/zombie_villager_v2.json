@@ -9,6 +9,9 @@
     },
     "component_groups": {
       "baby": {
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 12 + (query.equipment_count * Math.Random(1,3)) : 0"
+        },
         "minecraft:is_baby": {},
         "minecraft:scale": {
           "value": 0.5
@@ -19,6 +22,9 @@
       },
 
       "adult": {
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 + (query.equipment_count * Math.Random(1,3)) : 0"
+        },
         "minecraft:movement": {
           "value": 0.23
         },
@@ -65,6 +71,7 @@
           "into": "minecraft:villager_v2",
           "begin_transform_sound": "remedy",
           "transformation_sound": "unfect",
+          "keep_level": true,
           "delay": {
             "value": 100,
             "block_assist_chance": 0.01,
@@ -95,7 +102,7 @@
 
       "unskilled": {
         "minecraft:type_family": {
-          "family": [ "unskilled", "zombie", "zombie_villager", "undead", "monster" ]
+          "family": [ "unskilled", "zombie", "zombie_villager", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -103,7 +110,7 @@
       },
       "nitwit": {
         "minecraft:type_family": {
-          "family": [ "nitwit", "zombie", "zombie_villager", "undead", "monster" ]
+          "family": [ "nitwit", "zombie", "zombie_villager", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -111,7 +118,7 @@
       },
       "farmer": {
         "minecraft:type_family": {
-          "family": [ "farmer", "zombie", "zombie_villager", "undead", "monster" ]
+          "family": [ "farmer", "zombie", "zombie_villager", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -119,7 +126,7 @@
       },
       "fisherman": {
         "minecraft:type_family": {
-          "family": [ "fisherman", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "fisherman", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -127,7 +134,7 @@
       },
       "shepherd": {
         "minecraft:type_family": {
-          "family": [ "shepherd", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "shepherd", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -135,7 +142,7 @@
       },
       "fletcher": {
         "minecraft:type_family": {
-          "family": [ "fletcher", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "fletcher", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -144,7 +151,7 @@
 
       "librarian": {
         "minecraft:type_family": {
-          "family": [ "librarian", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "librarian", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -153,7 +160,7 @@
 
       "cartographer": {
         "minecraft:type_family": {
-          "family": [ "cartographer", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "cartographer", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -162,7 +169,7 @@
 
       "cleric": {
         "minecraft:type_family": {
-          "family": [ "cleric", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "cleric", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -171,7 +178,7 @@
 
       "armorer": {
         "minecraft:type_family": {
-          "family": [ "armorer", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "armorer", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -179,7 +186,7 @@
       },
       "weaponsmith": {
         "minecraft:type_family": {
-          "family": [ "weaponsmith", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "weaponsmith", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -187,7 +194,7 @@
       },
       "toolsmith": {
         "minecraft:type_family": {
-          "family": [ "toolsmith", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "toolsmith", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -196,7 +203,7 @@
 
       "butcher": {
         "minecraft:type_family": {
-          "family": [ "butcher", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "butcher", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -204,7 +211,7 @@
       },
       "leatherworker": {
         "minecraft:type_family": {
-          "family": [ "leatherworker", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "leatherworker", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -212,7 +219,7 @@
       },
       "mason": {
         "minecraft:type_family": {
-          "family": [ "mason", "zombie_villager", "zombie", "undead", "monster" ]
+          "family": [ "mason", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -340,19 +347,21 @@
       },
 
       "minecraft:interact": {
-        // Curing the villager
-        "on_interact": {
-          "filters": {
-            "all_of": [
-              { "test": "has_equipment", "domain": "hand", "subject": "other", "value": "golden_apple" },
-              { "test": "has_component", "subject": "self", "value": "minecraft:effect.weakness" }
-            ]
+        "interactions": {
+          // Curing the villager
+          "on_interact": {
+            "filters": {
+              "all_of": [
+                { "test": "has_equipment", "domain": "hand", "subject": "other", "value": "golden_apple" },
+                { "test": "has_component", "subject": "self", "value": "minecraft:effect.weakness" }
+              ]
+            },
+            "event": "villager_converted",
+            "target": "self"
           },
-          "event": "villager_converted",
-          "target": "self"
-        },
-        "use_item": true,
-        "interact_text": "action.interact.cure"
+          "use_item": true,
+          "interact_text": "action.interact.cure"
+        }
       },
 
       // Zombie_villager Behaviors

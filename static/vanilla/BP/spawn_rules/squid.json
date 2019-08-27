@@ -20,10 +20,14 @@
           "min_size":2,
           "max_size":4
         },
-
-        "minecraft:biome_filter": {
-          "test": "has_biome_tag", "operator":"==", "value": "ocean"
+        
+        "minecraft:biome_filter": { 
+          "any_of": [
+            { "test": "has_biome_tag", "operator": "==", "value": "ocean" },
+            { "test": "has_biome_tag", "operator": "==", "value": "river" }
+          ]
         }
+
       }
     ]
   }

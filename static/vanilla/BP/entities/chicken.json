@@ -34,6 +34,10 @@
       },
 
       "minecraft:chicken_adult": {
+        "minecraft:experience_reward": {
+          "on_bred": "Math.Random(1,7)",
+          "on_death": "query.last_hit_by_player ? Math.Random(1,3) : 0"
+        },
         "minecraft:loot": {
           "table": "loot_tables/entities/chicken.json"
         },
@@ -71,17 +75,14 @@
           "min_wait_time": 300,
           "max_wait_time": 600,
           "spawn_sound": "plop",
-          "spawn_item": "egg",
-          "filters": {
-            "test": "rider_count", "subject": "self", "operator": "==", "value": 0
-          }
+          "spawn_item": "egg"
         }
       }
     },
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "chicken" ]
+        "family": [ "chicken", "mob" ]
       },
       "minecraft:breathable": {
         "total_supply": 15,

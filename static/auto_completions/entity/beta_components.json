@@ -28,16 +28,105 @@
         }
     },
 
-
-
+    "minecraft:area_attack" : {
+        "damage_range": "$general.number",
+        "damage_per_tick": "$general.number",
+        "cause": "$general.damage_type",
+        "entity_filter": "$entity.filters"
+    },
+    "minecraft:breedable": {
+        "deny_parents_variant": {
+            "chance": "$general.decimal",
+            "min_variant": "$general.number",
+            "max_variant": "$general.number"
+        }
+    },
     "minecraft:damage_sensor": {
         "triggers": {
             "$dynamic.list.next_index": {
-                "on_damage": "$general.entity.event_definition",
+                "on_damage": "$entity.general.event_definition",
                 "cause": "$general.damage_type",
                 "deals_damage": "$general.boolean",
-                "damage_multiplier": "$general.decimal"
+                "damage_multiplier": "$general.decimal",
+                "on_damage_sound_event": "$general.sound"
             }
+        }
+    },
+    "minecraft:environment_sensor": {
+        "triggers": {
+            "$dynamic.list.next_index": "$entity.general.event_definition"
+        }
+    },
+    "minecraft:scheduler": {
+        "min_delay_secs": "$general.number",
+        "max_delay_secs": "$general.number",
+        "scheduled_events": {
+            "$dynamic.list.next_index": "$entity.general.event_definition"
+        }
+    },
+    "minecraft:explode": {
+        "allow_damage_underwater": "$general.boolean"
+    },
+    "minecraft:mob_effect": {
+        "effect_range": "$general.number",
+        "mob_effect": "$general.effect_name",
+        "effect_time": "$general.number",
+        "entity_filter": "$entity.filters"
+    },
+    "minecraft:entity_sensor": {
+        "sensor_range": "$general.number",
+        "minimum_count": "$general.number",
+        "event_filters": "$entity.filters",
+        "$dynamic_template.event": {
+            "$key": "$dynamic.siblings.target",
+
+            "$fallback": "$dynamic.entity.events",
+            "$default": "$dynamic.cache.entity.events",
+
+            "self": "$dynamic.entity.events"
+        }
+    },
+    "minecraft:giveable": {
+        "triggers": {
+            "cooldown": "$general.number",
+            "items": {
+                "$dynamic.list.next_index": "$general.item_identifier"
+            },
+            "on_give": "$entity.general.event_definition"
+        }
+    },
+    "minecraft:interact": {
+        "interactions": {
+            "$dynamic.list.next_index": {
+                "add_items": {
+                    "table": "$dynamic.loot_table_files"
+                },
+                "cooldown": "$general.number",
+                "hurt_item": "$general.number",
+                "interact_text": "$general.translatable_text",
+                "on_interact": "$entity.general.event_definition",
+                "particle_on_start": "$entity.general.particle_definition",
+                "play_sounds": "$general.sound",
+                "spawn_entities": {
+                    "$dynamic.list.next_index": "$general.entity_identifier"
+                },
+                "spawn_items": {
+                    "table": "$dynamic.loot_table_files"
+                },
+                "swing": "$general.boolean",
+                "transform_to_item": "$general.item_identifier",
+                "use_item": "$general.boolean"
+            }
+        }
+    },
+    "minecraft:experience_reward": {
+        "on_bred": {
+            "@meta": { "is_value": true, "is_molang": true },
+            "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
+        },
+        "on_death": {
+            "@meta": { "is_value": true, "is_molang": true },
+            "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
         }
     },
     "minecraft:trail": {
@@ -52,6 +141,26 @@
                 "damage_per_tick": "$general.number"
             }
         }
+    },
+    "minecraft:flocking": {
+        "in_water": "$general.boolean",
+        "match_variants": "$general.boolean",
+        "use_center_of_mass": "$general.boolean",
+        "low_flock_limit": "$general.number",
+        "high_flock_limit": "$general.number",
+        "goal_weight": "$general.decimal",
+        "loner_chance": "$general.decimal",
+        "influence_radius": "$general.number",
+        "breach_influence": "$general.number",
+        "separation_weight": "$general.number",
+        "separation_threshold": "$general.number",
+        "cohesion_weight": "$general.decimal",
+        "cohesion_threshold": "$general.number",
+        "innner_cohesion_threshold": "$general.number",
+        "min_height": "$general.number",
+        "max_height": "$general.number",
+        "block_distance": "$general.number",
+        "block_weight": "$general.decimal"
     },
     "minecraft:persistent": {},
     "minecraft:pushable": {
@@ -68,6 +177,22 @@
                 "want_amount": "$general.number",
                 "surplus_amount": "$general.number"
             }
+        }
+    },
+    "minecraft:celebrate": {
+        "minecraft:behavior.celebrate": {
+          "priority": "$general.number",
+          "celebration_sound": "$general.sound",
+          "sound_interval": {
+            "range_min": "$general.number",
+            "range_max": "$general.number"
+          },
+          "jump_interval": {
+            "range_min": "$general.number",
+            "range_max": "$general.number"
+          },
+          "duration": "$general.number",
+          "on_celebration_end_event": "$entity.general.event_definition"
         }
     },
     "minecraft:behavior.eat_carried_item": {
@@ -112,7 +237,7 @@
         "priority": "$general.number",
         "attack_interval": "$general.number",
         "reselect_targets": "$general.boolean",
-        "entity_types": "$general.entity.prioritized_entity_types"
+        "entity_types": "$entity.general.prioritized_entity_types"
     },
     "minecraft:trust": {},
     "minecraft:behavior.defend_trusted_target": {
@@ -121,6 +246,6 @@
         "must_see": "$general.boolean",
         "aggro_sound": "$general.sound",
         "sound_chance": "$general.decimal",
-        "on_defend_start": "$general.entity.event_definition"
+        "on_defend_start": "$entity.general.event_definition"
     }
 }

@@ -16,9 +16,9 @@
       },
       "minecraft:damage_sensor": {
         "triggers": {
-            "cause": "all",
-            "deals_damage": false
-          }
+          "cause": "all",
+          "deals_damage": false
+        }
       },
       "minecraft:fire_immune": true,
       "minecraft:inventory": {

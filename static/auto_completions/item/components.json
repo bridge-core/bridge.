@@ -14,7 +14,7 @@
             "$dynamic.list.next_index": "$item.general.effect_definition"
         },
         "using_converts_to": "$general.item_identifier",
-        "on_use_action": [ "chorus_teleport" ],
+        "on_use_action": [ "chorus_teleport", "suspicious_stew_effect" ],
         "on_use_range": {
             "$dynamic.list.index_triple": "$general.number"
         },

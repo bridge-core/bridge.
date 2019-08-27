@@ -11,7 +11,7 @@
     "component_groups": {
       "minecraft:baby": {
         "minecraft:type_family": {
-          "family": [ "turtle", "baby_turtle" ]
+          "family": [ "turtle", "baby_turtle", "mob" ]
         },
         "minecraft:collision_box": {
           "width": 0.6,
@@ -47,8 +47,12 @@
       },
 
       "minecraft:adult": {
+        "minecraft:experience_reward": {
+          "on_bred": "Math.Random(1,7)",
+          "on_death": "query.last_hit_by_player ? Math.Random(1,4) : 0"
+        },
         "minecraft:type_family": {
-          "family": [ "turtle" ]
+          "family": [ "turtle", "mob" ]
         },
         "minecraft:collision_box": {
           "width": 1.2,
@@ -131,6 +135,13 @@
       },
       "minecraft:health": {
         "value": 30
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "lightning",
+          "deals_damage": true,
+          "damage_multiplier": 2000.0
+        }
       },
       "minecraft:hurt_on_condition": {
         "damage_conditions": [

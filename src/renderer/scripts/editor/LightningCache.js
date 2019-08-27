@@ -22,6 +22,7 @@ function toUnifiedObj(obj) {
 
 export default class LightningCache {
     static global_cache = undefined;
+    static compiled_cache = undefined;
     static get l_cache_path() {
         return path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache");
     }
@@ -89,7 +90,8 @@ export default class LightningCache {
                 console.warn("Unknown cache definition: ", def);
             }
         });
-
+        
+        this.compiled_cache = undefined;
         await writeJSON(this.l_cache_path, this.global_cache, true);
     }
     static async load() {
@@ -134,6 +136,7 @@ export default class LightningCache {
     }
 
     static async getCompiled() {
+        if(this.compiled_cache !== undefined) return this.compiled_cache;
         let cache = await this.load();
         let res = {};
 
@@ -142,9 +145,11 @@ export default class LightningCache {
                 res[key] = toUnifiedObj(cache[key]);
         }
 
+        this.compiled_cache = res;
         return res;
     }
     static getCompiledSync() {
+        if(this.compiled_cache !== undefined) return this.compiled_cache;
         let cache = this.loadSync();
         let res = {};
 
@@ -153,6 +158,7 @@ export default class LightningCache {
                 res[key] = toUnifiedObj(cache[key]);
         }
 
+        this.compiled_cache = res;
         return res;
     }
 }

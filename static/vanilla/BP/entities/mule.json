@@ -60,6 +60,9 @@
       },
 
       "minecraft:mule_adult": {
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? Math.Random(1,3) : 0"
+        },
         "minecraft:loot": {
           "table": "loot_tables/entities/horse.json"
         },
@@ -195,23 +198,25 @@
       },
 
       "minecraft:mule_unchested": {
-        "minecraft:interact": [
-          {
-            "play_sounds": "armor.equip_generic",
-            "on_interact": {
-              "filters": {
-                "all_of": [
-                  { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "chest"},
-                  { "test" :  "is_family", "subject" : "other", "value" :  "player"}
-                ]
+        "minecraft:interact": {
+          "interactions": [
+            {
+              "play_sounds": "armor.equip_generic",
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "chest"},
+                    { "test" :  "is_family", "subject" : "other", "value" :  "player"}
+                  ]
+                },
+                "event": "minecraft:on_chest",
+                "target": "self"
               },
-              "event": "minecraft:on_chest",
-              "target": "self"
-            },
-            "use_item": true,
-            "interact_text": "action.interact.attachchest"
-          }
-        ]
+              "use_item": true,
+              "interact_text": "action.interact.attachchest"
+            }
+          ]
+        }
       },
 
       "minecraft:mule_chested": {
@@ -234,7 +239,7 @@
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "mule" ]
+        "family": [ "mule", "mob" ]
       },
       "minecraft:breathable": {
         "total_supply": 15,

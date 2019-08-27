@@ -17,7 +17,8 @@
           },
           "fuse_lit": true,
           "power": 4,
-          "causes_fire": false
+          "causes_fire": false,
+          "allow_damage_underwater": false
         }
       }
     },
@@ -35,7 +36,8 @@
         "fuse_length": 4,
         "fuse_lit": true,
         "power": 4,
-        "causes_fire": false
+        "causes_fire": false,
+        "allow_damage_underwater": false
       },
 	    "minecraft:physics": {
       },

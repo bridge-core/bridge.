@@ -9,14 +9,14 @@
                     "parameters": {
                         "$dynamic.list.next_index": {
                             "@meta": { "is_molang": true },
-                            "@import.value": "$animation.general.queries"
+                            "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
                         }
                     },
                     "variables": {
                         "$placeholder": {
                             "input": {
                                 "@meta": { "is_molang": true },
-                                "@import.value": "$animation.general.queries"
+                                "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
                             },
                             "remap_curve": {
                                 "$general.decimal": "$general.decimal"
@@ -28,7 +28,7 @@
                         "$dynamic.list.next_index": {
                             "$dynamic.cache.client_entity.animation_references": {
                                 "@meta": { "is_molang": true },
-                                "@import.value": "$animation.general.queries"
+                                "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
                             }
                         }
                     },
@@ -36,7 +36,7 @@
                         "$dynamic.list.next_index": {
                             "$dynamic.animation_controller.current_states": {
                                 "@meta": { "is_molang": true },
-                                "@import.value": "$animation.general.queries"
+                                "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
                             }
                         }
                     },

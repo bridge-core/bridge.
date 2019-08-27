@@ -584,83 +584,126 @@
           "texture": "textures/ui/White",
           "keep_ratio": false,
           "size": [ "100% - 4px", "100%sm" ],
-          "color": "$radio_background_color"
+          "color": "$radio_background_color",
+          "layer": 1
         }
       },
       {
-        "radio_stack": {
+        "radio_item_with_description_stack": {
           "type": "stack_panel",
-          "orientation": "horizontal",
-          "size": [ "100%", "100%cm" ],
-          "layer": 1,
-          "$alpha|default": 1.0,
-          "$radio_label_bindings|default": [],
-          "$radio_label_color|default": "$main_header_text_color",
-          "$radio_label_font_type|default": "default",
-          "$no_radio_content|default": true,
-          "$no_label|default": false,
+          "orientation": "vertical",
+          "size": [ "100%", "100%c + 4px" ],
+
+          "layer": 2,
+          "$no_description|default":  true,
           "controls": [
             {
-              "initial_padding@common.empty_panel": {
-                "size": [ 5, "100%sm" ]
-              }
+              "radio_icon_and_label@settings_common.radio_item_with_label_and_content_stack": {}
             },
             {
-              "radio_image_panel@settings_common.radio_with_label_and_content_stack_item": {
-                "controls": [
-                  {
-                    "image": {
-                      "type": "image",
-                      "texture": "$radio_texture",
-                      "alpha": "$alpha",
-                      "size": [ 10, 10 ]
-                    }
-                  }
-                ]
-              }
-            },
+              "radio_description@settings_common.radio_description_panel": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "radio_item_with_label_and_content_stack": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%cm" ],
+    "layer": 1,
+    "$alpha|default": 1.0,
+    "$radio_label_bindings|default": [],
+    "$radio_label_color|default": "$main_header_text_color",
+    "$radio_label_font_type|default": "default",
+    "$no_radio_content|default": true,
+    "$no_label|default": false,
+    "controls": [
+      {
+        "initial_padding@common.empty_panel": {
+          "size": [ 5, "100%sm" ]
+        }
+      },
+      {
+        "radio_image_panel@settings_common.radio_with_label_and_content_stack_item": {
+          "controls": [
             {
-              "radio_to_content_padding@common.empty_panel": {
-                "size": [ 5, "100%sm" ]
+              "image": {
+                "type": "image",
+                "texture": "$radio_texture",
+                "alpha": "$alpha",
+                "size": [ 10, 10 ]
               }
-            },
+            }
+          ]
+        }
+      },
+      {
+        "radio_to_content_padding@common.empty_panel": {
+          "size": [ 5, "100%sm" ]
+        }
+      },
+      {
+        "radio_content_panel@settings_common.radio_with_label_and_content_stack_item": {
+          "ignored": "$no_radio_content",
+          "controls": [
+            { "radio_image@$radio_content_control": {} }
+          ]
+        }
+      },
+      {
+        "content_to_label_padding@common.empty_panel": {
+          "ignored": "$no_radio_content",
+          "size": [ 5, "100%sm" ]
+        }
+      },
+      {
+        "radio_label_panel@settings_common.radio_with_label_and_content_stack_item": {
+          "controls": [
             {
-              "radio_content_panel@settings_common.radio_with_label_and_content_stack_item": {
-                "ignored": "$no_radio_content",
-                "controls": [
-                  { "radio_image@$radio_content_control": {} }
-                ]
-              }
-            },
-            {
-              "content_to_label_padding@common.empty_panel": {
-                "ignored": "$no_radio_content",
-                "size": [ 5, "100%sm" ]
-              }
-            },
-            {
-              "radio_label_panel@settings_common.radio_with_label_and_content_stack_item": {
-                "controls": [
-                  {
-                    "radio_label": {
-                      "ignored": "($no_label)",
-                      "type": "label",
-                      "shadow": true,
-                      "text": "$radio_label_text",
-                      "font_type": "$radio_label_font_type",
-                      "color": "$radio_label_color",
-                      "size": [ "default", "default" ],
-                      "alpha": "$alpha",
-                      "bindings": "$radio_label_bindings"
-                    }
-                  }
-                ]
+              "radio_label": {
+                "ignored": "($no_label)",
+                "type": "label",
+                "shadow": true,
+                "text": "$radio_label_text",
+                "font_type": "$radio_label_font_type",
+                "color": "$radio_label_color",
+                "size": [ "default", "default" ],
+                "alpha": "$alpha",
+                "bindings": "$radio_label_bindings"
               }
             }
           ]
         }
       }
     ]
+  },
+
+  "radio_description_panel": {
+    "ignored":  "($no_description)",
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "layer":  1,
+    "$description_font_type": "smooth",
+    "$description_font_scale_factor": 1.333,
+    "controls": [
+      {
+        "description@settings_common.radio_description": {}
+      }
+    ]
+  },
+
+  "radio_description": {
+    "type": "label",
+    "color": "$main_header_text_color",
+    "size": [ "100% - 10px", "default" ],
+    "text": "$radio_label_desc",
+    "font_type": "$description_font_type",
+    "font_scale_factor": "$description_font_scale_factor",
+    "shadow": false,
+    "offset": [ 4, 2 ]
   },
 
   "radio_item_with_label_and_content": {
@@ -851,6 +894,7 @@
     "$dropdown_background_control|default": "common.dropdown_background",
     "$option_dropdown_type|default": "common.dropdown",
     "$option_label|default": "",
+    "layer":  2,
     "controls": [
       {
         "dropdown@$option_dropdown_type": {

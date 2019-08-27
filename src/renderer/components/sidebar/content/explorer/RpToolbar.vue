@@ -11,6 +11,15 @@
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="unlink" v-on="on" class="toolbar-button" small>
+                    <v-icon small>mdi-lock-open</v-icon>
+                </v-btn>
+            </template>
+            <span>Unlink RP</span>
+        </v-tooltip>
+
+        <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="openCreateFileWindow" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-file-document</v-icon>
                 </v-btn>
@@ -43,6 +52,7 @@
     import CreateFileWindow from "../../../../windows/CreateFile";
     import LoadingWindow from "../../../../windows/LoadingWindow";
     import ZipFolder from "zip-a-folder";
+    import PackLinker from "../../../../scripts/utilities/LinkPacks";
 
     export default {
         name: "explorer-rp-toolbar",
@@ -53,6 +63,9 @@
         methods: {
             refresh() {
                 this.$root.$emit("refreshExplorer");
+            },
+            unlink() {
+                PackLinker.unlink(this.$store.state.Explorer.project.explorer, this.selected);
             },
             openCreateFileWindow() {
                 new CreateFileWindow(true);

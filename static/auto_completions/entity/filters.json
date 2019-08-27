@@ -8,14 +8,14 @@
     "$dynamic_template.test": {
         "$key": "$dynamic.setting.target_version",
         
-        "v1.10": "$general.entity.filters",
-        "v1.11": "$general.entity.filters",
+        "v1.10": "$entity.general.filters",
+        "v1.11": "$entity.general.filters",
 
-        "Stable": "$general.entity.filters",
-        "Beta": "$general.entity.filters and $entity.general.filters_beta"
+        "Stable": "$entity.general.filters",
+        "Beta": "$entity.general.filters and $entity.general.filters_beta"
     },
-    "subject": "$general.entity.filter_targets",
-    "operator": "$general.entity.filter_operators",
+    "subject": "$entity.general.filter_targets",
+    "operator": "$entity.general.filter_operators",
     "$dynamic_template.domain": {
         "$key": "$dynamic.siblings.test",
         "has_equipment": "$general.has_equipment_slot",
@@ -51,6 +51,7 @@
         "is_visible": "$general.boolean",
         "is_snow_covered": "$general.boolean",
         "has_trade_supply": "$general.boolean",
+        "trusts": "$general.boolean",
 
         "has_equipment": "$general.item_identifier and $general.block_identifier",
         "$dynamic_template.has_component": {
@@ -61,7 +62,7 @@
             "Beta": "('minecraft:effect.' + $general.effect_name) and asValue($entity.main_beta.minecraft:entity.components)"
         },
         "has_ability": "$general.ability",
-        "is_family": "$general.entity.family",
+        "is_family": "$entity.general.family",
         "has_mob_effect": "$general.effect_name",
         "has_biome_tag": "$general.biome_tag",
         "has_damage": "$general.damage_type",
@@ -82,6 +83,7 @@
         "is_altitude": "$general.number",
         "is_brightness": "$general.decimal",
         "is_temperature_value": "$general.decimal",
+        "rider_count": "$general.number",
         
         "has_tag": { "@meta": { "is_value": true } }
     }

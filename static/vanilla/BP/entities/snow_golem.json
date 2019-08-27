@@ -17,7 +17,7 @@
 
     "components": {
       "minecraft:type_family": {
-        "family": [ "snowgolem" ]
+        "family": [ "snowgolem", "mob" ]
       },
       "minecraft:breathable": {
         "total_supply": 15,
@@ -76,26 +76,28 @@
           }
         ]
       },
-      "minecraft:interact": [
-        {
-          "cooldown": 2.5,
-          "use_item": false,
-          "hurt_item": 1,
-          "play_sounds": "shear",
-          "interact_text": "action.interact.shear",
-          "on_interact": {
-            "filters": {
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "cooldown": 2.5,
+            "use_item": false,
+            "hurt_item": 1,
+            "play_sounds": "shear",
+            "interact_text": "action.interact.shear",
+            "on_interact": {
+              "filters": {
                 "all_of": [
                   { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "shears"},
                   { "test": "is_family", "subject": "other", "value": "player"},
                   { "test": "has_component", "operator": "!=", "value": "minecraft:is_sheared"}
                 ]
               },
-            "event": "minecraft:on_sheared",
-            "target": "self"
+              "event": "minecraft:on_sheared",
+              "target": "self"
+            }
           }
-        }
-      ],
+        ]
+      },
       "minecraft:leashable": {
         "soft_distance": 4.0,
         "hard_distance": 6.0,

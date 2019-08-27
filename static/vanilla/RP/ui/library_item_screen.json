@@ -75,7 +75,7 @@
   "import_button@common_buttons.light_text_button": {
     "$font_type": "smooth",
     "layer": 1,
-    "$button_text": "gui.importWorld",
+    "$button_text": "menu.play",
     "$pressed_button_name": "button.import_world"
   },
 
@@ -84,6 +84,13 @@
     "layer": 1,
     "$button_text": "library.item.launch",
     "$pressed_button_name": "button.launch_world"
+  },
+
+  "share_button@common_buttons.light_text_button": {
+    "$font_type": "smooth",
+    "layer": 1,
+    "$button_text": "library.item.button.share",
+    "$pressed_button_name": "button.share_world_link"
   },
 
   "author@library.base_label": {
@@ -102,7 +109,7 @@
   },
 
   "button_panel@library_item.button_panel": {
-    "size": [ "50%", "100%" ],
+    "size": [ "100%", "100%" ],
     "offset": [ 2, 0 ],
     "anchor_from": "left_middle",
     "anchor_to": "left_middle"
@@ -174,7 +181,28 @@
     ]
   },
 
-  "button_panel": {
+  "button_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 20 ],
+    "controls": [
+      { "padding_left@common.empty_panel": { "size": [ 2, "100%sm" ] } },
+      {
+        "launch_import_button_panel@library_item.launch_import_button_panel": {
+          "size": [ "fill", 20 ]
+        }
+      },
+      { "padding_middle@common.empty_panel": { "size": [ 2, "100%sm" ] } },
+      {
+        "share_button@library_item.share_button": {
+          "size": [ "fill", 20 ]
+        }
+      },
+      { "padding_right@common.empty_panel": { "size": [ 2, "100%sm" ] } }
+    ]
+  },
+
+  "launch_import_button_panel": {
     "type": "panel",
     "controls": [
       {
@@ -219,9 +247,9 @@
         }
       },
       {
-        "button_panel@library_item.panel_wrapper": {
+        "button_stack_panel_wrapper@library_item.panel_wrapper": {
           "size": [ "100%", 20 ],
-          "$content": "button_panel"
+          "$content": "button_stack_panel"
         }
       },
       { "padding_before_summary@common.empty_panel": { "size": [ "100%", 3 ] } },
@@ -293,6 +321,11 @@
       }
     ]
   },
+  //--------------------------------------------------------------------------------
+  // Share Dialog
+  //--------------------------------------------------------------------------------
+  
+  "share_popup_dialog@edu_common.edu_share_text_popup": {},
 
   //--------------------------------------------------------------------------------
   // Screen
@@ -325,6 +358,9 @@
           "$button_text": "gui.back",
           "$child_control": "library_item.main_panel"
         }
+      },
+      {
+        "share_popup_factory@edu_common.share_popup_dialog_factory": {}
       }
     ]
   },

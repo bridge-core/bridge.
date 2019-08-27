@@ -3,7 +3,7 @@
   "minecraft:spawn_rules": {
     "description": {
       "identifier": "minecraft:pillager_patrol",
-      "population_control": "monster"
+      "population_control": "pillager"
     },
     "conditions": [
       {
@@ -14,8 +14,8 @@
           "min": 6000
         },
         "minecraft:delay_filter": {
-          "min": 300,
-          "max": 360,
+          "min": 600,
+          "max": 660,
           "identifier": "minecraft:pillager_patrol_easy",
           "spawn_chance": 20
         },
@@ -43,16 +43,13 @@
         "minecraft:permute_type": [
           {
             "weight": 100,
-            "entity_type": "minecraft:pillager"
+            "entity_type": "minecraft:pillager<minecraft:spawn_as_patrol_follower>"
           }
         ],
         "minecraft:biome_filter": {
-          "any_of": [
-            { "test": "has_biome_tag", "operator": "==", "value": "plains" },
-            { "test": "has_biome_tag", "operator": "==", "value": "taiga" },
-            { "test": "has_biome_tag", "operator": "==", "value": "desert" },
-            { "test": "has_biome_tag", "operator": "==", "value": "savanna" }
-          ]
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "mooshroom_island"
         },
         "minecraft:player_in_village_filter": {
           "distance": 48,
@@ -67,8 +64,8 @@
           "min": 6000
         },
         "minecraft:delay_filter": {
-          "min": 300,
-          "max": 360,
+          "min": 600,
+          "max": 660,
           "identifier": "minecraft:pillager_patrol_normal",
           "spawn_chance": 20
         },
@@ -92,16 +89,13 @@
         "minecraft:permute_type": [
           {
             "weight": 100,
-            "entity_type": "minecraft:pillager"
+            "entity_type": "minecraft:pillager<minecraft:spawn_as_patrol_follower>"
           }
         ],
         "minecraft:biome_filter": {
-          "any_of": [
-            { "test": "has_biome_tag", "operator": "==", "value": "plains" },
-            { "test": "has_biome_tag", "operator": "==", "value": "taiga" },
-            { "test": "has_biome_tag", "operator": "==", "value": "desert" },
-            { "test": "has_biome_tag", "operator": "==", "value": "savanna" }
-          ]
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "mooshroom_island"
         },
         "minecraft:player_in_village_filter": {
           "distance": 48,
@@ -116,8 +110,8 @@
           "min": 6000
         },
         "minecraft:delay_filter": {
-          "min": 300,
-          "max": 360,
+          "min": 600,
+          "max": 660,
           "identifier": "minecraft:pillager_patrol_hard",
           "spawn_chance": 20
         },
@@ -140,7 +134,7 @@
         "minecraft:permute_type": [
           {
             "weight": 80,
-            "entity_type": "minecraft:pillager"
+            "entity_type": "minecraft:pillager<minecraft:spawn_as_patrol_follower>"
           },
           {
             "weight": 20,
@@ -148,12 +142,9 @@
           }
         ],
         "minecraft:biome_filter": {
-          "any_of": [
-            { "test": "has_biome_tag", "operator": "==", "value": "plains" },
-            { "test": "has_biome_tag", "operator": "==", "value": "taiga" },
-            { "test": "has_biome_tag", "operator": "==", "value": "desert" },
-            { "test": "has_biome_tag", "operator": "==", "value": "savanna" }
-          ]
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "mooshroom_island"
         },
         "minecraft:player_in_village_filter": {
           "distance": 48,

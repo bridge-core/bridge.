@@ -25,6 +25,7 @@
     "min_size": "$tip_min_size",
     "$tip_max_size|default": [ 165, 40 ],
     "max_size": "$tip_max_size",
+    "line_padding": 1.5,
     "$animation|default": [
       "@game_tip.anim_game_tip_txt_wait"
     ],
