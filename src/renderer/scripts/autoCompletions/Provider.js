@@ -236,6 +236,8 @@ class Provider {
     }
 
     compileTemplate(template) {
+        if(template.$if !== undefined && !Omega.walk(template.$if)) return {};
+
         let dyn = Omega.walk(template["$key"]);
         if(template[`$dynamic_template.${dyn}`] !== undefined) {
             return this.compileTemplate(template[`$dynamic_template.${dyn}`]);
