@@ -23,7 +23,7 @@ The plugin manifest stores important data on your add-on like its version number
     "api_version": 1
 }
 ```
-You can omit the *api_version* attribute to always use the latest API version (*currently:* ```2```). We recommend to always specifically set it though. Make sure to always **generate a new unique id** for all of your plugins. You can grab one from [here](https://www.uuidgenerator.net/).
+You can omit the *api_version* attribute to always use the latest API version (*currently:* ```2```). We recommend to always specifically set it though. Make sure to always **generate a new id** for all of your plugins. You can grab one from [here](https://www.uuidgenerator.net/).
 
 ### Scripts
 Scripts are loaded from the ```<PLUGIN NAME>/scripts``` folder. Scripts are written in JavaScript and allow plugins to deeply hook into bridge.'s functionality. You can add new dynamic auto-completions, create new windows, add support for new file types and do many more things.
