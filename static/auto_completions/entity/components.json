@@ -8,7 +8,7 @@
     },
     "minecraft:ageable": {
         "duration": "$general.number",
-        "feedItems": {
+        "feed_items": {
             "$dynamic.list.next_index": {
                 "item": "$general.item_identifier",
                 "growth": "$general.decimal"
@@ -25,8 +25,8 @@
         "event_name": "$general.sound"
     },
     "minecraft:angry": {
-        "broadcastAnger": "$general.boolean",
-        "broadcastRange": "$general.number",
+        "broadcast_anger": "$general.boolean",
+        "broadcast_range": "$general.number",
         "broadcast_filters": "$entity.filters",
         "broadcast_targets": {
             "$dynamic.list.next_index": { "@meta": { "is_value": true } }
@@ -53,7 +53,7 @@
             "$dynamic.list.next_index": {
                 "item": "$general.item_identifier",
                 "item_damage": "$general.number",
-                "replaceItem": "$general.item_identifier"
+                "replace_item": "$general.item_identifier"
             }
         }
     },
@@ -67,31 +67,31 @@
         }
     },
     "minecraft:breathable": {
-        "breatheBlocks": {
+        "breathe_blocks": {
             "$dynamic.list.next_index": "$general.block_identifier"
         },
-        "breathesWater": "$general.boolean",
-        "breathesLava": "$general.boolean",
-        "breathesAir": "$general.boolean",
-        "breathesSolids": "$general.boolean",
-        "generatesBubbles": "$general.boolean",
-        "inhaleTime": "$general.decimal",
-        "suffocateTime": "$general.number",
-        "totalSupply": "$general.number",
-        "nonBreatheBlocks": {
+        "breathes_water": "$general.boolean",
+        "breathes_lava": "$general.boolean",
+        "breathes_air": "$general.boolean",
+        "breathes_solids": "$general.boolean",
+        "generates_bubbles": "$general.boolean",
+        "inhale_time": "$general.decimal",
+        "suffocate_time": "$general.number",
+        "total_supply": "$general.number",
+        "non_breathe_blocks": {
             "$dynamic.list.next_index": "$general.block_identifier"
         }
     },
     "minecraft:breedable": {
-        "allowSitting": "$general.boolean",
+        "allow_sitting": "$general.boolean",
         "blend_attributes": "$general.boolean",
-        "breedCooldown": "$general.number",
-        "breedItems": {
+        "breed_cooldown": "$general.number",
+        "breed_items": {
             "$dynamic.list.next_index": "$general.item_identifier"
         },
-        "breedsWith": {
-            "mateType": "$general.entity_identifier",
-            "babyType": "$general.entity_identifier",
+        "breeds_with": {
+            "mate_type": "$general.entity_identifier",
+            "baby_type": "$general.entity_identifier",
             "breed_event": "$entity.general.event_definition"
         },
         "causes_pregnancy": "$general.boolean",
@@ -104,14 +104,14 @@
                 "radius": "$general.number"
             }
         },
-        "extraBabyChance": "$general.decimal",
-        "inheritTamed": "$general.boolean",
+        "extra_baby_chance": "$general.decimal",
+        "inherit_tamed": "$general.boolean",
         "mutation_factor": {
             "color": "$general.decimal",
             "extra_variant": "$general.decimal",
             "variant": "$general.decimal"
         },
-        "requireTame": "$general.boolean"
+        "require_tame": "$general.boolean"
     },
     "minecraft:bribeable": {
         "bribe_cooldown": "$general.number",
@@ -136,8 +136,8 @@
         "value": "$general.number"
     },
     "minecraft:damage_over_time": {
-        "damagePerHurt": "$general.number",
-        "timeBetweenHurt": "$general.number"
+        "damage_per_hurt": "$general.number",
+        "time_between_hurt": "$general.number"
     },
     "minecraft:damage_sensor": {
         "$dynamic.list.next_index": {
@@ -201,16 +201,16 @@
         }
     },
     "minecraft:explode": {
-        "fuseLength": {
+        "fuse_length": {
             "$dynamic.list.index_pair": "$general.decimal"
         },
         "power": "$general.number",
-        "maxResistance": "$general.decimal",
-        "fuseLit": "$general.boolean",
-        "causesFire": "$general.boolean",
+        "max_resistance": "$general.decimal",
+        "fuse_lit": "$general.boolean",
+        "causes_fire": "$general.boolean",
         "breaks_blocks": "$general.boolean",
-        "fireAffectedByGriefing": "$general.boolean",
-        "destroyAffectedByGriefing": "$general.boolean"
+        "fire_affected_by_griefing": "$general.boolean",
+        "destroy_affected_by_griefing": "$general.boolean"
     },
     "minecraft:fall_damage": {
         "value": "$general.decimal"
@@ -366,12 +366,12 @@
         "can_be_stolen": "$general.boolean"
     },
     "minecraft:lookat": {
-        "searchRadius": "$general.number",
-        "setTarget": "$general.boolean",
+        "search_radius": "$general.number",
+        "set_target": "$general.boolean",
         "look_cooldown": "$general.number",
         "filters": "$entity.filters",
         "look_event": "$entity.general.event_definition",
-        "mAllowInvulnerable": "$general.boolean"
+        "allow_invulnerable": "$general.boolean"
     },
     "minecraft:loot": {
         "table": "$dynamic.loot_table_files"
@@ -412,8 +412,8 @@
     },
 
     "minecraft:nameable": {
-        "allowNameTagRenaming": "$general.boolean",
-        "alwaysShow": "$general.boolean",
+        "allow_name_tag_renaming": "$general.boolean",
+        "always_show": "$general.boolean",
         "default_trigger": "$entity.general.event_definition",
         "name_actions": {
             "$dynamic.list.next_index": {
@@ -496,13 +496,13 @@
         }
     },
     "minecraft:projectile": {
-        "onHit": {
+        "on_hit": {
             "@meta": { 
                 "expand_path_exceptions": [ "thrown_potion_effect", "douse_fire", "arrow_effect", "remove_on_hit", "teleport_owner" ]
             },
             "definition_event": {
-                "affectProjectile": "$general.boolean",
-                "eventTrigger": "$entity.general.event_definition"
+                "affect_projectile": "$general.boolean",
+                "event_trigger": "$entity.general.event_definition"
             },
             "grant_xp": {
                 "minXP": "$general.number",
@@ -534,13 +534,13 @@
                 "shouldbounce": "$general.boolean"
             },
             "spawn_chance": {
-                "firstSpawnChance": "$general.number",
-                "secondSpawnChance": "$general.number",
-                "firstSpawnCount": "$general.number",
-                "secondSpawnCount": "$general.number",
-                "spawnMob": { "@meta": { "is_value": true } },
-                "spawnDefinition": "$general.entity_identifier",
-                "spawnBaby": "$general.boolean"
+                "first_spawn_chance": "$general.number",
+                "second_spawn_chance": "$general.number",
+                "first_spawn_count": "$general.number",
+                "second_spawn_count": "$general.number",
+                "spawn_mob": { "@meta": { "is_value": true } },
+                "spawn_definition": "$general.entity_identifier",
+                "spawn_baby": "$general.boolean"
             },
             "mob_effect": {
                 "effect": "$general.effect_name",
@@ -564,28 +564,28 @@
                 "on_other_hit": "$general.boolean"
             },
             "catch_fire": {
-                "fireAffectedByGriefing": "$general.boolean"
+                "fire_affected_by_griefing": "$general.boolean"
             }
         },
-        "shootSound": "$general.sound",
-        "hitSound": "$general.sound",
-        "hitGroundSound": "$general.sound",
+        "shoot_sound": "$general.sound",
+        "hit_sound": "$general.sound",
+        "hit_ground_sound": "$general.sound",
         "isdangerous": "$general.boolean",
         "inertia": "$general.decimal",
         "liquid_inertia": "$general.decimal",
         "power": "$general.decimal",
         "gravity": "$general.decimal",
-        "uncertaintyBase": "$general.number",
-        "uncertaintyMultiplier": "$general.number",
+        "uncertainty_base": "$general.number",
+        "uncertainty_multiplier": "$general.number",
         "anchor": "$general.number",
         "angleoffset": "$general.decimal",
         "semirandomdiffdamage": "$general.boolean",
         "shoottarget": "$general.boolean",
-        "stopOnHurt": "$general.boolean",
+        "stop_on_hurt": "$general.boolean",
         "multipletargets": "$general.boolean",
         "shouldbounce": "$general.boolean",
-        "reflectOnHurt": "$general.boolean",
-        "catchFire": "$general.boolean",
+        "reflect_on_hurt": "$general.boolean",
+        "catch_fire": "$general.boolean",
         "offset": {
             "$dynamic.list.index_triple": "$general.decimal"
         },
@@ -668,7 +668,7 @@
     "minecraft:shooter": {
         "type": { "@meta": { "is_value": true } },
         "def": "$general.entity_identifier",
-        "auxVal": "$general.potion_number_id"
+        "aux_val": "$general.potion_number_id"
     },
     "minecraft:sittable": {
         "sit_event": "$entity.general.event_definition",
@@ -707,27 +707,27 @@
     },
     "minecraft:tameable": {
         "probability": "$general.decimal",
-        "tameItems": {
+        "tame_items": {
             "$dynamic.list.next_index": "$general.item_identifier"
         },
         "tame_event": "$entity.general.event_definition"
     },
     "minecraft:tamemount": {
-        "attemptTemperMod": "$general.number",
-        "autoRejectItems": {
+        "attempt_temper_mod": "$general.number",
+        "auto_reject_items": {
             "$dynamic.list.next_index": {
                 "item": "$general.item_identifier"
             }
         },
-        "feedItems": {
+        "feed_items": {
             "$dynamic.list.next_index": {
                 "item": "$general.item_identifier",
-                "temperMod": "$general.number"
+                "temper_mod": "$general.number"
             }
         },
         "feed_text": "$general.translatable_text",
-        "minTemper": "$general.number",
-        "maxTemper": "$general.number",
+        "min_temper": "$general.number",
+        "max_temper": "$general.number",
         "ride_text": "$general.translatable_text",
         "tame_event": "$entity.general.event_definition"
     },
@@ -738,16 +738,16 @@
         "on_outside_range": "$entity.general.event_definition"
     },
     "minecraft:teleport": {
-        "randomTeleports": "$general.boolean",
-        "maxRandomTeleportTime": "$general.number",
-        "minRandomTeleportTime": "$general.number",
-        "randomTeleportCube": {
+        "random_teleports": "$general.boolean",
+        "max_random_teleport_time": "$general.number",
+        "min_random_teleport_time": "$general.number",
+        "random_teleport_cube": {
             "$dynamic.list.index_triple": "$general.number"
         },
-        "targetDistance": "$general.number",
+        "target_distance": "$general.number",
         "target_teleport_chance": "$general.decimal",
-        "lightTeleportChance": "$general.decimal",
-        "darkTeleportChance": "$general.decimal"
+        "light_teleport_chance": "$general.decimal",
+        "dark_teleport_chance": "$general.decimal"
     },
     "minecraft:tick_world": {
         "radius": "$general.number",
@@ -756,7 +756,7 @@
     },
     "minecraft:timer": {
         "looping": "$general.boolean",
-        "randomInterval": "$general.boolean",
+        "random_interval": "$general.boolean",
         "time": {
             "$dynamic.list.index_pair": "$general.decimal"
         },
