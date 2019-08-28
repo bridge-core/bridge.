@@ -30,7 +30,7 @@ export default class PackLinker {
         }
     }
 
-    static async unlink(bp_name, rp_name) {
+    static async unlink(bp_name) {
         let lw = new LoadingWindow();
         try {
             let bp_data = await readJSON(`${BASE_PATH}${bp_name}/manifest.json`);
@@ -43,7 +43,7 @@ export default class PackLinker {
             lw.close();
         } catch(e) {
             lw.close();
-            new InformationWindow("Unable to unlink packs", `bridge. failed to unlink the resource pack ${rp_name}. ${e.message}`);
+            new InformationWindow("Unable to unlink packs", `bridge. failed to unlink the resource pack from ${bp_name}. ${e.message}`);
         }
     }
 }

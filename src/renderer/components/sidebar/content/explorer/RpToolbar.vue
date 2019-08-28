@@ -65,7 +65,7 @@
                 this.$root.$emit("refreshExplorer");
             },
             unlink() {
-                PackLinker.unlink(this.$store.state.Explorer.project.explorer, this.selected);
+                PackLinker.unlink(this.$store.state.Explorer.project.explorer);
             },
             openCreateFileWindow() {
                 new CreateFileWindow(true);

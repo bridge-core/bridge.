@@ -48,12 +48,14 @@
 
             <v-btn color="success" @click="createRP" style="margin-right: 4px;">Create</v-btn><v-btn color="info" @click="linkRP">Link</v-btn>
         </div>
-        <p
+        <div 
             v-else
             style="padding: 4px; word-break: break-word;"
         >
-            The resource pack which belongs to this behavior pack does not exist.
-        </p>
+            <p style="word-break: break-word;">The resource pack which belongs to this behavior pack does not exist.</p>
+            <v-btn color="info" @click="unlinkRP" style="margin-right: 4px;"><v-icon>mdi-lock-open</v-icon>Unlink</v-btn>
+        </div>
+
         <v-divider></v-divider>
     </v-container>
     <explorer-no-projects v-else/>
@@ -259,6 +261,9 @@
 
             linkRP() {
                 new LinkRPWindow(this.$store.state.Explorer.project.explorer);
+            },
+            unlinkRP() {
+                PackLinker.unlink(this.$store.state.Explorer.project.explorer);
             },
             createRP() {
                 new CreateProjectWindow(false, (rp_name) => {
