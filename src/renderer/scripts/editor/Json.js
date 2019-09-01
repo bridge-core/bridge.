@@ -1,7 +1,6 @@
 import saveEval from "safe-eval";
 import JSONTree from "./JsonTree";
 import ProblemIterator from "./problems/Problems";
-import { BridgeCore } from "../plugins/bridgeCore/main";
 
 function private_toJSON(tree, build_arrays, default_build_arrays=false) {
     if(tree.type !== "array" && tree.type !== "object") {
@@ -43,7 +42,7 @@ function parse(string) {
 
 export class Format {
     static toJSON(tree, build_arrays=true, default_build_arrays=false) {
-        return BridgeCore.beforeSave(private_toJSON(tree, build_arrays, default_build_arrays));
+        return private_toJSON(tree, build_arrays, default_build_arrays);
     }
 
     static toTree(obj) {

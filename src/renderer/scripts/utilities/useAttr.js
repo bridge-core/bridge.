@@ -14,6 +14,7 @@ function internalUse(obj, path, del=true) {
 }
 
 export function use(obj, path, del=true) {
+    if(path === undefined) return;
     return internalUse(obj, path.split("/"), del);
 }
 
@@ -34,6 +35,7 @@ function internalSet(obj, path, data) {
 }
 
 export function set(obj, path, data) {
+    if(path === undefined) return;
     return internalSet(obj, path.split("/"), data);
 }
 

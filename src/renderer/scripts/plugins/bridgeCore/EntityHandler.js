@@ -27,7 +27,7 @@ function transformEvent(event, component_groups, events) {
     //GROUP
     let g = use(event, "add/group");
     if(g !== undefined) {
-        let group_name = g.name || uuid();
+        let group_name = (typeof g.name !== "object" ? g.name : uuid()) || uuid();
         set(event, "add/component_groups", group_name);
         set(component_groups, group_name, g.components || {});
     }
