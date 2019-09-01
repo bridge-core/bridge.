@@ -159,6 +159,20 @@ export const DYNAMIC = {
                         return e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
                     });
             } catch(e) { return []; }
+        },
+        item_png() {
+            try {
+                return walkSync(path.join(RP_BASE_PATH, Store.state.Explorer.project.resource_pack, "/textures/items")).map(e => {
+                    return e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
+                });
+            } catch(e) { return []; }
+        },
+        block_png() {
+            try {
+                return walkSync(path.join(RP_BASE_PATH, Store.state.Explorer.project.resource_pack, "/textures/blocks")).map(e => {
+                    return e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
+                });
+            } catch(e) { return []; }
         }
     },
     animation_controller_ids() {

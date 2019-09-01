@@ -125,6 +125,7 @@ class Provider {
         path = path.replace("global", 
             VersionMap.convert(this.start_state, Store.state.Settings.target_version)
         );
+        
         SET_CONTEXT(context, context === undefined ? undefined : context.parent);
         let propose = this.walk(path.split("/"));
         // console.log("[PROPOSING]", path, propose, LIB);

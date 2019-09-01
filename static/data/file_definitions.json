@@ -1,5 +1,28 @@
 [
     {
+        "id": "item_texture",
+        "includes": "textures/item_texture",
+        "file_viewer": "json",
+        "start_state": "simple/item_texture",
+        "rp_definition": true
+    },
+    {
+        "id": "terrain_texture",
+        "includes": "textures/terrain_texture",
+        "file_viewer": "json",
+        "start_state": "simple/terrain_texture",
+        "rp_definition": true
+    },
+    {
+        "id": "biomes_client",
+        "includes": "biomes_client",
+        "file_viewer": "json",
+        "start_state": "simple/biomes_client",
+        "rp_definition": true
+    },
+
+
+    {
         "id": "animation",
         "includes": "animations",
         "file_viewer": "json",
