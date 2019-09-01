@@ -1,0 +1,20 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:single_block_feature": {
+    "description": {
+      "identifier": "grass_double_plant_lower_feature"
+    },
+    "places_block": {
+      "name": "minecraft:double_plant",
+      "states": {
+        "double_plant_type": "grass",
+        "upper_block_bit": false
+      }
+    },
+    "enforce_survivability_rules": false,
+    "enforce_placement_rules": true,
+    "may_replace": [
+      "minecraft:air"
+    ]
+  }
+}

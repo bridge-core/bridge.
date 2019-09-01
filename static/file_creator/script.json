@@ -14,6 +14,7 @@
         }
     },
     "templates": {
-        "Script Start": "let system = <server|client>.registerSystem(0,0);\n\nsystem.initialize = function() {};\nsystem.update = function () {};"
+        "Client Script Start": "let system = client.registerSystem(0,0);\n\nsystem.initialize = function() {};\nsystem.update = function () {};",
+        "Server Script Start": "let system = server.registerSystem(0,0);\n\nsystem.initialize = function() {};\nsystem.update = function () {};"
     }
 }

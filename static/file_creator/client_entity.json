@@ -5,6 +5,9 @@
     "path": "entity/",
 
     "templates": {
+        "$default_pack": {
+            "path": "RP/entity"
+        },
         "Blank Entity": {
             "format_version": {},
             "minecraft:client_entity": {

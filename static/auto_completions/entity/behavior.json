@@ -1,7 +1,7 @@
 {
     "minecraft:behavior.avoid_mob_type": {
         "priority": "$general.number",
-        "entity_types": "$general.entity.entity_types",
+        "entity_types": "$entity.general.entity_types",
         "ignore_visibility": "$general.boolean",
         "max_dist": "$general.number",
         "max_flee": "$general.number",
@@ -56,7 +56,7 @@
 
     "minecraft:behavior.defend_village_target": { 
         "priority": "$general.number",
-        "entity_types": "$general.entity.entity_types"
+        "entity_types": "$entity.general.entity_types"
     },
     "minecraft:behavior.delayed_attack": {
         "priority": "$general.number",
@@ -93,12 +93,12 @@
     "minecraft:behavior.drop_item_for": {
         "priority": "$general.number",
         "drop_item_chance": "$general.decimal",
-        "entity_types": "$general.entity.entity_types",
+        "entity_types": "$entity.general.entity_types",
         "goal_radius": "$general.decimal",
         "loot_table": "$dynamic.loot_table_files",
         "max_dist": "$general.number",
         "offering_distance": "$general.number",
-        "on_drop_attempt": "$general.entity.event_definition",
+        "on_drop_attempt": "$entity.general.event_definition",
         "search_count": "$general.number",
         "search_height": "$general.number",
         "search_range": "$general.number",
@@ -110,7 +110,7 @@
 
     "minecraft:behavior.eat_block": {
         "priority": "$general.number",
-        "on_eat": "$general.entity.event_definition"
+        "on_eat": "$entity.general.event_definition"
     },
     "minecraft:behavior.enderman_leave_block": {  "priority": "$general.number" },
     "minecraft:behavior.enderman_take_block": {  "priority": "$general.number" },
@@ -157,7 +157,7 @@
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal",
         "entity_count": "$general.number",
-        "entity_types": "$general.entity.entity_types"
+        "entity_types": "$entity.general.entity_types"
     },
     "minecraft:behavior.follow_mob": {
         "priority": "$general.number",
@@ -187,7 +187,7 @@
       "speed_multiplier": "$general.decimal",
       "interval": "$general.number",
       "goal_radius": "$general.number",
-      "on_home": "$general.entity.event_definition"
+      "on_home": "$entity.general.event_definition"
     },
     "minecraft:behavior.guardian_attack": {
         "priority": "$general.number"
@@ -205,7 +205,7 @@
     "minecraft:behavior.hurt_by_target": {
         "priority": "$general.number",
         "alert_same_type": "$general.boolean",
-        "entity_types": "$general.entity.entity_types",
+        "entity_types": "$entity.general.entity_types",
         "hurt_owner": "$general.boolean"
     },
     "minecraft:behavior.inspect_bookshelf": {
@@ -226,7 +226,7 @@
         "knockback_range": "$general.number",
         "knockback_filters": "$entity.filters",
         "damage_filters": "$entity.filters",
-        "on_roar_end": "$general.entity.event_definition"
+        "on_roar_end": "$entity.general.event_definition"
     },
     "minecraft:behavior.lay_egg": {
       "priority": "$general.number",
@@ -234,7 +234,7 @@
       "search_range": "$general.number",
       "search_height": "$general.number",
       "goal_radius": "$general.number",
-      "on_lay": "$general.entity.event_definition"
+      "on_lay": "$entity.general.event_definition"
     },
     "minecraft:behavior.lay_down": {
         "priority": "$general.number",
@@ -334,7 +334,7 @@
     "minecraft:behavior.nearest_attackable_target": {
         "priority": "$general.number",
         "attack_interval": "$general.number",
-        "entity_types": "$general.entity.entity_types",
+        "entity_types": "$entity.general.entity_types",
         "must_reach": "$general.boolean",
         "must_see": "$general.boolean",
         "must_see_forget_duration": "$general.number",
@@ -363,11 +363,11 @@
     },
     "minecraft:behavior.owner_hurt_by_target": {
         "priority": "$general.number",
-        "entity_types": "$general.entity.entity_types"
+        "entity_types": "$entity.general.entity_types"
     },
     "minecraft:behavior.owner_hurt_target": {
         "priority": "$general.number",
-        "entity_types": "$general.entity.entity_types"
+        "entity_types": "$entity.general.entity_types"
     },
     "minecraft:behavior.panic": {
         "priority": "$general.number",
@@ -506,7 +506,7 @@
         "max_dist": "$general.number",
         "goal_radius": "$general.number",
         "speed_multiplier": "$general.decimal",
-        "entity_types": "$general.entity.entity_types"
+        "entity_types": "$entity.general.entity_types"
     },
     "minecraft:behavior.skeleton_horse_trap": {
         "within_radius": "$general.number",
@@ -541,7 +541,7 @@
         "probability": "$general.decimal",
         "cooldown_time": "$general.number",
         "within_radius": "$general.number",
-        "entity_types": "$general.entity.entity_types",
+        "entity_types": "$entity.general.entity_types",
         "drop_item_chance": "$general.decimal",
         "loot_table": "$dynamic.loot_table_files",
         "prepare_sound": "$general.sound",
@@ -591,7 +591,7 @@
                 "sequence": {
                     "$dynamic.list.next_index": {
                         "shape": [ "circle", "line" ],
-                        "target": "$general.entity.filter_targets",
+                        "target": "$entity.general.filter_targets",
                         "base_delay": "$general.decimal",
                         "delay_per_summon": "$general.decimal",
                         "num_entities_spawned": "$general.number",
@@ -651,7 +651,7 @@
     },
     "minecraft:behavior.vex_copy_owner_target": {
         "priority": "$general.number",
-        "entity_types": "$general.entity.entity_types"
+        "entity_types": "$entity.general.entity_types"
     },
     "minecraft:behavior.vex_random_move": {
         "priority": "$general.number"
@@ -661,7 +661,7 @@
     },
     "minecraft:behavior.wither_target_highest_damage": {
         "priority": "$general.number",
-        "entity_types": "$general.entity.entity_types"
+        "entity_types": "$entity.general.entity_types"
     },
     "minecraft:behavior.work": {
         "priority": "$general.number",
@@ -672,6 +672,6 @@
         "active_time": "$general.number",
         "can_work_in_rain": "$general.boolean",
         "work_in_rain_tolerance":  "$general.number",
-        "on_arrival": "$general.entity.event_definition"
+        "on_arrival": "$entity.general.event_definition"
     }
 }

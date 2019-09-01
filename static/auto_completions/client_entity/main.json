@@ -2,7 +2,7 @@
     "format_version": "$general.format_version",
     "minecraft:client_entity": {
         "description": {
-            "identifier": "$general.entity_identifier",
+            "identifier": "$general.file_identifier and $general.entity_identifier",
             "min_engine_version": "$general.format_version",
             "enable_attachables": "$general.boolean",
             "spawn_egg": {
@@ -11,8 +11,8 @@
                     "@import.value": "$dynamic.rp.item_textures"
                 },
                 "texture_index": "$general.number",
-                "base_color": { "@meta": { "is_value": true } },
-                "overlay_color": { "@meta": { "is_value": true } }
+                "base_color": { "@meta": { "is_value": true, "is_color": true } },
+                "overlay_color": { "@meta": { "is_value": true, "is_color": true } }
             },
 
             "materials": {
@@ -45,7 +45,7 @@
                     "$dynamic.list.next_index": {
                         "$dynamic.client_entity.animation_references": {
                             "@meta": { "is_molang": true },
-                            "@import.value": "$animation.general.queries"
+                            "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
                         },
                         "@import.value": "$dynamic.client_entity.animation_references"
                     }

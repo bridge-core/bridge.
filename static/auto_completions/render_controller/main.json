@@ -7,28 +7,28 @@
             "ignore_lighting" : "$general.boolean",
 
             "color": {
-                "r": "$animation.general.queries",
-                "g": "$animation.general.queries",
-                "b": "$animation.general.queries",
-                "a": "$animation.general.queries"
+                "r": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "g": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "b": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "a": "$molang.general.boolean and ('query.' + $molang.general.query)"
             },
             "overlay_color": {
-                "r": "$animation.general.queries",
-                "g": "$animation.general.queries",
-                "b": "$animation.general.queries",
-                "a": "$animation.general.queries"
+                "r": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "g": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "b": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "a": "$molang.general.boolean and ('query.' + $molang.general.query)"
             },
             "uv_anim": {
                 "offset": {
                     "$dynamic.list.index_pair": {
                         "@meta": { "is_molang": true },
-                        "@import.value": "$general.number and $animation.general.queries"
+                        "@import.value": "$general.number and $molang.general.boolean and ('query.' + $molang.general.query)"
                     }
                 },
                 "scale": {
                     "$dynamic.list.index_pair": {
                         "@meta": { "is_molang": true },
-                        "@import.value": "$general.number and $animation.general.queries"
+                        "@import.value": "$general.number and $molang.general.boolean and ('query.' + $molang.general.query)"
                     }
                 }
             },
@@ -63,17 +63,17 @@
             "geometry": {
                 "@meta": { "is_molang": true },
                 "@import.value_1": "'Geometry.' + $dynamic.cache.client_entity.geometry_references",
-                "@import.value_2": "$animation.general.queries"
+                "@import.value_2": "$molang.general.boolean and ('query.' + $molang.general.query)"
             },
             "part_visibility": {
                 "$dynamic.list.next_index": {
                     "*": {
                         "@meta": { "is_molang": true },
-                        "@import.value": "$animation.general.queries"
+                        "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
                     },
                     "$placeholder": {
                         "@meta": { "is_molang": true },
-                        "@import.value": "$animation.general.queries"
+                        "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
                     }
                 }
             },
@@ -82,12 +82,12 @@
                     "*": {
                         "@meta": { "is_molang": true },
                         "@import.value_1": "'Material.' + $dynamic.cache.client_entity.material_references",
-                        "@import.value_2": "$animation.general.queries"
+                        "@import.value_2": "$molang.general.boolean and ('query.' + $molang.general.query)"
                     },
                     "$placeholder": {
                         "@meta": { "is_molang": true },
                         "@import.value_1": "'Material.' + $dynamic.cache.client_entity.material_references",
-                        "@import.value_2": "$animation.general.queries"
+                        "@import.value_2": "$molang.general.boolean and ('query.' + $molang.general.query)"
                     }
                 }
             },
@@ -95,7 +95,7 @@
                 "$dynamic.list.next_index": {
                     "@meta": { "is_molang": true },
                     "@import.value_1": "'Texture.' + $dynamic.cache.client_entity.texture_references",
-                    "@import.value_2": "$animation.general.queries"
+                    "@import.value_2": "$molang.general.boolean and ('query.' + $molang.general.query)"
                 }
             }
         }

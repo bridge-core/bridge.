@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <span class="px14-font">
         <v-container v-if="file_viewer === 'image'">
             <v-img class="image" :src="image" :style="`max-height: ${available_height}px;`"/>
         </v-container>
@@ -77,12 +77,9 @@
             loadAllTextHighlighters();
         },
         mounted() { 
-            if(this.$refs.cm) {
-                this.$refs.cm.$el.childNodes[1].style.height = this.available_height + "px";
-                
-            }
             if(!this.codemirror) return;
-            
+
+            this.codemirror.setSize("100%", this.available_height - 12)
             this.codemirror.on("cursorActivity", this.shouldUpdateSuggestions);
             EventBus.on("setCMSelection", this.setCMSelection);
             EventBus.on("setCMTextSelection", this.setCMTextSelection);
@@ -205,9 +202,10 @@
                         "Tab": () => {
                             EventBus.trigger("bridge:textCompletionsOpen", (is_open) => {
                                 if(is_open) EventBus.trigger("bridge:textCompletionsEnter");
-                                else return this.setCMSelection("\n");
+                                else return this.setCMSelection("\t");
                             });
-                        }
+                        },
+                        "Esc": () => EventBus.trigger("bridge:closeTextCompletions")
                     }
                 };
             },
@@ -236,7 +234,7 @@
                 this.codemirror.focus();
             },
             shouldUpdateSuggestions(event) {
-                TextProvider.compile(event.doc, this.file.file_path);
+                TextProvider.compile(event.doc, this.file.file_path, this.codemirror.cursorCoords(true));
             },
             getEncoded(type, ext, data) {
                 return DataUrl.convert({
@@ -247,10 +245,10 @@
         },
         watch: {
             available_height() {
-                if(this.$refs.cm) this.$refs.cm.$el.childNodes[1].style.height = this.available_height + "px";
+                this.codemirror.setSize("100%", this.available_height - 12)
             },
             content_as_string() {
-                if(this.file_viewer !== 'json') TabSystem.setCurrentUnsaved();
+                if(this.file_viewer === 'text') TabSystem.setCurrentUnsaved();
             }
         }
     }

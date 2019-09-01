@@ -1,0 +1,236 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:zombie_pigman",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "minecraft:pig_zombie_baby": {
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 12 + (query.equipment_count * Math.Random(1,3)) : 0"
+        },
+        "minecraft:is_baby": {
+        },
+        "minecraft:scale": {
+          "value": 0.5
+        }
+      },
+
+      "minecraft:pig_zombie_adult": {
+        "minecraft:rideable": {
+          "seat_count": 1,
+          "family_types": [
+            "zombie"
+          ],
+          "seats": {
+            "position": [ 0.0, 1.1, -0.35 ],
+            "lock_rider_rotation": 0
+          }
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 + (query.equipment_count * Math.Random(1,3)) : 0"
+        }
+      },
+      "minecraft:pig_zombie_angry": {
+        "minecraft:angry": {
+          "duration": 25,
+          "broadcast_anger": true,
+          "broadcast_range": 20,
+          "calm_event": {
+            "event": "minecraft:on_calm",
+            "target": "self"
+          }
+        }
+      },
+      "minecraft:pig_zombie_calm": {
+        "minecraft:on_target_acquired": {
+          "event": "minecraft:become_angry",
+          "target": "self"
+        }
+      }
+    },
+
+    "components": {
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0,
+        "breathes_water": true
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.9
+      },
+      "minecraft:nameable": {
+      },
+      "minecraft:navigation.walk": {
+        "is_amphibious": true,
+        "can_pass_doors": true,
+        "can_open_doors": true,
+        "avoid_water": true,
+        "avoid_portals": true
+      },
+      "minecraft:movement.basic": {
+      },
+      "minecraft:jump.static": {
+      },
+      "minecraft:can_climb": {
+      },
+      "minecraft:fire_immune": true,
+      "minecraft:burns_in_daylight": false,
+      "minecraft:type_family": {
+        "family": [ "zombie_pigman", "undead", "monster", "mob" ]
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/zombie_pigman.json"
+      },
+      "minecraft:equipment": {
+        "table": "loot_tables/entities/zombie_pigman_gear.json"
+      },
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:movement": {
+        "value": 0.23
+      },
+      "minecraft:attack": {
+        "damage": 5
+      },
+      "minecraft:behavior.mount_pathing": {
+        "priority": 2,
+        "speed_multiplier": 1.25,
+        "target_dist": 0,
+        "track_target": true
+      },
+      "minecraft:behavior.melee_attack": {
+        "priority": 3,
+        "speed_multiplier": 1.5,
+        "track_target": false
+      },
+      "minecraft:behavior.stomp_turtle_egg": {
+        "priority": 4,
+        "speed_multiplier": 1,
+        "search_range": 10,
+        "search_height": 3,
+        "goal_radius": 1.14,
+        "search_count": 4,
+        "interval": 20
+      },
+      "minecraft:behavior.move_towards_restriction": {
+        "priority": 5
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 7,
+        "speed_multiplier": 1.0
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 8,
+        "look_distance": 6.0,
+        "probability": 0.02
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 9
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:physics": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      }
+    },
+
+
+    "events": {
+      "minecraft:entity_transformed": {
+        "sequence": [
+          // Transform baby pig to baby zombie pigman
+          {
+            "filters": {
+              "test": "has_component",
+              "subject": "other",
+              "value": "minecraft:is_baby"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:pig_zombie_baby",
+                "minecraft:pig_zombie_calm"
+              ]
+            }
+          },
+          // Transform adult pig to adult zombie pigman
+          {
+            "filters": {
+              "test": "has_component",
+              "subject": "other",
+              "operator": "!=",
+              "value": "minecraft:is_baby"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:pig_zombie_adult",
+                "minecraft:pig_zombie_calm"
+              ]
+            }
+          }
+        ]
+      },
+      "minecraft:entity_spawned": {
+        "randomize": [
+          {
+            "weight": 95,
+            "remove": {
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:pig_zombie_adult",
+                "minecraft:pig_zombie_calm"
+              ]
+            }
+          },
+          {
+            "weight": 5,
+            "remove": {
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:pig_zombie_baby",
+                "minecraft:pig_zombie_calm"
+              ]
+
+            }
+          }
+        ]
+      },
+      "minecraft:on_calm": {
+        "remove": {
+          "component_groups": [
+            "minecraft:pig_zombie_angry"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "minecraft:pig_zombie_calm"
+          ]
+        }
+      },
+      "minecraft:become_angry": {
+        "remove": {
+          "component_groups": [
+            "minecraft:pig_zombie_calm"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "minecraft:pig_zombie_angry"
+          ]
+        }
+      }
+    }
+  }
+}

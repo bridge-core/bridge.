@@ -1,0 +1,34 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "flower_forest_surface_flowers_feature",
+      "places_feature": "minecraft:legacy:flower_forest_flower_feature"
+    },
+    "conditions": {
+      "placement_pass": "surface_pass",
+      "minecraft:biome_filter": [
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "flower_forest"
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 100,
+      "x": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      },
+      "y": {
+        "distribution": "uniform",
+        "extent": [ 0, "query.heightmap(variable.worldx, variable.worldz) + 32" ]
+      },
+      "z": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      }
+    }
+  }
+}

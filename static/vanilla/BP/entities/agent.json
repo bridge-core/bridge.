@@ -1,0 +1,67 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:agent",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+    },
+
+
+    "components": {
+      "minecraft:tick_world": {
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
+      },
+      "minecraft:fire_immune": true,
+      "minecraft:inventory": {
+        "inventory_size": 27,
+        "container_type": "container", 
+        "restrict_to_owner": true
+      },
+      "minecraft:scale": {
+          "value":1.0
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 0.93
+      },
+      "minecraft:nameable": {
+        "always_show": true,
+        "allow_name_tag_renaming": false
+      },
+      "minecraft:movement": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:behavior.look_at_entity": {
+        "priority": 2,
+        "look_distance": 6.0,
+        "probability": 1.0,
+        "angle_of_view_vertical": 135,
+        "angle_of_view_horizontal": 170,
+        "filters": { 
+                "all_of": [
+                  { "test" :  "is_family", "subject" : "other", "value" :  "player"},
+                  { "test" :  "is_owner", "subject" : "other", "value" :  true}
+                ] 
+        }
+      },
+      "minecraft:persistent": {
+      },
+      "minecraft:physics": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": true
+      }
+    }
+  }
+}

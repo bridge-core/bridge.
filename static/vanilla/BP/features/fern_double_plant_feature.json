@@ -1,0 +1,13 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:aggregate_feature": {
+    "description": {
+      "identifier": "fern_double_plant_feature"
+    },
+    "early_out": "first_failure",
+    "features": [
+      "fern_double_plant_lower_feature",
+      "fixup_fern_double_plant_upper_position_feature"
+    ]
+  }
+}

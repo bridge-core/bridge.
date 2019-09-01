@@ -1,5 +1,5 @@
 <template>
-    <v-layout justify-center align-center column>
+    <v-layout style="margin-top: 8em;" justify-center align-center column>
         <h1>Welcome to bridge.</h1>
         <div>
             <br>

@@ -1,0 +1,31 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "deep_warm_ocean"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.5,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 0.5
+      },
+      "minecraft:overworld_height": {
+        "noise_type": "deep_ocean"
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 3,
+        "floor_material": "minecraft:sand",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:dirt",
+        "top_material": "minecraft:grass"
+      },
+
+      "deep": {},
+      "monster": {},
+      "ocean": {},
+      "overworld": {},
+      "warm": {}
+    }
+  }
+}

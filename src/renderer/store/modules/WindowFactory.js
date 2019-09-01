@@ -41,6 +41,7 @@ const mutations = {
         while(i < state.elements.length && state.elements[i].id != id) {
             i++;
         }
+
         if(i < state.elements.length) {
             Vue.set(state.elements[i], "is_visible", false);
             setTimeout(() => {

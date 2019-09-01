@@ -4,6 +4,10 @@
     "extension": "json",
     "path": "loot_tables/",
     "templates": {
+        "$default_pack": {
+            "deep": true,
+            "path": "BP/loot_tables"
+        },
         "Blank Loot Table": {
             "pools": [{
                 "rolls": {},

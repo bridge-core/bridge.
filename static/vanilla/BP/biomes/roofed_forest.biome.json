@@ -1,0 +1,39 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "roofed_forest"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.8,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 0.7
+      },
+      "minecraft:overworld_height": {
+        "noise_type": "default"
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 7,
+        "floor_material": "minecraft:gravel",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:dirt",
+        "top_material": "minecraft:grass"
+      },
+      "minecraft:world_generation_rules": {
+        "hills_transformation": "plains",
+        "mutate_transformation": "roofed_forest_mutated",
+        "generate_for_climates": [
+          [ "medium", 1 ]
+        ]
+      },
+
+      "animal": {},
+      "forest": {},
+      "monster": {},
+      "no_legacy_worldgen": {},
+      "overworld": {},
+      "roofed": {}
+    }
+  }
+}

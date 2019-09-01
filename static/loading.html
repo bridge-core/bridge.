@@ -11,24 +11,50 @@
         body {
             font-family: Roboto, sans-serif;
             -webkit-app-region: drag;
-            background-color: #212121;
             overflow: hidden;
+        }
+        body.dark {
+            background-color: #212121;
+        }
+        body.light {
+            background-color: #f6f6f6;
         }
         img {
             width: auto;
             height: 250px;
 
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-
-            padding-top: 16px;
+            padding-left: 16px;
+            padding-top: 18px;
             pointer-events: none;
         }
     </style>
 </head>
 
-<body>
-    <img src="icon.png">
+<body >
+    <img style="display: none;" id="dark" src="icon.png">
+    <img style="display: none;" id="light" src="icon_light.png">
+
+    <script>
+        const fs = require("fs").promises;
+        const path = require("path");
+        let SETTINGS;
+        if (process.platform === "win32")
+            SETTINGS = path.join(process.env.HOMEDRIVE, process.env.HOMEPATH, ".bridge/data/settings");
+        else
+            SETTINGS = path.join(process.env.HOME, ".bridge/data/settings");
+
+        fs.readFile(SETTINGS)
+            .then(str => JSON.parse(str.toString()))
+            .then(({ is_dark_mode }) => setMode(is_dark_mode ? 'dark' : 'light'))
+            .catch((err) => {
+                console.log(err);
+                setMode();
+            });
+
+        function setMode(mode="dark") {
+            document.body.classList.add(mode);
+            document.getElementById(mode).style.display = "unset";
+        }
+    </script>
 </body>
 </html>

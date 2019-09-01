@@ -3,7 +3,8 @@ import Store from "../index";
 import Vue from "vue";
 import Provider from "../../scripts/autoCompletions/Provider";
 import FileType from "../../scripts/editor/FileType";
-import PluginLoader from "../../scripts/plugins/PluginLoader";
+import EventBus from "../../scripts/EventBus";
+import { PluginSnippets } from "../../windows/Snippets";
 
 const state = {
     installed_plugins: [],
@@ -17,9 +18,9 @@ const mutations = {
         Bridge.Interpreter.execute(code, path, undefined, undefined, blocked);
 
         //CONSOLE INFO
-        console.groupCollapsed(path.split(/\\|\//g).pop());
-        console.log(code);
-        console.groupEnd();
+        // console.groupCollapsed(path.split(/\\|\//g).pop());
+        // console.log(code);
+        // console.groupEnd();
     },
     unloadPlugins(state) {
         if(Bridge.getMenus()) Bridge.getMenus().forEach(menu => Store.commit("removeFromAppMenu", menu));
@@ -32,7 +33,9 @@ const mutations = {
         Provider.removePluginCompletions();
         FileType.reset();
         Bridge.reset();
+        PluginSnippets.removeAll();
         
+        EventBus.trigger("bridge:unloadPlugins");
         Vue.set(state, "installed_plugins", []);
     },
     finishedPluginLoading(state, addPlugins) {

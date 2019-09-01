@@ -3,19 +3,18 @@ import TabSystem from "../TabSystem";
 import Store from "../../store/index";
 import path from "path";
 import fs from "fs";
-import Provider from "./Provider";
 import LightningCache from "../editor/LightningCache";
 
 let PARENT_CONTEXT = {};
 let NODE_CONTEXT = {};
 let PREV_CONTEXT = [];
 
-export function walkSync(dir, filelist = []) {
+export function walkSync(dir, relative=false, relative_path="", filelist=[]) {
     fs.readdirSync(dir).forEach(file => {
   
         filelist = fs.statSync(path.join(dir, file)).isDirectory()
-            ? walkSync(path.join(dir, file), filelist)
-            : filelist.concat(path.join(dir, file));
+            ? walkSync(path.join(dir, file), relative, path.join(relative_path, file), filelist)
+            : filelist.concat(path.join(relative ? relative_path : dir, file));
   
     });
     return filelist;
@@ -86,9 +85,10 @@ export const DYNAMIC = {
             } catch(e) { return []; }
         },
         all_events() {
-            return LightningCache.getCompiledSync().entity.events.map(e => "@s " + e);
+            return LightningCache.getCompiledSync().entity.events;
         },
         "@events"() {
+            console.warn("[DEPRECATION] \"@events\" - Use \"('@s ' + $dynamic.entity.all_events) instead\"");
             return LightningCache.getCompiledSync().entity.events.map(e => "@s " + e);
         },
         animation_references() {

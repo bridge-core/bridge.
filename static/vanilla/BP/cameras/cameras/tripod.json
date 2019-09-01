@@ -1,0 +1,27 @@
+{
+    "field_of_view": 66.0,
+    "near_clipping_plane": 0.025,
+    "far_clipping_plane": 2500.0,
+    "render_player_model": true,
+    "priority": 5,
+	"player_rotation_offset": [0.0, 180.0],
+    "blend_in_default": {
+        "blend_time": 0.0,
+        "ease": "in_out_cubic",
+        "camera_from_accepts_input": false,
+        "camera_to_accepts_input": false
+    },
+    "behaviors": {
+        "attach": {
+            "offset": [0.0, 0.0, 0.0]
+        },
+		"look_at": {
+            "soft_bounds": [0.0, 0.0, 0.0, 0.0],
+            "hard_bounds": [0.0, 0.0, 0.0, 0.0],
+            "soft_bounds_smoothing_spring": 64
+        }
+    },
+    "activation_rule": {
+        "type": "tripod"
+    }
+}

@@ -1,0 +1,96 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "overworld_surface_tall_grass_feature",
+      "places_feature": "minecraft:tall_grass_feature"
+    },
+    "conditions": {
+      "placement_pass": "surface_pass",
+      "minecraft:biome_filter": [
+        // (overworld || overworld_generation) && !(taiga || jungle || mooshroom_island || savanna || swamp || ((forest || forest_generation) && !extreme_hills))     ->
+        // (overworld || overworld_generation) && !taiga && !jungle && !mooshroom_island && !savanna && !swamp && !((forest || forest_generation) && !extreme_hills)) ->
+        // (overworld || overworld_generation) && !taiga && !jungle && !mooshroom_island && !savanna && !swamp && (!(forest || forest_generation) || extreme_hills)   ->
+        // (overworld || overworld_generation) && !taiga && !jungle && !mooshroom_island && !savanna && !swamp && ((!forest && !forest_generation) || extreme_hills)
+        {
+          "any_of": [
+            {
+              "test": "has_biome_tag",
+              "operator": "==",
+              "value": "overworld"
+            },
+            {
+              "test": "has_biome_tag",
+              "operator": "==",
+              "value": "overworld_generation"
+            }
+          ]
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "taiga"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "jungle"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "mooshroom_island"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "savanna"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "swamp"
+        },
+        {
+          "any_of": [
+            {
+              "all_of": [
+                {
+                  "test": "has_biome_tag",
+                  "operator": "!=",
+                  "value": "forest"
+                },
+                {
+                  "test": "has_biome_tag",
+                  "operator": "!=",
+                  "value": "forest_generation"
+                }
+              ]
+            },
+            {
+              "test": "has_biome_tag",
+              "operator": "==",
+              "value": "extreme_hills"
+            }
+          ]
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 1,
+      "scatter_chance": "variable.is_legacy ? 0.0 : 100.0",
+      "x": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      },
+      "y": {
+        "distribution": "uniform",
+        "extent": [ 0, "query.heightmap(variable.worldx, variable.worldz) * 2" ]
+      },
+      "z": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      }
+    }
+  }
+}

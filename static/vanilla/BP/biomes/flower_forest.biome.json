@@ -1,0 +1,30 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "flower_forest"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.80,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 0.7
+      },
+      "minecraft:overworld_height": {
+        "noise_params": [ 0.1, 0.4 ]
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 7,
+        "floor_material": "minecraft:gravel",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:dirt",
+        "top_material": "minecraft:grass"
+      },
+
+      "flower_forest": {},
+      "monster": {},
+      "mutated": {},
+      "overworld": {}
+    }
+  }
+}

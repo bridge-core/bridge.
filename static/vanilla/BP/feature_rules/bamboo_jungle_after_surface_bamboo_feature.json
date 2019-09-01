@@ -1,0 +1,36 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "bamboo_jungle_after_surface_bamboo_feature",
+      "places_feature": "bamboo_then_podzol_feature"
+    },
+    "conditions": {
+      "placement_pass": "after_surface_pass",
+      "minecraft:biome_filter": [
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "bamboo"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "jungle"
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": "math.clamp(math.trunc(math.ceil((query.noise(math.trunc(variable.originx / 80), math.trunc(variable.originz / 80)) + 0.3) * 160)), 15, 160)",
+      "x": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      },
+      "y": "query.heightmap(variable.worldx, variable.worldz)",
+      "z": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      }
+    }
+  }
+}

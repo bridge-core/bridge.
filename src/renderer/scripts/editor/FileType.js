@@ -143,16 +143,19 @@ export default class FileType {
 
     static async getSnippets() {
         let file_types = this.getAllData();
-        let snippets = {};
+        let snippet_data = {};
         let proms = [];
 
         for(let { id, snippets } of file_types) {
             if(snippets === undefined) continue;
-            proms.push(readJSON(join(__static, "snippets", `${snippets}.json`)).then(data => snippets[id] = data));
+            proms.push(
+                readJSON(join(__static, "snippets", `${snippets}.json`))
+                    .then(data => snippet_data[id] = data)
+            );
         }
 
         await Promise.all(proms);
-        return snippets;
+        return snippet_data;
     }
     static async getProblems() {
         let file_types = this.getAllData();
@@ -164,8 +167,10 @@ export default class FileType {
             data[id] = {};
             if(Array.isArray(problems))
                 problems.forEach(
-                    problem => proms.push(readJSON(join(__static, "problems", `${problem}.json`))
-                        .then(p => Object.assign(data[id], p)))
+                    problem => proms.push(
+                        readJSON(join(__static, "problems", `${problem}.json`))
+                            .then(p => Object.assign(data[id], p))
+                    )
                 );
             else
                 proms.push(readJSON(join(__static, "problems", `${problems}.json`)).then(p => data[id] = p)) 
@@ -198,6 +203,5 @@ export default class FileType {
         } catch(e) {
             return "//";
         }
-        
     }
 }

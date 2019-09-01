@@ -1,0 +1,22 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "legacy_frozen_ocean"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.5,
+        "snow_accumulation": [ 0.125, 0.25 ],
+        "temperature": 0.0
+      },
+      "minecraft:overworld_height": {
+        "noise_type": "ocean"
+      },
+
+      "frozen": {},
+      "ocean": {},
+      "overworld": {}
+    }
+  }
+}

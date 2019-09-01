@@ -4,7 +4,9 @@ import { promises as fs } from "fs";
 import { readJSON } from "../utilities/JsonFS";
 import Store from "../../store/index";
 import Bridge from "../../scripts/plugins/PluginEnv";
-
+import EventBus from "../EventBus";
+import { PluginSnippets } from "../../windows/Snippets";
+import cJSON from "comment-json";
 let PLUGIN_FOLDERS;
 let PLUGIN_DATA = [];
 
@@ -13,7 +15,9 @@ export default class PluginLoader {
         if(project === undefined) return;
         //INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
         Store.commit("unloadPlugins");
-        Bridge.Interpreter.init(project);
+        
+        let unloaded_plugins = await Bridge.Interpreter.init(project);
+        // console.log(unloaded_plugins);
 
         try {
             PLUGIN_FOLDERS = await fs.readdir(path.join(BASE_PATH, project, "bridge/plugins"));
@@ -22,21 +26,22 @@ export default class PluginLoader {
         }
         
         PLUGIN_DATA = [];
-        await Promise.all(PLUGIN_FOLDERS.map(plugin_folder => this.loadPlugin(project, plugin_folder)));
+        await Promise.all(PLUGIN_FOLDERS.map(plugin_folder => this.loadPlugin(project, plugin_folder, unloaded_plugins)));
 
         //INIT LEGACY PLUGIN DATA FOR UI
         Store.commit("finishedPluginLoading", PLUGIN_DATA);
+        EventBus.trigger("bridge:pluginsLoaded");
     }
 
-    static async loadPlugin(project, plugin_folder) {
+    static async loadPlugin(project, plugin_folder, unloaded_plugins) {
         let plugin_path = path.join(BASE_PATH, project, "bridge/plugins", plugin_folder);
 
         if((await fs.lstat(plugin_path)).isFile()) {
             //LEGACY PLUGINS
-            Store.commit("loadPlugin", { 
+            Store.commit("loadPlugin", {
                 code: (await fs.readFile(plugin_path)).toString(), 
                 path: plugin_path, 
-                blocked: false
+                blocked: unloaded_plugins.includes(plugin_path)
             });
         } else {
             let manifest;
@@ -44,7 +49,13 @@ export default class PluginLoader {
                 manifest = await readJSON(path.join(plugin_path, "manifest.json"));
             } catch(e) { return; }
 
-            await this.loadScripts(plugin_path, manifest.api_version);
+            //IF ACTIVE: LOAD PLUGIN
+            if(!unloaded_plugins.includes(plugin_path)) {
+                await Promise.all([
+                    this.loadScripts(plugin_path, manifest.api_version),
+                    this.loadSnippets(plugin_path)
+                ]);
+            } 
             PLUGIN_DATA.push(manifest);
         }
     }
@@ -69,6 +80,20 @@ export default class PluginLoader {
             } else {
                 throw new Error("Undefined API Version: " + api_version);
             }
+        });
+    }
+
+    static async loadSnippets(plugin_path) {
+        let snippets = await fs.readdir(path.join(plugin_path, "snippets"));
+
+        snippets = await Promise.all(
+            snippets.map(s => 
+                fs.readFile(path.join(plugin_path, "snippets", s))
+                    .catch(e => {})
+            )
+        );
+        snippets.forEach(s => {
+            if(s !== undefined) PluginSnippets.add(cJSON.parse(s.toString(), undefined, true));
         });
     }
 }

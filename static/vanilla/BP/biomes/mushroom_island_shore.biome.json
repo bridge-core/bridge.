@@ -1,0 +1,29 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "mushroom_island_shore"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 1.0,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 0.9
+      },
+      "minecraft:overworld_height": {
+        "noise_type": "beach"
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 7,
+        "floor_material": "minecraft:gravel",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:dirt",
+        "top_material": "minecraft:mycelium"
+      },
+
+      "mooshroom_island": {},
+      "overworld": {},
+      "shore": {}
+    }
+  }
+}

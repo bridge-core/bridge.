@@ -6,7 +6,7 @@
             "loop": "$general.boolean",
             "timeline": {
                 "$placeholder": {
-                    "$dynamic.list.next_index": "$animation.general.events"
+                    "$dynamic.list.next_index": "('@s ' + $dynamic.entity.all_events)"
                 }
             }
         }

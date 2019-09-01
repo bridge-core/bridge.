@@ -4,7 +4,7 @@ import FileType from "../editor/FileType";
 const DEF_PROVIDER = new Provider();
 
 export default class TextProvider {
-    static compile(doc, file_path) {
+    static compile(doc, file_path, cursor_coords) {
         DEF_PROVIDER.validator(file_path);
 
         let line_number = doc.getCursor().line;
@@ -28,7 +28,7 @@ export default class TextProvider {
                     line: line_number, 
                     ch: char - current.length 
                 }
-            ]);
+            ], cursor_coords);
         } else {
             EventBus.trigger("bridge:textProviderUpdate", []);
         }

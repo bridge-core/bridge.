@@ -4,6 +4,9 @@
     "extension": "json",
     "path": "recipes/",
     "templates": {
+        "$default_pack": {
+            "path": "BP/recipes"
+        },
         "Blank Shaped Recipe": {
             "format_version": {},
             "minecraft:recipe_shaped": {
@@ -30,6 +33,18 @@
                 },
                 "tags": {},
                 "input": {},
+                "output": {}
+            }
+        },
+        "Blank Brewing Recipe": {
+            "format_version": "1.12",
+            "minecraft:recipe_brewing_mix": {
+                "description": {
+                    "identifier": {}
+                },
+                "tags": {},
+                "input": {},
+                "reagent": {},
                 "output": {}
             }
         }

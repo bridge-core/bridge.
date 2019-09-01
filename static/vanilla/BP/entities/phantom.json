@@ -1,0 +1,126 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:entity": {
+
+    "description": {
+      "identifier": "minecraft:phantom",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+
+    "component_groups": {
+
+    },
+
+    "components": {
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 5 : 0"
+      },
+      "minecraft:type_family": {
+        "family": [ "phantom", "undead", "monster", "mob" ]
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/phantom.json"
+      },
+      "minecraft:nameable": {
+      },
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:physics": {
+        "has_gravity": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:attack": {
+        "damage": 6
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0,
+        "breathes_air": true,
+        "breathes_water": false
+      },
+      "minecraft:collision_box": {
+        "width": 0.9,
+        "height": 0.5
+      },
+      "minecraft:movement": {
+        "value": 1.8
+      },
+      "minecraft:movement.glide": {
+        "start_speed": 0.1,
+        "speed_when_turning": 0.2
+      },
+      "minecraft:burns_in_daylight": {
+      },
+      "minecraft:follow_range": {
+        "value": 64,
+        "max": 64
+      },
+      "minecraft:behavior.avoid_mob_type": {
+        "priority": 0,
+        "max_dist": 16.0,
+        "ignore_visibility": true,
+        "entity_types": [
+          {
+            "filters": {
+                "any_of": [
+                  { "test" :  "is_family", "subject" : "other", "value" :  "ocelot"},
+                  { "test" :  "is_family", "subject" : "other", "value" :  "cat"}
+                ]
+            },
+            "max_dist": 16,
+            "walk_speed_multiplier": 1,
+            "sprint_speed_multiplier": 1
+          }
+        ]
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 1,
+        "within_radius": 64,
+        "reselect_targets": true,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "player"
+            },
+            "max_dist": 64
+          }
+        ],
+        "must_see": false,
+        "must_see_forget_duration": 0.5,
+        "scan_interval": 20,
+        "target_search_height": 80.0
+      },
+      "minecraft:behavior.swoop_attack": {
+        "priority": 2,
+        "delay_range": [ 10.0, 20.0 ]
+      },
+      "minecraft:behavior.circle_around_anchor": {
+        "priority": 3,
+        "radius_range": [ 5.0, 15.0 ],
+        "radius_change_chance": 250,
+        "height_above_target_range": [ 20.0, 40.0 ],
+        "height_offset_range": [ -4.0, 5.0 ],
+        "height_change_chance": 350,
+        "goal_radius": 1.0
+      }
+    }
+  }
+}

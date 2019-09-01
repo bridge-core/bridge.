@@ -1,5 +1,6 @@
 import saveEval from "safe-eval";
 import fs from "fs";
+import { promises as fsp } from "fs";
 import Runtime from "./Runtime";
 import BlockedBridge from "./BlockedBridge";
 import Bridge from "./Bridge";
@@ -7,6 +8,8 @@ import { trigger, readonlyTrigger } from "./EventTriggers";
 import PluginAssert from "./PluginAssert";
 import cJSON from "comment-json";
 import deepmerge from "deepmerge";
+import mkdirp from "mkdirp";
+import { join } from "path";
 
 class Environment {
     constructor(file_path, depth=1000, is_module, blocked) {
@@ -111,22 +114,18 @@ class Interpreter {
         }
     }
 
-    init(project) {
+    async init(project) {
         Runtime.Paths.setProject(project);
 
-        let path = `${Runtime.Paths.bridge()}plugin_storage/`;
-        if(!fs.existsSync(path)) {
-            fs.mkdirSync(path);
-        }
+        let path = join(Runtime.Paths.bridge(), "plugin_storage");
+        let u_path = join(Runtime.Paths.bridge(), "uninstalled_plugins.json");
+        mkdirp.sync(path);
 
-        let u_path = Runtime.Paths.bridge() + "uninstalled_plugins.json";
-        if(!fs.existsSync(u_path)) {
-            fs.writeFile(u_path, "[]", (err) => {
-                if(err) console.log(err);
-            });
+        try {
+            return JSON.parse((await fsp.readFile(u_path)).toString());
+        } catch(e) {
+            fsp.writeFile(u_path, "[]");
             return [];
-        } else {
-            return JSON.parse(fs.readFileSync(u_path).toString());
         }
     }
 }

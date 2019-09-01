@@ -5,6 +5,9 @@
     "path": "particles/",
 
     "templates": {
+        "$default_pack": {
+            "path": "RP/particles"
+        },
         "Blank Particle": {
             "format_version": {},
             "particle_effect": {

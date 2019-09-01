@@ -5,26 +5,26 @@
 </template>
 
 <script>
+    import EventBus from '../../../scripts/EventBus';
+
     export default {
         name: "highlight-text",
-        props: {
-            
+        mounted() {
+            // EventBus.on("updateSelectedTab", this.updateWords);
+            EventBus.on("bridge:pluginsLoaded", this.updateWords);
+        },
+        destroyed() {
+            // EventBus.off("updateSelectedTab", this.updateWords);
+            EventBus.off("bridge:pluginsLoaded", this.updateWords);
         },
         data() {
             return {
-                
+                keywords: this.$store.getters.highlighter_keywords(),
+                titles: this.$store.getters.highlighter_titles(),
+                symbols: this.$store.getters.highlighter_symbols()
             };
         },  
         computed: {
-            keywords() {
-                return this.$store.getters.highlighter_keywords();
-            },
-            titles() {
-                return this.$store.getters.highlighter_titles();
-            },
-            symbols() {
-                return this.$store.getters.highlighter_symbols();
-            },
             text() {
                 if(this.$slots.default) return (this.$slots.default[0].text + "").trim();
                 return "";
@@ -50,6 +50,11 @@
                 } else if(this.symbols.includes(string)) {
                     return this.color_theme.definition;
                 }
+            },
+            updateWords() {
+                this.keywords = this.$store.getters.highlighter_keywords();
+                this.titles = this.$store.getters.highlighter_titles();
+                this.symbols = this.$store.getters.highlighter_symbols();
             }
         }
     }

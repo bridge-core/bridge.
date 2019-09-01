@@ -1,0 +1,35 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "cold_ocean"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.5,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 0.5
+      },
+      "minecraft:overworld_height": {
+        "noise_type": "ocean"
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 7,
+        "floor_material": "minecraft:gravel",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:dirt",
+        "top_material": "minecraft:grass"
+      },
+      "minecraft:world_generation_rules": {
+        "generate_for_climates": [
+          [ "cold", 1 ]
+        ]
+      },
+
+      "cold": {},
+      "monster": {},
+      "ocean": {},
+      "overworld": {}
+    }
+  }
+}

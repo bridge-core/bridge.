@@ -1,0 +1,53 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "forest_surface_flowers_feature",
+      "places_feature": "minecraft:legacy:forest_flower_feature"
+    },
+    "conditions": {
+      "placement_pass": "surface_pass",
+      "minecraft:biome_filter": [
+        {
+          "any_of": [
+            {
+              "test": "has_biome_tag",
+              "operator": "==",
+              "value": "forest"
+            },
+            {
+              "test": "has_biome_tag",
+              "operator": "==",
+              "value": "forest_generation"
+            }
+          ]
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "extreme_hills"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "taiga"
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 2,
+      "x": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      },
+      "y": {
+        "distribution": "uniform",
+        "extent": [ 0, "query.heightmap(variable.worldx, variable.worldz) + 32" ]
+      },
+      "z": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      }
+    }
+  }
+}

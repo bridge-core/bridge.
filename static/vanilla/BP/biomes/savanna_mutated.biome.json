@@ -1,0 +1,53 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "savanna_mutated"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.5,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 1.1
+      },
+      "minecraft:overworld_height": {
+        "noise_params": [ 0.3625, 1.225 ]
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 7,
+        "floor_material": "minecraft:gravel",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:dirt",
+        "top_material": "minecraft:grass"
+      },
+      "minecraft:surface_material_adjustments": {
+        "adjustments": [
+          {
+            "materials": {
+              "mid_material": "minecraft:stone",
+              "top_material": "minecraft:stone"
+            },
+            "noise_range": [ 1.750, "infinity" ]
+          },
+          {
+            "materials": {
+              "top_material": {
+                "name": "minecraft:dirt",
+                "states": {
+                  "dirt_type": "coarse"
+                }
+              }
+            },
+            "noise_range": [ -0.50, 1.750 ]
+          }
+        ]
+      },
+
+      "animal": {},
+      "monster": {},
+      "mutated": {},
+      "overworld": {},
+      "savanna": {}
+    }
+  }
+}

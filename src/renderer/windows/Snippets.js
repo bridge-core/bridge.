@@ -1,10 +1,8 @@
 import ContentWindow from "../scripts/commonWindows/Content";
-import fs from "fs";
 import FileType from "../scripts/editor/FileType";
 import TabSystem from "../scripts/TabSystem";
 import JSONTree from "../scripts/editor/JsonTree";
 import Store from "../store/index";
-import deepmerge from "deepmerge";
 import EventBus from "../scripts/EventBus";
 
 let SNIPPETS; 
@@ -98,6 +96,10 @@ class SnippetWindow extends ContentWindow {
 
         this.showWin();
     }
+    close() {
+        super.close();
+        WINDOW = undefined;
+    }
 
     updateContent() {
         this.update({
@@ -111,11 +113,25 @@ class SnippetWindow extends ContentWindow {
     }
 }
 
+export class PluginSnippets {
+    static add(s) {
+        addSnippet({
+            ...s,
+            is_plugin: true
+        });
+    }
+    static removeAll() {
+        for(let type in SNIPPETS) {
+            SNIPPETS[type] = SNIPPETS[type].filter(s => !s.is_plugin);
+        }
+    }
+}
+
 let WINDOW;
 export default {
     show: async () => {
         await assureLoadedSnippets();
-        console.log(SNIPPETS);
+        // console.log(SNIPPETS);
 
         let type = FileType.get();
         if(SNIPPETS === undefined || SNIPPETS[type] === undefined || SNIPPETS[type].length === 0) return;

@@ -14,7 +14,7 @@ export default class CreateProjectWindow extends ContentWindow {
             display_name: create_bp ? "New Project" : "New Resource Pack",
             options: {
                 is_persistent: false,
-                height: 260
+                height: 280
             }
         });
 
@@ -65,7 +65,7 @@ export default class CreateProjectWindow extends ContentWindow {
                         this.createProject(create_bp, cb);
                     },
                     default: (val) => {
-                        if(val == "") {
+                        if(val === "") {
                             this.content[1].color = "error";
                             this.content[2].color = "error";
                             this.content[2].text = `Please enter a valid ${create_bp ? "project" : "resource pack"} description!`;

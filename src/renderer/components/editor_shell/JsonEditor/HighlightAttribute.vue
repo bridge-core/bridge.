@@ -16,25 +16,34 @@
             color="success"
             right
         >
-            <v-btn
-                slot="activator"
-                color="success"
-                style="margin: 0; margin-left: 4px; height: 20px; width: 20px;"
-                flat
-                small
-                icon
-                @click="editMoLang"
-            >
-                <v-icon small>mdi-pencil</v-icon>
-            </v-btn>
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    v-on="on"
+                    color="success"
+                    style="margin: 0; margin-left: 4px; height: 20px; width: 20px;"
+                    text
+                    small
+                    icon
+                    @click="editMoLang"
+                >
+                    <v-icon small>mdi-pencil</v-icon>
+                </v-btn>
+            </template>
+
             <span>Edit</span>
         </v-tooltip>
+
+        <color-picker
+            v-if="is_color"
+            :node_context="node_context"
+        />
     </span>
 </template>
 
 <script>
     import HighlightText from "./HighlightText";
     import EditMoLangWindow from "../../../windows/EditMoLang";
+    import ColorPicker from "./ColorPicker";
 
     export default {
         name: "highlight-attribute",
@@ -51,9 +60,13 @@
             }
         },
         components: {
-            HighlightText
+            HighlightText,
+            ColorPicker
         },
         computed: {
+            is_color() {
+                return this.data[0] === "#" && this.data.length === 7;
+            },
             text() {
                 if(this.data != undefined) return (this.data + "").trim();
                 return this.data;

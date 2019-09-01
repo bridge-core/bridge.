@@ -17,7 +17,7 @@
         "drop_items": {
             "$dynamic.list.next_index": "$general.item_identifier"
         },
-        "grow_up": "$general.entity.event_definition"
+        "grow_up": "$entity.general.event_definition"
     },
     "minecraft:ambient_sound_interval": {
         "range": "$general.number",
@@ -31,7 +31,7 @@
         "broadcast_targets": {
             "$dynamic.list.next_index": { "@meta": { "is_value": true } }
         },
-        "calm_event": "$general.entity.event_definition",
+        "calm_event": "$entity.general.event_definition",
         "duration": "$general.number",
         "duration_delta": "$general.number"
     },
@@ -92,7 +92,7 @@
         "breedsWith": {
             "mateType": "$general.entity_identifier",
             "babyType": "$general.entity_identifier",
-            "breed_event": "$general.entity.event_definition"
+            "breed_event": "$entity.general.event_definition"
         },
         "causes_pregnancy": "$general.boolean",
         "environment_requirements": {
@@ -141,7 +141,7 @@
     },
     "minecraft:damage_sensor": {
         "$dynamic.list.next_index": {
-            "on_damage": "$general.entity.event_definition",
+            "on_damage": "$entity.general.event_definition",
             "deals_damage": "$general.boolean",
             "cause": "$general.damage_type"
         }
@@ -174,7 +174,7 @@
     },
     "minecraft:environment_sensor": {
         "$dynamic.list.next_index": {
-            "on_environment": "$general.entity.event_definition"
+            "on_environment": "$entity.general.event_definition"
         }
     },
     "minecraft:equipment": {
@@ -194,8 +194,8 @@
                 },
                 "interact_text": "$general.translatable_text",
                 "item": "$general.item_identifier",
-                "on_equip": "$general.entity.event_definition",
-                "on_unequip": "$general.entity.event_definition",
+                "on_equip": "$entity.general.event_definition",
+                "on_unequip": "$entity.general.event_definition",
                 "slot": "$general.number"
             }
         }
@@ -243,7 +243,7 @@
                         "both_allele": "$general.number",
                         "hidden_allele": "$general.number",
                         "either_allele": "$general.number",
-                        "birth_event": "$general.entity.event_definition"
+                        "birth_event": "$entity.general.event_definition"
                     }
                 }
             }
@@ -254,7 +254,7 @@
         "items": {
             "$dynamic.list.next_index": "$general.item_identifier"
         },
-        "on_give": "$general.entity.event_definition"
+        "on_give": "$entity.general.event_definition"
     },
     "minecraft:ground_offset": {
         "value": "$general.decimal"
@@ -305,8 +305,8 @@
             "cooldown": "$general.number",
             "hurt_item": "$general.number",
             "interact_text": "$general.translatable_text",
-            "on_interact": "$general.entity.event_definition",
-            "particle_on_start": "$general.entity.particle_definition",
+            "on_interact": "$entity.general.event_definition",
+            "particle_on_start": "$entity.general.particle_definition",
             "play_sounds": "$general.sound",
             "spawn_entities": {
                 "$dynamic.list.next_index": "$general.entity_identifier"
@@ -361,8 +361,8 @@
         "soft_distance": "$general.decimal",
         "hard_distance": "$general.decimal",
         "max_distance": "$general.decimal",
-        "on_leash": "$general.entity.event_definition",
-        "on_unleash": "$general.entity.event_definition",
+        "on_leash": "$entity.general.event_definition",
+        "on_unleash": "$entity.general.event_definition",
         "can_be_stolen": "$general.boolean"
     },
     "minecraft:lookat": {
@@ -370,7 +370,7 @@
         "setTarget": "$general.boolean",
         "look_cooldown": "$general.number",
         "filters": "$entity.filters",
-        "look_event": "$general.entity.event_definition",
+        "look_event": "$entity.general.event_definition",
         "mAllowInvulnerable": "$general.boolean"
     },
     "minecraft:loot": {
@@ -414,11 +414,11 @@
     "minecraft:nameable": {
         "allowNameTagRenaming": "$general.boolean",
         "alwaysShow": "$general.boolean",
-        "default_trigger": "$general.entity.event_definition",
+        "default_trigger": "$entity.general.event_definition",
         "name_actions": {
             "$dynamic.list.next_index": {
                 "name_filter": { "@meta": { "is_value": true } },
-                "on_named": "$general.entity.event_definition"
+                "on_named": "$entity.general.event_definition"
             }
         }
     },
@@ -438,21 +438,21 @@
     "minecraft:navigation.swim": "$entity.components.minecraft:navigation&dot;climb",
     "minecraft:navigation.walk": "$entity.components.minecraft:navigation&dot;climb",
 
-    "minecraft:on_death": "$general.entity.event_definition",
-    "minecraft:on_friendly_anger": "$general.entity.event_definition",
-    "minecraft:on_hurt": "$general.entity.event_definition",
-    "minecraft:on_hurt_by_player": "$general.entity.event_definition",
-    "minecraft:on_ignite": "$general.entity.event_definition",
-    "minecraft:on_start_landing": "$general.entity.event_definition",
-    "minecraft:on_start_takeoff": "$general.entity.event_definition",
-    "minecraft:on_target_acquired": "$general.entity.event_definition",
-    "minecraft:on_target_escape": "$general.entity.event_definition",
-    "minecraft:on_wake_with_owner": "$general.entity.event_definition",    
+    "minecraft:on_death": "$entity.general.event_definition",
+    "minecraft:on_friendly_anger": "$entity.general.event_definition",
+    "minecraft:on_hurt": "$entity.general.event_definition",
+    "minecraft:on_hurt_by_player": "$entity.general.event_definition",
+    "minecraft:on_ignite": "$entity.general.event_definition",
+    "minecraft:on_start_landing": "$entity.general.event_definition",
+    "minecraft:on_start_takeoff": "$entity.general.event_definition",
+    "minecraft:on_target_acquired": "$entity.general.event_definition",
+    "minecraft:on_target_escape": "$entity.general.event_definition",
+    "minecraft:on_wake_with_owner": "$entity.general.event_definition",    
 
     "minecraft:peek": {
-        "on_open": "$general.entity.event_definition",
-        "on_close": "$general.entity.event_definition",
-        "on_target_open": "$general.entity.event_definition"
+        "on_open": "$entity.general.event_definition",
+        "on_close": "$entity.general.event_definition",
+        "on_target_open": "$entity.general.event_definition"
     },
     "minecraft:physics": {
         "has_collision": "$general.boolean",
@@ -502,7 +502,7 @@
             },
             "definition_event": {
                 "affectProjectile": "$general.boolean",
-                "eventTrigger": "$general.entity.event_definition"
+                "eventTrigger": "$entity.general.event_definition"
             },
             "grant_xp": {
                 "minXP": "$general.number",
@@ -592,7 +592,7 @@
         "homing": "$general.boolean"
     },
     "minecraft:raid_trigger": {
-        "triggered_event": "$general.entity.event_definition"
+        "triggered_event": "$entity.general.event_definition"
     },
     "minecraft:rail_movement": {
         "max_speed": "$general.decimal"
@@ -601,8 +601,8 @@
         "check_block_types": "$general.boolean",
         "eject_on_activate": "$general.boolean",
         "eject_on_deactivate": "$general.boolean",
-        "on_activate": "$general.entity.event_definition",
-        "on_deactivate": "$general.entity.event_definition",
+        "on_activate": "$entity.general.event_definition",
+        "on_deactivate": "$entity.general.event_definition",
         "tick_command_block_on_activate": "$general.boolean",
         "tick_command_block_on_deactivate": "$general.boolean"
     },
@@ -611,7 +611,7 @@
         "reaction_choices": {
             "$dynamic.list.next_index": {
                 "weight": "$general.number",
-                "value": "$general.entity.event_definition"
+                "value": "$entity.general.event_definition"
             }
         }
     },
@@ -651,7 +651,7 @@
         "max_delay_secs": "$general.number",
         "scheduled_events": {
             "$dynamic.list.next_index": {
-                "scheduled_event": "$general.entity.event_definition"
+                "scheduled_event": "$entity.general.event_definition"
             }
         }
     },
@@ -671,8 +671,8 @@
         "auxVal": "$general.potion_number_id"
     },
     "minecraft:sittable": {
-        "sit_event": "$general.entity.event_definition",
-        "stand_event": "$general.entity.event_definition"
+        "sit_event": "$entity.general.event_definition",
+        "stand_event": "$entity.general.event_definition"
     },
     "minecraft:sound_volume": {
         "value": "$general.decimal"
@@ -694,7 +694,7 @@
     },
     "minecraft:spell_effects": {
         "add_effects": {
-            "$dynamic.list.next_index": "$general.entity.effect_definition"
+            "$dynamic.list.next_index": "$entity.general.effect_definition"
         },
         "remove_effects": {
             "$dynamic.list.next_index": "$general.effect_name"
@@ -710,7 +710,7 @@
         "tameItems": {
             "$dynamic.list.next_index": "$general.item_identifier"
         },
-        "tame_event": "$general.entity.event_definition"
+        "tame_event": "$entity.general.event_definition"
     },
     "minecraft:tamemount": {
         "attemptTemperMod": "$general.number",
@@ -729,13 +729,13 @@
         "minTemper": "$general.number",
         "maxTemper": "$general.number",
         "ride_text": "$general.translatable_text",
-        "tame_event": "$general.entity.event_definition"
+        "tame_event": "$entity.general.event_definition"
     },
     "minecraft:target_nearby_sensor": {
         "inside_range": "$general.number",
         "outside_range": "$general.number",
-        "on_inside_range": "$general.entity.event_definition",
-        "on_outside_range": "$general.entity.event_definition"
+        "on_inside_range": "$entity.general.event_definition",
+        "on_outside_range": "$entity.general.event_definition"
     },
     "minecraft:teleport": {
         "randomTeleports": "$general.boolean",
@@ -766,7 +766,7 @@
                 "value": "$general.number"
             }
         },
-        "time_down_event": "$general.entity.event_definition"
+        "time_down_event": "$entity.general.event_definition"
     },
     "minecraft:trade_resupply": {},
     "minecraft:trade_table": {
@@ -801,11 +801,11 @@
         "trust_items": {
             "$dynamic.list.next_index": "$general.item_identifier"
         },
-        "trust_event": "$general.entity.event_definition"
+        "trust_event": "$entity.general.event_definition"
     },
     "minecraft:type_family": {
         "family": {
-            "$dynamic.list.next_index": "$general.entity.family"
+            "$dynamic.list.next_index": "$entity.general.family"
         }
     },
     "minecraft:underwater_movement": "$entity.components.minecraft:movement",

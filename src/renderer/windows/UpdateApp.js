@@ -50,7 +50,7 @@ export default class UpdateWindow extends ContentWindow {
                     this.update({ is_visible: true, content: this.content });
                 }
             })
-            .catch(err => console.log(err));
+            .catch(() => console.log(`Running bridge. ${APP_VERSION} | Unable to get latest version`));
 
         this.content = [
             {

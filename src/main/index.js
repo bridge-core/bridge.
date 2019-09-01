@@ -3,6 +3,7 @@ import "./communicator.js";
 import "./Discord";
 import { BP_BASE_PATH } from "../shared/Paths.js";
 import { join } from "path";
+import MENU from "./menuBuilder";
 
 //Set __static path to static files in production
 if (process.env.NODE_ENV !== "development") {
@@ -12,9 +13,9 @@ if (process.env.NODE_ENV !== "development") {
 let mainWindow, loadingWindow, windowOptions = {
     height: 600,
     useContentSize: true,
-    width: 1000,
-    frame: false,
-    minWidth: 900,
+    width: 1080,
+    frame: process.platform === "darwin",
+    minWidth: 1080,
     minHeight: 600,
     show: false,
     webPreferences: {
@@ -43,21 +44,13 @@ function createWindow () {
     mainWindow.webContents.on("did-finish-load", () => {
         if(loadingWindow) {
             mainWindow.setPosition(...loadingWindow.getPosition());
-            // mainWindow.toggleDevTools();
             loadingWindow.close();
             mainWindow.show();
         }
     });
 
-    if(process.env.NODE_ENV === "development") mainWindow.setMenu(Menu.buildFromTemplate([
-        {
-            label: "View",
-            submenu: [
-                { role: "reload" }
-            ]
-        }
-    ]));
-    if(process.env.NODE_ENV !== "development") mainWindow.setMenu(null);
+    if(MENU === null) mainWindow.removeMenu();
+    else mainWindow.setMenu(Menu.buildFromTemplate(MENU));
 }
 
 function createSplashScreen() {
@@ -66,7 +59,10 @@ function createSplashScreen() {
         useContentSize: true,
         width: 300,
         frame: false,
-        resizable: false
+        resizable: false,
+        webPreferences: {
+            nodeIntegration: true
+        }
     });
 
     loadingWindow.loadURL(`file://${__static}/loading.html`);

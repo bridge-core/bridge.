@@ -4,19 +4,20 @@
             v-if="selected !== undefined && selected !== '/@NO-RP@/' && selected !== '/@NO-DEPENDENCY@/'"
         >
             <component :is="toolbar_component" :selected="selected" :base_path="base_path"/>
+            <v-divider/>
         </span>
 
         <v-layout align-center>
-            <span style="padding: 0 4px;"><v-avatar size="36px"><img :src="project_icon"></v-avatar></span>
+            <span style="padding: 0 4px;"><v-avatar tile size="36px"><img :src="project_icon"></v-avatar></span>
             
             <v-select
                 v-if="force_project_algorithm === undefined"
-                style="margin-bottom: 4px;"
+                style="margin: 4px 0; margin-right: 4px; border-radius: 0;"
                 ref="project_select"
                 :items="project_items" 
                 :value="selected" 
                 :label="display_label" 
-                solo 
+                solo
                 dense 
                 :loading="loading" 
                 :disabled="items.length <= 1"
@@ -45,14 +46,16 @@
         >
             <p style="word-break: break-word;">It doesn't look like your current behavior pack has a corresponding resource pack registered inside its manifest file.</p>
 
-            <v-btn color="success" @click="createRP">Create</v-btn><v-btn color="primary" @click="linkRP">Link</v-btn>
+            <v-btn color="success" @click="createRP" style="margin-right: 4px;">Create</v-btn><v-btn color="info" @click="linkRP">Link</v-btn>
         </div>
-        <p
+        <div 
             v-else
             style="padding: 4px; word-break: break-word;"
         >
-            The resource pack which belongs to this behavior pack does not exist.
-        </p>
+            <p style="word-break: break-word;">The resource pack which belongs to this behavior pack does not exist.</p>
+            <v-btn color="info" @click="unlinkRP" style="margin-right: 4px;"><v-icon>mdi-lock-open</v-icon>Unlink</v-btn>
+        </div>
+
         <v-divider></v-divider>
     </v-container>
     <explorer-no-projects v-else/>
@@ -83,10 +86,6 @@
             ExplorerToolbar,
             ExplorerRpToolbar,
             ExplorerNoProjects
-        },
-        provide: {
-            base_path: this.base_path,
-            selected: this.selected
         },
         props: {
             load_plugins: Boolean,
@@ -262,6 +261,9 @@
 
             linkRP() {
                 new LinkRPWindow(this.$store.state.Explorer.project.explorer);
+            },
+            unlinkRP() {
+                PackLinker.unlink(this.$store.state.Explorer.project.explorer);
             },
             createRP() {
                 new CreateProjectWindow(false, (rp_name) => {

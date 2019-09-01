@@ -1,14 +1,14 @@
 <template>
     <div v-if="content != undefined || sidebar != undefined">
-        <v-toolbar v-if="show_toolbar" flat height="30px">
+        <v-toolbar flat v-if="show_toolbar" height="30px">
             <toolbar-element
                 v-for="(el, i) in toolbar" 
                 :key="`plugin-toolbar-element-${i}`"
-                :class="i == 0 ? 'first tb-btn' : 'tb-btn'"
                 :element="el"
             >
             </toolbar-element>
         </v-toolbar>
+        <v-divider/>
 
         <div class="container" :style="`height: ${height}px; overflow-y: auto;`" v-if="Array.isArray(content)">
             <window-content 
@@ -72,15 +72,5 @@
 <style scoped>
     div.container {
         padding: 4px;
-    }
-
-    .tb-btn {
-        padding: 0;
-        margin: 0 4px;
-        width: 16px;
-    }
-
-    .first {
-        margin-left: 8px;
     }
 </style>

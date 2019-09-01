@@ -4,6 +4,9 @@
     "extension": "json",
     "path": "entities/",
     "templates": {
+        "$default_pack": {
+            "path": "BP/entities"
+        },
         "Blank Entity": {
             "format_version": {},
             "minecraft:entity": {

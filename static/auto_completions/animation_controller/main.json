@@ -7,7 +7,7 @@
                     "animations": {
                         "$dynamic.list.next_index": {
                             "$dynamic.cache.animation_references": {
-                                "@import.value": "$animation.general.queries",
+                                "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)",
                                 "@meta": {
                                     "is_molang": true
                                 }
@@ -18,7 +18,7 @@
                     "transitions": {
                         "$dynamic.list.next_index": {
                             "$dynamic.animation_controller.current_states": {
-                                "@import.value": "$animation.general.queries",
+                                "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)",
                                 "@meta": {
                                     "is_molang": true
                                 }
@@ -27,10 +27,10 @@
                     },
                     
                     "on_entry": {
-                        "$dynamic.list.next_index": "$animation.general.events"
+                        "$dynamic.list.next_index": "('@s ' + $dynamic.entity.all_events)"
                     },
                     "on_exit": {
-                        "$dynamic.list.next_index": "$animation.general.events"
+                        "$dynamic.list.next_index": "('@s ' + $dynamic.entity.all_events)"
                     }                    
                 },
                 "$placeholder": "$animation_controller.main.animation_controllers.$placeholder.states.default"

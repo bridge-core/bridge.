@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <span class="px14-font">
         <div v-if="open" :style="element_style">
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
                 <draggable 

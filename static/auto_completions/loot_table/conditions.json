@@ -5,6 +5,9 @@
         "$dynamic_template": {
             "$key": "$dynamic.children.condition",
 
+            "has_mark_variant": {
+                "value": "$general.number"
+            },
             "entity_properties": {
                 "entity": [ "this" ],
                 "properties":{

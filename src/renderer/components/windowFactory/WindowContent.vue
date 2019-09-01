@@ -76,8 +76,8 @@
         v-else-if="content.type == 'button'"
         @click.stop.native="action.default"
         :color="content.color"
-        :round="content.is_rounded"
-        :flat="content.is_flat"
+        :rounded="content.is_rounded"
+        :text="content.is_flat"
         :disabled="content.is_disabled"
     >
         {{ content.text }}
@@ -86,8 +86,8 @@
         v-else-if="content.type == 'icon-button'"
         @click.stop.native="action.default"
         :color="content.color"
-        :round="content.is_rounded"
-        :flat="content.is_flat"
+        :rounded="content.is_rounded"
+        :text="content.is_flat"
         :disabled="content.is_disabled"
         :icon="content.only_icon"
     >
@@ -112,6 +112,7 @@
         :label="content.text"
         :value="content.input"
         :autofocus="content.has_focus"
+        hide-details
         ref="input"
     />
     <v-textarea
@@ -174,6 +175,14 @@
         :autofocus="content.has_focus"
         ref="input"
     />
+    <v-color-picker
+        v-else-if="content.type == 'color-picker'"
+        :mode="content.mode || 'hexa'"
+        :hide-mode-switch="true"
+        @input="action.default"
+        :value="content.input"
+        :style="`border-radius: ${content.is_rounded === undefined || content.is_rounded ? 'unset' : '0px'};`"
+    />
     <v-container style="width: 90%;" v-else-if="content.type == 'slider'">
         <v-slider
             @change="action"
@@ -198,13 +207,12 @@
     <div v-else>
         <br>
         <strong class="error--text" >Invalid UI type: "{{ content.type }}"</strong>
-
     </div>
 </template>
 
 <script>
     import CodeMirror from "codemirror";
-    import TextAutoCompletions from "../editor_shell/WindowTextAutoCompletions";
+    import TextAutoCompletions from "../editor_shell/TextAutoCompletions";
     import deepmerge from "deepmerge";
     import EventBus from "../../scripts/EventBus";
     import TextProvider from "../../scripts/autoCompletions/TextProvider";
@@ -316,9 +324,10 @@
                         "Tab": () => {
                             EventBus.trigger("bridge:textCompletionsOpen", (is_open) => {
                                 if(is_open) EventBus.trigger("bridge:textCompletionsEnter");
-                                else return this.setCMSelection("\n");
+                                else return this.setCMSelection("\t");
                             });
-                        }
+                        },
+                        "Esc": () => EventBus.trigger("bridge:closeTextCompletions")
                     }
                 }, this.content.options || {});
             }
@@ -351,7 +360,7 @@
                 this.codemirror.focus();
             },
             shouldUpdateSuggestions(event) {
-                TextProvider.compile(event.doc, this.content.file_path);
+                TextProvider.compile(event.doc, this.content.file_path, this.codemirror.cursorCoords(true));
             }
         },
         watch: {

@@ -1,0 +1,28 @@
+{
+  "field_of_view": 80.0,
+  "near_clipping_plane": 0.025,
+  "far_clipping_plane": 2500.0,
+  "render_player_model": true,
+  "render_first_person_objects": true,
+  "player_rotation_offset": [ 0.0, 180.0 ],
+  "priority": 9,
+  "blend_in_default": {
+    "blend_time": 0.0,
+    "ease": "in_out_cubic",
+    "camera_from_accepts_input": false,
+    "camera_to_accepts_input": false
+  },
+  "behaviors": {
+    "attach": {
+      "offset": [ 0.0, 0.3, 0.0 ]
+    },
+    "sleep": {
+      "pre_rotation_offset": [ 0.0, -0.9, 0.8 ],
+      "pre_rotation_offset_vr": [ 0.0, -0.3, 0.0 ],
+      "post_rotation_offset": [ 0.0, -1.0, 0.0 ]
+    }
+  },
+  "activation_rule": {
+    "type": "sleep"
+  }
+}

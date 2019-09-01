@@ -1,0 +1,33 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "forest_hills"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.80,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 0.7
+      },
+      "minecraft:overworld_height": {
+        "noise_type": "mountains"
+      },
+      "minecraft:overworld_surface": {
+        "floor_depth": 7,
+        "floor_material": "minecraft:gravel",
+        "foundation_material": "minecraft:stone",
+        "mid_material": "minecraft:dirt",
+        "top_material": "minecraft:grass"
+      },
+
+      "animal": {},
+      "hills": {},
+      "monster": {},
+      "overworld": {},
+      // "forest" tag cannot be present due to mob spawning rules, but is
+      // required for correct world generation -- hence: forest_generation
+      "forest_generation": {}
+    }
+  }
+}

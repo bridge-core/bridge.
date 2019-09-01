@@ -1,4 +1,3 @@
-// @ts-check
 import Stack from "../utilities/Stack";
 import Json from "./Json";
 import Provider from "../autoCompletions/Provider";
@@ -236,10 +235,11 @@ export default class JSONTree {
         return child;
     }
     /**
-     * @param {String} new_data (Optional)
+     * @param {String} new_data 
      */
     edit(new_data) {
         if(!new_data) throw new Error("Data may not be undefined or null.");
+        if(this.type === "object" || this.type === "array") this.type = "string";
         this.data = new_data;
         this.updateUUID();
     }
@@ -299,7 +299,7 @@ export default class JSONTree {
         //console.log(PROVIDER.get(path), path)
         if(Store.state.Settings.bridge_predictions) {
             let { META, ...propose } = PROVIDER.get(path, this);
-            this.meta = Object.assign(this.meta, META || {});
+            this.addMeta(META);
 
             this.propose_cache = null;
             this.propose_cache_uses = 0;
@@ -307,7 +307,7 @@ export default class JSONTree {
         } else {
             if(this.propose_cache_uses === 0) {
                 let { META, ...propose } = PROVIDER.get(path, this);
-                this.meta = Object.assign(this.meta, META || {});
+                this.addMeta(META);
 
                 this.propose_cache = propose;
                 this.propose_cache_uses++;
@@ -316,7 +316,13 @@ export default class JSONTree {
             } 
             return this.propose_cache;
         }
-    }   
+    }
+    addMeta(META={}) {
+        this.meta = Object.assign(this.meta, META);
+
+        const { is_color } = META;
+        if(is_color && this.data === "") this.edit("#4CAF50");
+    }
     openNode(val=true) {
         this.updateUUID();
 

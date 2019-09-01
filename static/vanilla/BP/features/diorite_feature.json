@@ -1,0 +1,59 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:ore_feature": {
+    "description": {
+      "identifier": "diorite_feature"
+    },
+    "count": 33,
+    "places_block": {
+      "name": "minecraft:stone",
+      "states": {
+        "stone_type": "diorite"
+      }
+    },
+    "may_replace": [
+      {
+        "name": "minecraft:stone",
+        "states": {
+          "stone_type": "andesite"
+        }
+      },
+      {
+        "name": "minecraft:stone",
+        "states": {
+          "stone_type": "andesite_smooth"
+        }
+      },
+      {
+        "name": "minecraft:stone",
+        "states": {
+          "stone_type": "diorite"
+        }
+      },
+      {
+        "name": "minecraft:stone",
+        "states": {
+          "stone_type": "diorite_smooth"
+        }
+      },
+      {
+        "name": "minecraft:stone",
+        "states": {
+          "stone_type": "granite"
+        }
+      },
+      {
+        "name": "minecraft:stone",
+        "states": {
+          "stone_type": "granite_smooth"
+        }
+      },
+      {
+        "name": "minecraft:stone",
+        "states": {
+          "stone_type": "stone"
+        }
+      }
+    ]
+  }
+}

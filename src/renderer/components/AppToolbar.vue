@@ -1,27 +1,36 @@
 <template>
-    <v-toolbar fixed app clipped height="24px">
-        <v-toolbar-items>
-            <app-menu v-for="(menu, i) in menu_details" :key="i" :menu="menu"></app-menu>
+    <v-system-bar class="main-app-toolbar" :style="`padding-left: ${is_mac_os ? 0: 8}px;`" fixed app clipped padless height="24px">
+        <img v-if="!is_mac_os" :src="icon_path" style="height: 16px; padding-right: 4px;"/>
+        <v-toolbar-items class="px14-font">
+            <v-divider vertical/>
+            <template v-for="(menu, key, i) in menu_details">
+                <app-menu :key="`app-menu-${key}`" :menu="menu"></app-menu>
+                <v-divider v-if="i + 1 < Object.keys(menu_details).length" :key="`divider-${key}`" vertical/>
+            </template>
         </v-toolbar-items>
         
-
         <v-spacer></v-spacer>
 
-        <v-toolbar-items>
-            <v-btn small icon flat @click.stop="minWindow">
+        <v-toolbar-items v-if="!is_mac_os">
+            <v-btn small icon @click.stop="minWindow">
                 <v-icon small>mdi-minus</v-icon>
             </v-btn>
-            <v-btn small icon flat @click.stop="maxWindow">
+            <v-divider vertical/>
+            <v-btn small icon @click.stop="maxWindow">
                 <v-icon small>mdi-plus</v-icon>
             </v-btn>
-            <v-btn small icon flat @click.stop="closeWindow" class="last-btn">
+            <v-divider vertical/>
+            <v-btn color="error" small icon @click.stop="closeWindow">
                 <v-icon small>mdi-close</v-icon>
             </v-btn>
         </v-toolbar-items>
-    </v-toolbar>
+    </v-system-bar>
 </template>
 
 <script>
+    import path from "path";
+    import DataUrl from "dataurl";
+    import fs from "fs";
     import AppMenu from "./AppMenu";
     import { remote } from "electron";
     import MouseTrap from "mousetrap";
@@ -48,13 +57,31 @@
         },
         data() {
             return {
-                is_maximized: false
+                is_maximized: false,
+                icon_path: DataUrl.convert({
+                    data: fs.readFileSync(path.join(__static, "/icon.png")),
+                    mimetype: `image/png`
+                })
             };
         },
+        // watch: {
+        //     is_dark_mode(is_dark_mode) {
+        //         this.icon_path = DataUrl.convert({
+        //             data: fs.readFileSync(path.join(__static, is_dark_mode ? "/icon.png" : "/icon_light.png")),
+        //             mimetype: `image/png`
+        //         })
+        //     }
+        // },
         computed: {
             menu_details() {
                 return this.$store.state.AppMenu;
-            }
+            },
+            is_mac_os() {
+                return process.platform === "darwin";
+            },
+            // is_dark_mode() {
+            //     return this.$store.state.Appearance.is_dark_mode;
+            // }
         },
         methods: {
             closeWindow() {
@@ -80,17 +107,13 @@
     }
 </script>
 
-<style scoped>
-    .v-toolbar {
+<style>
+    .v-system-bar.main-app-toolbar {
         -webkit-app-region: drag;
     }
 
-    .v-toolbar button, .v-btn {
+    .v-system-bar.main-app-toolbar button, .v-btn {
         -webkit-app-region: no-drag;
         min-width: 0;
-    }
-
-    .v-toolbar__content > *:last-child.v-btn--icon, .v-toolbar__extension > *:last-child.v-btn--icon {
-        margin-right: 0;
     }
 </style>

@@ -1,0 +1,61 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "ocean_surface_kelp_feature",
+      "places_feature": "minecraft:kelp_feature"
+    },
+    "conditions": {
+      "placement_pass": "surface_pass",
+      "minecraft:biome_filter": [
+        // ocean && !(warm || (frozen && monster)) ->
+        // ocean && !warm && !(frozen && monster)  ->
+        // ocean && !warm && (!frozen || !monster)
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "ocean"
+        },
+        {
+          "test": "has_biome_tag",
+          "operator": "!=",
+          "value": "warm"
+        },
+        {
+          // legacy_frozen_ocean should receive this kelp feature, but regular
+          // frozen_ocean should not. The only distinguishing tag between the two
+          // is "monster", which is not present on legacy_frozen_ocean
+          "any_of": [
+            {
+              "test": "has_biome_tag",
+              "operator": "!=",
+              "value": "frozen"
+            },
+            {
+              "test": "has_biome_tag",
+              "operator": "!=",
+              "value": "monster"
+            }
+          ]
+
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 20,
+      "scatter_chance": {
+        "numerator": 1,
+        "denominator": 18
+      },
+      "x": {
+        "distribution": "uniform",
+        "extent": [ 0, 35 ]
+      },
+      "y": 43,
+      "z": {
+        "distribution": "uniform",
+        "extent": [ 0, 35 ]
+      }
+    }
+  }
+}
