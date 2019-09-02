@@ -5,6 +5,8 @@ import Vue from "../main";
 import LoadingWindow from "./LoadingWindow";
 import Manifest from "../scripts/files/Manifest";
 import uuidv4 from "uuid/v4";
+import CreateFiles from "../scripts/projects/CreateFiles";
+import path from "path";
 
 export default class CreateProjectWindow extends ContentWindow {
     constructor(create_bp=true, cb) {
@@ -145,14 +147,20 @@ export default class CreateProjectWindow extends ContentWindow {
             fs.mkdir(b_path + this.input, (err) => {
                 if(err && err.message.includes("already exists")) return l_w.hide();
                 if(err) { l_w.hide(); throw err; }
-                else fs.writeFile(b_path + this.input + "/manifest.json", new Manifest(create_bp ? "data" : "resources", this.input, this.des, this.client_data).get(), () => {
-                    if(err && err.message.includes("already exists")) return l_w.hide();
-                    if(err) { l_w.hide(); throw err; }
-                    else Vue.$root.$emit("refreshExplorer");
 
-                    l_w.hide();
-                    if(typeof cb === "function") cb(this.input);
-                });
+                fs.writeFile(
+                    path.join(b_path, this.input, "/manifest.json"),
+                    new Manifest(create_bp ? "data" : "resources", this.input, this.des, this.client_data).get(),
+                    async () => {
+                        if(err && err.message.includes("already exists")) return l_w.hide();
+                        if(err) { l_w.hide(); throw err; }
+                        await CreateFiles.createRPFiles(path.join(b_path, this.input));
+                        Vue.$root.$emit("refreshExplorer");
+                        
+                        l_w.hide();
+                        if(typeof cb === "function") cb(this.input);
+                    }
+                );
             });
         }, 50);
     }

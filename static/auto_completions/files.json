@@ -66,5 +66,9 @@
     "render_controller/main",
     "particle/main",
     "particle/general",
-    "particle/components"
+    "particle/components",
+
+    "simple/item_texture",
+    "simple/terrain_texture",
+    "simple/biomes_client"
 ]

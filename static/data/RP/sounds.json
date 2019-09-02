@@ -1,0 +1,32 @@
+{
+  "individual_event_sounds" : {
+    "events" :{}
+  }, 
+  
+  "block_sounds" : {},
+
+  "entity_sounds": {
+    "defaults": {
+      "volume": 1.0,
+      "pitch": [ 0.8, 1.2 ],
+      "events": {
+        "fall.big": {"sound": "damage.fallbig", "volume": 0.75, "pitch": 1.0},
+        "fall.small": {"sound": "damage.fallsmall","volume": 0.75, "pitch": 1.0},
+        "splash": {"sound": "random.splash","pitch": [ 0.6, 1.4 ]},
+        "swim": {"sound": "random.swim","pitch": [ 0.6, 1.4 ]},
+        "fizz": {"sound": "random.fizz","volume": 0.7,"pitch": [ 1.2, 2.0 ]},
+        "drink": {"sound": "random.drink","volume": 0.5,"pitch": [ 0.9, 1.0 ]},
+        "eat": {"sound": "random.eat","volume": [ 0.5, 1.5 ],"pitch": [ 0.8, 1.2 ]},
+        "ambient": "",
+        "flop":  "",
+        "hurt": "game.player.hurt",
+        "death": "game.player.die",
+        "ambient.in.water": "",
+        "hurt.in.water": "",
+        "death.in.water": "",
+        "ambient.in.raid": ""
+      }
+    },
+    "entities": {}
+  }
+}
