@@ -67,6 +67,15 @@
 
                         "$default": "$entity.components.minecraft:spell_effects.remove_effects"
                     }
+                },
+                "$dynamic_template.execute": {
+                    "$if": "$dynamic.bridge_core.is_active",
+
+                    "$default": {
+                        "commands": {
+                            "$dynamic.list.next_index": { "@meta": { "is_value": true } }
+                        }
+                    }
                 }
             }
         }

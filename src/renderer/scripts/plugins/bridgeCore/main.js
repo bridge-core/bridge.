@@ -1,5 +1,6 @@
 import FileType from "../../editor/FileType";
 import EntityHandler from "./EntityHandler";
+import TabSystem from "../../TabSystem";
 
 export const UI_DATA = {
     name: "bridge. Core",
@@ -25,11 +26,12 @@ export class BridgeCore {
         this.save_registry[file_type] = handler;
     }
 
-    static beforeSave(data) {
+    static async beforeSave(data) {
         if(!this.is_active) return data;
+        let file_name = TabSystem.getCurrentFileName();
 
         let file_type = FileType.get();
-        if(typeof this.save_registry[file_type] === "function") this.save_registry[file_type](data);
+        if(typeof this.save_registry[file_type] === "function") await this.save_registry[file_type](file_name, data);
 
         return data;
     }

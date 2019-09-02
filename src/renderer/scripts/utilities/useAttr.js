@@ -8,6 +8,7 @@ function internalUse(obj, path, del=true) {
     if(path.length === 0) {
         let o = obj[key];
         if(del && obj[key] !== undefined) delete obj[key];
+
         return o;
     }
     return internalUse(obj[key], path, del);

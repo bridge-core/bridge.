@@ -3,7 +3,7 @@ import ContentWindow from "../scripts/commonWindows/Content";
 import { BASE_PATH, RP_BASE_PATH } from "../scripts/constants";
 import Vue from "../main";
 import LoadingWindow from "./LoadingWindow";
-import Manifest from "../scripts/utilities/Manifest";
+import Manifest from "../scripts/files/Manifest";
 import uuidv4 from "uuid/v4";
 
 export default class CreateProjectWindow extends ContentWindow {
