@@ -46,6 +46,9 @@ export const DYNAMIC = {
     bridge_core: {
         is_active() {
             return BridgeCore.isActive();
+        },
+        is_not_active() {
+            return !BridgeCore.isActive();
         }
     },
     list: {
