@@ -90,9 +90,6 @@ class FileSystem {
             this.addAsTab(file_path, cache_content, format_version, null, file_version);
             if(typeof cb === "function") cb();
         } else {
-            let needs_cache = booleanAnyOfTrigger("bridge:confirmCacheUse", { file_path: file_path, file_extension: ext, file_type: FileType.get(file_path) });
-            if(!needs_cache) return this.loadFromDisk(file_path, file, cb);
-
             new ConfirmWindow(() => {
                 OmegaCache.load(file_path)
                     .then(({ cache_content, format_version, file_version }) => {

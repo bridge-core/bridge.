@@ -154,7 +154,8 @@ class Provider {
             object: Object.keys(object)
                 .map(key => {
                     if(key.startsWith("$dynamic_template.")) {
-                        return key.split(".").pop();
+                        if(object[key].$if === undefined || Omega.walk(object[key].$if))
+                            return key.split(".").pop();
                     } else if(key.startsWith("@import.value")) {
                         let { object: object_internal, value: value_internal } = this.omegaExpression(object[key]);
                         value.push(...value_internal);
@@ -166,6 +167,8 @@ class Provider {
                     } else if(key === "@meta") {
                         META = deepmerge(META, object["@meta"]);
                         return;
+                    } else if(key === "$asObject") {
+                        return Omega.walk(object.$asObject);
                     }
                     if(REMOVE_LIST.includes(key)) return undefined;
 
@@ -234,6 +237,8 @@ class Provider {
     }
 
     compileTemplate(template) {
+        if(template.$if !== undefined && !Omega.walk(template.$if)) return {};
+
         let dyn = Omega.walk(template["$key"]);
         if(template[`$dynamic_template.${dyn}`] !== undefined) {
             return this.compileTemplate(template[`$dynamic_template.${dyn}`]);
