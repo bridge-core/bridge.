@@ -1,7 +1,7 @@
 {
     "set": {},
     "define": {
-        "keywords": ["minecraft", "description", "events", "components", "curves"],
+        "keywords": ["minecraft", "description", "events", "components", "curves", "bridge"],
         "titles": ["format_version", "effect", "event"],
         "symbols": ["sequence", "randomize", "particle_effect"]
     }
