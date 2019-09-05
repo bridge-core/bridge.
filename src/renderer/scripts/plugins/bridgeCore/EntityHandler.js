@@ -87,5 +87,5 @@ export default async function EntityHandler(file_name, data) {
 
     for(let e in events) transformEvent(events[e], { component_groups, description, events, file_name: file_name.replace(".json", "") });
 
-    await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge_e_c_${file_name}`));
+    await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/commands_${file_name}`));
 }
