@@ -1,5 +1,6 @@
 [
     "general",
+    "vanilla",
     "_general/block_states",
 
     "biome/main",
