@@ -154,7 +154,7 @@ export default class CreateProjectWindow extends ContentWindow {
                     async () => {
                         if(err && err.message.includes("already exists")) return l_w.hide();
                         if(err) { l_w.hide(); throw err; }
-                        await CreateFiles.createRPFiles(path.join(b_path, this.input));
+                        if(!create_bp) await CreateFiles.createRPFiles(path.join(b_path, this.input));
                         Vue.$root.$emit("refreshExplorer");
                         
                         l_w.hide();
