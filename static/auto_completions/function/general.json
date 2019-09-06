@@ -5,5 +5,7 @@
     "structure_name": [ "buriedtreasure", "endcity", "fortress", "mansion", "mineshaft", "monument", "pillageroutpost", "ruins", "shipwreck", "stronghold", "temple", "village" ],
     "scoreboard_operation": [ "%=", "*=", "+=", "-=", "/=", "<", "=", ">", "<>" ],
     "title_type": [ "title", "subtitle", "actionbar" ],
-    "weather_type": [ "clear", "rain", "thunder" ]
+    "weather_type": [ "clear", "rain", "thunder" ],
+    "item_identifier": "$vanilla.unprefixed_item_identifier and $dynamic.cache.item.identifiers",
+    "block_identifier": "$vanilla.unprefixed_block_identifier and $dynamic.cache.block.identifiers"
 }
