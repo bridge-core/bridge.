@@ -125,6 +125,8 @@ export default {
                         if(!c || !c.meta.definitions || c.data === "") return false;
 
                         let open = JumpToDefintion.fetchSync(c.meta.definitions, c.data);
+                        if(open.length === 0) return false;
+
                         for(let f of open) {
                             if(!TabSystem.isSelected(f)) return true;
                         }
@@ -133,7 +135,9 @@ export default {
                     action: async () => {
                         this.is_visible = false;
                         let c = TabSystem.getCurrentNavObj();
-                        (await JumpToDefintion.fetch(c.meta.definitions, c.data)).forEach(f => FileSystem.open(f));
+                        const open = await JumpToDefintion.fetch(c.meta.definitions, c.data);
+                        if(open.length === 0) new InformationWindow("Definition Not Found", `Unable to find ${definitions.join("/")} definition "${fetch_data}".`);
+                        else open.forEach(f => FileSystem.open(f));
                     }
                 },
                 "space",

@@ -77,7 +77,7 @@ class TabSystem {
         return false;
     }
     isSelected(file_path) {
-        if(this.projects[this.project] === undefined) return false;
+        if(this.projects[this.project] === undefined || file_path === undefined) return false;
 
         if(this.getSelected().file_path === file_path.replace(/\//g, "\\")) {
             return true;

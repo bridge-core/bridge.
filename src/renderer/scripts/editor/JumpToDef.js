@@ -39,7 +39,6 @@ export default class JumpToDefinition {
         if(this.cacheValid(definitions, fetch_data, fetch_all)) return this.useCache(fetch_all);
 
         const open = (await Promise.all(definitions.map(d => this.fetchSingle(d, fetch_data, fetch_all)))).flat();
-        if(open.length === 0) new InformationWindow("Definition Not Found", `Unable to find ${definitions.join("/")} definition "${fetch_data}".`);
         this.setCache({ definitions, fetch_data, fetch_all, result: open });
 
         return open;
@@ -82,7 +81,6 @@ export default class JumpToDefinition {
         if(this.cacheValid(definitions, fetch_data, fetch_all)) return this.useCache(fetch_all);
 
         const open = definitions.map(d => this.fetchSingleSync(d, fetch_data, fetch_all)).flat();
-        if(open.length === 0) new InformationWindow("Definition Not Found", `Unable to find ${definitions.join("/")} definition "${fetch_data}".`);
         this.setCache({ definitions, fetch_data, fetch_all, result: open });
         
         return open;
