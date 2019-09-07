@@ -122,7 +122,7 @@ export default {
                     color: "indigo",
                     condition: () => {
                         let c = TabSystem.getCurrentNavObj();
-                        if(!c || !c.meta.definitions) return false;
+                        if(!c || !c.meta.definitions || c.data === "") return false;
 
                         let open = JumpToDefintion.fetchSync(c.meta.definitions, c.data);
                         for(let f of open) {

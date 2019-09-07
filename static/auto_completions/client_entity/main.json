@@ -32,7 +32,7 @@
             },
             "animations": {
                 "$placeholder": { 
-                    "@meta": { "is_value": true },
+                    "@meta": { "is_value": true, "definitions": [ "rp_animation", "rp_animation_controller" ] },
                     "@import.value.animations": "$dynamic.cache.rp_animation.ids and $dynamic.cache.rp_animation_controller.ids"
                 }
             },
@@ -56,13 +56,13 @@
             },
             "render_controllers": {
                 "$dynamic.list.next_index": {
-                    "@meta": { "is_value": true },
+                    "@meta": { "is_value": true, "definitions": [ "render_controller" ] },
                     "@import.value.render_controller": "$dynamic.cache.render_controller.ids"
                 }
             },
             "particle_effects": {
                 "$placeholder": { 
-                    "@meta": { "is_value": true },
+                    "@meta": { "is_value": true, "definitions": [ "particle" ] },
                     "@import.value.particle": "$dynamic.cache.particle.ids"
                 }
             },
