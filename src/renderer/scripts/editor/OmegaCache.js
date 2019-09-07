@@ -31,7 +31,6 @@ export default class OmegaCache {
         const rel_rp = path.relative(RP_BASE_PATH.slice(0, RP_BASE_PATH.length - 1), file_path);
         const is_bp = rel_rp.startsWith("../") || rel_rp.startsWith("..\\");
         const tmp_path = is_bp ? rel_bp : rel_rp;
-        console.log(path.join(with_base ? this.current_base : "", is_bp ? "BP" : "RP", tmp_path.slice(this.project.length)).replace(/\\/g, '/'));
 
         return path.join(with_base ? this.current_base : "", is_bp ? "BP" : "RP", tmp_path.slice(this.project.length)).replace(/\\/g, '/');
     }
