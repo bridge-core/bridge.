@@ -5,7 +5,7 @@
             "identifier": "$dynamic.current_file_name",
             "places_feature": {
                 "@meta": { "is_value": true },
-                "@import.value": "$dynamic.biome.feature_references"
+                "@import.value.feature_ref": "$dynamic.biome.feature_references"
             }
         },
         "conditions": {

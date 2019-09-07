@@ -52,7 +52,7 @@
                         <v-list-item-action>
                             <v-list-item-action-text>{{ plugin.version }}</v-list-item-action-text>
 
-                            <v-tooltip right v-if="plugin.link !== undefined">
+                            <v-tooltip color="info" right v-if="plugin.link !== undefined">
                                 <template v-slot:activator="{ on }">
                                     <v-icon @click.stop.native="openLink(plugin.link)" v-on="on" color="info">
                                         mdi-earth
@@ -61,13 +61,21 @@
                                 <span>More...</span>
                             </v-tooltip>
 
-                            <v-tooltip color="primary" right v-if="!uninstalled_plugins().includes(plugin.id)">
+                            <v-tooltip color="primary" right v-if="plugin.id && !uninstalled_plugins().includes(plugin.id)">
                                 <template v-slot:activator="{ on }">
                                     <v-icon v-on="on" color="success">
                                         mdi-check
                                     </v-icon>
                                 </template>
                                 <span>Active</span>
+                            </v-tooltip>
+                            <v-tooltip color="error" right v-else-if="!plugin.id">
+                                <template v-slot:activator="{ on }">
+                                    <v-icon v-on="on" color="error">
+                                        mdi-alert-circle
+                                    </v-icon>
+                                </template>
+                                <span>Not Loaded: No valid ID assigned</span>
                             </v-tooltip>
                             <v-tooltip color="error" right v-else>
                                 <template v-slot:activator="{ on }">
@@ -79,10 +87,12 @@
                             </v-tooltip>
                         </v-list-item-action>
                     </v-list-item>
-                    <div class="padding">{{ plugin.description }}</div>
+                    <div class="padding">
+                        {{ plugin.description }}
+                    </div>
                 </v-list>
             </v-card>
-        </div class="container">
+        </div>
     </div>
 </template>
 

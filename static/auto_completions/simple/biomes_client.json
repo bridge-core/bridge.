@@ -1,0 +1,11 @@
+{
+    "biomes": {
+        "default": {
+            "water_surface_color": { "@meta": { "is_color": true, "is_value": true } },
+            "water_surface_transparency": "$general.decimal",
+            "water_fog_color": { "@meta": { "is_color": true, "is_value": true } },
+            "water_fog_distance": "$general.number"
+        },
+        "$placeholder": "$simple.biomes_client.biomes.default"
+    }
+}

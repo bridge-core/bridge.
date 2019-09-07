@@ -6,13 +6,13 @@
         },
         "count": "$general.number",
         "places_block": {
-            "@import.value": "$general.block_identifier",
+            "@import.value.block_id": "$general.block_identifier",
             "name": "$general.block_identifier",
             "states": "$_general.block_states"
         },
         "may_replace": {
             "$dynamic.list.next_index": {
-                "@import.value": "$general.block_identifier",
+                "@import.value.block_id": "$general.block_identifier",
                 "name": "$general.block_identifier",
                 "states": "$_general.block_states"
             }
@@ -23,7 +23,7 @@
             "identifier": "$dynamic.current_file_name"
         },
         "places_block": {
-            "@import.value": "$general.block_identifier",
+            "@import.value.block_id": "$general.block_identifier",
             "name": "$general.block_identifier",
             "states": "$_general.block_states"
         },
@@ -31,7 +31,7 @@
         "enforce_placement_rules": "$general.boolean",
         "may_replace": {
             "$dynamic.list.next_index": {
-                "@import.value": "$general.block_identifier",
+                "@import.value.block_id": "$general.block_identifier",
                 "name": "$general.block_identifier",
                 "states": "$_general.block_states"
             }
@@ -59,7 +59,7 @@
         "places_feature": {
             "$dynamic.list.next_index": {
                 "@meta": { "is_value": true },
-                "@import.value": "$dynamic.biome.feature_references"
+                "@import.value.block_id": "$dynamic.biome.feature_references"
             }
         }
     },
@@ -71,7 +71,7 @@
         "features": {
             "$dynamic.list.next_index": {
                 "@meta": { "is_value": true },
-                "@import.value": "$dynamic.biome.feature_references"
+                "@import.value.block_id": "$dynamic.biome.feature_references"
             }
         }
     }

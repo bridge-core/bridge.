@@ -9,7 +9,7 @@
         "components": {
             "minecraft:icon": {
                 "@meta": { "is_value": true },
-                "@import.value": "$dynamic.rp.item_textures"
+                "@import.value.item_texture": "$dynamic.rp.item_textures"
             },
             "minecraft:use_animation": [ "eat", "drink" ],
             "minecraft:hover_text_color": "$general.minecraft_color",

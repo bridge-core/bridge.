@@ -125,6 +125,7 @@ class Provider {
         path = path.replace("global", 
             VersionMap.convert(this.start_state, Store.state.Settings.target_version)
         );
+        
         SET_CONTEXT(context, context === undefined ? undefined : context.parent);
         let propose = this.walk(path.split("/"));
         // console.log("[PROPOSING]", path, propose, LIB);
@@ -139,13 +140,14 @@ class Provider {
 
         if(object.$load !== undefined) {
             let { object: object_internal, value: value_internal } = this.omegaExpression(object.$load);
-            object = detachObj({}, object, object_internal);
+
+            object = detachObj(object, object_internal);
             value = value.concat(value_internal);
         }
         if(object.$dynamic_template !== undefined) {
             let t = this.compileTemplate(object.$dynamic_template);
             if(t !== undefined) {
-                object = Object.assign({}, object, t);
+                object = detachObj(object, t);
             } 
         }
 
@@ -153,9 +155,12 @@ class Provider {
             object: Object.keys(object)
                 .map(key => {
                     if(key.startsWith("$dynamic_template.")) {
-                        return key.split(".").pop();
+                        if(object[key].$if === undefined || Omega.walk(object[key].$if))
+                            return key.split(".").pop();
                     } else if(key.startsWith("@import.value")) {
                         let { object: object_internal, value: value_internal } = this.omegaExpression(object[key]);
+                        if(object_internal["@meta"]) detachObj(META, object_internal["@meta"]);
+
                         value.push(...value_internal);
                         value.push(...Object.keys(object_internal));
                         return;
@@ -165,6 +170,8 @@ class Provider {
                     } else if(key === "@meta") {
                         META = deepmerge(META, object["@meta"]);
                         return;
+                    } else if(key === "$asObject") {
+                        return Omega.walk(object.$asObject);
                     }
                     if(REMOVE_LIST.includes(key)) return undefined;
 
@@ -233,6 +240,8 @@ class Provider {
     }
 
     compileTemplate(template) {
+        if(template.$if !== undefined && !Omega.walk(template.$if)) return {};
+
         let dyn = Omega.walk(template["$key"]);
         if(template[`$dynamic_template.${dyn}`] !== undefined) {
             return this.compileTemplate(template[`$dynamic_template.${dyn}`]);

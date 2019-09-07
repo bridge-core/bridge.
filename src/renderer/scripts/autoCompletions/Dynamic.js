@@ -4,6 +4,7 @@ import Store from "../../store/index";
 import path from "path";
 import fs from "fs";
 import LightningCache from "../editor/LightningCache";
+import { BridgeCore } from "../plugins/bridgeCore/main";
 
 let PARENT_CONTEXT = {};
 let NODE_CONTEXT = {};
@@ -41,6 +42,14 @@ export function CONTEXT_DOWN() {
 export const DYNAMIC = {
     get cache() {
         return LightningCache.getCompiledSync();
+    },
+    bridge_core: {
+        is_active() {
+            return BridgeCore.isActive();
+        },
+        is_not_active() {
+            return !BridgeCore.isActive();
+        }
     },
     list: {
         next_index() {
@@ -158,6 +167,20 @@ export const DYNAMIC = {
                     .map(e => {
                         return e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
                     });
+            } catch(e) { return []; }
+        },
+        item_png() {
+            try {
+                return walkSync(path.join(RP_BASE_PATH, Store.state.Explorer.project.resource_pack, "/textures/items")).map(e => {
+                    return e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
+                });
+            } catch(e) { return []; }
+        },
+        block_png() {
+            try {
+                return walkSync(path.join(RP_BASE_PATH, Store.state.Explorer.project.resource_pack, "/textures/blocks")).map(e => {
+                    return e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
+                });
             } catch(e) { return []; }
         }
     },

@@ -7,18 +7,18 @@
                     "animations": {
                         "$dynamic.list.next_index": {
                             "$dynamic.cache.animation_references": {
-                                "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                                "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)",
                                 "@meta": {
                                     "is_molang": true
                                 }
                             },
-                            "@import.value": "$dynamic.cache.animation_references"
+                            "@import.value.query": "$dynamic.cache.animation_references"
                         }
                     },
                     "transitions": {
                         "$dynamic.list.next_index": {
                             "$dynamic.animation_controller.current_states": {
-                                "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                                "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)",
                                 "@meta": {
                                     "is_molang": true
                                 }

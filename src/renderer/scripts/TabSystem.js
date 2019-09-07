@@ -13,6 +13,7 @@ import path from "path";
 import FileType from "./editor/FileType";
 import OmegaCache from "./editor/OmegaCache";
 import LightningCache from "./editor/LightningCache";
+import { BridgeCore } from "./plugins/bridgeCore/main";
 
 /**
  * @todo Refactor TabSystem to use dedicated classes IMGTab, CMTab, JSONTab,...
@@ -122,6 +123,10 @@ class TabSystem {
     getCurrentNavigation() {
         if(!this.getSelected()) return;
         return this.getSelected().file_navigation;
+    }
+    getCurrentFileName() {
+        if(!this.getSelected()) return;
+        return path.basename(this.getSelected().file_path);
     }
     getCurrentNavContent() {
         let nav = this.getCurrentNavigation();
@@ -259,10 +264,13 @@ class TabSystem {
         } catch(e) {}
     }
 
-    transformContent(c, raw, toJSON=true) {
-        if(raw === c) return raw;
-        else if(typeof c === "string") return c;
-        else if(c instanceof JSONTree) return JSON.stringify(toJSON ? Format.toJSON(c) : c.buildForCache(), null, this.use_tabs ? "\t" : "  ");
+    async transformContent(c, raw, toJSON=true) {
+        if(raw === c)
+            return raw;
+        else if(typeof c === "string")
+            return c;
+        else if(c instanceof JSONTree)
+            return JSON.stringify(toJSON ? (await BridgeCore.beforeSave(Format.toJSON(c))) : c.buildForCache(), null, this.use_tabs ? "\t" : "  ");
         return JSON.stringify(c, null, this.use_tabs ? "\t" : "  ");
     }
     transformForCache(c, raw) {
@@ -292,7 +300,7 @@ class TabSystem {
             ]);
         }
 
-        return this.transformContent(PluginEnv.trigger("bridge:saveFile", { 
+        return await this.transformContent(PluginEnv.trigger("bridge:saveFile", { 
             ...current,
             file_path: current.file_path.replace(/\\/g, "/"),
             content: current.content instanceof JSONTree ? 

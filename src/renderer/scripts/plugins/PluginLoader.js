@@ -7,6 +7,7 @@ import Bridge from "../../scripts/plugins/PluginEnv";
 import EventBus from "../EventBus";
 import { PluginSnippets } from "../../windows/Snippets";
 import cJSON from "comment-json";
+import { UI_DATA, BridgeCore } from "./bridgeCore/main";
 let PLUGIN_FOLDERS;
 let PLUGIN_DATA = [];
 
@@ -17,15 +18,18 @@ export default class PluginLoader {
         Store.commit("unloadPlugins");
         
         let unloaded_plugins = await Bridge.Interpreter.init(project);
-        // console.log(unloaded_plugins);
+        //Activate/Deactivate BridgeCore
+        if(!unloaded_plugins.includes("bridge.core")) BridgeCore.activate();
+        else BridgeCore.deactivate();
 
         try {
             PLUGIN_FOLDERS = await fs.readdir(path.join(BASE_PATH, project, "bridge/plugins"));
         } catch(e) {
             PLUGIN_FOLDERS = [];
         }
-        
-        PLUGIN_DATA = [];
+
+        //Initialize PLUGIN_DATA with UI_DATA of BridgeCore
+        PLUGIN_DATA = [ UI_DATA ];
         await Promise.all(PLUGIN_FOLDERS.map(plugin_folder => this.loadPlugin(project, plugin_folder, unloaded_plugins)));
 
         //INIT LEGACY PLUGIN DATA FOR UI
@@ -50,7 +54,7 @@ export default class PluginLoader {
             } catch(e) { return; }
 
             //IF ACTIVE: LOAD PLUGIN
-            if(!unloaded_plugins.includes(plugin_path)) {
+            if(manifest.id && !unloaded_plugins.includes(plugin_path)) {
                 await Promise.all([
                     this.loadScripts(plugin_path, manifest.api_version),
                     this.loadSnippets(plugin_path)

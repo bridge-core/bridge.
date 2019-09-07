@@ -1,7 +1,7 @@
 {
     "set": {},
     "define": {
-        "keywords": ["minecraft", "conditions", "description"],
+        "keywords": ["minecraft", "conditions", "description", "bridge"],
         "titles": ["format_version"],
         "symbols": ["identifier", "population_control"]
     }
