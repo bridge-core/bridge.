@@ -52,7 +52,7 @@
     "filter_targets": [ "other", "parent", "player", "self", "target", "baby", "block" ],
     "filter_operators": [ "==", "!=", "<", "<=", "<>", "=", ">", ">=", "equals", "not" ],
     "family": {
-        "@meta": { "is_value": true },
-        "@import.value": "$dynamic.cache.entity.families"
+        "@meta": { "is_value": true, "definitions": [ "entity" ] },
+        "@import.value.family": "$dynamic.cache.entity.families"
     }
 }

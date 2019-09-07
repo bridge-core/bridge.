@@ -140,13 +140,14 @@ class Provider {
 
         if(object.$load !== undefined) {
             let { object: object_internal, value: value_internal } = this.omegaExpression(object.$load);
-            object = detachObj({}, object, object_internal);
+
+            object = detachObj(object, object_internal);
             value = value.concat(value_internal);
         }
         if(object.$dynamic_template !== undefined) {
             let t = this.compileTemplate(object.$dynamic_template);
             if(t !== undefined) {
-                object = Object.assign({}, object, t);
+                object = detachObj(object, t);
             } 
         }
 
@@ -158,6 +159,8 @@ class Provider {
                             return key.split(".").pop();
                     } else if(key.startsWith("@import.value")) {
                         let { object: object_internal, value: value_internal } = this.omegaExpression(object[key]);
+                        if(object_internal["@meta"]) detachObj(META, object_internal["@meta"]);
+
                         value.push(...value_internal);
                         value.push(...Object.keys(object_internal));
                         return;

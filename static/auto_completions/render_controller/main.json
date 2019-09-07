@@ -22,13 +22,13 @@
                 "offset": {
                     "$dynamic.list.index_pair": {
                         "@meta": { "is_molang": true },
-                        "@import.value": "$general.number and $molang.general.boolean and ('query.' + $molang.general.query)"
+                        "@import.value.query": "$general.number and $molang.general.boolean and ('query.' + $molang.general.query)"
                     }
                 },
                 "scale": {
                     "$dynamic.list.index_pair": {
                         "@meta": { "is_molang": true },
-                        "@import.value": "$general.number and $molang.general.boolean and ('query.' + $molang.general.query)"
+                        "@import.value.query": "$general.number and $molang.general.boolean and ('query.' + $molang.general.query)"
                     }
                 }
             },
@@ -38,7 +38,7 @@
                     "$placeholder": {
                         "$dynamic.list.next_index": {
                             "@meta": { "is_value": true },
-                            "@import.value": "'Texture.' + $dynamic.cache.client_entity.texture_references"
+                            "@import.value.texture_ref": "'Texture.' + $dynamic.cache.client_entity.texture_references"
                         }
                     }
                 },
@@ -46,7 +46,7 @@
                     "$placeholder": {
                         "$dynamic.list.next_index": {
                             "@meta": { "is_value": true },
-                            "@import.value": "'Geometry.' + $dynamic.cache.client_entity.geometry_references"
+                            "@import.value.geo_ref": "'Geometry.' + $dynamic.cache.client_entity.geometry_references"
                         }
                     }
                 },
@@ -54,7 +54,7 @@
                     "$placeholder": {
                         "$dynamic.list.next_index": {
                             "@meta": { "is_value": true },
-                            "@import.value": "'Material.' + $dynamic.cache.client_entity.material_references"
+                            "@import.value.material_ref": "'Material.' + $dynamic.cache.client_entity.material_references"
                         }
                     }
                 }
@@ -62,18 +62,18 @@
 
             "geometry": {
                 "@meta": { "is_molang": true },
-                "@import.value_1": "'Geometry.' + $dynamic.cache.client_entity.geometry_references",
-                "@import.value_2": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                "@import.value.geo_ref": "'Geometry.' + $dynamic.cache.client_entity.geometry_references",
+                "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
             },
             "part_visibility": {
                 "$dynamic.list.next_index": {
                     "*": {
                         "@meta": { "is_molang": true },
-                        "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                        "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
                     },
                     "$placeholder": {
                         "@meta": { "is_molang": true },
-                        "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                        "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
                     }
                 }
             },
@@ -81,21 +81,21 @@
                 "$dynamic.list.next_index": {
                     "*": {
                         "@meta": { "is_molang": true },
-                        "@import.value_1": "'Material.' + $dynamic.cache.client_entity.material_references",
-                        "@import.value_2": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                        "@import.value.material_ref": "'Material.' + $dynamic.cache.client_entity.material_references",
+                        "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
                     },
                     "$placeholder": {
                         "@meta": { "is_molang": true },
-                        "@import.value_1": "'Material.' + $dynamic.cache.client_entity.material_references",
-                        "@import.value_2": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                        "@import.value.material_ref": "'Material.' + $dynamic.cache.client_entity.material_references",
+                        "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
                     }
                 }
             },
             "textures": {
                 "$dynamic.list.next_index": {
                     "@meta": { "is_molang": true },
-                    "@import.value_1": "'Texture.' + $dynamic.cache.client_entity.texture_references",
-                    "@import.value_2": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                    "@import.value.texture_ref": "'Texture.' + $dynamic.cache.client_entity.texture_references",
+                    "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
                 }
             }
         }

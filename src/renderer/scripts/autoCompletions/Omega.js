@@ -1,5 +1,5 @@
 import { Tokenizer } from "./Tokenizer";
-import detachObj from "../detachObj";
+import { detachMerge } from "../detachObj";
 import { LIB } from "./Provider";
 
 const OPS = [ "+", "and", "asValue" ];
@@ -31,7 +31,6 @@ export class Omega {
 
             i++;
         }
-
         return res;
     }
 
@@ -40,7 +39,7 @@ export class Omega {
 
         if(prefix === "") {
             original.value.push(...value);
-            original.object = detachObj(original.object, object);
+            original.object = detachMerge(original.object, object);
         } else {
             let new_value = value.map(v => prefix + v);
             let new_object = {};

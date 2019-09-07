@@ -1,5 +1,9 @@
 {
     "RP": {
+        "folders": [
+            "textures",
+            "sounds"
+        ],
         "files": {
             "RP/biomes_client.json": "biomes_client.json",
             "RP/blocks.json": "blocks.json",
@@ -8,11 +12,7 @@
             "RP/item_texture.json": "textures/item_texture.json",
             "RP/sound_definitions.json": "sounds/sound_definitions.json",
             "RP/music_definitions.json": "sounds/music_definitions.json"
-        },
-        "folders": [
-            "textures",
-            "sounds"
-        ]
+        }
     },
     "BP": {
         "folders": [],

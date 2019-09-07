@@ -38,8 +38,8 @@
                         <template v-slot:activator="{ on }">
                             <v-btn
                                 v-on="on"
-                                :color="btn.color || 'info'" 
-                                rounded
+                                :color="btn.color || 'info'"
+                                style="min-width: 30px; padding: 0;"
                                 small
                                 @click="btn.action"
                             >
@@ -62,6 +62,7 @@ import { JSONAction } from "../../../scripts/TabSystem/CommonHistory";
 import EventBus from "../../../scripts/EventBus";
 import { DOC_WINDOW } from "../../../scripts/documentation/main";
 import NodeShortcuts from "../../../scripts/editor/NodeShortcuts";
+import JumpToDefintion from "../../../scripts/editor/JumpToDef";
 
 export default {
     name: "json-editor-hover-card",
@@ -111,6 +112,22 @@ export default {
                         DOC_WINDOW.open("entities");
                         let e = document.getElementById(TabSystem.getCurrentNavContent());
                         window.setTimeout(() => { if(e) e.scrollIntoView() }, 1000);
+                    }
+                },
+                {
+                    title: "Jump to Definition",
+                    icon: "mdi-code-braces",
+                    color: "purple",
+                    condition: () => {
+                        let c = TabSystem.getCurrentNavObj();
+                        return c && c.meta.definitions;
+                    },
+                    action: () => {
+                        this.is_visible = false;
+                        let c = TabSystem.getCurrentNavObj();
+                        
+                        console.log("JUMP", c.meta.definitions, c.data);
+                        JumpToDefintion.fetch(c.meta.definitions, c.data);
                     }
                 },
                 "space",
