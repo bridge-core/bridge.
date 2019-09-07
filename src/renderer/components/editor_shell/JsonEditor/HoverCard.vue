@@ -33,7 +33,7 @@
                         :key="i"
                         bottom
                         :color="btn.color || 'info'"
-                        :style="`margin-right: ${ i + 1 <= buttons.length ? 4 : 0}px;`"
+                        :style="`margin-right: ${i + 1 <= buttons.length ? 4 : 0}px;`"
                     >
                         <template v-slot:activator="{ on }">
                             <v-btn
@@ -57,12 +57,14 @@
 
 <script>
 import TabSystem from "../../../scripts/TabSystem";
+import FileSystem from "../../../scripts/FileSystem";
 import { clipboard } from "electron";
 import { JSONAction } from "../../../scripts/TabSystem/CommonHistory";
 import EventBus from "../../../scripts/EventBus";
 import { DOC_WINDOW } from "../../../scripts/documentation/main";
 import NodeShortcuts from "../../../scripts/editor/NodeShortcuts";
 import JumpToDefintion from "../../../scripts/editor/JumpToDef";
+
 
 export default {
     name: "json-editor-hover-card",
@@ -72,7 +74,7 @@ export default {
             buttons: [
                 {
                     title: "Ignore Error",
-                    color: "orange",
+                    color: "indigo",
                     condition: () => {
                         let c = TabSystem.getCurrentNavObj();
                         return c && c.error !== undefined && c.meta.ignore_error === undefined;
@@ -88,7 +90,7 @@ export default {
                 },
                 {
                     title: "Reveal Error",
-                    color: "success",
+                    color: "indigo lighten-2",
                     condition: () => {
                         let c = TabSystem.getCurrentNavObj();
                         return c && c.error !== undefined && c.meta.ignore_error !== undefined;
@@ -105,7 +107,7 @@ export default {
                 {
                     title: "Documentation",
                     icon: "mdi-book-open-page-variant",
-                    color: "orange",
+                    color: "indigo",
                     action: () => {
                         this.is_visible = false;
                         
@@ -117,17 +119,21 @@ export default {
                 {
                     title: "Jump to Definition",
                     icon: "mdi-code-braces",
-                    color: "purple",
+                    color: "indigo",
                     condition: () => {
                         let c = TabSystem.getCurrentNavObj();
-                        return c && c.meta.definitions;
+                        if(!c || !c.meta.definitions) return false;
+
+                        let open = JumpToDefintion.fetchSync(c.meta.definitions, c.data);
+                        for(let f of open) {
+                            if(!TabSystem.isSelected(f)) return true;
+                        }
+                        return false;
                     },
-                    action: () => {
+                    action: async () => {
                         this.is_visible = false;
                         let c = TabSystem.getCurrentNavObj();
-                        
-                        console.log("JUMP", c.meta.definitions, c.data);
-                        JumpToDefintion.fetch(c.meta.definitions, c.data);
+                        (await JumpToDefintion.fetch(c.meta.definitions, c.data)).forEach(f => FileSystem.open(f));
                     }
                 },
                 "space",

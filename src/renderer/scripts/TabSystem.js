@@ -65,6 +65,25 @@ class TabSystem {
         //Just an alias
         this.add(tab);
     }
+    isOpen(file_path, select=false) {
+        if(this.projects[this.project] === undefined) this.projects[this.project] = [];
+
+        for(let i = 0; i < this.projects[this.project].length; i++) {
+            if(this.projects[this.project][i].file_path === file_path.replace(/\//g, "\\")) {
+                if(select) this.select(i);
+                return true;
+            } 
+        }
+        return false;
+    }
+    isSelected(file_path) {
+        if(this.projects[this.project] === undefined) return false;
+
+        if(this.getSelected().file_path === file_path.replace(/\//g, "\\")) {
+            return true;
+        } 
+        return false;
+    }
 
     //Closing tab
     internalCloseId(id, project=this.project) {
