@@ -5,6 +5,7 @@
             "sounds"
         ],
         "files": {
+            "pack_icon.png": "pack_icon.png",
             "RP/biomes_client.json": "biomes_client.json",
             "RP/blocks.json": "blocks.json",
             "RP/sounds.json": "sounds.json",
@@ -16,6 +17,8 @@
     },
     "BP": {
         "folders": [],
-        "files": {}
+        "files": {
+            "pack_icon.png": "pack_icon.png"
+        }
     }
 }
