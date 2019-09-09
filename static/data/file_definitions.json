@@ -1,30 +1,7 @@
 [
     {
-        "id": "item_texture",
-        "includes": "textures/item_texture",
-        "file_viewer": "json",
-        "start_state": "simple/item_texture",
-        "rp_definition": true
-    },
-    {
-        "id": "terrain_texture",
-        "includes": "textures/terrain_texture",
-        "file_viewer": "json",
-        "start_state": "simple/terrain_texture",
-        "rp_definition": true
-    },
-    {
-        "id": "biomes_client",
-        "includes": "biomes_client",
-        "file_viewer": "json",
-        "start_state": "simple/biomes_client",
-        "rp_definition": true
-    },
-
-
-    {
         "id": "animation",
-        "includes": "animations",
+        "includes": "animations/",
         "file_viewer": "json",
         
         "build_array_exceptions": [ "timeline" ],
@@ -36,7 +13,7 @@
     },
     {
         "id": "animation_controller",
-        "includes": "animation_controllers",
+        "includes": "animation_controllers/",
         "file_viewer": "json",
 
         "start_state": "animation_controller/main",
@@ -47,7 +24,7 @@
     },
     {
         "id": "biome",
-        "includes": "biomes",
+        "includes": "biomes/",
         "file_viewer": "json",
 
         "start_state": "biome/main",
@@ -57,7 +34,7 @@
     },
     {
         "id": "block",
-        "includes": "blocks",
+        "includes": "blocks/",
         "file_viewer": "json",
 
         "start_state": "block/main",
@@ -68,7 +45,7 @@
     },
     {
         "id": "entity",
-        "includes": "entities",
+        "includes": "entities/",
         "file_viewer": "json",
 
         "documentation": [ "add_entity_components", "entity" ],
@@ -81,7 +58,7 @@
     },
     {
         "id": "feature",
-        "includes": "features",
+        "includes": "features/",
         "file_viewer": "json",
 
         "start_state": "feature/main",
@@ -91,7 +68,7 @@
     },
     {
         "id": "feature_rule",
-        "includes": "feature_rules",
+        "includes": "feature_rules/",
         "file_viewer": "json",
 
         "start_state": "feature_rule/main",
@@ -101,7 +78,7 @@
     },
     {
         "id": "function",
-        "includes": "functions",
+        "includes": "functions/",
         "file_viewer": "text",
         "comment_character": "#",
 
@@ -111,7 +88,7 @@
     },
     {
         "id": "item",
-        "includes": "items",
+        "includes": "items/",
         "file_viewer": "json",
 
         "start_state": "item/main",
@@ -122,13 +99,13 @@
     },
     {
         "id": "lang",
-        "includes": "texts",
+        "includes": "texts/",
         "file_viewer": "text",
         "comment_character": "##"
     },
     {
         "id": "loot_table",
-        "includes": "loot_tables",
+        "includes": "loot_tables/",
         "file_viewer": "json",
 
         "start_state": "loot_table/main",
@@ -137,7 +114,7 @@
     },
     {
         "id": "molang",
-        "includes": "molang",
+        "includes": "molang/",
         "text_separators": [ "." ],
 
         "start_state": "molang/main",
@@ -145,7 +122,7 @@
     },
     {
         "id": "recipe",
-        "includes": "recipes",
+        "includes": "recipes/",
         "file_viewer": "json",
 
         "build_array_exceptions": [ "key" ],
@@ -156,14 +133,14 @@
     },
     {
         "id": "script",
-        "includes": "scripts",
+        "includes": "scripts/",
         "file_viewer": "text",
 
         "file_creator": "script"
     },
     {
         "id": "spawn_rule",
-        "includes": "spawn_rules",
+        "includes": "spawn_rules/",
         "file_viewer": "json",
 
         "start_state": "spawn_rule/main",
@@ -173,7 +150,7 @@
     },
     {
         "id": "trade_table",
-        "includes": "trading",
+        "includes": "trading/",
         "file_viewer": "json",
 
         "start_state": "trade_table/main",
@@ -185,7 +162,7 @@
 
     {
         "id": "rp_animation",
-        "includes": "animations",
+        "includes": "animations/",
         "file_viewer": "json",
         "rp_definition": true,
         
@@ -198,7 +175,7 @@
     },
     {
         "id": "rp_animation_controller",
-        "includes": "animation_controllers",
+        "includes": "animation_controllers/",
         "file_viewer": "json",
         "rp_definition": true,
         
@@ -211,7 +188,7 @@
     },
     {
         "id": "client_entity",
-        "includes": "entity",
+        "includes": "entity/",
         "file_viewer": "json",
         "rp_definition": true,
         
@@ -223,7 +200,7 @@
     },
     {
         "id": "client_item",
-        "includes": "items",
+        "includes": "items/",
         "file_viewer": "json",
         "rp_definition": true,
         
@@ -234,14 +211,14 @@
     },
     {
         "id": "client_lang",
-        "includes": "texts",
+        "includes": "texts/",
         "file_viewer": "text",
         "comment_character": "##",
         "rp_definition": true
     },
     {
         "id": "particle",
-        "includes": "particles",
+        "includes": "particles/",
         "file_viewer": "json",
         "rp_definition": true,
         
@@ -253,7 +230,7 @@
     },
     {
         "id": "render_controller",
-        "includes": "render_controllers",
+        "includes": "render_controllers/",
         "file_viewer": "json",
         "rp_definition": true,
         
@@ -263,5 +240,48 @@
         "file_creator": "render_controller",
         "highlighter": "render_controller",
         "problems": [ "render_controller", "format_version" ]
+    },
+
+    {
+        "id": "item_texture",
+        "includes": "textures/item_texture.json",
+        "file_viewer": "json",
+        "start_state": "simple/item_texture",
+        "rp_definition": true
+    },
+    {
+        "id": "client_block",
+        "includes": "blocks.json",
+        "file_viewer": "json",
+        "start_state": "simple/blocks",
+        "rp_definition": true
+    },
+    {
+        "id": "terrain_texture",
+        "includes": "textures/terrain_texture.json",
+        "file_viewer": "json",
+        "start_state": "simple/terrain_texture",
+        "rp_definition": true
+    },
+    {
+        "id": "biomes_client",
+        "includes": "biomes_client.json",
+        "file_viewer": "json",
+        "start_state": "simple/biomes_client",
+        "rp_definition": true
+    },
+    {
+        "id": "sound_definition",
+        "includes": "sounds/sound_definitions.json",
+        "file_viewer": "json",
+        "start_state": "simple/sound_definitions",
+        "rp_definition": true
+    },
+    {
+        "id": "client_sound",
+        "includes": "sounds.json",
+        "file_viewer": "json",
+        "start_state": "simple/sound_definitions",
+        "rp_definition": true
     }
 ]

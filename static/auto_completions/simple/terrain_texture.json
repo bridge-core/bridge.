@@ -6,7 +6,7 @@
     "texture_data": {
         "$placeholder": {
             "textures": {
-                "$dynamic.list.next_index": "$dynamic.rp.block_png"
+                "$dynamic.list.next_index": { "@meta": { "is_value": true }, "@import.value.block_png": "$dynamic.rp.block_png" }
             }
         }
     }

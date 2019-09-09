@@ -28,7 +28,7 @@ Since v0.13.0-pre10 it is possible to define which file data you want to cache. 
 | ```$dynamic.animation_ids``` | Returns all animation ids
 | ```$dynamic.client_entity.animation_references``` | Returns animation references inside the current file
 | ```$dynamic.rp.item_textures``` | Returns all textures defined inside the ```item_texture.json``` file
-| ```$dynamic.rp.terrain_textures``` | Returns all textures defined inside the ```terrain_texture.json``` file
+| ```$dynamic.rp.terrain_texture``` | Returns all textures defined inside the ```terrain_texture.json``` file
 | ```$dynamic.rp.entity_textures``` | Returns all files inside ```textures/entity/```
 | ```$dynamic.rp.item_png``` | Returns all files inside ```textures/items/```
 | ```$dynamic.rp.block_png``` | Returns all files inside ```textures/blocks/```
