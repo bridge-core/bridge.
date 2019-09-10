@@ -60,11 +60,16 @@
     "animation_controller/main",
     "animation_controller/rp_main",
 
+    "attachables/main",
+
     "client_entity/main",
     "client_entity/general",
     
     "client_item/main",
+
     "render_controller/main",
+    "render_controller/general",
+
     "particle/main",
     "particle/general",
     "particle/components",

@@ -187,6 +187,18 @@
         "problems": [ "rp_animation_controller", "format_version" ]
     },
     {
+        "id": "attachable",
+        "includes": "attachables/",
+        "file_viewer": "json",
+        "rp_definition": true,
+        
+        "start_state": "attachables/main",
+        "lightning_cache": "attachable",
+        "highlighter": "entity",
+        "file_creator": "attachable",
+        "problems": [ "format_version" ]
+    },
+    {
         "id": "client_entity",
         "includes": "entity/",
         "file_viewer": "json",

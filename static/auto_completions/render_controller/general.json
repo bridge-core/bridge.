@@ -1,0 +1,5 @@
+{
+    "texture_ref": "'Texture.' + ($dynamic.cache.client_entity.texture_references and $dynamic.cache.attachable.texture_references)",
+    "material_ref": "'Material.' + ($dynamic.cache.client_entity.material_references and $dynamic.cache.attachable.material_references)",
+    "geometry_ref": "'Geometry.' + ($dynamic.cache.client_entity.geometry_references and $dynamic.cache.attachable.geometry_references)"
+}

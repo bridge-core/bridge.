@@ -1,0 +1,41 @@
+{
+    "format_version": "1.10",
+    "minecraft:attachable": {
+        "description": {
+            "identifier": "$general.file_identifier",
+            "item": {
+                "$general.item_identifier": { 
+                    "@meta": { "is_value": true, "is_molang": true },
+                    "@import.value.molang": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                }
+            },
+            "materials": {
+                "$placeholder": {
+                    "@meta": { "is_value": true },
+                    "@import.value.material": "$client_entity.general.material"
+                }
+            },
+            "textures": {
+                "$placeholder": {
+                    "@meta": { "is_value": true },
+                    "@import.value.entity_texture": "$dynamic.rp.entity_textures"
+                }
+            },
+            "geometry": {
+                "$placeholder": { "@meta": { "is_value": true } }
+            },
+            "scripts": {
+                "pre_animation": {
+                    "$dynamic.list.next_index": { "@meta": { "is_value": true, "is_molang": true } }
+                },
+                "parent_setup": { "@meta": { "is_value": true, "is_molang": true } }
+            },
+            "render_controllers": {
+                "$dynamic.list.next_index": {
+                    "@meta": { "is_value": true, "definitions": [ "render_controller" ] },
+                    "@import.value.render_controller": "$dynamic.cache.render_controller.ids"
+                }
+            }
+        }
+    }
+}

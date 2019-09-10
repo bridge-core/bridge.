@@ -38,7 +38,7 @@
                     "$placeholder": {
                         "$dynamic.list.next_index": {
                             "@meta": { "is_value": true },
-                            "@import.value.texture_ref": "'Texture.' + $dynamic.cache.client_entity.texture_references"
+                            "@import.value.texture_ref": "$render_controller.general.texture_ref"
                         }
                     }
                 },
@@ -46,7 +46,7 @@
                     "$placeholder": {
                         "$dynamic.list.next_index": {
                             "@meta": { "is_value": true },
-                            "@import.value.geo_ref": "'Geometry.' + $dynamic.cache.client_entity.geometry_references"
+                            "@import.value.geometry_ref": "$render_controller.general.geometry_ref"
                         }
                     }
                 },
@@ -54,7 +54,7 @@
                     "$placeholder": {
                         "$dynamic.list.next_index": {
                             "@meta": { "is_value": true },
-                            "@import.value.material_ref": "'Material.' + $dynamic.cache.client_entity.material_references"
+                            "@import.value.material_ref": "$render_controller.general.material_ref"
                         }
                     }
                 }
@@ -62,7 +62,7 @@
 
             "geometry": {
                 "@meta": { "is_molang": true },
-                "@import.value.geo_ref": "'Geometry.' + $dynamic.cache.client_entity.geometry_references",
+                "@import.value.geometry_ref": "$render_controller.general.geometry_ref",
                 "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
             },
             "part_visibility": {
@@ -81,12 +81,12 @@
                 "$dynamic.list.next_index": {
                     "*": {
                         "@meta": { "is_molang": true },
-                        "@import.value.material_ref": "'Material.' + $dynamic.cache.client_entity.material_references",
+                        "@import.value.material_ref": "$render_controller.general.material_ref",
                         "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
                     },
                     "$placeholder": {
                         "@meta": { "is_molang": true },
-                        "@import.value.material_ref": "'Material.' + $dynamic.cache.client_entity.material_references",
+                        "@import.value.material_ref": "$render_controller.general.material_ref",
                         "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
                     }
                 }
@@ -94,7 +94,7 @@
             "textures": {
                 "$dynamic.list.next_index": {
                     "@meta": { "is_molang": true },
-                    "@import.value.texture_ref": "'Texture.' + $dynamic.cache.client_entity.texture_references",
+                    "@import.value.texture_ref": "$render_controller.general.texture_ref",
                     "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
                 }
             }

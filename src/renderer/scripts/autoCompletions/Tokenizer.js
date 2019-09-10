@@ -18,6 +18,7 @@ export class Tokenizer {
                 res.push(new Token("REGULAR", substr));
                 i += substr.length;
             } else if(str[i] === "(") {
+                //TODO: Nested bracket parsing not supported
                 let substr = str.substring(i + 1, str.indexOf(")", i + 1));
                 res.push(new Token("NESTED", substr));
                 i += substr.length + 2;
