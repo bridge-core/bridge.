@@ -293,7 +293,7 @@
         "id": "client_sound",
         "includes": "sounds.json",
         "file_viewer": "json",
-        "start_state": "simple/sound_definitions",
+        "start_state": "simple/sounds",
         "rp_definition": true
     }
 ]

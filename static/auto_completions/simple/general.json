@@ -1,0 +1,14 @@
+{
+    "sound_object": {
+        "@import.value.sound_def": "$dynamic.rp.sound_definition",
+        "sound": "$dynamic.rp.sound_definition",
+        "volume": {
+            "@import.value.decimal": "$general.decimal",
+            "$dynamic.list.index_pair": "$general.decimal"
+        },
+        "pitch": {
+            "@import.value.decimal": "$general.decimal",
+            "$dynamic.list.index_pair": "$general.decimal"
+        }
+    }
+}

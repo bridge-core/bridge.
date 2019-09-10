@@ -74,6 +74,7 @@
     "particle/general",
     "particle/components",
 
+    "simple/general",
     "simple/item_texture",
     "simple/terrain_texture",
     "simple/biomes_client",

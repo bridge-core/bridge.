@@ -1,3 +1,114 @@
 {
-    
+    "individual_event_sounds": {
+        "events": {
+            "$placeholder": "$simple.general.sound_object"
+        }
+    },
+    "block_sounds": {
+        "normal": {
+            "volume": {
+                "@import.value.decimal": "$general.decimal",
+                "$dynamic.list.index_pair": "$general.decimal"
+            },
+            "pitch": {
+                "@import.value.decimal": "$general.decimal",
+                "$dynamic.list.index_pair": "$general.decimal"
+            },
+
+            "events": {
+                "default": "$simple.general.sound_object",
+                "item.use.on": "$simple.general.sound_object",
+                "break": "$simple.general.sound_object",
+                "hit": "$simple.general.sound_object",
+                "place": "$simple.general.sound_object",
+                "power.on": "$simple.general.sound_object",
+                "power.off": "$simple.general.sound_object"
+            }
+        },
+        "$placeholder": "$simple.sounds.block_sounds.normal"
+    },
+    "entity_sounds": {
+        "defaults": {
+            "volume": {
+                "@import.value.decimal": "$general.decimal",
+                "$dynamic.list.index_pair": "$general.decimal"
+            },
+            "pitch": {
+                "@import.value.decimal": "$general.decimal",
+                "$dynamic.list.index_pair": "$general.decimal"
+            },
+
+            "events": {
+                "$placeholder": "$simple.general.sound_object",
+
+                "fall.big": "$simple.general.sound_object",
+                "fall.small": "$simple.general.sound_object",
+                "splash": "$simple.general.sound_object",
+                "swim": "$simple.general.sound_object",
+                "fizz": "$simple.general.sound_object",
+                "drink": "$simple.general.sound_object",
+                "eat": "$simple.general.sound_object",
+                "ambient": "$simple.general.sound_object",
+                "ambient.tame": "$simple.general.sound_object",
+                "flop": "$simple.general.sound_object",
+                "hurt": "$simple.general.sound_object",
+                "death": "$simple.general.sound_object",
+                "ambient.in.water": "$simple.general.sound_object",
+                "hurt.in.water": "$simple.general.sound_object",
+                "death.in.water": "$simple.general.sound_object",
+                "ambient.in.raid": "$simple.general.sound_object",
+                "takeoff": "$simple.general.sound_object",
+                "shoot": "$simple.general.sound_object"
+            }
+        },
+        "entities": {
+            "$vanilla.unprefixed_entity_identifier and $dynamic.cache.entity.identifiers": "$simple.sounds.entity_sounds.defaults"
+        }
+    },
+
+    "interactive_sounds": {
+        "block_sounds": {
+            "normal": {
+                "volume": {
+                    "@import.value.decimal": "$general.decimal",
+                    "$dynamic.list.index_pair": "$general.decimal"
+                },
+                "pitch": {
+                    "@import.value.decimal": "$general.decimal",
+                    "$dynamic.list.index_pair": "$general.decimal"
+                },
+
+                "events": {
+                    "default": "$simple.general.sound_object",
+                    "fall": "$simple.general.sound_object",
+                    "step": "$simple.general.sound_object",
+                    "jump": "$simple.general.sound_object",
+                    "land": "$simple.general.sound_object"
+                }
+            },
+            "$placeholder": "$simple.sounds.interactive_sounds.block_sounds.normal"
+        },
+        "entity_sounds": {
+            "defaults": {
+                "volume": {
+                    "@import.value.decimal": "$general.decimal",
+                    "$dynamic.list.index_pair": "$general.decimal"
+                },
+                "pitch": {
+                    "@import.value.decimal": "$general.decimal",
+                    "$dynamic.list.index_pair": "$general.decimal"
+                },
+
+                "events": {
+                    "$placeholder": "$simple.general.sound_object",
+
+                    "fall": "$simple.general.sound_object",
+                    "jump": "$simple.general.sound_object"
+                }
+            },
+            "entities": {
+                "$vanilla.unprefixed_entity_identifier and $dynamic.cache.entity.identifiers": "$simple.sound.interactive_sounds.entity_sounds.defaults"
+            }
+        }
+    }
 }
