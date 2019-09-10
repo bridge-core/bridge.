@@ -117,7 +117,7 @@ export default {
                     }
                 },
                 {
-                    title: "Jump to Definition",
+                    title: "Jump To Definition",
                     icon: "mdi-code-braces",
                     color: "indigo",
                     condition: () => {
