@@ -18,7 +18,7 @@
             "textures": {
                 "$placeholder": {
                     "@meta": { "is_value": true },
-                    "@import.value.entity_texture": "$dynamic.rp.entity_textures"
+                    "@import.value.entity_texture": "$dynamic.rp.model_png and $dynamic.rp.item_png"
                 }
             },
             "geometry": {

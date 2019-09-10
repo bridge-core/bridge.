@@ -185,6 +185,14 @@ export const DYNAMIC = {
                 });
             } catch(e) { return []; }
         },
+        model_png() {
+            try {
+                return walkSync(path.join(CURRENT.RP_PATH, "/textures/models")).map(e => {
+                    let tmp = e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
+                    return `${path.dirname(tmp)}/${path.basename(tmp, path.extname(tmp))}`;
+                });
+            } catch(e) { return []; }
+        },
         sound_file() {
             try {
                 return walkSync(path.join(CURRENT.RP_PATH, "/sounds")).map(e => {
