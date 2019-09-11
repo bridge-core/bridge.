@@ -2,7 +2,7 @@ import uuidv4 from "uuid/v4";
 
 export default class Manifest {
     constructor(type, name, description, client_data, dependency) {
-        this.format_version = 1;
+        this.format_version = 2;
         this.header = {
             description,
             name,
