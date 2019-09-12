@@ -76,12 +76,12 @@ function transformEvent(event, { component_groups, description, events, file_nam
 }
 
 export default async function EntityHandler(file_name, data) {
-    let e = data["minecraft:entity"];
-    if(!e) return;
-    set(e, "component_groups", {});
-    set(e, "events", {});
-    set(e, "components", {});
-    let { components, component_groups, events, description } = e;
+    let entity = data["minecraft:entity"];
+    if(!entity) return;
+    set(entity, "component_groups", {});
+    set(entity, "events", {});
+    set(entity, "components", {});
+    let { components, component_groups, events, description } = entity;
     COM_ID_COUNTER = 0;
     A_C = new AnimationController();
 

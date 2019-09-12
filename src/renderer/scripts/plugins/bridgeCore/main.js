@@ -1,6 +1,7 @@
 import FileType from "../../editor/FileType";
 import EntityHandler from "./EntityHandler";
 import TabSystem from "../../TabSystem";
+import ItemHandler from "./ItemHandler";
 
 export const UI_DATA = {
     name: "bridge. Core",
@@ -39,3 +40,4 @@ export class BridgeCore {
 
 //REGISTER HANDLERS
 BridgeCore.setSaveHandler("entity", EntityHandler);
+BridgeCore.setSaveHandler("item", ItemHandler);
