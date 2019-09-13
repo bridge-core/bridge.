@@ -31,7 +31,6 @@
   },
   "geometry.player.armor.helmet:geometry.player.armor1": {
     "bones": [
-      { "name": "hat", "reset": true },
       { "name": "body", "reset": true },
       { "name": "rightArm", "reset": true },
       { "name": "leftArm", "reset": true },

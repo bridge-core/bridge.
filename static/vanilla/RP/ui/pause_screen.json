@@ -313,6 +313,10 @@
             {
               "binding_name": "#persona_enabled",
               "binding_name_override": "#visible"
+            },
+            {
+              "binding_name": "#can_access_profile",
+              "binding_name_override": "#enabled"
             }
           ] 
         }
@@ -743,6 +747,7 @@
               }
             },
             { "feedback_button@pause.feedback_button": {} },
+            { "feedback@pause.vertical_padding": {} },
             {
               "how_to_play@pause.vertical_padding": {
                 "ignored": "(not $education_edition or $education_edition_china)"

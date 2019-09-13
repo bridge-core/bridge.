@@ -21,6 +21,9 @@
         "bow_pulling_2": "geometry.bow_pulling_2"
       },
       "scripts": {
+        "initialize": [
+          "variable.anim_frame = 0;"
+        ],
         "pre_animation": [
           "variable.anim_frame = (query.item_remaining_use_duration / query.item_max_use_duration);",
           "variable.anim_frame = math.min(((variable.anim_frame * variable.anim_frame) + variable.anim_frame * 2.0), 2.0);"

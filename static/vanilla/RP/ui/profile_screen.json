@@ -625,7 +625,6 @@
     "$button_binding_condition": "always",
     "$button_text_size": [ "100%", "100%" ],
     "$button_text_max_size": [ "100%", "100%" ],
-    "$focus_override_down": "FOCUS_OVERRIDE_STOP",
     "bindings": [
       {
         "binding_name": "#enable_edit_appearance",
@@ -661,8 +660,7 @@
         "binding_condition": "always"
       }
     ],
-    "$focus_id": "delete_appearance_button",
-    "$focus_override_down": "FOCUS_OVERRIDE_STOP"
+    "$focus_id": "delete_appearance_button"
   },
 
   ///////////////////////
@@ -684,8 +682,7 @@
     "$button_font_scale_factor": 1.0,
     "$new_ui_label_offset": [ 0, 2 ],
     "$button_text_size": [ "100%", "100%" ],
-    "$button_text_max_size": [ "100%", "100%" ],
-    "$focus_override_down": "FOCUS_OVERRIDE_STOP"
+    "$button_text_max_size": [ "100%", "100%" ]
   },
 
   /////////////////////////
@@ -695,22 +692,30 @@
     "$pressed_button_name": "button.settings",
     "$button_content": "profile.profile_button_image_content",
     "$button_image_content_size": [ 14, 14 ],
-    "$profile_button_image": "textures/ui/icon_setting",
-    "$focus_override_down": "FOCUS_OVERRIDE_STOP"
+    "$profile_button_image": "textures/ui/icon_setting"
   },
 
   "lower_button_section": {
     "type": "stack_panel",
     "orientation": "horizontal",
     "size": [ "100%", 25 ],
+    "layer": 250,
     "controls": [
       { "left_padding@profile.horizontal_fill_padding": {} },
       { "edit_button@profile.edit_appearance_button": {} },
       { "delete_button@profile.delete_appearance_button": {} },
       // { "random_button@profile.random_appearance_button": {} },
       { "mid_padding@profile.horizontal_padding_10px": {} },
-      { "achievements_button@profile.achievements_button": {} },
-      { "more_padding@profile.horizontal_padding_6px": {} },
+      {
+        "achievements_button@profile.achievements_button": {
+          "ignored": "(not $supports_xbl_achievements)"
+        }
+      },
+      {
+        "more_padding@profile.horizontal_padding_6px": {
+          "ignored": "(not $supports_xbl_achievements)"
+        }
+      },
       { "settings_button@profile.settings_button": {} },
       { "right_padding@profile.horizontal_fill_padding": {} }
     ]
@@ -741,21 +746,17 @@
   },
 
   "bottom_panel_content": {
-    "type": "stack_panel",
-    "orientation": "vertical",
+    "type": "panel",
     "size": [ "fill", "100%" ],
     "$right_side_default_text_color": "$dressing_room_right_side_default_text_color",
+    "$right_side_dialog_visible_binding": "#is_featured_panel_visible",
     "controls": [
-      { "top_padding@profile.vertical_padding_5px": {} },
       {
-        "featured_panel@persona.dialog_background_object_thin": {
-          "size": [ "100%", "fill" ],
-          "$section_content_size": [ "100% - 12px", "100% - 12px" ],
-          "$dialog_visible_binding_name": "#is_featured_panel_visible",
-          "$persona_dialog_content": "profile.featured_panel_content"
+        "featured_panel@persona.featured_info_panel": {
+          "size": [ "100%", "100% - 10px" ],
+          "$info_panel_prefix": "featured"
         }
-      },
-      { "bottom_padding@profile.vertical_padding_5px": {} }
+      }
     ]
   },
 
@@ -981,7 +982,7 @@
                   {
                     "from_button_id": "button.menu_cancel",
                     "to_button_id": "$left_button_press",
-                    "mapping_type": "pressed"
+                    "mapping_type": "global"
                   },
                   {
                     "from_button_id": "button.menu_ok",
@@ -992,6 +993,18 @@
                     "from_button_id": "button.menu_select",
                     "to_button_id": "$left_button_press",
                     "mapping_type": "pressed"
+                  },
+                  {
+                    "from_button_id": "button.menu_left",
+                    "to_button_id": "button.menu_left",
+                    "mapping_type": "global",
+                    "scope": "view"
+                  },
+                  {
+                    "from_button_id": "button.menu_right",
+                    "to_button_id": "button.menu_right",
+                    "mapping_type": "global",
+                    "scope": "view"
                   }
                 ]
               }

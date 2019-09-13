@@ -316,11 +316,11 @@
   "$nested_no_padding": [ "100%sm", 0 ],
 
   // rarity colors
-  "$rarity_common_bg_color": [ 0.57, 0.57, 0.57, 1.0 ],
-  "$rarity_uncommon_bg_color": [ 0.33, 0.66, 0.42, 1.0 ],
-  "$rarity_rare_bg_color": [ 0.33, 0.65, 0.72, 1.0 ],
-  "$rarity_epic_bg_color": [ 0.55, 0.36, 0.86, 1.0 ],
-  "$rarity_legendary_bg_color": [ 1.0, 0.78, 0.0, 1.0 ],
+  "$rarity_common_bg_color": [ 0.43, 0.43, 0.43, 0.4 ],
+  "$rarity_uncommon_bg_color": [ 0.33, 0.66, 0.42, 0.4 ],
+  "$rarity_rare_bg_color": [ 0.10, 0.25, 0.61, 0.4 ],
+  "$rarity_epic_bg_color": [ 0.36, 0.18, 0.40, 0.4 ],
+  "$rarity_legendary_bg_color": [ 0.36, 0.32, 0.06, 0.4 ],
 
   //////// Dressing Room colors ////////
   "$dressing_room_sale_banner_text_color": [ 0, 0, 0 ],
@@ -333,7 +333,7 @@
   "$dressing_room_size_default_text_color": [ 1, 1, 1 ],
   "$dressing_room_color_title": [ 1, 1, 1 ],
   "$dressing_room_right_side_dark_text_color": [ 0.75, 0.75, 0.75 ],
-  "$dressing_room_background_alpha": 0.8,
+  "$dressing_room_background_alpha": 0.6,
   "$dressing_room_full_screen_popup_background_alpha": 0.6,
   "$dressing_room_panel_alpha": 0.2,
   "$dressing_room_sub_category_seperator_color": [ 0.70, 0.83, 0.85 ],
