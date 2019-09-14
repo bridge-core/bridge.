@@ -100,7 +100,7 @@ export default class FileType {
             if(typeof hl === "object")
                 return hl;
             if(HIGHLIGHTER_CACHE[hl] === undefined)
-                HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(path.join(__static, "highlighter", `${hl}.json`)).toString());
+                HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(join(__static, "highlighter", `${hl}.json`)).toString());
             return HIGHLIGHTER_CACHE[hl];
         } catch(e) {
             return {
@@ -119,7 +119,7 @@ export default class FileType {
                 if(typeof hl === "object")
                     return hl;
                 if(HIGHLIGHTER_CACHE[hl] === undefined)
-                    HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(`${__static}\\highlighter\\${hl}.json`).toString());
+                    HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(join(__static, "highlighter", `${hl}.json`)).toString());
                 return HIGHLIGHTER_CACHE[hl].set.is_text_highlighter;
             } catch(e) {
                 return false;

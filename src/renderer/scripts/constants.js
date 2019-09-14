@@ -4,7 +4,7 @@ import path from "path";
 import { MOJANG_PATH, BP_BASE_PATH } from "../../shared/Paths";
 import Store from "../store/index";
 
-export { APP_VERSION };
+export { APP_VERSION, MOJANG_PATH };
 export * from "../../shared/Paths.js";
 export const BASE_PATH = BP_BASE_PATH;
 export const WEB_APP_DATA = "https://solveddev.github.io/bridge-data/";

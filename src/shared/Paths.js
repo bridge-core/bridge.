@@ -4,6 +4,8 @@ import path from "path"
 let default_dir = DefaultDir.get();
 
 export const MOJANG_PATH = (() => {
+    if(default_dir !== "") return default_dir;
+
     // Taken from minecraft-addon-tools/minecraft-addon-toolchain by @AtomicBlom
     let platformRoot = null;
     switch (os.platform()) {

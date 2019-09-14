@@ -21,8 +21,8 @@ export default class OmegaCache {
     }
 
     static mayBeCached(file_path) {
-        const rel_bp = path.relative(BASE_PATH, file_path);
-        const rel_rp = path.relative(RP_BASE_PATH, file_path);
+        const rel_bp = path.relative(BASE_PATH.slice(0, BASE_PATH.length - 1), file_path);
+        const rel_rp = path.relative(RP_BASE_PATH.slice(0, RP_BASE_PATH.length - 1), file_path);
         return !rel_bp.startsWith('../') || !rel_rp.startsWith('../');
     }
     static toCachePath(file_path, with_base=true) {
