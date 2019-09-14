@@ -7,8 +7,8 @@ if (process.platform === "win32")
     STORE = new BridgeStore(path.join(process.env.HOMEDRIVE, process.env.HOMEPATH, ".bridge/"), "data");
 else
     STORE = new BridgeStore(path.join(process.env.HOME, ".bridge/"), "data");
-let DATA;
 
+let DATA;
 function setup() {
     if(!STORE.exists("settings")) {
         console.log("[SETTING STORE] Not found - creating new store with default values");

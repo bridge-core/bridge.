@@ -21,7 +21,9 @@ export default class OmegaCache {
     }
 
     static mayBeCached(file_path) {
-        return file_path.includes(BASE_PATH) || file_path.includes(RP_BASE_PATH);
+        const rel_bp = path.relative(BASE_PATH, file_path);
+        const rel_rp = path.relative(RP_BASE_PATH, file_path);
+        return !rel_bp.startsWith('../') || !rel_rp.startsWith('../');
     }
     static toCachePath(file_path, with_base=true) {
         if(!file_path) throw new Error("[O.CACHE] Called OmegaCache.toCachePath(..) with falsy argument. Expected string");

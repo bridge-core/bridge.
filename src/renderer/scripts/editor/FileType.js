@@ -4,6 +4,7 @@
 import TabSystem from "../TabSystem";
 import Provider from "../autoCompletions/Provider";
 import fs from "fs";
+import { join } from "path";
 import { readJSON } from "../utilities/JsonFS";
 import eRE from "../utilities/EscapeRegExp";
 
@@ -79,7 +80,7 @@ export default class FileType {
                     if(typeof file.file_creator === "string")
                         acc.push({
                             rp_definition: file.rp_definition,
-                            ...JSON.parse(fs.readFileSync(`${__static}\\file_creator\\${file.file_creator}.json`).toString())
+                            ...JSON.parse(fs.readFileSync(join(__static, "file_creator", `${file.file_creator}.json`)).toString())
                         });
                     else
                         acc.push({
@@ -99,7 +100,7 @@ export default class FileType {
             if(typeof hl === "object")
                 return hl;
             if(HIGHLIGHTER_CACHE[hl] === undefined)
-                HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(`${__static}\\highlighter\\${hl}.json`).toString());
+                HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(path.join(__static, "highlighter", `${hl}.json`)).toString());
             return HIGHLIGHTER_CACHE[hl];
         } catch(e) {
             return {
@@ -148,7 +149,7 @@ export default class FileType {
         for(let { id, snippets } of file_types) {
             if(snippets === undefined) continue;
             proms.push(
-                readJSON(`${__static}\\snippets\\${snippets}.json`)
+                readJSON(join(__static, "snippets", `${snippets}.json`))
                     .then(data => snippet_data[id] = data)
             );
         }
@@ -167,12 +168,12 @@ export default class FileType {
             if(Array.isArray(problems))
                 problems.forEach(
                     problem => proms.push(
-                        readJSON(`${__static}\\problems\\${problem}.json`)
+                        readJSON(join(__static, "problems", `${problem}.json`))
                             .then(p => Object.assign(data[id], p))
                     )
                 );
             else
-                proms.push(readJSON(`${__static}\\problems\\${problems}.json`).then(p => data[id] = p)) 
+                proms.push(readJSON(join(__static, "problems", `${problems}.json`)).then(p => data[id] = p)) 
         }
         
         await Promise.all(proms);
@@ -183,7 +184,7 @@ export default class FileType {
         let data = this.getData(file_path);
         if(data === undefined || data.lightning_cache === undefined) return;
 
-        return await readJSON(`${__static}\\lightning_cache\\${data.lightning_cache}.json`);
+        return await readJSON(join(__static, "lightning_cache", `${data.lightning_cache}.json`));
     }
 
     static transformTextSeparators(file_path, text) {

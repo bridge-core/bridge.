@@ -1,7 +1,8 @@
 //@ts-check
 import fs from "fs";
+import path from "path";
 //@ts-ignore
-const MAP = JSON.parse(fs.readFileSync(__static + "\\auto_completions\\version_map.json").toString());
+const MAP = JSON.parse(fs.readFileSync(path.join(__static, "auto_completions/version_map.json")).toString());
 
 export default class VersionMap {
     /**
