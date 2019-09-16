@@ -1,6 +1,5 @@
 {
   "name": "bridge",
-  "productName": "bridge",
   "version": "0.13.7",
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
@@ -18,7 +17,7 @@
     "postinstall": ""
   },
   "build": {
-    "productName": "bridge.",
+    "productName": "bridge",
     "appId": "solved.editor.bridge",
     "artifactName": "bridge@${version}.${ext}",
     "directories": {
