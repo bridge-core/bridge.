@@ -29,6 +29,15 @@
 | ```client_lang``` | RP/texts
 | ```particle``` | RP/particles
 | ```render_controller``` | RP/render_controllers
+### Single Instance RP Files
+| File Type | Description 
+| --- | --- 
+| ```item_texture``` | RP/textures/item_texture.json
+| ```terrain_texture``` | RP/textures/terrain_texture.json
+| ```sound_definition``` | RP/sounds/sound_definitions.json
+| ```client_block``` | RP/blocks.json
+| ```client_biome``` | RP/biomes_client.json
+| ```client_sound``` | RP/sounds.json
 
 ### Other
 | File Type | Description 
