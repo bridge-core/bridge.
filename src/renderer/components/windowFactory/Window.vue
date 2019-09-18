@@ -79,7 +79,7 @@
                 <div :style="`
                     margin-left: ${has_sidebar ? 60 : 0}px;
                     padding-left: ${has_no_padding ? '0px' : '8px'};
-                    overflow-y: auto;
+                    overflow-y: hidden;
                 `">
                     <window-content 
                         v-for="(content) in win.content" 

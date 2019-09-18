@@ -27,6 +27,9 @@ export class Omega {
             } else if(!OPS.includes(data)) {
                 this.combine(res, this.dynamic(data, value_cast || prev_data === "asValue"), prefix);
                 prefix = "";
+            } else if(data === "+" && prefix === "") {
+                if(!prev_data) throw new Error("Expected prefix definition before '+' operator");
+                prefix = this.walk(prev_data);
             }
 
             i++;

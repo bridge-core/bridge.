@@ -6,6 +6,7 @@ import fs from "fs";
 import LightningCache from "../editor/LightningCache";
 import { BridgeCore } from "../plugins/bridgeCore/main";
 import { readJSONSync } from "../utilities/JsonFS";
+import ProjectConfig from "../ProjectConfig";
 
 let PARENT_CONTEXT = {};
 let NODE_CONTEXT = {};
@@ -75,6 +76,9 @@ export const DYNAMIC = {
     setting: {
         target_version() {
             return Store.state.Settings.target_version;
+        },
+        project_prefix() {
+            return ProjectConfig.getPrefixSync() + ":";
         }
     },
     entity: {

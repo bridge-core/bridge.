@@ -58,7 +58,7 @@ function createSplashScreen() {
         height: 300,
         useContentSize: true,
         width: 300,
-        frame: false,
+        frame: process.platform === "darwin",
         resizable: false,
         webPreferences: {
             nodeIntegration: true
