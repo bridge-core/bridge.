@@ -276,7 +276,7 @@
         "rp_definition": true
     },
     {
-        "id": "biomes_client",
+        "id": "client_biome",
         "includes": "biomes_client.json",
         "file_viewer": "json",
         "start_state": "simple/biomes_client",

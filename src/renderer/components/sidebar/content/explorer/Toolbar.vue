@@ -87,16 +87,15 @@
                 menu_elements: [
                     {
                         icon: "mdi-rename-box",
-                        title: "Project Prefix",
+                        title: "Project Namespace",
                         action: async () => {
                             let prefix;
                             try { prefix = await ProjectConfig.prefix; }
                             catch(e) { prefix = "bridge" }
-                            console.log(prefix);
 
                             new InputWindow({
-                                header: "Project Prefix",
-                                label: "Set a new project prefix",
+                                header: "Project Namespace",
+                                label: "Namespace",
                                 text: prefix
                             }, (val) => {
                                 ProjectConfig.prefix = val;
