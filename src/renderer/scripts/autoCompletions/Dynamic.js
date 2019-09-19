@@ -4,7 +4,7 @@ import Store from "../../store/index";
 import path from "path";
 import fs from "fs";
 import LightningCache from "../editor/LightningCache";
-import { BridgeCore } from "../plugins/bridgeCore/main";
+import { BridgeCore } from "../bridgeCore/main";
 import { readJSONSync } from "../utilities/JsonFS";
 import ProjectConfig from "../ProjectConfig";
 

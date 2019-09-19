@@ -7,7 +7,7 @@ import Bridge from "../../scripts/plugins/PluginEnv";
 import EventBus from "../EventBus";
 import { PluginSnippets } from "../../windows/Snippets";
 import cJSON from "comment-json";
-import { UI_DATA, BridgeCore } from "./bridgeCore/main";
+import { UI_DATA, BridgeCore } from "../bridgeCore/main";
 let PLUGIN_FOLDERS;
 let PLUGIN_DATA = [];
 

@@ -78,6 +78,7 @@
     import ExplorerNoProjects from "./explorer/NoProjects";
     import PluginLoader from "../../../scripts/plugins/PluginLoader";
     import LightningCache from '../../../scripts/editor/LightningCache';
+    import { JSONFileMasks } from "../../../scripts/editor/JSONFileMasks";
 
     export default {
         name: "content-explorer",
@@ -218,6 +219,7 @@
                     EventBus.trigger("bridge:changedProject");
                     OmegaCache.init(dir);
                     LightningCache.init();
+                    JSONFileMasks.resetMasks();
                 }
                 
                 if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return;

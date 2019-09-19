@@ -78,7 +78,6 @@ class FileSystem {
     async open(file_path, cb) {
         if(typeof file_path !== "string") return;
         if(!fs.statSync(file_path).isFile()) return this.loadDir(file_path);
-        let ext = path.extname(file_path);
         let file;
         try { file = await this.readFile(file_path); } catch(e) { return; }
         let cache; 
@@ -86,14 +85,14 @@ class FileSystem {
         
 
         if(OmegaCache.isCacheFresh(file_path, cache, file.toString())) {
-            let { cache_content, format_version, file_version } = cache;
-            this.addAsTab(file_path, cache_content, format_version, null, file_version);
+            let { cache_content, format_version, file_version, file_uuid } = cache;
+            this.addAsTab(file_path, cache_content, format_version, null, file_version, file_uuid);
             if(typeof cb === "function") cb();
         } else {
             new ConfirmWindow(() => {
                 OmegaCache.load(file_path)
-                    .then(({ cache_content, format_version, file_version }) => {
-                        this.addAsTab(file_path, cache_content, format_version, null, file_version);
+                    .then(({ cache_content, format_version, file_version, file_uuid }) => {
+                        this.addAsTab(file_path, cache_content, format_version, null, file_version, file_uuid);
     
                         if(typeof cb === "function") cb();
                     })
@@ -123,7 +122,7 @@ class FileSystem {
         });
     }
 
-    addAsTab(file_path, data, format_version=0, raw_data, file_version) {
+    addAsTab(file_path, data, format_version=0, raw_data, file_version, file_uuid) {
         let tree;
         if(format_version === 1) {
             tree = JSONTree.buildFromCache(data);
@@ -132,6 +131,7 @@ class FileSystem {
 
         TabSystem.add({
             file_version,
+            file_uuid,
 
             content: format_version === 1 ? tree : data,
             raw_content: raw_data,

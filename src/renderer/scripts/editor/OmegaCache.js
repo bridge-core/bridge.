@@ -8,6 +8,7 @@ import path from "path";
 import mkdirp from "mkdirp";
 import FileType from "./FileType";
 import PluginEnv from "../plugins/PluginEnv";
+import { readJSON } from "../utilities/JsonFS";
 
 export default class OmegaCache {
     static init(project) {
@@ -67,6 +68,20 @@ export default class OmegaCache {
                 else resolve(JSON.parse(data.toString()));
             });
         });
+    }
+    static async loadFileUUID(file_path) {
+        try {
+            return (await readJSON(this.toCachePath(file_path))).file_uuid;
+        } catch(e) {
+            return "generic";
+        }
+    }
+    static async loadFileVersion(file_path) {
+        try {
+            return (await readJSON(this.toCachePath(file_path))).file_version;
+        } catch(e) {
+            return 0;
+        }
     }
     static save(file_path, data) {
         return new Promise((resolve, reject) => {
