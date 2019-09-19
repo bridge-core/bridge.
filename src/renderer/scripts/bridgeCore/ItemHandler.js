@@ -7,7 +7,7 @@ import AnimationController from "../files/AnimationController";
 export function transformComponents({ MASK, A_C, component_name, component, identifier, file_uuid }) {
     let item_id = identifier.split(":").pop();
 
-    if(component_name === "bridge:attack_damage") {
+    if(component_name === "bridge:weapon_damage") {
         set(A_C, "animation_controllers/controller.animation.bridge_custom_item_behavior/states/default", {
             transitions: [ { ["holds_" + item_id]: "query.get_equipped_item_name(0, 0) == '" + item_id + "'" } ]
         });

@@ -28,7 +28,7 @@
             "$dynamic.list.next_index": "$general.block_identifier"
         }
     },
-    "$dynamic_template.bridge:attack_damage": {
+    "$dynamic_template.bridge:weapon_damage": {
         "$if": "$dynamic.bridge_core.is_active",
 
         "$default": "$general.number"
