@@ -25,11 +25,15 @@ export default {
         cursor: default;
     }
     .footer-container {
-        padding: 2px 12px 0 12px;
+        padding: 2px 12px 4px 12px;
         margin: 0 4px;
         overflow-x: auto;
         overflow-y: hidden;
         height: 100%;
         white-space: nowrap;
+    }
+    .footer-container::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
     }
 </style>

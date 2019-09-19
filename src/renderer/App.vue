@@ -51,7 +51,8 @@
   import UpdateWindow from "./windows/UpdateApp";
   import SETTINGS from "./store/Settings";
   import { shell } from 'electron';
-  
+  import Notification from "./scripts/Notification";
+  import DiscordWindow from "./windows/Discord";
   
   export default {
     name: 'bridge',
@@ -72,6 +73,24 @@
       this.$vuetify.theme.dark = this.$store.state.Appearance.is_dark_mode;
       SETTINGS.setup();
       new UpdateWindow();
+
+      let discord_msg = new Notification({
+        display_icon: "mdi-discord",
+        display_name: "Discord Server",
+        color: "#7289DA",
+        text_color: "white",
+        action: () => {
+          new DiscordWindow(
+            () => {
+              shell.openExternal("https://discord.gg/jj2PmqU");
+            },
+            () => {
+              discord_msg.remove();
+            }
+          );
+        }
+      })
+      discord_msg.send();
     },
     computed: {
       is_sidebar_open() {

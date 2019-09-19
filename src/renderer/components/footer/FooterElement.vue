@@ -1,29 +1,27 @@
 <template>
-    <v-tooltip :disabled="!show_display_name" top>
-        <template v-slot:activator="{ on }">
-            <div style="display: inline-block;" v-on="on">
-                <v-badge
-                    :class="has_click_action ? 'change-cursor' : ''"
-                    @click.stop.native="click"
-                    v-model="show_badge"
-                    overlap
-                    bottom
-                    left
-                    small
-                    :color="badge_color"
-                >
-                    <template v-slot:badge>
-                        <v-icon small v-if="badge_type == 'icon'">{{ badge_content }}</v-icon>
-                        <span v-else>{{ badge_content }}</span>
-                    </template>
-                    <v-icon>{{ display_icon }}</v-icon>
-                </v-badge>
-            </div>
-        </template>
-        
-
-        <span>{{ display_name }}</span>
-    </v-tooltip>
+    <v-chip
+        class="ma-1"
+        :color="chip_color"
+        :text-color="text_color"
+        @click.stop="click"
+    >
+       <v-badge
+            :class="has_click_action ? 'change-cursor' : ''"
+            v-model="show_badge"
+            overlap
+            top
+            left
+            small
+            :color="badge_color"
+        >
+            <template v-slot:badge>
+                <v-icon small v-if="badge_type == 'icon'">{{ badge_content }}</v-icon>
+                <span v-else>{{ badge_content }}</span>
+            </template>
+            <v-icon>{{ display_icon }}</v-icon>
+            <span>{{ display_name }}</span>
+        </v-badge>
+    </v-chip>
 </template>
 
 <script>
@@ -33,6 +31,12 @@ export default {
         element: Object
     },
     computed: {
+        chip_color() {
+            return this.element.color || "primary";
+        },
+        text_color() {
+            return this.element.text_color || "white";
+        },
         badge_color() {
             if(!this.element.badge || !this.element.badge.color) return "primary";
             return this.element.badge.color;
@@ -73,9 +77,9 @@ export default {
 </script>
 
 <style scoped>
-    span.v-badge {
+    /* span.v-badge {
         margin-right: 12px;
-    }
+    } */
     .change-cursor {
         cursor: pointer;
     }

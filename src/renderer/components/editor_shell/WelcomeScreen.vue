@@ -33,9 +33,9 @@
 </template>
 
 <script>
-export default {
-    name: "welcome-screen"
-}
+    export default {
+        name: "welcome-screen"
+    }
 </script>
 
 <style scoped>

@@ -36,7 +36,9 @@ export default async function ItemHandler({ file_uuid, data }) {
     for(let c in components) transformComponents({ component_name: c, component: components[c], identifier: description.identifier, PLAYER_MASK, A_C_MASK, file_uuid });
 
     //SAVE ADDITIONAL FILES
-    await JSONFileMasks.apply(player_file_path);
-    await JSONFileMasks.saveMasks();
-    await JSONFileMasks.generateFromMask(a_c_file_path);
+    await Promise.all([
+        JSONFileMasks.apply(player_file_path),
+        JSONFileMasks.generateFromMask(a_c_file_path),
+        JSONFileMasks.saveMasks()
+    ]);
 }

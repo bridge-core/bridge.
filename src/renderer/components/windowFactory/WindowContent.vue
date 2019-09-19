@@ -80,7 +80,8 @@
         :text="content.is_flat"
         :disabled="content.is_disabled"
     >
-        {{ content.text }}
+        <v-icon v-if="content.icon" :color="content.text_color">{{ content.icon }}</v-icon>
+        <span :class="text_color">{{ content.text }}</span>
     </v-btn>
     <v-btn 
         v-else-if="content.type == 'icon-button'"
@@ -291,6 +292,14 @@
                     return `${tmp[0]}--text text--${tmp[1]}`;
                 }
                 return `${this.content.color}--text`;
+            },
+            text_color() {
+                if(!this.content.text_color) return "";
+                if(this.content.text_color.includes(" ")) {
+                    let tmp = this.content.text_color.split(" ");
+                    return `${tmp[0]}--text text--${tmp[1]}`;
+                }
+                return `${this.content.text_color}--text`;
             },
 
             codemirror() {
