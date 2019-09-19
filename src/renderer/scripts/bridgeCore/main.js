@@ -4,7 +4,7 @@ import TabSystem from "../TabSystem";
 import ItemHandler from "./ItemHandler";
 import OmegaCache from "../editor/OmegaCache";
 import { JSONFileMasks } from "../editor/JSONFileMasks";
-import { detachMerge } from "../detachObj";
+import path from "path";
 
 export const UI_DATA = {
     name: "bridge. Core",
@@ -30,14 +30,13 @@ export class BridgeCore {
         this.save_registry[file_type] = handler;
     }
 
-    static async beforeSave(data) {
+    static async beforeSave(data, file_path=TabSystem.getCurrentFilePath()) {
         if(!this.is_active) return data;
-        let file_name = TabSystem.getCurrentFileName();
-        let file_path = TabSystem.getCurrentFilePath();
+        let file_name = path.basename(file_path);
         let file_uuid = await OmegaCache.loadFileUUID(file_path);
         let file_type = FileType.get(file_path);
 
-        data = await JSONFileMasks.apply(file_path, data, false);
+        data = await JSONFileMasks.applyOnData(file_path, data);
         if(typeof this.save_registry[file_type] === "function") await this.save_registry[file_type]({ file_name, file_uuid, data });
 
         return data;

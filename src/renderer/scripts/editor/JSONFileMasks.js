@@ -3,6 +3,8 @@ import OmegaCache from "./OmegaCache";
 import { readJSON, writeJSON } from "../utilities/JsonFS";
 import path from "path";
 import { CURRENT } from "../constants";
+import { BridgeCore } from "../bridgeCore/main";
+import JSONTree from "./JsonTree";
 
 export class JSONMask {
     constructor(data={}) {
@@ -59,15 +61,23 @@ export class JSONFileMasks {
         return res;
     }
 
-    static async apply(file_path, data, write_json=true) {
-        if(data === undefined) {
-            try {
-                data = await readJSON(file_path);
-            } catch(e) { return; }
-        }
-        data = detachMerge(data, ...(await this.get(file_path)).all());
+    static async apply(file_path) {
+        let data;
+        try {
+            let { format_version, cache_content, file_version } = await OmegaCache.load(file_path);
+            if(format_version === 1) {
+                data = JSONTree.buildFromCache(cache_content).toJSON();
+            } else {    
+                data = cache_content;
+            }
+            data = await BridgeCore.beforeSave(data, file_path);
 
-        if(write_json) return writeJSON(file_path, data, true, await OmegaCache.loadFileVersion(file_path));
-        else return data;
+            console.log(data);
+            return writeJSON(file_path, data, true, file_version);
+        } catch(e) { return console.log(e); }
+    }
+
+    static async applyOnData(file_path, data) {
+        return detachMerge(data, ...(await this.get(file_path)).all());
     }
 }

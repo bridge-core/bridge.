@@ -21,7 +21,7 @@ export function writeJSON(path, data, beautify=false, file_version) {
     } else {
         save = `${FileType.getCommentChar(path)}bridge-file-version: #${file_version}\n${JSON.stringify(data, null, beautify ? "\t" : undefined)}`;
     }
-    console.log(save);
+    
     return new Promise((resolve, reject) => {
         fs.writeFile(path, save, (err) => {
             if(err) reject(err);

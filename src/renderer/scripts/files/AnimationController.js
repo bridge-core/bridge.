@@ -1,9 +1,18 @@
 import { promises as fs } from "fs";
 import path from "path";
+import { readJSON } from "../utilities/JsonFS";
 
 export default class AnimationController {
     format_version = "1.10.0";
     animation_controllers = {};
+
+    async load(file_path) {
+        try {
+            let { format_version, animation_controllers } = await readJSON(file_path);
+            this.format_version = format_version;
+            this.animation_controllers = animation_controllers;
+        } catch(e) {}
+    }
 
     async save(file_path) {
         if(Object.keys(this.animation_controllers).length === 0) return;
