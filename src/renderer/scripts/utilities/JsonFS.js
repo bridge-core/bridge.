@@ -1,5 +1,6 @@
 import fs from "fs";
 import cJSON from "comment-json";
+import FileType from "../editor/FileType";
 
 export function readJSON(path) {
     return new Promise((resolve, reject) => {
@@ -13,9 +14,16 @@ export function readJSON(path) {
         });
     });
 }
-export function writeJSON(path, data, beautify=false) {
+export function writeJSON(path, data, beautify=false, file_version) {
+    let save;
+    if(file_version === undefined) {
+        save = JSON.stringify(data, null, beautify ? "\t" : undefined);
+    } else {
+        save = `${FileType.getCommentChar(path)}bridge-file-version: #${file_version}\n${JSON.stringify(data, null, beautify ? "\t" : undefined)}`;
+    }
+    console.log(save);
     return new Promise((resolve, reject) => {
-        fs.writeFile(path, JSON.stringify(data, null, beautify ? "\t" : undefined), (err) => {
+        fs.writeFile(path, save, (err) => {
             if(err) reject(err);
             else resolve();
         });

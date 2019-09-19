@@ -1,4 +1,4 @@
-import { detachMerge } from "../detachObj";
+import detachObj, { detachMerge } from "../detachObj";
 import OmegaCache from "./OmegaCache";
 import { readJSON, writeJSON } from "../utilities/JsonFS";
 import path from "path";
@@ -9,13 +9,14 @@ export class JSONMask {
         this.data = data;
     }
 
-    set(channel, mask_data) {
+    set(channel, mask_data, overwrite_arrays=true) {
         if(this.data[channel] === undefined) return this.data[channel] = mask_data;
+        if(overwrite_arrays) return this.data[channel] = detachObj(this.data[channel], mask_data);
         return this.data[channel] = detachMerge(this.data[channel], mask_data);
     }
     reset(channel) {
         if(!channel) this.data = {};
-        else this.data[channel] = {};
+        else this.data[channel] = undefined;
     }
 
     all() {
@@ -32,16 +33,11 @@ export class JSONMask {
 export class JSONFileMasks {
     static data = undefined;
 
-    static async getMask(file_path) {
-        if(this.data === undefined) this.data = await this.loadMasks();
-        let key = OmegaCache.toCachePath(file_path);
-        if(this.data[key] === undefined) this.data[key] = new JSONMask();
-        return this.data[key];
-    }
-
     static async get(file_path) {
         if(this.data === undefined) this.data = await this.loadMasks();
-        return this.data[OmegaCache.toCachePath(file_path)].all();
+        let key = OmegaCache.toCachePath(file_path, false);
+        if(this.data[key] === undefined) this.data[key] = new JSONMask();
+        return this.data[key];
     }
 
     static resetMasks() {
@@ -58,9 +54,20 @@ export class JSONFileMasks {
 
         let res = {};
         for(let mask_paths in masks) {
-            res[mask_paths] = new JSONMask(masks[mask_paths]);
+            res[mask_paths] = new JSONMask(masks[mask_paths].data);
         }
-        console.log(res);
         return res;
+    }
+
+    static async apply(file_path, data, write_json=true) {
+        if(data === undefined) {
+            try {
+                data = await readJSON(file_path);
+            } catch(e) { return; }
+        }
+        data = detachMerge(data, ...(await this.get(file_path)).all());
+
+        if(write_json) return writeJSON(file_path, data, true, await OmegaCache.loadFileVersion(file_path));
+        else return data;
     }
 }

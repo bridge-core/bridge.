@@ -13,7 +13,8 @@ import path from "path";
 import FileType from "./editor/FileType";
 import OmegaCache from "./editor/OmegaCache";
 import LightningCache from "./editor/LightningCache";
-import { BridgeCore } from "./plugins/bridgeCore/main";
+import { BridgeCore } from "./bridgeCore/main";
+import { uuid } from "./utilities/useAttr";
 
 /**
  * @todo Refactor TabSystem to use dedicated classes IMGTab, CMTab, JSONTab,...
@@ -51,7 +52,7 @@ class TabSystem {
         tab.file_path = tab.file_path.replace(/\//g, "\\");
         this.projects[this.project].unshift({
             ...tab,
-            uuid: `${this.project}-${Math.random()}-${Math.random()}`,
+            uuid: `${this.project}-${uuid()}`,
             file_navigation: "global",
             category: this.project,
             is_unsaved: false,
@@ -146,6 +147,10 @@ class TabSystem {
     getCurrentFileName() {
         if(!this.getSelected()) return;
         return path.basename(this.getSelected().file_path);
+    }
+    getCurrentFilePath() {
+        if(!this.getSelected()) return;
+        return this.getSelected().file_path;
     }
     getCurrentNavContent() {
         let nav = this.getCurrentNavigation();
@@ -307,11 +312,13 @@ class TabSystem {
             ProblemIterator.findProblems(current.content);
             format_version = 1;
         }
+        if(current.file_uuid === undefined) current.file_uuid = uuid();
         
         if(updateCache && OmegaCache.mayBeCached(current.file_path)) {
             await Promise.all([
                 OmegaCache.save(current.file_path, {
                     format_version,
+                    file_uuid: current.file_uuid,
                     file_version: current.file_version,
                     cache_content: this.transformForCache(current.content, current.raw_content)
                 }), 

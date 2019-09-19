@@ -1,6 +1,6 @@
-import { use, set, uuid } from "../../utilities/useAttr";
-import AnimationController from "../../files/AnimationController";
-import { CURRENT } from "../../constants";
+import { use, set, uuid } from "../utilities/useAttr";
+import AnimationController from "../files/AnimationController";
+import { CURRENT } from "../constants";
 import { join } from "path";
 
 let COM_ID_COUNTER = 0;
@@ -75,7 +75,7 @@ function transformEvent(event, { component_groups, description, events, file_nam
     }
 }
 
-export default async function EntityHandler(file_name, data) {
+export default async function EntityHandler({ file_name, data }) {
     let entity = data["minecraft:entity"];
     if(!entity) return;
     set(entity, "component_groups", {});
