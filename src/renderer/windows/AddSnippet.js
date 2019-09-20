@@ -69,7 +69,7 @@ export default class AddSnippetWindow extends ContentWindow {
             {
                 type: "button",
                 color: "success",
-                is_rounded: true,
+                is_rounded: false,
                 text: "Add!",
                 action: () => {
                     let data = this.getTemplate(this.data.template);

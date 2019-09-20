@@ -36,7 +36,7 @@ export default class LinkRPWindow extends ContentWindow {
                     type: "button",
                     text: "Link!",
                     color: "success",
-                    is_rounded: true,
+                    is_rounded: false,
                     action: () => {
                         this.close();
                         setTimeout(() => PackLinker.link(bp_name, this.selected_rp), 300);

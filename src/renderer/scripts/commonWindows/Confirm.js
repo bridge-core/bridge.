@@ -10,7 +10,7 @@ export default class ConfirmWindow {
             {
                 type: "button",
                 text: cancel_text || "Cancel",
-                is_rounded: true,
+                is_rounded: false,
                 action: () => {
                     this.close();
                     if(typeof on_cancel == "function") on_cancel();
@@ -20,7 +20,7 @@ export default class ConfirmWindow {
                 type: "button",
                 text: confirm_text || "Confirm",
                 color: "success",
-                is_rounded: true,
+                is_rounded: false,
                 action: () => {
                     this.close();
                     if(typeof on_confirm == "function") on_confirm();

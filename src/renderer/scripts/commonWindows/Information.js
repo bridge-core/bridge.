@@ -29,7 +29,7 @@ export default class InformationWindow {
                 {
                     type: "button",
                     color: "success",
-                    is_rounded: true,
+                    is_rounded: false,
                     text: "Okay",
                     action: () => this.close()
                 }

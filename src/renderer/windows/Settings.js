@@ -272,7 +272,7 @@ export default class SettingsWindow extends TabWindow {
                     type: "button",
                     text: "Default Directory",
                     color: "error",
-                    is_rounded: true,
+                    is_rounded: false,
                     action: () => {
                         new ConfirmWindow(() => {
                             ipcRenderer.send("chooseDefaultDirectory");
@@ -284,7 +284,7 @@ export default class SettingsWindow extends TabWindow {
                 },
                 {
                     color: "grey",
-                    text: "\nDefault Project"
+                    text: "\n\nDefault Project"
                 },
                 new ReactiveDropdown(this, "default_project", PROJECTS, {
                     text: "Choose a default project...",
@@ -325,7 +325,7 @@ export default class SettingsWindow extends TabWindow {
                     type: "button",
                     text: "Toggle Dev Tools",
                     color: "warning",
-                    is_rounded: true,
+                    is_rounded: false,
                     action: () => ipcRenderer.send("toggleDevTools")
                 },
                 new ReactiveSwitch(this, "is_dev_mode", {

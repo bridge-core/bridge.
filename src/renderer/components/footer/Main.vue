@@ -5,19 +5,26 @@
 </template>
 
 <script>
-import FooterElement from "./FooterElement";
+    import FooterElement from "./FooterElement";
+    import EventBus from "../../scripts/EventBus";
 
-export default {
-    name: "footer-main",
-    components: {
-        FooterElement
-    },
-    computed: {
-        footer_elements() {
-            return this.$store.state.Footer.elements;
+    export default {
+        name: "footer-main",
+        components: {
+            FooterElement
+        },
+        computed: {
+            footer_elements() {
+                return this.$store.state.Footer.elements;
+            }
+        },
+        watch: {
+            footer_elements(to) {
+                if(to.length === 0) EventBus.trigger("footerResize", false);
+                else EventBus.trigger("footerResize", true);
+            }
         }
     }
-}
 </script>
 
 <style scoped>

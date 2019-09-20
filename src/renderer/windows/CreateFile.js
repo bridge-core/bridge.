@@ -165,7 +165,7 @@ export default class CreateFileWindow extends ContentWindow {
                 type: "button",
                 text: "Create!",
                 color: "success",
-                is_rounded: true,
+                is_rounded: false,
                 is_disabled: false,
                 action: this.createFile
             }

@@ -12,7 +12,7 @@ export default class InputWindow {
             {
                 type: "button",
                 text: "Cancel",
-                is_rounded: true,
+                is_rounded: false,
                 action: () => {
                     this.close();
                 }
@@ -21,7 +21,7 @@ export default class InputWindow {
                 type: "button",
                 text: "Confirm",
                 color: "success",
-                is_rounded: true,
+                is_rounded: false,
                 action: () => {
                     this.close();
                     if(typeof onConfirm == "function") onConfirm(this.input + (expand_text !== undefined ? expand_text : ""));

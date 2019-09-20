@@ -41,7 +41,7 @@ export default class EditMoLangWindow extends ContentWindow {
                     type: "button",
                     text: "Edit!",
                     color: "success",
-                    is_rounded: true,
+                    is_rounded: false,
                     action: () => {
                         TabSystem.getHistory().add(new JSONAction("edit-data", node_context, node_context.data));
                         node_context.edit(this.input);

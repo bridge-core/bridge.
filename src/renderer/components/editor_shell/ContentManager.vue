@@ -26,25 +26,25 @@
             FileManager
         },
         created() {
-            window.addEventListener("resize", this.on_resize);
+            window.addEventListener("resize", this.onResize);
             EventBus.on("updateTabUI", this.setOpenFiles);
             EventBus.on("updateSelectedTab", this.updateSelectedTab);
         },
         destroyed() {
-            window.removeEventListener("resize", this.on_resize);
+            window.removeEventListener("resize", this.onResize);
             EventBus.off("updateTabUI", this.setOpenFiles);
             EventBus.off("updateSelectedTab", this.updateSelectedTab);
         },
         data() {
             return {
-                available_height: window.innerHeight - 94,
+                available_height: window.innerHeight - 98,
                 open_files: TabSystem.filtered(),
                 selected_tab: TabSystem.selected
             };
         },
         methods: {
-            on_resize() {
-                this.available_height = window.innerHeight - 94;
+            onResize() {
+                this.available_height = window.innerHeight - this.base_height;
             },
             setOpenFiles() {
                 this.open_files = TabSystem.filtered();
@@ -61,6 +61,9 @@
             // selected_tab() {
             //     return this.$store.state.TabSystem.selected_tab;
             // },
+            base_height() {
+                return 98 + 22 * this.footer_visible;
+            },
             selected_project() {
                 return this.$store.state.Explorer.project.explorer;
             },
@@ -69,9 +72,8 @@
             }
         },
         watch: {
-            footer_visible(new_val) {
-                if(new_val) this.available_height -= 24;
-                else this.available_height += 24;
+            base_height(to) {
+                this.available_height = window.innerHeight - to;
             }
         }
     }

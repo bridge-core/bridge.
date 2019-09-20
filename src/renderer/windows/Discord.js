@@ -9,7 +9,7 @@ export default class DiscordWindow {
             },
             {
                 type: "button",
-                text: "Dismiss",
+                text: "Later",
                 action: () => {
                     this.close();
                     if(typeof on_cancel == "function") on_cancel();
@@ -51,7 +51,6 @@ export default class DiscordWindow {
             }, is_visible: true, id: this.id,
             onClose: () => this.close()
         });
-        this.update(opts);
     }
 
     update(opts) {

@@ -115,7 +115,7 @@ export default class CreateProjectWindow extends ContentWindow {
                 text: "Create!",
                 color: "success",
                 is_disabled: true,
-                is_rounded: true,
+                is_rounded: false,
                 action: () => this.createProject(create_bp, cb)
             }
         ];
