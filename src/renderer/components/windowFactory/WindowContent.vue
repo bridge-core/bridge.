@@ -80,7 +80,7 @@
         :text="content.is_flat"
         :disabled="content.is_disabled"
     >
-        <v-icon v-if="content.icon" :color="content.text_color">{{ content.icon }}</v-icon>
+        <v-icon v-if="content.icon" class="click-action" :color="content.text_color">{{ content.icon }}</v-icon>
         <span :class="text_color">{{ content.text }}</span>
     </v-btn>
     <v-btn 

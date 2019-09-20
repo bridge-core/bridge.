@@ -29,7 +29,8 @@ export default class UpdateWindow extends ContentWindow {
                 },
                 {
                     type: "button",
-                    text: "Download now!",
+                    icon: "mdi-download",
+                    text: "Download!",
                     is_rounded: false,
                     color: "success",
                     action: () => {

@@ -67,7 +67,23 @@ export default class CreditsWindow extends TabWindow {
                 }]),
                 {
                     type: "divider"
-                }
+                },
+                new Creator("Contributor", "CodeHZ", [{
+                    text: "mdi-github-circle",
+                    link: "https://github.com/codehz"
+                }]),
+                {
+                    type: "divider"
+                },
+                new Creator("Contributor", "TheDestruc7i0n", [{
+                    color: "info",
+                    text: "mdi-twitter",
+                    link: "https://twitter.com/TheDestruc7i0n"
+                },
+                {
+                    text: "mdi-github-circle",
+                    link: "https://github.com/destruc7i0n"
+                }])
             ]
         });
         this.addTab({
@@ -94,7 +110,8 @@ export default class CreditsWindow extends TabWindow {
             content: [
                 new Link("bridge. README: ", "GitHub", "https://github.com/solvedDev/bridge./"),
                 new Link("Bedrock ", "Documentation", "https://bedrock.dev/"),
-                new Link("", "Vanilla Behavior Pack", "https://aka.ms/MinecraftBetaBehaviors/")
+                new Link("", "Vanilla Behavior Pack", "https://aka.ms/MinecraftBetaBehaviors/"),
+                new Link("", "Vanilla Resource Pack", "http://aka.ms/MinecraftBetaResources")
             ]
         });
 
