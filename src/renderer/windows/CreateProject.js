@@ -26,7 +26,7 @@ export default class CreateProjectWindow extends ContentWindow {
                 key: uuidv4(),
                 has_focus: true,
                 text: `${create_bp ? "Project" : "Resource Pack"} Name`,
-                color: "success",
+                color: "primary",
 
                 action: {
                     enter: () => {
@@ -43,7 +43,7 @@ export default class CreateProjectWindow extends ContentWindow {
                                 actions: this.actions
                             });
                         } else {
-                            this.content[0].color = "success";
+                            this.content[0].color = "primary";
                             this.content[2].color = "grey";
                             this.content[2].text = DEFAULT_TEXT;
                             if(this.des !== "") this.actions[1].is_disabled = false;
@@ -60,7 +60,7 @@ export default class CreateProjectWindow extends ContentWindow {
                 type: "input",
                 key: uuidv4(),
                 text: `${create_bp ? "Project" : "Resource Pack"} Description`,
-                color: "success",
+                color: "primary",
 
                 action: {
                     enter: () => {
@@ -77,7 +77,7 @@ export default class CreateProjectWindow extends ContentWindow {
                                 actions: this.actions
                             });
                         } else {
-                            this.content[1].color = "success";
+                            this.content[1].color = "primary";
                             this.content[2].color = "grey";
                             this.content[2].text = DEFAULT_TEXT;
                             if(this.input !== "") this.actions[1].is_disabled = false;
@@ -99,7 +99,7 @@ export default class CreateProjectWindow extends ContentWindow {
             },
             (create_bp ? {
                 type: "switch",
-                color: "success",
+                color: "primary",
                 text: "Register client data",
                 action: (val) => {
                     this.client_data = val;
@@ -113,7 +113,7 @@ export default class CreateProjectWindow extends ContentWindow {
             {
                 type: "button",
                 text: "Create!",
-                color: "success",
+                color: "primary",
                 is_disabled: true,
                 is_rounded: false,
                 action: () => this.createProject(create_bp, cb)

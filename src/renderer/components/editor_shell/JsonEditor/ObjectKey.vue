@@ -62,6 +62,7 @@
                 :as_block="false"
                 :meta="node_context.meta"
                 :node_context="node_context"
+                :is_immutable="is_immutable"
 
                 @click="(event) => $emit('mainClick', event)"
                 @dblclick.native="(event) => $store.state.Settings.cade_node_click ? $emit('arrowClick', event) : undefined"

@@ -52,6 +52,7 @@ export default class AddSnippetWindow extends ContentWindow {
             },
             {
                 type: "switch",
+                color: "primary",
                 text: "Force Default Scope",
                 action: (val) => this.data.force_scope = val
             },
@@ -68,7 +69,7 @@ export default class AddSnippetWindow extends ContentWindow {
             },
             {
                 type: "button",
-                color: "success",
+                color: "primary",
                 is_rounded: false,
                 text: "Add!",
                 action: () => {

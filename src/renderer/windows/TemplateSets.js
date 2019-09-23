@@ -127,7 +127,7 @@ class TemplateSetsWindow extends TabWindow {
             {
                 type: "button",
                 is_rounded: false,
-                color: "success",
+                color: "primary",
                 text: "Create!",
 
                 action: () => {

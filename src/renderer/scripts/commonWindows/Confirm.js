@@ -19,7 +19,7 @@ export default class ConfirmWindow {
             {
                 type: "button",
                 text: confirm_text || "Confirm",
-                color: "success",
+                color: "primary",
                 is_rounded: false,
                 action: () => {
                     this.close();

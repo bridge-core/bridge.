@@ -32,7 +32,7 @@ export default class UpdateWindow extends ContentWindow {
                     icon: "mdi-download",
                     text: "Download!",
                     is_rounded: false,
-                    color: "success",
+                    color: "primary",
                     action: () => {
                         this.close();
                         shell.openExternal("https://github.com/solvedDev/bridge./releases/latest");

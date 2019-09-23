@@ -38,12 +38,12 @@
                         <template v-slot:activator="{ on }">
                             <v-btn
                                 v-on="on"
-                                :color="btn.color || 'info'"
+                                :color="btn.color"
                                 style="min-width: 30px; padding: 0;"
                                 small
                                 @click="btn.action"
                             >
-                                <v-icon color="white">{{ btn.icon }}</v-icon>
+                                <v-icon :color="btn.color ? 'white' : undefined">{{ btn.icon }}</v-icon>
                             </v-btn>
                         </template>
 
@@ -144,11 +144,13 @@ export default {
                 {
                     title: "Move Down",
                     icon: "mdi-chevron-down",
+                    color: "secondary",
                     action: () => TabSystem.moveCurrentDown()
                 },
                 {
                     title: "Move Up",
                     icon: "mdi-chevron-up",
+                    color: "secondary",
                     action: () => TabSystem.moveCurrentUp()
                 },
                 {

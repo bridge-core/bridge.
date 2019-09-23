@@ -321,7 +321,7 @@ export default class JSONTree {
         this.meta = Object.assign(this.meta, META);
 
         const { is_color } = META;
-        if(is_color && this.data === "") this.edit("#4CAF50");
+        if(is_color && this.data === "") this.edit("#1778D2");
     }
     openNode(val=true) {
         this.updateUUID();

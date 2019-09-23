@@ -1,6 +1,6 @@
 {
     "icon": "mdi-google-controller",
-    "title": "Animation Controller",
+    "title": "Client Animation Controller",
     "extension": "json",
     "path": "animation_controllers/",
     

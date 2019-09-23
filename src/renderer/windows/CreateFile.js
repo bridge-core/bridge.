@@ -27,7 +27,7 @@ class FileContent {
                     text: "Name",
                     input: this.curr_input,
                     has_focus: true,
-                    color: "success",
+                    color: "primary",
                     key: uuidv4(),
                     action: {
                         enter: () => {
@@ -47,7 +47,7 @@ class FileContent {
 
                                 this.parent.update({ content: this.content, actions: this.parent.actions });
                             } else if(this.parent.actions[1].is_disabled) {
-                                this.input.content[0].color = "success";
+                                this.input.content[0].color = "primary";
                                 this.input.content[0].key = uuidv4();
                                 this.input.content[0].input = this.curr_input;
                                 this.parent.actions[1].is_disabled = false;
@@ -140,10 +140,11 @@ export default class CreateFileWindow extends ContentWindow {
                 is_visible: false,
                 is_persistent: false
             },
-            sidebar: FILE_DATA.map(({ icon, title }, index) => {
+            sidebar: FILE_DATA.map(({ icon, title, rp_definition }, index) => {
                 return {
                     icon,
                     title,
+                    rp_definition,
                     opacity: 0.25,
                     action: () => {
                         this.select(index)
@@ -168,7 +169,7 @@ export default class CreateFileWindow extends ContentWindow {
             {
                 type: "button",
                 text: "Create!",
-                color: "success",
+                color: "primary",
                 is_rounded: false,
                 is_disabled: false,
                 action: this.createFile
@@ -191,7 +192,7 @@ export default class CreateFileWindow extends ContentWindow {
     async select(id) {
         this.current_content = this.contents[id];
 
-        this.win_def.sidebar.forEach(e => { e.opacity = 0.25; e.is_selected = false; });
+        this.win_def.sidebar.forEach(e => { e.opacity = e.rp_definition ? 0.25 : 0.5; e.is_selected = false; });
         this.win_def.sidebar[id].opacity = 1;
         this.win_def.sidebar[id].is_selected = true;
         this.win_def.options.is_visible = true;

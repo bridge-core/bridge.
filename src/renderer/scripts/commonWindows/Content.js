@@ -5,7 +5,7 @@ export default class ContentWindow {
         this.id = `main.core.windows.content_window.${add_id}${Math.random()}`;
         this.win_def = opts;
 
-        Store.commit("addPluginWindow", { is_visible: true, ...opts, id: this.id, onClose: () => this.close() });
+        Store.commit("addPluginWindow", { is_visible: true, onClose: () => this.close(), ...opts, id: this.id });
     }
 
     update(opts=this.win_def) {

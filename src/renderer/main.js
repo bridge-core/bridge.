@@ -13,22 +13,24 @@ if (!process.env.IS_WEB) Vue.use(require("vue-electron"));
 Vue.config.productionTip = false;
 
 export default new Vue({
-  components: { App },
-  vuetify: new Vuetify({
-    options: {
-      customProperties: true
-    },
-    theme: {
-      themes: {
-        dark: {
-          primary: "#4caf50"    
-        },
-        light: {
-          primary: "#4caf50"    
+    components: { App },
+    vuetify: new Vuetify({
+        theme: {
+            options: {
+                customProperties: true
+            },
+            themes: {
+                dark: {
+                    primary: "#4caf50",
+                    secondary: "#1778D2"
+                },
+                light: {
+                    primary: "#1778D2",
+                    secondary: "#1778D2"
+                }
+            }
         }
-      }
-    }
-  }),
-  store,
-  template: "<App/>"
+    }),
+    store,
+    template: "<App/>"
 }).$mount("#app");

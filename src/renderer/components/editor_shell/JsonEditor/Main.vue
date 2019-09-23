@@ -45,6 +45,7 @@
                 :data="value_data"
                 :meta="render_object.meta"
                 :node_context="render_object"
+                :is_immutable="is_immutable"
                 @click="attrClick"
             />
         </div>

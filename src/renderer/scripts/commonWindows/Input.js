@@ -20,7 +20,7 @@ export default class InputWindow {
             {
                 type: "button",
                 text: "Confirm",
-                color: "success",
+                color: "primary",
                 is_rounded: false,
                 action: () => {
                     this.close();

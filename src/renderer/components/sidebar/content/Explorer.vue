@@ -46,7 +46,7 @@
         >
             <p style="word-break: break-word;">It doesn't look like your current behavior pack has a corresponding resource pack registered inside its manifest file.</p>
 
-            <v-btn color="success" @click="createRP" style="margin-right: 4px;">Create</v-btn><v-btn color="info" @click="linkRP">Link</v-btn>
+            <v-btn color="primary" @click="createRP" style="margin-right: 4px;">Create</v-btn><v-btn color="info" @click="linkRP">Link</v-btn>
         </div>
         <div 
             v-else

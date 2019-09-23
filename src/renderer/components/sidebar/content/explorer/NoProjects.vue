@@ -7,7 +7,7 @@
         <v-divider/>
         <p style="word-break: break-word;">It looks like you do not have any projects inside the "development_behavior_packs" folder yet.</p>
         
-        <v-btn color="success" @click="createBP">Create</v-btn>
+        <v-btn color="primary" @click="createBP">Create</v-btn>
         <v-divider/>
     </div>
 </template>

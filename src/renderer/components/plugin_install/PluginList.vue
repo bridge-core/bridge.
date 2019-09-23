@@ -23,7 +23,7 @@
                         <v-btn v-if="show_uninstall" @click.stop.native="uninstall(plugin.id)" color="error" small>
                             Uninstall
                         </v-btn>
-                        <v-btn v-else @click.stop.native="install(plugin.id)" color="success" small>
+                        <v-btn v-else @click.stop.native="install(plugin.id)" color="primary" small>
                             Install
                         </v-btn>
                     </v-list-item-action>

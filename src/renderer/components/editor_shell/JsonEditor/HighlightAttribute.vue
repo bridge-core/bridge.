@@ -12,14 +12,14 @@
         >{{ text }}</span>
 
         <v-tooltip
-            v-if="meta.is_molang && text !== ''"
-            color="success"
+            v-if="meta.is_molang && text !== '' && !is_immutable"
+            color="primary"
             right
         >
             <template v-slot:activator="{ on }">
                 <v-btn
                     v-on="on"
-                    color="success"
+                    color="primary"
                     style="margin: 0; margin-left: 4px; height: 20px; width: 20px;"
                     text
                     small
@@ -36,6 +36,7 @@
         <color-picker
             v-if="is_color"
             :node_context="node_context"
+            :is_immutable="is_immutable"
         />
     </span>
 </template>
@@ -56,6 +57,10 @@
             node_context: Object,
             as_block: {
                 default: true,
+                type: Boolean
+            },
+            is_immutable: {
+                default: false,
                 type: Boolean
             }
         },

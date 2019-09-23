@@ -161,10 +161,10 @@
     margin: 0;
   }
 
-  .json-input-suggestions .v-list-item {
+  .json-input-suggestions .v-list-item, .small-list .v-list-item {
     min-height: 28px !important;
   }
-  .json-input-suggestions .v-list-item__content {
+  .json-input-suggestions .v-list-item__content, .small-list .v-list-item__content {
     padding: 4px 0 !important;
     
   }

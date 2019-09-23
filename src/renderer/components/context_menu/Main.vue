@@ -10,14 +10,14 @@
                 :position-y="y_position"
                 absolute
             >
-                <v-list class="context-menu">
+                <v-list class="small-list">
                     <v-list-item
                         v-for="(item, i) in items"
                         :key="`${y_position}.${x_position}.${i}`"
                         @click="item.action"
                         dense
                     >
-                        <v-list-item-action class="context-action"> {{ item.title }} </v-list-item-action>
+                        <v-list-item-action class="context-menu-action"> {{ item.title }} </v-list-item-action>
                     </v-list-item>
                 </v-list>
             </v-menu>
@@ -56,7 +56,7 @@
 </script>
 
 <style>
-    .context-menu .context-action {
+    .small-list .context-menu-action {
         margin: 0 !important;
     }
 </style>

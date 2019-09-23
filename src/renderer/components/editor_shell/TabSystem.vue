@@ -110,8 +110,8 @@ export default {
     }
     .tab.selected {
         opacity: 1;
-        border-bottom: 2px solid #4caf50 !important;
-        color: #4caf50;
+        border-bottom: 2px solid var(--v-primary-base) !important;
+        color: var(--v-primary-base);
     }
     *::-webkit-scrollbar-track {
         border-bottom-left-radius: 2px;

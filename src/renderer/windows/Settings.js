@@ -137,7 +137,7 @@ export default class SettingsWindow extends TabWindow {
                     text: "\nExperimental"
                 },
                 new ReactiveSwitch(this, "bridge_predictions", {
-                    color: "light-green",
+                    color: "primary",
                     text: "bridge. Predictions",
                     key: `settings.editor.tab.bridge_predictions.${Math.random()}`
                 }),
@@ -151,37 +151,37 @@ export default class SettingsWindow extends TabWindow {
                     text: "\nGeneral"
                 },
                 new ReactiveSwitch(this, "use_tabs", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Use Tabs",
                     key: `settings.editor.tab.tabs.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "line_wraps", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Word Wrap",
                     key: `settings.editor.tab.line_wraps.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "disable_node_dragging", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Disable Node Dragging",
                     key: `settings.editor.tab.disable_node_dragging.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "focus_json_inputs", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Auto-Focus Inputs",
                     key: `settings.editor.tab.focus_json_inputs.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "auto_scroll_json", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Auto-Scroll",
                     key: `settings.editor.tab.focus_json_inputs.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "cade_node_click", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Only Select Node On Click",
                     key: `settings.editor.tab.cade_node_click.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "open_all_nodes", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Open All Nodes",
                     key: `settings.editor.tab.open_all_nodes.${Math.random()}`
                 }),
@@ -191,12 +191,12 @@ export default class SettingsWindow extends TabWindow {
                     text: "\nAuto-Completions"
                 },
                 new ReactiveSwitch(this, "auto_completions", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Provide Auto-Completions",
                     key: `settings.editor.tab.auto_completions.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "auto_fill_inputs", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Auto Fill Inputs",
                     key: `settings.editor.tab.auto_fill_inputs.${Math.random()}`
                 }),
@@ -210,12 +210,12 @@ export default class SettingsWindow extends TabWindow {
                     key: `settings.editor.tab.when_error.${Math.random()}`
                 }, () => ProblemIterator.repeatLast()),
                 new ReactiveSwitch(this, "error_icon_indicator", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Error Icon Indicator",
                     key: `settings.editor.tab.error_icon_indicator.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "error_auto_fix", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Error Auto-fix",
                     key: `settings.editor.tab.error_auto_fix.${Math.random()}`
                 })
@@ -241,7 +241,7 @@ export default class SettingsWindow extends TabWindow {
                 },
                 {
                     type: "icon-button",
-                    color: "success",
+                    color: "primary",
                     text: "mdi-plus",
                     only_icon: true,
                     action: () => new AddSnippetWindow(this)
@@ -299,17 +299,17 @@ export default class SettingsWindow extends TabWindow {
             },
             content: [
                 new ReactiveSwitch(this, "is_dark_mode", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Dark Mode",
                     key: `settings.appearance.tab.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "inversed_arrows", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Inverse Arrows",
                     key: `settings.appearance.tab.arrows.${Math.random()}`
                 }),
                 new ReactiveSwitch(this, "hide_data_next_to_nodes", {
-                    color: "light-green",
+                    color: "primary",
                     text: "Hide Data Next To Nodes",
                     key: `settings.appearance.tab.hide_data_next_to_nodes.${Math.random()}`
                 })

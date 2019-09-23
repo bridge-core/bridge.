@@ -20,7 +20,7 @@ export default class LinkRPWindow extends ContentWindow {
                 {
                     type: "select",
                     input: PROJECTS[0],
-                    color: "success",
+                    color: "primary",
                     options: PROJECTS,
     
                     action: (val) => {
@@ -35,7 +35,7 @@ export default class LinkRPWindow extends ContentWindow {
                 {
                     type: "button",
                     text: "Link!",
-                    color: "success",
+                    color: "primary",
                     is_rounded: false,
                     action: () => {
                         this.close();

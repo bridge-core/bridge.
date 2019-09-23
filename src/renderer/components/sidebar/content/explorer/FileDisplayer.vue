@@ -171,7 +171,7 @@
                             }
                         },
                         {
-                            title: "File Masks",
+                            title: "File Layers",
                             action: () => {
                                 new ManageFileMasks(file_path);
                             }

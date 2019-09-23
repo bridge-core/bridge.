@@ -6,6 +6,7 @@ import JSONTree from "../scripts/editor/JsonTree";
 import TabSystem from "../scripts/TabSystem";
 import path from "path";
 import { uuid } from "../scripts/utilities/useAttr";
+import { readJSON } from "../scripts/utilities/JsonFS";
 
 class ReactiveListEntry {
     constructor(key, channel, mask, parent) {
@@ -90,7 +91,36 @@ class ReactiveList {
                     }
                 ]
             });
-        } 
+
+            res.push({
+                type: "card",
+                is_tiled: true,
+                elevation: 0,
+                below_content: [
+                    {
+                        text: "COMPOSED_FILE"
+                    },
+                    {
+                        type: "space"
+                    },
+                    {
+                        type: "icon-button",
+                        text: "mdi-eye",
+                        color: "primary",
+                        only_icon: true,
+                        action: () => {
+                            TabSystem.add({
+                                content: this.parent.composed_file,
+                                is_immutable: true,
+                                file_path: path.join(CURRENT.PROJECT_PATH, `entities/${uuid()}.json`),
+                                file_name: "COMPOSED_FILE"
+                            });
+                            this.parent.close();
+                        }
+                    }
+                ]
+            });
+        }
 
         return res;
     }
@@ -104,7 +134,7 @@ class ReactiveList {
 
 export default class ManageFileMasks extends CommonWindow {
     constructor(file_path) {     
-        super({ options: { is_persistent: false }, display_name: "File Masks" }, "bridge.core.manage_masks.");
+        super({ options: { is_persistent: false }, display_name: "File Layers" }, "bridge.core.manage_file_masks.");
         this.file_path = file_path;
         this.init(file_path);
     }
@@ -118,10 +148,11 @@ export default class ManageFileMasks extends CommonWindow {
                 this.base_layer = cache_content;
             }
         } catch(e) {}
+        this.composed_file = await readJSON(file_path);
 
         this.content = [
             {
-                text: "File Masks allow bridge.'s custom syntax to seamlessly interact with your files. For bridge., files consist of multiple layers which get composed into a single file upon saving. You can view and manage the different file layers inside of this window.\n\n"
+                text: "For bridge., files consist of multiple layers which get composed into a single file upon saving. This enables custom syntax to seamlessly interact with your files. You can view and manage the different file layers inside of this window.\n\n"
             },
             new ReactiveList(this).get()
         ];

@@ -63,7 +63,7 @@
 
                             <v-tooltip color="primary" right v-if="plugin.id && !uninstalled_plugins().includes(plugin.id)">
                                 <template v-slot:activator="{ on }">
-                                    <v-icon v-on="on" color="success">
+                                    <v-icon v-on="on" color="primary">
                                         mdi-check
                                     </v-icon>
                                 </template>

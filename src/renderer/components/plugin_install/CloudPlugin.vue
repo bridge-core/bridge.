@@ -18,7 +18,7 @@
                     </template>
                     <span>Download</span>
                 </v-tooltip>
-                <v-btn @click.stop="download()" :disabled="!is_compatible" :loading="loading" text rounded color="success" v-else>
+                <v-btn @click.stop="download()" :disabled="!is_compatible" :loading="loading" text rounded color="primary" v-else>
                     Update
                 </v-btn>
                 
