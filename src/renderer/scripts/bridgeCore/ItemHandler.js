@@ -38,7 +38,7 @@ export default async function ItemHandler({ file_uuid, data }) {
     //SAVE ADDITIONAL FILES
     await Promise.all([
         JSONFileMasks.apply(player_file_path),
-        JSONFileMasks.generateFromMask(a_c_file_path),
+        JSONFileMasks.generateFromMask(a_c_file_path, [ "default/on_entry" ]),
         JSONFileMasks.saveMasks()
     ]);
 }

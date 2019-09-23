@@ -37,11 +37,31 @@
         "$if": "$dynamic.bridge_core.is_active",
 
         "$default": {
-            "triggers": {
+            "on_equip": {
+                "$dynamic.list.next_index": { "@meta": { "is_value": true }, "@import.value": "$dynamic.cache.entity.events" }
+            },
+            "on_unequip": {
                 "$dynamic.list.next_index": { "@meta": { "is_value": true }, "@import.value": "$dynamic.cache.entity.events" }
             },
             "execute_commands": {
                 "$dynamic.list.next_index": { "@meta": { "is_value": true } }
+            },
+
+            "$dynamic_template.is_equipped": {
+                "$key": "$dynamic.setting.target_version",
+                "$default": "$entity.components",
+                "$fallback": "$entity.components",
+
+                "Stable": "$entity.components",
+                "Beta": "$entity.components and $entity.beta_components"
+            },
+            "$dynamic_template.is_not_equipped": {
+                "$key": "$dynamic.setting.target_version",
+                "$default": "$entity.components",
+                "$fallback": "$entity.components",
+
+                "Stable": "$entity.components",
+                "Beta": "$entity.components and $entity.beta_components"
             }
         }
     }

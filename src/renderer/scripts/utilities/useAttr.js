@@ -1,4 +1,4 @@
-import detachObj, { detachMerge } from "../detachObj";
+import detachObj, { detachMerge } from "../mergeUtils";
 import uuidv4 from "uuid/v4";
 
 function internalUse(obj, path, del=true) {

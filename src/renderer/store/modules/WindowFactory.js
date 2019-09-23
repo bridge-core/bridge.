@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Store from "../index";
-import detachObj from "../../scripts/detachObj";
+import detachObj from "../../scripts/mergeUtils";
 const state = {
     elements: []
 }

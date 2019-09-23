@@ -1,4 +1,4 @@
-import detachObj, { detachMerge, overwriteMerge } from "../detachObj";
+import detachObj, { detachMerge, maskChannelMerge, maskMerge } from "../mergeUtils";
 import OmegaCache from "./OmegaCache";
 import { readJSON, writeJSON } from "../utilities/JsonFS";
 import path from "path";
@@ -14,7 +14,7 @@ export class JSONMask {
     set(channel, mask_data, merge_arrays=[]) {
         if(this.data[channel] === undefined) return this.data[channel] = mask_data;
         if(merge_arrays.length === 0) return this.data[channel] = detachObj(this.data[channel], mask_data);
-        return this.data[channel] = overwriteMerge([this.data[channel], mask_data], merge_arrays);
+        return this.data[channel] = maskChannelMerge(this.data[channel], mask_data, merge_arrays);
     }
     reset(channel) {
         if(!channel) this.data = {};
@@ -75,15 +75,16 @@ export class JSONFileMasks {
             return writeJSON(file_path, data, true, file_version);
         } catch(e) { return console.log(e); }
     }
-    static async applyOnData(file_path, data) {
-        return detachMerge(data, ...(await this.get(file_path)).all());
+    static async applyOnData(file_path, data, overwrite_arrays) {
+        return maskMerge([data, ...(await this.get(file_path)).all()], overwrite_arrays);
     }
 
-    static async generateFromMask(file_path) {
+    static async generateFromMask(file_path, overwrite_arrays) {
         return writeJSON(
             file_path,
-            detachMerge(
-                ...(await this.get(file_path)).all()
+            maskMerge(
+                (await this.get(file_path)).all(),
+                overwrite_arrays
             ),
             true
         );

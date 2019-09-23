@@ -1,5 +1,5 @@
 import { Tokenizer } from "./Tokenizer";
-import { detachMerge } from "../detachObj";
+import { detachMerge } from "../mergeUtils";
 import { LIB } from "./Provider";
 
 const OPS = [ "+", "and", "asValue" ];

@@ -3,7 +3,7 @@ import deepmerge from "deepmerge";
 import VersionMap from "../editor/VersionMap";
 import Store from "../../store/index";
 import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from "./Dynamic";
-import { detachMerge as detachObj } from "../detachObj";
+import { detachMerge as detachObj } from "../mergeUtils";
 import ComponentProvider from "./Components";
 import Assert from "../plugins/PluginAssert";
 import FileType from "../editor/FileType";

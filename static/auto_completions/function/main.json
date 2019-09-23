@@ -276,6 +276,16 @@
     "stopsound": {
         "$function.general.target_selector": {}
     },
+    "summon": {
+        "$function.general.entity_identifier": {
+            "$function.general.location": {
+                "$dynamic.cache.entity.events": {}
+            },
+            "named": { 
+                "$placeholder": "$function.general.location"
+            }
+        }
+    },
     "tag": {
         "$function.general.target_selector": {
             "add": {},

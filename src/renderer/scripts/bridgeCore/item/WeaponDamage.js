@@ -1,3 +1,5 @@
+import { PUSH_ONCE } from "../../mergeUtils";
+
 export default function WeaponDamage({ PLAYER_MASK, A_C_MASK, component, file_uuid, item_id }) {
     A_C_MASK.set(file_uuid, {
         format_version: "1.10.0",
@@ -12,17 +14,21 @@ export default function WeaponDamage({ PLAYER_MASK, A_C_MASK, component, file_uu
                     },
                     ["holds_" + item_id]: {
                         transitions: [ { default: `query.get_equipped_item_name(0, 0) != '${item_id}'` } ],
-                        on_exit: [
-                            "@s bridge:on_unequipped_" + file_uuid
-                        ],
                         on_entry: [
                             "@s bridge:on_equipped_" + file_uuid
+                        ],
+                        on_exit: [
+                            "@s bridge:on_unequipped_" + file_uuid
                         ]
                     }
                 }
             }
         }
-    }, [ "on_entry" ]);
+    }, {
+        ["holds_" + item_id + "/on_exit"]: PUSH_ONCE,
+        ["holds_" + item_id + "/on_entry"]: PUSH_ONCE
+    });
+
     PLAYER_MASK.set("item_components", {
         "minecraft:entity": {
             "description": {
