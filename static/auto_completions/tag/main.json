@@ -1,0 +1,10 @@
+{
+    "bridge:tag": {
+        "description": {
+            "extends": {
+                "$dynamic.list.next_index": "$general.file_identifier and $general.entity_identifier"
+            }
+        },
+        "$load": "$entity.main.minecraft:entity"
+    }
+}

@@ -37,6 +37,10 @@ export default class LightningCache {
 
         let defs = await FileType.getLightningCacheDefs(file_path);
         if(defs === undefined) return;
+        if(defs.as !== undefined) {
+            type = defs.as;
+            defs = defs.definitions;
+        }
         if(this.global_cache === undefined) {
             try {
                 this.global_cache = await readJSON(this.l_cache_path);
@@ -94,14 +98,23 @@ export default class LightningCache {
         this.compiled_cache = undefined;
         await writeJSON(this.l_cache_path, this.global_cache, true);
     }
-    static async load() {
-        if(this.global_cache !== undefined) return this.global_cache;
-        try {
-            return await readJSON(this.l_cache_path);
-        } catch(err) {
-            return {};
+    static async load(file_path, type) {
+        if(file_path === undefined) {
+            if(this.global_cache !== undefined) return this.global_cache;
+            try {
+                return await readJSON(this.l_cache_path);
+            } catch(err) {
+                return {};
+            }
+        } else {
+            if(type === undefined) type = FileType.get(file_path);
+            if(this.global_cache !== undefined) return this.global_cache[type][OmegaCache.toCachePath(file_path, false)] || {};
+            try {
+                return (await readJSON(this.l_cache_path))[type][OmegaCache.toCachePath(file_path, false)] || {};
+            } catch(err) {
+                return {};
+            }
         }
-        
     }
     static loadSync() {
         if(this.global_cache !== undefined) return this.global_cache;

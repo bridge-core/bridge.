@@ -47,6 +47,8 @@
     "trade_table/main",
     "trade_table/general",
 
+    "tag/main",
+
     "spawn_rule/main",
     "spawn_rule/main_beta",
     "spawn_rule/general",

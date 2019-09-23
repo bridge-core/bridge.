@@ -34,6 +34,7 @@
     import { ipcRenderer } from "electron";
     import FileSystem from "../../../../scripts/FileSystem";
     import LoadingWindow from "../../../../windows/LoadingWindow";
+    import ManageFileMasks from "../../../../windows/FileMasks";
     import uuidv4 from "uuid/v4";
     import ConfirmWindow from '../../../../scripts/commonWindows/Confirm';
     import InputWindow from '../../../../scripts/commonWindows/Input';
@@ -167,6 +168,12 @@
                                         if(closed) FileSystem.open(new_path);
                                     });
                                 });
+                            }
+                        },
+                        {
+                            title: "File Masks",
+                            action: () => {
+                                new ManageFileMasks(file_path);
                             }
                         }
                     ]

@@ -3,8 +3,6 @@ import LightningCache from "./LightningCache";
 import fs from "fs";
 import { CURRENT } from "../constants";
 import path from "path";
-import InformationWindow from "../commonWindows/Information";
-
 
 export default class JumpToDefinition {
     static data = undefined;
@@ -61,11 +59,11 @@ export default class JumpToDefinition {
                     try {
                         if(file.startsWith("BP")) {
                             file_path = path.join(CURRENT.PROJECT_PATH, file.replace("BP", ""));
-                        } 
-                        else if(file.startsWith("RP")) {
+                        } else if(file.startsWith("RP")) {
                             file_path = path.join(CURRENT.RP_PATH, file.replace("RP", ""));
-                        } 
-                        else console.error("Unexpected cache file start: " + file);
+                        } else {
+                            console.error("Unexpected cache file start: " + file);
+                        }
                     } catch(e) { /*CACHE WAS PREVIOUSLY BROKEN - PREVENTS ERROR WITH PATH COMPOSITION*/ }
                     
                     if(!fetch_all) return [ file_path ];

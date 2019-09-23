@@ -1,0 +1,19 @@
+{
+    "icon": "mdi-tag",
+    "title": "Tag",
+    "extension": "json",
+    "path": "tags/",
+    "templates": {
+        "Blank Tag": {
+            "bridge:tag": {
+                "description": {
+                    "identifier": "",
+                    "extends": {}
+                },
+                "component_groups": {},
+                "components": {},
+                "events": {}
+            }
+        }
+    }
+}

@@ -47,7 +47,7 @@
         </v-flex>
     </v-layout>
     <!-- CARDS -->
-    <v-card v-else-if="content.type == 'card'">
+    <v-card v-else-if="content.type == 'card'" :tile="content.is_tiled" :elevation="content.elevation">
         <v-card-title v-if="content.above_content">
             <window-content v-for="(a_c) in content.above_content" :key="key(a_c)" :content="a_c"/>
         </v-card-title>

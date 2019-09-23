@@ -51,6 +51,7 @@ class TabSystem {
         
         tab.file_path = tab.file_path.replace(/\//g, "\\");
         this.projects[this.project].unshift({
+            file_name: path.basename(tab.file_path),
             ...tab,
             uuid: `${this.project}-${uuid()}`,
             file_navigation: "global",
@@ -314,6 +315,15 @@ class TabSystem {
         }
         if(current.file_uuid === undefined) current.file_uuid = uuid();
         
+        let data = await this.transformContent(PluginEnv.trigger("bridge:saveFile", { 
+            ...current,
+            file_path: current.file_path.replace(/\\/g, "/"),
+            content: current.content instanceof JSONTree ? 
+                new JSONTree("global").buildFromObject(current.content) :
+                current.content,
+            file_extension: ext
+        }).content, current.raw_content);
+
         if(updateCache && OmegaCache.mayBeCached(current.file_path)) {
             await Promise.all([
                 OmegaCache.save(current.file_path, {
@@ -326,20 +336,13 @@ class TabSystem {
             ]);
         }
 
-        return await this.transformContent(PluginEnv.trigger("bridge:saveFile", { 
-            ...current,
-            file_path: current.file_path.replace(/\\/g, "/"),
-            content: current.content instanceof JSONTree ? 
-                new JSONTree("global").buildFromObject(current.content) :
-                current.content,
-            file_extension: ext
-        }).content, current.raw_content);
+        return data;
     }
     async saveCurrent(fsMethod="basicSave", updateCache=true) {
         let win = new LoadingWindow("save-file").show();
         PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
-        if(current === undefined || current.is_invalid) return win.close();
+        if(current === undefined || current.is_invalid || current.is_immutable) return win.close();
 
         if(current.file_version === undefined) current.file_version = 0;
         else current.file_version++;

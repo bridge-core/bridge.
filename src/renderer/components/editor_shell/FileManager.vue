@@ -10,9 +10,10 @@
             :compiled="file.is_compiled"
             :tab_id="tab_id"
             :object="json_object"
-            :available_height="available_height - 60"
+            :available_height="available_height - 6"
             :uuid="use_uuid"
             :current_file_path="file.file_path"
+            :is_immutable="file.is_immutable"
         />
         <span v-else>
             <codemirror

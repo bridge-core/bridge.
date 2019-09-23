@@ -13,6 +13,7 @@ import OmegaCache from "./editor/OmegaCache";
 import { booleanAnyOfTrigger } from "./plugins/EventTriggers";
 import FileType from "./editor/FileType";
 import ConfirmWindow from "./commonWindows/Confirm";
+import InformationWindow from "./commonWindows/Information";
 
 document.addEventListener("dragover", event => {
     event.preventDefault();
@@ -60,6 +61,7 @@ class FileSystem {
         });
     }
     basicSave(path, content, update=false, open=true) {
+        if(path === undefined) new InformationWindow("ERROR", "bridge. cannot save this tab's content!");
         fs.writeFile(path, content, err => {
             if(err) throw err;
             if(update) {

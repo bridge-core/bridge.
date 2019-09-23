@@ -127,8 +127,12 @@ export default class CreateFileWindow extends ContentWindow {
     constructor(show_rp=false, apply_filter=true) {
         let FILE_DATA;
         if(apply_filter || Store.state.Explorer.project.resource_pack === undefined)
-            FILE_DATA = FileType.getFileCreator().filter(f => show_rp ? f.rp_definition : !f.rp_definition);
-        else FILE_DATA = FileType.getFileCreator();
+            FILE_DATA = FileType.getFileCreator()
+                .filter(f => show_rp ? f.rp_definition : !f.rp_definition)
+                .sort(({title: t1}, {title: t2}) => t1.localeCompare(t2));
+        else 
+            FILE_DATA = FileType.getFileCreator()
+                .sort(({title: t1}, {title: t2}) => t1.localeCompare(t2));
 
         super({
             display_name: "New File",

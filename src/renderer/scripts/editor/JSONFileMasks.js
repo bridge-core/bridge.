@@ -11,8 +11,9 @@ export class JSONMask {
         this.data = data;
     }
 
-    set(channel, mask_data, merge_arrays=[]) {
+    set(channel, mask_data, merge_arrays=[], merge_all=false) {
         if(this.data[channel] === undefined) return this.data[channel] = mask_data;
+        if(merge_all) return this.data[channel] = detachMerge(this.data[channel], mask_data);
         if(merge_arrays.length === 0) return this.data[channel] = detachObj(this.data[channel], mask_data);
         return this.data[channel] = maskChannelMerge(this.data[channel], mask_data, merge_arrays);
     }
@@ -25,7 +26,7 @@ export class JSONMask {
         let all = [];
 
         for(let c in this.data) {
-            all.push(this.data[c]);
+            if(this.data[c] !== undefined) all.push(this.data[c]);
         }
 
         return all;
@@ -61,21 +62,30 @@ export class JSONFileMasks {
         return res;
     }
 
-    static async apply(file_path) {
+    static async apply(file_path, depth=100) {
         let data;
+        let loaded;
         try {
-            let { format_version, cache_content, file_version } = await OmegaCache.load(file_path);
-            if(format_version === 1) {
-                data = JSONTree.buildFromCache(cache_content).toJSON();
-            } else {    
-                data = cache_content;
+            loaded = await OmegaCache.load(file_path);
+        } catch(e) { 
+            try {
+                loaded = { format_version: 0, cache_content: await readJSON(file_path), file_version: 0 };
+            } catch(e) {
+                loaded = { format_version: 0, cache_content: {}, file_version: 0 };
             }
-            data = await BridgeCore.beforeSave(data, file_path);
+        }
 
-            return writeJSON(file_path, data, true, file_version);
-        } catch(e) { return console.log(e); }
+        let { format_version, cache_content, file_version } = loaded;
+        if(format_version === 1) {
+            data = JSONTree.buildFromCache(cache_content).toJSON();
+        } else {    
+            data = cache_content;
+        }
+        data = await BridgeCore.beforeSave(data, file_path, depth);
+
+        return writeJSON(file_path, data, true, file_version);
     }
-    static async applyOnData(file_path, data, overwrite_arrays) {
+    static async applyOnData(file_path, data, overwrite_arrays=[]) {
         return maskMerge([data, ...(await this.get(file_path)).all()], overwrite_arrays);
     }
 

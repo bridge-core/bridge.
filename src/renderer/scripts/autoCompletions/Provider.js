@@ -8,6 +8,7 @@ import ComponentProvider from "./Components";
 import Assert from "../plugins/PluginAssert";
 import FileType from "../editor/FileType";
 import { Omega } from "./Omega";
+import { BridgeCore } from "../bridgeCore/main";
 
 let FILE_DEFS = [];
 let PLUGIN_FILE_DEFS = [];
@@ -105,10 +106,10 @@ class Provider {
         PLUGIN_FILE_DEFS = [];
     }
     static get FILE_DEFS() {
-        return FILE_DEFS.concat(PLUGIN_FILE_DEFS);
+        return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(BridgeCore.FILE_DEFS);
     }
     get FILE_DEFS() {
-        return FILE_DEFS.concat(PLUGIN_FILE_DEFS);
+        return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(BridgeCore.FILE_DEFS);
     }
 
     validator(path) {

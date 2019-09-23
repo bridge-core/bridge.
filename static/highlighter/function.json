@@ -11,7 +11,7 @@
         ],
         "titles": [ "@a", "@e", "@p", "@r", "@s"],
         "atoms": [ "true", "false" ],
-        "symbols": [ "=", "!=", "," ],
+        "symbols": [ "=", "=!", "," ],
         "operators": [ "^", "~" ]
     }
 }
