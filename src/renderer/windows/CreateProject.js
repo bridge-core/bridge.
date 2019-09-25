@@ -144,7 +144,7 @@ export default class CreateProjectWindow extends ContentWindow {
         let b_path = create_bp ? BASE_PATH : RP_BASE_PATH;
         
         window.setTimeout(() => {
-            fs.mkdir(b_path + this.input, (err) => {
+            fs.mkdir(b_path + this.input, { recursive: true }, (err) => {
                 if(err && err.message.includes("already exists")) return l_w.hide();
                 if(err) { l_w.hide(); throw err; }
 
