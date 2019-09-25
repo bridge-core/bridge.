@@ -206,7 +206,14 @@
                                 else return this.setCMSelection("\t");
                             });
                         },
-                        "Esc": () => EventBus.trigger("bridge:closeTextCompletions")
+                        "Esc": () => EventBus.trigger("bridge:closeTextCompletions"),
+                        "Shift-Ctrl-C": () => {
+                            let line_number = this.codemirror.doc.getCursor().line;
+                            let text = this.codemirror.doc.getLine(line_number);
+                            let pos = { line: this.codemirror.doc.getCursor().line, ch: text.length };
+                            this.setCMTextSelection(pos);
+                            this.setCMSelection(`\n${text}`);
+                        }
                     }
                 };
             },
