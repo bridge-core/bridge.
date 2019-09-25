@@ -11,6 +11,7 @@ import { ipcRenderer } from "electron";
 import ConfirmWindow from "../scripts/commonWindows/Confirm";
 import ThemeManager from "../scripts/editor/ThemeManager";
 import ProjectConfig from "../scripts/ProjectConfig";
+import { uuid } from "../scripts/utilities/useAttr";
 
 class ReactiveListEntry {
     constructor(text, parent, watch_key, index) {
@@ -305,6 +306,7 @@ export default class SettingsWindow extends TabWindow {
                     text: "\nTheme"
                 },
                 {
+                    key: uuid(),
                     type: "select",
                     color: "primary",
                     text: "Choose a theme...",

@@ -19,9 +19,10 @@ const vuetify = new Vuetify({
         },
         themes: {
             dark: {
-                primary: "#4caf50",
+                primary: "#1778D2",
                 secondary: "#1778D2",
 
+                background: "#303030",
                 toolbar: "#000000",
                 footer: "#212121"
             },
@@ -29,6 +30,7 @@ const vuetify = new Vuetify({
                 primary: "#1778D2",
                 secondary: "#1778D2",
 
+                background: "#fafafa",
                 toolbar: "#e0e0e0",
                 footer: "#f5f5f5"
             }

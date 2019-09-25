@@ -11,6 +11,7 @@
                 "success": "#4CAF50",
                 "warning": "#FB8C00",
 
+                "background": "#303030",
                 "toolbar": "#000000",
                 "footer": "#212121"
             },
@@ -23,6 +24,7 @@
                 "success": "#4CAF50",
                 "warning": "#FB8C00",
 
+                "background": "#fafafa",
                 "toolbar": "#e0e0e0",
                 "footer": "#f5f5f5"
             }
@@ -32,28 +34,10 @@
         "name": "Classic",
         "definition": {
             "dark": {
-                "primary": "#4caf50",
-                "secondary": "#1778D2",
-                "accent": "#82B1FF",
-                "error": "#FF5252",
-                "info": "#2196F3",
-                "success": "#4CAF50",
-                "warning": "#FB8C00",
-
-                "toolbar": "#000000",
-                "footer": "#212121"
+                "primary": "#4caf50"
             },
             "light": {
-                "primary": "#4caf50",
-                "secondary": "#1778D2",
-                "accent": "#82B1FF",
-                "error": "#FF5252",
-                "info": "#2196F3",
-                "success": "#4CAF50",
-                "warning": "#FB8C00",
-
-                "toolbar": "#e0e0e0",
-                "footer": "#f5f5f5"
+                "primary": "#4caf50"
             }
         }
     },
@@ -63,26 +47,16 @@
             "dark": {
                 "primary": "#DD7230",
                 "secondary": "#DD7230",
-                "accent": "#82B1FF",
-                "error": "#FF5252",
-                "info": "#2196F3",
-                "success": "#4CAF50",
                 "warning": "#DD7230",
 
-                "toolbar": "#DD7230",
-                "footer": "#212121"
+                "toolbar": "#DD7230"
             },
             "light": {
                 "primary": "#DD7230",
                 "secondary": "#DD7230",
-                "accent": "#82B1FF",
-                "error": "#FF5252",
-                "info": "#2196F3",
-                "success": "#4CAF50",
                 "warning": "#DD7230",
 
-                "toolbar": "#DD7230",
-                "footer": "#f5f5f5"
+                "toolbar": "#DD7230"
             }
         }
     }

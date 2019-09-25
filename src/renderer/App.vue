@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <v-app>
+        <v-app :style="{ background: $vuetify.theme.themes[theme_variant].background }">
             <app-toolbar/>
 
             <v-content :style="`padding-bottom: ${footer_visible ? 44 : 22}px;`">
@@ -73,8 +73,10 @@
             startUp();
             
             EventBus.on("bridge:applyTheme", (theme) => {
-                Vue.set(this.$vuetify.theme.themes, "light", theme.definition.light);
-                Vue.set(this.$vuetify.theme.themes, "dark", theme.definition.dark);
+                if(theme === undefined) return;
+
+                Vue.set(this.$vuetify.theme.themes, "light", Object.assign(this.$vuetify.theme.themes.light, theme.definition.light));
+                Vue.set(this.$vuetify.theme.themes, "dark", Object.assign(this.$vuetify.theme.themes.dark, theme.definition.dark));
             });
         },
         computed: {
@@ -89,6 +91,9 @@
             },
             is_dark_mode() {
                 return this.$store.state.Appearance.is_dark_mode;
+            },
+            theme_variant() {
+                return (this.$vuetify.theme.dark) ? "dark" : "light";
             }
         },
         watch: {
