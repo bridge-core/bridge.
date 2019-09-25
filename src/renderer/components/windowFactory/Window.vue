@@ -11,7 +11,7 @@
                 v-if="has_toolbar" 
                 ref="drag_region" 
                 height="30px"
-                :color="win.options ? win.options.toolbar_color : undefined"
+                :color="win.options ? (win.options.toolbar_color || 'toolbar') : 'toolbar'"
                 style="overflow-x: auto; overflow-y: hidden;"
             >
                 <span class="px14-font">{{ window_title }}</span>

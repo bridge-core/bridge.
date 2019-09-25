@@ -4,7 +4,7 @@
         :max-width="is_fullscreen ? 2000 : 500"
     >
         <v-card>
-            <v-system-bar @dblclick.native="is_fullscreen = !is_fullscreen" height="30px" style="padding-right: 0;">
+            <v-system-bar color="toolbar" @dblclick.native="is_fullscreen = !is_fullscreen" height="30px" style="padding-right: 0;">
                 <span class="px14-font">Extensions</span>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>

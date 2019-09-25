@@ -1,5 +1,5 @@
 <template>
-    <v-system-bar class="main-app-toolbar" :style="`padding-left: ${is_mac_os ? 0: 8}px;`" fixed app clipped padless height="24px">
+    <v-system-bar color="toolbar" class="main-app-toolbar" :style="`padding-left: ${is_mac_os ? 0: 8}px;`" fixed app clipped padless height="24px">
         <img v-if="!is_mac_os" :src="icon_path" style="height: 16px; padding-right: 4px;"/>
         <v-toolbar-items class="px14-font">
             <v-divider vertical/>

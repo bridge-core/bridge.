@@ -12,25 +12,33 @@ Vue.use(VueCodeMirror);
 if (!process.env.IS_WEB) Vue.use(require("vue-electron"));
 Vue.config.productionTip = false;
 
-export default new Vue({
-    components: { App },
-    vuetify: new Vuetify({
-        theme: {
-            options: {
-                customProperties: true
+export const vuetify = new Vuetify({
+    theme: {
+        options: {
+            customProperties: true
+        },
+        themes: {
+            dark: {
+                primary: "#4caf50",
+                secondary: "#1778D2",
+
+                toolbar: "#000000",
+                footer: "#212121"
             },
-            themes: {
-                dark: {
-                    primary: "#4caf50",
-                    secondary: "#1778D2"
-                },
-                light: {
-                    primary: "#1778D2",
-                    secondary: "#1778D2"
-                }
+            light: {
+                primary: "#1778D2",
+                secondary: "#1778D2",
+
+                toolbar: "#e0e0e0",
+                footer: "#f5f5f5"
             }
         }
-    }),
+    }
+});
+
+export default new Vue({
+    components: { App },
+    vuetify,
     store,
     template: "<App/>"
 }).$mount("#app");

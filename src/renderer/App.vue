@@ -23,7 +23,7 @@
         </v-container>
       </v-content>
 
-      <v-footer :class="footer_visible ? 'big' : ''" fixed padless app>
+      <v-footer color="footer" :class="footer_visible ? 'big' : ''" fixed padless app>
         <footer-main></footer-main>
         <v-spacer></v-spacer>
         <v-divider v-if="footer_visible" vertical></v-divider>
