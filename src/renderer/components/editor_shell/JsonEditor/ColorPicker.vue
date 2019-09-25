@@ -49,21 +49,14 @@
 </script>
 
 <style>
+    
+</style>
+<style scoped>
     .color-picker {
         display: inline-block;
         margin-left: 4px;
         height: 8px;
         width: 8px;
     }
-</style>
-<style scoped>
-    div.color-picker-container {
-        width: 30px;
-        height: 30px;
-        display: inline-block;
-        background-color: #EEE;
-        position: relative;
-        top: 19px;
-        outline: 3px solid #C9C9C9;
-    }
+   
 </style>

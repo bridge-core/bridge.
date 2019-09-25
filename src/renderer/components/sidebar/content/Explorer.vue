@@ -46,14 +46,14 @@
         >
             <p style="word-break: break-word;">It doesn't look like your current behavior pack has a corresponding resource pack registered inside its manifest file.</p>
 
-            <v-btn color="primary" @click="createRP" style="margin-right: 4px;">Create</v-btn><v-btn color="info" @click="linkRP">Link</v-btn>
+            <v-btn @click="createRP" style="margin-right: 4px;">Create</v-btn><v-btn color="primary" @click="linkRP">Link</v-btn>
         </div>
         <div 
             v-else
             style="padding: 4px; word-break: break-word;"
         >
             <p style="word-break: break-word;">The resource pack which belongs to this behavior pack does not exist.</p>
-            <v-btn color="info" @click="unlinkRP" style="margin-right: 4px;"><v-icon>mdi-lock-open</v-icon>Unlink</v-btn>
+            <v-btn color="primary" @click="unlinkRP" style="margin-right: 4px;"><v-icon>mdi-lock-open</v-icon>Unlink</v-btn>
         </div>
 
         <v-divider></v-divider>

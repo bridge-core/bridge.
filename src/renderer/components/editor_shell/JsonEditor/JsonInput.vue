@@ -106,8 +106,10 @@
                     current.type = "object";
                     EventBus.trigger("setWatcherInactive");
 
-                     if(!current.meta.expand_path_exceptions || !current.meta.expand_path_exceptions.includes(this.value))
+                    if(!current.meta.expand_path_exceptions || !current.meta.expand_path_exceptions.includes(this.value))
                         this.expandPath(this.value);
+                    else 
+                        this.updateAutoCompletions();
                 } else if(this.file_navigation !== "global" && this.type === "value") {
                     if(current.children.length > 0) return;
 
