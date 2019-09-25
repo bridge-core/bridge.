@@ -9,6 +9,8 @@ import Snippets from "./Snippets";
 import ProblemIterator from "../scripts/editor/problems/Problems";
 import { ipcRenderer } from "electron";
 import ConfirmWindow from "../scripts/commonWindows/Confirm";
+import ThemeManager from "../scripts/editor/ThemeManager";
+import ProjectConfig from "../scripts/ProjectConfig";
 
 class ReactiveListEntry {
     constructor(text, parent, watch_key, index) {
@@ -298,6 +300,21 @@ export default class SettingsWindow extends TabWindow {
                 title: "Appearance"
             },
             content: [
+                {
+                    color: "grey",
+                    text: "\nTheme"
+                },
+                {
+                    type: "select",
+                    color: "primary",
+                    text: "Choose a theme...",
+                    input: ThemeManager.current_theme,
+                    options: ThemeManager.theme_names,
+                    action: (val) => {
+                        ThemeManager.applyTheme(val);
+                        ProjectConfig.theme = val;
+                    }
+                },
                 new ReactiveSwitch(this, "is_dark_mode", {
                     color: "primary",
                     text: "Dark Mode",
