@@ -1,6 +1,7 @@
 import Vue from "vue";
 import { readJSONSync } from "../../scripts/utilities/JsonFS";
 import path from "path";
+import ThemeManager from "../../scripts/editor/ThemeManager";
 const CM_NAME_MAP = readJSONSync(path.join(__static, "data/cm_name_map.json"));
 
 const state = {
@@ -69,10 +70,17 @@ const mutations = {
         state.is_dark_mode = val;
     },
     setColorTheme(state, { light, dark, update_styles }={}) {
-        Vue.set(state.color_theme, "dark", dark || {});
-        Vue.set(state.color_theme, "light", light || {});
-
         if(!update_styles) return;
+        if(ThemeManager.options.inherit_highlighter) {
+            Vue.set(state.color_theme, "dark", Object.assign(state.color_theme.dark, dark || {}));
+            Vue.set(state.color_theme, "light", Object.assign(state.color_theme.light, light || {}));
+        } else {
+            Vue.set(state.color_theme, "dark", dark || {});
+            Vue.set(state.color_theme, "light", light || {});
+        }
+
+        console.log(ThemeManager.options.inherit_highlighter)
+        
         document.head.removeChild(STYLE_TAG);
         STYLE_TAG.innerHTML = applyTheme(state.color_theme.dark) + applyTheme(state.color_theme.light, "light");
         document.head.appendChild(STYLE_TAG);

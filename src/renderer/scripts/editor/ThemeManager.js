@@ -8,6 +8,7 @@ export default class ThemeManager {
     static themes = readJSONSync(path.join(__static, "data/themes.json"));
     static plugin_themes = {};
     static current_theme;
+    static options;
 
     static get theme_names() {
         let theme_names = [];
@@ -29,10 +30,14 @@ export default class ThemeManager {
 
     static applyTheme(id) {
         this.current_theme = id;
+
+        //Load theme options
+        this.options = (this.themes[id] || this.plugin_themes[id] || {}).options || {};
+        Store.commit("setThemeOptions", this.options);
+
+        //Load theme
         if(id !== "bridge.default.theme") EventBus.trigger("bridge:applyTheme", { update_styles: false, ...this.themes["bridge.default.theme"] });
         EventBus.trigger("bridge:applyTheme", { update_styles: true, ...(this.themes[id] || this.plugin_themes[id]) });
-
-        Store.commit("setThemeOptions", (this.themes[id] || this.plugin_themes[id] || {}).options || {});
     }
 
     static async loadTheme() {
