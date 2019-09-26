@@ -95,12 +95,12 @@ export default class PluginLoader {
 
         snippets = await Promise.all(
             snippets.map(s => 
-                fs.readFile(path.join(plugin_path, "snippets", s))
+                readJSON(path.join(plugin_path, "snippets", s))
                     .catch(e => undefined)
             )
         );
         snippets.forEach(s => {
-            if(s !== undefined) PluginSnippets.add(cJSON.parse(s.toString(), undefined, true));
+            if(s !== undefined) PluginSnippets.add(s);
         });
     }
 
@@ -109,7 +109,7 @@ export default class PluginLoader {
 
         themes = await Promise.all(
             themes.map(t => 
-                fs.readFile(path.join(plugin_path, "themes", t))
+                readJSON(path.join(plugin_path, "themes", t))
                     .catch(e => undefined)
             )
         );

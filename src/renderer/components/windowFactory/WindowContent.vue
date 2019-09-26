@@ -157,7 +157,7 @@
         :value="content.input"
         :solo="content.is_box"
         :color="content.color"
-        background-color="menu"
+        :background-color="content.is_box ? 'menu' : 'rgba(0, 0, 0, 0)'"
         :autofocus="content.has_focus"
         ref="input"
     />
@@ -174,7 +174,7 @@
         :value="content.input"
         :solo="content.is_box"
         :color="content.color"
-        background-color="menu"
+        :background-color="content.is_box ? 'menu' : 'rgba(0, 0, 0, 0)'"
         :autofocus="content.has_focus"
         ref="input"
     />

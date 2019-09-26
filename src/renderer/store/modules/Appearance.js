@@ -42,7 +42,7 @@ const state = {
             comment: { color: "#0080FF" }
         }
     },
-    CM_NAME_MAP
+    options: {}
 }
 
 let STYLE_TAG = document.createElement("style");
@@ -76,6 +76,9 @@ const mutations = {
         document.head.removeChild(STYLE_TAG);
         STYLE_TAG.innerHTML = applyTheme(state.color_theme.dark) + applyTheme(state.color_theme.light, "light");
         document.head.appendChild(STYLE_TAG);
+    },
+    setThemeOptions(state, opts) {
+        Vue.set(state, "options", opts);
     }
 }
 

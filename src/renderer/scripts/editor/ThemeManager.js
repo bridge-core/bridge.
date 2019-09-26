@@ -2,6 +2,7 @@ import { readJSONSync } from "../utilities/JsonFS";
 import path from "path";
 import EventBus from "../EventBus";
 import ProjectConfig from "../ProjectConfig";
+import Store from "../../store/index";
 
 export default class ThemeManager {
     static themes = readJSONSync(path.join(__static, "data/themes.json"));
@@ -28,6 +29,8 @@ export default class ThemeManager {
         console.log(id);
         if(id !== "bridge.default.theme") EventBus.trigger("bridge:applyTheme", { update_styles: false, ...this.themes["bridge.default.theme"] });
         EventBus.trigger("bridge:applyTheme", { update_styles: true, ...(this.themes[id] || this.plugin_themes[id]) });
+
+        Store.commit("setThemeOptions", (this.themes[id] || this.plugin_themes[id] || {}).options || {});
     }
 
     static async loadTheme() {

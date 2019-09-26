@@ -74,7 +74,7 @@
         }
     },
     "bridge.bright_orange.theme": {
-        "name": "Bright Orange",
+        "name": "Orange",
         "definition": {
             "dark": {
                 "highlighter": {
