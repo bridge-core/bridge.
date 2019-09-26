@@ -49,13 +49,13 @@ let STYLE_TAG = document.createElement("style");
 document.head.appendChild(STYLE_TAG);
 
 function applyTheme(theme, mode="dark") {
-    let style = "";
+    let style = `.theme--${mode} .CodeMirror { color: ${mode === "dark" ? 'white' : "black"};}`;
     for(let key in theme) {
         let { color, text_decoration } = theme[key];
 
         style += `.theme--${mode} span.cm-${CM_NAME_MAP[key] || key} {
             color: ${color || 'unset'};
-            text-decoration: ${text_decoration}
+            text-decoration: ${text_decoration || 'none'}
         }\n`;
     }
     return style;
@@ -69,8 +69,8 @@ const mutations = {
         state.is_dark_mode = val;
     },
     setColorTheme(state, { light, dark, update_styles }={}) {
-        Vue.set(state.color_theme, "dark", Object.assign(state.color_theme.dark, dark || {}));
-        Vue.set(state.color_theme, "light", Object.assign(state.color_theme.light, light || {}));
+        Vue.set(state.color_theme, "dark", dark || {});
+        Vue.set(state.color_theme, "light", light || {});
 
         if(!update_styles) return;
         document.head.removeChild(STYLE_TAG);

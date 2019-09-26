@@ -1,7 +1,7 @@
 <template>
     <v-system-bar color="toolbar" class="main-app-toolbar" :style="`padding-left: ${is_mac_os ? 0: 8}px;`" fixed app clipped padless height="24px">
         <img v-if="!is_mac_os && !no_logo_display" :src="icon_path" style="height: 16px; padding-right: 4px;"/>
-        <span v-else-if="no_logo_display" class="font-weight-bold" style="padding-right: 8px;">bridge.</span>
+        <span v-else-if="no_logo_display" class="font-weight-bold" style="padding-right: 7px;">bridge.</span>
 
         <v-toolbar-items class="px14-font">
             <v-divider vertical/>

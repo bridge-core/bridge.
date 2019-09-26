@@ -1,5 +1,6 @@
 <template>
     <span
+        :class="class_name"
         :style="as_block ? 'display: block;' : ''"
         @click.stop="attrClick"
     >
@@ -8,7 +9,6 @@
         >{{ text }}</highlight-text>
         <span
             v-else
-            :class="class_name"
             @click.stop="(event) => $emit('click', event)"
         >{{ text }}</span>
 

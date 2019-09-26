@@ -21,12 +21,14 @@ export default class ThemeManager {
     }
 
     static addTheme({ id, ...theme }) {
+        if(theme.definition.dark === undefined) theme.definition.dark = {};
+        if(theme.definition.light === undefined) theme.definition.light = {};
+
         this.plugin_themes[id] = theme;
     }
 
     static applyTheme(id) {
         this.current_theme = id;
-        console.log(id);
         if(id !== "bridge.default.theme") EventBus.trigger("bridge:applyTheme", { update_styles: false, ...this.themes["bridge.default.theme"] });
         EventBus.trigger("bridge:applyTheme", { update_styles: true, ...(this.themes[id] || this.plugin_themes[id]) });
 

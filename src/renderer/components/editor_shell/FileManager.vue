@@ -35,9 +35,6 @@
 
     //Style
     import "codemirror/lib/codemirror.css";
-    import "codemirror/theme/monokai.css";
-    import "codemirror/theme/xq-light.css";
-    //import "codemirror/addon/hint/show-hint.css";
 
     //Other
     import "codemirror/addon/edit/closebrackets.js";
