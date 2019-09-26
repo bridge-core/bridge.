@@ -3,7 +3,7 @@
         v-model="is_menu_open"
         :max-width="is_fullscreen ? 2000 : 500"
     >
-        <v-card>
+        <v-card color="background">
             <v-system-bar color="toolbar" @dblclick.native="is_fullscreen = !is_fullscreen" height="30px" style="padding-right: 0;">
                 <span class="px14-font">Extensions</span>
                 <v-spacer></v-spacer>
@@ -27,7 +27,8 @@
                 <v-bottom-navigation
                     v-model="filter"
                     :value="true"
-                   
+                    background-color="footer"
+                    color="primary"
                 >
                     <v-btn text value="active">
                         <span>Active</span>

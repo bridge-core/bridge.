@@ -73,10 +73,19 @@
             startUp();
             
             EventBus.on("bridge:applyTheme", (theme) => {
-                if(theme === undefined) return;
+                if(theme === undefined || theme.definition === undefined) return;
+                const {
+                    light: { highlighter: highlighter_light, ...light }, 
+                    dark: { highlighter: highlighter_dark, ...dark }
+                } = theme.definition;
 
-                Vue.set(this.$vuetify.theme.themes, "light", Object.assign(this.$vuetify.theme.themes.light, theme.definition.light));
-                Vue.set(this.$vuetify.theme.themes, "dark", Object.assign(this.$vuetify.theme.themes.dark, theme.definition.dark));
+                Vue.set(this.$vuetify.theme.themes, "light", Object.assign(this.$vuetify.theme.themes.light, theme.definition.light || {}));
+                Vue.set(this.$vuetify.theme.themes, "dark", Object.assign(this.$vuetify.theme.themes.dark, theme.definition.dark || {}));
+                this.$store.commit("setColorTheme", {
+                    light: highlighter_light,
+                    dark: highlighter_dark,
+                    update_styles: theme.update_styles
+                });
             });
         },
         computed: {
@@ -176,6 +185,10 @@
     }
     .json-input-suggestions .v-list-item__content, .small-list .v-list-item__content {
         padding: 4px 0 !important;
+    }
+
+    .v-list {
+        background: var(--v-menu-base) !important;
     }
 </style>
 

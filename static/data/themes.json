@@ -3,6 +3,18 @@
         "name": "Default",
         "definition": {
             "dark": {
+                "highlighter": {
+                    "property": { "color": "#a6e22e" },
+                    "keyword": { "color": "#f92672" },
+                    "definition": { "color": "#fd971f" },
+                    "atom": { "color": "#ae81ff" },
+                    "number": { "color": "#ae81ff" },
+                    "string": { "color": "#e6db74" },
+                    "variable": { "color": "#9effff" },
+                    "variable_strong": { "color": "#66d9ef" },
+                    "meta": { "color": "white" },
+                    "comment": { "color": "#75715e" }
+                },
                 "primary": "#1778D2",
                 "secondary": "#1778D2",
                 "accent": "#82B1FF",
@@ -12,10 +24,26 @@
                 "warning": "#FB8C00",
 
                 "background": "#303030",
+                "sidebar_navigation": "#424242",
+                "expanded_sidebar": "#424242",
+                "menu": "#424242",
                 "toolbar": "#000000",
-                "footer": "#212121"
+                "footer": "#212121",
+                "tooltip": "#303030"
             },
             "light": {
+                "highlighter": {
+                    "property": { "color": "black" },
+                    "keyword": { "color": "#5A5CAD" },
+                    "definition": { "text_decoration": "underline" },
+                    "atom": { "color": "#6C8CD5" },
+                    "number": { "color": "#164" },
+                    "string": { "color": "red" },
+                    "variable": { "color": "black" },
+                    "variable_strong": { "color": "black" },
+                    "meta": { "color": "yellow" },
+                    "comment": { "color": "#0080FF" }
+                },
                 "primary": "#1778D2",
                 "secondary": "#1778D2",
                 "accent": "#82B1FF",
@@ -25,8 +53,12 @@
                 "warning": "#FB8C00",
 
                 "background": "#fafafa",
+                "sidebar_navigation": "#FFFFFF",
+                "expanded_sidebar": "#FFFFFF",
+                "menu": "#FFFFFF",
                 "toolbar": "#e0e0e0",
-                "footer": "#f5f5f5"
+                "footer": "#f5f5f5",
+                "tooltip": "#424242"
             }
         }
     },
@@ -45,17 +77,47 @@
         "name": "Bright Orange",
         "definition": {
             "dark": {
+                "highlighter": {
+                    "property": { "color": "#91bb5b" },
+                    "keyword": { "color": "#d24358" },
+                    "definition": { "text_decoration": "underline" },
+                    "atom": { "color": "#c68cd4" },
+                    "number": { "color": "#57e4ac" },
+                    "string": { "color": "#e4c15b" },
+                    "variable": { "color": "#91bb5b" },
+                    "variable_strong": { "color": "white" },
+                    "meta": { "color": "yellow" },
+                    "comment": { "color": "#cc77ff" }
+                },
                 "primary": "#DD7230",
                 "secondary": "#DD7230",
                 "warning": "#DD7230",
 
-                "toolbar": "#DD7230"
+                "background": "#402b36",
+                "sidebar_navigation": "#2E1F27",
+                "expanded_sidebar": "#2E1F27",
+
+                "toolbar": "#DD7230",
+                "footer": "#24181e",
+                "tooltip": "#24181e",
+                "menu": "#24181e"
             },
             "light": {
+                "highlighter": {
+                    "property": { "color": "#91bb5b" },
+                    "keyword": { "color": "#d24358" },
+                    "definition": { "text_decoration": "underline" },
+                    "atom": { "color": "#c68cd4" },
+                    "number": { "color": "#57e4ac" },
+                    "string": { "color": "#e4c15b" },
+                    "variable": { "color": "#91bb5b" },
+                    "variable_strong": { "color": "black" },
+                    "meta": { "color": "yellow" },
+                    "comment": { "color": "#cc77ff" }
+                },
                 "primary": "#DD7230",
                 "secondary": "#DD7230",
                 "warning": "#DD7230",
-
                 "toolbar": "#DD7230"
             }
         }

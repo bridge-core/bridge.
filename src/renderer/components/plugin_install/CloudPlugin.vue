@@ -10,7 +10,7 @@
 
             <v-list-item-action>
                 <v-list-item-action-text>{{ plugin.version }}</v-list-item-action-text>
-                <v-tooltip :right="!is_fullscreen" :left="is_fullscreen" v-if="!is_update">
+                <v-tooltip color="tooltip" :right="!is_fullscreen" :left="is_fullscreen" v-if="!is_update">
                     <template v-slot:activator="{ on }">
                         <v-btn v-on="on" @click.stop="download()" :disabled="!is_compatible" :loading="loading" icon>
                             <v-icon>mdi-cloud-download</v-icon>

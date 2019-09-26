@@ -19,7 +19,7 @@
             <v-btn rounded @click="click">
                 <v-icon>mdi-code-braces</v-icon>
             </v-btn>
-            <v-tooltip bottom>
+            <v-tooltip color="tooltip" bottom>
                 <template v-slot:activator="{ on }">
                     <v-btn v-on="on" rounded @click="click(null, 'value')">
                         <v-icon>mdi-format-quote-close</v-icon>

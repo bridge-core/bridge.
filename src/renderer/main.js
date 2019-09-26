@@ -23,6 +23,10 @@ const vuetify = new Vuetify({
                 secondary: "#1778D2",
 
                 background: "#303030",
+                sidebar_navigation: "#424242",
+                expanded_sidebar: "#424242",
+                tooltip: "#303030",
+                menu: "#424242",
                 toolbar: "#000000",
                 footer: "#212121"
             },
@@ -31,6 +35,9 @@ const vuetify = new Vuetify({
                 secondary: "#1778D2",
 
                 background: "#fafafa",
+                sidebar_navigation: "#FFFFFF",
+                expanded_sidebar: "#FFFFFF",
+                tooltip: "#424242",
                 toolbar: "#e0e0e0",
                 footer: "#f5f5f5"
             }

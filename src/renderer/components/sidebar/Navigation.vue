@@ -8,7 +8,7 @@
         :value="true"
         app
     >
-        <v-list :style="`max-height: ${nav_height}px;`">
+        <v-list color="sidebar_navigation" :style="`height: 100%; max-height: ${nav_height}px;`">
             <sidebar-element
                 v-for="(item, i) in menu_items"
                 :key="`${i}-${sidebar_menu_state}`"

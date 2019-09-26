@@ -1,7 +1,6 @@
 <template>
     <div
         style="padding: 4px;"
-        
     >
         <v-subheader>No Behavior Packs Detected</v-subheader>
         <v-divider/>

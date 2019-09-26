@@ -264,10 +264,10 @@
 
 <style>
     .CodeMirror.cm-s-monokai > * {
-        background: #303030;
+        background: var(--v-background-base);
     }
-    .cm-s-monokai .CodeMirror-gutter, .cm-s-monokai .CodeMirror-linenumbers {
-        background: rgb(60, 60, 60);
+    .cm-s-monokai .CodeMirror-gutters, .cm-s-monokai .CodeMirror-linenumbers {
+        background: var(--v-background-lighten1);
     }
     .cm-s-monokai .CodeMirror-selected {
         background: rgb(60, 60, 60) !important;

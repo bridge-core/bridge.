@@ -25,7 +25,7 @@
             </v-list-item>
         </template>
 
-        <v-list ref="main_menu" class="list app-menu" dense>
+        <v-list color="menu" ref="main_menu" class="list app-menu" dense>
             <app-menu-element 
                 v-for="(element, i) in menu.elements"
                 :key="i"

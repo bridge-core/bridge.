@@ -26,8 +26,8 @@ export default class ThemeManager {
     static applyTheme(id) {
         this.current_theme = id;
         console.log(id);
-        if(id !== "bridge.default.theme") EventBus.trigger("bridge:applyTheme", this.themes["bridge.default.theme"]);
-        EventBus.trigger("bridge:applyTheme", this.themes[id] || this.plugin_themes[id]);
+        if(id !== "bridge.default.theme") EventBus.trigger("bridge:applyTheme", { update_styles: false, ...this.themes["bridge.default.theme"] });
+        EventBus.trigger("bridge:applyTheme", { update_styles: true, ...(this.themes[id] || this.plugin_themes[id]) });
     }
 
     static async loadTheme() {

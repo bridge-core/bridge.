@@ -4,7 +4,7 @@
         v-model="DOC_WINDOW.is_open"
         :max-width="is_fullscreen ? 2000 : 500"
     >
-        <v-card>
+        <v-card color="background">
             <v-system-bar color="toolbar" @dblclick.native="is_fullscreen = !is_fullscreen" height="30px" style="padding-right: 0;">
                 <span class="px14-font">Documentation</span>
                 <v-spacer></v-spacer>

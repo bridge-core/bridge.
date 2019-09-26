@@ -1,7 +1,7 @@
 <template>
     <div>
-        <v-toolbar flat height="30px">
-            <v-tooltip bottom>
+        <v-toolbar color="expanded_sidebar" flat height="30px">
+            <v-tooltip color="tooltip" bottom>
                 <template v-slot:activator="{ on }">
                     <v-btn icon text @click.stop="is_menu_open = true" v-on="on" small class="toolbar-button">
                         <v-icon small>mdi-settings</v-icon>
@@ -24,7 +24,7 @@
                                 {{ unknown_plugins }} plugin{{ unknown_plugins > 1 ? "s are" : " is" }} not registered correctly. 
                                 Please update {{ unknown_plugins > 1 ? "them" : "it" }} accordingly. In the future this might cause a plugin to not load!
                             </p>
-                            <v-tooltip right>
+                            <v-tooltip color="tooltip" right>
                                 <template v-slot:activator="{ on }">
                                     <v-btn v-on="on"
                                         @click.stop="openLink('https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md')"
@@ -41,8 +41,8 @@
                 </v-expansion-panel-content>
             </v-expansion-panel>
 
-            <v-card v-for="(plugin, i) in plugins" style="margin-bottom: 8px;" :key="`plugin-sidebar-display-${i}`">
-                <v-list three-line>
+            <v-card color="expanded_sidebar" v-for="(plugin, i) in plugins" style="margin-bottom: 8px;" :key="`plugin-sidebar-display-${i}`">
+                <v-list color="expanded_sidebar" three-line>
                     <v-list-item>
                         <v-list-item-content>
                             <v-list-item-title>{{ plugin.name }}</v-list-item-title>

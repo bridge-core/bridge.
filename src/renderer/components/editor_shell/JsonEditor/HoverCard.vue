@@ -32,7 +32,7 @@
                         v-else-if="btn.condition === undefined || btn.condition()"
                         :key="i"
                         bottom
-                        :color="btn.color || 'info'"
+                        :color="btn.color || 'tooltip_color'"
                         :style="`margin-right: ${i + 1 <= buttons.length ? 4 : 0}px;`"
                     >
                         <template v-slot:activator="{ on }">

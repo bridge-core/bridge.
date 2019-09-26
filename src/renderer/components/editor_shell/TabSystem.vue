@@ -8,10 +8,10 @@
             :key="`${selected_project}-${i}-${unsaved.join()}`"
             :ripple="selected_tab !== i"
             :class="`tab ${selected_tab == i ? 'selected' : ''}`"
-            :style="`display: inline-block; border-bottom: 2px solid ${is_dark_mode ? '#525252' : 'rgba(119, 119, 119, 0.3)'}; background: ${is_dark_mode ? '#424242' : 'rgba(119, 119, 119, 0.1)'};`"
+            :style="`display: inline-block; border-bottom: 2px solid var(--v-background-darken2); background: var(--v-background-darken1);`"
             @click.native="selected_tab = i"
         > 
-            <v-tooltip :open-delay="600" transition="scale-transition" :disabled="file.file_name.length <= 27" bottom>
+            <v-tooltip color="tooltip" :open-delay="600" transition="scale-transition" :disabled="file.file_name.length <= 27" bottom>
                 <template v-slot:activator="{ on }">
                     <span v-on="on" :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ getFileName(file.file_name) }}</span>
                 </template>

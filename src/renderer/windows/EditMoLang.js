@@ -10,7 +10,8 @@ export default class EditMoLangWindow extends ContentWindow {
             options: {
                 is_persistent: false,
                 is_maximizable: false,
-                height: 316
+                height: 316,
+                no_padding: true
             },
             content: [
                 {

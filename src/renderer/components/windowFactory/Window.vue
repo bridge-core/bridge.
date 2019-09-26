@@ -6,7 +6,7 @@
         :hide-overlay="!blur_background"
         :max-width="is_fullscreen ? maxWidth : width"
     >
-        <v-card ref="movable_card" :color="win.options ? win.options.main_color : undefined">
+        <v-card ref="movable_card" :color="win.options ? (win.options.main_color || 'background') : 'background'">
             <v-system-bar 
                 v-if="has_toolbar" 
                 ref="drag_region" 
@@ -54,15 +54,18 @@
                 height: ${is_fullscreen ? maxHeight : height}px;
                 padding-right: ${has_no_padding ? '0px' : '16px'};
                 padding-left: ${has_sidebar || has_no_padding ? 0 : 8}px;
+                padding-bottom: 0px;
             `">
                 <v-list
                     class="sidebar"
                     v-if="has_sidebar"
+                    color="sidebar_navigation"
                     :style="`
                         width: 59px;
-                        border-right: 1px solid rgba(${is_dark_mode ? '255' : '0'}, ${is_dark_mode ? '255' : '0'}, ${is_dark_mode ? '255' : '0'}, 0.12);
+                        border-right: 1px solid rgba(${is_dark_mode ? '255, 255, 255' : '0, 0, 0'}, 0.12) !important;
                         position: absolute;
-                        height: ${(is_fullscreen ? maxHeight : height) - 20}px;
+                        height: ${(is_fullscreen ? maxHeight : height)}px;
+                        padding: 8px 0;
                         overflow-y: auto;
                         overflow-x: hidden;
                     `"
@@ -78,7 +81,7 @@
                 </v-list>
                 <div :style="`
                     margin-left: ${has_sidebar ? 60 : 0}px;
-                    padding-left: ${has_no_padding ? '0px' : '8px'};
+                    padding-left: ${has_no_padding ? 0 : 8}px;
                     overflow-y: hidden;
                 `">
                     <window-content 
@@ -94,7 +97,7 @@
                 />
             </v-card-text>
             <v-divider v-if="win.actions != undefined"/>
-            <v-card-actions v-if="win.actions != undefined">
+            <v-card-actions background-color="footer" v-if="win.actions != undefined">
                 <window-content 
                     v-for="(content) in win.actions" 
                     :key="key(content)"
@@ -160,7 +163,7 @@ export default {
             return !this.win.options || this.win.options.is_frameless == undefined || !this.win.options.is_frameless;
         },
         has_no_padding() {
-            return !this.win.options || this.win.options.no_padding;
+            return this.win.options && this.win.options.no_padding;
         },
 
         //DIALOG
