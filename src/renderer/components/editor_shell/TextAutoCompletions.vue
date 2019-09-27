@@ -7,7 +7,7 @@
         :position-y="y + 32"
         ref="menu"
     >
-        <v-list class="text-auto-completion-list " dense>
+        <v-list color="menu" class="text-auto-completion-list " dense>
             <v-list-item
                 v-for="(e, i) in propose"
                 :class="selected === i ? 'selected' : ''"

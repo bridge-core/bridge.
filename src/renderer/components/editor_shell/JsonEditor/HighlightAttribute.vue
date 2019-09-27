@@ -1,6 +1,7 @@
 <template>
     <span
-        :style="styles + (as_block ? 'display: block;' : '')"
+        :class="class_name"
+        :style="as_block ? 'display: block;' : ''"
         @click.stop="attrClick"
     >
         <highlight-text
@@ -76,13 +77,13 @@
                 if(this.data != undefined) return (this.data + "").trim();
                 return this.data;
             },
-            styles() {
-                if(this.text == "true" || this.text == "false" || this.text == "undefined") {
-                    return this.color_theme.atom;
+            class_name() {
+                if(this.text === "true" || this.text === "false" || this.text === "null") {
+                    return "cm-atom";
                 } else if(isNaN(this.text)) {
-                    return this.color_theme.string;
+                    return "cm-string";
                 } else {
-                    return this.color_theme.number;
+                    return "cm-number";
                 }
             },
             use_advanced_parsing() {

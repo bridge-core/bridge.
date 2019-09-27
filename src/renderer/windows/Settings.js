@@ -9,6 +9,9 @@ import Snippets from "./Snippets";
 import ProblemIterator from "../scripts/editor/problems/Problems";
 import { ipcRenderer } from "electron";
 import ConfirmWindow from "../scripts/commonWindows/Confirm";
+import ThemeManager from "../scripts/editor/ThemeManager";
+import ProjectConfig from "../scripts/ProjectConfig";
+import { uuid } from "../scripts/utilities/useAttr";
 
 class ReactiveListEntry {
     constructor(text, parent, watch_key, index) {
@@ -92,9 +95,10 @@ class ReactiveInput {
 
 class ReactiveDropdown {
     constructor(parent, watch_key, options, def, cb) {
-        this.type = "select";
+        this.type = options.length > 5 ? "autocomplete" : "select";
         this.input = parent.data[watch_key];
         this.options = options;
+        this.is_box = true;
         for(let key in def) {
             this[key] = def[key];
         }
@@ -262,7 +266,7 @@ export default class SettingsWindow extends TabWindow {
             },
             content: [
                 {
-                    text: "Chosen Default Directory:\n"
+                    text: "\nChosen Default Directory:\n"
                 },
                 {
                     text: MOJANG_PATH + "\n",
@@ -298,6 +302,23 @@ export default class SettingsWindow extends TabWindow {
                 title: "Appearance"
             },
             content: [
+                {
+                    color: "grey",
+                    text: "\nTheme"
+                },
+                {
+                    key: uuid(),
+                    type: "autocomplete",
+                    is_box: true,
+                    color: "primary",
+                    text: "Choose a theme...",
+                    input: ThemeManager.current_theme,
+                    options: ThemeManager.theme_names,
+                    action: (val) => {
+                        ThemeManager.applyTheme(val);
+                        ProjectConfig.theme = val;
+                    }
+                },
                 new ReactiveSwitch(this, "is_dark_mode", {
                     color: "primary",
                     text: "Dark Mode",
@@ -321,6 +342,9 @@ export default class SettingsWindow extends TabWindow {
                 title: "Developer Mode"
             },
             content: [
+                {
+                    text: "\n"
+                },
                 {
                     type: "button",
                     text: "Toggle Dev Tools",

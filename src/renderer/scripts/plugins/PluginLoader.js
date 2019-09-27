@@ -8,6 +8,7 @@ import EventBus from "../EventBus";
 import { PluginSnippets } from "../../windows/Snippets";
 import cJSON from "comment-json";
 import { UI_DATA, BridgeCore } from "../bridgeCore/main";
+import ThemeManager from "../editor/ThemeManager";
 let PLUGIN_FOLDERS;
 let PLUGIN_DATA = [];
 
@@ -31,6 +32,7 @@ export default class PluginLoader {
         //Initialize PLUGIN_DATA with UI_DATA of BridgeCore
         PLUGIN_DATA = [ UI_DATA ];
         await Promise.all(PLUGIN_FOLDERS.map(plugin_folder => this.loadPlugin(project, plugin_folder, unloaded_plugins)));
+        await ThemeManager.loadTheme();
 
         //INIT LEGACY PLUGIN DATA FOR UI
         Store.commit("finishedPluginLoading", PLUGIN_DATA);
@@ -57,7 +59,8 @@ export default class PluginLoader {
             if(manifest.id && !unloaded_plugins.includes(plugin_path)) {
                 await Promise.all([
                     this.loadScripts(plugin_path, manifest.api_version),
-                    this.loadSnippets(plugin_path)
+                    this.loadSnippets(plugin_path),
+                    this.loadThemes(plugin_path)
                 ]);
             } 
             PLUGIN_DATA.push(manifest);
@@ -88,16 +91,30 @@ export default class PluginLoader {
     }
 
     static async loadSnippets(plugin_path) {
-        let snippets = await fs.readdir(path.join(plugin_path, "snippets"));
+        let snippets = await fs.readdir(path.join(plugin_path, "snippets")).catch(e => []);
 
         snippets = await Promise.all(
             snippets.map(s => 
-                fs.readFile(path.join(plugin_path, "snippets", s))
-                    .catch(e => {})
+                readJSON(path.join(plugin_path, "snippets", s))
+                    .catch(e => undefined)
             )
         );
         snippets.forEach(s => {
-            if(s !== undefined) PluginSnippets.add(cJSON.parse(s.toString(), undefined, true));
+            if(s !== undefined) PluginSnippets.add(s);
+        });
+    }
+
+    static async loadThemes(plugin_path) {
+        let themes = await fs.readdir(path.join(plugin_path, "themes")).catch(e => []);
+
+        themes = await Promise.all(
+            themes.map(t => 
+                readJSON(path.join(plugin_path, "themes", t))
+                    .catch(e => undefined)
+            )
+        );
+        themes.forEach(t => {
+            if(t !== undefined) ThemeManager.addTheme(t);
         });
     }
 }

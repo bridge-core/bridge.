@@ -36,10 +36,11 @@ Scripts are loaded from the ```<PLUGIN NAME>/scripts``` folder. Scripts are writ
 **Script API 2:** In development
 
 ### JSON Formats
-- [```Snippets```](https://github.com/solvedDev/bridge./blob/master/plugin_docs/json/snippets.md)
 - [```Auto-Completions```](https://github.com/solvedDev/bridge./blob/master/plugin_docs/auto_completions/main.md)
   - [```Dynamic References```](https://github.com/solvedDev/bridge./blob/master/plugin_docs/auto_completions/dynamic_references.md)
 - [```Lightning Cache```](https://github.com/solvedDev/bridge./blob/master/plugin_docs/lightning_cache.md)
+- [```Snippets```](https://github.com/solvedDev/bridge./blob/master/plugin_docs/json/snippets.md)
+- [```Themes```](https://github.com/solvedDev/bridge./blob/master/plugin_docs/json/themes.md)
 
 ### Other
 - [```Default File Types```](https://github.com/solvedDev/bridge./blob/master/plugin_docs/other/default_file_types.md)

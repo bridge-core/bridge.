@@ -16,7 +16,8 @@
                 ref="project_select"
                 :items="project_items" 
                 :value="selected" 
-                :label="display_label" 
+                :label="display_label"
+                background-color="expanded_sidebar" 
                 solo
                 dense 
                 :loading="loading" 

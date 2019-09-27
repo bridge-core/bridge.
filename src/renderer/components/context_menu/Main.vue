@@ -10,7 +10,7 @@
                 :position-y="y_position"
                 absolute
             >
-                <v-list class="small-list">
+                <v-list color="menu" class="small-list">
                     <v-list-item
                         v-for="(item, i) in items"
                         :key="`${y_position}.${x_position}.${i}`"

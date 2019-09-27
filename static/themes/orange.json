@@ -1,0 +1,48 @@
+{
+    "name": "Orange",
+    "id": "bridge.orange.theme",
+    "definition": {
+        "dark": {
+            "highlighter": {
+                "property": { "color": "#91bb5b" },
+                "keyword": { "color": "#d24358" },
+                "definition": { "text_decoration": "underline" },
+                "atom": { "color": "#c68cd4" },
+                "number": { "color": "#57e4ac" },
+                "string": { "color": "#e4c15b" },
+                "variable": { "color": "#91bb5b" },
+                "variable_strong": { "color": "white" },
+                "meta": { "color": "yellow" },
+                "comment": { "color": "#cc77ff" }
+            },
+            "primary": "#DD7230",
+            "secondary": "#DD7230",
+            "warning": "#DD7230",
+            "background": "#402b36",
+            "sidebar_navigation": "#2E1F27",
+            "expanded_sidebar": "#2E1F27",
+            "toolbar": "#DD7230",
+            "footer": "#24181e",
+            "tooltip": "#24181e",
+            "menu": "#24181e"
+        },
+        "light": {
+            "highlighter": {
+                "property": { "color": "#91bb5b" },
+                "keyword": { "color": "#d24358" },
+                "definition": { "text_decoration": "underline" },
+                "atom": { "color": "#c68cd4" },
+                "number": { "color": "#57e4ac" },
+                "string": { "color": "#e4c15b" },
+                "variable": { "color": "#91bb5b" },
+                "variable_strong": { "color": "black" },
+                "meta": { "color": "yellow" },
+                "comment": { "color": "#cc77ff" }
+            },
+            "primary": "#DD7230",
+            "secondary": "#DD7230",
+            "warning": "#DD7230",
+            "toolbar": "#DD7230"
+        }
+    }
+}

@@ -5,7 +5,7 @@
         v-model="search"
     ></v-text-field>
     <v-divider/>
-    <v-list three-line>
+    <v-list color="background" three-line>
         <v-layout v-if="plugins == undefined" justify-center>
             <v-progress-circular
                 :size="70"

@@ -1,6 +1,8 @@
 <template>
-    <v-system-bar class="main-app-toolbar" :style="`padding-left: ${is_mac_os ? 0: 8}px;`" fixed app clipped padless height="24px">
-        <img v-if="!is_mac_os" :src="icon_path" style="height: 16px; padding-right: 4px;"/>
+    <v-system-bar color="toolbar" class="main-app-toolbar" :style="`padding-left: ${is_mac_os ? 0: 8}px;`" fixed app clipped padless height="24px">
+        <img v-if="!is_mac_os && !no_logo_display" :src="icon_path" style="height: 16px; padding-right: 4px;"/>
+        <span v-else-if="no_logo_display" class="font-weight-bold" style="padding-right: 7px;">bridge.</span>
+
         <v-toolbar-items class="px14-font">
             <v-divider vertical/>
             <template v-for="(menu, key, i) in menu_details">
@@ -37,6 +39,7 @@
     import KeyManager from "../scripts/appMenu/KeyManager";
     import TabSystem from '../scripts/TabSystem';
     import ConfirmWindow from '../scripts/commonWindows/Confirm';
+    import ThemeManager from "../scripts/editor/ThemeManager";
 
     export default {
         name: "app-toolbar",
@@ -79,6 +82,9 @@
             is_mac_os() {
                 return process.platform === "darwin";
             },
+            no_logo_display() {
+                return this.$store.state.Appearance.options.no_logo_display;
+            }
             // is_dark_mode() {
             //     return this.$store.state.Appearance.is_dark_mode;
             // }

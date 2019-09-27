@@ -5,7 +5,7 @@
         :position-x="x_position"
         :position-y="y_position"
     >
-        <v-card>
+        <v-card color="background">
             <v-card-text>
                 <pre>{{ data.slice(0, 200) + (data.length > 200 ? "..." : "") }}</pre>
                 
@@ -14,6 +14,7 @@
 
             <v-text-field
                 solo
+                background-color="background"
                 v-model="current_comment"
                 @input="updateComment"
                 label="Click to add a comment"
@@ -32,7 +33,7 @@
                         v-else-if="btn.condition === undefined || btn.condition()"
                         :key="i"
                         bottom
-                        :color="btn.color || 'info'"
+                        :color="btn.color || 'tooltip_color'"
                         :style="`margin-right: ${i + 1 <= buttons.length ? 4 : 0}px;`"
                     >
                         <template v-slot:activator="{ on }">
