@@ -1,6 +1,6 @@
 # Themes
 ### General
-Themes change how bridge. looks. You are able to change all user interface elements and the syntax highlighting colors.
+Themes change how bridge. looks. You are able to change all user interface elements and the syntax highlighter.
 
 ### Plugin Integration
 Plugins can also add new themes by providing them inside a ```<PLUGIN NAME>/themes``` folder. Create a JSON file per theme you want to add. The individual file names don't matter.
