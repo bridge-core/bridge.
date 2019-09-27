@@ -3,9 +3,20 @@ import path from "path";
 import EventBus from "../EventBus";
 import ProjectConfig from "../ProjectConfig";
 import Store from "../../store/index";
+import fs from "fs";
+
+function getDefaultThemes() {
+    let files = fs.readdirSync(path.join(__static, "themes"));
+    let res = {};
+    files.map(f => {
+        const { id, ...theme } = readJSONSync(path.join(__static, `themes/${f}`));
+        res[id] = theme;
+    });
+    return res;
+}
 
 export default class ThemeManager {
-    static themes = readJSONSync(path.join(__static, "data/themes.json"));
+    static themes = getDefaultThemes();
     static plugin_themes = {};
     static current_theme;
     static options;
@@ -18,7 +29,7 @@ export default class ThemeManager {
         for(let id in this.plugin_themes) {
             theme_names.push({ text: this.plugin_themes[id].name, value: id });
         }
-        return theme_names;
+        return theme_names.sort();
     }
 
     static addTheme({ id, ...theme }) {

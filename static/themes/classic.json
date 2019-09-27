@@ -1,0 +1,15 @@
+{
+    "name": "Classic",
+    "id": "bridge.old_default.theme",
+    "options": {
+        "inherit_highlighter": true
+    },
+    "definition": {
+        "dark": {
+            "primary": "#4caf50"
+        },
+        "light": {
+            "primary": "#4caf50"
+        }
+    }
+}
