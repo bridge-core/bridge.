@@ -26,6 +26,7 @@ Plugins can also add new themes by providing them inside a ```<PLUGIN NAME>/them
 | ```light``` | ```Object<ThemeVariant>``` | Light theme variant
 
 #### ThemeVariant
+| Name | Type | Description 
 | ```highlighter``` | ```Object<HighlighterDefinition>``` | The default path to add the template to
 | ```primary``` | ```String``` | Color
 | ```secondary``` | ```String``` | Color
@@ -60,7 +61,7 @@ Plugins can also add new themes by providing them inside a ```<PLUGIN NAME>/them
 | Name | Type | Description 
 | --- | --- | ---
 | ```color``` | ```String``` | Color
-| ```text_decoration``` | ```String<underline|overline|line-through|blink>``` | Text decoration
+| ```text_decoration``` | ```String<underline\|overline\|line-through\|blink>``` | Text decoration
 
 ### Example
 
