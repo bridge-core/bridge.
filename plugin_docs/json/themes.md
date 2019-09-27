@@ -27,6 +27,7 @@ Plugins can also add new themes by providing them inside a ```<PLUGIN NAME>/them
 
 #### ThemeVariant
 | Name | Type | Description 
+| --- | --- | ---
 | ```highlighter``` | ```Object<HighlighterDefinition>``` | The default path to add the template to
 | ```primary``` | ```String``` | Color
 | ```secondary``` | ```String``` | Color
