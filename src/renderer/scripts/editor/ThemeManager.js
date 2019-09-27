@@ -33,6 +33,7 @@ export default class ThemeManager {
     }
 
     static addTheme({ id, ...theme }) {
+        if(!id) return console.error("No valid ID provided for theme. IDs may not be 'falsy'");
         if(theme.definition.dark === undefined) theme.definition.dark = {};
         if(theme.definition.light === undefined) theme.definition.light = {};
 
