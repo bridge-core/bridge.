@@ -1,6 +1,7 @@
 import BridgeStore from "../scripts/utilities/BridgeStore";
 import VueStore from "./index";
 import path from "path";
+import uuid from "uuid/v4";
 
 let STORE;
 if (process.platform === "win32")
@@ -14,6 +15,7 @@ function setup() {
         console.log("[SETTING STORE] Not found - creating new store with default values");
         STORE.setup("data");
         save({
+            id: uuid(),
             is_dev_mode: false,
             is_dark_mode: true,
             inversed_arrows: false,
@@ -37,6 +39,9 @@ function setup() {
 
     VueStore.commit("setSettings", DATA);
     VueStore.commit("setDarkMode", DATA.is_dark_mode);
+    if(DATA.id === undefined) {
+        save({ id: uuid() });
+    }
 }
 function save(settings) {
     if(DATA) DATA = Object.assign(DATA, settings);

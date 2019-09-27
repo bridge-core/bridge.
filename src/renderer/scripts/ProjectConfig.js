@@ -1,6 +1,7 @@
 import { CURRENT } from "./constants";
 import path from "path";
 import { readJSON, writeJSON, readJSONSync } from "./utilities/JsonFS";
+import SETTINGS from "../store/Settings";
 
 export default class ProjectConfig {
     static get config_path() {
@@ -36,8 +37,10 @@ export default class ProjectConfig {
 
     static get theme() {
         return (async () => {
-            return (await readJSON(this.config_path)).theme;
+            return (await readJSON(this.config_path)).theme[SETTINGS.load().id] || "bridge.default.theme";
         })();
+
+        
     }
     static set theme(val) {
         return (async () => {
@@ -47,7 +50,10 @@ export default class ProjectConfig {
 
             await writeJSON(this.config_path, {
                 ...data,
-                theme: val
+                theme: {
+                    ...(data.theme || {}),
+                    [SETTINGS.load().id]: val
+                }
             });
         })();
     }

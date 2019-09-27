@@ -78,8 +78,6 @@ const mutations = {
             Vue.set(state.color_theme, "dark", dark || {});
             Vue.set(state.color_theme, "light", light || {});
         }
-
-        console.log(ThemeManager.options.inherit_highlighter)
         
         document.head.removeChild(STYLE_TAG);
         STYLE_TAG.innerHTML = applyTheme(state.color_theme.dark) + applyTheme(state.color_theme.light, "light");

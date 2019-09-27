@@ -178,5 +178,59 @@
                 "toolbar": "#DD7230"
             }
         }
+    },
+    "solved.custom_theme.coral": {
+        "name": "Coral",
+        "options": {
+            "no_logo_display": true
+        },
+        "definition": {
+            "dark": {
+                "highlighter": {
+                    "keyword": {
+                        "color": "#59C9A5"
+                    },
+                    "atom": {
+                        "color": "#EF6F6C"
+                    },
+                    "number": {
+                        "color": "#EF6F6C"
+                    },
+                    "string": {
+                        "color": "#EF6F6C"
+                    },
+                    "comment": {
+                        "color": "#465775"
+                    }
+                },
+                "primary": "#EF6F6C",
+                "secondary": "#EF6F6C",
+                "toolbar": "#EF6F6C",
+                "tooltip": "#EF6F6C"
+            },
+            "light": {
+                "highlighter": {
+                    "keyword": {
+                        "color": "#59C9A5"
+                    },
+                    "atom": {
+                        "color": "#EF6F6C"
+                    },
+                    "number": {
+                        "color": "#EF6F6C"
+                    },
+                    "string": {
+                        "color": "#EF6F6C"
+                    },
+                    "comment": {
+                        "color": "#465775"
+                    }
+                },
+                "primary": "#EF6F6C",
+                "secondary": "#EF6F6C",
+                "toolbar": "#EF6F6C",
+                "tooltip": "#EF6F6C"
+            }
+        }
     }
 }
