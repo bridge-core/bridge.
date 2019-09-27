@@ -1,5 +1,5 @@
 # Plugin API
-This is the WIP documentation for bridge.'s new Plugin API currently in development.
+This is the documentation for bridge.'s new Plugin API. We are still working on bringing more and more capabilities to the new API.
 
 ### General
 bridge. loads plugins per project. This means that every workspace can have an unique set of plugins. Plugins are a composition of JSON and JavaScript files.
