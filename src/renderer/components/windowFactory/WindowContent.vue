@@ -31,10 +31,21 @@
     />
     <div
         v-else-if="content.type == 'container'"
-        :style="`background-color: ${content.color}; padding: 4px; width: ${content.full_width ? '100%' : 'unset'}; height: ${content.height}px; overflow-y: ${content.scroll ? 'auto' : 'hidden'};`"
+        :style="`background-color: ${content.color}; padding: 4px; width: ${content.full_width ? '100%' : 'unset'}; height: ${content.height}px; overflow-y: ${content.scroll ? 'auto' : 'hidden'}; white-space: ${content.no_wrap ? 'nowrap' : 'unset'}; overflow-x: auto;`"
+        :class="content.small_scrollbar ? 'small-scrollbar' : ''"
     >
-        <window-content v-for="(c) in content.content" :key="key(c)" :content="c"/>
+        <window-content :style="`display: ${content.display || 'unset'};`" v-for="(c) in content.content" :key="key(c)" :content="c"/>
     </div>
+    <v-chip
+        v-else-if="content.type == 'tag'"
+        :color="content.color"
+        @click.stop="action.default"
+        style="margin-left: 2px;"
+        small
+    >
+        <v-icon class="click-action" v-if="content.icon" left>{{ content.icon }}</v-icon>
+        {{ content.text }}
+    </v-chip>
     <!-- HORIZONTAL GROUPS -->
     <v-layout :align-end="!content.center" :align-center="content.center" v-else-if="content.type == 'horizontal' && Array.isArray(content.content)">
         <v-flex v-for="(c) in content.content" :key="key(c)">
@@ -79,6 +90,7 @@
         :rounded="content.is_rounded"
         :text="content.is_flat"
         :disabled="content.is_disabled"
+        :loading="content.is_loading"
     >
         <v-icon v-if="content.icon" class="click-action" :color="content.text_color">{{ content.icon }}</v-icon>
         <span :class="text_color">{{ content.text }}</span>
@@ -260,7 +272,7 @@
         },
         computed: {
             action() {
-                if(typeof this.internal_action == "object") {
+                if(typeof this.internal_action === "object") {
                     let res = {};
                     for(let act_key in this.internal_action) {
                         res[act_key] = this.makeFunction(this.internal_action[act_key]);
@@ -270,7 +282,7 @@
                 return { default: this.makeFunction(this.internal_action) };
             },
             internal_action() {
-                if(typeof this.content.action == "object") {
+                if(typeof this.content.action === "object") {
                     let a = this.content.action;
                     let res = {};
                     if(!a.default) {
@@ -345,7 +357,7 @@
         },
         methods: {
             makeFunction(action) {
-                if(typeof action != "function") return () => {};
+                if(typeof action !== "function") return () => {};
                 return action;
             },
             key(c) {
@@ -395,5 +407,9 @@
     }
     .click-action {
         cursor: pointer;
+    }
+    .small-scrollbar::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
     }
 </style>

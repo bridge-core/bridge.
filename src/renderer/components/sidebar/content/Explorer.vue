@@ -80,6 +80,7 @@
     import PluginLoader from "../../../scripts/plugins/PluginLoader";
     import LightningCache from '../../../scripts/editor/LightningCache';
     import { JSONFileMasks } from "../../../scripts/editor/JSONFileMasks";
+    import LoadingWindow from '../../../windows/LoadingWindow';
 
     export default {
         name: "content-explorer",
@@ -215,7 +216,8 @@
                     event_name
                 });
             },
-            getDirectory(dir=this.selected, force_reload) {
+            async getDirectory(dir=this.selected, force_reload) {
+                let lw = new LoadingWindow().show();
                 if(this.explorer_type === "explorer") {
                     EventBus.trigger("bridge:changedProject");
                     OmegaCache.init(dir);
@@ -223,11 +225,11 @@
                     JSONFileMasks.resetMasks();
                 }
                 
-                if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return;
+                if(dir === undefined || dir === "/@NO-RP@/" || dir === "/@NO-DEPENDENCY@/") return lw.close();
                 if(dir !== this.selected) {
                     this.selected = dir;
                     TabSystem.select(0);
-                    return;
+                    return lw.close();
                 }
                 if(this.explorer_type === "explorer") EventBus.trigger("bridge:changedProject");
                 if(this.explorer_type === "explorer") OmegaCache.init(dir);
@@ -238,8 +240,9 @@
                     force_reload
                 });
                 if(this.load_plugins) {
-                    PluginLoader.loadPlugins(dir);
-                } 
+                    await PluginLoader.loadPlugins(dir);
+                }
+                lw.close();
             },
 
             registerListener(event_name, func) {

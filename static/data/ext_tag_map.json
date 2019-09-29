@@ -1,0 +1,10 @@
+{
+    "Curated": {
+        "icon": "mdi-star",
+        "color": "warning"
+    },
+    "Verified": {
+        "icon": "mdi-shield-check",
+        "color": "primary"
+    }
+}
