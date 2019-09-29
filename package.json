@@ -67,6 +67,7 @@
     "mousetrap": "^1.6.2",
     "safe-eval": "^0.4.1",
     "trash": "^5.2.0",
+    "unzipper": "^0.10.5",
     "uuid": "^3.3.2",
     "vue": "^2.6.10",
     "vue-electron": "^1.0.6",
