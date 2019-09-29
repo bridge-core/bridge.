@@ -83,10 +83,10 @@ export default {
         updateFiles() {
             this.open_files = TabSystem.filtered();
 
-            this.unsaved = this.open_files.map(f => f.is_unsaved === undefined ? false : f.is_unsaved);
+            this.unsaved = this.open_files.map(f => f.is_unsaved === undefined ? false : f.is_unsaved && !f.is_immutable);
         },
         updateSavedUI() {
-            this.unsaved = this.open_files.map(f => f.is_unsaved === undefined ? false : f.is_unsaved);
+            this.unsaved = this.open_files.map(f => f.is_unsaved === undefined ? false : f.is_unsaved && !f.is_immutable);
         },
         getFileName(file_name) {
             return file_name.length > 27 && !file_name.includes(" ") ? file_name.substr(0, 27) + "\u2026" : file_name;

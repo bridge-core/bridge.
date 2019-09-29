@@ -99,7 +99,7 @@ class TabSystem {
     closeById(id, project=this.project) {
         if(this.projects[project] === undefined || this.projects[project][id] === undefined)
             return;
-        if(this.projects[project][id].is_unsaved) {
+        if(this.projects[project][id].is_unsaved && !this.projects[project][id].is_immutable) {
             new ConfirmWindow(() => {
                 this.internalCloseId(id, project);
             }, null, "This tab has unsaved progress! Are you sure that you want to close it?");
