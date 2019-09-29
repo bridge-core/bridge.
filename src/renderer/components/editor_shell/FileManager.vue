@@ -171,13 +171,17 @@
                     lineNumbers: true,
                     line: true,
                     autoCloseBrackets: true,
+                    autofocus: true,
                     keyMap: "sublime",
-                    theme: this.$store.state.Appearance.is_dark_mode ? "monokai" : "xq-light",
+                    theme: "monokai",
                     mode: this.alias[this.extension] || this.extension,
                     styleActiveLine: true,
                     showCursorWhenSelecting: true,
                     lineWrapping: this.$store.state.Settings.line_wraps,
+                    indentWithTabs: true,
                     extraKeys: {
+                        "Alt-Up": "addCursorToPrevLine",
+                        "Alt-Down": "addCursorToNextLine",
                         "Ctrl-Space": this.shouldUpdateSuggestions,
                         "Up": () => {
                             EventBus.trigger("bridge:textCompletionsOpen", (is_open) => {
