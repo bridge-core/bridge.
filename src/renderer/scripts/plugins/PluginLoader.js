@@ -1,14 +1,14 @@
 import { BASE_PATH } from "../constants";
 import path from "path";
-import { promises as fs } from "fs";
+import { promises as fs, createReadStream } from "fs";
 import { readJSON } from "../utilities/JsonFS";
 import Store from "../../store/index";
 import Bridge from "../../scripts/plugins/PluginEnv";
 import EventBus from "../EventBus";
 import { PluginSnippets } from "../../windows/Snippets";
-import cJSON from "comment-json";
 import { UI_DATA, BridgeCore } from "../bridgeCore/main";
 import ThemeManager from "../editor/ThemeManager";
+import unzipper from "unzipper";
 let PLUGIN_FOLDERS;
 let PLUGIN_DATA = [];
 
@@ -41,14 +41,25 @@ export default class PluginLoader {
 
     static async loadPlugin(project, plugin_folder, unloaded_plugins) {
         let plugin_path = path.join(BASE_PATH, project, "bridge/plugins", plugin_folder);
-
         if((await fs.lstat(plugin_path)).isFile()) {
-            //LEGACY PLUGINS
-            Store.commit("loadPlugin", {
-                code: (await fs.readFile(plugin_path)).toString(), 
-                path: plugin_path, 
-                blocked: unloaded_plugins.includes(plugin_path)
-            });
+            if(path.extname(plugin_path) === ".js") {
+                //LEGACY PLUGINS
+                Store.commit("loadPlugin", {
+                    code: (await fs.readFile(plugin_path)).toString(), 
+                    path: plugin_path, 
+                    blocked: unloaded_plugins.includes(plugin_path)
+                });
+            } else if(path.extname(plugin_path) === ".zip") {
+                //Load archived plugins
+                let unzip_path = path.join(BASE_PATH, project, "bridge/plugins", path.basename(plugin_folder, ".zip"));
+                await createReadStream(plugin_path)
+                    .pipe(unzipper.Extract({ path: unzip_path }))
+                    .promise();
+                await Promise.all([
+                    fs.unlink(plugin_path),
+                    this.loadPlugin(project, path.basename(plugin_folder, ".zip"), unloaded_plugins)
+                ]).catch(e => {});
+            }
         } else {
             let manifest;
             try {
@@ -61,7 +72,7 @@ export default class PluginLoader {
                     this.loadScripts(plugin_path, manifest.api_version),
                     this.loadSnippets(plugin_path),
                     this.loadThemes(plugin_path)
-                ]);
+                ]).catch(e => {});
             } 
             PLUGIN_DATA.push(manifest);
         }
