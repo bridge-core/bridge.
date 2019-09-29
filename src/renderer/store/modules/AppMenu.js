@@ -250,7 +250,7 @@ const state = {
             },
             {
                 title: "Plugin API",
-                action: () => shell.openExternal("https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md")
+                action: () => shell.openExternal("https://github.com/solvedDev/bridge./blob/master/plugin_docs/main.md")
             }
         ]
     }
