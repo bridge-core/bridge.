@@ -62,7 +62,7 @@ class ReactiveList {
             res.push({ type: "divider" });
         }
 
-        if(this.parent.base_layer !== undefined) {
+        if(this.parent.base_layer !== undefined && this.parent.composed_file !== undefined) {
             res.unshift({
                 type: "card",
                 is_tiled: true,
@@ -148,7 +148,9 @@ export default class ManageFileMasks extends CommonWindow {
                 this.base_layer = cache_content;
             }
         } catch(e) {}
-        this.composed_file = await readJSON(file_path);
+        try {
+            this.composed_file = await readJSON(file_path);
+        } catch(e) {}
 
         this.content = [
             {
