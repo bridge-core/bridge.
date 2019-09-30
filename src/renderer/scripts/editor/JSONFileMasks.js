@@ -5,6 +5,7 @@ import path from "path";
 import { CURRENT } from "../constants";
 import { BridgeCore } from "../bridgeCore/main";
 import JSONTree from "./JsonTree";
+import { promises as fs } from "fs";
 
 export class JSONMask {
     constructor(data={}) {
@@ -112,6 +113,7 @@ export class JSONFileMasks {
         }
         data = await BridgeCore.beforeSave(data, file_path, depth);
 
+        await fs.mkdir(path.dirname(file_path), { recursive: true });
         return writeJSON(file_path, data, true, file_version);
     }
     static async applyOnData(file_path, data, overwrite_arrays=[]) {
@@ -119,6 +121,7 @@ export class JSONFileMasks {
     }
 
     static async generateFromMask(file_path, overwrite_arrays) {
+        await fs.mkdir(path.dirname(file_path), { recursive: true });
         return writeJSON(
             file_path,
             maskMerge(
