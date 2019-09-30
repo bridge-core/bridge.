@@ -137,6 +137,17 @@ export default class LightningCache {
         
         await writeJSON(this.l_cache_path, this.global_cache, true);
     }
+    static async duplicate(what, as) {
+        let type = FileType.get(what);
+        if(type === "unknown") return;
+
+        this.global_cache = await this.load();
+        try {
+            this.global_cache[type][OmegaCache.toCachePath(as, false)] = this.global_cache[type][OmegaCache.toCachePath(what, false)];
+        } catch(e) {}
+        
+        await writeJSON(this.l_cache_path, this.global_cache, true);
+    }
     static async clear(file_path) {
         let type = FileType.get(file_path);
         if(type === "unknown") return;

@@ -44,6 +44,7 @@
     import Assert from '../../../../scripts/plugins/PluginAssert';
     import OmegaCache from '../../../../scripts/editor/OmegaCache';
     import LightningCache from '../../../../scripts/editor/LightningCache';
+    import { JSONFileMasks } from '../../../../scripts/editor/JSONFileMasks';
 
     export default {
         name: "file-displayer",
@@ -133,6 +134,7 @@
                                     async () => {
                                         OmegaCache.clear(file_path);
                                         LightningCache.clear(file_path);
+                                        JSONFileMasks.delete(file_path);
 
                                         await trash(file_path);
                                         this.$root.$emit("refreshExplorer");
@@ -162,6 +164,7 @@
                                     let new_path = `${excl_path}${new_name}`;
                                     OmegaCache.rename(file_path, new_path);
                                     LightningCache.rename(file_path, new_path);
+                                    JSONFileMasks.rename(file_path, new_path);
                                     fs.rename(file_path, new_path, (err) => {
                                         if(err) Assert.throw("bridge. Core", err);
                                         this.$root.$emit("refreshExplorer");
@@ -170,6 +173,30 @@
                                 });
                             }
                         },
+                        {
+                            title: "Duplicate",
+                            action: () => {
+                                new InputWindow({
+                                    text: file_name,
+                                    label: "Name",
+                                    header: "Name Input",
+                                    expand_text: "." + file_ext
+                                }, (new_name) => {
+                                    let closed = TabSystem.closeByPath(file_path);
+
+                                    let new_path = `${excl_path}${new_name}`;
+                                    OmegaCache.duplicate(file_path, new_path);
+                                    LightningCache.duplicate(file_path, new_path);
+                                    JSONFileMasks.duplicate(file_path, new_path);
+                                    fs.copyFile(file_path, new_path, (err) => {
+                                        if(err) Assert.throw("bridge. Core", err);
+                                        this.$root.$emit("refreshExplorer");
+                                        if(closed) FileSystem.open(new_path);
+                                    });
+                                });
+                            }
+                        },
+                        { type: "divider" },
                         {
                             title: "File Layers",
                             action: () => {

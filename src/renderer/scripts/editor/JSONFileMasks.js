@@ -62,6 +62,35 @@ export class JSONFileMasks {
         return res;
     }
 
+    static async delete(file_path) {
+        if(this.data === undefined) this.data = await this.loadMasks();
+        let key = OmegaCache.toCachePath(file_path, false);
+        if(this.data[key] === undefined) return;
+        delete this.data[key];
+
+        await this.saveMasks();
+    }
+    static async rename(old_path, new_path) {
+        if(this.data === undefined) this.data = await this.loadMasks();
+        let key = OmegaCache.toCachePath(old_path, false);
+        if(this.data[key] === undefined) return;
+
+        this.data[OmegaCache.toCachePath(new_path, false)] = this.data[key];
+        delete this.data[key];
+
+        await this.saveMasks();
+    }
+    static async duplicate(what, as) {
+        if(this.data === undefined) this.data = await this.loadMasks();
+        let key = OmegaCache.toCachePath(what, false);
+        if(this.data[key] === undefined) return;
+        console.log("HERE", this.data,OmegaCache.toCachePath(as, false), key);
+
+        this.data[OmegaCache.toCachePath(as, false)] = this.data[key];
+
+        await this.saveMasks();
+    }
+
     static async apply(file_path, depth=100) {
         let data;
         let loaded;

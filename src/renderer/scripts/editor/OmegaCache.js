@@ -110,4 +110,10 @@ export default class OmegaCache {
         
         fs.rename(this.toCachePath(old_path), this.toCachePath(new_path), (err) => {});
     }
+    static duplicate(what, as) {
+        if(!this.mayBeCached(as))
+            return;
+
+        fs.copyFile(this.toCachePath(what), this.toCachePath(as), (err) => {});
+    }
 }
