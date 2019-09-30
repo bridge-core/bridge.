@@ -12,7 +12,7 @@ export const MOJANG_PATH = (() => {
         case "win32":
             platformRoot = path.join(
                 process.env["LOCALAPPDATA"],
-                "Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState"
+                "Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/com.mojang"
             );
             break;
         case "linux":

@@ -88,6 +88,15 @@ class ReactiveList {
                             });
                             this.parent.close();
                         }
+                    },
+                    {
+                        type: "icon-button",
+                        text: "mdi-delete",
+                        color: "error",
+                        only_icon: true,
+                        action: () => {
+                            OmegaCache.clear(this.parent.file_path);
+                        }
                     }
                 ]
             });
@@ -117,6 +126,13 @@ class ReactiveList {
                             });
                             this.parent.close();
                         }
+                    },
+                    {
+                        type: "icon-button",
+                        text: "mdi-delete",
+                        color: "error",
+                        only_icon: true,
+                        is_disabled: true
                     }
                 ]
             });

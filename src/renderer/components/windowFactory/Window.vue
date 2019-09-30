@@ -86,6 +86,7 @@
                 `">
                     <window-content 
                         v-for="(content) in win.content" 
+                        v-if="content !== undefined"
                         :key="key(content)" 
                         :content="typeof content === 'function' ? content() : content"
                     />
@@ -100,6 +101,7 @@
             <v-card-actions background-color="footer" v-if="win.actions != undefined">
                 <window-content 
                     v-for="(content) in win.actions" 
+                    v-if="content !== undefined"
                     :key="key(content)"
                     :content="typeof content === 'function' ? content() : content"
                     style="overflow-x: auto;"
@@ -212,7 +214,7 @@ export default {
             return uuidv4();
         },
         key(c) {
-            return (typeof c === 'function' ? c().key : c.key) || uuidv4();
+            return (typeof c === 'function' ? c().key : (c || {}).key) || uuidv4();
         }
     },
 

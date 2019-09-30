@@ -34,7 +34,7 @@
         :style="`background-color: ${content.color}; padding: 4px; width: ${content.full_width ? '100%' : 'unset'}; height: ${content.height}px; overflow-y: ${content.scroll ? 'auto' : 'hidden'}; white-space: ${content.no_wrap ? 'nowrap' : 'unset'}; overflow-x: auto;`"
         :class="content.small_scrollbar ? 'small-scrollbar' : ''"
     >
-        <window-content :style="`display: ${content.display || 'unset'};`" v-for="(c) in content.content" :key="key(c)" :content="c"/>
+        <window-content :style="content.display ? `display: ${content.display};` : ''" v-for="(c) in content.content" :key="key(c)" :content="c"/>
     </div>
     <v-chip
         v-else-if="content.type == 'tag'"
@@ -361,7 +361,7 @@
                 return action;
             },
             key(c) {
-                return (typeof c === 'function' ? c().key : c.key) || uuidv4();
+                return (typeof c === 'function' ? c().key : (c || {}).key) || uuidv4();
             },
 
             setCMTextSelection(sel_obj_1, sel_obj_2) {
