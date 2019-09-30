@@ -220,7 +220,7 @@ class TabSystem {
         EventBus.trigger("updateSelectedTab");
     }
     selectNavigation(str_path, tab=this.selected) {
-        if(this.projects[this.project][tab].file_navigation == str_path) return;
+        if(!this.getSelected() || this.projects[this.project][tab].file_navigation === str_path) return;
         
         this.projects[this.project][tab].file_navigation = str_path;
         EventBus.trigger("updateFileNavigation", str_path);
