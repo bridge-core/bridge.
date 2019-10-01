@@ -13,7 +13,6 @@
                             <editor-shell-tab-system/>
                             <editor-shell-content-manager/>
 
-                            <plugin-install-main v-if="render_plugin_window"/>
                             <window-factory-main/>
                             <documentation-main/>
                             <context-menu-main/>
@@ -42,7 +41,6 @@
     import EditorShellTabSystem from "@/components/editor_shell/TabSystem";
     import JsonEditorHoverCard from "@/components/editor_shell/JsonEditor/HoverCard";
     import EditorShellContentManager from "@/components/editor_shell/ContentManager";
-    import PluginInstallMain from "@/components/plugin_install/Main";
     import WindowFactoryMain from "@/components/windowFactory/Main";
     import FooterMain from "@/components/footer/Main";
     import ContextMenuMain from "@/components/context_menu/Main";
@@ -61,7 +59,6 @@
             SidebarMain,
             EditorShellTabSystem,
             EditorShellContentManager,
-            PluginInstallMain,
             WindowFactoryMain,
             FooterMain,
             ContextMenuMain,
@@ -95,9 +92,6 @@
             footer_visible() {
                 return this.$store.state.Footer.elements.length > 0;
             },
-            is_plugin_window_open() {
-                return this.$store.state.Plugins.is_menu_open;
-            },
             is_dark_mode() {
                 return this.$store.state.Appearance.is_dark_mode;
             },
@@ -106,10 +100,6 @@
             }
         },
         watch: {
-            is_plugin_window_open(to) {
-                if(to) this.render_plugin_window = true
-                else window.setTimeout(() => this.render_plugin_window = false, 100)
-            },
             is_dark_mode(to) {
                 this.$vuetify.theme.dark = to;
             }
@@ -118,8 +108,7 @@
             return {
                 content: "",
                 file: "",
-                path: "",
-                render_plugin_window: false
+                path: ""
             };
         },
         methods: {

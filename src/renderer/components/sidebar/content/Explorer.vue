@@ -69,9 +69,9 @@
     import ExplorerRpToolbar from "./explorer/RpToolbar.vue";
     import EventBus from "../../../scripts/EventBus";
     import TabSystem from "../../../scripts/TabSystem";
-    import { BASE_PATH } from '../../../scripts/constants';
+    import { BASE_PATH, BP_BASE_PATH } from '../../../scripts/constants';
     import DataUrl from "dataurl";
-    import fs from "fs";
+    import fsync, { promises as fs } from "fs";
     import LinkRPWindow from "../../../windows/LinkRPWindow";
     import CreateProjectWindow from '../../../windows/CreateProject';
     import PackLinker from '../../../scripts/utilities/LinkPacks';
@@ -118,30 +118,24 @@
             });
             EventBus.on("bridge:refreshExplorer", this.refresh);
 
-            ipcRenderer.on("readProjects", (event, args) => {
-                this.items = args.files;
-                this.no_projects = false;
-                
-                if(this.items.length === 0 || this.items[0] === "undefined") {
-                    this.no_projects = true;
-                } else if(this.selected === "" || this.selected === undefined) {
-                    this.getDirectory(this.findDefaultProject());
-                }
-            });
-
             if(this.force_project_algorithm) {
                 this.selected = undefined;
                 this.selected = await this.force_project_algorithm();
             } else {
-                this.getProjects({ event_name: "initialProjectLoad", func () {} });
+                this.items = await fs.readdir(BP_BASE_PATH);
+                this.no_projects = false;
+
+                if(this.items.length === 0 || this.items[0] === "undefined") {
+                    this.no_projects = true;
+                } else if(this.selected === "" || this.selected === undefined) {
+                    this.loadDirectory(this.findDefaultProject());
+                }
+                // this.getProjects({ event_name: "initialProjectLoad", func () {} });
             }
 
             window.addEventListener("resize", this.onResize);
         },
         destroyed() {
-            this.listeners.forEach(e => {
-                ipcRenderer.removeAllListeners(e);
-            });
             this.$root.$off("refreshExplorer");
             EventBus.off("bridge:refreshExplorer", this.refresh);
 
@@ -154,7 +148,7 @@
                 },
                 set(project) {
                     this.$store.commit("setExplorerProject", { store_key: this.explorer_type, project });
-                    this.getDirectory(project);
+                    this.loadDirectory(project);
                     EventBus.trigger("updateTabUI");
                     // EventBus.on("updateSelectedTab");
                 }
@@ -179,44 +173,37 @@
             project_icon() {
                 try {
                     return DataUrl.convert({
-                        data: fs.readFileSync(this.base_path + this.selected + "/pack_icon.png"),
+                        data: fsync.readFileSync(this.base_path + this.selected + "/pack_icon.png"),
                         mimetype: `image/png`
                     });
                 } catch(e) {
                     return DataUrl.convert({
-                        data: fs.readFileSync(__static + "/images/pack_icon.png"),
+                        data: fsync.readFileSync(__static + "/images/pack_icon.png"),
                         mimetype: `image/png`
                     });
                 }
             }
         },
         methods: {
-            refresh(force_val) {
+            async refresh(force_val) {
                 if(this.force_project_algorithm) {
                     if(force_val) this.selected = force_val;
                     console.log("[REFRESH RP] " + this.selected);
-                    this.getDirectory(this.selected, true);
+                    this.loadDirectory(this.selected, true);
                 } else {
-                    this.getProjects({
-                        event_name: "refreshExplorer",
-                        func: () => {
-                            console.log("[REFRESH] " + this.selected);
-                            this.getDirectory(undefined, true);
-                        }
-                    });
+                    this.items = await fs.readdir(BP_BASE_PATH);
+                    this.no_projects = false;
+                    console.log("[REFRESH BP] " + this.selected);
+
+                    if(this.items.length === 0 || this.items[0] === "undefined") {
+                        this.no_projects = true;
+                    } else if(this.selected === "" || this.selected === undefined) {
+                        this.loadDirectory(this.findDefaultProject());
+                    }
                 }
             },
             
-
-            getProjects({ event_name, func }={}) {
-                this.registerListener(event_name, func);
-
-                ipcRenderer.send("getProjects", {
-                    path: this.base_path,
-                    event_name
-                });
-            },
-            async getDirectory(dir=this.selected, force_reload) {
+            async loadDirectory(dir=this.selected, force_reload) {
                 let lw = new LoadingWindow().show();
                 if(this.explorer_type === "explorer") {
                     EventBus.trigger("bridge:changedProject");

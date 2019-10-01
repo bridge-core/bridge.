@@ -17,6 +17,7 @@
                 chips
                 :label="label"
                 :items="items"
+                dense
                 :menu-props="{ maxHeight: 120, top: false, contentClass: 'json-input-suggestions' }"
                 :hide-no-data="true"
                 no-data-text="No suggestions available..."
@@ -207,8 +208,3 @@
     }
 </style>
 
-<style>
-    .v-menu__content.v-autocomplete__content .v-list__tile:not(.v-list__tile--avatar) {
-        height: 26px !important;
-    }
-</style>

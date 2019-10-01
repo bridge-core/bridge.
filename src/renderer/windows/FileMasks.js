@@ -62,7 +62,7 @@ class ReactiveList {
             res.push({ type: "divider" });
         }
 
-        if(this.parent.base_layer !== undefined && this.parent.composed_file !== undefined) {
+        if(this.parent.base_layer !== undefined) {
             res.unshift({
                 type: "card",
                 is_tiled: true,
@@ -96,11 +96,15 @@ class ReactiveList {
                         only_icon: true,
                         action: () => {
                             OmegaCache.clear(this.parent.file_path);
+                            this.parent.base_layer = undefined;
+                            this.parent.init();
                         }
                     }
                 ]
             });
-
+        }
+        
+        if(this.parent.composed_file !== undefined) {
             res.push({
                 type: "card",
                 is_tiled: true,

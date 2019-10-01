@@ -13,12 +13,14 @@ let PLUGIN_FOLDERS;
 let PLUGIN_DATA = [];
 
 export default class PluginLoader {
+    static unloaded_plugins;
     static async loadPlugins(project) {
         if(project === undefined) return;
         //INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
         Store.commit("unloadPlugins");
         
         let unloaded_plugins = await Bridge.Interpreter.init(project);
+        this.unloaded_plugins = unloaded_plugins;
         //Activate/Deactivate BridgeCore
         if(!unloaded_plugins.includes("bridge.core")) BridgeCore.activate();
         else BridgeCore.deactivate();

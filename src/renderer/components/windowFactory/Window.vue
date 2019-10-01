@@ -5,6 +5,7 @@
         :persistent="is_persistent"
         :hide-overlay="!blur_background"
         :max-width="is_fullscreen ? maxWidth : width"
+        :content-class="(win.options || {}).elevation !== undefined ? `elevation-${win.options.elevation}` : ''"
     >
         <v-card ref="movable_card" :color="win.options ? (win.options.main_color || 'background') : 'background'">
             <v-system-bar 
@@ -85,8 +86,7 @@
                     overflow-y: hidden;
                 `">
                     <window-content 
-                        v-for="(content) in win.content" 
-                        v-if="content !== undefined"
+                        v-for="(content) in content" 
                         :key="key(content)" 
                         :content="typeof content === 'function' ? content() : content"
                     />
@@ -100,8 +100,7 @@
             <v-divider v-if="win.actions != undefined"/>
             <v-card-actions background-color="footer" v-if="win.actions != undefined">
                 <window-content 
-                    v-for="(content) in win.actions" 
-                    v-if="content !== undefined"
+                    v-for="(content) in actions" 
                     :key="key(content)"
                     :content="typeof content === 'function' ? content() : content"
                     style="overflow-x: auto;"
@@ -170,7 +169,7 @@ export default {
 
         //DIALOG
         blur_background() {
-            return !this.win.options || this.win.options.blurs_background == undefined || this.win.options.blurs_background;
+            return !this.win.options || this.win.options.blurs_background === undefined || this.win.options.blurs_background;
         },
         is_persistent() {
             return !this.win.options || this.win.options.is_persistent == undefined || this.win.options.is_persistent;
@@ -198,6 +197,12 @@ export default {
         //Sidebar
         has_sidebar() {
             return this.win.sidebar != undefined;
+        },
+        actions() {
+            return this.win.actions.filter(e => e !== undefined);
+        },
+        content() {
+            return this.win.content.filter(e => e !== undefined);
         }
     },
     watch: {

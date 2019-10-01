@@ -6,5 +6,13 @@
     "Verified": {
         "icon": "mdi-shield-check",
         "color": "primary"
+    },
+    "0": {
+        "icon": "mdi-code-braces",
+        "color": "primary"
+    },
+    "1": {
+        "icon": "mdi-account",
+        "color": "success"
     }
 }

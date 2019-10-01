@@ -17,6 +17,7 @@ export default class Notification {
         this.action = action;
         this.color = color;
         this.text_color = text_color;
+        this.pushed = false;
     }
 
     addBadge(badge) {
@@ -24,12 +25,18 @@ export default class Notification {
     }
 
     send() {
+        if(this.pushed) return;
+
+        this.pushed = true;
         Store.commit("addNativeFooter", this);
     }
     update() {
         Store.commit("updateNativeFooter", this);
     }
     remove() {
+        if(!this.pushed) return;
+        
+        this.pushed = false;
         Store.commit("removePluginFooter", this.id);
     }
 }
