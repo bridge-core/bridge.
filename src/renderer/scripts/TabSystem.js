@@ -6,7 +6,6 @@ import PluginEnv from "./plugins/PluginEnv";
 import JSONTree from "./editor/JsonTree";
 import { changeProvider } from "./editor/JsonTree";
 import LoadingWindow from "../windows/LoadingWindow";
-import ConfirmWindow from "./commonWindows/Confirm";
 import { History } from "./TabSystem/CommonHistory";
 import ProblemIterator from "./editor/problems/Problems";
 import path from "path";
@@ -15,6 +14,7 @@ import OmegaCache from "./editor/OmegaCache";
 import LightningCache from "./editor/LightningCache";
 import { BridgeCore } from "./bridgeCore/main";
 import { uuid } from "./utilities/useAttr";
+import CloseUnsavedTab from "../windows/CloseUnsavedTab";
 
 /**
  * @todo Refactor TabSystem to use dedicated classes IMGTab, CMTab, JSONTab,...
@@ -97,12 +97,16 @@ class TabSystem {
         EventBus.trigger("updateTabUI");
     }
     closeById(id, project=this.project) {
-        if(this.projects[project] === undefined || this.projects[project][id] === undefined)
-            return;
+        if(!this.getSelected()) return;
+
         if(this.projects[project][id].is_unsaved && !this.projects[project][id].is_immutable) {
-            new ConfirmWindow(() => {
+            new CloseUnsavedTab(async () => {
+                await this.saveCurrent();
                 this.internalCloseId(id, project);
-            }, null, "This tab has unsaved progress! Are you sure that you want to close it?");
+            },
+            () => {
+                this.internalCloseId(id, project);
+            }, () => {});
         } else {
             this.internalCloseId(id, project);
         }
@@ -306,7 +310,7 @@ class TabSystem {
     }
 
     //SAVING
-    async getSaveContent(current, updateCache=true) {
+    async getSaveContent(current, update_cache=true) {
         let ext = path.extname(current.file_path);
         let format_version = 0;
         if(current.content instanceof JSONTree) {
@@ -324,7 +328,7 @@ class TabSystem {
             file_extension: ext
         }).content, current.raw_content);
 
-        if(updateCache && OmegaCache.mayBeCached(current.file_path)) {
+        if(update_cache && OmegaCache.mayBeCached(current.file_path)) {
             await Promise.all([
                 OmegaCache.save(current.file_path, {
                     format_version,
@@ -338,7 +342,7 @@ class TabSystem {
 
         return data;
     }
-    async saveCurrent(fsMethod="basicSave", updateCache=true) {
+    async saveCurrent(fsMethod="basicSave", update_cache=true) {
         let win = new LoadingWindow("save-file").show();
         PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
@@ -351,9 +355,9 @@ class TabSystem {
 
         FileSystem[fsMethod](
             current.file_path, 
-            `${comment_char}bridge-file-version: #${current.file_version}\n${await this.getSaveContent(current, updateCache)}`,
+            `${comment_char}bridge-file-version: #${current.file_version}\n${await this.getSaveContent(current, update_cache)}`,
             false,
-            true
+            false
         );
         
         this.setCurrentSaved();
