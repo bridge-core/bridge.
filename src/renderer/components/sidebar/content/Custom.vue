@@ -5,8 +5,7 @@
                 v-for="(el, i) in toolbar" 
                 :key="`plugin-toolbar-element-${i}`"
                 :element="el"
-            >
-            </toolbar-element>
+            />
         </v-toolbar>
         <v-divider/>
 

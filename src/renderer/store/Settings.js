@@ -22,6 +22,7 @@ function setup() {
             use_tabs: true,
             line_wraps: false,
             auto_completions: true,
+            text_auto_completions: true,
             auto_fill_inputs: false,
             open_all_nodes: false,
             default_project: "",
@@ -41,6 +42,9 @@ function setup() {
     VueStore.commit("setDarkMode", DATA.is_dark_mode);
     if(DATA.id === undefined) {
         save({ id: uuid() });
+    }
+    if(DATA.text_auto_completions === undefined) {
+        save({ text_auto_completions: true });
     }
 }
 function save(settings) {

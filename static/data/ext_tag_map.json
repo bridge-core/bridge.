@@ -1,4 +1,8 @@
 {
+    "View All": {
+        "icon": "mdi-format-list-bulleted-square",
+        "color": "primary"
+    },
     "Curated": {
         "icon": "mdi-star",
         "color": "warning"
@@ -6,6 +10,17 @@
     "Verified": {
         "icon": "mdi-shield-check",
         "color": "primary"
+    },
+    "Theme": {
+        "icon": "mdi-palette",
+        "color": "error"
+    },
+    "Utility": {
+        "icon": "mdi-wrench"
+    },
+    "Snippet": {
+        "icon": "mdi-attachment",
+        "color": "info"
     },
     "0": {
         "icon": "mdi-code-braces",

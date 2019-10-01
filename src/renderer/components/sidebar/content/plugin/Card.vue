@@ -60,18 +60,7 @@
     import path from "path";
     import { CURRENT } from '../../../../scripts/constants';
     import LoadingWindow from '../../../../windows/LoadingWindow';
-    import Notification from '../../../../scripts/Notification';
-    const RELOAD_NOTIFICATION = new Notification({ 
-        display_name: "Reload plugins", 
-        color: "primary", 
-        display_icon: "mdi-refresh",
-        action: async () => {
-            RELOAD_NOTIFICATION.remove();
-            let lw = new LoadingWindow().show();
-            await PluginLoader.loadPlugins(CURRENT.PROJECT)
-            lw.close(); 
-        }
-    });
+    import { RELOAD_NOTIFICATION } from '../../../../windows/Extensions/Common';
 
     export default {
         name: "plugin-card",

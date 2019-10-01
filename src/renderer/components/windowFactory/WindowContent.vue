@@ -10,6 +10,10 @@
         v-else-if="content.type == 'header'"
         :color="content.color"
     >{{ content.text }}</v-subheader>
+    <h3
+        v-else-if="content.type == 'big-header'"
+        :class="pre_color"
+    >{{ content.text }}</h3>
     <v-img
         v-else-if="content.type == 'img'"
         :src="content.src"
@@ -215,7 +219,7 @@
             :options="codemirror_options"
             ref="input"
         />
-        <text-auto-completions/>
+        <text-auto-completions v-if="$store.state.Settings.text_auto_completions"/>
     </span>
 
     <!-- ERROR -->

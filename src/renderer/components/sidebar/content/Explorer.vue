@@ -122,7 +122,9 @@
                 this.selected = undefined;
                 this.selected = await this.force_project_algorithm();
             } else {
-                this.items = await fs.readdir(BP_BASE_PATH);
+                try {
+                    this.items = await fs.readdir(BP_BASE_PATH);
+                } catch(e) { this.items = []; }
                 this.no_projects = false;
 
                 if(this.items.length === 0 || this.items[0] === "undefined") {
@@ -130,7 +132,6 @@
                 } else if(this.selected === "" || this.selected === undefined) {
                     this.loadDirectory(this.findDefaultProject());
                 }
-                // this.getProjects({ event_name: "initialProjectLoad", func () {} });
             }
 
             window.addEventListener("resize", this.onResize);
@@ -191,15 +192,17 @@
                     console.log("[REFRESH RP] " + this.selected);
                     this.loadDirectory(this.selected, true);
                 } else {
-                    this.items = await fs.readdir(BP_BASE_PATH);
+                    try {
+                        this.items = await fs.readdir(BP_BASE_PATH);
+                    } catch(e) { this.items = []; }
+                    
                     this.no_projects = false;
                     console.log("[REFRESH BP] " + this.selected);
 
-                    if(this.items.length === 0 || this.items[0] === "undefined") {
+                    if(this.items.length === 0) {
                         this.no_projects = true;
-                    } else if(this.selected === "" || this.selected === undefined) {
-                        this.loadDirectory(this.findDefaultProject());
                     }
+                    this.loadDirectory(this.selected, true);
                 }
             },
             

@@ -1,3 +1,5 @@
+import { tag } from "./Common";
+
 export default class Category {
     constructor(category_name, on_view) {
         this.type = "card";
@@ -5,7 +7,12 @@ export default class Category {
         this.elevation = 0;
         this.below_content = [
             {
-                text: category_name
+                type: "icon",
+                text: tag(category_name).icon,
+                color: tag(category_name).color
+            },
+            {
+                text: " " + category_name
             },
             {
                 type: "space"

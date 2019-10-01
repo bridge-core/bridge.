@@ -21,7 +21,7 @@
                 :options="cm_options"
                 ref="cm"
             />
-            <text-auto-completions/>
+            <text-auto-completions v-if="$store.state.Settings.text_auto_completions"/>
         </span>
     </span>
 </template>

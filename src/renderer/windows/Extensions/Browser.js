@@ -1,14 +1,25 @@
 import ContentWindow from "../../scripts/commonWindows/Content";
-import Session from "./Session";
+import Session from "./Common";
 import PluginCard from "./PluginCard";
 import Category from "./Category";
 import ListView from "./ListView";
+import Title from "./Title";
 
 export default class Browser extends ContentWindow {
     constructor() {
         const DEFAULT_CONTENT = [
             new Category("Verified", () => { new ListView("Verified") }),
+            { type: "divider" },
+            new Category("Theme", () => { new ListView("Theme") }),
+            { type: "divider" },
+            new Category("Utility", () => { new ListView("Utility") }),
+            { type: "divider" },
+            new Category("Snippet", () => { new ListView("Snippet") }),
+            { type: "divider" },
             new Category("View All", () => { new ListView() }),
+            { type: "divider" },
+            { text: "\n\n" },
+            ...Title("Curated")
         ];
 
         super({

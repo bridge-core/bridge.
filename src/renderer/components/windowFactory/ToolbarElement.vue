@@ -1,6 +1,6 @@
 <template>
         <v-tooltip
-            right
+            bottom
             color="tooltip"
             :disabled="!show_tooltip"
         >

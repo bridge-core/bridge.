@@ -1,14 +1,13 @@
-import { readJSONSync } from "../../scripts/utilities/JsonFS";
-import path from "path";
 import ListView from "./ListView";
-const EXT_TAG_MAP = readJSONSync(path.join(__static, "data/ext_tag_map.json"));
+import { tag, download, RELOAD_NOTIFICATION } from "./Common";
 
 class DownloadButton {
     type = "button";
     icon = "mdi-download";
     text = "Download";
     color = "primary";
-    constructor(parent, action) {
+    constructor(parent, action, disabled) {
+        this.is_disabled = disabled;
         this.action = async () => {
             console.log(this);
             this.is_loading = true;
@@ -20,12 +19,8 @@ class DownloadButton {
     }
 }
 
-function tag(tag_name, index) {
-    return  (EXT_TAG_MAP[tag_name] || EXT_TAG_MAP[`${index}`] || {});
-}
-
 export default class PluginCard {
-    constructor(parent, { author, name, version, description, tags }, close_parent=true) {
+    constructor(parent, { author, name, version, description, tags, link }, close_parent=true) {
         this.type = "card";
         this.above_content = [
             { text: `${name}` }
@@ -43,8 +38,7 @@ export default class PluginCard {
                             (t, i) => ({ 
                                 type: "tag",
                                 text: t,
-                                color: tag(t, i).color,
-                                icon: tag(t, i).icon,
+                                ...tag(t, i),
                                 action: () => {
                                     if(close_parent) parent.close();
                                     new ListView(t);
@@ -62,7 +56,7 @@ export default class PluginCard {
         ];
         this.below_content = [
             { type: "space" },
-            new DownloadButton(this, () => new Promise((resolve) => { setTimeout(() => resolve(), 1000) }))
+            new DownloadButton(this, () => download(link), link === undefined)
         ];
 
         this.update = () => {

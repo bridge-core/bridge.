@@ -1,6 +1,7 @@
 import ContentWindow from "../../scripts/commonWindows/Content";
-import Session from "./Session";
+import Session from "./Common";
 import PluginCard from "./PluginCard";
+import Title from "./Title";
 
 export default class ListView extends ContentWindow {
     constructor(tag_filter) {
@@ -16,11 +17,16 @@ export default class ListView extends ContentWindow {
                     type: "loader"
                 }
             ]
-        }, "bridge.plugin_store.")
+        }, "bridge.plugin_store.");
+
+        const BASE = [{ text: "\n" }];
+        if(tag_filter) {
+            BASE.push(...Title(tag_filter));
+        }
 
         Session.open()
             .then(data => {
-                this.content = [{ text: "\n" }]
+                this.content = BASE
                     .concat(data.filter(({ tags }) => tag_filter ? tags.includes(tag_filter) : true)
                     .map(
                         (plugin) => ([
@@ -29,6 +35,10 @@ export default class ListView extends ContentWindow {
                         ])
                     )
                     .flat(Infinity));
+
+                if(this.content.length === 4) {
+                    this.content = this.content.concat([ { text: `No matching results found for the filter "${tag_filter}"` } ])
+                }
 
                 this.update();
             })

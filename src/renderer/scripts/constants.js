@@ -1,5 +1,5 @@
 import fs from "fs";
-import APP_VERSION from "./constants/app_version";
+import APP_VERSION from "../../shared/app_version";
 import path from "path";
 import { MOJANG_PATH, BP_BASE_PATH } from "../../shared/Paths";
 import Store from "../store/index";
