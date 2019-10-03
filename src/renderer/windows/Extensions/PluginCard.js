@@ -1,26 +1,48 @@
 import ListView from "./ListView";
-import { tag, download, RELOAD_NOTIFICATION } from "./Common";
+import Session, { tag, download, RELOAD_NOTIFICATION, isInstalled } from "./Common";
+import { greaterThan } from "../../scripts/VersionUtils";
 
 class DownloadButton {
     type = "button";
     icon = "mdi-download";
     text = "Download";
     color = "primary";
-    constructor(parent, action, disabled) {
+    constructor(parent, action, disabled, is_installed, is_update) {
         this.is_disabled = disabled;
+
+        if(is_update) {
+            this.setUpdateAvailable();
+        } else if(is_installed) {
+           this.setInstalled();
+        }
+
         this.action = async () => {
             console.log(this);
             this.is_loading = true;
             parent.update();
             if(typeof action === "function") await action();
             this.is_loading = false;
+            this.setInstalled();
             parent.update();
         };
+    }
+
+    setUpdateAvailable() {
+        this.is_disabled = false;
+        this.color = "success";
+        this.text = "Update";
+        this.icon = "mdi-update";
+    }
+    setInstalled() {
+        this.is_disabled = true;
+        this.text = "Installed";
+        this.icon = "mdi-check";
+        this.color = "primary";
     }
 }
 
 export default class PluginCard {
-    constructor(parent, { author, name, version, description, tags, link }, close_parent=true) {
+    constructor(parent, { author, name, version, description, tags, link, id }, close_parent=true) {
         this.type = "card";
         this.above_content = [
             { text: `${name}` }
@@ -54,9 +76,19 @@ export default class PluginCard {
             { text: `\n${description}\n\n` },
             { type: "divider" }
         ];
+
         this.below_content = [
             { type: "space" },
-            new DownloadButton(this, () => download(link), link === undefined)
+            new DownloadButton(
+                this,
+                async () => {
+                    await download(link);
+                    Session.setSessionInstalled(id, version);
+                },
+                link === undefined,
+                parent.plugin_map[id] !== undefined,
+                greaterThan(version, parent.plugin_map[id] || version)
+            )
         ];
 
         this.update = () => {

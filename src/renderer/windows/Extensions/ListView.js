@@ -1,5 +1,5 @@
 import ContentWindow from "../../scripts/commonWindows/Content";
-import Session from "./Common";
+import Session, { getInfoMap } from "./Common";
 import PluginCard from "./PluginCard";
 import Title from "./Title";
 
@@ -24,6 +24,7 @@ export default class ListView extends ContentWindow {
             BASE.push(...Title(tag_filter));
         }
 
+        this.plugin_map = getInfoMap();
         Session.open()
             .then(data => {
                 this.content = BASE

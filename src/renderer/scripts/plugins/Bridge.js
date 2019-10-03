@@ -13,6 +13,8 @@ import { walkSync } from "../autoCompletions/Dynamic";
 import LoadingWindow from "../../windows/LoadingWindow";
 import OmegaCache from "../editor/OmegaCache";
 import FileType from "../editor/FileType";
+import PluginLoader from "./PluginLoader";
+import path from "path";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -312,7 +314,7 @@ export default class Bridge {
     }
 
     registerPlugin(plugin_info) {
-        Runtime.Plugins.add(this.plugin_id, { ...plugin_info, id: this.__file_path__ });
+        PluginLoader.pushPluginData({ ...plugin_info, id: path.basename(this.__file_path__, ".js") });
     }
     
 

@@ -5,6 +5,7 @@ import path from "path";
 import Notification from '../../scripts/Notification';
 import PluginLoader from "../../scripts/plugins/PluginLoader";
 import LoadingWindow from "../LoadingWindow";
+import EventBus from "../../scripts/EventBus";
 
 export const EXT_TAG_MAP = readJSONSync(path.join(__static, "data/ext_tag_map.json"));
 
@@ -32,8 +33,24 @@ export const RELOAD_NOTIFICATION = new Notification({
         lw.close(); 
     }
 });
+
+export function getInfoMap() {
+    let res = {};
+
+    for(let { id, version } of PluginLoader.getInstalledPlugins()) {
+        res[id] = version;
+    }
+
+    return Object.assign(res, Session.session_installed);
+}
+
+EventBus.on("bridge:pluginsLoaded", () => {
+    Session.session_installed = {};
+    RELOAD_NOTIFICATION.remove();
+});
 export default class Session {
     static data;
+    static session_installed = {};
 
     static async open() {
         // if(this.data !== undefined) return this.data;
@@ -44,6 +61,7 @@ export default class Session {
         return [
             {
                 "author": "bridge. Team",
+                "id": "bridge.ui.common_window",
                 "version": "1.0.0",
                 "name": "Bridge CommonWindow",
                 "description": "Utility for other plugins. Wraps the bridge. Window API into an easier to use class.",
@@ -52,6 +70,7 @@ export default class Session {
             },
             {
                 "author": "bridge. Team",
+                "id": "bridge.ui.confirm_window",
                 "version": "1.0.0",
                 "name": "Bridge ConfirmWindow",
                 "description": "Utility for other plugins. Uses bridge.ui.common_window to construct a confirm dialog.",
@@ -63,6 +82,7 @@ export default class Session {
             },
             {
                 "author": "solvedDev",
+                "id": "solved.features.dynamic_json",
                 "version": "1.0.0",
                 "name": "Dynamic JSON",
                 "min_app_version": "v0.7.0",
@@ -72,6 +92,7 @@ export default class Session {
             },
             {
                 "author": "solvedDev",
+                "id": "solved.features.dynamic_function",
                 "version": "1.0.0",
                 "name": "Dynamic Function",
                 "min_app_version": "v0.7.0",
@@ -81,7 +102,8 @@ export default class Session {
             },
             {
                 "author": "bridge. Team",
-                "version": "1.0.1",
+                "id": "solved.utilities.bridge_plugin_creator",
+                "version": "1.0.2",
                 "name": "Bridge Plugin Creator",
                 "description": "Adds bridge. plugin files to bridge.'s native file creation window.",
                 "link": "/plugins/solved.utilities.bridge_plugin_creator.js",
@@ -89,6 +111,7 @@ export default class Session {
             },
             {
                 "name": "Console",
+                "id": "solved.utilities.console",
                 "author": "solvedDev",
                 "version": "1.1.4",
                 "description": "Utility module to bring a console to bridge. plugins.",
@@ -97,6 +120,7 @@ export default class Session {
             },
             {
                 "name": "Crash Indicator",
+                "id": "solved.utilities.crash_overview",
                 "author": "solvedDev",
                 "version": "1.1.5",
                 "description": "Displays which entities may cause crashes.",
@@ -105,6 +129,7 @@ export default class Session {
             },
             {
                 "name": "File Search",
+                "id": "solved.utilities.file_search",
                 "author": "solvedDev",
                 "version": "1.1.4",
                 "description": "Quickly search all files of a project for specific keywords.",
@@ -112,6 +137,10 @@ export default class Session {
                 "tags": [ "Utility" ]
             }
         ].map(({ author, version, tags, ...other }) => ({ author, version, tags: [ `v${version}`, author ].concat(tags || []), ...other }))
+    }
+    
+    static setSessionInstalled(id, version) {
+        this.session_installed[id] = version;
     }
 
     static close() {

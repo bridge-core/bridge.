@@ -14,6 +14,14 @@ let PLUGIN_DATA = [];
 
 export default class PluginLoader {
     static unloaded_plugins;
+
+    static getInstalledPlugins() {
+        return PLUGIN_DATA;
+    }
+    static pushPluginData(data) {
+        PLUGIN_DATA.push(data);
+    }
+
     static async loadPlugins(project) {
         if(project === undefined) return;
         //INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS

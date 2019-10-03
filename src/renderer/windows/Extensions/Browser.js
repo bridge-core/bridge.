@@ -1,5 +1,5 @@
 import ContentWindow from "../../scripts/commonWindows/Content";
-import Session from "./Common";
+import Session, { getInfoMap } from "./Common";
 import PluginCard from "./PluginCard";
 import Category from "./Category";
 import ListView from "./ListView";
@@ -21,7 +21,7 @@ export default class Browser extends ContentWindow {
             { text: "\n\n" },
             ...Title("Curated")
         ];
-
+        
         super({
             display_name: "Extensions",
             options: {
@@ -39,6 +39,7 @@ export default class Browser extends ContentWindow {
             }
         }, "bridge.plugin_store.");
 
+        this.plugin_map = getInfoMap();
         Session.open()
             .then(data => {
                 this.content = [{ text: "\n" }, ...DEFAULT_CONTENT].concat(data.filter(({ tags }) => tags && tags.includes("Curated")).map(
