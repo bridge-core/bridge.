@@ -117,6 +117,7 @@
                 this.refresh();
             });
             EventBus.on("bridge:refreshExplorer", this.refresh);
+            EventBus.on("bridge:selectProject", this.selectProject);
 
             if(this.force_project_algorithm) {
                 this.selected = undefined;
@@ -139,6 +140,7 @@
         destroyed() {
             this.$root.$off("refreshExplorer");
             EventBus.off("bridge:refreshExplorer", this.refresh);
+            EventBus.off("bridge:selectProject", this.selectProject);
 
             window.removeEventListener("resize", this.onResize);
         },
@@ -204,6 +206,10 @@
                     }
                     this.loadDirectory(this.selected, true);
                 }
+            },
+
+            selectProject(val) {
+                this.loadDirectory(val, true);
             },
             
             async loadDirectory(dir=this.selected, force_reload) {

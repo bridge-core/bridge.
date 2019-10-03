@@ -7,6 +7,7 @@ import Manifest from "../scripts/files/Manifest";
 import uuidv4 from "uuid/v4";
 import CreateFiles from "../scripts/projects/CreateFiles";
 import path from "path";
+import EventBus from "../scripts/EventBus";
 
 export default class CreateProjectWindow extends ContentWindow {
     constructor(create_bp=true, cb) {
@@ -160,6 +161,7 @@ export default class CreateProjectWindow extends ContentWindow {
                         
                         l_w.hide();
                         if(typeof cb === "function") cb(this.input);
+                        if(create_bp) EventBus.trigger("bridge:selectProject", this.input);
                     }
                 );
             });
