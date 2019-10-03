@@ -237,6 +237,7 @@
         "priority": "$general.number",
         "attack_interval": "$general.number",
         "reselect_targets": "$general.boolean",
+        "target_search_height": "$general.number",
         "entity_types": "$entity.general.prioritized_entity_types"
     },
     "minecraft:trust": {},
