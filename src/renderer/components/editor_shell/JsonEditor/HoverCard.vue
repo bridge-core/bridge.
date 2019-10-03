@@ -59,12 +59,13 @@
 <script>
 import TabSystem from "../../../scripts/TabSystem";
 import FileSystem from "../../../scripts/FileSystem";
-import { clipboard } from "electron";
+import { clipboard, shell } from "electron";
 import { JSONAction } from "../../../scripts/TabSystem/CommonHistory";
 import EventBus from "../../../scripts/EventBus";
-import { DOC_WINDOW } from "../../../scripts/documentation/main";
 import NodeShortcuts from "../../../scripts/editor/NodeShortcuts";
 import JumpToDefintion from "../../../scripts/editor/JumpToDef";
+import FileType from '../../../scripts/editor/FileType';
+import { DOC_URL } from '../../../scripts/constants';
 
 
 export default {
@@ -111,10 +112,11 @@ export default {
                     color: "indigo",
                     action: () => {
                         this.is_visible = false;
-                        
-                        DOC_WINDOW.open("entities");
-                        let e = document.getElementById(TabSystem.getCurrentNavContent());
-                        window.setTimeout(() => { if(e) e.scrollIntoView() }, 1000);
+                        let doc = FileType.getDocumentation() || "Addons";
+                        if(typeof doc === "string")
+                            shell.openExternal(`${DOC_URL}${encodeURI(doc)}#${encodeURI(TabSystem.getCurrentNavContent())}`);
+                        else
+                            shell.openExternal(`${DOC_URL}${encodeURI(doc.base)}#${doc.extend}`);
                     }
                 },
                 {

@@ -10,7 +10,18 @@
             :class="`tab ${selected_tab == i ? 'selected' : ''}`"
             :style="`display: inline-block; border-bottom: 2px solid var(--v-background-darken2); background: var(--v-background-darken1);`"
             @click.native="selected_tab = i"
-        > 
+        >
+            <v-btn
+                v-if="showDocButton(file.file_path)"
+                color="primary"
+                @click.stop="openDoc(file.file_path)"
+                text
+                icon
+                small
+            >
+                <v-icon small>mdi-book-open-page-variant</v-icon>
+            </v-btn>
+
             <v-tooltip color="tooltip" :open-delay="600" transition="scale-transition" :disabled="file.file_name.length <= 27" bottom>
                 <template v-slot:activator="{ on }">
                     <span v-on="on" :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ getFileName(file.file_name) }}</span>
@@ -26,6 +37,9 @@
 <script>
 import TabSystem from "../../scripts/TabSystem";
 import EventBus from "../../scripts/EventBus";
+import FileType from '../../scripts/editor/FileType';
+import { shell } from 'electron';
+import { DOC_URL } from '../../scripts/constants';
 
 export default {
     name: "editor-shell-tab-system",
@@ -90,6 +104,14 @@ export default {
         },
         getFileName(file_name) {
             return file_name.length > 27 && !file_name.includes(" ") ? file_name.substr(0, 27) + "\u2026" : file_name;
+        },
+
+        showDocButton(file_path) {
+            let file_data = (FileType.getData(file_path) || {});
+            return file_data.file_viewer !== "json" && file_data.documentation !== undefined;
+        },
+        openDoc(file_path) {
+            shell.openExternal(`${DOC_URL}${encodeURI(FileType.getData(file_path).documentation)}`);
         }
     }
 }

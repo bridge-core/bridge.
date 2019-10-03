@@ -14,7 +14,6 @@
                             <editor-shell-content-manager/>
 
                             <window-factory-main/>
-                            <documentation-main/>
                             <context-menu-main/>
                             <json-editor-hover-card/>
                         </v-flex>
@@ -44,7 +43,6 @@
     import WindowFactoryMain from "@/components/windowFactory/Main";
     import FooterMain from "@/components/footer/Main";
     import ContextMenuMain from "@/components/context_menu/Main";
-    import DocumentationMain from "@/components/documentation/Main";
 
     import { shell } from 'electron';
     import startUp from "./scripts/utilities/startUp";
@@ -62,8 +60,7 @@
             WindowFactoryMain,
             FooterMain,
             ContextMenuMain,
-            JsonEditorHoverCard,
-            DocumentationMain
+            JsonEditorHoverCard
         },
         async created() {
             this.$vuetify.theme.dark = this.$store.state.Appearance.is_dark_mode;

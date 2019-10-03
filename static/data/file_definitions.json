@@ -5,6 +5,7 @@
         "file_viewer": "json",
         
         "build_array_exceptions": [ "timeline" ],
+        "documentation": "Entity%20Events",
         "start_state": "animation/main",
         "lightning_cache": "animation",
         "highlighter": "animation",
@@ -16,6 +17,7 @@
         "includes": "animation_controllers/",
         "file_viewer": "json",
 
+        "documentation": "Entity%20Events",
         "start_state": "animation_controller/main",
         "lightning_cache": "animation_controller",
         "highlighter": "animation_controller",
@@ -27,6 +29,7 @@
         "includes": "biomes/",
         "file_viewer": "json",
 
+        "documentation": "Biomes",
         "start_state": "biome/main",
         "highlighter": "biome",
         "file_creator": "biome",
@@ -37,6 +40,7 @@
         "includes": "blocks/",
         "file_viewer": "json",
 
+        "documentation": "Blocks",
         "start_state": "block/main",
         "lightning_cache": "block",
         "highlighter": "block",
@@ -48,7 +52,7 @@
         "includes": "entities/",
         "file_viewer": "json",
 
-        "documentation": [ "add_entity_components", "entity" ],
+        "documentation": "Entities",
         "start_state": "entity/main",
         "lightning_cache": "entity",
         "highlighter": "entity",
@@ -91,6 +95,7 @@
         "includes": "items/",
         "file_viewer": "json",
 
+        "documentation": "Item",
         "start_state": "item/main",
         "lightning_cache": "item",
         "highlighter": "item",
@@ -117,6 +122,7 @@
         "includes": "molang/",
         "text_separators": [ "." ],
 
+        "documentation": "MoLang",
         "start_state": "molang/main",
         "highlighter": "molang"
     },
@@ -126,6 +132,7 @@
         "file_viewer": "json",
 
         "build_array_exceptions": [ "key" ],
+        "documentation": "Recipes",
         "start_state": "recipe/main",
         "highlighter": "recipe",
         "file_creator": "recipe",
@@ -136,6 +143,7 @@
         "includes": "scripts/",
         "file_viewer": "text",
 
+        "documentation": "Scripting",
         "file_creator": "script"
     },
     {
@@ -143,6 +151,10 @@
         "includes": "spawn_rules/",
         "file_viewer": "json",
 
+        "documentation": {
+            "base": "Entities",
+            "extend": "Spawn Rules"
+        },
         "start_state": "spawn_rule/main",
         "highlighter": "spawn_rule",
         "file_creator": "spawn_rule",
@@ -204,6 +216,10 @@
         "file_viewer": "json",
         "rp_definition": true,
         
+        "documentation": {
+            "base": "Entities",
+            "extend": "Client Entity Documentation"
+        },
         "start_state": "client_entity/main",
         "lightning_cache": "client_entity",
         "highlighter": "entity",
