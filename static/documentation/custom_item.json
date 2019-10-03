@@ -1,0 +1,8 @@
+{
+    "bridge:weapon_damage": {
+        "description": "Set an item's attack damage"
+    },
+    "bridge:item_equipped_sensor": {
+        "description": "React to an item being equipped"
+    }
+}

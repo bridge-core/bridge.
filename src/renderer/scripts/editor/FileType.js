@@ -137,8 +137,8 @@ export default class FileType {
         }
     }
 
-    static getDocumentation() {
-        return (this.getData() || {}).documentation;
+    static getDocumentation(file_path) {
+        return (this.getData(file_path) || {}).documentation;
     }
 
     static async getSnippets() {

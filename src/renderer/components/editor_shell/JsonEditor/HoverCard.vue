@@ -64,8 +64,7 @@ import { JSONAction } from "../../../scripts/TabSystem/CommonHistory";
 import EventBus from "../../../scripts/EventBus";
 import NodeShortcuts from "../../../scripts/editor/NodeShortcuts";
 import JumpToDefintion from "../../../scripts/editor/JumpToDef";
-import FileType from '../../../scripts/editor/FileType';
-import { DOC_URL } from '../../../scripts/constants';
+import { openDocumentation } from '../../../scripts/editor/Documentation';
 
 
 export default {
@@ -112,11 +111,7 @@ export default {
                     color: "indigo",
                     action: () => {
                         this.is_visible = false;
-                        let doc = FileType.getDocumentation() || "Addons";
-                        if(typeof doc === "string")
-                            shell.openExternal(`${DOC_URL}${encodeURI(doc)}#${encodeURI(TabSystem.getCurrentNavContent())}`);
-                        else
-                            shell.openExternal(`${DOC_URL}${encodeURI(doc.base)}#${doc.extend}`);
+                        openDocumentation(TabSystem.getCurrentNavObj().key);
                     }
                 },
                 {

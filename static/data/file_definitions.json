@@ -52,7 +52,10 @@
         "includes": "entities/",
         "file_viewer": "json",
 
-        "documentation": "Entities",
+        "documentation": {
+            "base": "Entities",
+            "inject": "custom_entity"
+        },
         "start_state": "entity/main",
         "lightning_cache": "entity",
         "highlighter": "entity",
@@ -95,7 +98,10 @@
         "includes": "items/",
         "file_viewer": "json",
 
-        "documentation": "Item",
+        "documentation": {
+            "base": "Item",
+            "inject": "custom_item"
+        },
         "start_state": "item/main",
         "lightning_cache": "item",
         "highlighter": "item",
