@@ -18,22 +18,22 @@ export default class CloseUnsavedTab {
             },
             {
                 type: "button",
-                text: "Close",
-                color: "error",
-                is_rounded: false,
-                action: () => {
-                    this.close();
-                    if(typeof on_close === "function") on_close();
-                }
-            },
-            {
-                type: "button",
                 text: "Save",
                 color: "success",
                 is_rounded: false,
                 action: () => {
                     this.close();
                     if(typeof on_confirm === "function") on_confirm();
+                }
+            },
+            {
+                type: "button",
+                text: "Close",
+                color: "error",
+                is_rounded: false,
+                action: () => {
+                    this.close();
+                    if(typeof on_close === "function") on_close();
                 }
             }
         ];

@@ -11,7 +11,7 @@ export default class ProjectConfig {
     //PREFIX
     static getPrefixSync() {
         try {
-            return readJSONSync(this.config_path).theme || "bridge";
+            return readJSONSync(this.config_path).prefix || "bridge";
         } catch(e) {
             return "bridge";
         }
