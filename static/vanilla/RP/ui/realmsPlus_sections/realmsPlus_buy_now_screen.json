@@ -21,7 +21,15 @@
         }
       },
       {
-        "buy_button@realmsPlus_buy.buy_button_panel": {}
+        "buy_button@realmsPlus_buy.buy_button_panel": {
+          "$pressed_button_name": "button.create_realm",
+          "$buy_now_bindings": [
+            {
+              "binding_name": "#buy_now_button_enabled",
+              "binding_name_override": "#enabled"
+            }
+          ]
+        }
       },
       {
         "padding_3": {
@@ -30,28 +38,21 @@
         }
       },
       {
-        "platform_terms@realmsPlus_buy.content_text_section": {
-          "$text_description": "$terms_and_conditions",
-          "$text_binding_type": "none"
-        }
-      },
-      {
-        "padding_4": {
-          "type": "panel",
-          "size": [ "100%", 4 ]
-        }
-      },
-      {
-        "apple_specific_terms@realmsPlus_buy.content_text_section": {
-          "ignored": "(not $is_ios)",
-          "$text_description": "#ios_terms_and_conditions"
-        }
-      },
-      {
-        "padding_5": {
-          "type": "panel",
-          "size": [ "100%", 4 ],
-          "ignored": "(not $is_ios)"
+        "platform_terms_factory": {
+          "type": "stack_panel",
+          "factory": {
+            "name": "platform_terms_factory",
+            "control_ids": {
+              "terms": "@realmsPlus_buy.content_text_section"
+            }
+          },
+          "collection_name": "platform_terms_collection",
+          "bindings": [
+            {
+              "binding_name": "#platform_term_controls",
+              "binding_name_override": "#collection_length"
+            }
+          ]
         }
       }
     ]
@@ -66,6 +67,12 @@
       },
       {
         "toggle_section_divider@common.section_divider": {}
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
       }
     ]
   },
@@ -78,14 +85,14 @@
         "content_description_label": {
           "type": "label",
           "size": [ "100%", "default" ],
-          "text": "$text_description",
+          "text": "#platform_terms_text",
           "color": "$body_text_color",
-          "font_type": "smooth",
-          "$text_binding_type|default": "global",
+          "font_type": "smooth",          
           "bindings": [
             {
-              "binding_type": "$text_binding_type",
-              "binding_name": "$text_description"
+              "binding_name": "#platform_terms_text",
+              "binding_collection_name": "platform_terms_collection",
+              "binding_type": "collection"
             }
           ]
         }
@@ -140,8 +147,13 @@
   "title_text": {
     "type": "label",
     "size": [ "100% - 4px", "default" ],
-    "text": "store.realmsPlus.startTrial.title",
-    "color": "$store_white_text_color"
+    "text": "#buy_now_banner_text",
+    "color": "$store_white_text_color",
+    "bindings": [
+      {
+        "binding_name": "#buy_now_banner_text"
+      }
+    ]
   },
 
   "description_stack": {
@@ -351,14 +363,8 @@
       {
         "buy_button@common_buttons.light_content_button": {
           "size": [ "100%", 20 ],
-          "$pressed_button_name": "button.create_realm",
           "$button_content": "realmsPlus_buy.buy_button_content",
-          "bindings": [
-            {
-              "binding_name": "#buy_now_button_enabled",
-              "binding_name_override": "#enabled"
-            }
-          ]
+          "bindings": "$buy_now_bindings"
         }
       }
     ]

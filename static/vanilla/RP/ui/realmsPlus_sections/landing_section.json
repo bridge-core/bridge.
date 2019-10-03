@@ -68,7 +68,10 @@
         "title_space@realmsPlus_landing.title_space": {}
       },
       {
-        "buy_button@realmsPlus_buy.buy_button_panel": {}
+        "action_button@realmsPlus_buy.buy_button_panel": {
+          "$pressed_button_name": "button.action_button",
+          "$buy_now_bindings": []
+        }
       },
       {
         "vertical_space@realmsPlus_landing.vertical_small_spacer": {}

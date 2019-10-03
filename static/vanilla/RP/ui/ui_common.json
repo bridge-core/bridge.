@@ -1929,8 +1929,6 @@
     "$single_label_size|default": [ "default", 10 ],
     "$underline_control|default": "common.empty_panel",
     "$single_line_font_scale_factor|default": 1,
-    "$single_line_label_binding_condition|default": "once",
-    "$text|default": "$single_line_label_binding",
     "controls": [
       {
         "label_panel": {
@@ -1949,9 +1947,12 @@
           "color": "$single_line_label_color",
 
           "text_alignment": "left",
-          "text": "$text",
+          "$single_line_label_text|default": "",
+          "text": "$single_line_label_text",
 
-          "controls": "$underline_control"
+          "controls": "$underline_control",
+          "$label_text_bindings|default": [],
+          "bindings": "$label_text_bindings"
         }
       }
     ]

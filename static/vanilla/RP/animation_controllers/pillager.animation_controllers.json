@@ -60,7 +60,10 @@
           ]
         },
         "celebrating": {
-          "animations": [ "celebrating" ],
+          "animations": [
+            "celebrating",
+            { "riding.legs": "query.is_riding" }
+          ],
           "blend_transition": 0.2,
           "blend_via_shortest_path": true,
           "transitions": [

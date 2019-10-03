@@ -165,7 +165,6 @@
           "ignored": "(not $is_pregame or $education_edition)",
           "$button_text_max_size": [ "100%", 20 ],
           "$button_text": "menu.playOnRealms",
-          "default_focus_precedence": 2,
           "$pressed_button_name": "play_world_on_realm_button",
           "$focus_override_up": "FOCUS_OVERRIDE_STOP",
           "variables": [

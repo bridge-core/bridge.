@@ -313,10 +313,6 @@
             {
               "binding_name": "#persona_enabled",
               "binding_name_override": "#visible"
-            },
-            {
-              "binding_name": "#can_access_profile",
-              "binding_name_override": "#enabled"
             }
           ] 
         }

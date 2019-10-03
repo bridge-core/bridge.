@@ -387,7 +387,7 @@
 
   "radio_visuals_unchecked_locked@radio_visuals": {
     "$radio_texture": "textures/ui/radio_off",
-    "$alpha": 0.5    
+    "$alpha": 0.5
   },
 
   "radio_visuals_checked_locked@radio_visuals": {
@@ -595,7 +595,7 @@
           "size": [ "100%", "100%c + 4px" ],
 
           "layer": 2,
-          "$no_description|default":  true,
+          "$no_description|default": true,
           "controls": [
             {
               "radio_icon_and_label@settings_common.radio_item_with_label_and_content_stack": {}
@@ -682,10 +682,10 @@
   },
 
   "radio_description_panel": {
-    "ignored":  "($no_description)",
+    "ignored": "($no_description)",
     "type": "panel",
     "size": [ "100%", "100%c" ],
-    "layer":  1,
+    "layer": 1,
     "$description_font_type": "smooth",
     "$description_font_scale_factor": 1.333,
     "controls": [
@@ -894,7 +894,7 @@
     "$dropdown_background_control|default": "common.dropdown_background",
     "$option_dropdown_type|default": "common.dropdown",
     "$option_label|default": "",
-    "layer":  2,
+    "layer": 2,
     "controls": [
       {
         "dropdown@$option_dropdown_type": {
@@ -915,6 +915,87 @@
 
   "option_dropdown_control_no_scroll@settings_common.option_dropdown_control": {
     "$option_dropdown_type": "common.dropdown_no_scrollpanel"
+  },
+
+  "option_info_label_with_bulb": {
+    "type": "image",
+    "texture": "textures/ui/text_label_box",
+    "size": [ "100%", "100%c + 6px" ],
+    "$used_fontsize|default": "normal",
+    "$used_fonttype|default": "default",
+    "controls": [
+      {
+        "stack_panel": {
+          "type": "stack_panel",
+          "size": [ "100%", "100%cm" ],
+          "orientation": "horizontal",
+          "controls": [
+            {
+              "padding1@common.empty_panel": {
+                "size": [ 2, 19 ]
+              }
+            },
+            {
+              "bulb_panel": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "size": [ "100%c", "100%sm" ],
+                "controls": [
+                  {
+                    "padding1@common.empty_panel": {
+                      "size": [ 0, "fill" ]
+                    }
+                  },
+                  {
+                    "bulb_image": {
+                      "type": "image",
+                      "size": [ 15, 19 ],
+                      "bilinear": true,
+                      "texture": "textures/ui/infobulb",
+                      "layer": 1
+                    }
+                  },
+                  {
+                    "padding2@common.empty_panel": {
+                      "size": [ 0, "fill" ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "padding2@common.empty_panel": {
+                "size": [ 2, 0 ]
+              }
+            },
+            {
+              "label_panel": {
+                "type": "panel",
+                "size": [ "fill", "100%c" ],
+                "controls": [
+                  {
+                    "info_label": {
+                      "type": "label",
+                      "color": "$main_header_text_color",
+                      "size": [ "100% - 2px", "default" ],
+                      "layer": 1,
+                      "text": "$container_text_binding_name",
+                      "font_size": "$used_fontsize",
+                      "font_type": "$used_fonttype",
+                      "bindings": [
+                        {
+                          "binding_name": "$container_text_binding_name"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
   },
 
   "option_info_label_with_image": {

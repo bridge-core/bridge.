@@ -141,6 +141,7 @@
           "priority": 6,
           "attack_interval": 2,
           "reselect_targets": true,
+          "target_search_height": 5,
           "entity_types": [
             {
               "filters": {
@@ -218,6 +219,7 @@
           "priority": 6,
           "attack_interval": 2,
           "reselect_targets": true,
+          "target_search_height": 5,
           "entity_types": [
             {
               "filters": {

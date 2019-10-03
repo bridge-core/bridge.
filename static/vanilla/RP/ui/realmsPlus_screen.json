@@ -58,7 +58,7 @@
   "purple_background": {
     "type": "image",
     "texture": "textures/ui/verticalgradient",
-    "tiled": "y",
+    "tiled": "x",
     "controls": [
       {
         "bottom_left_particles": {
@@ -220,7 +220,19 @@
           "$bottom_padding_size|default": [ "100%", 4 ]
         }
       },
-      { "buy_now_toggle@realmsPlus.buy_now_toggle": {} }
+      {
+        "buy_now_toggle@realmsPlus.buy_now_toggle": {
+          "$focus_override_down": "FOCUS_OVERRIDE_STOP"
+        }
+      },
+      {
+        //hack for controller input so the buy now button can change which tab is focused without triggering the tab change on focus logic when we switch focus from the content area to the selector area
+        "focus_reset_input_panel": {
+          "type": "input_panel",
+          "focus_enabled": true,
+          "size": [ "100%", 4 ]
+        }
+      }
     ]
   },
 
@@ -318,7 +330,7 @@
     "$default_texture": "textures/ui/pink_button_borderless_default",
     "$hover_texture": "textures/ui/pink_button_borderless_hover",
     "$pressed_texture": "textures/ui/pink_button_borderless_hover_pressed",
-    "$pressed_no_hover_texture": "textures/ui/pink_button_borderless_no_hover_pressed",
+    "$pressed_no_hover_texture": "textures/ui/pink_button_borderless_hover",
 
     "$default_checked_text_color": "$dark_toggle_hover_text_color",
     "bindings": [
