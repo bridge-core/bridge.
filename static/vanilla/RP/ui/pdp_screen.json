@@ -315,7 +315,8 @@
           "$focus_id": "$interact_button_id",
           "$button_content": "pdp.large_button_coin_purchase_label",
           "$markdown_size": [ "100% + 2px", "100% + 4px" ],
-          "$is_purchase_button": true
+          "$is_purchase_button": true,
+          "$ignore_markdown_filler_panel": "#is_on_sale"
         }
       },
       {
@@ -909,7 +910,7 @@
                 "controls": [
                   {
                     "coin@pdp.coin_image": {
-                      "offset": [ -2, 1 ]
+                      "offset": [ 8, 1 ]
                     }
                   }
                 ]
@@ -921,9 +922,17 @@
                 "size": [ "100%c", "100%" ],
                 "controls": [
                   {
-                    "coin_purchase_label_text@pdp.coin_purchase_label_text": {
+                    "coin_purchase_label_text_left@pdp.coin_purchase_label_text": {
                       "text_alignment": "center",
-                      "offset": [ 2, 0 ]
+                      "ignored": "(not $coin_image_on_right)",
+                      "offset": [ -4, 0 ]
+                    }
+                  },
+                  {
+                    "coin_purchase_label_text_right@pdp.coin_purchase_label_text": {
+                      "text_alignment": "center",
+                      "ignored": "$coin_image_on_right",
+                      "offset": [ 4, 0 ]
                     }
                   }
                 ]
@@ -964,7 +973,7 @@
                 "controls": [
                   {
                     "coin@pdp.coin_image": {
-                      "offset": [ 1, 0 ]
+                      "offset": [ -8, 0 ]
                     }
                   }
                 ]
@@ -1044,6 +1053,8 @@
         "markdown_banner_filler_panel": {
           "type": "panel",
           "size": [ "fill", "100%" ],
+          "$ignore_markdown_filler_panel|default": false,
+          "ignored": "$ignore_markdown_filler_panel",
           "controls": [
             {
               "markdown_banner@common_store.markdown_banner": {
@@ -1109,7 +1120,10 @@
           "size": [ "100%c", "100%" ],
           "controls": [
             {
-              "price_markdown_label@pdp.price_markdown_panel": {}
+              "price_markdown_label@pdp.price_markdown_panel": {
+                "$purchase_price_offset|default": [ 0, 0 ],
+                "offset": "$purchase_price_offset"
+              }
             }
           ],
           "bindings": [
@@ -2660,16 +2674,16 @@
                                     },
                                     {
                                       "summary_rating_button@common_buttons.underline_button": {
-                                        "$single_line_label_binding": "#rating_button_text",
-                                        "$pressed_button_name": "button.scrollToRateContent",
-                                        "property_bag": {
-                                          "#visible_after_x_ratings": "$ratings_visible_after_x_reviews"
-                                        },
-                                        "bindings": [
+                                        "$single_line_label_text": "#rating_button_text",
+                                        "$label_text_bindings": [
                                           {
                                             "binding_name": "#rating_button_text"
                                           }
-                                        ]
+                                        ],
+                                        "$pressed_button_name": "button.scrollToRateContent",
+                                        "property_bag": {
+                                          "#visible_after_x_ratings": "$ratings_visible_after_x_reviews"
+                                        }
                                       }
                                     }
                                   ]
@@ -2697,7 +2711,16 @@
   },
 
   "offer_title_label@common.single_line_label": {
-    "$single_line_label_binding": "#title_label"
+    "$single_line_label_text": "#title_label",
+    "$label_text_bindings": [
+      {
+        "binding_name": "#title_label",
+        "binding_type": "$mashup_collection_binding_type",
+        "binding_collection_name": "$mashup_collection_name",
+        "binding_condition": "once"
+
+      }
+    ]
   },
 
   "title_and_author_panel": {
@@ -2731,7 +2754,12 @@
                 "anchor_to": "top_left",
                 "offset": [ 0, -4 ],
                 "$pressed_button_name": "button.seeMoreBy",
-                "$single_line_label_binding": "#creator_label",
+                "$single_line_label_text": "#creator_label",
+                "$label_text_bindings": [
+                  {
+                    "binding_name": "#creator_label"
+                  }
+                ],
                 "bindings": [
                   {
                     "binding_name": "#is_creator_label_visible",
@@ -3649,8 +3677,7 @@
             {
               "read_more_button_panel@common_buttons.read_button": {
                 "$offset": [ -6, -2.5 ],
-                "$single_line_label_binding": "#read_more_label",
-                "$text": "store.mashup.readMore",
+                "$single_line_label_text": "store.mashup.readMore",
                 "$pressed_button_name": "button.read_toggle",
                 "bindings": [
                   {
@@ -3670,8 +3697,7 @@
             {
               "read_less_button_panel@common_buttons.read_button": {
                 "$offset": [ -6, -2.5 ],
-                "$single_line_label_binding": "#read_less_label",
-                "$text": "store.mashup.readLess",
+                "$single_line_label_text": "store.mashup.readLess",
                 "$pressed_button_name": "button.read_toggle",
                 "$bindings": [
                   {
@@ -4270,8 +4296,7 @@
     "controls": [
       {
         "bundle_title@pdp.offer_title_label": {
-          "size": [ "100%", "100%c" ],
-          "$single_line_label_binding_condition": "visibility_changed"
+          "size": [ "100%", "100%c" ]
         }
       },
       {
@@ -4279,7 +4304,12 @@
           "size": [ "100%", "100%c" ],
           "$single_line_label_offset": [ 1.5, 0 ],
           "$single_line_label_color": "$dark_button_secondary_default_text_color",
-          "$single_line_label_binding": "#bundle_upsell_other_packs_description"
+          "$single_line_label_text": "#bundle_upsell_other_packs_description",
+          "$label_text_bindings": [
+            {
+              "binding_name": "#bundle_upsell_other_packs_description"
+            }
+          ]
         }
       },
       {

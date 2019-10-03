@@ -24,6 +24,7 @@
     "$collection_binding_name|default": "",
     "$image_binding_name|default": "",
     "$texture_source_binding_name|default": "",
+    "$supports_realmsplus_overlay|default": false,
     "controls": [
       {
         "screenshot_picture": {
@@ -53,6 +54,7 @@
           "controls": [
             {
               "gradient_container_stacked_panel": {
+                "ignored": "(not $supports_realmsplus_overlay)",
                 "type": "stack_panel",
                 "orientation": "vertical",
                 "size": [ "100%cm", "100%" ],
@@ -2277,6 +2279,7 @@
         "local_world_screenshot@play.collection_world_screenshot": {
           "$collection_binding_name": "local_worlds",
           "$image_binding_name": "#local_world_image",
+          "$supports_realmsplus_overlay": true,
           "$texture_source_binding_name": "#local_world_texture_source"
         }
       },
@@ -3980,7 +3983,7 @@
                 ],
                 "bindings": [
                   {
-                    "binding_name": "(#is_featured_servers_panel_visible or $ignore_3rd_party_servers)",
+                    "binding_name": "(#is_network_available_and_multiplayer_visible or $ignore_3rd_party_servers)",
                     "binding_name_override": "#visible"
                   }
                 ]
@@ -4028,7 +4031,7 @@
                 "size": [ "100%", "100%c" ],
                 "bindings": [
                   {
-                    "binding_name": "#is_network_available_and_not_multiplayer_visible",
+                    "binding_name": "#is_network_available_and_multiplayer_visible",
                     "binding_name_override": "#visible"
                   }
                 ],

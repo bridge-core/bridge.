@@ -20,6 +20,12 @@
       "minecraft:scared": {
         "minecraft:angry": {
           "duration": 5,
+          "broadcastAnger": true,
+          "broadcastRange": 10,
+          "broadcast_targets": [
+            "llama"
+          ],
+          "broadcast_filters": { "test": "is_leashed_to", "subject": "other", "value": true },
           "calm_event": {
             "event": "minecraft:become_calm",
             "target": "self"
@@ -120,7 +126,6 @@
             "cause": "entity_attack",
             "deals_damage": true,
             "on_damage": {
-              "filters": { "test": "is_family", "subject": "other", "operator": "!=", "value": "player" },
               "event": "minecraft:become_scared"
             }
           },
@@ -128,7 +133,6 @@
             "cause": "projectile",
             "deals_damage": true,
             "on_damage": {
-              "filters": { "test": "is_family", "subject": "other", "operator": "!=", "value": "player" },
               "event": "minecraft:become_scared"
             }
           },
@@ -136,7 +140,6 @@
             "cause": "magic",
             "deals_damage": true,
             "on_damage": {
-              "filters": { "test": "is_family", "subject": "other", "operator": "!=", "value": "player" },
               "event": "minecraft:become_scared"
             }
           }
@@ -179,7 +182,12 @@
                 {
                   "any_of": [
                     { "test": "is_avoiding_mobs", "subject": "self", "value": true },
-                    { "test": "has_component", "subject": "self", "value": "minecraft:angry" }
+                    {
+                      "all_of": [
+                        { "test": "has_component", "subject": "self", "value": "minecraft:angry" },
+                        { "test": "is_family", "subject": "target", "operator": "!=", "value": "player" }
+                      ]
+                    }
                   ]
                 }
               ]

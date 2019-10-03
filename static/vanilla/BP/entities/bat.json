@@ -40,9 +40,6 @@
       "minecraft:movement": {
         "value": 0.1
       },
-      "minecraft:navigation.float": {
-        "can_path_over_water": true
-      },
       "minecraft:movement.basic": {
       },
       "minecraft:jump.static": {

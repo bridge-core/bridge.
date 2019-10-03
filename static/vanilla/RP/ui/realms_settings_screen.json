@@ -58,7 +58,7 @@
     "$container_text_binding_name": "#realm_duration_label"
   },
 
-  "realm_subscription_origin_label@settings_common.option_info_label": {
+  "realm_subscription_origin_label@settings_common.option_info_label_with_bulb": {
     "$container_size": [ "100%", "60px" ],
     "$container_text_binding_name": "#realm_subscription_origin",
     "$show_option_label": false,
@@ -209,6 +209,25 @@
           "controls": [
             { "player_count_label@realms_settings.player_count_label": {} },
             { "realm_duration_label@realms_settings.realm_duration_label": {} },
+            {
+              "possible_store_mismatch@general_section.possible_store_mismatch": {
+                "$realm_collection_name": "",
+                "$tooltip_button_collection_name": "additional_realms_subscriptions_collection",
+
+                "$tooltip_text_binding_name": "#realms_purchased_store",
+                "$tooltip_button_binding_type": "global",
+
+                "$tooltip_panel_offset": [ 0, "-100%y - 2px" ],
+
+                "bindings": [
+                  {
+                    "binding_name": "#realm_consumable_to_subscription_visibility",
+                    "binding_name_override": "#visible",
+                    "binding_condition": "visible"
+                  }
+                ]
+              }
+            },
             { "realm_subscription_origin_label@realms_settings.realm_subscription_origin_label": {} },
             { "realm_consumable_to_subscription_info_label@realms_settings.realm_consumable_to_subscription_info_label": {} },
             { "manage_subscription_button@realms_settings.manage_subscription_button": {} },

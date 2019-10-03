@@ -102,40 +102,45 @@
   },
 
   "main_content_panel": {
-    "type": "stack_panel",
-    "orientation": "horizontal",
-    "size": [ "100%", "100%cm" ],
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
     "controls": [
       {
-        "image_panel": {
-          "type": "panel",
-          "size": [ "100%c - 10px", "100%c" ],
+        "main_content_stack_panel": {          
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100% - 20px", "100%cm" ],
+          "offset": [ 2, 0 ],
           "controls": [
             {
-              "image": {
-                "type": "image",
-                "size": [ 100, 87 ],
-                "offset": [ 5, 0 ],
-                "texture": "textures/ui/realms_subscription"
+              "image_panel@common.service_repo_image_panel": {
+                "$repo_image_texture": "realms_plus_logo_tall",
+                "size": [ 67, 89 ]
               }
-            }
-          ]
-        }
-      },
-      {
-        "text_panel": {
-          "type": "panel",
-          "size": [ "fill", "100%sm" ],
-          "controls": [
+            },
             {
-              "text": {
-                "type": "label",
-                "size": [ "100% - 10px", "100%" ],
-                "anchor_from": "top_left",
-                "anchor_to": "top_left",
-                "text": "realmsPlus.popup.message",
-                "font_type": "smooth",
-                "color": "$body_text_color"
+              "pad": {
+                "type": "panel",
+                "size": [ 5, "100%sm" ]
+              }
+            },
+            {
+              "text_panel": {
+                "type": "panel",
+                "size": [ "fill", "100%sm" ],
+                "controls": [
+                  {
+                    "text": {
+                      "type": "label",
+                      "size": [ "100% - 10px", "100%" ],
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "text": "realmsPlus.popup.message",
+                      "font_type": "smooth",
+                      "color": "$body_text_color"
+                    }
+                  }
+                ]
               }
             }
           ]
