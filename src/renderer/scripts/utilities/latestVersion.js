@@ -2,7 +2,7 @@ import * as VERSION_UTILS from "../VersionUtils";
 import { WEB_APP_DATA, APP_VERSION } from "../constants";
 
 export default async function fetchLatestVersion() {
-    let res;
+    let res = {};
     await fetch(WEB_APP_DATA + "app.json")
         .then(data => data.json())
         .then(({ latest_version }) => {
