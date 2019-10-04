@@ -11,7 +11,7 @@ export default async function TagHandler({ file_path, data, depth }) {
     let { description, ...entity } = tag;
     let old_cache = await LightningCache.load(file_path, "entity");
     let CHANNEL_NAME = `tag@${typeof description.identifier === "string" ? description.identifier : "default"}`;
-    let OLD_CHANNEL_NAME = `tag@${typeof old_cache.identifiers[0] === "string" ? old_cache.identifiers[0] : "default"}`;
+    let OLD_CHANNEL_NAME = `tag@${typeof (old_cache.identifiers || [])[0] === "string" ? old_cache.identifiers[0] : "default"}`;
     let SAVE = [];
 
     //RESET OLD MASKS

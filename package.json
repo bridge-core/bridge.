@@ -58,8 +58,8 @@
     "dataurl": "^0.1.0",
     "deepmerge": "^4.0.0",
     "dir-to-json": "0.0.3",
-    "dirtree2json": "^1.0.0",
     "discord-rich-presence": "0.0.8",
+    "fs-extra": "^8.1.0",
     "highlightjs": "^9.12.0",
     "js-yaml": "^3.13.1",
     "mime": "^2.4.2",
@@ -72,7 +72,7 @@
     "vue": "^2.6.10",
     "vue-electron": "^1.0.6",
     "vuedraggable": "^2.23.0",
-    "vuetify": "^2.0.7",
+    "vuetify": "^2.1.1",
     "vuex": "^3.1.0",
     "vuex-electron": "^1.0.0",
     "zip-a-folder": "0.0.7"

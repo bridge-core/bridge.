@@ -54,7 +54,7 @@ export default class JumpToDefinition {
             //GO THROUGH ALL FILES
             for(let file in c[definition]) {
                 //LOOKUP CACHE KEY
-                if(c[definition][file][d].includes(fetch_data)) {
+                if(c[definition][file][d] && c[definition][file][d].includes(fetch_data)) {
                     let file_path;
                     try {
                         if(file.startsWith("BP")) {

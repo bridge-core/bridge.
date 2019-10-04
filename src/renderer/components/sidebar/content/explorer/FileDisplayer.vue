@@ -1,114 +1,140 @@
 <template>
-    <p v-if="first && (!files || files.length == 0)">
+    <p v-if="first && file_explorer.children === 0 && !file_explorer.is_loading">
         This directory has no content.
     </p>
+    <v-progress-linear v-else-if="file_explorer.is_loading" indeterminate/>
     <div :style="element_style" :class="element_class" v-else>
-        <details v-for="(file) in only_folders" :open="file.is_open" :key="file.absolutePath + file.is_open">
-            <summary @click="openDir(file.path)" v-ripple>
-                <v-icon class="open" small>mdi-folder-open</v-icon><v-icon class="closed" small>mdi-folder</v-icon>
-                <span class="folder"> {{ file.name }}</span>
-            </summary>
-            <file-displayer
-                v-if="file.is_open"
-                :files="file.child"
-                :first="false"
-                :project="project"
-                :base_path="base_path"
-                :explorer_type="explorer_type"
-            />
-        </details>
-        <div 
-            v-for="(file) in only_files"
-            :key="file.absolutePath"
-            class="file"
-            @click.stop="openFile(file.absolutePath)"
-            @contextmenu="(event) => showContextMenu(event, file.absolutePath)"
-            v-ripple
+        <draggable 
+            v-model="file_explorer.children"
+            v-bind="{ group: 'file-displayer', disabled: true }"
+            @change="draggedFile"
         >
-            <v-icon small>{{ icon(getExtension(file.name)) }}</v-icon> {{ file.name }}
-        </div>
+            <template v-for="(file) in file_explorer.children">
+                    <!--LOADING-->
+                     <v-skeleton-loader
+                        v-if="file.is_loading"
+                        :key="file.absolute_path"
+                        type="text"
+                    ></v-skeleton-loader>
+                    <!--FOLDER-->
+                    <details
+                        v-else-if="file.is_folder"
+                        :open="file.is_open && !file.absolute_path.includes('cache')"
+                        :key="file.absolute_path + file.is_open"
+                    >
+                        <summary
+                            @click="file.is_open ? file.close() : file.open()"
+                            @contextmenu="(event) => showFolderContextMenu(event, file.absolute_path, file)"
+                            v-ripple="!file.absolute_path.includes('cache')"
+                        >
+                            <v-icon class="open" small>mdi-folder-open</v-icon>
+                            <v-icon class="closed" small>{{ file.absolute_path.includes('cache') ? 'mdi-folder-lock' : 'mdi-folder' }}</v-icon>
+                            <span class="folder"> {{ file.name }}</span>
+                        </summary>
+                        <file-displayer
+                            v-if="file.is_open"
+                            :first="false"
+                            :project="project"
+                            :base_path="base_path"
+                            :explorer_type="explorer_type"
+                            :prop_explorer="file"
+                        />
+                    </details>
+
+                    <!--FILE-->
+                    <div 
+                        v-else
+                        :key="file.absolute_path"
+                        class="file"
+                        @click.stop="openFile(file.absolute_path)"
+                        @contextmenu="(event) => showContextMenu(event, file.absolute_path, file)"
+                        v-ripple
+                    >
+                        <v-icon small>{{ icon(getExtension(file.path)) }}</v-icon> {{ file.name }}
+                    </div>
+            </template>
+        </draggable>
     </div>
 </template>
 
 <script>
-    import { ipcRenderer } from "electron";
+    import fse from "fs-extra";
+    import path from "path";
+    import draggable from "vuedraggable";
     import FileSystem from "../../../../scripts/FileSystem";
     import LoadingWindow from "../../../../windows/LoadingWindow";
-    import ManageFileMasks from "../../../../windows/FileMasks";
-    import uuidv4 from "uuid/v4";
-    import ConfirmWindow from '../../../../scripts/commonWindows/Confirm';
-    import InputWindow from '../../../../scripts/commonWindows/Input';
-    import trash from "trash";
-    import TabSystem from '../../../../scripts/TabSystem';
-    import fs from "fs";
-    import Assert from '../../../../scripts/plugins/PluginAssert';
     import OmegaCache from '../../../../scripts/editor/OmegaCache';
     import LightningCache from '../../../../scripts/editor/LightningCache';
     import { JSONFileMasks } from '../../../../scripts/editor/JSONFileMasks';
+    import { FileExplorer, FileExplorerStorage } from "../../../../scripts/FileExplorer";
+    import EventBus from '../../../../scripts/EventBus';
+    import InformationWindow from '../../../../scripts/commonWindows/Information';
+    import { FILE_CONTEXT_MENU } from '../../../../scripts/contextMenus/File';
+    import { FOLDER_CONTEXT_MENU } from '../../../../scripts/contextMenus/Folder';
 
     export default {
         name: "file-displayer",
         props: {
-            displayer_key: {
-                default: uuidv4(),
-                type: String
-            },
-            files: Array,
-            project: String,
             first: {
                 default: true,
                 type: Boolean
             },
             base_path: String,
-            explorer_type: String
+            project: String,
+            explorer_type: String,
+            prop_explorer: Object
+        },
+        components: {
+            draggable
         },
         data() {
             return {
-                file_displayer_height: window.innerHeight - 199
+                file_displayer_height: window.innerHeight - 199,
+                file_explorer: undefined
             };
         },
         created() {
-            if(this.first) window.addEventListener("resize", this.on_resize);
+            if(this.first) {
+                window.addEventListener("resize", this.on_resize);
+                EventBus.on("bridge:refreshExplorer", this.refreshExplorer);
+            }
+
+            if(this.prop_explorer) return this.file_explorer = this.prop_explorer;
+            if(FileExplorerStorage.get(this.explorer_type, this.project) === undefined) {
+                FileExplorerStorage.set(
+                    this.explorer_type,
+                    this.project,
+                    new FileExplorer(undefined, this.project, path.join(this.base_path, this.project)).open()
+                );
+            }
+            this.file_explorer = FileExplorerStorage.get(this.explorer_type, this.project);
         },
         destroyed() {
-            if(this.first) window.removeEventListener("resize", this.on_resize);
+            if(this.first) {
+                window.removeEventListener("resize", this.on_resize);
+                EventBus.off("bridge:refreshExplorer", this.refreshExplorer);
+            }
         },
         computed: {
             element_style() {
-                return this.first ? `max-height: ${this.file_displayer_height}px;` : "";
+                return this.first ? `max-height: ${this.file_displayer_height}px; padding: 4px;` : "";
             },
             element_class() {
                 return this.first ? "file-displayer px14-font" : "px14-font";
-            },
-
-            loop_files() {
-                return [...this.files].sort((a, b) => {
-                    if(a.child && !b.child) return -1;
-                    if(!a.child && b.child) return 1;
-                    if(a.name > b.name) return 1;
-                    if(a.name < b.name) return -1;
-                    return 0;
-                });
-            },
-            only_folders() {
-                return this.loop_files.filter(f => f.isDir && f.name !== "cache");
-            },
-            only_files() {
-                return this.loop_files.filter(f => !f.isDir);
             }
         },
         methods: {
+            refreshExplorer() {
+                this.file_explorer.refresh();
+            },
             openFile(path) {
                 if(!this.$store.state.LoadingWindow["open-file"]) {
                     new LoadingWindow("open-file").show();
                     FileSystem.open(path);
                 } 
             },
-            openDir(path) {
-                this.$store.commit("setExplorerIsDirOpen", { store_key: this.explorer_type, path });
-            },
             getExtension(name) {
-                return name.split(".").pop().toLowerCase();
+                return path.extname(name).replace(".", "");
             },
             icon(ext) {
                 return this.$store.state.Appearance.files[ext] ? this.$store.state.Appearance.files[ext] : "mdi-file-document-outline";
@@ -116,95 +142,46 @@
             on_resize(e) {
                 this.file_displayer_height = window.innerHeight - 199;
             },
-            showContextMenu(event, file_path) {
-                let file_ext = file_path.split(".").pop();
-                let file_name = file_path.split(".");
-                file_name.pop();
-                file_name = file_name.join(".").split(/\\|\//g).pop();
-                let excl_path = file_path.replace(`${file_name}.${file_ext}`, "");
-
+            async draggedFile({ removed, moved, added }) {
+                if(added !== undefined) {
+                    let { absolute_path, name } = added.element;
+                    try {
+                        await fse.move(absolute_path, path.join(this.file_explorer.absolute_path, name));
+                        added.element.update(this.file_explorer.absolute_path, this.file_explorer.path);
+                    } catch(e) {
+                        new InformationWindow("ERROR", "Failed to move file/folder because a file/folder with the same name already exists.");
+                        EventBus.trigger("bridge:refreshExplorer");
+                    }
+                }
+                if(removed === undefined) this.file_explorer.sort();          
+            },
+            showContextMenu(event, file_path, file) {
                 this.$store.commit("openContextMenu", {
                     x_position: event.clientX,
                     y_position: event.clientY,
-                    menu: [
-                        {
-                            title: "Delete",
-                            action: () => {
-                                new ConfirmWindow(
-                                    async () => {
-                                        OmegaCache.clear(file_path);
-                                        LightningCache.clear(file_path);
-                                        JSONFileMasks.delete(file_path);
-
-                                        await trash(file_path);
-                                        this.$root.$emit("refreshExplorer");
-                                        TabSystem.closeByPath(file_path);
-                                    }, 
-                                    () => {}, 
-                                    `Are you sure that you want to delete "${file_path.replace(/\\/g, "/").replace(this.base_path, "")}"?`,
-                                    {
-                                        options: {
-                                            is_persistent: false
-                                        }
-                                    }
-                                );
-                            }
-                        },
-                        {
-                            title: "Rename",
-                            action: () => {
-                                new InputWindow({
-                                    text: file_name,
-                                    label: "Name",
-                                    header: "Name Input",
-                                    expand_text: "." + file_ext
-                                }, (new_name) => {
-                                    let closed = TabSystem.closeByPath(file_path);
-
-                                    let new_path = `${excl_path}${new_name}`;
-                                    OmegaCache.rename(file_path, new_path);
-                                    LightningCache.rename(file_path, new_path);
-                                    JSONFileMasks.rename(file_path, new_path);
-                                    fs.rename(file_path, new_path, (err) => {
-                                        if(err) Assert.throw("bridge. Core", err);
-                                        this.$root.$emit("refreshExplorer");
-                                        if(closed) FileSystem.open(new_path);
-                                    });
-                                });
-                            }
-                        },
-                        {
-                            title: "Duplicate",
-                            action: () => {
-                                new InputWindow({
-                                    text: file_name,
-                                    label: "Name",
-                                    header: "Name Input",
-                                    expand_text: "." + file_ext
-                                }, (new_name) => {
-                                    let closed = TabSystem.closeByPath(file_path);
-
-                                    let new_path = `${excl_path}${new_name}`;
-                                    OmegaCache.duplicate(file_path, new_path);
-                                    LightningCache.duplicate(file_path, new_path);
-                                    JSONFileMasks.duplicate(file_path, new_path);
-                                    fs.copyFile(file_path, new_path, (err) => {
-                                        if(err) Assert.throw("bridge. Core", err);
-                                        this.$root.$emit("refreshExplorer");
-                                        if(closed) FileSystem.open(new_path);
-                                    });
-                                });
-                            }
-                        },
-                        { type: "divider" },
-                        {
-                            title: "File Layers",
-                            action: () => {
-                                new ManageFileMasks(file_path);
-                            }
-                        }
-                    ]
+                    menu: FILE_CONTEXT_MENU(file_path, file)
                 });
+            },
+            showFolderContextMenu(event, file_path, file) {
+                this.$store.commit("openContextMenu", {
+                    x_position: event.clientX,
+                    y_position: event.clientY,
+                    menu: FOLDER_CONTEXT_MENU(file_path, file)
+                });
+            }
+        },
+        watch: {
+            project(new_project) {
+                if(!this.first) return;
+
+                if(FileExplorerStorage.get(this.explorer_type, this.project) === undefined) {
+                    FileExplorerStorage.set(
+                        this.explorer_type,
+                        this.project,
+                        new FileExplorer(undefined, this.project, path.join(this.base_path, this.project)).open()
+                    );
+                }
+                this.file_explorer = FileExplorerStorage.get(this.explorer_type, this.project);
             }
         }
     }

@@ -113,9 +113,7 @@
             };
         },
         async mounted() {
-            this.$root.$on("refreshExplorer", () => {
-                this.refresh();
-            });
+            this.$root.$on("refreshExplorer", () => EventBus.trigger("bridge:refreshExplorer"));
             EventBus.on("bridge:refreshExplorer", this.refresh);
             EventBus.on("bridge:selectProject", this.selectProject);
 
@@ -230,11 +228,6 @@
                 if(this.explorer_type === "explorer") EventBus.trigger("bridge:changedProject");
                 if(this.explorer_type === "explorer") OmegaCache.init(dir);
                 
-                this.$store.commit("loadExplorerDirectory", {
-                    store_key: this.explorer_type,
-                    path: this.base_path + this.selected,
-                    force_reload
-                });
                 if(this.load_plugins) {
                     await PluginLoader.loadPlugins(dir);
                 }

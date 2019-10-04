@@ -85,7 +85,6 @@ export class JSONFileMasks {
         if(this.data === undefined) this.data = await this.loadMasks();
         let key = OmegaCache.toCachePath(what, false);
         if(this.data[key] === undefined) return;
-        console.log("HERE", this.data,OmegaCache.toCachePath(as, false), key);
 
         this.data[OmegaCache.toCachePath(as, false)] = this.data[key];
 
