@@ -5,6 +5,9 @@ Themes change how bridge. looks. You are able to change all user interface eleme
 ### Plugin Integration
 Plugins can also add new themes by providing them inside a ```<PLUGIN NAME>/themes``` folder. Create a JSON file per theme you want to add. The individual file names don't matter.
 
+### Loading Behavior
+bridge. applies the default color theme first and then overwrites it with the theme you provided. This means you only need to define the colors which should change in your custom theme. An exception to this behavior is the file highlighter definition. You have to specifically set all colors or bridge. will use the default text color (white/black).
+
 ### Format
 #### Main
 | Name | Type | Description 
