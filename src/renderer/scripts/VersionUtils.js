@@ -1,4 +1,5 @@
 function asArr(version) {
+    if(version[0] !== "v") version = "v" + version;
     return version.substr(1, version.length).split(".").map(e => Number(e));
 }
 

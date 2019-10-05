@@ -17,7 +17,6 @@ class DownloadButton {
         }
 
         this.action = async () => {
-            console.log(this);
             this.is_loading = true;
             parent.update();
             if(typeof action === "function") await action();

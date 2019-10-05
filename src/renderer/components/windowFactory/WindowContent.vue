@@ -130,6 +130,7 @@
         :value="content.input"
         :autofocus="content.has_focus"
         hide-details
+        style="margin-bottom: 1px;"
         ref="input"
     />
     <v-textarea

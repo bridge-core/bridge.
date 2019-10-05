@@ -39,8 +39,11 @@ export default class PluginLoader {
             PLUGIN_FOLDERS = [];
         }
 
+        let PLUGIN_ZIPS = PLUGIN_FOLDERS.filter(p => path.extname(p) === ".zip");
+        PLUGIN_FOLDERS = PLUGIN_FOLDERS.filter(p => path.extname(p) !== ".zip");
         //Initialize PLUGIN_DATA with UI_DATA of BridgeCore
         PLUGIN_DATA = [ UI_DATA ];
+        await Promise.all(PLUGIN_ZIPS.map(plugin_folder => this.loadPlugin(project, plugin_folder, unloaded_plugins)));
         await Promise.all(PLUGIN_FOLDERS.map(plugin_folder => this.loadPlugin(project, plugin_folder, unloaded_plugins)));
         await ThemeManager.loadTheme();
 
@@ -65,6 +68,15 @@ export default class PluginLoader {
                 await createReadStream(plugin_path)
                     .pipe(unzipper.Extract({ path: unzip_path }))
                     .promise();
+                
+                /**
+                 * Prevent loading plugin twice
+                 * (once as folder and once as .zip)
+                 */
+                if(PLUGIN_FOLDERS.includes(path.basename(plugin_folder, ".zip"))) {
+                    PLUGIN_FOLDERS = PLUGIN_FOLDERS.filter(p => p !== path.basename(plugin_folder, ".zip"));
+                }
+
                 await Promise.all([
                     fs.unlink(plugin_path),
                     this.loadPlugin(project, path.basename(plugin_folder, ".zip"), unloaded_plugins)

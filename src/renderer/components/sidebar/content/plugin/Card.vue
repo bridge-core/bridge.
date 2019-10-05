@@ -35,7 +35,7 @@
                     </template>
                     <span>Active</span>
                 </v-tooltip>
-                <v-tooltip color="error" right v-else>
+                <v-tooltip color="error" right v-else-if="plugin.id">
                     <template v-slot:activator="{ on }">
                         <v-icon @click.stop.native="activate" v-on="on" color="error">
                             mdi-close
