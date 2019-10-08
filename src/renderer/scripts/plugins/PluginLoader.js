@@ -11,6 +11,7 @@ import ThemeManager from "../editor/ThemeManager";
 import unzipper from "unzipper";
 import safeEval from "safe-eval";
 import ComponentRegistry, { BridgeComponent } from "./CustomComponents";
+import InformationWindow from "../commonWindows/Information";
 
 let PLUGIN_FOLDERS;
 let PLUGIN_DATA = [];
@@ -169,11 +170,16 @@ export default class PluginLoader {
             )
         );
         components.forEach(c => {
-            if(c !== undefined) safeEval(c.toString("utf-8"), {
-                Bridge: {
-                    register: (c) => ComponentRegistry.register(c)
-                }
-            })
+            if(c === undefined) return;
+            
+            try {
+                safeEval(c.toString("utf-8"), {
+                    Bridge: {
+                        register: (c) => ComponentRegistry.register(c)
+                    }
+                });
+            } catch(e) { new InformationWindow("ERROR", `Error while loading custom component:\n${e.message}`); }
+            
         });
     }
 }

@@ -35,7 +35,7 @@ Scripts are loaded from the ```<PLUGIN NAME>/scripts``` folder. Scripts are writ
 
 **Script API 2:** In development
 
-### JS APIs
+### JavaScript APIs
 - [```Custom Components```](https://github.com/solvedDev/bridge./blob/master/plugin_docs/custom_components.md)
 
 ### JSON Formats

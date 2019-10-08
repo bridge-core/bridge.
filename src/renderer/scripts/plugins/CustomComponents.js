@@ -4,6 +4,8 @@ import InformationWindow from "../commonWindows/Information";
 import EventBus from "../EventBus";
 import { use } from "../utilities/useAttr";
 import { detachMerge } from "../mergeUtils";
+import LightningCache from "../editor/LightningCache";
+import FileType from "../editor/FileType";
 
 export class BridgeComponent {
     static component_name = "bridge:demo_component";
@@ -43,18 +45,23 @@ export default class ComponentRegistry {
         let apply_data = this.components[component_name].onApply(component_data);
         if(typeof apply_data !== "object" || Array.isArray(apply_data)) return;
 
-        MASK.reset(`component@${component_name}`);
         MASK.set(`component@${component_name}`, apply_data);
     }
 
     static async parse(file_path, data, simulated_call) {
         if(data === undefined) return;
+        const MASK = await JSONFileMasks.get(file_path);
+
+        //RESET OLD CHANNELS
+        let { custom_components } = await LightningCache.load(file_path, FileType.get(file_path)) || {};
+        console.log(custom_components);
+        (custom_components || []).forEach(c => MASK.reset(`component@${c}`));
 
         for(let component_name in this.components) {
             let c = use(data, `minecraft:entity/components/${component_name}`);
 
             if(c !== undefined)
-                this.set(await JSONFileMasks.get(file_path), component_name, c, simulated_call);
+                this.set(MASK, component_name, c, simulated_call);
         }
         
         await JSONFileMasks.saveMasks();
