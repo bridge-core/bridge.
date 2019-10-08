@@ -1,0 +1,11 @@
+{
+    "set": {
+        "is_text_highlighter": true,
+        "extension": "lang",
+        "line_comment": "##",
+        "string_character": "\""
+    },
+    "define": {
+        "keywords": [ "=", "." ]
+    }
+}
