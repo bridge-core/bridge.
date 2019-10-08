@@ -34,13 +34,12 @@
                         :key="i"
                         bottom
                         :color="btn.color || 'tooltip_color'"
-                        :style="`margin-right: ${i + 1 <= buttons.length ? 4 : 0}px;`"
                     >
                         <template v-slot:activator="{ on }">
                             <v-btn
                                 v-on="on"
                                 :color="btn.color"
-                                style="min-width: 30px; padding: 0;"
+                                :style="`margin-right: ${i + 1 <= buttons.length ? 4 : 0}px; min-width: 30px; padding: 0;`"
                                 small
                                 @click="btn.action"
                             >
