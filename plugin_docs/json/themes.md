@@ -46,6 +46,7 @@ bridge. applies the default color theme first and then overwrites it with the th
 | ```toolbar``` | ```String``` | Color
 | ```footer``` | ```String``` | Color
 | ```tooltip``` | ```String``` | Color
+| ```default_button``` | ```String``` | Color
 
 #### HighlighterDefinition
 | Name | Type | Description 
@@ -100,7 +101,8 @@ bridge. applies the default color theme first and then overwrites it with the th
             "menu": "#424242",
             "toolbar": "#000000",
             "footer": "#212121",
-            "tooltip": "#303030"
+            "tooltip": "#303030",
+            "default_button": "#212121"
         },
         "light": {
             "highlighter": {
@@ -128,7 +130,8 @@ bridge. applies the default color theme first and then overwrites it with the th
             "menu": "#FFFFFF",
             "toolbar": "#e0e0e0",
             "footer": "#f5f5f5",
-            "tooltip": "#424242"
+            "tooltip": "#424242",
+            "default_button": "#f5f5f5"
         }
     }
 }
