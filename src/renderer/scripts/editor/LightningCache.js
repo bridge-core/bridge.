@@ -29,6 +29,7 @@ export default class LightningCache {
     }
     static init() {
         this.global_cache = undefined;
+        this.compiled_cache = undefined;
     }
 
     static async add(file_path, content) {
