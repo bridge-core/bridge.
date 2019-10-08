@@ -16,7 +16,6 @@ export default class ComponentRegistry {
     static components = {};
 
     static async register(Component) {
-        console.log(Component);
         let name = Component.component_name;
         if(!name || name.startsWith("minecraft:")) throw new Error("Invalid component namespace: 'minecraft:'!");
 
