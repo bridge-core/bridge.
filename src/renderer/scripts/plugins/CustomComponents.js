@@ -29,7 +29,6 @@ export default class ComponentRegistry {
         refs.map(
             f => JSONFileMasks.apply(f)
         );
-        console.log(refs);
     }
     static async reset() {
         this.components = {};
@@ -40,7 +39,6 @@ export default class ComponentRegistry {
             return new InformationWindow("ERROR", `Unknown component "${component_name}"!`);
         
         //Save that this file is using the specific custom component inside the LightningCache
-        console.log(component_name, simulated_call);
         if(!simulated_call) EventBus.once("bridge:onCacheHook[entity.custom_components]", () => component_name);
 
         let apply_data = this.components[component_name].onApply(component_data);
