@@ -23,7 +23,7 @@
                 no-data-text="No suggestions available..."
                 class="json-input-menu"
             ></v-combobox>
-            <v-btn rounded @click="click" :disabled="type === 'edit' && file_navigation === 'global'">
+            <v-btn style="margin-left: 4px;" color="default_button" @click="click" :disabled="type === 'edit' && file_navigation === 'global'">
                 <v-icon>mdi-plus</v-icon>
             </v-btn>
         </v-layout>

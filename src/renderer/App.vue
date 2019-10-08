@@ -175,6 +175,7 @@
 
     .v-list {
         background: var(--v-menu-base) !important;
+        border-radius: 0px;
     }
 </style>
 

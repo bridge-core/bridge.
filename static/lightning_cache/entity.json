@@ -1,5 +1,6 @@
 [ 
     { "key": "events", "path": "minecraft:entity/events" }, 
+    { "key": "custom_components", "hook": "entity.custom_components" }, 
     { "key": "identifiers", "path": "minecraft:entity/description/identifier" }, 
     { "key": "animation_references", "path": "minecraft:entity/description/animations" }, 
     { 

@@ -319,6 +319,7 @@ class TabSystem {
         }
         if(current.file_uuid === undefined) current.file_uuid = uuid();
         
+        //bridgeCore needs to be triggered before caches are saved
         let data = await this.transformContent(PluginEnv.trigger("bridge:saveFile", { 
             ...current,
             file_path: current.file_path.replace(/\\/g, "/"),

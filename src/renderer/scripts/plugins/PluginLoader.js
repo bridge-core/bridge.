@@ -9,6 +9,9 @@ import { PluginSnippets } from "../../windows/Snippets";
 import { UI_DATA, BridgeCore } from "../bridgeCore/main";
 import ThemeManager from "../editor/ThemeManager";
 import unzipper from "unzipper";
+import safeEval from "safe-eval";
+import ComponentRegistry, { BridgeComponent } from "./CustomComponents";
+
 let PLUGIN_FOLDERS;
 let PLUGIN_DATA = [];
 
@@ -20,6 +23,10 @@ export default class PluginLoader {
     }
     static pushPluginData(data) {
         PLUGIN_DATA.push(data);
+    }
+
+    static reset() {
+        ComponentRegistry.reset();
     }
 
     static async loadPlugins(project) {
@@ -93,7 +100,8 @@ export default class PluginLoader {
                 await Promise.all([
                     this.loadScripts(plugin_path, manifest.api_version),
                     this.loadSnippets(plugin_path),
-                    this.loadThemes(plugin_path)
+                    this.loadThemes(plugin_path),
+                    this.loadComponents(plugin_path)
                 ]).catch(e => {});
             } 
             PLUGIN_DATA.push(manifest);
@@ -148,6 +156,24 @@ export default class PluginLoader {
         );
         themes.forEach(t => {
             if(t !== undefined) ThemeManager.addTheme(t);
+        });
+    }
+
+    static async loadComponents(plugin_path) {
+        let components = await fs.readdir(path.join(plugin_path, "components")).catch(e => []);
+
+        components = await Promise.all(
+            components.map(c => 
+                fs.readFile(path.join(plugin_path, "components", c))
+                    .catch(e => undefined)
+            )
+        );
+        components.forEach(c => {
+            if(c !== undefined) safeEval(c.toString("utf-8"), {
+                Bridge: {
+                    register: (c) => ComponentRegistry.register(c)
+                }
+            })
         });
     }
 }

@@ -11,6 +11,7 @@ import OmegaCache from "./OmegaCache";
 import JSONTree from "./JsonTree";
 import fs from "fs";
 import deepmerge from "deepmerge";
+import EventBus from "../EventBus";
 
 function toUnifiedObj(obj) {
     let tmp = [];
@@ -90,6 +91,8 @@ export default class LightningCache {
                     });
                 });
                 cache[def.key] = res;
+            } else if(def.hook !== undefined) {
+                cache[def.key] = EventBus.trigger(`bridge:onCacheHook[${def.hook}]`) || [];
             } else {
                 console.warn("Unknown cache definition: ", def);
             }

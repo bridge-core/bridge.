@@ -90,7 +90,7 @@
     <v-btn 
         v-else-if="content.type == 'button'"
         @click.stop.native="action.default"
-        :color="content.color"
+        :color="content.color || 'default_button'"
         :rounded="content.is_rounded"
         :text="content.is_flat"
         :disabled="content.is_disabled"
@@ -102,7 +102,7 @@
     <v-btn 
         v-else-if="content.type == 'icon-button'"
         @click.stop.native="action.default"
-        :color="content.color"
+        :color="content.color || 'default_button'"
         :rounded="content.is_rounded"
         :text="content.is_flat"
         :disabled="content.is_disabled"

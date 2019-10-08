@@ -16,12 +16,12 @@
                 class="json-input-menu"
             ></v-combobox>
 
-            <v-btn rounded @click="click">
+            <v-btn color="default_button" style="margin: 0 4px;" @click="click(null, 'object')">
                 <v-icon>mdi-code-braces</v-icon>
             </v-btn>
-            <v-tooltip color="tooltip" bottom>
+            <v-tooltip color="default_button" bottom>
                 <template v-slot:activator="{ on }">
-                    <v-btn v-on="on" rounded @click="click(null, 'value')">
+                    <v-btn color="default_button" v-on="on" @click="click(null, 'value')">
                         <v-icon>mdi-format-quote-close</v-icon>
                     </v-btn>
                 </template>

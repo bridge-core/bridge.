@@ -23,6 +23,9 @@ export class JSONMask {
         else this.data[channel] = undefined;
     }
 
+    get(channel) {
+        return this.data[channel];
+    }
     all() {
         let all = [];
 
@@ -37,6 +40,10 @@ export class JSONMask {
 export class JSONFileMasks {
     static data = undefined;
 
+    /**
+     * @param {string} file_path
+     * @returns {Promise<JSONMask>}
+     */
     static async get(file_path) {
         if(this.data === undefined) this.data = await this.loadMasks();
         let key = OmegaCache.toCachePath(file_path, false);
@@ -110,7 +117,7 @@ export class JSONFileMasks {
         } else {    
             data = cache_content;
         }
-        data = await BridgeCore.beforeSave(data, file_path, depth);
+        data = await BridgeCore.beforeSave(data, file_path, depth, true);
 
         await fs.mkdir(path.dirname(file_path), { recursive: true });
         return writeJSON(file_path, data, true, file_version);

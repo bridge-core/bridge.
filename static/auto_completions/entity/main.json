@@ -21,9 +21,9 @@
             }
         },
         "component_groups": {
-            "$placeholder": "$entity.main.minecraft:entity.components"
+            "$placeholder": "$entity.general.components"
         },
-        "components": "$entity.annotations and $entity.behavior and $entity.components",
+        "components": "$entity.general.components and $dynamic.plugins.custom_components",
         "events": {
             "$asObject": "$entity.general.built_in_event",
             

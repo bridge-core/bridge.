@@ -29,7 +29,7 @@ export default async function TagHandler({ file_path, data, depth }) {
     if(description !== undefined && description.extends !== undefined) {
         let files = await Promise.all(
             description.extends.map(
-                async def => await JumpToDefinition.fetch([ "entity", "tag" ], def, true)
+                async def => await JumpToDefinition.fetch([ "entity", "tag" ], def)
             )
         ).catch(console.error);
 

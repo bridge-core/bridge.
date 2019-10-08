@@ -9,6 +9,7 @@ import EntityHandler from "./EntityHandler";
 import ItemHandler from "./ItemHandler";
 import TagHandler from "./TagHandler";
 import InformationWindow from "../commonWindows/Information";
+import ComponentRegistry from "../plugins/CustomComponents";
 
 export const UI_DATA = {
     name: "bridge. Core",
@@ -34,8 +35,13 @@ export class BridgeCore {
         this.save_registry[file_type] = handler;
     }
 
-    static async beforeSave(data, file_path=TabSystem.getCurrentFilePath(), depth=100) {
-        if(!this.is_active) return data;
+    /**
+     * @param {object} data 
+     * @param {string} file_path 
+     * @param {number} depth 
+     * @param {boolean} simulated_call Whether the function call is coming from the JSONFileMasks.apply(...) method. The data received is not open inside a tab
+     */
+    static async beforeSave(data, file_path=TabSystem.getCurrentFilePath(), depth=100, simulated_call=false) {
         if(depth <= 0) {
             new InformationWindow("ERROR", "Maximum import depth reached");
             return data;
@@ -44,8 +50,16 @@ export class BridgeCore {
         let file_uuid = await OmegaCache.loadFileUUID(file_path);
         let file_type = FileType.get(file_path);
 
+        //CUSTOM ENTITY COMPONENTS
+        if(file_type === "entity") await ComponentRegistry.parse(file_path, data, simulated_call);
+
         data = await JSONFileMasks.applyOnData(file_path, data);
-        if(typeof this.save_registry[file_type] === "function") await this.save_registry[file_type]({ file_path, file_name, file_uuid, data, depth });
+
+        //Do not use custom syntax with deactivated bridgeCore
+        if(!this.is_active) return data;
+
+        if(typeof this.save_registry[file_type] === "function")
+            await this.save_registry[file_type]({ file_path, file_name, file_uuid, data, depth, simulated_call });
 
         return data;
     }

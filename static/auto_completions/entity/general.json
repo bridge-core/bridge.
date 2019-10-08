@@ -1,4 +1,6 @@
 {
+    "components": "$entity.annotations and $entity.behavior and $entity.components",
+    "beta_components": "$entity.annotations and $entity.behavior and $entity.components and $entity.beta_components",
     "built_in_event": [ "minecraft:entity_born", "minecraft:entity_spawned", "minecraft:entity_transformed", "minecraft:on_prime", "minecraft:start_celebrating" ],
     "effect_definition": {
         "effect": "$general.effect_name",

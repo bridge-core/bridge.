@@ -255,6 +255,9 @@
     div, .key {
         margin-left: 0.75em;
     }
+    .controls {
+        margin-right: 0.75em;
+    }
     .key {
         cursor: pointer;
     }

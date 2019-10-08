@@ -7,6 +7,7 @@ import LightningCache from "../editor/LightningCache";
 import { BridgeCore } from "../bridgeCore/main";
 import { readJSONSync } from "../utilities/JsonFS";
 import ProjectConfig from "../ProjectConfig";
+import ComponentRegistry from "../plugins/CustomComponents";
 
 let PARENT_CONTEXT = {};
 let NODE_CONTEXT = {};
@@ -51,6 +52,11 @@ export const DYNAMIC = {
         },
         is_not_active() {
             return !BridgeCore.isActive();
+        }
+    },
+    plugins: {
+        custom_components() {
+            return ComponentRegistry.propose();
         }
     },
     list: {
