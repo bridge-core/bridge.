@@ -814,7 +814,7 @@
             },
             {
               "stacked_row_2@start.stacked_row": {
-                "ignored": "(not $trial)",
+                "ignored": "(not $trial or $use_single_column_for_buttons)",
                 "controls": [
                   {
                     "stacked_columns": {
@@ -879,7 +879,7 @@
             },
             {
               "settings@start.stacked_row": {
-                "ignored": "$trial",
+                "ignored": "($trial and not $use_single_column_for_buttons)",
                 "controls": [
                   { "settings_button@start.settings_button": {} }
                 ]
@@ -895,7 +895,7 @@
             },
             {
               "store@start.stacked_row": {
-                "ignored": "(($trial) or ($store_ignored))",
+                "ignored": "(($trial and not $use_single_column_for_buttons) or ($store_ignored))",
                 "controls": [
                   {
                     "store_button@start.store_button": {
@@ -1150,12 +1150,6 @@
         "ignored": "(not $nx_os)",
         "from_button_id": "button.controller_select",
         "to_button_id": "button.menu_offline",
-        "mapping_type": "global"
-      },
-      {
-        "ignored": "(not $is_berwick)",
-        "from_button_id": "button.controller_secondary_select",
-        "to_button_id": "button.menu_crossplatform",
         "mapping_type": "global"
       }
     ],

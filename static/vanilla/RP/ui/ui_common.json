@@ -2600,7 +2600,7 @@
 
     "variables": [
       {
-        "requires": "(not $is_low_memory_device and not $is_berwick)", // We don't load MinecraftTen in these cases so we need to revert to Mojangles.
+        "requires": "(not $is_low_memory_device)", // We don't load MinecraftTen in these cases so we need to revert to Mojangles.
         "font_scale_factor": 1.39,
         "offset": [ 0, -2 ] // Because of how the font is rendered it looks like it is offset down from the center of the render area
       }

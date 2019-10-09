@@ -264,6 +264,7 @@
                                           },
                                           {
                                             "warning_label_line_4": {
+                                              "ignored": "$use_short_upsell_message",
                                               "type": "label",
                                               "max_size": [ "90%", "100%c" ],
                                               "text": "store.sign_in_warning.no_xbl_and_no_local_content.line4",

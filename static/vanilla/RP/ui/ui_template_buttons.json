@@ -81,6 +81,10 @@
     "$image_offset|default": [ 0, 0 ],
     "$border_visible|default": true,
     "$border_alpha|default": 1,
+    "$button_anchor_to|default": "center",
+    "$button_anchor_from|default": "center",
+    "anchor_to": "$button_anchor_to",
+    "anchor_from": "$button_anchor_from",
     "controls": [
       {
         "$button_image@$button_image": {
