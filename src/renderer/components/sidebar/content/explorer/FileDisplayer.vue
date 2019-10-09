@@ -14,6 +14,7 @@
                      <v-skeleton-loader
                         v-if="file.is_loading"
                         :key="file.absolute_path"
+                        height="21"
                         type="text"
                     ></v-skeleton-loader>
                     <!--FOLDER-->
