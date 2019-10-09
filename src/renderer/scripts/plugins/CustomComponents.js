@@ -54,7 +54,6 @@ export default class ComponentRegistry {
 
         //RESET OLD CHANNELS
         let { custom_components } = await LightningCache.load(file_path, FileType.get(file_path)) || {};
-        console.log(custom_components);
         (custom_components || []).forEach(c => MASK.reset(`component@${c}`));
 
         for(let component_name in this.components) {
