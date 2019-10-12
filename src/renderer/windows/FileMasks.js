@@ -160,8 +160,11 @@ export default class ManageFileMasks extends CommonWindow {
     }
     async init(file_path=this.file_path) {
         this.data = await JSONFileMasks.get(file_path);
+        let file_version;
         try {
-            let { format_version, cache_content } = await OmegaCache.load(file_path);
+            let { format_version, cache_content, ...cache } = await OmegaCache.load(file_path);
+            file_version = cache.file_version;
+
             if(format_version === 1) {
                 this.base_layer = JSONTree.buildFromCache(cache_content).toJSON();
             } else {    
@@ -174,11 +177,17 @@ export default class ManageFileMasks extends CommonWindow {
 
         this.content = [
             {
-                text: "For bridge., files consist of multiple layers which get composed into a single file upon saving. This enables custom syntax to seamlessly interact with your files. You can view and manage the different file layers inside of this window.\n\n"
+                text: "\nFor bridge., files consist of multiple layers which get composed into a single file upon saving. This enables custom syntax to seamlessly interact with your files. You can view and manage the different file layers inside of this window.\n\n"
+            },
+            {
+                type: "divider"
+            },
+            {
+                text: `\nFile Version: ${file_version || 0}\n(Used to determine whether to load this file from bridge.'s cache)\n\n`
             },
             new ReactiveList(this).get()
         ];
-        if(this.content[1].content.length === 1) {
+        if(this.content[3].content.length === 1) {
             this.content.push({ text: "This file currently has no file layers." });
         }
         

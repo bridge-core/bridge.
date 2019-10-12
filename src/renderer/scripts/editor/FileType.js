@@ -204,4 +204,11 @@ export default class FileType {
             return "//";
         }
     }
+
+    static getCommentChars() {
+        return this.getAllData()
+            .map(({ comment_character }) => comment_character)
+            .filter(c => c !== undefined)
+            .concat([ "//" ]);
+    }
 }

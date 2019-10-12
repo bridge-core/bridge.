@@ -6,7 +6,7 @@
     <div :style="element_style" :class="element_class" v-else>
         <draggable 
             v-model="file_explorer.children"
-            v-bind="{ group: 'file-displayer', disabled: true }"
+            v-bind="{ group: 'file-displayer', disabled: false }"
             @change="draggedFile"
         >
             <template v-for="(file) in file_explorer.children">

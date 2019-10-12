@@ -4,6 +4,7 @@
 
 import { BASE_PATH, RP_BASE_PATH } from "../constants";
 import fs from "fs";
+import fse from "fs-extra";
 import path from "path";
 import mkdirp from "mkdirp";
 import FileType from "./FileType";
@@ -38,20 +39,25 @@ export default class OmegaCache {
         return path.join(with_base ? this.current_base : "", is_bp ? "BP" : "RP", tmp_path.slice(this.project.length)).replace(/\\/g, '/');
     }
 
-    static extractFileVersion(file_path, file_str) { 
+    static extractFileVersion(file_path, file_str, comment_char=FileType.getCommentChar(file_path), initial=true) { 
         try {
             let str = file_str.split("\n").shift();
-            let version_templ = `${FileType.getCommentChar(file_path)}bridge-file-version: #`;
+            let version_templ = `${comment_char}bridge-file-version: #`;
 
             if(str.startsWith(version_templ) && !isNaN(Number(str.replace(version_templ, "")))) {
                 return Number(str.replace(version_templ, ""));
+            } else if(initial && file_str.includes("bridge-file-version")) {
+                //Fallback to other chars if we fail to load file_version previously (can happen after moving folders)
+                return FileType.getCommentChars()
+                    .map(char => this.extractFileVersion(file_path, file_str, char, false))
+                    .find(val => val !== undefined);
             }
         } catch(e) {}
     }
 
     static isCacheFresh(file_path, cache, otherFile) {
         let file_version = this.extractFileVersion(file_path, otherFile);
-
+        console.log(file_version, cache.file_version)
         if(file_version !== undefined) {
             if(file_version <= cache.file_version) return true;
             else return false;
@@ -104,11 +110,11 @@ export default class OmegaCache {
     static clear(file_path) {
         fs.unlink(this.toCachePath(file_path), (err) => {});
     }
-    static rename(old_path, new_path) {
+    static async rename(old_path, new_path) {
         if(!this.mayBeCached(new_path))
             return this.clear(old_path);
         
-        fs.rename(this.toCachePath(old_path), this.toCachePath(new_path), (err) => {});
+        await fse.move(this.toCachePath(old_path), this.toCachePath(new_path));
     }
     static duplicate(what, as) {
         if(!this.mayBeCached(as))

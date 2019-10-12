@@ -10,6 +10,7 @@ import LightningCache from '../editor/LightningCache';
 import { JSONFileMasks } from '../editor/JSONFileMasks';
 import path from "path";
 import { FileExplorer } from "../FileExplorer";
+import LightningCacheInspector from "../../windows/LightningCache";
 
 export const FILE_CONTEXT_MENU = (file_path, file) => [
     {
@@ -84,6 +85,12 @@ export const FILE_CONTEXT_MENU = (file_path, file) => [
         title: "File Layers",
         action: () => {
             new ManageFileMasks(file_path);
+        }
+    },
+    {
+        title: "LC Inspector",
+        action: () => {
+            new LightningCacheInspector(file_path);
         }
     }
 ];

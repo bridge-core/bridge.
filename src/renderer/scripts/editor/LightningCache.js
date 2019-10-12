@@ -18,7 +18,10 @@ function toUnifiedObj(obj) {
     for(let key in obj) {
         tmp.push(obj[key]);
     }
-    return deepmerge.all(tmp, { ArrayMerge: (a, b) => a.concat(b) });
+
+    if(tmp.length > 0)
+        return deepmerge.all(tmp, { ArrayMerge: (a, b) => a.concat(b) });
+    return {};
 }
 
 export default class LightningCache {
@@ -112,8 +115,8 @@ export default class LightningCache {
             }
         } else {
             if(type === undefined) type = FileType.get(file_path);
-            if(this.global_cache !== undefined) return this.global_cache[type][OmegaCache.toCachePath(file_path, false)] || {};
             try {
+                if(this.global_cache !== undefined) return this.global_cache[type][OmegaCache.toCachePath(file_path, false)] || {};
                 return (await readJSON(this.l_cache_path))[type][OmegaCache.toCachePath(file_path, false)] || {};
             } catch(err) {
                 return {};
@@ -130,24 +133,28 @@ export default class LightningCache {
     }
 
     static async rename(old_path, new_path) {
-        let type = FileType.get(old_path);
-        if(type === "unknown") return;
+        let old_type = FileType.get(old_path);
+        let new_type = FileType.get(new_path);
 
         this.global_cache = await this.load();
         try {
-            this.global_cache[type][OmegaCache.toCachePath(new_path, false)] = this.global_cache[type][OmegaCache.toCachePath(old_path, false)];
-            delete this.global_cache[type][OmegaCache.toCachePath(old_path, false)];
+            if(this.global_cache[old_type] === undefined) return;
+            if(this.global_cache[new_type] === undefined) this.global_cache[new_type] = {};
+            this.global_cache[new_type][OmegaCache.toCachePath(new_path, false)] = this.global_cache[old_type][OmegaCache.toCachePath(old_path, false)];
+            delete this.global_cache[old_type][OmegaCache.toCachePath(old_path, false)];
         } catch(e) {}
         
         await writeJSON(this.l_cache_path, this.global_cache, true);
     }
     static async duplicate(what, as) {
-        let type = FileType.get(what);
-        if(type === "unknown") return;
+        let old_type = FileType.get(what);
+        let new_type = FileType.get(as);
 
         this.global_cache = await this.load();
         try {
-            this.global_cache[type][OmegaCache.toCachePath(as, false)] = this.global_cache[type][OmegaCache.toCachePath(what, false)];
+            if(this.global_cache[old_type] === undefined) return;
+            if(this.global_cache[new_type] === undefined) this.global_cache[new_type] = {};
+            this.global_cache[new_type][OmegaCache.toCachePath(as, false)] = this.global_cache[old_type][OmegaCache.toCachePath(what, false)];
         } catch(e) {}
         
         await writeJSON(this.l_cache_path, this.global_cache, true);

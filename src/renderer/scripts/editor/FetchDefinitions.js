@@ -8,7 +8,7 @@ import path from "path";
 export default class FetchDefinitions {
     /**
      * @param {*} fetch_defs Object containing arrays of definitions to fetch per file_type (<- key)
-     * | e.g. { entity: [ "identifiers", "families" ], item: [ "identifiers" ] }
+     *      | e.g. { entity: [ "identifiers", "families" ], item: [ "identifiers" ] }
      */
     static async fetch(file_types, fetch_defs={}, fetch_search, fetch_all=true) {
         return (await Promise.all(file_types.map(t => this.fetchSingle(t, fetch_defs[t], fetch_search, fetch_all))).catch(console.error)).flat();
@@ -18,7 +18,7 @@ export default class FetchDefinitions {
         let c = await LightningCache.load();
         let res = [];
 
-        if(c[file_type] === undefined) return;
+        if(c[file_type] === undefined) return [];
         //FOREACH FETCH_DEF
         for (let d of fetch_defs) {
             //GO THROUGH ALL FILES
@@ -55,7 +55,7 @@ export default class FetchDefinitions {
         let c = LightningCache.loadSync();
         let res = [];
 
-        if(c[file_type] === undefined) return;
+        if(c[file_type] === undefined) return [];
         //FOREACH FETCH_DEF
         for (let d of fetch_defs) {
             //GO THROUGH ALL FILES
