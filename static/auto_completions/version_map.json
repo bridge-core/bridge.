@@ -4,5 +4,8 @@
     },
     "spawn_rule/main":{
         "Beta": "spawn_rule/main_beta"
+    },
+    "biome/main": {
+        "Beta": "biome/main_beta"
     }
 }

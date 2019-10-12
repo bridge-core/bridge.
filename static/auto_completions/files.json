@@ -4,6 +4,7 @@
     "_general/block_states",
 
     "biome/main",
+    "biome/main_beta",
     "biome/general",
     "biome/components",
     "biome/tags",

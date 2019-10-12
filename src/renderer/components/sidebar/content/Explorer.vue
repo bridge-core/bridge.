@@ -18,8 +18,7 @@
                 :value="selected" 
                 :label="display_label"
                 background-color="expanded_sidebar" 
-                solo
-                dense 
+                solo 
                 :loading="loading" 
                 :disabled="items.length <= 1"
                 @input="(choice) => selected = choice"

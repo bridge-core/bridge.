@@ -254,6 +254,7 @@
         },
         watch: {
             available_height() {
+                if(!this.codemirror) return;
                 this.codemirror.setSize("100%", this.available_height - 12)
             },
             content_as_string() {
