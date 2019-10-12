@@ -75,7 +75,11 @@ function transformEvent(event, { component_groups, description, events, file_nam
     }
 }
 
-export default async function EntityHandler({ file_name, data }) {
+function handleModules(file_path, modules=[], simulated_call) {
+    if(!simulated_call) EventBus.once("bridge:onCacheHook[entity.core_module_imports]", () => modules);
+}
+
+export default async function EntityHandler({ file_name, data, file_path, simulated_call }) {
     let entity = data["minecraft:entity"];
     if(!entity) return;
     set(entity, "component_groups", {});
@@ -86,6 +90,7 @@ export default async function EntityHandler({ file_name, data }) {
     A_C = new AnimationController();
 
     for(let e in events) transformEvent(events[e], { component_groups, description, events, file_name: file_name.replace(".json", "") });
+    // if(description.modules) handleModules(file_path, description.modules, simulated_call);
 
     await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/commands_${file_name}`));
 }

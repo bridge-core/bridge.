@@ -57,7 +57,7 @@ export default class OmegaCache {
 
     static isCacheFresh(file_path, cache, otherFile) {
         let file_version = this.extractFileVersion(file_path, otherFile);
-        console.log(file_version, cache.file_version)
+        
         if(file_version !== undefined) {
             if(file_version <= cache.file_version) return true;
             else return false;

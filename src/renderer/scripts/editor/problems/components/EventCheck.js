@@ -28,7 +28,7 @@ export default class EventCheck extends CommonProblem {
                 if(this.events === undefined) {
                     let c = LightningCache.getCompiledSync();
                     try {
-                        this.events = c.entity.events;
+                        this.events = c.entity.events || [];
                     } catch(e) {
                         this.events = [];
                     }

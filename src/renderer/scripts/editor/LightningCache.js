@@ -96,7 +96,7 @@ export default class LightningCache {
                 });
                 cache[def.key] = res;
             } else if(def.hook !== undefined) {
-                cache[def.key] = EventBus.trigger(`bridge:onCacheHook[${def.hook}]`) || [];
+                cache[def.key] = EventBus.trigger(`bridge:onCacheHook[${def.hook}]`).flat() || [];
             } else {
                 console.warn("Unknown cache definition: ", def);
             }
