@@ -31,18 +31,17 @@
 
         <v-divider></v-divider>
         <file-displayer
-            v-if="selected !== undefined && selected !== '/@NO-RP@/' && selected !== '/@NO-DEPENDENCY@/'" 
+            v-if="loaded_file_defs && selected !== undefined && selected !== '/@NO-RP@/' && selected !== '/@NO-DEPENDENCY@/'" 
             :files="directory"
             :project="selected"
             :base_path="base_path"
             :explorer_type="explorer_type"
             class="file-displayer"
         />
-        <v-progress-linear v-else-if="selected === undefined" indeterminate/>
+        <v-progress-linear v-else-if="loaded_file_defs || selected === undefined" indeterminate/>
         <div
             v-else-if="selected === '/@NO-DEPENDENCY@/'"
             style="padding: 4px;"
-            
         >
             <p style="word-break: break-word;">It doesn't look like your current behavior pack has a corresponding resource pack registered inside its manifest file.</p>
 
@@ -80,6 +79,7 @@
     import LightningCache from '../../../scripts/editor/LightningCache';
     import { JSONFileMasks } from "../../../scripts/editor/JSONFileMasks";
     import LoadingWindow from '../../../windows/LoadingWindow';
+    import FileType from '../../../scripts/editor/FileType';
 
     export default {
         name: "content-explorer",
@@ -108,13 +108,15 @@
                 items: [],
                 display_label: "Loading...",
                 project_select_size: window.innerWidth / 7.5,
-                no_projects: false
+                no_projects: false,
+                loaded_file_defs: FileType.LIB_LOADED
             };
         },
         async mounted() {
             this.$root.$on("refreshExplorer", () => EventBus.trigger("bridge:refreshExplorer"));
             EventBus.on("bridge:refreshExplorer", this.refresh);
             EventBus.on("bridge:selectProject", this.selectProject);
+            EventBus.on("bridge:loadedFileDefs", this.onFileDefsLoaded);
 
             if(this.force_project_algorithm) {
                 this.selected = undefined;
@@ -138,6 +140,7 @@
             this.$root.$off("refreshExplorer");
             EventBus.off("bridge:refreshExplorer", this.refresh);
             EventBus.off("bridge:selectProject", this.selectProject);
+            EventBus.off("bridge:loadedFileDefs", this.onFileDefsLoaded);
 
             window.removeEventListener("resize", this.onResize);
         },
@@ -207,6 +210,9 @@
 
             selectProject(val) {
                 this.loadDirectory(val, true);
+            },
+            onFileDefsLoaded() {
+                this.loaded_file_defs = true;
             },
             
             async loadDirectory(dir=this.selected, force_reload) {

@@ -2,10 +2,10 @@
  * Base class for managing and accessing data-driven features
  */
 import TabSystem from "../TabSystem";
-import Provider from "../autoCompletions/Provider";
+import Provider, { LIB_LOADED } from "../autoCompletions/Provider";
 import fs from "fs";
 import { join } from "path";
-import { readJSON } from "../utilities/JsonFS";
+import { readJSON, readJSONSync } from "../utilities/JsonFS";
 import eRE from "../utilities/EscapeRegExp";
 
 let FILE_DEFS;
@@ -16,6 +16,9 @@ export default class FileType {
     static reset() {
         FILE_DEFS = undefined;
         FILE_CREATOR_CACHE = [];
+    }
+    static get LIB_LOADED() {
+        return LIB_LOADED;
     }
 
     //Special method to e.g. avoid "loot_tables/blocks/something.json" being considered a "block"
@@ -54,13 +57,11 @@ export default class FileType {
         }
 
         
-        
         for(let def of FILE_DEFS) {
             // console.log(path);
             if(this.pathIncludes(path, def.includes) && (path.includes("development_behavior_packs") || def.rp_definition || this.fallbackToBP(path)))
                 return def;
         }
-        return;
     }
 
     static getAll() {
@@ -92,6 +93,17 @@ export default class FileType {
             }, []);
         }
         return FILE_CREATOR_CACHE;
+    }
+
+    static getFileIcon(file_path) {
+        const { file_creator } = this.getData(file_path) || {};
+
+        if(file_creator !== undefined) {
+            if(typeof file_creator === "string")
+                return readJSONSync(join(__static, "file_creator", `${file_creator}.json`)).icon;
+            else
+                return file_creator.icon;
+        }
     }
 
     static getHighlighter(data=this.getData()) {

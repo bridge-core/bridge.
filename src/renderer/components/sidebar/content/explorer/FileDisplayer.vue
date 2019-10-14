@@ -51,7 +51,7 @@
                         @contextmenu="(event) => showContextMenu(event, file.absolute_path, file)"
                         v-ripple
                     >
-                        <v-icon small>{{ icon(getExtension(file.path)) }}</v-icon> {{ file.name }}
+                        <v-icon small>{{ getIcon(file.absolute_path) }}</v-icon> {{ file.name }}
                     </div>
             </template>
         </draggable>
@@ -72,6 +72,7 @@
     import InformationWindow from '../../../../scripts/commonWindows/Information';
     import { FILE_CONTEXT_MENU } from '../../../../scripts/contextMenus/File';
     import { FOLDER_CONTEXT_MENU } from '../../../../scripts/contextMenus/Folder';
+    import FileType from '../../../../scripts/editor/FileType';
 
     export default {
         name: "file-displayer",
@@ -134,11 +135,10 @@
                     FileSystem.open(path);
                 } 
             },
-            getExtension(name) {
-                return path.extname(name).replace(".", "");
-            },
-            icon(ext) {
-                return this.$store.state.Appearance.files[ext] ? this.$store.state.Appearance.files[ext] : "mdi-file-document-outline";
+            getIcon(file_path) {
+                return FileType.getFileIcon(file_path) ||
+                    this.$store.state.Appearance.files[path.extname(file_path)] ||
+                    "mdi-file-document-outline";
             },
             on_resize(e) {
                 this.file_displayer_height = window.innerHeight - 199;

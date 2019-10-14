@@ -7,7 +7,7 @@
             v-for="(file, i) in open_files"
             :key="`${selected_project}-${i}-${unsaved.join()}`"
             :ripple="selected_tab !== i"
-            :class="`tab ${selected_tab == i ? 'selected' : ''}`"
+            :class="`tab ${selected_tab === i ? 'selected' : ''}`"
             :style="`display: inline-block; border-bottom: 2px solid var(--v-background-darken2); background: var(--v-background-darken1);`"
             @click.native="selected_tab = i"
         >
@@ -21,6 +21,13 @@
             >
                 <v-icon small>mdi-book-open-page-variant</v-icon>
             </v-btn>
+            <v-icon
+                v-if="getIcon(file.file_path)"
+                :color="selected_tab === i ? 'primary' : undefined"
+                small
+            >
+                {{ getIcon(file.file_path) }}
+            </v-icon>
 
             <v-tooltip color="tooltip" :open-delay="600" transition="scale-transition" :disabled="file.file_name.length <= 27" bottom>
                 <template v-slot:activator="{ on }">
@@ -112,6 +119,9 @@ export default {
         },
         openDoc(file_path) {
             shell.openExternal(`${DOC_URL}${encodeURI(FileType.getData(file_path).documentation)}`);
+        },
+        getIcon(file_path) {
+            return FileType.getFileIcon(file_path);
         }
     }
 }

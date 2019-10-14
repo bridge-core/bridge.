@@ -9,12 +9,13 @@ import Assert from "../plugins/PluginAssert";
 import FileType from "../editor/FileType";
 import { Omega } from "./Omega";
 import { BridgeCore } from "../bridgeCore/main";
+import EventBus from "../EventBus";
 
 let FILE_DEFS = [];
 let PLUGIN_FILE_DEFS = [];
 let PLUGIN_COMPLETIONS = [];
 let PLUGINS_TO_LOAD = [];
-let LIB_LOADED = false;
+export let LIB_LOADED = false;
 const REMOVE_LIST = [ "$load", "$dynamic_template", "$placeholder" ];
 export let LIB = { dynamic: DYNAMIC };
 
@@ -24,6 +25,7 @@ class Provider {
     }
     static loadAssets() {
         let total = 0;
+
         this.loadAsset("files")
             .then(files => files.forEach(
                 f => this.loadAsset(f)
@@ -39,6 +41,7 @@ class Provider {
                         if(total >= files.length) {
                             LIB_LOADED = true;
                             this.loadAllPluginCompletions();
+                            EventBus.trigger("bridge:loadedFileDefs");
                         }
                     })
             ));

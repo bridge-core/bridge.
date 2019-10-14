@@ -1,5 +1,5 @@
 {
-    "icon": "mdi-ruler",
+    "icon": "mdi-map-plus",
     "title": "Feature Rules",
     "extension": "json",
     "path": "feature_rules/",
