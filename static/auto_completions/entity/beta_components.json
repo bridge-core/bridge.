@@ -73,14 +73,7 @@
         "sensor_range": "$general.number",
         "minimum_count": "$general.number",
         "event_filters": "$entity.filters",
-        "$dynamic_template.event": {
-            "$key": "$dynamic.siblings.target",
-
-            "$fallback": "$dynamic.entity.events",
-            "$default": "$dynamic.cache.entity.events",
-
-            "self": "$dynamic.entity.events"
-        }
+        "event": "$dynamic.entity.events"
     },
     "minecraft:giveable": {
         "triggers": {
@@ -295,7 +288,7 @@
                 "block_list": {
                     "$dynamic.list.next_index": "$general.block_identifier"
                 },
-                "on_block_broken": "$entity.general.event_definition"
+                "on_block_broken": "$dynamic.entity.events"
             }
         }
     },
