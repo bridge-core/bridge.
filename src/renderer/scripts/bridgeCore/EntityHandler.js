@@ -73,6 +73,11 @@ function transformEvent(event, { component_groups, description, events, file_nam
             }
         });
     }
+
+    if(event.sequence !== undefined)
+        event.sequence.forEach(e => transformEvent(e, { component_groups, description, events, file_name }));
+    if(event.randomize !== undefined)
+        event.randomize.forEach(e => transformEvent(e, { component_groups, description, events, file_name }));
 }
 
 function handleModules(file_path, modules=[], simulated_call) {

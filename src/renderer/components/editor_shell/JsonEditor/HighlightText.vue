@@ -30,7 +30,7 @@
                 return "";
             },
             text_as_array() {
-                return this.text.replace(/:|<|>|\.|\s|\(|\)/g, (match) => {
+                return this.text.replace(/:|<|>|\.|\s|\(|\)|\!/g, (match) => {
                     return `&bridge.split-point;${match}&bridge.split-point;`
                 }).split("&bridge.split-point;");
             },
