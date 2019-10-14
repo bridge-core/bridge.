@@ -1,0 +1,23 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "minecraft:honeycomb_block"
+    },
+    
+    "tags": [ "crafting_table" ],
+    "pattern": [
+      "XXX",
+      "XXX",
+      "XXX"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:honeycomb"
+      }
+    },
+    "result": [
+      { "item": "minecraft:honeycomb_block" }
+    ]
+  }
+}

@@ -335,7 +335,7 @@
     "$default_checked_text_color": "$dark_toggle_hover_text_color",
     "bindings": [
       {
-        "binding_name": "#is_not_owned",
+        "binding_name": "#buy_visible",
         "binding_name_override": "#visible"
       }
     ]

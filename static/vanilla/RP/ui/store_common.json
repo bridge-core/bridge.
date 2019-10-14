@@ -1128,6 +1128,10 @@
       {
         "top_bar@common_store.store_top_bar": {
           "size": "$store_header_size",
+          "focus_container": true,
+          "focus_nagivation_mode_up": "stop",
+          "focus_nagivation_mode_right": "stop",
+          "focus_nagivation_mode_left": "none",
           "controls": [
             {
               "title_stack_panel": {

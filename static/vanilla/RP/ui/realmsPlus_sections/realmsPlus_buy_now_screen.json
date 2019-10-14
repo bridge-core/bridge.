@@ -25,7 +25,7 @@
           "$pressed_button_name": "button.create_realm",
           "$buy_now_bindings": [
             {
-              "binding_name": "#buy_now_button_enabled",
+              "binding_name": "#has_checked_tos",
               "binding_name_override": "#enabled"
             }
           ]
@@ -296,7 +296,13 @@
                             "$checkbox_offset": [ 7, 0 ],
                             "$toggle_name": "#agree_terms_and_conditions",
                             "focus_change_up": "2users",
-                            "focus_identifier": "checkbox_control"
+                            "focus_identifier": "checkbox_control",
+                            "bindings": [
+                              {
+                                "binding_name": "#has_checked_tos",
+                                "binding_name_override": "#toggle_state"
+                              }
+                            ]
                           }
                         },
                         {

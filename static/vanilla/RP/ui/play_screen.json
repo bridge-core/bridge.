@@ -3269,21 +3269,6 @@
         }
       },
       {
-        "legacy_worlds_auto_sync_failed_label@play.label_content_template": {
-          "ignored": "(not $auto_fetch_legacy_worlds)",
-          "$label_content_label": "",
-          "$label_panel_visible": false,
-          "$label_content_content": "play.information_panel",
-          "$information_panel_label_text": "playscreen.failedToAutoSyncLegacyWorlds",
-          "bindings": [
-            {
-              "binding_name": "#legacy_worlds_auto_sync_failed_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
         "legacy_world_item_grid@play.legacy_world_item_grid": {
           "$tts_section_header": "playscreen.upgradeLegacyWorlds"
         }
@@ -3892,23 +3877,6 @@
             {
               "servers_crossplatform_disabled_panel@play.crossplatform_disabled_panel": {
                 "$cross_platform_information_text": "crossPlatformToggle.crossPlatformDisabled.servers"
-              }
-            },
-            {
-              "no_third_party_connection@play.label_content_template": {
-                "$label_content_label": "networkWorld.joinable_third_party_servers",
-                "$label_content_content": "play.information_panel",
-                "$information_panel_label_text": "#internet_connection_text",
-                "$information_panel_label_text_binding_type": "global",
-                "$information_panel_label_text_binding_condition": "always_when_visible",
-                "ignored": "(not $is_berwick)",
-                "$tts_section_header": "$label_content_label",
-                "bindings": [
-                  {
-                    "binding_name": "(not #is_network_available)",
-                    "binding_name_override": "#visible"
-                  }
-                ]
               }
             },
             {

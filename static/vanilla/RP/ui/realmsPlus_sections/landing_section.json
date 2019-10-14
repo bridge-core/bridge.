@@ -70,7 +70,14 @@
       {
         "action_button@realmsPlus_buy.buy_button_panel": {
           "$pressed_button_name": "button.action_button",
-          "$buy_now_bindings": []
+          "bindings": [
+            {
+              "binding_name": "#buy_visible",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "$buy_now_bindings": [
+          ]
         }
       },
       {

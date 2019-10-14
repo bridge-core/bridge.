@@ -11,6 +11,10 @@
         "display_on_screen_animation": "$general.boolean"
     },
     "event_definition": {
+        "$dynamic.list.next_index": "$entity.general.internal_event_definition",
+        "$load": "$entity.general.internal_event_definition"
+    },
+    "internal_event_definition": {
         "filters": "$entity.filters",
         "$dynamic_template.event": {
             "$key": "$dynamic.siblings.target",
