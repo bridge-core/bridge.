@@ -1,9 +1,8 @@
-Thank you for considering to contribute to *bridge.*
-Please follow these rules when making contributions to this project.
+Thank you for considering to contribute to **"bridge."**
 
 ## Starting development
-Run ```npm i``` inside the directory you've cloned bridge. to. You can now use ```npm run dev``` and ```npm run build```
-to build versions of bridge. and start the development environment.
+Open the terminal, cd to the directory you have cloned "bridge." to and run ```npm i```. Afterwards, you can use ```npm run dev``` and ```npm run build```
+to start the development environment and build versions of "bridge.".
 
 ## Code Rules
 ### Verified as working
@@ -13,7 +12,6 @@ functionality at least once and didn't encounter unexpected behaviour. Your buil
 ### Code Style
 #### General
 Although not required by the language JavaScript itself, you should end all instructions with a ";". 
-This avoids unnecessary bugs with how the code is interpreted.
 
 #### Names
 Variable, constant and parameter names should all be snake_case. This also includes Vue's computed properties.
@@ -32,7 +30,7 @@ function doSomethingNow(par_1, par_2) {
 ```
 
 #### Method Chaining
-Wherever it makes sense, you should chain methods by inserting a new line first. This makes the code a lot easier to read.
+Wherever it makes sense, you should chain methods by inserting a new line to improve readability first.
 
 ```javascript
 // Example
