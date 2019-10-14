@@ -53,16 +53,12 @@
         }
     },
     "minecraft:environment_sensor": {
-        "triggers": {
-            "$dynamic.list.next_index": "$entity.general.event_definition"
-        }
+        "triggers": "$entity.general.event_definition"
     },
     "minecraft:scheduler": {
         "min_delay_secs": "$general.number",
         "max_delay_secs": "$general.number",
-        "scheduled_events": {
-            "$dynamic.list.next_index": "$entity.general.event_definition"
-        }
+        "scheduled_events": "$entity.general.event_definition"
     },
     "minecraft:explode": {
         "allow_damage_underwater": "$general.boolean"
@@ -248,5 +244,68 @@
         "aggro_sound": "$general.sound",
         "sound_chance": "$general.decimal",
         "on_defend_start": "$entity.general.event_definition"
-    }
+    },
+
+
+
+
+
+    "minecraft:behavior.hover": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.move_to_block": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "interval": "$general.number",
+        "start_chance": "$general.decimal",
+        "search_range": "$general.number",
+        "search_height": "$general.number",
+        "search_count": "$general.number",
+        "goal_radius": "$general.decimal",
+        "stay_duration": "$general.number",
+        "target_selection_method": [ "nearest", "random" ],
+        "target_offset": {
+            "$dynamic.list.index_triple": "$general.decimal"
+        },
+        "target_blocks": {
+            "$dynamic.list.next_index": "$general.item_identifier"
+        },
+        "on_stay_completed": "$entity.general.event_definition",
+        "on_reach": "$entity.general.event_definition"
+    },
+    "minecraft:behavior.random_hover": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "xz_dist": "$general.number",
+        "y_dist": "$general.number",
+        "y_offset": "$general.number",
+        "interval": "$general.number",
+        "hover_height": {
+            "$dynamic.list.index_pair": "$general.number"
+        }
+    },
+    "minecraft:behavior.tempt": {
+        "can_tempt_vertically": "$general.boolean"
+    },
+    "minecraft:block_sensor": {
+        "sensor_radius": "$general.number",
+        "on_break": {
+            "$dynamic.list.next_index": {
+                "block_list": {
+                    "$dynamic.list.next_index": "$general.block_identifier"
+                },
+                "on_block_broken": "$entity.general.event_definition"
+            }
+        }
+    },
+    "minecraft:grows_crop": {
+        "charges": "$general.number",
+        "chance": "$general.decimal"
+    },
+    "minecraft:navigation.climb": {
+        "can_path_from_air": "$general.boolean"
+    },
+    "minecraft:navigation.hover": "$entity.components.minecraft:navigation&dot;climb",
+    "minecraft:movement.hover": "$entity.components.minecraft:movement&dot;amphibious"
 }
