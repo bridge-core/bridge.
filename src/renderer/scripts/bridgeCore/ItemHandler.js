@@ -33,7 +33,16 @@ export default async function ItemHandler({ file_uuid, data }) {
     A_C_MASK.reset(file_uuid);
     
     //READ COMPONENTS
-    for(let c in components) transformComponents({ component_name: c, component: components[c], identifier: description.identifier, PLAYER_MASK, A_C_MASK, file_uuid });
+    for(let c in components) {
+        transformComponents({
+            component_name: c,
+            component: components[c],
+            identifier: description.identifier || "bridge:no_identifier",
+            PLAYER_MASK,
+            A_C_MASK,
+            file_uuid
+        });
+    }
 
     //SAVE ADDITIONAL FILES
     await Promise.all([
