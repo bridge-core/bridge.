@@ -13,6 +13,7 @@
         >
             <v-btn
                 v-if="showDocButton(file.file_path)"
+                :disabled="selected_tab !== i"
                 color="primary"
                 @click.stop="openDoc(file.file_path)"
                 text
