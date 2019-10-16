@@ -22,6 +22,10 @@
         "icon": "mdi-attachment",
         "color": "info"
     },
+    "Submissions": {
+        "icon": "mdi-send",
+        "color": "primary"
+    },
     "0": {
         "icon": "mdi-code-braces",
         "color": "primary"

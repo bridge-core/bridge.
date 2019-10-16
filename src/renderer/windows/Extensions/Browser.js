@@ -4,6 +4,7 @@ import PluginCard from "./PluginCard";
 import Category from "./Category";
 import ListView from "./ListView";
 import Title from "./Title";
+import { shell } from "electron";
 
 export default class Browser extends ContentWindow {
     constructor() {
@@ -21,6 +22,30 @@ export default class Browser extends ContentWindow {
             { text: "\n\n" },
             ...Title("Curated")
         ];
+        const APPEND_CONTENT = [
+            { text: "\n" },
+            ...Title("Submissions"),
+            {
+                text: `Share your plugins with all bridge. users by adding them to the "bridge-plugins" repository.\n\n`
+            },
+            {
+                type: "card",
+                elevation: 0,
+                below_content: [
+                    {
+                        type: "space"
+                    },
+                    {
+                        type: "button",
+                        color: "primary",
+                        text: "Visit",
+                        icon: "mdi-open-in-new",
+                        action: () => shell.openExternal("https://github.com/solvedDev/bridge-plugins")
+                    }
+                ]
+            },
+            { text: "\n" }
+        ]
         
         super({
             display_name: "Extensions",
@@ -47,7 +72,7 @@ export default class Browser extends ContentWindow {
                         new PluginCard(this, plugin, false),
                         { text: "\n" }
                     ])
-                ).flat(Infinity));
+                ).concat(APPEND_CONTENT).flat(Infinity));
 
                 this.update();
             })
