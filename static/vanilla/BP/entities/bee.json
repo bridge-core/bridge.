@@ -19,10 +19,10 @@
                         "minecraft:red_flower",     // All small flowers except Dandelion
                         "minecraft:yellow_flower",  // Dandelion
                         "minecraft:wither_rose",
-                        "minecraft:double_plant:8", // Sunflower top
-                        "minecraft:double_plant:9", // Lilac top
-                        "minecraft:double_plant:12", // Rose Bush top
-                        "minecraft:double_plant:13"  // Peony top
+                        "minecraft:double_plant:0", // Sunflower
+                        "minecraft:double_plant:1", // Lilac
+                        "minecraft:double_plant:4", // Rose Bush
+                        "minecraft:double_plant:5"  // Peony
                     ],
                     "grow_up": {
                         "event": "minecraft:ageable_grow_up",
@@ -57,10 +57,10 @@
                         "minecraft:red_flower",     // All small flowers except Dandelion
                         "minecraft:yellow_flower",  // Dandelion
                         "minecraft:wither_rose",
-                        "minecraft:double_plant:8", // Sunflower top
-                        "minecraft:double_plant:9", // Lilac top
-                        "minecraft:double_plant:12", // Rose Bush top
-                        "minecraft:double_plant:13"  // Peony top
+                        "minecraft:double_plant:0", // Sunflower
+                        "minecraft:double_plant:1", // Lilac
+                        "minecraft:double_plant:4", // Rose Bush
+                        "minecraft:double_plant:5"  // Peony
                     ]
                 }
             },
@@ -134,6 +134,7 @@
             },
             "take_nearest_target": {
                 "minecraft:behavior.nearest_attackable_target": {
+                    "priority": 2,
                     "entity_types": [
                         {
                             "filters": {
@@ -157,14 +158,14 @@
             "look_for_food": {
                 "minecraft:behavior.move_to_block": {
                     "priority": 10,
-                    "interval": 0,
+                    "tick_interval": 1,
                     "start_chance": 0.5,
                     "search_range": 6,
                     "search_height": 4,
-                    "search_count": 0,
-                    "goal_radius": 1.2,
+                    "goal_radius": 1.0,
                     "stay_duration": 20.0,
                     "target_selection_method": "random",
+                    "target_offset": [0, 0.25, 0],
                     "target_blocks": [
                         "minecraft:red_flower",     // All small flowers except Dandelion
                         "minecraft:yellow_flower",  // Dandelion
@@ -204,9 +205,9 @@
             },
             "return_to_home": {
                 "minecraft:behavior.go_home": {
-                    "priority": 10,
+                    "priority": 4,
                     "speed_multiplier": 1.0,
-                    "interval": 0,
+                    "interval": 1,
                     "goal_radius": 1.2,
                     "on_home": [
                         {
@@ -229,7 +230,11 @@
                             "event": "find_hive_event",
                             "target": "self"
                         }
-                    ]
+                    ],
+                    "on_failed": {
+                        "event": "find_hive_event",
+                        "target": "self"
+                    }
                 }
             },
             "find_hive": {
@@ -237,10 +242,8 @@
                     "priority": 10,
                     "search_range": 16,
                     "search_height": 10,
-                    "search_count": 0,
-                    "interval": 20,
-                    "goal_radius": 1.2,
-                    "target_offset": [0.5, 0.5, 0.5],
+                    "tick_interval": 1,
+                    "goal_radius": 0.633, // was tested with 0.4 when the goal radius wasn't squared. sqrt(0.4)~0.633
                     "target_blocks": [
                         "bee_nest",
                         "beehive"
@@ -256,7 +259,7 @@
                     "looping": false,
                     "time": 180,
                     "time_down_event": {
-                        "event": "return_to_home_event",
+                        "event": "find_hive_timeout",
                         "target": "self"
                     }
                 }
@@ -264,7 +267,7 @@
             "hive_full": {
                 "minecraft:timer": {
                     "looping": false,
-                    "time": [10, 90],
+                    "time": [5, 20],
                     "randomInterval": true,
                     "time_down_event": {
                         "event": "find_hive_event",
@@ -296,6 +299,10 @@
                                         "test": "has_component",
                                         "value": "minecraft:is_charged",
                                         "operator": "!="
+                                    },
+                                    { // Assume we are already going home if we have nectar
+                                        "test": "has_biome_tag",
+                                        "value": "overworld"
                                     }
                                 ]
                             }
@@ -361,10 +368,10 @@
                     "minecraft:red_flower",     // All small flowers except Dandelion
                     "minecraft:yellow_flower",  // Dandelion
                     "minecraft:wither_rose",
-                    "minecraft:double_plant:8", // Sunflower top
-                    "minecraft:double_plant:9", // Lilac top
-                    "minecraft:double_plant:12", // Rose Bush top
-                    "minecraft:double_plant:13"  // Peony top
+                    "minecraft:double_plant:0", // Sunflower
+                    "minecraft:double_plant:1", // Lilac
+                    "minecraft:double_plant:4", // Rose Bush
+                    "minecraft:double_plant:5"  // Peony
                 ]
             },
             "minecraft:behavior.random_hover": {
@@ -395,8 +402,8 @@
                 "suffocateTime": 0
             },
             "minecraft:collision_box": {
-                "width": 0.4,
-                "height": 0.4
+                "width": 0.55,
+                "height": 0.5
             },
             "minecraft:home": {},
             "minecraft:follow_range": {
@@ -513,13 +520,16 @@
             "minecraft:exited_disturbed_hive": {
                 "add": {
                     "component_groups": [
-                        "take_nearest_target",
-                        "shelter_detection"
+                        "take_nearest_target"
                     ]
                 },
                 "remove": {
                     "component_groups": [
-                        "abort_shelter_detection"
+                        "find_hive",
+                        "return_to_home",
+                        "has_nectar",
+                        "abort_shelter_detection",
+                        "shelter_detection"
                     ]
                 }
             },
@@ -603,6 +613,12 @@
                 ]
             },
             "calmed_down": {
+                "add" : {
+                    "component_groups": [
+                        "shelter_detection",
+                        "return_to_home"
+                    ]
+                },
                 "remove": {
                     "component_groups": [
                         "angry_bee",
@@ -636,6 +652,43 @@
                         "find_hive"
                     ]
                 }
+            },
+            "find_hive_timeout": {
+                "sequence": [
+                    {
+                       "filters": {
+                           "test": "has_component",
+                           "operator": "!=",
+                           "value": "minecraft:is_charged"
+                       },
+                       "remove": {
+                           "component_groups": [
+                               "find_hive"
+                           ]
+                       },
+                       "add": {
+                           "component_groups": [
+                               "look_for_food"
+                           ]
+                       }
+                    },
+                    {
+                       "filters": {
+                           "test": "has_component",
+                           "value": "minecraft:is_charged"
+                       },
+                       "remove": {
+                           "component_groups": [
+                               "find_hive"
+                           ]
+                       },
+                       "add": {
+                           "component_groups": [
+                               "return_to_home"
+                           ]
+                       }
+                    }
+                ]
             },
             "find_flower_timeout": {
                 "remove": {
@@ -687,7 +740,8 @@
                         "take_nearest_target",
                         "look_for_food",
                         "angry_bee",
-                        "hive_full"
+                        "hive_full",
+                        "find_hive"
                     ]
                 },
                 "add": {
@@ -700,18 +754,6 @@
                 "add": {
                     "component_groups": [
                         "perish"
-                    ]
-                }
-            },
-            "return_to_home_event": {
-                "add": {
-                    "component_groups": [
-                        "return_to_home"
-                    ]
-                },
-                "remove": {
-                    "component_groups": [
-                        "find_hive"
                     ]
                 }
             }

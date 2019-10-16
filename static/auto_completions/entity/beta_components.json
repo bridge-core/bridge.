@@ -60,9 +60,6 @@
         "max_delay_secs": "$general.number",
         "scheduled_events": "$entity.general.event_definition"
     },
-    "minecraft:explode": {
-        "allow_damage_underwater": "$general.boolean"
-    },
     "minecraft:mob_effect": {
         "effect_range": "$general.number",
         "mob_effect": "$general.effect_name",
@@ -250,11 +247,10 @@
     "minecraft:behavior.move_to_block": {
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal",
-        "interval": "$general.number",
+        "tick_interval": "$general.number",
         "start_chance": "$general.decimal",
         "search_range": "$general.number",
         "search_height": "$general.number",
-        "search_count": "$general.number",
         "goal_radius": "$general.decimal",
         "stay_duration": "$general.number",
         "target_selection_method": [ "nearest", "random" ],
@@ -266,6 +262,9 @@
         },
         "on_stay_completed": "$entity.general.event_definition",
         "on_reach": "$entity.general.event_definition"
+    },
+    "minecraft:behavior.go_home": {
+        "on_failed": "$entity.general.event_definition"
     },
     "minecraft:behavior.random_hover": {
         "priority": "$general.number",
