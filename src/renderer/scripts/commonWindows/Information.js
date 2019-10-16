@@ -1,14 +1,14 @@
 import Store from "../../store/index";
 
 export default class InformationWindow {
-    constructor(display_name, display_text) {
+    constructor(display_name, display_text, is_persistent=true) {
         this.id = `main.core.windows.information_window.${Math.random()}.${Math.random()}`;
 
         Store.commit("addPluginWindow", { 
             display_name,
             is_visible: true,
             options: {
-                is_persistent: true,
+                is_persistent,
                 is_frameless: true,
                 height: 120
             }, content: [
