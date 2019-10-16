@@ -465,6 +465,19 @@
         }
       },
       {
+        "unlink_msa_account@settings_common.action_button": {
+          "ignored": "(not $is_berwick or not $is_pregame)",
+          "$pressed_button_name": "button.unlink_msa",
+          "$button_text": "options.unlink_msa.button",
+          "bindings": [
+            {
+              "binding_name": "#logged_in",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
         "attribution_link_button@settings_common.link_button": {
           "ignored": "($is_holographic or $fire_tv or $education_edition_china)",
           "$button_text": "options.attribution",
@@ -1864,7 +1877,8 @@
       }
     ]
   },
-
+  
+  /*
   "appearance_status_image_panel": {
     "type": "image",
     "size": [ "100%", "100%x" ],
@@ -1930,7 +1944,8 @@
       }
     ]
   },
-
+  */
+  
   "left_button_label@common.minecraftTenLabel": {
     "$left_button_text|default": "#left_button_text",
     "color": "$text_color",
@@ -2021,9 +2036,9 @@
     "size": [ "100%", "100%cm" ],
     "$realm_collection_name|default": "",
     "controls": [
-      {
-        "summary_update_stack_panel@general_section.summary_update_stack_panel": {}
-      },
+      //{
+      //  "summary_update_stack_panel@general_section.summary_update_stack_panel": {}
+      //},
       {
         "panel_content": {
           "type": "stack_panel",
@@ -2320,6 +2335,7 @@
 
   "view_subscriptions_button@settings_common.section_toggle_base": {
     "$toggle_view_binding_name": "view_subscriptions_button_toggle",
+    "enabled": "(not $trial)",
     "$glyph_texture": "textures/ui/subscription_glyph",
     "$glyph_color_texture": "textures/ui/subscription_glyph_color",
     "$glyph_size": [ 15, 13 ],

@@ -4831,6 +4831,7 @@
     ],
     "$use_loading_bars|default": true,
     "$is_full_screen_layout|default": false,
+    "$safezone_screen_matrix_layer|default": 2,
     "controls": [
       {
         "variables_button_mappings_and_controls": {
@@ -4966,7 +4967,7 @@
                 "animation_reset_name": "screen_animation_reset",
                 "propagate_alpha": true,
                 "disable_anim_fast_forward": true,
-                "layer": 2
+                "layer": "$safezone_screen_matrix_layer"
               }
             },
             {

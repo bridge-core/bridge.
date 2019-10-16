@@ -1859,12 +1859,7 @@
                       "type": "label",
                       "layer": 1,
                       "color": "$dark_button_default_text_color",
-                      "text": "#worlds_diskspace",
-                      "bindings": [
-                        {
-                          "binding_name": "#worlds_diskspace"
-                        }
-                      ]
+                      "text": "playscreen.worldsStorage"
                     }
                   },
                   {

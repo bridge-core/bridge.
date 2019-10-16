@@ -30,6 +30,7 @@
     "ui/coin_purchase_screen.json",
     "ui/command_block_screen.json",
     "ui/comment_screen.json",
+    "ui/confirm_msa_unlink_screen.json",
     "ui/content_log.json",
     "ui/content_log_history_screen.json",
     "ui/convert_purchases_to_xbl_screen.json",

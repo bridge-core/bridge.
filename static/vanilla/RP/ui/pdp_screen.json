@@ -499,6 +499,7 @@
 
                 "$button_focus_precedence": 8,
                 "$pressed_button_name": "$button_action",
+                "$button_action": "button.purchase_with_coins",
                 "$interact_button_id|default": "button.purchase_with_coins",
                 "$focus_id": "$interact_button_id",
                 "$button_content": "pdp.smooth_coin_purchase_label_formfitting",
@@ -738,113 +739,6 @@
     ]
   },
 
-  "smooth_coin_purchase_label": {
-    "type": "stack_panel",
-    "size": [ "100% + 4px", "100%" ],
-    "orientation": "horizontal",
-    "controls": [
-      {
-        "sales_banner_panel": {
-          "type": "panel",
-          "size": [ "100%c", "100% + 4px" ],
-          "controls": [
-            {
-              "markdown_banner@common_store.markdown_background": {
-                "$markdown_label": "pdp.discount_label",
-                "size": [ "100%c", "100%" ],
-                "$banner_size": [ "26px", "100%" ],
-                "offset": [ 0, -2 ],
-                "$triangle_offset": [ 0, 0 ],
-                "ignored": "(not $default_state)",
-                "layer": 9,
-                "$triangle_texture": "textures/ui/saleflagtrianglebeveldefault",
-                "$banner_texture": "textures/ui/sale_button_borderless_lighthoverflag"
-              }
-            },
-            {
-              "discount_panel": {
-                "type": "panel",
-                "size": [ "100%c", "100%" ],
-                "offset": [ 0, -2 ],
-                "ignored": "$default_state",
-                "controls": [
-                  {
-                    "discount_label@pdp.discount_label": {
-                      "offset": [ -2.2, 0 ],
-                      "layer": 9
-                    }
-                  }
-                ]
-              }
-            }
-          ],
-          "bindings": [
-            {
-              "binding_name": "#is_on_sale",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
-        "sales_padding_0": {
-          "type": "panel",
-          "size": [ "fill", "100%" ]
-        }
-      },
-      {
-        "coin_image_offset_panel": {
-          "type": "panel",
-          "size": [ "100%c", "100%c" ],
-          "controls": [
-            {
-              "coin@pdp.coin_image": {
-                "offset": [ -2, -0.25 ]
-              }
-            }
-          ]
-        }
-      },
-      {
-        "coin_purchase_label_text@pdp.coin_purchase_label_text": {}
-      },
-      {
-        "sales_coin_purchase_label_text@pdp.coin_purchase_label_text": {
-          "color": "$light_button_default_text_color",
-          "$coin_label_visibility_binding|default": "#is_on_sale"
-        }
-      },
-      {
-        "markdown_panel": {
-          "type": "panel",
-          "size": [ "100%c", "100%" ],
-          "controls": [
-            {
-              "markdown_label@pdp.price_markdown_panel": {
-                "size": [ "100%c + 4px", "100%" ],
-                "$strike_thru_offset": [ 0, 0 ],
-                "offset": [ 0, 0 ]
-              }
-            }
-          ],
-          "bindings": [
-            {
-              "binding_name": "#is_on_sale",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
-        "fill_padding_1": {
-          "type": "panel",
-          "size": [ "fill", "100%" ],
-          "ignored": "$is_on_sale"
-        }
-      }
-    ]
-  },
-
   "smooth_coin_purchase_label_formfitting": {
     "type": "panel",
     "size": [ "100%", "100%" ],
@@ -880,7 +774,7 @@
                   {
                     "discount_label@pdp.discount_label": {
                       "offset": [ -2.5, 0 ],
-                      "layer": 9
+                      "layer": 11
                     }
                   }
                 ]
@@ -903,6 +797,27 @@
           "offset": [ 7, 0 ],
           "controls": [
             {
+              "markdown_panel": {
+                "type": "panel",
+                "size": [ "100%c", "100%" ],
+                "controls": [
+                  {
+                    "markdown_label@pdp.price_markdown_panel": {
+                      "size": [ "100%c + 5px", "100%" ],
+                      "$strike_thru_offset": [ 0, 0 ],
+                      "offset": [ 0, 0 ]
+                    }
+                  }
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#is_on_sale",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
               "left_coin_image_offset_panel": {
                 "ignored": "$coin_image_on_right",
                 "type": "panel",
@@ -922,39 +837,7 @@
                 "size": [ "100%c", "100%" ],
                 "controls": [
                   {
-                    "coin_purchase_label_text_left@pdp.coin_purchase_label_text": {
-                      "text_alignment": "center",
-                      "ignored": "(not $coin_image_on_right)",
-                      "offset": [ -4, 0 ]
-                    }
-                  },
-                  {
-                    "coin_purchase_label_text_right@pdp.coin_purchase_label_text": {
-                      "text_alignment": "center",
-                      "ignored": "$coin_image_on_right",
-                      "offset": [ 4, 0 ]
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "markdown_panel": {
-                "type": "panel",
-                "size": [ "100%c", "100%" ],
-                "controls": [
-                  {
-                    "markdown_label@pdp.price_markdown_panel": {
-                      "size": [ "100%c", "100%" ],
-                      "$strike_thru_offset": [ 0, 0 ],
-                      "offset": [ 0, 0 ]
-                    }
-                  }
-                ],
-                "bindings": [
-                  {
-                    "binding_name": "#is_on_sale",
-                    "binding_name_override": "#visible"
+                    "coin_purchase_label_text_left@pdp.coin_purchase_label_text": {}
                   }
                 ]
               }
@@ -973,7 +856,7 @@
                 "controls": [
                   {
                     "coin@pdp.coin_image": {
-                      "offset": [ -8, 0 ]
+                      "offset": [ -3, 0 ]
                     }
                   }
                 ]
@@ -3141,18 +3024,13 @@
         "apply_to_realm_panel": {
           "type": "panel",
           "size": [ "100%", "100%c + 3px" ],
+          "visible": false,
           "controls": [
             {
               "apply_to_realm_button@pdp.apply_to_realm_button": {
                 "anchor_from": "bottom_middle",
                 "anchor_to": "bottom_middle"
               }
-            }
-          ],
-          "bindings": [
-            {
-              "binding_name": "#apply_to_realm_button_visible",
-              "binding_name_override": "#visible"
             }
           ]
         }
@@ -3625,7 +3503,7 @@
                       "font_scale_factor": 0.9,
                       "color": "$body_text_color",
                       "text_alignment": "left",
-                      "text": "library.item.description",
+                      "text": "store.mashup.description",
                       "anchor_from": "top_left",
                       "anchor_to": "top_left",
                       "offset": [ 3, 0 ]
