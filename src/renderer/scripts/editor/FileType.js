@@ -43,10 +43,10 @@ export default class FileType {
     static get(file_path) {
         let data = this.getData(file_path);
         if(data === undefined) return "unknown";
-        return data.id;
+        return data.id || "unknown";
     }
 
-    static getData(file_path) {
+    static getData(file_path, file_type) {
         if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
         let path = file_path;
         
@@ -59,7 +59,15 @@ export default class FileType {
         
         for(let def of FILE_DEFS) {
             // console.log(path);
-            if(this.pathIncludes(path, def.includes) && (path.includes("development_behavior_packs") || def.rp_definition || this.fallbackToBP(path)))
+            if(
+                file_type === def.id
+                || this.pathIncludes(path, def.includes)
+                && (
+                    path.includes("development_behavior_packs")
+                    || def.rp_definition
+                    || this.fallbackToBP(path)
+                )
+            )
                 return def;
         }
     }
@@ -192,8 +200,8 @@ export default class FileType {
         return data;
     }
 
-    static async getLightningCacheDefs(file_path) {
-        let data = this.getData(file_path);
+    static async getLightningCacheDefs(file_path, file_type) {
+        let data = this.getData(file_path, file_type);
         if(data === undefined || data.lightning_cache === undefined) return;
 
         return await readJSON(join(__static, "lightning_cache", `${data.lightning_cache}.json`));

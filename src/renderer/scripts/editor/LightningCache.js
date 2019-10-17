@@ -42,10 +42,7 @@ export default class LightningCache {
 
         let defs = await FileType.getLightningCacheDefs(file_path);
         if(defs === undefined) return;
-        if(defs.as !== undefined) {
-            type = defs.as;
-            defs = defs.definitions;
-        }
+        
         if(this.global_cache === undefined) {
             try {
                 this.global_cache = await readJSON(this.l_cache_path);
@@ -53,11 +50,35 @@ export default class LightningCache {
                 this.global_cache = {};
             }
         }
+
+        if(defs.define_multiple)
+            await Promise.all(defs.definitions.map(d => this.parse(file_path, type, d, content).catch(console.error)));
+        else
+            await this.parse(file_path, type, defs, content);
+
         
+        this.compiled_cache = undefined;
+        await writeJSON(this.l_cache_path, this.global_cache, true);
+    }
+
+    static async parse(file_path, type, defs, content) {
+        let except;
+        //LOAD DIFFERENT DEF OPTIONS
+        if(defs.as !== undefined) {
+            type = defs.as;
+            defs = defs.definitions;
+        } else if(defs.load !== undefined) {
+            type = defs.load;
+            except = defs.except;
+            defs = await FileType.getLightningCacheDefs(undefined, defs.load);
+        }
+
         let cache_key = OmegaCache.toCachePath(file_path, false);
         if(this.global_cache[type] === undefined) this.global_cache[type] = {};
         if(this.global_cache[type][cache_key] === undefined) this.global_cache[type][cache_key] = {};
         let cache = this.global_cache[type][cache_key];
+
+        console.log(type, defs)
 
         defs.forEach(def => {
             if(def.path !== undefined) {
@@ -101,10 +122,11 @@ export default class LightningCache {
                 console.warn("Unknown cache definition: ", def);
             }
         });
-        
-        this.compiled_cache = undefined;
-        await writeJSON(this.l_cache_path, this.global_cache, true);
+
+        if(except)
+            cache[except] = [];
     }
+
     static async load(file_path, type) {
         if(file_path === undefined) {
             if(this.global_cache !== undefined) return this.global_cache;

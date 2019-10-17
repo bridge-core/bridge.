@@ -2,11 +2,17 @@ import { use, set, uuid } from "../utilities/useAttr";
 import AnimationController from "../files/AnimationController";
 import { CURRENT } from "../constants";
 import { join } from "path";
+import FetchDefinitions from "../editor/FetchDefinitions";
+import FileSystem from "../FileSystem";
+import { JSONFileMasks } from "../editor/JSONFileMasks";
+import { transformTag } from "./TagHandler";
+import LightningCache from "../editor/LightningCache";
+import FileType from "../editor/FileType";
 
 let COM_ID_COUNTER = 0;
 let A_C;
 
-function transformEvent(event, { component_groups, description, events, file_name }) {
+function transformEvent(event, { component_groups, description, events, file_name }={}) {
     //SPELL EFFECTS
     let effect_id = uuid();
     let add_effects = use(event, "add/spell_effects");
@@ -80,8 +86,25 @@ function transformEvent(event, { component_groups, description, events, file_nam
         event.randomize.forEach(e => transformEvent(e, { component_groups, description, events, file_name }));
 }
 
-function handleModules(file_path, modules=[], simulated_call) {
-    if(!simulated_call) EventBus.once("bridge:onCacheHook[entity.core_module_imports]", () => modules);
+async function handleTags(file_path, tags=[], simulated_call) {
+    const MASK = await JSONFileMasks.get(file_path);
+
+    //RESET OLD CHANNELS
+    if(!simulated_call) {
+        let { bridge_core_tags } = await LightningCache.load(file_path, FileType.get(file_path)) || {};
+        (bridge_core_tags || []).forEach(t => MASK.reset(`tag@${t}`));
+    }
+
+    if(!Array.isArray(tags) || tags.length === 0) return;
+
+    let tag_refs = await Promise.all(tags.map(t => FetchDefinitions.fetchSingle("entity_tag", [ "identifiers" ], t, true)));
+    await Promise.all(tag_refs.flat().map(
+        async ref => {
+            const { identifier, ...entity={} } = transformTag(await FileSystem.loadFile(ref)) || {};
+            if(!identifier) return;
+            MASK.set(`tag@${identifier}`, entity);
+        }
+    ));
 }
 
 export default async function EntityHandler({ file_name, data, file_path, simulated_call }) {
@@ -95,7 +118,8 @@ export default async function EntityHandler({ file_name, data, file_path, simula
     A_C = new AnimationController();
 
     for(let e in events) transformEvent(events[e], { component_groups, description, events, file_name: file_name.replace(".json", "") });
-    // if(description.modules) handleModules(file_path, description.modules, simulated_call);
+
+    await handleTags(file_path, use(description, "tags"), simulated_call);
 
     await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/commands_${file_name}`));
 }

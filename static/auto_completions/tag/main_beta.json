@@ -3,6 +3,6 @@
         "description": {
             "identifier":  "$general.file_identifier"
         },
-        "$load": "$entity.main.minecraft:entity"
+        "$load": "$entity.main_beta.minecraft:entity"
     }
 }

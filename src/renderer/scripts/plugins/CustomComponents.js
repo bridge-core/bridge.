@@ -62,8 +62,6 @@ export default class ComponentRegistry {
             if(c !== undefined)
                 this.set(MASK, component_name, c, simulated_call);
         }
-        
-        await JSONFileMasks.saveMasks();
     }
 
     static propose() {

@@ -17,21 +17,23 @@ export default class LightningCacheInspector extends CommonWindow {
             {
                 type: "divider"
             },
-            Object.entries(LC).map(([cache_key, cache_entry]) => [
-                {
-                    text: "\n"
-                },
-                {
-                    type: "big-header",
-                    text: `${cache_key}:`
-                },
-                {
-                    text: ( cache_entry.join(", ") || "None" ) + "\n\n"
-                },
-                {
-                    type: "divider"
-                }
-            ])
+            Object.entries(LC)
+                .sort(([cache_key_a], [cache_key_b]) => cache_key_a.localeCompare(cache_key_b))
+                .map(([cache_key, cache_entry]) => [
+                    {
+                        text: "\n"
+                    },
+                    {
+                        type: "big-header",
+                        text: `${cache_key}:`
+                    },
+                    {
+                        text: ( cache_entry.join(", ") || "None" ) + "\n\n"
+                    },
+                    {
+                        type: "divider"
+                    }
+                ])
         ].flat(Infinity);
         if(this.content.length === 2)
             this.content.push({

@@ -22,6 +22,7 @@ export const UI_DATA = {
 export class BridgeCore {
     static is_active = false;
     static save_registry = {};
+
     static isActive() {
         return this.is_active;
     }
@@ -53,14 +54,16 @@ export class BridgeCore {
         //CUSTOM ENTITY COMPONENTS
         if(file_type === "entity") await ComponentRegistry.parse(file_path, data, simulated_call);
 
-        data = await JSONFileMasks.applyOnData(file_path, data);
 
         //Do not use custom syntax with deactivated bridgeCore
-        if(!this.is_active) return data;
+        if(!this.is_active) return await JSONFileMasks.applyOnData(file_path, data);;
 
         if(typeof this.save_registry[file_type] === "function")
             await this.save_registry[file_type]({ file_path, file_name, file_uuid, data, depth, simulated_call });
 
+        data = await JSONFileMasks.applyOnData(file_path, data);
+        await JSONFileMasks.saveMasks();
+        
         return data;
     }
 

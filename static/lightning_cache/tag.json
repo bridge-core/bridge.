@@ -1,17 +1,12 @@
 {
-    "as": "entity",
-    "definitions": [ 
-        { "key": "events", "path": "bridge:tag/events" },
-        { "key": "identifiers", "path": "bridge:tag/description/identifier" },
-        { "key": "extends", "path": "bridge:tag/description/extends" },
-        { "key": "animation_references", "path": "bridge:tag/description/animations" },
-        { 
-            "key": "families", 
-            "search": {
-                "key": "minecraft:type_family",
-                "locations": [ "bridge:tag/components", "bridge:tag/component_groups" ],
-                "data": "family"
-            } 
-        }
+    "define_multiple": true,
+    "definitions": [
+        {
+            "load": "entity",
+            "except": "identifiers"
+        },
+        [ 
+            { "key": "identifiers", "path": "bridge:tag/description/identifier" }
+        ]
     ]
 }

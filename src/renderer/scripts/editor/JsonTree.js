@@ -142,35 +142,38 @@ export default class JSONTree {
     }
 
     /**
-     * @param {String|Array} inp 
+     * @param {String|String[]} inp 
      */
     get(inp) {
         if(Array.isArray(inp) || typeof inp == "string") {
             let key;
             let i_arr = inp;
-            if(typeof inp == "string") {
+            if(typeof inp === "string") {
                i_arr = inp.split("/");
 
-               if(i_arr[0] == "global") i_arr.shift();
-               if(i_arr.length == 0) return this; 
+               if(i_arr[0] === "global") i_arr.shift();
+               if(i_arr.length === 0) return this; 
             }
             // @ts-ignore
             key = i_arr.shift(); 
-            if(i_arr.length == 0 && this.data.replace(/\//g, "#;slash;#") == key) return this;
+            if(i_arr.length === 0 && this.data.replace(/\//g, "#;slash;#") === key) return this;
             
-            
+            if(key === "#;bridge_node_skip;#" && this.children.length > 0) {
+                return this.children.find(c => c.children.length > 0).get(i_arr);
+            }
+                
+
             for(let c of this.children) {
-                if(c.key.replace(/\//g, "#;slash;#") == key) {
-                    if(i_arr.length == 0) {
+                if(c.key.replace(/\//g, "#;slash;#") === key) {
+                    if(i_arr.length === 0) {
                         return c;
                     } else {
                         return c.get(i_arr);
                     }
                 }
             }
-        }
-        else {
-            throw new TypeError("Expected string, found " + typeof inp);
+        } else {
+            throw new TypeError("Expected string or string[], found " + typeof inp);
         }
     }
     isDataPath(path) {

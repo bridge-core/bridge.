@@ -11,6 +11,13 @@
             "is_spawnable": "$general.boolean",
             "is_summonable": "$general.boolean",
             "is_experimental": "$general.boolean",
+            "$dynamic_template.tags": {
+                "$if": "$dynamic.bridge_core.is_active",
+
+                "$default": {
+                    "$dynamic.list.next_index": "$dynamic.cache.entity_tag.identifiers"
+                }
+            },
             "animations": {
                 "$placeholder": "$dynamic.animation_ids and $dynamic.animation_controller_ids"
             },

@@ -14,6 +14,7 @@ import { booleanAnyOfTrigger } from "./plugins/EventTriggers";
 import FileType from "./editor/FileType";
 import ConfirmWindow from "./commonWindows/Confirm";
 import InformationWindow from "./commonWindows/Information";
+import { readJSON } from "./utilities/JsonFS";
 
 document.addEventListener("dragover", event => {
     event.preventDefault();
@@ -122,6 +123,26 @@ class FileSystem {
                 files.forEach((file, i, arr) => this.open(file_path + "\\" + file, arr.length - 1 === i ? cb : undefined));
             }, 1);
         });
+    }
+
+    async loadFile(file_path) {
+        let loaded;
+        try {
+            loaded = await OmegaCache.load(file_path);
+        } catch(e) { 
+            try {
+                loaded = { format_version: 0, cache_content: await readJSON(file_path), file_version: 0 };
+            } catch(e) {
+                loaded = { format_version: 0, cache_content: {}, file_version: 0 };
+            }
+        }
+
+        let { format_version, cache_content } = loaded;
+        if(format_version === 1) {
+           return JSONTree.buildFromCache(cache_content).toJSON();
+        } else {    
+            return cache_content;
+        }
     }
 
     addAsTab(file_path, data, format_version=0, raw_data, file_version, file_uuid) {
