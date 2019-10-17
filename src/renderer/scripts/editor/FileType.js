@@ -60,7 +60,10 @@ export default class FileType {
         for(let def of FILE_DEFS) {
             // console.log(path);
             if(
-                file_type === def.id
+                (
+                    file_type === def.id 
+                    && file_type !== undefined
+                )
                 || this.pathIncludes(path, def.includes)
                 && (
                     path.includes("development_behavior_packs")
