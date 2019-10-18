@@ -30,7 +30,7 @@
         "component_groups": {
             "$placeholder": "$entity.general.components"
         },
-        "components": "$entity.general.components and $dynamic.plugins.custom_components",
+        "components": "$entity.general.components",
         "events": {
             "$asObject": "$entity.general.built_in_event",
             

@@ -35,32 +35,43 @@ export default class ComponentRegistry {
         this.components = {};
     }
 
-    static set(MASK, component_name, component_data, simulated_call) {
+    static set(MASK, component_name, component_data, simulated_call, location) {
         if(this.components[component_name] === undefined)
             return new InformationWindow("ERROR", `Unknown component "${component_name}"!`);
         
         //Save that this file is using the specific custom component inside the LightningCache
         if(!simulated_call) EventBus.once("bridge:onCacheHook[entity.custom_components]", () => component_name);
 
-        let apply_data = this.components[component_name].onApply(component_data);
+        let apply_data = this.components[component_name].onApply(component_data, location);
         if(typeof apply_data !== "object" || Array.isArray(apply_data)) return;
 
         MASK.set(`component@${component_name}`, apply_data);
     }
 
     static async parse(file_path, data, simulated_call) {
-        if(data === undefined) return;
+        if(data === undefined || data["minecraft:entity"] === undefined) return;
         const MASK = await JSONFileMasks.get(file_path);
 
         //RESET OLD CHANNELS
         let { custom_components } = await LightningCache.load(file_path, FileType.get(file_path)) || {};
         (custom_components || []).forEach(c => MASK.reset(`component@${c}`));
 
+        //LOAD COMPONENTS
         for(let component_name in this.components) {
             let c = use(data, `minecraft:entity/components/${component_name}`);
 
             if(c !== undefined)
-                this.set(MASK, component_name, c, simulated_call);
+                this.set(MASK, component_name, c, simulated_call, "components");
+        }
+
+        //LOAD COMPONENT GROUPS
+        for(let component_name in this.components) {
+            for(let component_group in data["minecraft:entity"].component_groups || {}) {
+                let c = use(data, `minecraft:entity/component_groups/${component_group}/${component_name}`);
+
+                if(c !== undefined)
+                    this.set(MASK, component_name, c, simulated_call, component_group);
+            }
         }
     }
 
