@@ -52,6 +52,7 @@ export default class Browser extends ContentWindow {
         super({
             display_name: "Extensions",
             options: {
+                is_maximizable: false,
                 is_persistent: false
             },
             content: [

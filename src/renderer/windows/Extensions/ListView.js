@@ -9,6 +9,7 @@ export default class ListView extends ContentWindow {
             display_name: tag_filter ? `Extensions | Filter: ${tag_filter}` : "Extensions",
             options: {
                 is_persistent: false,
+                is_maximizable: false,
                 blurs_background: false,
                 elevation: 0
             },
