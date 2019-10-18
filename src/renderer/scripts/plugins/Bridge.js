@@ -146,7 +146,7 @@ export default class Bridge {
                 return fs.existsSync((Runtime.Paths.project() + path).replace(/\//g, "\\"));
             },
             stats(path, cb) {
-                fs.lstat(Runtime.Paths.project() + path, (err, data) => {
+                fs.stat(Runtime.Paths.project() + path, (err, data) => {
                     if(err && !cb) PluginAssert.throw(this.__file_path__, err);
                     cb(err, data);
                 });
