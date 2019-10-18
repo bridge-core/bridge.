@@ -92,8 +92,19 @@ export class FileExplorer {
         await Promisea.all(this.children.map(c => c.update(this.absolute_path, this.path)));
     }
 
-    remove() {
-        this.parent.children = this.parent.children.filter(c => c !== this);
+    async remove(first=true) {
+        if(first)
+            this.parent.children = this.parent.children.filter(c => c !== this);
+
+        if(this.children.length > 0) {
+            await Promise.all(this.children.map(async c => await c.remove(false)));
+        } else {
+            await Promise.all([
+                OmegaCache.clear(this.absolute_path),
+                LightningCache.clear(this.absolute_path),
+                JSONFileMasks.delete(this.absolute_path)
+            ]);
+        }
     }
     rename(val) {
         this.name = val;

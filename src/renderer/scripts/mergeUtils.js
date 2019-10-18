@@ -50,7 +50,6 @@ const maskChannelMerge = (obj1, obj2, merge_arrays) => {
             if(Array.isArray(merge_arrays)) {
                 if(merge_arrays.find(e => path.includes(e))) return o1.concat(o2);
             } else {
-                console.log(o1, o2);
                 for(let key in merge_arrays) {
                     if(path.includes(key)) return merge_arrays[key](o1, o2);
                 }

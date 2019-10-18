@@ -14,12 +14,8 @@ export const FOLDER_CONTEXT_MENU = (file_path, file) => [
         action: () => {
             new ConfirmWindow(
                 async () => {
-                    OmegaCache.clear(file_path);
-                    LightningCache.clear(file_path);
-                    JSONFileMasks.delete(file_path);
-
                     await trash(file_path);
-                    file.remove();
+                    await file.remove();
                 }, 
                 () => {}, 
                 `Are you sure that you want to delete "${path.basename(file_path).replace(/\\/g, "/")}"?`,
