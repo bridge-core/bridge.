@@ -12,6 +12,7 @@ import unzipper from "unzipper";
 import safeEval from "safe-eval";
 import ComponentRegistry, { BridgeComponent } from "./CustomComponents";
 import InformationWindow from "../commonWindows/Information";
+import Provider from "../autoCompletions/Provider";
 
 let PLUGIN_FOLDERS;
 let PLUGIN_DATA = [];
@@ -102,7 +103,8 @@ export default class PluginLoader {
                     this.loadScripts(plugin_path, manifest.api_version),
                     this.loadSnippets(plugin_path),
                     this.loadThemes(plugin_path),
-                    this.loadComponents(plugin_path)
+                    this.loadComponents(plugin_path),
+                    this.loadAutoCompletions(plugin_path)
                 ]).catch(e => {});
             } 
             PLUGIN_DATA.push(manifest);
@@ -180,6 +182,22 @@ export default class PluginLoader {
                 });
             } catch(e) { new InformationWindow("ERROR", `Error while loading custom component:\n${e.message}`); }
             
+        });
+    }
+
+    static async loadAutoCompletions(plugin_path) {
+        let auto_completions = await fs.readdir(path.join(plugin_path, "auto_completions")).catch(e => []);
+
+        auto_completions = await Promise.all(
+            auto_completions.map(a => 
+                readJSON(path.join(plugin_path, "auto_completions", a))
+                    .catch(e => undefined)
+            )
+        );
+
+        auto_completions.forEach(({ path, definition }={}) => {
+            if(path === undefined || definition === undefined) return;
+            Provider.addPluginCompletion(path, definition);
         });
     }
 }
