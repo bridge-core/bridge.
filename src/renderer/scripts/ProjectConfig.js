@@ -7,11 +7,13 @@ export default class ProjectConfig {
     static get config_path() {
         return path.join(CURRENT.PROJECT_PATH, "bridge/config.json");
     }
+    static prefix_cache;
 
     //PREFIX
     static getPrefixSync() {
         try {
-            return readJSONSync(this.config_path).prefix || "bridge";
+            if(this.prefix_cache === undefined) this.prefix_cache = (readJSONSync(this.config_path).prefix || "bridge");
+            return this.prefix_cache;
         } catch(e) {
             return "bridge";
         }
@@ -27,6 +29,7 @@ export default class ProjectConfig {
             let data;
             try { data = await readJSON(this.config_path) }
             catch(e) { data = {} }
+            this.prefix_cache = val;
 
             await writeJSON(this.config_path, {
                 ...data,

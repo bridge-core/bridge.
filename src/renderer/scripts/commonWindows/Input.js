@@ -29,7 +29,6 @@ export default class InputWindow {
                     if(typeof onConfirm == "function") onConfirm(this.input + (expand_text !== undefined ? expand_text : ""));
                 },
                 default: (val) => {
-                    console.log("test")
                     if(val === "") {
                         this.input = val;
                         INPUT.input = val;
