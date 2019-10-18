@@ -1,3 +1,6 @@
+/**
+ * Registers new codemirror languages from JSON files
+ */
 import CodeMirror from "codemirror";
 import "codemirror/addon/mode/simple.js";
 import FileType from "./FileType";

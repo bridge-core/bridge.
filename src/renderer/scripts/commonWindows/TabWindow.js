@@ -1,3 +1,6 @@
+/**
+ * Simple tab window. Rendered by components/windowFactory
+ */
 import CommonWindow from "./Content";
 
 export class View {

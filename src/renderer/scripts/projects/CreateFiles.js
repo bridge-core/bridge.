@@ -1,3 +1,7 @@
+/**
+ * Creates single instance files such as item_texture.json, pack_icon.png, biomes_client.json etc.
+ * Data-driven through "data/create_project.json" file
+ */
 import { promises as fs } from "fs";
 import path from "path";
 

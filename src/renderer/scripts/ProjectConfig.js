@@ -1,3 +1,6 @@
+/**
+ * Save data per project inside a "bridge/config.json" file
+ */
 import { CURRENT } from "./constants";
 import path from "path";
 import { readJSON, writeJSON, readJSONSync } from "./utilities/JsonFS";

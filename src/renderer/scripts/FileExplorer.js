@@ -1,3 +1,6 @@
+/**
+ * DataStructure used by FileDisplayer.vue to load and render directories
+ */
 import path from "path";
 import { promises as fs } from "fs";
 import OmegaCache from "./editor/OmegaCache";

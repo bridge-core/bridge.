@@ -1,6 +1,8 @@
+/**
+ * Utilities for merging objects
+ */
 import deepmerge from "deepmerge";
 import objMerge, { objMergeAll } from "./utilities/objMerge";
-
 
 const ARRAY_MERGE = (target, source) => {
     let tmp = [];
@@ -42,6 +44,10 @@ const detachMerge = (...objs) => {
     if(objs.length == 2) return deepmerge(objs[0], objs[1], { arrayMerge: ARRAY_MERGE });
     return deepmerge.all(objs, { arrayMerge: ARRAY_MERGE });
 };
+
+/**
+ * Used specifically by JSONFileMasks
+ */
 const maskChannelMerge = (obj1, obj2, merge_arrays) => {
     return objMerge(obj1, obj2, {
         custom_merge: (o1, o2, key, path) => {

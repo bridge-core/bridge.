@@ -1,3 +1,6 @@
+/**
+ * Provide and process all auto-completion related logic
+ */
 import fs from "fs";
 import deepmerge from "deepmerge";
 import VersionMap from "../editor/VersionMap";

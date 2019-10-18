@@ -1,3 +1,6 @@
+/**
+ * Change default com.mojang directory depending on the user's platform and preferences
+ */
 import os from "os";
 import { DefaultDir } from "./DefaultDir";
 import path from "path"

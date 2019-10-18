@@ -1,3 +1,8 @@
+/**
+ * Utilities for comparing versions
+ * e.g. v0.1.0 <-> v2.1.20
+ */
+
 function asArr(version) {
     if(version[0] !== "v") version = "v" + version;
     return version.substr(1, version.length).split(".").map(e => Number(e));

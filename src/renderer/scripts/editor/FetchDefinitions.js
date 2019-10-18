@@ -1,5 +1,6 @@
 /**
  * Utility for finding files based on definitions inside of them
+ * Definitions are loaded from the LightningCache
  */
 import LightningCache from "./LightningCache";
 import { CURRENT } from "../constants";
@@ -7,14 +8,25 @@ import path from "path";
 
 export default class FetchDefinitions {
     /**
-     * @param {*} fetch_defs Object containing arrays of definitions to fetch per file_type (<- key)
+     * @param {string[]} file_types
+     * @param {Object.<string, string[]>} fetch_defs Object containing arrays of definitions to fetch per file_type (<- key)
      *      | e.g. { entity: [ "identifiers", "families" ], item: [ "identifiers" ] }
+     * @param {string} fetch_search
+     * @param {boolean} fetch_all
+     * @returns {Promise<string[]>}
      */
     static async fetch(file_types, fetch_defs={}, fetch_search, fetch_all=true) {
         return (await Promise.all(file_types.map(t => this.fetchSingle(t, fetch_defs[t], fetch_search, fetch_all))).catch(console.error)).flat();
     }
 
-    static async fetchSingle(file_type, fetch_defs=[], fetch_search, fetch_all) {
+    /**
+     * @param {string} file_type
+     * @param {string[]} fetch_defs
+     * @param {string} fetch_search
+     * @param {boolean} fetch_all 
+     * @returns {Promise<string[]>}
+     */
+    static async fetchSingle(file_type, fetch_defs=[], fetch_search, fetch_all=true) {
         let c = await LightningCache.load();
         let res = [];
 
@@ -47,11 +59,26 @@ export default class FetchDefinitions {
         return res;
     }
 
+    /**
+     * @param {string} file_types
+     * @param {Object.<string, string[]>} fetch_defs Object containing arrays of definitions to fetch per file_type (<- key)
+     *      | e.g. { entity: [ "identifiers", "families" ], item: [ "identifiers" ] }
+     * @param {string} fetch_search
+     * @param {boolean} fetch_all
+     * @returns {string[]}
+     */
     static fetchSync(file_types, fetch_defs={}, fetch_search, fetch_all=true) {
         return file_types.map(d => this.fetchSingleSync(d, fetch_defs[d], fetch_search, fetch_all)).flat();
     }
 
-    static fetchSingleSync(file_type, fetch_defs=[], fetch_search, fetch_all) {
+    /**
+     * @param {string} file_type
+     * @param {string[]} fetch_defs
+     * @param {string} fetch_search
+     * @param {boolean} fetch_all 
+     * @returns {string[]}
+     */
+    static fetchSingleSync(file_type, fetch_defs=[], fetch_search, fetch_all=true) {
         let c = LightningCache.loadSync();
         let res = [];
 

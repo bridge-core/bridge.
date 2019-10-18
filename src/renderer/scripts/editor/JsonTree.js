@@ -1,3 +1,7 @@
+/**
+ * Implements a JSONTree
+ * Used for storing JSON data and displaying JSON files
+ */
 import Stack from "../utilities/Stack";
 import Json from "./Json";
 import Provider from "../autoCompletions/Provider";
@@ -7,13 +11,14 @@ import { JSONAction } from "../TabSystem/CommonHistory";
 import FileType from "./FileType";
 import uuidv4 from "uuid/v4";
 import Store from "../../store/index";
-let PROVIDER = new Provider("");
+let PROVIDER;
 
 function getType(data) {
     if(Array.isArray(data)) return "array";
     return typeof data;
 }
 export function changeProvider(new_path) {
+    if(PROVIDER === undefined) PROVIDER = new Provider("");
     PROVIDER.validator(new_path);
 }
 

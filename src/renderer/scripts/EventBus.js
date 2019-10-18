@@ -1,3 +1,6 @@
+/**
+ * Utility for triggering and reacting to events
+ */
 let events = {};
 export default class EventBus {
     static on(event, cb) {

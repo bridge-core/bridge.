@@ -1,3 +1,6 @@
+/**
+ * Simple information window. Rendered by components/windowFactory
+ */
 import Store from "../../store/index";
 
 export default class InformationWindow {

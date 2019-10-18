@@ -1,3 +1,6 @@
+/**
+ * Create manifest objects used for BPs & RPs
+ */
 import uuidv4 from "uuid/v4";
 
 export default class Manifest {

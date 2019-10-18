@@ -1,3 +1,7 @@
+/**
+ * Multilayer cache system for advanced use cases
+ * Enables rich custom syntax applications
+ */
 import detachObj, { detachMerge, maskChannelMerge, maskMerge } from "../mergeUtils";
 import OmegaCache from "./OmegaCache";
 import { readJSON, writeJSON } from "../utilities/JsonFS";

@@ -1,3 +1,6 @@
+/**
+ * Class for sending new notifications
+ */
 import Store from "../store/index";
 import uuid from "uuid/v4";
 

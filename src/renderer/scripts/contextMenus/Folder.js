@@ -1,10 +1,10 @@
+/**
+ * Define context menu upon right clicking on a folder (FileDisplayer.vue)
+ */
 import ConfirmWindow from '../commonWindows/Confirm';
 import InputWindow from '../commonWindows/Input';
 import trash from "trash";
 import { promises as fs } from "fs";
-import OmegaCache from '../editor/OmegaCache';
-import LightningCache from '../editor/LightningCache';
-import { JSONFileMasks } from '../editor/JSONFileMasks';
 import path from "path";
 import { FileExplorer } from "../FileExplorer";
 

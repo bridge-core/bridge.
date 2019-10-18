@@ -1,5 +1,6 @@
 /**
  * Base class for managing and accessing data-driven features
+ * The actual file definitions are still loaded by the auto-completion provider
  */
 import TabSystem from "../TabSystem";
 import Provider, { LIB_LOADED } from "../autoCompletions/Provider";
@@ -13,9 +14,13 @@ let HIGHLIGHTER_CACHE = {};
 let FILE_CREATOR_CACHE = [];
 
 export default class FileType {
+    /**
+     * Reset is called upon reloading plugins
+     */
     static reset() {
         FILE_DEFS = undefined;
         FILE_CREATOR_CACHE = [];
+        HIGHLIGHTER_CACHE = {};
     }
     static get LIB_LOADED() {
         return LIB_LOADED;
@@ -40,12 +45,20 @@ export default class FileType {
         return path.split(/development_behavior_packs|development_resource_pack/g)[1] === undefined;
     }
 
+    /**
+     * @param {string} file_path file_path to load
+     * @returns {string} file type id of provided file_path
+     */
     static get(file_path) {
         let data = this.getData(file_path);
         if(data === undefined) return "unknown";
         return data.id || "unknown";
     }
 
+    /**
+     * @param {string} file_path file_path to load
+     * @returns {object} file type definition of provided file_path
+     */
     static getData(file_path, file_type) {
         if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
         let path = file_path;
@@ -75,25 +88,37 @@ export default class FileType {
         }
     }
 
+    /**
+     * @returns {string[]} all file type ids
+     */
     static getAll() {
         if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
         return FILE_DEFS.map(def => def.id);
     }
+    /**
+     * @returns {object[]} all file type definitions
+     */
     static getAllData() {
         if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
         return FILE_DEFS;
     }
 
+    /**
+     * Loads and returns file creator data. Used by "New File" window
+     * @returns {object} file creator data
+     */
     static getFileCreator() {
         if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
         if(FILE_CREATOR_CACHE.length === 0) {
             FILE_CREATOR_CACHE = FILE_DEFS.reduce((acc, file) => {
                 if(file.file_creator !== undefined) {
+                    //Load from dedicated file
                     if(typeof file.file_creator === "string")
                         acc.push({
                             rp_definition: file.rp_definition,
                             ...JSON.parse(fs.readFileSync(join(__static, "file_creator", `${file.file_creator}.json`)).toString())
                         });
+                    //Load as plain object
                     else
                         acc.push({
                             rp_definition: file.rp_definition,
@@ -106,6 +131,11 @@ export default class FileType {
         return FILE_CREATOR_CACHE;
     }
 
+    /**
+     * Loads and returns the file creator icon. Used by FileDisplayer.vue and TabSystem.vue
+     * @param {string} file_path file_path to load
+     * @returns {string} file creator icon of the provided file_path
+     */
     static getFileIcon(file_path) {
         const { file_creator } = this.getData(file_path) || {};
 
@@ -117,6 +147,11 @@ export default class FileType {
         }
     }
 
+    /**
+     * Load syntax highlighter from provided data (highlighter for current tab by default)
+     * @param {object} data data to load highlighter from
+     * @returns {object} highlighter
+     */
     static getHighlighter(data=this.getData()) {
         try {
             let hl = data.highlighter;
@@ -126,6 +161,7 @@ export default class FileType {
                 HIGHLIGHTER_CACHE[hl] = JSON.parse(fs.readFileSync(join(__static, "highlighter", `${hl}.json`)).toString());
             return HIGHLIGHTER_CACHE[hl];
         } catch(e) {
+            //Fallback to an empty highlighter for unknown file types
             return {
                 define: {
                     keywords: [],
@@ -135,6 +171,11 @@ export default class FileType {
             };
         }
     }
+
+    /**
+     * Load all text syntax highlighters to register them on CodeMirror
+     * @returns {object[]} text syntax highlighters
+     */
     static getTextHighlighters() {
         let defs = this.getAllData();
         defs = defs.filter(({ highlighter: hl }) => {
@@ -159,7 +200,11 @@ export default class FileType {
             return false;
         }
     }
-
+    /**
+     * Get the documentation to use for the provided file path
+     * @param {string} file_path documentation to load
+     * @returns {string} encoded documentation location (URL part)
+     */
     static getDocumentation(file_path) {
         return (this.getData(file_path) || {}).documentation;
     }

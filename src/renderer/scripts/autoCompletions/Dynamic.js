@@ -1,3 +1,6 @@
+/**
+ * Defines dynamic references available to the auto-completion engine
+ */
 import { BASE_PATH, RP_BASE_PATH, CURRENT } from "../constants";
 import TabSystem from "../TabSystem";
 import Store from "../../store/index";

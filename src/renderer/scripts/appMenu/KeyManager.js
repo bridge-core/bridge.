@@ -1,5 +1,7 @@
+/**
+ * Bind and unbind keyboard shortcuts
+ */
 import MouseTrap from "mousetrap";
-import Store from "../../store/index.js";
 let mouseTrap = MouseTrap(document.body);
 
 function bind(elements) {

@@ -10,8 +10,6 @@ import LoadingWindow from "../windows/LoadingWindow";
 import PluginEnv from "./plugins/PluginEnv";
 import path from "path";
 import OmegaCache from "./editor/OmegaCache";
-import { booleanAnyOfTrigger } from "./plugins/EventTriggers";
-import FileType from "./editor/FileType";
 import ConfirmWindow from "./commonWindows/Confirm";
 import InformationWindow from "./commonWindows/Information";
 import { readJSON } from "./utilities/JsonFS";

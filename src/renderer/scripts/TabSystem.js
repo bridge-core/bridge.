@@ -1,3 +1,6 @@
+/**
+ * Implements bridge.'s TabSystem functionality
+ */
 import Store from "../store/index";
 import EventBus from "./EventBus";
 import { Format } from "./editor/Json";

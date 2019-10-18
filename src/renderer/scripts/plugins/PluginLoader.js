@@ -1,3 +1,9 @@
+/**
+ * Powerful bridge. PluginLoader
+ * Loads v1 & v2 plugins
+ * 
+ * Unloading is still handled by store/modules/Plugins.js
+ */
 import { BASE_PATH } from "../constants";
 import path from "path";
 import { promises as fs, createReadStream } from "fs";

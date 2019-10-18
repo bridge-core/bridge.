@@ -1,3 +1,6 @@
+/**
+ * Wrapper around Provider.js to enable text auto-completions
+ */
 import Provider from "./Provider";
 import EventBus from "../EventBus";
 import FileType from "../editor/FileType";

@@ -1,3 +1,8 @@
+/**
+ * Documentation tooling
+ * Opens bedrock.dev or a dedicated window if custom documentation is available
+ */
+
 import { shell } from "electron";
 import path from "path";
 import { readJSON } from "../utilities/JsonFS";

@@ -1,3 +1,6 @@
+/**
+ * Implements powerful custom add-on syntax
+ */
 import FileType from "../editor/FileType";
 import TabSystem from "../TabSystem";
 import OmegaCache from "../editor/OmegaCache";

@@ -1,3 +1,6 @@
+/**
+ * Allows users to set a different default location for the com.mojang directory
+ */
 import fs from "fs";
 import path from "path";
 

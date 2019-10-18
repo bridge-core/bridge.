@@ -1,3 +1,6 @@
+/**
+ * Define context menu upon right clicking on a file (FileDisplayer.vue)
+ */
 import ManageFileMasks from "../../windows/FileMasks";
 import FileSystem from "../FileSystem";
 import ConfirmWindow from '../commonWindows/Confirm';
