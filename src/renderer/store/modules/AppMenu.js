@@ -207,11 +207,11 @@ const state = {
                 shortcut: "Ctrl + Q",
                 action: () => SnippetWindow.show()
             },
-            {
-                title: "Template Sets",
-                shortcut: "Ctrl + T",
-                action: () => TemplateSetsWindow.show()
-            }
+            // {
+            //     title: "Template Sets",
+            //     shortcut: "Ctrl + T",
+            //     action: () => TemplateSetsWindow.show()
+            // }
         ]
     },
     help: {
