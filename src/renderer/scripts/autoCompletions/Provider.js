@@ -140,7 +140,7 @@ class Provider {
     preparePropose(propose, context) {
         if(propose.object === LIB) return { value: [], object: [] };
         let { object, value } = propose;
-        let META = {};
+        this.META = {};
 
         if(object.$load !== undefined) {
             let { object: object_internal, value: value_internal } = this.omegaExpression(object.$load);
@@ -156,45 +156,47 @@ class Provider {
         }
 
         return {
-            object: Object.keys(object)
-                .map(key => {
-                    if(key.startsWith("$dynamic_template.")) {
-                        if(object[key].$if === undefined || Omega.walk(object[key].$if))
-                            return key.split(".").pop();
-                    } else if(key.startsWith("@import.value")) {
-                        let { object: object_internal, value: value_internal } = this.omegaExpression(object[key]);
-                        if(object_internal["@meta"]) detachObj(META, object_internal["@meta"]);
-
-                        value.push(...value_internal);
-                        value.push(...Object.keys(object_internal));
-                        return;
-                    } else if(key.startsWith("@value.")) {
-                        value.push(key.split(".").pop());
-                        return;
-                    } else if(key === "@meta") {
-                        META = deepmerge(META, object["@meta"]);
-                        return;
-                    } else if(key === "$asObject") {
-                        return Omega.walk(object.$asObject);
-                    }
-                    if(REMOVE_LIST.includes(key)) return undefined;
-
-                    if(key[0] === "$") {
-                        let { object: object_internal, value: value_internal } = this.omegaExpression(key);
-                        return Object.keys(object_internal).concat(...value_internal);
-                    }
-                    return key;
-                })
-                .reduce((propose, element) => {
-                    if(!Array.isArray(element)) element = [element];
-                    
-                    if(element[0] !== undefined)
-                        return propose.concat(element.filter(e => !context.includes(e)));
-                    return propose;
-                }, []),
+            object: this.parseObjectCompletions(object, value, context),
             value: value.filter(e => typeof e === "string" && e !== ""),
-            META
+            META: this.META
         }
+    }
+
+    parseObjectCompletions(object, value, context=[]) {
+        return Object.keys(object)
+            .map((key) => {
+                if(key.startsWith("$dynamic_template.")) {
+                    if(object[key].$if === undefined || Omega.walk(object[key].$if))
+                        return key.split(".").pop();
+                } else if(key.startsWith("@import.value")) {
+                    let { object: object_internal, value: value_internal } = this.omegaExpression(object[key]);
+                    value.push(...value_internal);
+                    value.push(...this.parseObjectCompletions(object_internal, value));
+                    return;
+                } else if(key.startsWith("@value.")) {
+                    value.push(key.split(".").pop());
+                    return;
+                } else if(key === "@meta") {
+                    this.META = detachObj(this.META, object["@meta"]);
+                    return;
+                } else if(key === "$asObject") {
+                    return Omega.walk(object.$asObject);
+                }
+                if(REMOVE_LIST.includes(key)) return undefined;
+        
+                if(key[0] === "$") {
+                    let { object: object_internal, value: value_internal } = this.omegaExpression(key);
+                    return Object.keys(object_internal).concat(...value_internal);
+                }
+                return key;
+            })
+            .reduce((propose, element) => {
+                if(!Array.isArray(element)) element = [element];
+                
+                if(element[0] !== undefined)
+                    return propose.concat(element.filter(e => !context.includes(e)));
+                return propose;
+            }, [])
     }
 
     walk(path_arr, current=LIB) {

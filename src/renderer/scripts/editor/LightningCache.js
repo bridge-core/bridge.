@@ -78,8 +78,6 @@ export default class LightningCache {
         if(this.global_cache[type][cache_key] === undefined) this.global_cache[type][cache_key] = {};
         let cache = this.global_cache[type][cache_key];
 
-        console.log(type, defs)
-
         defs.forEach(def => {
             if(def.path !== undefined) {
                 try {
