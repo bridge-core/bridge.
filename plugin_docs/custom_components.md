@@ -2,10 +2,10 @@
 bridge. allows you to define new custom components with plugins. In order to get started, create a ```<PLUGIN NAME>/components``` folder and place a first JavaScript (.js) file inside of it. The name of the file does not matter.
 
 ### Execution Scope
-JavaScript files placed inside of this folder have access to the ```Bridge``` object. The only available method on this object is called ```Bridge.register``` and it is used to register a custom component. This method expects a JavaScript class with a static property ```component_name``` and the two instance methods ```onApply(component_data)``` & ```onPropose()```.
+JavaScript files placed inside of this folder have access to the ```Bridge``` object. The only available method on this object is called ```Bridge.register``` and it is used to register a custom component. This method expects a JavaScript class with a static property ```component_name``` and the two instance methods ```onApply(component_data, location)``` & ```onPropose()```.
 
-### ```onApply(component_data)```
-```onApply(component_data)``` receives the component data entered by the user. Must return an entity object to merge with the actual file.
+### ```onApply(component_data, location)```
+```onApply(component_data, location)``` receives the ```component_data``` entered by the user and where the component was placed (```location```). Can be "components" or the name of a component group. This method must return an entity object to merge with the actual file.
 
 ### ```onPropose()```
 ```onPropose()``` must return an auto-completion object. It should only have one property (named your custom component name) which should replicate the structure of the custom component. [Read more on bridge.'s auto-completion JSON format.](https://github.com/solvedDev/bridge./blob/master/plugin_docs/auto_completions/main.md)
@@ -15,7 +15,7 @@ JavaScript files placed inside of this folder have access to the ```Bridge``` ob
 Bridge.register(class DemoComponent {
     static component_name = "bridge:demo_npc";
     
-    onApply({ trade_table, display_name }) {
+    onApply({ trade_table, display_name }, location) {
         return {
             "minecraft:entity": {
                 "component_groups": {
