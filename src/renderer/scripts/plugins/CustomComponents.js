@@ -3,7 +3,7 @@ import { JSONFileMasks } from "../editor/JSONFileMasks";
 import InformationWindow from "../commonWindows/Information";
 import EventBus from "../EventBus";
 import { use } from "../utilities/useAttr";
-import { detachMerge } from "../mergeUtils";
+import { detachMerge, PUSH_ONCE } from "../mergeUtils";
 import LightningCache from "../editor/LightningCache";
 import FileType from "../editor/FileType";
 
@@ -16,6 +16,7 @@ export class BridgeComponent {
 
 export default class ComponentRegistry {
     static components = {};
+    static register_updates = [];
 
     static async register(Component) {
         let name = Component.component_name;
@@ -27,9 +28,13 @@ export default class ComponentRegistry {
 
         //UPDATE ALL REFERENCES TO COMPONENT
         let refs = await FetchDefinitions.fetchSingle("entity", [ "custom_components" ], name, true);
-        refs.map(
-            f => JSONFileMasks.apply(f)
-        );
+        this.register_updates = PUSH_ONCE(this.register_updates, refs);
+    }
+    static async registerUpdates() {
+        for(let f of this.register_updates)
+            await JSONFileMasks.apply(f);
+
+        this.register_updates = [];
     }
     static async reset() {
         this.components = {};
@@ -44,8 +49,7 @@ export default class ComponentRegistry {
 
         let apply_data = this.components[component_name].onApply(component_data, location);
         if(typeof apply_data !== "object" || Array.isArray(apply_data)) return;
-
-        MASK.set(`component@${component_name}`, apply_data);
+        MASK.overwrite(`component@${component_name}`, apply_data);
     }
 
     static async parse(file_path, data, simulated_call) {

@@ -18,6 +18,9 @@ export class JSONMask {
         if(merge_arrays.length === 0) return this.data[channel] = detachObj(this.data[channel], mask_data);
         return this.data[channel] = maskChannelMerge(this.data[channel], mask_data, merge_arrays);
     }
+    overwrite(channel, mask_data) {
+        this.data[channel] = mask_data;
+    }
     reset(channel) {
         if(!channel) this.data = {};
         else this.data[channel] = undefined;
@@ -30,10 +33,8 @@ export class JSONMask {
         let all = [];
 
         for(let c in this.data) {
-            console.log(c, typeof filter !== "function" , filter(c));
             if(this.data[c] !== undefined && (typeof filter !== "function" || filter(c))) all.push(this.data[c]);
         }
-        console.log(all)
 
         return all;
     }

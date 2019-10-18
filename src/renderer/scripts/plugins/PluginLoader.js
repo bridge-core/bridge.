@@ -55,6 +55,8 @@ export default class PluginLoader {
         await Promise.all(PLUGIN_ZIPS.map(plugin_folder => this.loadPlugin(project, plugin_folder, unloaded_plugins)));
         await Promise.all(PLUGIN_FOLDERS.map(plugin_folder => this.loadPlugin(project, plugin_folder, unloaded_plugins)));
         await ThemeManager.loadTheme();
+        //UPDATE COMPONENT REFERENCES
+        await ComponentRegistry.registerUpdates();
 
         //INIT LEGACY PLUGIN DATA FOR UI
         Store.commit("finishedPluginLoading", PLUGIN_DATA);
@@ -171,18 +173,17 @@ export default class PluginLoader {
                     .catch(e => undefined)
             )
         );
-        components.forEach(c => {
+        await Promise.all(components.map(async c => {
             if(c === undefined) return;
             
             try {
-                safeEval(c.toString("utf-8"), {
+                await safeEval(c.toString("utf-8"), {
                     Bridge: {
                         register: (c) => ComponentRegistry.register(c)
                     }
                 });
             } catch(e) { new InformationWindow("ERROR", `Error while loading custom component:\n${e.message}`); }
-            
-        });
+        }));
     }
 
     static async loadAutoCompletions(plugin_path) {
