@@ -8,7 +8,7 @@ JavaScript files placed inside of this folder have access to the ```Bridge``` ob
 ```onApply(component_data)``` receives the component data entered by the user. Must return an entity object to merge with the actual file.
 
 ### ```onPropose()```
-```onPropose()``` must return an auto-completion object. [Read more on bridge.'s auto-completion JSON format.](https://github.com/solvedDev/bridge./blob/master/plugin_docs/auto_completions/main.md)
+```onPropose()``` must return an auto-completion object. It should only have one property (named your custom component name) which should replicate the structure of the custom component. [Read more on bridge.'s auto-completion JSON format.](https://github.com/solvedDev/bridge./blob/master/plugin_docs/auto_completions/main.md)
 
 ### Example
 ```javascript
