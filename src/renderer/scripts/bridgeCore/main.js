@@ -53,15 +53,15 @@ export class BridgeCore {
 
         //CUSTOM ENTITY COMPONENTS
         if(file_type === "entity") await ComponentRegistry.parse(file_path, data, simulated_call);
-
+        data = await JSONFileMasks.applyOnData(file_path, data, layer_name => layer_name.startsWith("component@"));
 
         //Do not use custom syntax with deactivated bridgeCore
-        if(!this.is_active) return await JSONFileMasks.applyOnData(file_path, data);;
+        if(!this.is_active) return data;
 
         if(typeof this.save_registry[file_type] === "function")
             await this.save_registry[file_type]({ file_path, file_name, file_uuid, data, depth, simulated_call });
 
-        data = await JSONFileMasks.applyOnData(file_path, data);
+        data = await JSONFileMasks.applyOnData(file_path, data, layer_name => !layer_name.startsWith("component@"));
         await JSONFileMasks.saveMasks();
         
         return data;

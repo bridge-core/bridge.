@@ -26,12 +26,14 @@ export class JSONMask {
     get(channel) {
         return this.data[channel];
     }
-    all() {
+    all(filter) {
         let all = [];
 
         for(let c in this.data) {
-            if(this.data[c] !== undefined) all.push(this.data[c]);
+            console.log(c, typeof filter !== "function" , filter(c));
+            if(this.data[c] !== undefined && (typeof filter !== "function" || filter(c))) all.push(this.data[c]);
         }
+        console.log(all)
 
         return all;
     }
@@ -122,8 +124,8 @@ export class JSONFileMasks {
         await fs.mkdir(path.dirname(file_path), { recursive: true });
         return writeJSON(file_path, data, true, file_version);
     }
-    static async applyOnData(file_path, data, overwrite_arrays=[]) {
-        return maskMerge([data, ...(await this.get(file_path)).all()], overwrite_arrays);
+    static async applyOnData(file_path, data, filter, overwrite_arrays=[]) {
+        return maskMerge([data, ...(await this.get(file_path)).all(filter)], overwrite_arrays);
     }
 
     static async generateFromMask(file_path, overwrite_arrays) {

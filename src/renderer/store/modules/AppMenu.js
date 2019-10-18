@@ -7,7 +7,7 @@ import TabSystem from "../../scripts/TabSystem";
 import EventBus from "../../scripts/EventBus";
 import SnippetWindow from "../../windows/Snippets";
 import TemplateSetsWindow from "../../windows/TemplateSets";
-import CreditsWindow from "../../windows/Credits";
+import AboutWindow from "../../windows/About";
 import NodeShortcuts from "../../scripts/editor/NodeShortcuts";
 import ExtensionBrowser from "../../windows/Extensions/Browser";
 
@@ -220,7 +220,7 @@ const state = {
         elements: [
             {
                 title: "About",
-                action: () => new CreditsWindow()
+                action: () => new AboutWindow()
             },
             {
                 title: "Latest Release",

@@ -39,7 +39,7 @@ class Link {
     }
 }
 
-export default class CreditsWindow extends TabWindow {
+export default class AboutWindow extends TabWindow {
     constructor() {     
         super("About", { is_persistent: false }, "bridge.core.credits_window.");
 
@@ -62,6 +62,7 @@ export default class CreditsWindow extends TabWindow {
                     link: "https://twitter.com/solvedDev"
                 },
                 {
+                    color: "black",
                     text: "mdi-github-circle",
                     link: "https://github.com/solvedDev"
                 }]),
@@ -69,6 +70,7 @@ export default class CreditsWindow extends TabWindow {
                     type: "divider"
                 },
                 new Creator("Contributor", "CodeHZ", [{
+                    color: "black",
                     text: "mdi-github-circle",
                     link: "https://github.com/codehz"
                 }]),
@@ -81,6 +83,7 @@ export default class CreditsWindow extends TabWindow {
                     link: "https://twitter.com/TheDestruc7i0n"
                 },
                 {
+                    color: "black",
                     text: "mdi-github-circle",
                     link: "https://github.com/destruc7i0n"
                 }])
