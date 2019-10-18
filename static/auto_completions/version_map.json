@@ -2,6 +2,9 @@
     "entity/main": {
         "Beta": "entity/main_beta"
     },
+    "item/main": {
+        "Beta": "item/main_beta"
+    },
     "tag/main": {
         "Beta": "tag/main_beta"
     },

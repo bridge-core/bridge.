@@ -14,9 +14,6 @@
         "effects": {
             "$dynamic.list.next_index": "$item.general.effect_definition"
         },
-        "remove_effects": {
-            "$dynamic.list.next_index": "$general.effect_name"
-        },
         "using_converts_to": "$general.item_identifier",
         "on_use_action": [ "chorus_teleport", "suspicious_stew_effect", "none" ],
         "on_use_range": {

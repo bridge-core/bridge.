@@ -31,8 +31,10 @@
     "function/general",
 
     "item/main",
+    "item/main_beta",
     "item/general",
     "item/components",
+    "item/beta_components",
 
     "recipe/main",
     "recipe/general",
