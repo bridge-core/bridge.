@@ -239,7 +239,25 @@
 
 
 
-
+    "minecraft:behavior.melee_attack": {
+        "random_stop_interval": "$general.decimal",
+        "reach_multiplier": "$general.decimal",
+        "target_dist": "$general.number",
+        "attack_once": "$general.boolean",
+        "look_distance": "$general.number",
+        "untrackable_cooldown_delay": "$general.number",
+        "target_tracking": {
+            "refresh_period_min": "$general.number",
+            "refresh_period_max": "$general.number",
+            "backoff": {
+                "$dynamic.list.next_index": {
+                    "distance_squared_gt": "$general.number",
+                    "refresh_period_delta": "$general.number"
+                }
+            }
+        },
+        "on_attack": "$entity.general.event_definition"
+    },
     "minecraft:behavior.hover": {
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal"
