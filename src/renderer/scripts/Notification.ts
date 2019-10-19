@@ -1,11 +1,15 @@
 /**
- * Class for sending new notifications
+ * Class for sending notifications
+ * Notifications appear inside the app footer
  */
 import Store from "../store/index";
 import uuid from "uuid/v4";
 
 export class Badge {
-    constructor({ color, type, content }) {
+    color: string;
+    type: 'icon' | 'text';
+    content: string;
+    constructor({ color, type, content }: { color: string, type: 'icon' | 'text', content: string }) {
         this.color = color;
         this.type = type;
         this.content = content;
@@ -13,6 +17,15 @@ export class Badge {
 }
 
 export default class Notification {
+    id: string;
+    display_icon: string;
+    display_name: string;
+    color: string;
+    text_color: string;
+    is_pushed: boolean;
+    badge: Badge;
+    action: () => any;
+
     constructor({ display_name, display_icon, action, color, text_color }) {
         this.id = uuid();
         this.display_icon = display_icon;
@@ -20,7 +33,7 @@ export default class Notification {
         this.action = action;
         this.color = color;
         this.text_color = text_color;
-        this.pushed = false;
+        this.is_pushed = false;
     }
 
     addBadge(badge) {
@@ -28,18 +41,18 @@ export default class Notification {
     }
 
     send() {
-        if(this.pushed) return;
+        if(this.is_pushed) return;
 
-        this.pushed = true;
+        this.is_pushed = true;
         Store.commit("addNativeFooter", this);
     }
     update() {
         Store.commit("updateNativeFooter", this);
     }
     remove() {
-        if(!this.pushed) return;
+        if(!this.is_pushed) return;
         
-        this.pushed = false;
+        this.is_pushed = false;
         Store.commit("removePluginFooter", this.id);
     }
 }

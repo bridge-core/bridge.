@@ -100,9 +100,9 @@ async function handleTags(file_path, tags=[], simulated_call) {
     let tag_refs = await Promise.all(tags.map(t => FetchDefinitions.fetchSingle("entity_tag", [ "identifiers" ], t, true)));
     await Promise.all(tag_refs.flat().map(
         async ref => {
-            const { identifier, ...entity={} } = transformTag(await FileSystem.loadFile(ref)) || {};
+            const { identifier, ...entity } = transformTag(await FileSystem.loadFile(ref)) || {};
             if(!identifier) return;
-            MASK.set(`tag@${identifier}`, entity);
+            MASK.set(`tag@${identifier}`, entity || {});
         }
     ));
 }

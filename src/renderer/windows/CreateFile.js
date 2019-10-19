@@ -10,7 +10,7 @@ import { join } from "path";
 import { promises as fs } from "fs";
 
 class FileContent {
-    constructor(name, ext="json", parent, expand_path="", { location, ...add_content }={}, use_rp_path) {
+    constructor(name, ext="json", parent, expand_path="", { add_location, ...add_content }={}, use_rp_path) {
         this.parent = parent;
         this.ext = ext;
         this.expand_path = expand_path;
@@ -88,9 +88,9 @@ class FileContent {
             this.path_info
         ];
 
-        if(location === undefined)
-            location = {};
-        if(add_content !== undefined)
+        if(add_location === undefined)
+            add_location = [];
+        if(add_content !== undefined && Object.keys(add_content).length !== 0)
             this.add({
                 ...add_content,
                 action: (parameter) => {
@@ -102,7 +102,7 @@ class FileContent {
                         throw new Error("Unknown add_content.action type: " + add_content.action.type);
                     }
                 }
-            }, ...location);
+            }, ...add_location);
     }
 
     getPath(val=this.curr_input, ext=this.ext, expand=this.expand_path) {
@@ -118,6 +118,7 @@ class FileContent {
     }
 
     add(c, i=this.content.length, r=0) {
+        console.log(i, r);
         this.content.splice(i, r, c);
         return this;
     }
