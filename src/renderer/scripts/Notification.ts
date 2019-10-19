@@ -5,11 +5,24 @@
 import Store from "../store/index";
 import uuid from "uuid/v4";
 
+export interface BadgeObj {
+    color: string;
+    type: 'icon' | 'text';
+    content: string;
+}
+export interface NotificationObj {
+    display_icon: string;
+    display_name: string;
+    color: string;
+    text_color: string;
+    action: () => any;
+}
+
 export class Badge {
     color: string;
     type: 'icon' | 'text';
     content: string;
-    constructor({ color, type, content }: { color: string, type: 'icon' | 'text', content: string }) {
+    constructor({ color, type, content }: BadgeObj) {
         this.color = color;
         this.type = type;
         this.content = content;
@@ -26,7 +39,7 @@ export default class Notification {
     badge: Badge;
     action: () => any;
 
-    constructor({ display_name, display_icon, action, color, text_color }) {
+    constructor({ display_name, display_icon, action, color, text_color }: NotificationObj) {
         this.id = uuid();
         this.display_icon = display_icon;
         this.display_name = display_name;
@@ -36,7 +49,7 @@ export default class Notification {
         this.is_pushed = false;
     }
 
-    addBadge(badge) {
+    addBadge(badge: Badge) {
         this.badge = badge;
     }
 

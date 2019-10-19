@@ -6,6 +6,9 @@
         "allowJs": true,
         "esModuleInterop": true,
         "noImplicitAny": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "lib": [
+          "es2019"
+        ]
     }
 }

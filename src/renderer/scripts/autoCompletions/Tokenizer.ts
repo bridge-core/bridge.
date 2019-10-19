@@ -1,15 +1,19 @@
 /**
  * Splits auto-completion statements into easier to parse units
  */
+type tokenType = "NESTED" | "REGULAR";
+
 class Token {
-    constructor(type, data) {
+    type: tokenType;
+    data: string;
+    constructor(type: tokenType, data: string) {
         this.type = type;
         this.data = data;
     }
 }
 
 export class Tokenizer {
-    static parse(str) {
+    static parse(str: string) {
         let i = 0;
         let res = [];
 
@@ -37,7 +41,7 @@ export class Tokenizer {
         return res;
     }
 
-    static indexOf(str, re, i) {
+    static indexOf(str: string, re: RegExp, i: number) {
         let index = str.slice(i).search(re);
         return index < 0 ? index : index + i;
     }

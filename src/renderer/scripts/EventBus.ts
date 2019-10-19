@@ -1,15 +1,25 @@
 /**
  * Utility for triggering and reacting to events
  */
-let events = {};
+
+interface eventStorage {
+    [x: string]: eventCB[]
+}
+interface eventCBObj {
+    cb: (...a: any) => any;
+    consume: boolean;
+}
+type eventCB = eventCBObj | ((...a: any) => any);
+
+let events: eventStorage = {};
 export default class EventBus {
-    static on(event, cb) {
+    static on(event: string, cb: eventCB) {
         if(event in events) events[event].push(cb);
         else events[event] = [cb];
         // console.log("Registered event " + event, events);
     }
 
-    static off(event, cb) {
+    static off(event: string, cb: eventCB) {
         if(cb === undefined) {
             events[event] = [];
         } 
@@ -22,14 +32,14 @@ export default class EventBus {
         // console.log("Unregistered event " + event);
     }
 
-    static once(event, cb) {
+    static once(event: string, cb: () => any) {
         this.on(event, { cb, consume: true });
         // console.log("Once event registered " + event);
     }
 
-    static trigger(event, ...data) {
+    static trigger(event: string, ...data: any[]) {
         let res = [];
-        let off = [];
+        let off: eventCBObj[] = [];
         if(event in events) {
             for(let e of events[event]) {
                 if(typeof e === "object") {

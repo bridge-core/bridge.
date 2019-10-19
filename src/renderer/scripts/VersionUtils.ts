@@ -3,17 +3,22 @@
  * e.g. v0.1.0 <-> v2.1.20
  */
 
-function asArr(version) {
+interface compareResult {
+    result: boolean;
+    break: boolean;
+}
+
+function asArr(version: string) {
     if(version[0] !== "v") version = "v" + version;
     return version.substr(1, version.length).split(".").map(e => Number(e));
 }
 
-function longerArr(a1, a2) {
+function longerArr(a1: any[], a2: any[]) {
     if(a1.length > a2.length) return a1.length;
     return a2.length;
 }
 
-function compare(v1, v2, cb) {
+function compare(v1: string, v2: string, cb: (a: number, b: number) => compareResult) {
     let a1 = asArr(v1);
     let a2 = asArr(v2);
     let rep = longerArr(a1, a2);
@@ -25,7 +30,7 @@ function compare(v1, v2, cb) {
     return status.result;
 }
 
-export function greaterThan(v1, v2) {
+export function greaterThan(v1: string, v2: string) {
     return compare(v1, v2, (a, b) => {
         if(a > b) return {
             result: true,
@@ -41,7 +46,7 @@ export function greaterThan(v1, v2) {
         };
     });
 }
-export function lessThan(v1, v2) {
+export function lessThan(v1: string, v2: string) {
     return compare(v1, v2, (a, b) => {
         if(a > b) return {
             result: false,
