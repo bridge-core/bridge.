@@ -9,6 +9,6 @@ export default class DynamicTemplate {
         let template = provider.compileTemplate(current.$dynamic_template);
         for(let i = 0; i < path_arr.length + 1; i++) CONTEXT_DOWN();
         //Template is undefined if path is_data_path
-        return provider.walk(path_arr, template === undefined ? undefined : template[key]);
+        return provider.walk(path_arr, (template || {})[key]);
     }
 }
