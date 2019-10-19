@@ -2,8 +2,13 @@
  * Simple tab window. Rendered by components/windowFactory
  */
 import CommonWindow from "./Content";
+import { SidebarElement, WindowContent, WindowOptions } from "./ContentTypes";
+
+
 
 export class View {
+    sidebar_element: SidebarElement;
+    content: WindowContent;
     constructor(sidebar_element, content) {
         this.sidebar_element = sidebar_element;
         this.content = content;
@@ -11,18 +16,21 @@ export class View {
 };
 
 export default class TabWindow extends CommonWindow {
-    constructor(display_name, options, add_id="tab_window") {
+    selected_tab: number;
+    content_elements: WindowContent[];
+
+    constructor(display_name: string, options: WindowOptions, add_id="tab_window") {
         super({
             display_name,
             options,
             sidebar: []
         }, add_id);
 
-        this.selected_tab = null;
+        this.selected_tab = 0;
         this.content_elements = [];
     }
 
-    addTab(view) {
+    addTab(view: View) {
         let id = this.content_elements.length;
         this.win_def.sidebar.push({
             ...view.sidebar_element,
@@ -55,7 +63,7 @@ export default class TabWindow extends CommonWindow {
         if(force_update) this.update(this.win_def);
     }
 
-    buildContent(id) {
+    buildContent(id: number) {
         if(!this.content_elements[id]) return;
 
         return [
@@ -66,7 +74,7 @@ export default class TabWindow extends CommonWindow {
             {
                 type: "divider"
             },
-            ...this.content_elements[id].map(e => {
+            ...this.content_elements[id].map((e: WindowContent) => {
                 if(typeof e === "function") return e();
                 return e;
             })

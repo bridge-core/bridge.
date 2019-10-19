@@ -2,9 +2,12 @@
  * Simple information window. Rendered by components/windowFactory
  */
 import Store from "../../store/index";
+import { WindowDefinition } from "./ContentTypes";
 
 export default class InformationWindow {
-    constructor(display_name, display_text, is_persistent=true) {
+    id: string;
+
+    constructor(display_name: string, display_text: string, is_persistent=true) {
         this.id = `main.core.windows.information_window.${Math.random()}.${Math.random()}`;
 
         Store.commit("addPluginWindow", { 
@@ -40,28 +43,28 @@ export default class InformationWindow {
             id: this.id,
             onClose: () => this.close() 
         });
+    }
 
-        this.update = (opts) => {
-            Store.commit("updatePluginWindow", { ...opts, id: this.id });
-            return this;
-        };
-        this.close = () => {
-            Store.commit("removePluginWindow", this.id);
-            return this;
-        };
-        this.hide = () => {
-            Store.commit("setWindowIsVisible", {
-                id: this.id,
-                val: false
-            });
-            return this;
-        };
-        this.show = () => {
-            Store.commit("setWindowIsVisible", {
-                id: this.id,
-                val: true
-            });
-            return this;
-        };
+    update(opts: WindowDefinition) {
+        Store.commit("updatePluginWindow", { ...opts, id: this.id });
+        return this;
+    }
+    close() {
+        Store.commit("removePluginWindow", this.id);
+        return this;
+    }
+    hide() {
+        Store.commit("setWindowIsVisible", {
+            id: this.id,
+            val: false
+        });
+        return this;
+    }
+    show() {
+        Store.commit("setWindowIsVisible", {
+            id: this.id,
+            val: true
+        });
+        return this;
     }
 }

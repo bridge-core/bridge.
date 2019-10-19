@@ -15,7 +15,7 @@ import path from "path";
 import { FileExplorer } from "../FileExplorer";
 import LightningCacheInspector from "../../windows/LightningCache";
 
-export const FILE_CONTEXT_MENU = (file_path, file) => [
+export const FILE_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
     {
         title: "Delete",
         action: () => {
@@ -47,7 +47,7 @@ export const FILE_CONTEXT_MENU = (file_path, file) => [
                 label: "Name",
                 header: "Name Input",
                 expand_text: path.extname(file_path)
-            }, async (new_name) => {
+            }, async (new_name: string) => {
                 let closed = TabSystem.closeByPath(file_path);
 
                 let new_path = path.join(path.dirname(file_path), new_name);
@@ -69,7 +69,7 @@ export const FILE_CONTEXT_MENU = (file_path, file) => [
                 label: "Name",
                 header: "Name Input",
                 expand_text: path.extname(file_path)
-            }, async (new_name) => {
+            }, async (new_name: string) => {
                 let closed = TabSystem.closeByPath(file_path);
 
                 let new_path = path.join(path.dirname(file_path), new_name);

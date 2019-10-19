@@ -2,9 +2,12 @@
  * Simple content window. Rendered by components/windowFactory
  */
 import Store from "../../store/index";
+import { WindowDefinition } from "./ContentTypes";
 
 export default class ContentWindow {
-    constructor(opts, add_id) {
+    id: string;
+    win_def: WindowDefinition;
+    constructor(opts: any, add_id: string) {
         this.id = `main.core.windows.content_window.${add_id}${Math.random()}`;
         this.win_def = opts;
 

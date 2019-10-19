@@ -3,11 +3,24 @@
  */
 import Store from "../../store/index";
 import uuid from "uuid/v4";
+import { WindowDefinition } from "./ContentTypes";
+
+export interface InputWindowObj {
+    header?: string;
+    text?: string;
+    label?: string;
+    expand_text?: string;
+}
 
 export default class InputWindow {
-    constructor({ header, text, label, expand_text }, onConfirm) {
+    id: string;
+    input: string;
+    actions: any[];
+    content: any[];
+
+    constructor({ header, text, label, expand_text }: InputWindowObj, onConfirm: (a: string) => any) {
         this.id = uuid();
-        this.input = text;
+        this.input = text || "";
         const CONFIRM_BTN = {
             type: "button",
             text: "Confirm",
@@ -31,7 +44,7 @@ export default class InputWindow {
                     this.close();
                     if(typeof onConfirm == "function") onConfirm(this.input + (expand_text !== undefined ? expand_text : ""));
                 },
-                default: (val) => {
+                default: (val: string) => {
                     if(val === "") {
                         this.input = val;
                         INPUT.input = val;
@@ -102,7 +115,7 @@ export default class InputWindow {
         });
     }
 
-    update(opts) {
+    update(opts: WindowDefinition) {
         Store.commit("updatePluginWindow", { ...opts, id: this.id });
         return this;
     }

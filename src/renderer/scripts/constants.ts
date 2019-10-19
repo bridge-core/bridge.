@@ -1,7 +1,9 @@
+declare var __static: string;
+
 import fs from "fs";
 import APP_VERSION from "../../shared/app_version";
 import path from "path";
-import { MOJANG_PATH, BP_BASE_PATH } from "../../shared/Paths";
+import { MOJANG_PATH, BP_BASE_PATH, RP_BASE_PATH } from "../../shared/Paths";
 import Store from "../store/index";
 
 export const WEB_APP_DATA = "https://solveddev.github.io/bridge-data/";

@@ -2,9 +2,22 @@
  * Simple confirmation window. Rendered by components/windowFactory
  */
 import Store from "../../store/index";
+import { WindowDefinition } from "./ContentTypes";
+
+export interface confirmWindowConfig {
+    [x: string]: WindowDefinition | string;
+}
 
 export default class ConfirmWindow {
-    constructor(on_confirm, on_cancel, text, { cancel_text, confirm_text, ...opts }={}) {
+    id: string;
+    actions: any[];
+
+    constructor(
+        on_confirm: () => any,
+        on_cancel: () => any,
+        text: string,
+        { cancel_text, confirm_text, ...opts }: confirmWindowConfig={}
+    ) {
         this.id = `main.core.windows.confirm_window.${Math.random()}`;
         this.actions = [
             {
@@ -54,10 +67,11 @@ export default class ConfirmWindow {
             }, is_visible: true, id: this.id,
             onClose: () => this.close()
         });
+
         this.update(opts);
     }
 
-    update(opts) {
+    update(opts: confirmWindowConfig) {
         Store.commit("updatePluginWindow", { ...opts, id: this.id });
         return this;
     }
