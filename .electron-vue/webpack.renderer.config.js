@@ -52,7 +52,7 @@ let rendererConfig = {
         use: 'vue-html-loader'
       },
       {
-        test: /\.tsx?$/,
+        test: /\.ts$/,
         loader: 'babel-loader',
         exclude: /node_modules/
       },
@@ -141,7 +141,7 @@ let rendererConfig = {
       '@': path.join(__dirname, '../src/renderer'),
       'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['.js', '.ts', '.vue', '.json', '.css', '.node']
+    extensions: ['.ts', '.js', '.vue', '.json', '.css', '.node']
   },
   target: 'electron-renderer'
 }

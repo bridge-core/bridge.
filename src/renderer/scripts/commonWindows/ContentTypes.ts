@@ -8,10 +8,11 @@ export interface SidebarElement {
 }
 
 export interface WindowDefinition {
-    sidebar: SidebarElement[];
-    content: WindowContent[];
-    actions: WindowContent[];
-    options: WindowOptions;
+    display_name?: string;
+    sidebar?: SidebarElement[];
+    content?: WindowContent[];
+    actions?: WindowContent[];
+    options?: WindowOptions;
 }
 
 export interface WindowContent {
@@ -19,5 +20,6 @@ export interface WindowContent {
 }
 
 export interface WindowOptions {
+    is_persistent?: boolean;
     [x: string]: any;
 }

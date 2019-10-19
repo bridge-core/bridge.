@@ -3,6 +3,7 @@ module.exports = {
   "env": {
     "main": {
       "presets": [
+        "@babel/typescript",
         [
           "@babel/preset-env",
           {
@@ -84,6 +85,7 @@ module.exports = {
     },
     "web": {
       "presets": [
+        "@babel/typescript",
         [
           "@babel/preset-env",
           {

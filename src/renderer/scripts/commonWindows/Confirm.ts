@@ -4,8 +4,9 @@
 import Store from "../../store/index";
 import { WindowDefinition } from "./ContentTypes";
 
-export interface confirmWindowConfig {
-    [x: string]: WindowDefinition | string;
+export interface confirmWindowConfig extends WindowDefinition {
+    cancel_text?: string;
+    confirm_text?: string;
 }
 
 export default class ConfirmWindow {

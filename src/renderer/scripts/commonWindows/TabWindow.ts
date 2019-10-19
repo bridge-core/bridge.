@@ -9,7 +9,8 @@ import { SidebarElement, WindowContent, WindowOptions } from "./ContentTypes";
 export class View {
     sidebar_element: SidebarElement;
     content: WindowContent;
-    constructor(sidebar_element, content) {
+    
+    constructor(sidebar_element: SidebarElement, content: WindowContent) {
         this.sidebar_element = sidebar_element;
         this.content = content;
     }
@@ -18,15 +19,15 @@ export class View {
 export default class TabWindow extends CommonWindow {
     selected_tab: number;
     content_elements: WindowContent[];
-
+    
     constructor(display_name: string, options: WindowOptions, add_id="tab_window") {
         super({
             display_name,
-            options,
-            sidebar: []
+            options
         }, add_id);
 
         this.selected_tab = 0;
+        this.win_def.sidebar = [];
         this.content_elements = [];
     }
 
