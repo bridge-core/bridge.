@@ -10,7 +10,7 @@ import Provider, { LIB_LOADED } from "../autoCompletions/Provider";
 import fs from "fs";
 import { join } from "path";
 import { readJSON, readJSONSync } from "../utilities/JsonFS";
-import eRE from "../utilities/EscapeRegExp";
+import { escapeRegExpStr as eRE } from "../utilities/EscapeRegExp";
 import { FileDefinition, SnippetDefinition, ProblemDefinition } from "./FileDefinition";
 
 let FILE_DEFS: FileDefinition[];
