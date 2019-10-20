@@ -1,15 +1,24 @@
 /**
  * Bind and unbind keyboard shortcuts
  */
+declare var document: any;
+
 import MouseTrap from "mousetrap";
 let mouseTrap = MouseTrap(document.body);
 
-function bind(elements) {
+export interface KeybindObj {
+    shortcut: string;
+    type?: "submenu" | "divider";
+    action: () => any;
+    elements?: KeybindObj[]
+}
+
+function bind(elements: KeybindObj[]) {
     if(elements) elements.forEach(e => {
         if(e.shortcut && e.action) {
             let key = e.shortcut.toLowerCase().replace(/ /g, "");
 
-            mouseTrap.bind(key, (ev) => {
+            mouseTrap.bind(key, (ev: any) => {
                 ev.preventDefault();
                 performAction(e.action);
             });
@@ -21,7 +30,7 @@ function bind(elements) {
     });
 }
 
-function unbind(elements) {
+function unbind(elements: KeybindObj[]) {
     if(elements) elements.forEach(e => {
         if(e.shortcut && e.action) {
             let key = e.shortcut.toLowerCase().replace(/ /g, "");
@@ -34,7 +43,7 @@ function unbind(elements) {
     });
 }
 
-function performAction(action, trusted) {
+function performAction(action: () => any, trusted?: boolean) {
     if(typeof action != "function") return () => {};
     action();  
 }
