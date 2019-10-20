@@ -1,4 +1,4 @@
-export default function escapeRegExp(str) {
+export default function escapeRegExp(str: string | string[]) {
     if(str === undefined) return [];
 
     if(typeof str === "string")

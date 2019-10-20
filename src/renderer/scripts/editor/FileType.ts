@@ -2,16 +2,20 @@
  * Base class for managing and accessing data-driven features
  * The actual file definitions are still loaded by the auto-completion provider
  */
+
+declare var __static: string;
+
 import TabSystem from "../TabSystem";
 import Provider, { LIB_LOADED } from "../autoCompletions/Provider";
 import fs from "fs";
 import { join } from "path";
 import { readJSON, readJSONSync } from "../utilities/JsonFS";
 import eRE from "../utilities/EscapeRegExp";
+import { FileDefinition, SnippetDefinition, ProblemDefinition } from "./FileDefinition";
 
-let FILE_DEFS;
-let HIGHLIGHTER_CACHE = {};
-let FILE_CREATOR_CACHE = [];
+let FILE_DEFS: FileDefinition[];
+let HIGHLIGHTER_CACHE: any = {};
+let FILE_CREATOR_CACHE: any[] = [];
 
 export default class FileType {
     /**
@@ -27,12 +31,12 @@ export default class FileType {
     }
 
     //Special method to e.g. avoid "loot_tables/blocks/something.json" being considered a "block"
-    static pathIncludes(path, includes) {
+    static pathIncludes(path: string, includes: string) {
         try {
-            path = path.split(/development_behavior_packs|development_resource_pack/g)[1].split(/\\|\//g);
-            path.shift();
-            path.shift();
-            path = path.join("/");
+            let path_arr = path.split(/development_behavior_packs|development_resource_pack/g)[1].split(/\\|\//g);
+            path_arr.shift();
+            path_arr.shift();
+            path = path_arr.join("/");
 
             return path.startsWith(includes);
         } catch(e) {
@@ -41,7 +45,7 @@ export default class FileType {
         }
     }
     //Load files which aren't in a "development_behavior_packs" folder correctly
-    static fallbackToBP(path) {
+    static fallbackToBP(path: string) {
         return path.split(/development_behavior_packs|development_resource_pack/g)[1] === undefined;
     }
 
@@ -49,7 +53,7 @@ export default class FileType {
      * @param {string} file_path file_path to load
      * @returns {string} file type id of provided file_path
      */
-    static get(file_path) {
+    static get(file_path: string) {
         let data = this.getData(file_path);
         if(data === undefined) return "unknown";
         return data.id || "unknown";
@@ -59,7 +63,7 @@ export default class FileType {
      * @param {string} file_path file_path to load
      * @returns {object} file type definition of provided file_path
      */
-    static getData(file_path, file_type) {
+    static getData(file_path?: string, file_type?: string) {
         if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
         let path = file_path;
         
@@ -136,7 +140,7 @@ export default class FileType {
      * @param {string} file_path file_path to load
      * @returns {string} file creator icon of the provided file_path
      */
-    static getFileIcon(file_path) {
+    static getFileIcon(file_path: string) {
         const { file_creator } = this.getData(file_path) || {};
 
         if(file_creator !== undefined) {
@@ -193,7 +197,7 @@ export default class FileType {
         return defs.map(def => this.getHighlighter(def));
     }
 
-    static DefaultBuildArrays(file_path) {
+    static DefaultBuildArrays(file_path: string) {
         try {
             return this.getData(file_path).default_build_arrays;
         } catch(e) {
@@ -205,13 +209,13 @@ export default class FileType {
      * @param {string} file_path documentation to load
      * @returns {string} encoded documentation location (URL part)
      */
-    static getDocumentation(file_path) {
+    static getDocumentation(file_path: string) {
         return (this.getData(file_path) || {}).documentation;
     }
 
     static async getSnippets() {
         let file_types = this.getAllData();
-        let snippet_data = {};
+        let snippet_data: SnippetDefinition = {};
         let proms = [];
 
         for(let { id, snippets } of file_types) {
@@ -227,7 +231,7 @@ export default class FileType {
     }
     static async getProblems() {
         let file_types = this.getAllData();
-        let data = {};
+        let data: { [x: string]: ProblemDefinition } = {};
         let proms = [];
 
         for(let { problems, id } of file_types) {
@@ -248,14 +252,14 @@ export default class FileType {
         return data;
     }
 
-    static async getLightningCacheDefs(file_path, file_type) {
+    static async getLightningCacheDefs(file_path: string, file_type: string) {
         let data = this.getData(file_path, file_type);
         if(data === undefined || data.lightning_cache === undefined) return;
 
         return await readJSON(join(__static, "lightning_cache", `${data.lightning_cache}.json`));
     }
 
-    static transformTextSeparators(file_path, text) {
+    static transformTextSeparators(file_path: string, text: string) {
         try {
             let { text_separators } = this.getData(file_path);
             text_separators.forEach(s => text = text.replace(new RegExp(eRE(s), "g"), (val) => ` ${val} `));
@@ -265,7 +269,7 @@ export default class FileType {
         }
     }
 
-    static getCommentChar(file_path) {
+    static getCommentChar(file_path: string) {
         try {
             return this.getData(file_path).comment_character || "//";
         } catch(e) {

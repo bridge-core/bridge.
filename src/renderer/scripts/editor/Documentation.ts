@@ -2,6 +2,7 @@
  * Documentation tooling
  * Opens bedrock.dev or a dedicated window if custom documentation is available
  */
+declare var __static: string;
 
 import { shell } from "electron";
 import path from "path";
@@ -10,7 +11,7 @@ import ContentWindow from "../commonWindows/Content";
 import FileType from "./FileType";
 import { DOC_URL } from "../constants";
 
-export async function openDocumentation(query, file_path) {
+export async function openDocumentation(query: string, file_path: string) {
     let doc = FileType.getDocumentation(file_path) || "Addons";
     
     if(typeof doc === "string") {
