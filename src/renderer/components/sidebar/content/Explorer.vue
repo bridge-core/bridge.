@@ -38,7 +38,7 @@
             :explorer_type="explorer_type"
             class="file-displayer"
         />
-        <v-progress-linear v-else-if="loaded_file_defs || selected === undefined" indeterminate/>
+        <v-progress-linear v-else-if="!loaded_file_defs || selected === undefined" indeterminate/>
         <div
             v-else-if="selected === '/@NO-DEPENDENCY@/'"
             style="padding: 4px;"
