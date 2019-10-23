@@ -6,7 +6,7 @@ export interface FileDefinition {
     
     build_array_exceptions?: string[];
     default_build_arrays?: boolean;
-    documentation?: string | { base: string, inject: string };
+    documentation?: string | FileDocumentation;
     start_state?: string;
     lightning_cache?: string;
     highlighter?: string;
@@ -27,4 +27,10 @@ export interface SnippetDefinition {
 
 export interface ProblemDefinition {
     [x: string]: any;
+}
+
+export interface FileDocumentation {
+    base: string;
+    inject: string;
+    extend: string;
 }

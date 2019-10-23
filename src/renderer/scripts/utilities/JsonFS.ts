@@ -2,12 +2,12 @@ import fs from "fs";
 import cJSON from "comment-json";
 import FileType from "../editor/FileType";
 
-export function readJSON(path: string) {
+export function readJSON(path: string): Promise<any> {
     return new Promise((resolve, reject) => {
         fs.readFile(path, (err, data) => {
             if(err) return reject(err);
             try {
-                resolve(cJSON.parse(data, undefined, true));
+                resolve(cJSON.parse(data.toString("utf-8"), undefined, true));
             } catch(e) {
                 reject(e);
             }

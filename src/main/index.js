@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain, Menu } from "electron";
-import "./communicator.js";
+import "./communicator";
 import "./Discord";
-import { BP_BASE_PATH } from "../shared/Paths.js";
+import { BP_BASE_PATH } from "../shared/Paths";
 import { join } from "path";
 import MENU from "./menuBuilder";
 

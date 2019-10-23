@@ -42,7 +42,7 @@
     import "codemirror/keymap/sublime.js";
     
     //Files
-    import loadAllTextHighlighters from "../../scripts/editor/CMLanguage.js";
+    import loadAllTextHighlighters from "../../scripts/editor/CMLanguage";
 
     import JsonEditorMain from "./JsonEditor/Main";
     import JsonErrorScreen from "./JsonErrorScreen";

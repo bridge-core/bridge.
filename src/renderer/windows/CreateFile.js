@@ -118,7 +118,6 @@ class FileContent {
     }
 
     add(c, i=this.content.length, r=0) {
-        console.log(i, r);
         this.content.splice(i, r, c);
         return this;
     }

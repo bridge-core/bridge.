@@ -53,7 +53,7 @@ export default class FileType {
      * @param {string} file_path file_path to load
      * @returns {string} file type id of provided file_path
      */
-    static get(file_path: string) {
+    static get(file_path?: string) {
         let data = this.getData(file_path);
         if(data === undefined) return "unknown";
         return data.id || "unknown";

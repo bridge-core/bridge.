@@ -15,7 +15,7 @@ export const DOC_LIST = [ "Entities", "Item", "Blocks", "Biomes", "Addons", "MoL
 export const MINECRAFT_VERSIONS = JSON.parse(fs.readFileSync(path.join(__static, "auto_completions/versions.json")).toString("UTF-8"));
 
 export { APP_VERSION, MOJANG_PATH };
-export * from "../../shared/Paths.js";
+export * from "../../shared/Paths";
 export const BASE_PATH = BP_BASE_PATH;
 export const CURRENT = {
     get PROJECT_PATH() {

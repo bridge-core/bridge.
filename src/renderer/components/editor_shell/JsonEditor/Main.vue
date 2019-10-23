@@ -88,7 +88,7 @@
     import ObjectKey from "./ObjectKey";
     import JsonInput from "./JsonInput";
     import PredictingInput from "./PredictingInput";
-    import InternalJSON from "../../../scripts/editor/Json.js";
+    import InternalJSON from "../../../scripts/editor/Json";
     import TabSystem from '../../../scripts/TabSystem';
     import EventBus from '../../../scripts/EventBus';
     import JSONTree from '../../../scripts/editor/JsonTree';
