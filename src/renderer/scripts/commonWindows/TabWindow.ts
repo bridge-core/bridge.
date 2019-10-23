@@ -43,7 +43,7 @@ export default class TabWindow extends CommonWindow {
         });
         this.content_elements.push(view.content);
 
-        if(id === 0) { this.select(0); }
+        if(id === 0) { this.select(0, true); }
     }
 
     select(id=this.selected_tab, force_update=false) {

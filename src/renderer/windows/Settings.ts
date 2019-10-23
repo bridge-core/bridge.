@@ -14,8 +14,10 @@ import ProjectConfig from "../scripts/ProjectConfig";
 import { uuid } from "../scripts/utilities/useAttr";
 
 class ReactiveListEntry {
-    constructor(text, parent, watch_key, index) {
-        this.type = "card";
+    type = "card";
+    below_content: any[];
+
+    constructor(text: string, parent: SettingsWindow, watch_key: string, index: number) {
         this.below_content = [
             {
                 text: text
@@ -31,7 +33,7 @@ class ReactiveListEntry {
                 action: () => {
                     Snippets.removeSnippet(parent.data[watch_key][index]);
                     parent.save({
-                        [watch_key]: parent.data[watch_key].filter((e, i) => index !== i)
+                        [watch_key]: parent.data[watch_key].filter((_: any, i: number) => index !== i)
                     });
                     parent.select(undefined, true);
                 }
@@ -40,7 +42,10 @@ class ReactiveListEntry {
     }
 }
 class ReactiveList {
-    constructor(parent, watch_key) {
+    parent: SettingsWindow;
+    watch_key: string;
+
+    constructor(parent: SettingsWindow, watch_key: string) {
         this.parent = parent;
         this.watch_key = watch_key;
     }
@@ -62,14 +67,16 @@ class ReactiveList {
 }
 
 class ReactiveSwitch {
-    constructor(parent, watch_key, def) {
-        this.type = "switch";
+    type = "switch";
+    [x: string]: any;
+
+    constructor(parent: SettingsWindow, watch_key: string, def: any) {
         this.input = parent.data[watch_key];
         for(let key in def) {
             this[key] = def[key];
         }
 
-        this.action = (val) => {
+        this.action = (val: boolean) => {
             this.input = val;
             parent.data[watch_key] = val;
             parent.save();
@@ -78,14 +85,16 @@ class ReactiveSwitch {
 }
 
 class ReactiveInput {
-    constructor(parent, watch_key, def) {
-        this.type = "input";
+    type = "input";
+    [x: string]: any;
+
+    constructor(parent: SettingsWindow, watch_key: string, def: any) {
         this.input = parent.data[watch_key];
         for(let key in def) {
             this[key] = def[key];
         }
 
-        this.action = (val) => {
+        this.action = (val: string) => {
             this.input = val;
             parent.data[watch_key] = val;
             parent.save();
@@ -94,7 +103,10 @@ class ReactiveInput {
 }
 
 class ReactiveDropdown {
-    constructor(parent, watch_key, options, def, cb) {
+    type: "autocomplete" | "select";
+    [x: string]: any;
+
+    constructor(parent: SettingsWindow, watch_key: string, options: string[], def: any, cb?: (a: string) => any) {
         this.type = options.length > 5 ? "autocomplete" : "select";
         this.input = parent.data[watch_key];
         this.options = options;
@@ -103,7 +115,7 @@ class ReactiveDropdown {
             this[key] = def[key];
         }
 
-        this.action = (val) => {
+        this.action = (val: string) => {
             this.input = val;
             parent.data[watch_key] = val;
             parent.save();
@@ -113,10 +125,12 @@ class ReactiveDropdown {
 }
 
 export default class SettingsWindow extends TabWindow {
+    data: any;
+
     constructor() {     
         super("Settings", { is_persistent: false }, "bridge.core.settings_window.");
         this.data = SETTINGS.load();
-        let PROJECTS = [];
+        let PROJECTS: string[] = [];
         try {
             PROJECTS = fs.readdirSync(BASE_PATH);
         } catch(e) {}
@@ -319,9 +333,9 @@ export default class SettingsWindow extends TabWindow {
                     text: "Choose a theme...",
                     input: ThemeManager.current_theme,
                     options: ThemeManager.theme_names,
-                    action: (val) => {
+                    action: (val: string) => {
                         ThemeManager.applyTheme(val);
-                        ProjectConfig.theme = val;
+                        ProjectConfig.setTheme(val);
                     }
                 },
                 new ReactiveSwitch(this, "is_dark_mode", {

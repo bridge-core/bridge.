@@ -10,7 +10,7 @@ export default class ProjectConfig {
     static get config_path() {
         return path.join(CURRENT.PROJECT_PATH, "bridge/config.json");
     }
-    static prefix_cache;
+    static prefix_cache: string;
 
     //PREFIX
     static getPrefixSync() {
@@ -27,8 +27,8 @@ export default class ProjectConfig {
             return (await readJSON(this.config_path)).prefix;
         })();
     }
-    static set prefix(val) {
-        return (async () => {
+    static setPrefix(val: string) {
+        (async () => {
             let data;
             try { data = await readJSON(this.config_path) }
             catch(e) { data = {} }
@@ -48,8 +48,8 @@ export default class ProjectConfig {
 
         
     }
-    static set theme(val) {
-        return (async () => {
+    static setTheme(val: string) {
+        (async () => {
             let data;
             try { data = await readJSON(this.config_path) }
             catch(e) { data = {} }

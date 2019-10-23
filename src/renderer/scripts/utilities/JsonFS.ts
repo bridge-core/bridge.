@@ -14,7 +14,7 @@ export function readJSON(path: string): Promise<any> {
         });
     });
 }
-export function writeJSON(path: string, data: any, beautify=false, file_version: number) {
+export function writeJSON(path: string, data: any, beautify=false, file_version?: number) {
     let to_save: any;
     if(file_version === undefined) {
         to_save = JSON.stringify(data, null, beautify ? "\t" : undefined);

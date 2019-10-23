@@ -98,7 +98,7 @@
                                 label: "Namespace",
                                 text: prefix
                             }, (val) => {
-                                ProjectConfig.prefix = val;
+                                ProjectConfig.setPrefix(val);
                             })
                         }
                     }

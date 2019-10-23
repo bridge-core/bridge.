@@ -141,13 +141,13 @@ export default class FileType {
      * @returns {string} file creator icon of the provided file_path
      */
     static getFileIcon(file_path: string) {
-        const { file_creator } = this.getData(file_path) || {};
+        const data = this.getData(file_path) || {};
 
-        if(file_creator !== undefined) {
-            if(typeof file_creator === "string")
-                return readJSONSync(join(__static, "file_creator", `${file_creator}.json`)).icon;
+        if(data.file_creator !== undefined) {
+            if(typeof data.file_creator === "string")
+                return readJSONSync(join(__static, "file_creator", `${data.file_creator}.json`)).icon;
             else
-                return file_creator.icon;
+                return data.file_creator.icon;
         }
     }
 
