@@ -31,7 +31,7 @@ bridge. applies the default color theme first and then overwrites it with the th
 #### ThemeVariant
 | Name | Type | Description 
 | --- | --- | ---
-| ```highlighter``` | ```Object<HighlighterDefinition>``` | The default path to add the template to
+| ```highlighter``` | ```Object<HighlighterDefinition>``` | Syntax highlighter colors of your bridge. theme
 | ```primary``` | ```String``` | Color
 | ```secondary``` | ```String``` | Color
 | ```accent``` | ```String``` | Color
@@ -62,7 +62,7 @@ bridge. applies the default color theme first and then overwrites it with the th
 | ```meta``` | ```Object<StyleObject>``` | Custom style for syntax highlighter
 | ```comment``` | ```Object<StyleObject>``` | Custom style for syntax highlighter
 
-#### HighlighterDefinition
+#### StyleObject
 | Name | Type | Description 
 | --- | --- | ---
 | ```color``` | ```String``` | Color
