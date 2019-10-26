@@ -178,20 +178,22 @@ class TabSystem {
         return this.getSelected().file_path;
     }
     getCurrentNavContent(): string {
-        let nav = this.getCurrentNavigation();
         let s = this.getSelected();
-        if(!(s instanceof JSONTree)) return;
+        if(s === undefined || !(s.content instanceof JSONTree)) return;
+
+        let nav = this.getCurrentNavigation();
         let current = (s.content as JSONTree).get(nav);
 
         if(!current) return;
 
-        if(current.path != nav) return current.data;
+        if(current.path !== nav) return current.data;
         return current.key;
     }
     getCurrentNavObj() {
-        let nav = this.getCurrentNavigation();
         let s = this.getSelected();
-        if(!(s instanceof JSONTree)) return;
+        if(s === undefined || !(s.content instanceof JSONTree)) return;
+
+        let nav = this.getCurrentNavigation();
         return (s.content as JSONTree).get(nav);
     }
     getHistory() {

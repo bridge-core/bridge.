@@ -71,7 +71,7 @@
         },
         watch: {
             file_navigation(nav) {
-                if(this.type == "edit") return;
+                if(this.type === "edit") return;
                 this.updateAutoCompletions();
             },
             provide_auto_completions(prov_auto) {
