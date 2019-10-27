@@ -13,7 +13,6 @@ import { readJSON, readJSONSync } from "../utilities/JsonFS";
 import { escapeRegExpStr as eRE } from "../utilities/EscapeRegExp";
 import { FileDefinition, SnippetDefinition, ProblemDefinition } from "./FileDefinition";
 
-let FILE_DEFS: FileDefinition[];
 let HIGHLIGHTER_CACHE: any = {};
 let FILE_CREATOR_CACHE: any[] = [];
 
@@ -22,12 +21,14 @@ export default class FileType {
      * Reset is called upon reloading plugins
      */
     static reset() {
-        FILE_DEFS = undefined;
         FILE_CREATOR_CACHE = [];
         HIGHLIGHTER_CACHE = {};
     }
     static get LIB_LOADED() {
         return LIB_LOADED;
+    }
+    static get FILE_DEFS(): FileDefinition[] {
+        return Provider.FILE_DEFS;
     }
 
     //Special method to e.g. avoid "loot_tables/blocks/something.json" being considered a "block"
@@ -64,7 +65,6 @@ export default class FileType {
      * @returns {object} file type definition of provided file_path
      */
     static getData(file_path?: string, file_type?: string) {
-        if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
         let path = file_path;
         
         if(path === undefined) {
@@ -74,7 +74,7 @@ export default class FileType {
         }
 
         
-        for(let def of FILE_DEFS) {
+        for(let def of this.FILE_DEFS) {
             // console.log(path);
             if(
                 (
@@ -96,15 +96,13 @@ export default class FileType {
      * @returns {string[]} all file type ids
      */
     static getAll() {
-        if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
-        return FILE_DEFS.map(def => def.id);
+        return this.FILE_DEFS.map(def => def.id);
     }
     /**
      * @returns {object[]} all file type definitions
      */
     static getAllData() {
-        if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
-        return FILE_DEFS;
+        return this.FILE_DEFS;
     }
 
     /**
@@ -112,9 +110,8 @@ export default class FileType {
      * @returns {object} file creator data
      */
     static getFileCreator() {
-        if(FILE_DEFS === undefined) FILE_DEFS = Provider.FILE_DEFS;
         if(FILE_CREATOR_CACHE.length === 0) {
-            FILE_CREATOR_CACHE = FILE_DEFS.reduce((acc, file) => {
+            FILE_CREATOR_CACHE = this.FILE_DEFS.reduce((acc, file) => {
                 if(file.file_creator !== undefined) {
                     //Load from dedicated file
                     if(typeof file.file_creator === "string")
