@@ -59,6 +59,41 @@ export default class FetchDefinitions {
         return res;
     }
 
+    static async broadFetch(fetch_search, fetch_all=true) {
+        let c = await LightningCache.load();
+        let res = [];
+        
+        //FOREACH FILE TYPE
+        for (let file_type in c) {
+            //GO THROUGH ALL FILES
+            for(let file in c[file_type]) {
+                //FOREACH CACHE KEY
+                for(let cache_key in c[file_type][file]) {
+                    //LOOKUP CACHE KEY
+                    if(c[file_type][file][cache_key] && c[file_type][file][cache_key].includes(fetch_search)) {
+                        let file_path;
+                        try {
+                            //LOAD FILE PATH
+                            if(file.startsWith("BP")) {
+                                file_path = path.join(CURRENT.PROJECT_PATH, file.replace("BP", ""));
+                            } else if(file.startsWith("RP")) {
+                                file_path = path.join(CURRENT.RP_PATH, file.replace("RP", ""));
+                            } else {
+                                console.error("Unexpected cache file start: " + file);
+                            }
+                        } catch(e) { /*CACHE WAS PREVIOUSLY BROKEN - PREVENTS ERROR WITH PATH COMPOSITION*/ }
+                        
+                        if(file_path === undefined) continue;
+                        if(!fetch_all) return [ file_path ];
+                        else res.push(file_path);
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
+
     /**
      * @param {string} file_types
      * @param {Object.<string, string[]>} fetch_defs Object containing arrays of definitions to fetch per file_type (<- key)

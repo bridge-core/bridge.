@@ -8,7 +8,7 @@ export default function Title(tag_filter) {
             content: [
                 { type: "icon", text: tag(tag_filter).icon, color: tag(tag_filter).color },
                 { text: "  " },
-                { type: "big-header", text: tag_filter }
+                { type: "big-header", text: tag_filter.toUpperCase() }
             ] 
         },
         { type: "divider" },

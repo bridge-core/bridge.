@@ -24,6 +24,8 @@
     },
     "$dynamic_template.value": {
         "$key": "$dynamic.siblings.test",
+        "$fallback": { "@meta": { "is_value": true } },
+        "$default": { "@meta": { "is_value": true } },
 
         "is_daytime": "$general.boolean",
         "is_game_rule": "$general.boolean",

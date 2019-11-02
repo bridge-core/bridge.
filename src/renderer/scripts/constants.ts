@@ -17,6 +17,10 @@ export const MINECRAFT_VERSIONS = JSON.parse(fs.readFileSync(path.join(__static,
 export { APP_VERSION, MOJANG_PATH };
 export * from "../../shared/Paths";
 export const BASE_PATH = BP_BASE_PATH;
+export const DEBUG_PATH = path.join(
+    process.env["LOCALAPPDATA"],
+    "Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/logs"
+);
 export const CURRENT = {
     get PROJECT_PATH() {
         return path.join(BASE_PATH, Store.state.Explorer.project.explorer);

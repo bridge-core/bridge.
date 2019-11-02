@@ -74,8 +74,8 @@ export default class AddSnippetWindow extends ContentWindow {
                 text: "Add!",
                 action: () => {
                     let data = this.getTemplate(this.data.template);
-                    if(this.data.name === "") return new InformationWindow("Invalid Snippet Name", "\nYou need to provide a name for your snippet.");
-                    if(data === undefined) return new InformationWindow("Invalid Template", "\nThe provided snippet template does not contain valid JSON.");
+                    if(this.data.name === "") return new InformationWindow("Invalid Snippet Name", "You need to provide a name for your snippet.");
+                    if(data === undefined) return new InformationWindow("Invalid Template", "The provided snippet template does not contain valid JSON.");
                     
                     let s = {
                         id: uuid4(),

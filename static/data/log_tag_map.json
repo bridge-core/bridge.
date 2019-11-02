@@ -1,0 +1,22 @@
+{
+    "error": {
+        "icon": "mdi-alert-circle",
+        "color": "error"
+    },
+    "warning": {
+        "icon": "mdi-alert",
+        "color": "warning"
+    },
+    "Molang": {
+        "icon": "mdi-pencil",
+        "color": "info"
+    },
+    "Json": {
+        "icon": "mdi-json",
+        "color": "info"
+    },
+    "Commands": {
+        "icon": "mdi-json",
+        "color": "info"
+    }
+}

@@ -40,7 +40,7 @@ export default class ComponentRegistry {
         this.components = {};
     }
 
-    static set(MASK, component_name, component_data, simulated_call, location) {
+    static set(MASK, component_name, component_data={}, simulated_call=false, location="components") {
         if(this.components[component_name] === undefined)
             return new InformationWindow("ERROR", `Unknown component "${component_name}"!`);
         
@@ -60,19 +60,18 @@ export default class ComponentRegistry {
         let { custom_components } = await LightningCache.load(file_path, FileType.get(file_path)) || {};
         (custom_components || []).forEach(c => MASK.reset(`component@${c}`));
 
-        //LOAD COMPONENTS
+        //PROCESS CUSTOM COMPONENTS
         for(let component_name in this.components) {
+            //CHECK "COMPONENTS"
             let c = use(data, `minecraft:entity/components/${component_name}`);
 
             if(c !== undefined)
                 this.set(MASK, component_name, c, simulated_call, "components");
-        }
-
-        //LOAD COMPONENT GROUPS
-        for(let component_name in this.components) {
+            
+            //CHECK "COMPONENT_GROUPS"
             for(let component_group in data["minecraft:entity"].component_groups || {}) {
                 let c = use(data, `minecraft:entity/component_groups/${component_group}/${component_name}`);
-
+    
                 if(c !== undefined)
                     this.set(MASK, component_name, c, simulated_call, component_group);
             }

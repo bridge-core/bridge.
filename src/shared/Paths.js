@@ -11,7 +11,7 @@ export const MOJANG_PATH = (() => {
 
     // Taken from minecraft-addon-tools/minecraft-addon-toolchain by @AtomicBlom
     let platformRoot = null;
-    switch (os.platform()) {
+    switch(os.platform()) {
         case "win32":
             platformRoot = path.join(
                 process.env["LOCALAPPDATA"],

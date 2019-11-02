@@ -77,7 +77,7 @@ export default class PluginLoader {
                 Store.commit("loadPlugin", {
                     code: (await fs.readFile(plugin_path)).toString(), 
                     path: plugin_path, 
-                    blocked: unloaded_plugins.includes(plugin_path)
+                    blocked: unloaded_plugins.includes(path.basename(plugin_path, ".js"))
                 });
             } else if(path.extname(plugin_path) === ".zip") {
                 //Load archived plugins
@@ -106,7 +106,7 @@ export default class PluginLoader {
             } catch(e) { return; }
 
             //IF ACTIVE: LOAD PLUGIN
-            if(manifest.id && !unloaded_plugins.includes(plugin_path)) {
+            if(manifest.id && !unloaded_plugins.includes(manifest.id)) {
                 await Promise.all([
                     this.loadScripts(plugin_path, manifest.api_version),
                     this.loadSnippets(plugin_path),
@@ -185,7 +185,8 @@ export default class PluginLoader {
             try {
                 await safeEval(c.toString("utf-8"), {
                     Bridge: {
-                        register: (c) => ComponentRegistry.register(c)
+                        register: (c) => ComponentRegistry.register(c),
+                        report: (info) => new InformationWindow("Information", info, false)
                     }
                 });
             } catch(e) { new InformationWindow("ERROR", `Error while loading custom component:\n${e.message}`); }

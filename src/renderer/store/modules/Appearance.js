@@ -52,11 +52,12 @@ document.head.appendChild(STYLE_TAG);
 function applyTheme(theme, mode="dark") {
     let style = `.theme--${mode} .CodeMirror { color: ${mode === "dark" ? 'white' : "black"};}`;
     for(let key in theme) {
-        let { color, text_decoration } = theme[key];
+        let { color, text_decoration, is_italic=false } = theme[key];
 
         style += `.theme--${mode} span.cm-${CM_NAME_MAP[key] || key} {
             color: ${color || 'unset'};
-            text-decoration: ${text_decoration || 'none'}
+            text-decoration: ${text_decoration || 'none'};
+            font-style: ${is_italic ? 'italic' : 'unset'};
         }\n`;
     }
     return style;

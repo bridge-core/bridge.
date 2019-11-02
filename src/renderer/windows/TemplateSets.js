@@ -133,7 +133,7 @@ class TemplateSetsWindow extends TabWindow {
                 action: () => {
                     let { define } = SETS[this.selected_tab];
                     if(define === undefined || !this.inputsFilled())
-                        return new InformationWindow("Inputs", "\nNot all required inputs are filled.");
+                        return new InformationWindow("Inputs", "Not all required inputs are filled.");
                     
                     this.close();
                     L_W = new LoadingWindow("template_set.").show();

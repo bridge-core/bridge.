@@ -38,7 +38,7 @@ function transformEvent(event, { component_groups, description, events, file_nam
     let g = use(event, "add/group");
     if(g !== undefined) {
         let group_name = (typeof g.name !== "object" ? g.name : uuid()) || uuid();
-        set(event, "add/component_groups", group_name);
+        set(event, "add/component_groups", [ group_name ]);
         set(component_groups, group_name, g.components || {});
     }
 

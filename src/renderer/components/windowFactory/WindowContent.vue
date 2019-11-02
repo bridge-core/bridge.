@@ -44,7 +44,7 @@
         v-else-if="content.type == 'tag'"
         :color="content.color"
         @click.stop="action.default"
-        style="margin-left: 2px;"
+        style="margin-right: 4px;"
         small
     >
         <v-icon class="click-action" v-if="content.icon" left>{{ content.icon }}</v-icon>

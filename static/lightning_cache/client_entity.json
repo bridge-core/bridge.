@@ -1,4 +1,5 @@
-[ 
+[
+    { "key": "identifiers", "path": "#;bridge_node_skip;#/description/identifier" },
     { "key": "particle_references", "path": "minecraft:client_entity/description/particle_effects" }, 
     { "key": "animation_references", "path": "minecraft:client_entity/description/animations" },
     { "key": "sound_references", "path": "minecraft:client_entity/description/sound_effects" }, 

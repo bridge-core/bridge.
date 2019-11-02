@@ -22,6 +22,11 @@ const state = {
             menu_type: "documentation"
         },
         {
+            title: "Debug Log",
+            icon: "mdi-console",
+            menu_type: "debug_log"
+        },
+        {
             title: "Extensions",
             icon: "mdi-puzzle",
             menu_type: "extensions"

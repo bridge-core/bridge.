@@ -19,14 +19,17 @@ export default class InformationWindow {
                 height: 120
             }, content: [
                 {
-                    type: "header",
+                    text: "\n"
+                },
+                {
+                    type: "big-header",
                     text: display_name
                 },
                 {
                     type: "divider"
                 },
                 {
-                    text: display_text
+                    text: "\n" + display_text
                 }
             ], actions: [
                 {

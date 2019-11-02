@@ -67,6 +67,7 @@ bridge. applies the default color theme first and then overwrites it with the th
 | --- | --- | ---
 | ```color``` | ```String``` | Color
 | ```text_decoration``` | ```String<underline\|overline\|line-through\|blink>``` | Text decoration
+| ```is_italic``` | ```Boolean``` | Set italic text
 
 ### Example
 
