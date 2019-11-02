@@ -28,6 +28,20 @@
         "speed_multiplier": "$general.decimal"
     },
 
+    "minecraft:behavior.celebrate": {
+        "priority": "$general.number",
+        "celebration_sound": "$general.sound",
+        "sound_interval": {
+            "range_min": "$general.number",
+            "range_max": "$general.number"
+        },
+        "jump_interval": {
+            "range_min": "$general.number",
+            "range_max": "$general.number"
+        },
+        "duration": "$general.number",
+        "on_celebration_end_event": "$entity.general.event_definition"
+    },
     "minecraft:behavior.charge_attack": {
         "priority": "$general.number"
     },
@@ -54,6 +68,14 @@
         "speed_multiplier": "$general.decimal"
     },
 
+    "minecraft:behavior.defend_trusted_target": {
+        "priority": "$general.number",
+        "within_radius": "$general.number",
+        "must_see": "$general.boolean",
+        "aggro_sound": "$general.sound",
+        "sound_chance": "$general.decimal",
+        "on_defend_start": "$entity.general.event_definition"
+    },
     "minecraft:behavior.defend_village_target": { 
         "priority": "$general.number",
         "entity_types": "$entity.general.entity_types"
@@ -112,6 +134,10 @@
         "priority": "$general.number",
         "on_eat": "$entity.general.event_definition"
     },
+    "minecraft:behavior.eat_carried_item": {
+        "priority": "$general.number",
+        "delay_before_eating": "$general.number"
+    },
     "minecraft:behavior.enderman_leave_block": {  "priority": "$general.number" },
     "minecraft:behavior.enderman_take_block": {  "priority": "$general.number" },
     "minecraft:behavior.explore_outskirts": {
@@ -121,6 +147,11 @@
         "speed_multiplier": "$general.decimal"
     },
 
+    "minecraft:behavior.find_cover": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "cooldown_time": "$general.decimal"
+    },
     "minecraft:behavior.find_mount": {
         "priority": "$general.number",
         "within_radius": "$general.number",
@@ -331,6 +362,15 @@
         "search_range": "$general.number",
 	    "speed_multiplier": "$general.decimal"
     },
+    "minecraft:behavior.nap": {
+        "priority": "$general.number",
+        "cooldown_min": "$general.decimal",
+        "cooldown_max": "$general.decimal",
+        "mob_detect_dist": "$general.number",
+        "mob_detect_height": "$general.number",
+        "can_nap_filters": "$entity.filters",
+        "wake_mob_exceptions": "$entity.filters"
+    },
     "minecraft:behavior.nearest_attackable_target": {
         "priority": "$general.number",
         "attack_interval": "$general.number",
@@ -343,6 +383,13 @@
         "scan_interval": "$general.number",
         "target_search_height": "$general.decimal",
         "within_radius": "$general.decimal"
+    },
+    "minecraft:behavior.nearest_prioritized_attackable_target": {
+        "priority": "$general.number",
+        "attack_interval": "$general.number",
+        "reselect_targets": "$general.boolean",
+        "target_search_height": "$general.number",
+        "entity_types": "$entity.general.prioritized_entity_types"
     },
     "minecraft:behavior.ocelotattack": {
         "priority": "$general.number",
@@ -430,6 +477,14 @@
         "look_time": {
             "$dynamic.list.index_pair": "$general.number"
         }
+    },
+    "minecraft:behavior.random_look_around_and_sit": {
+        "priority": "$general.number",
+        "min_look_count": "$general.number",
+        "max_look_count": "$general.number",
+        "min_look_time": "$general.number",
+        "max_look_time": "$general.number",
+        "probability": "$general.decimal"
     },
     "minecraft:behavior.random_sitting": {
         "priority": "$general.number",
@@ -553,6 +608,18 @@
     "minecraft:behavior.squid_idle": { "priority": "$general.number" },
     "minecraft:behavior.squid_dive": { "priority": "$general.number" },
     "minecraft:behavior.squid_out_of_water": { "priority": "$general.number" },
+    "minecraft:behavior.stalk_and_pounce_on_target": {
+        "priority": "$general.number",
+        "stalk_speed": "$general.decimal",
+        "max_stalk_dist": "$general.number",
+        "leap_height": "$general.decimal",
+        "leap_dist": "$general.decimal",
+        "pounce_max_dist": "$general.number",
+        "interest_time": "$general.number",
+        "stuck_time": "$general.number",
+        "strike_dist": "$general.decimal",
+        "stuck_blocks": "$entity.filters"
+    },
     "minecraft:behavior.stay_while_sitting": {
         "priority": "$general.number"
     },
