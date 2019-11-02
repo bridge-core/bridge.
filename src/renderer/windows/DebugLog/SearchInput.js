@@ -8,7 +8,6 @@ export default class SearchDebugLogInput extends InputWindow {
             label: "Search"
         },
         (val) => {
-            console.log(val);
             if(parent) parent.close();
             new SearchListView(val);
         });
