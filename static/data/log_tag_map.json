@@ -7,6 +7,10 @@
         "icon": "mdi-alert",
         "color": "warning"
     },
+    "inform": {
+        "icon": "mdi-information",
+        "color": "info"
+    },
     "Molang": {
         "icon": "mdi-pencil",
         "color": "info"
@@ -17,6 +21,30 @@
     },
     "Commands": {
         "icon": "mdi-json",
+        "color": "info"
+    },
+    "Actor": {
+        "icon": "mdi-chess-knight",
+        "color": "info"
+    },
+    "Components": {
+        "icon": "mdi-package-variant",
+        "color": "info"
+    },
+    "AI": {
+        "icon": "mdi-robot",
+        "color": "info"
+    },
+    "Animation": {
+        "icon": "mdi-movie",
+        "color": "info"
+    },
+    "Geometry": {
+        "icon": "mdi-human",
+        "color": "info"
+    },
+    "UI": {
+        "icon": "mdi-view-quilt",
         "color": "info"
     }
 }

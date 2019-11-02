@@ -1,9 +1,13 @@
 <template>
-    <div v-resize="resize">
+    <p v-if="logs && logs.length === 0" >
+        Unable to find debug log files.
+    </p>
+
+    <div v-else v-resize="resize">
         <v-toolbar color="expanded_sidebar" flat height="30px">
             <v-tooltip color="tooltip" bottom>
                 <template v-slot:activator="{ on }">
-                    <v-btn icon text @click.stop="reload" v-on="on" small class="toolbar-button">
+                    <v-btn :disabled="!logs" icon text @click.stop="reload" v-on="on" small class="toolbar-button">
                         <v-icon small>mdi-refresh</v-icon>
                     </v-btn>
                 </template>
@@ -12,11 +16,33 @@
 
             <v-tooltip color="tooltip" bottom>
                 <template v-slot:activator="{ on }">
-                    <v-btn icon text @click.stop="openSearchBrowser" v-on="on" small class="toolbar-button">
+                    <v-btn :disabled="!logs" icon text @click.stop="openSearchBrowser" v-on="on" small class="toolbar-button">
                         <v-icon small>mdi-magnify</v-icon>
                     </v-btn>
                 </template>
                 <span>Search</span>
+            </v-tooltip>
+
+            <v-spacer/>
+            <span style="font-size: 12px;" v-if="logs">
+                {{ (page_number / PAGE_SIZE) + 1 }}/{{ Math.ceil(logs.length / PAGE_SIZE) }}
+            </span>
+            <v-tooltip color="tooltip" bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn :disabled="!logs || page_number === 0" icon text @click.stop="page_number -= PAGE_SIZE" v-on="on" small class="toolbar-button">
+                        <v-icon small>mdi-chevron-left</v-icon>
+                    </v-btn>
+                </template>
+                <span>Previous</span>
+            </v-tooltip>
+
+            <v-tooltip color="tooltip" bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn :disabled="!logs || page_number + PAGE_SIZE > logs.length" icon text @click.stop="page_number += PAGE_SIZE" v-on="on" small class="toolbar-button">
+                        <v-icon small>mdi-chevron-right</v-icon>
+                    </v-btn>
+                </template>
+                <span>Next</span>
             </v-tooltip>
         </v-toolbar>
         <v-divider/>
@@ -26,8 +52,8 @@
         </p>
         <v-progress-linear v-else-if="logs === null" indeterminate/>
 
-        <div :style="`height: ${sidebar_height}px; overflow-y: auto; padding: 4px;`" v-else>
-            <v-card color="expanded_sidebar" v-for="({ tags, error }, i) in logs" style="margin-bottom: 8px;" :key="i">
+        <div ref="log_container" :style="`height: ${sidebar_height}px; overflow-y: auto; padding: 4px;`" v-else>
+            <v-card color="expanded_sidebar" v-for="({ tags, error }, i) in sliced_logs" style="margin-bottom: 8px;" :key="i">
                 <div
                     :style="`padding: 16px 16px 8px; white-space: nowrap; overflow-x: auto;`"
                     class="small-scrollbar"
@@ -68,7 +94,7 @@
     import LogListView from "../../../windows/DebugLog/ListView";
     import { tag } from '../../../windows/DebugLog/Common';
     import SearchDebugLogInput from '../../../windows/DebugLog/SearchInput';
-    
+    const PAGE_SIZE = 30;
 
     export default {
         name: "debug-log",
@@ -78,12 +104,18 @@
         data() {
             return {
                 logs: null,
-                sidebar_height: window.innerHeight - 140
+                page_number: 0,
+                sidebar_height: window.innerHeight - 140,
+                PAGE_SIZE
             }
         },
         computed: {
             is_windows() {
                 return os.platform() === "win32";
+            },
+            sliced_logs() {
+                if(!this.logs) return this.logs;
+                return this.logs.slice(this.page_number, this.page_number + PAGE_SIZE);
             }
         },
         methods: {
@@ -108,6 +140,12 @@
             },
             getTagIcon(t) {
                 return tag(t).icon;
+            }
+        },
+        watch: {
+            page_number() {
+                console.log(this.$refs.log_container)
+                this.$refs.log_container.scrollTop = 0;
             }
         }
     }

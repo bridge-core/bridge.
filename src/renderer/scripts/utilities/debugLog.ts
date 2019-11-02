@@ -10,8 +10,12 @@ let CACHE: string;
 
 export async function loadDebugLog(force_reload=false) {
     if(!force_reload && CACHE) return CACHE;
+    let dir: string[] = [];
 
-    let dir = await fs.readdir(DEBUG_PATH); //Load DEBUG directory
+    try {
+        dir = await fs.readdir(DEBUG_PATH); //Load DEBUG directory
+    } catch(e) {}
+    
     //Only grab "ContentLog" files and get their stats
     let stats = await Promise.all(
         dir.filter(p => p.includes("ContentLog"))
@@ -31,23 +35,27 @@ export async function loadDebugLog(force_reload=false) {
         return curr;
     });
 
-    CACHE = (await fs.readFile(newest.absolute_path)).toString("utf-8");
+    if(newest)
+        CACHE = (await fs.readFile(newest.absolute_path)).toString("utf-8");
     return CACHE; //Return debug file content
 }
 
 export async function processedDebugLog(force_reload=false) {
     let logs = (await loadDebugLog())
-        .split("\n")
-        .map(str => str.substring(8, str.length).replace(/\r/g, ""))
+        .split("\n\r")
+        .map(str => str.replace(/\r|\n/g, "").substring(8, str.length))
         .filter(str => str !== "");
     
     let processed = [];
     for(let log of logs) {
-        let tags = log.match(/\[.+\]/g).join("]").replace(/\[/g, "").split("]");
-        tags.pop();
+        let match = log.match(/\[.+\](\[error\]|\[warning\]|\[inform\])/g);
+        let tags: string[] = [];
+        if(match !== null)
+            tags = match.join("]").replace(/\[/g, "").split("]");
+
         processed.push({
-            tags,
-            error: log.replace(/\[.+\]/g, "").substr(1)
+            tags: tags.filter(t => t !== ""),
+            error: log.replace(/\[.+\](\[error\]|\[warning\]|\[inform\])/g, "").substr(1)
         });
     }
 

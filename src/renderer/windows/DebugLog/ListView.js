@@ -3,6 +3,7 @@ import LogCard from "./LogCard";
 import Title from "./Title";
 import { processedDebugLog } from "../../scripts/utilities/debugLog";
 import SearchDebugLogInput from "./SearchInput";
+import { PAGE_SIZE } from "./Common";
 
 export default class LogListView extends ContentWindow {
     constructor(tag_filter, from=0) {
@@ -40,30 +41,38 @@ export default class LogListView extends ContentWindow {
                 if(tag_filter)
                     logs = logs.filter(({ tags }) => tags.includes(tag_filter));
 
+                if(logs.length === 0)
+                    BASE.push({ text: "Unable to find debug log files." });
+
                 BASE.push(
                     ...logs
                         .map(log => [ new LogCard(this, log), { text: "\n\n" } ])
                         .flat()
-                        .slice(from, from + 20)
+                        .slice(from, from + PAGE_SIZE)
                 );
                 this.actions = [
                     { type: "space" },
                     {
+                        text: `${ (from / PAGE_SIZE) + 1 }/${ Math.ceil(logs.length / PAGE_SIZE) }`
+                    },
+                    {
                         type: "icon-button",
+                        only_icon: true,
                         text: "mdi-chevron-left",
                         is_disabled: from === 0,
                         action: () => {
                             this.close();
-                            new LogListView(tag_filter, from - 20);
+                            new LogListView(tag_filter, from - PAGE_SIZE);
                         }
                     },
                     {
                         type: "icon-button",
+                        only_icon: true,
                         text: "mdi-chevron-right",
-                        is_disabled: from + 20 > logs.length,
+                        is_disabled: from + PAGE_SIZE > logs.length,
                         action: () => {
                             this.close();
-                            new LogListView(tag_filter, from + 20);
+                            new LogListView(tag_filter, from + PAGE_SIZE);
                         }
                     }
                 ];

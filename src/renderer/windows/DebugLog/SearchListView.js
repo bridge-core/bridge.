@@ -3,6 +3,7 @@ import LogCard from "./LogCard";
 import Title from "./Title";
 import { processedDebugLog } from "../../scripts/utilities/debugLog";
 import SearchDebugLogInput from "./SearchInput";
+import { PAGE_SIZE } from "./Common";
 
 export default class SearchListView extends ContentWindow {
     constructor(search_filter, from=0) {
@@ -47,26 +48,31 @@ export default class SearchListView extends ContentWindow {
                     ...logs
                         .map(log => [ new LogCard(this, log), { text: "\n\n" } ])
                         .flat()
-                        .slice(from, from + 20)
+                        .slice(from, from + PAGE_SIZE)
                 );
                 this.actions = [
                     { type: "space" },
                     {
+                        text: `${ (from / PAGE_SIZE) + 1 }/${ Math.ceil(logs.length / PAGE_SIZE) }`
+                    },
+                    {
                         type: "icon-button",
                         text: "mdi-chevron-left",
+                        only_icon: true,
                         is_disabled: from === 0,
                         action: () => {
                             this.close();
-                            new LogListView(search_filter, from - 20);
+                            new LogListView(search_filter, from - PAGE_SIZE);
                         }
                     },
                     {
                         type: "icon-button",
                         text: "mdi-chevron-right",
-                        is_disabled: from + 20 > logs.length,
+                        only_icon: true,
+                        is_disabled: from + PAGE_SIZE > logs.length,
                         action: () => {
                             this.close();
-                            new LogListView(search_filter, from + 20);
+                            new LogListView(search_filter, from + PAGE_SIZE);
                         }
                     }
                 ];
