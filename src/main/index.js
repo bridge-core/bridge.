@@ -1,7 +1,8 @@
 import { app, BrowserWindow, ipcMain, Menu } from "electron";
-import "./communicator.js";
+import "./communicator";
 import "./Discord";
-import { BP_BASE_PATH } from "../shared/paths.js";
+import { BP_BASE_PATH } from "../shared/Paths";
+import { join } from "path";
 import MENU from "./menuBuilder";
 
 //Set __static path to static files in production
@@ -57,7 +58,7 @@ function createSplashScreen() {
         height: 300,
         useContentSize: true,
         width: 300,
-        frame: false,
+        frame: process.platform === "darwin",
         resizable: false,
         webPreferences: {
             nodeIntegration: true
@@ -124,7 +125,7 @@ app.on("activate", () => {
 ipcMain.on("toggleDevTools", () => { mainWindow.toggleDevTools(); });
 ipcMain.on("bridge:setOverlayIcon", (event, project) => {
     try {
-        mainWindow.setOverlayIcon((BP_BASE_PATH + project + "/pack_icon.png").replace(/\//g, "\\"), project);
+        mainWindow.setOverlayIcon(join(BP_BASE_PATH, project, "/pack_icon.png"), project);
     } catch(e) {
         mainWindow.setOverlayIcon(null, "");
     }

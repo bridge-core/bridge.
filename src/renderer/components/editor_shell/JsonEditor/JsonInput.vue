@@ -17,12 +17,13 @@
                 chips
                 :label="label"
                 :items="items"
+                dense
                 :menu-props="{ maxHeight: 120, top: false, contentClass: 'json-input-suggestions' }"
                 :hide-no-data="true"
                 no-data-text="No suggestions available..."
                 class="json-input-menu"
             ></v-combobox>
-            <v-btn rounded @click="click" :disabled="type === 'edit' && file_navigation === 'global'">
+            <v-btn style="margin-left: 4px;" color="default_button" @click="click" :disabled="type === 'edit' && file_navigation === 'global'">
                 <v-icon>mdi-plus</v-icon>
             </v-btn>
         </v-layout>
@@ -70,7 +71,7 @@
         },
         watch: {
             file_navigation(nav) {
-                if(this.type == "edit") return;
+                if(this.type === "edit") return;
                 this.updateAutoCompletions();
             },
             provide_auto_completions(prov_auto) {
@@ -106,8 +107,10 @@
                     current.type = "object";
                     EventBus.trigger("setWatcherInactive");
 
-                     if(!current.meta.expand_path_exceptions || !current.meta.expand_path_exceptions.includes(this.value))
+                    if(!current.meta.expand_path_exceptions || !current.meta.expand_path_exceptions.includes(this.value))
                         this.expandPath(this.value);
+                    else 
+                        this.updateAutoCompletions();
                 } else if(this.file_navigation !== "global" && this.type === "value") {
                     if(current.children.length > 0) return;
 
@@ -205,8 +208,3 @@
     }
 </style>
 
-<style>
-    .v-menu__content.v-autocomplete__content .v-list__tile:not(.v-list__tile--avatar) {
-        height: 26px !important;
-    }
-</style>

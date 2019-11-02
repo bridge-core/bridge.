@@ -13,6 +13,8 @@ import { walkSync } from "../autoCompletions/Dynamic";
 import LoadingWindow from "../../windows/LoadingWindow";
 import OmegaCache from "../editor/OmegaCache";
 import FileType from "../editor/FileType";
+import PluginLoader from "./PluginLoader";
+import path from "path";
 
 export default class Bridge {
     constructor(is_module, file_path) {
@@ -144,7 +146,7 @@ export default class Bridge {
                 return fs.existsSync((Runtime.Paths.project() + path).replace(/\//g, "\\"));
             },
             stats(path, cb) {
-                fs.lstat(Runtime.Paths.project() + path, (err, data) => {
+                fs.stat(Runtime.Paths.project() + path, (err, data) => {
                     if(err && !cb) PluginAssert.throw(this.__file_path__, err);
                     cb(err, data);
                 });
@@ -312,7 +314,7 @@ export default class Bridge {
     }
 
     registerPlugin(plugin_info) {
-        Runtime.Plugins.add(this.plugin_id, { ...plugin_info, id: this.__file_path__ });
+        PluginLoader.pushPluginData({ ...plugin_info, id: path.basename(this.__file_path__, ".js") });
     }
     
 

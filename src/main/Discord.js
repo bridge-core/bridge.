@@ -1,5 +1,5 @@
 import DRP from "discord-rich-presence";
-import APP_VERSION from "../renderer/scripts/constants/app_version";
+import APP_VERSION from "../shared/app_version";
 
 const client = DRP("554245594332528651");
 const START_TIME = Date.now();

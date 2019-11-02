@@ -1,6 +1,6 @@
 <template>
     <span class="hl-wrapper">
-        <span v-for="(string, i) in text_as_array" :key="`${text}.${i}`" :style="styles(string)">{{ string }}</span>
+        <span v-for="(string, i) in text_as_array" :key="`${text}.${i}`" :class="style_class(string)">{{ string }}</span>
     </span>
 </template>
 
@@ -30,7 +30,7 @@
                 return "";
             },
             text_as_array() {
-                return this.text.replace(/:|<|>|\.|\s|\(|\)/g, (match) => {
+                return this.text.replace(/:|<|>|\.|\s|\(|\)|\!/g, (match) => {
                     return `&bridge.split-point;${match}&bridge.split-point;`
                 }).split("&bridge.split-point;");
             },
@@ -42,13 +42,13 @@
             }
         },
         methods: {
-            styles(string) {
-                if(this.keywords.includes(string)) {
-                    return this.color_theme.keyword;
-                } else if(this.titles.includes(string)) {
-                    return this.color_theme.property;
-                } else if(this.symbols.includes(string)) {
-                    return this.color_theme.definition;
+            style_class(string) {
+                const check_obj = { keyword: this.keywords, property: this.titles, def: this.symbols };
+
+                for(let check in check_obj) {
+                    if(check_obj[check].includes(string)) {
+                        return "cm-" + check;
+                    }
                 }
             },
             updateWords() {

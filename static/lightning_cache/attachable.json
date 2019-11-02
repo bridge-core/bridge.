@@ -1,0 +1,5 @@
+[ 
+    { "key": "texture_references", "path": "minecraft:attachable/description/textures" }, 
+    { "key": "material_references", "path": "minecraft:attachable/description/materials" }, 
+    { "key": "geometry_references", "path": "minecraft:attachable/description/geometry" }
+]

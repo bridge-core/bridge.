@@ -56,12 +56,12 @@ Additionally, "bridge." has a few more specific features which other editors do 
    - Hook into a variety of different events
    - Develop your own custom add-on syntax
    - [Library](https://github.com/solvedDev/bridge-plugins) with existing plugins to download from within bridge.
-   - [Read more...](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
+   - [Read more...](https://github.com/solvedDev/bridge./blob/master/plugin_docs/main.md)
 
 ## bridge. Plugins
 __Documentation__
 
-You can read more on plugins [here](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md).
+You can read more on plugins [here](https://github.com/solvedDev/bridge./blob/master/plugin_docs/main.md).
 
 __Library__
 

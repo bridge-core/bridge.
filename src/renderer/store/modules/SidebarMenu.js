@@ -1,6 +1,6 @@
 import Store from "../index";
 import Bridge from "../../scripts/plugins/PluginEnv";
-import detachObj from "../../scripts/detachObj";
+import detachObj from "../../scripts/mergeUtils";
 import Vue from "vue";
 
 const state = {
@@ -20,6 +20,11 @@ const state = {
             title: "Documentation",
             icon: "mdi-book-open-page-variant",
             menu_type: "documentation"
+        },
+        {
+            title: "Debug Log",
+            icon: "mdi-console",
+            menu_type: "debug_log"
         },
         {
             title: "Extensions",

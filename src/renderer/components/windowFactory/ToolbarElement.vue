@@ -1,6 +1,7 @@
 <template>
-        <v-tooltip  
-            right 
+        <v-tooltip
+            bottom
+            color="tooltip"
             :disabled="!show_tooltip"
         >
             <template v-slot:activator="{ on }">

@@ -1,0 +1,8 @@
+{
+    "bridge:tag": {
+        "description": {
+            "identifier":  "$general.file_identifier"
+        },
+        "$load": "$entity.main_beta.minecraft:entity"
+    }
+}

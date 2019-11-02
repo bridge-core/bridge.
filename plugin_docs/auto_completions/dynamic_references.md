@@ -9,6 +9,9 @@ Since v0.13.0-pre10 it is possible to define which file data you want to cache. 
 ### Built-in References
 | Reference | Description 
 | --- | --- 
+| ```$dynamic.bridge_core.is_active``` | Returns whether the bridge. Core plugin is active
+| ```$dynamic.bridge_core.is_not_active``` | Returns whether the bridge.  plugin is not active
+| ```$dynamic.plugins.custom_components``` | Returns the auto-completion data for currently registered custom components
 | ```$dynamic.list.next_index``` | Returns the next array index
 | ```$dynamic.list.index_pair``` | Returns only "0" & "1"
 | ```$dynamic.list.index_triple``` | Returns "0", "1" & "2"
@@ -24,6 +27,12 @@ Since v0.13.0-pre10 it is possible to define which file data you want to cache. 
 | ```$dynamic.animation_controller.current_states``` | Returns currently defined states
 | ```$dynamic.animation_controller_ids``` | Returns all animation controller ids
 | ```$dynamic.animation_ids``` | Returns all animation ids
+| ```$dynamic.client_entity.animation_references``` | Returns animation references inside the current file
+| ```$dynamic.rp.item_textures``` | Returns all textures defined inside the ```item_texture.json``` file
+| ```$dynamic.rp.terrain_texture``` | Returns all textures defined inside the ```terrain_texture.json``` file
+| ```$dynamic.rp.entity_textures``` | Returns all files inside ```textures/entity/```
+| ```$dynamic.rp.item_png``` | Returns all files inside ```textures/items/```
+| ```$dynamic.rp.block_png``` | Returns all files inside ```textures/blocks/```
 |  ```$dynamic.siblings``` | Returns parent context of the currently selected JSON node as JSON
 |  ```$dynamic.children``` | Returns childrens of the currently selected node as JSON
 |  ```$dynamic.current_file_name``` | Returns current file name

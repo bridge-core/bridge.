@@ -5,13 +5,14 @@
         :persistent="is_persistent"
         :hide-overlay="!blur_background"
         :max-width="is_fullscreen ? maxWidth : width"
+        :content-class="(win.options || {}).elevation !== undefined ? `elevation-${win.options.elevation}` : ''"
     >
-        <v-card ref="movable_card" :color="win.options ? win.options.main_color : undefined">
+        <v-card ref="movable_card" :color="win.options ? (win.options.main_color || 'background') : 'background'">
             <v-system-bar 
                 v-if="has_toolbar" 
                 ref="drag_region" 
                 height="30px"
-                :color="win.options ? win.options.toolbar_color : undefined"
+                :color="win.options ? (win.options.toolbar_color || 'toolbar') : 'toolbar'"
                 style="overflow-x: auto; overflow-y: hidden;"
             >
                 <span class="px14-font">{{ window_title }}</span>
@@ -54,15 +55,18 @@
                 height: ${is_fullscreen ? maxHeight : height}px;
                 padding-right: ${has_no_padding ? '0px' : '16px'};
                 padding-left: ${has_sidebar || has_no_padding ? 0 : 8}px;
+                padding-bottom: 0px;
             `">
                 <v-list
                     class="sidebar"
                     v-if="has_sidebar"
+                    color="sidebar_navigation"
                     :style="`
                         width: 59px;
-                        border-right: 1px solid rgba(${is_dark_mode ? '255' : '0'}, ${is_dark_mode ? '255' : '0'}, ${is_dark_mode ? '255' : '0'}, 0.12);
+                        border-right: 1px solid rgba(${is_dark_mode ? '255, 255, 255' : '0, 0, 0'}, 0.12) !important;
                         position: absolute;
-                        height: ${(is_fullscreen ? maxHeight : height) - 20}px;
+                        height: ${(is_fullscreen ? maxHeight : height)}px;
+                        padding: 8px 0;
                         overflow-y: auto;
                         overflow-x: hidden;
                     `"
@@ -78,11 +82,11 @@
                 </v-list>
                 <div :style="`
                     margin-left: ${has_sidebar ? 60 : 0}px;
-                    padding-left: ${has_no_padding ? '0px' : '8px'};
-                    overflow-y: auto;
+                    padding-left: ${has_no_padding ? 0 : 8}px;
+                    overflow-y: hidden;
                 `">
                     <window-content 
-                        v-for="(content) in win.content" 
+                        v-for="(content) in content" 
                         :key="key(content)" 
                         :content="typeof content === 'function' ? content() : content"
                     />
@@ -94,9 +98,9 @@
                 />
             </v-card-text>
             <v-divider v-if="win.actions != undefined"/>
-            <v-card-actions v-if="win.actions != undefined">
+            <v-card-actions background-color="footer" v-if="win.actions != undefined">
                 <window-content 
-                    v-for="(content) in win.actions" 
+                    v-for="(content) in actions" 
                     :key="key(content)"
                     :content="typeof content === 'function' ? content() : content"
                     style="overflow-x: auto;"
@@ -160,12 +164,12 @@ export default {
             return !this.win.options || this.win.options.is_frameless == undefined || !this.win.options.is_frameless;
         },
         has_no_padding() {
-            return !this.win.options || this.win.options.no_padding;
+            return this.win.options && this.win.options.no_padding;
         },
 
         //DIALOG
         blur_background() {
-            return !this.win.options || this.win.options.blurs_background == undefined || this.win.options.blurs_background;
+            return !this.win.options || this.win.options.blurs_background === undefined || this.win.options.blurs_background;
         },
         is_persistent() {
             return !this.win.options || this.win.options.is_persistent == undefined || this.win.options.is_persistent;
@@ -193,6 +197,12 @@ export default {
         //Sidebar
         has_sidebar() {
             return this.win.sidebar != undefined;
+        },
+        actions() {
+            return this.win.actions.filter(e => e !== undefined);
+        },
+        content() {
+            return this.win.content.filter(e => e !== undefined);
         }
     },
     watch: {
@@ -209,7 +219,7 @@ export default {
             return uuidv4();
         },
         key(c) {
-            return (typeof c === 'function' ? c().key : c.key) || uuidv4();
+            return (typeof c === 'function' ? c().key : (c || {}).key) || uuidv4();
         }
     },
 

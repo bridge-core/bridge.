@@ -5,7 +5,7 @@
         :position-x="x_position"
         :position-y="y_position"
     >
-        <v-card>
+        <v-card color="background">
             <v-card-text>
                 <pre>{{ data.slice(0, 200) + (data.length > 200 ? "..." : "") }}</pre>
                 
@@ -14,6 +14,7 @@
 
             <v-text-field
                 solo
+                background-color="background"
                 v-model="current_comment"
                 @input="updateComment"
                 label="Click to add a comment"
@@ -32,18 +33,17 @@
                         v-else-if="btn.condition === undefined || btn.condition()"
                         :key="i"
                         bottom
-                        :color="btn.color || 'info'"
-                        :style="`margin-right: ${ i + 1 <= buttons.length ? 4 : 0}px;`"
+                        :color="btn.color || 'tooltip_color'"
                     >
                         <template v-slot:activator="{ on }">
                             <v-btn
                                 v-on="on"
-                                :color="btn.color || 'info'" 
-                                rounded
+                                :color="btn.color"
+                                :style="`margin-right: ${i + 1 <= buttons.length ? 4 : 0}px; min-width: 30px; padding: 0;`"
                                 small
                                 @click="btn.action"
                             >
-                                <v-icon color="white">{{ btn.icon }}</v-icon>
+                                <v-icon :color="btn.color ? 'white' : undefined">{{ btn.icon }}</v-icon>
                             </v-btn>
                         </template>
 
@@ -57,11 +57,14 @@
 
 <script>
 import TabSystem from "../../../scripts/TabSystem";
-import { clipboard } from "electron";
+import FileSystem from "../../../scripts/FileSystem";
+import { clipboard, shell } from "electron";
 import { JSONAction } from "../../../scripts/TabSystem/CommonHistory";
 import EventBus from "../../../scripts/EventBus";
-import { DOC_WINDOW } from "../../../scripts/documentation/main";
 import NodeShortcuts from "../../../scripts/editor/NodeShortcuts";
+import JumpToDefintion from "../../../scripts/editor/JumpToDef";
+import { openDocumentation } from '../../../scripts/editor/Documentation';
+
 
 export default {
     name: "json-editor-hover-card",
@@ -71,7 +74,7 @@ export default {
             buttons: [
                 {
                     title: "Ignore Error",
-                    color: "orange",
+                    color: "indigo",
                     condition: () => {
                         let c = TabSystem.getCurrentNavObj();
                         return c && c.error !== undefined && c.meta.ignore_error === undefined;
@@ -87,7 +90,7 @@ export default {
                 },
                 {
                     title: "Reveal Error",
-                    color: "success",
+                    color: "indigo lighten-2",
                     condition: () => {
                         let c = TabSystem.getCurrentNavObj();
                         return c && c.error !== undefined && c.meta.ignore_error !== undefined;
@@ -104,24 +107,47 @@ export default {
                 {
                     title: "Documentation",
                     icon: "mdi-book-open-page-variant",
-                    color: "orange",
+                    color: "indigo",
                     action: () => {
                         this.is_visible = false;
-                        
-                        DOC_WINDOW.open("entities");
-                        let e = document.getElementById(TabSystem.getCurrentNavContent());
-                        window.setTimeout(() => { if(e) e.scrollIntoView() }, 1000);
+                        openDocumentation(TabSystem.getCurrentNavObj().key);
+                    }
+                },
+                {
+                    title: "Jump To Definition",
+                    icon: "mdi-code-braces",
+                    color: "indigo",
+                    condition: () => {
+                        let c = TabSystem.getCurrentNavObj();
+                        if(!c || !c.meta.definitions || c.data === "") return false;
+
+                        let open = JumpToDefintion.fetchSync(c.meta.definitions, c.data);
+                        if(open.length === 0) return false;
+
+                        for(let f of open) {
+                            if(!TabSystem.isSelected(f)) return true;
+                        }
+                        return false;
+                    },
+                    action: async () => {
+                        this.is_visible = false;
+                        let c = TabSystem.getCurrentNavObj();
+                        const open = await JumpToDefintion.fetch(c.meta.definitions, c.data);
+                        if(open.length === 0) new InformationWindow("Definition Not Found", `Unable to find ${definitions.join("/")} definition "${fetch_data}".`);
+                        else open.forEach(f => FileSystem.open(f));
                     }
                 },
                 "space",
                 {
                     title: "Move Down",
                     icon: "mdi-chevron-down",
+                    color: "secondary",
                     action: () => TabSystem.moveCurrentDown()
                 },
                 {
                     title: "Move Up",
                     icon: "mdi-chevron-up",
+                    color: "secondary",
                     action: () => TabSystem.moveCurrentUp()
                 },
                 {

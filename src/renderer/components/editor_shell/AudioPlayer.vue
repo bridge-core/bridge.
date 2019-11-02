@@ -10,7 +10,7 @@
                 :size="100"
                 :width="4"
                 :value="currentTime / duration * 100"
-                color="success"
+                color="primary"
             />
             <v-btn @click="() => toggleMute()">
                 <v-icon v-if="is_muted">mdi-volume-mute</v-icon>

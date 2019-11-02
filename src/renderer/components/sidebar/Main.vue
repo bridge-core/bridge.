@@ -1,11 +1,14 @@
 <template>
     <v-flex
         v-if="sidebar_menu_state != 0 && current_menu"
-        :style="`background: ${is_dark_mode ? '#424242' : '#fff'}; border-right: 1px solid ${is_dark_mode ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'};`"
         xs2
         fixed
     >
-        <v-list>
+        <v-list
+            color="expanded_sidebar"
+            :style="`border-right: 1px solid ${is_dark_mode ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'} !important;`"
+            height="100%"
+        >
             <h2>{{ current_menu.title }}</h2>
             <v-divider></v-divider>
             

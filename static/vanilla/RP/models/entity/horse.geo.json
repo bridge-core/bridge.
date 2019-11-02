@@ -10,6 +10,7 @@
       {
         "name": "Body",
         "pivot": [ 0.00, 13.00, 9.00 ],
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -5.00, 11.00, -10.00 ],
@@ -21,8 +22,7 @@
       {
         "name": "TailA",
         "pivot": [ 0.00, 21.00, 14.00 ],
-        "bind_pose_rotation": [ -65.00, 0.00, 0.00 ],
-        "parent":  "Body",
+        "rotation": [ -65.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -1.00, 20.00, 14.00 ],
@@ -34,8 +34,7 @@
       {
         "name": "TailB",
         "pivot": [ 0.00, 21.00, 14.00 ],
-        "bind_pose_rotation": [ -65.00, 0.00, 0.00 ],
-        "parent": "TailA",
+        "rotation": [ -65.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -1.50, 19.00, 17.00 ],
@@ -47,8 +46,7 @@
       {
         "name": "TailC",
         "pivot": [ 0.00, 21.00, 14.00 ],
-        "bind_pose_rotation": [ -80.34, 0.00, 0.00 ],
-        "parent": "TailA",
+        "rotation": [ -80.34, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -1.50, 21.50, 23.00 ],
@@ -60,7 +58,7 @@
       {
         "name": "Leg1A",
         "pivot": [ 4.00, 15.00, 11.00 ],
-        "parent": "Body",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 1.50, 8.00, 8.50 ],
@@ -72,7 +70,7 @@
       {
         "name": "Leg1B",
         "pivot": [ 4.00, 8.00, 11.00 ],
-        "parent": "Leg1A",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 2.00, 3.00, 9.50 ],
@@ -84,7 +82,7 @@
       {
         "name": "Leg1C",
         "pivot": [ 4.00, 8.00, 11.00 ],
-        "parent": "Leg1B",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 1.50, -0.10, 9.00 ],
@@ -96,7 +94,7 @@
       {
         "name": "Leg2A",
         "pivot": [ -4.00, 15.00, 11.00 ],
-        "parent": "Body",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -5.50, 8.00, 8.50 ],
@@ -108,7 +106,7 @@
       {
         "name": "Leg2B",
         "pivot": [ -4.00, 8.00, 11.00 ],
-        "parent": "Leg2A",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -5.00, 3.00, 9.50 ],
@@ -120,7 +118,7 @@
       {
         "name": "Leg2C",
         "pivot": [ -4.00, 8.00, 11.00 ],
-        "parent": "Leg2B",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -5.50, -0.10, 9.00 ],
@@ -132,7 +130,7 @@
       {
         "name": "Leg3A",
         "pivot": [ 4.00, 15.00, -8.00 ],
-        "parent": "Body",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 2.10, 8.00, -10.10 ],
@@ -144,7 +142,7 @@
       {
         "name": "Leg3B",
         "pivot": [ 4.00, 8.00, -8.00 ],
-        "parent": "Leg3A",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 2.10, 3.00, -9.60 ],
@@ -156,7 +154,7 @@
       {
         "name": "Leg3C",
         "pivot": [ 4.00, 8.00, -8.00 ],
-        "parent": "Leg3B",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 1.60, -0.10, -10.10 ],
@@ -168,7 +166,7 @@
       {
         "name": "Leg4A",
         "pivot": [ -4.00, 15.00, -8.00 ],
-        "parent": "Body",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -5.10, 8.00, -10.10 ],
@@ -180,7 +178,7 @@
       {
         "name": "Leg4B",
         "pivot": [ -4.00, 8.00, -8.00 ],
-        "parent": "Leg4A",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -5.10, 3.00, -9.60 ],
@@ -192,7 +190,7 @@
       {
         "name": "Leg4C",
         "pivot": [ -4.00, 8.00, -8.00 ],
-        "parent": "Leg4B",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -5.60, -0.10, -10.10 ],
@@ -204,10 +202,7 @@
       {
         "name": "Head",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "parent": "Neck",
-        "locators": {
-          "lead": [ 0.0, 19.5, -9.7 ] 
-        },
+        "rotation": [ 30.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -2.50, 25.00, -11.50 ],
@@ -219,7 +214,7 @@
       {
         "name": "UMouth",
         "pivot": [ 0.00, 20.05, -10.00 ],
-        "parent": "Head",
+        "rotation": [ 30.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -2.00, 27.05, -17.00 ],
@@ -231,7 +226,7 @@
       {
         "name": "LMouth",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "parent": "Head",
+        "rotation": [ 30.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -2.00, 25.00, -16.50 ],
@@ -243,7 +238,7 @@
       {
         "name": "Ear1",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "parent": "Head",
+        "rotation": [ 30.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 0.45, 29.00, -6.00 ],
@@ -255,7 +250,7 @@
       {
         "name": "Ear2",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "parent": "Head",
+        "rotation": [ 30.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -2.45, 29.00, -6.00 ],
@@ -267,7 +262,7 @@
       {
         "name": "MuleEarL",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "parent": "Head",
+        "rotation": [ 30.00, 0.00, 15.00 ],
         "cubes": [
           {
             "origin": [ -2.00, 29.00, -6.00 ],
@@ -279,7 +274,7 @@
       {
         "name": "MuleEarR",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "parent": "Head",
+        "rotation": [ 30.00, 0.00, -15.00 ],
         "cubes": [
           {
             "origin": [ 0.00, 29.00, -6.00 ],
@@ -291,8 +286,7 @@
       {
         "name": "Neck",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "bind_pose_rotation": [ 30.00, 0.00, 0.00 ],
-        "parent": "Body",
+        "rotation": [ 30.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -2.05, 15.80, -12.00 ],
@@ -304,7 +298,7 @@
       {
         "name": "Bag1",
         "pivot": [ -7.50, 21.00, 10.00 ],
-        "parent": "Body",
+        "rotation": [ 0.00, 90.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -10.50, 13.00, 10.00 ],
@@ -316,7 +310,7 @@
       {
         "name": "Bag2",
         "pivot": [ 4.50, 21.00, 10.00 ],
-        "parent": "Body",
+        "rotation": [ 0.00, 90.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 1.50, 13.00, 10.00 ],
@@ -328,7 +322,7 @@
       {
         "name": "Saddle",
         "pivot": [ 0.00, 22.00, 2.00 ],
-        "parent": "Body",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -5.00, 21.00, -1.00 ],
@@ -340,7 +334,7 @@
       {
         "name": "SaddleB",
         "pivot": [ 0.00, 22.00, 2.00 ],
-        "parent": "Saddle",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -1.50, 22.00, -1.00 ],
@@ -352,7 +346,7 @@
       {
         "name": "SaddleC",
         "pivot": [ 0.00, 22.00, 2.00 ],
-        "parent": "Saddle",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -4.00, 22.00, 5.00 ],
@@ -364,7 +358,7 @@
       {
         "name": "SaddleL2",
         "pivot": [ 5.00, 21.00, 2.00 ],
-        "parent": "Saddle",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 4.50, 13.00, 1.00 ],
@@ -376,7 +370,7 @@
       {
         "name": "SaddleL",
         "pivot": [ 5.00, 21.00, 2.00 ],
-        "parent": "Saddle",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 4.50, 15.00, 1.50 ],
@@ -388,7 +382,7 @@
       {
         "name": "SaddleR2",
         "pivot": [ -5.00, 21.00, 2.00 ],
-        "parent": "Saddle",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -5.50, 13.00, 1.00 ],
@@ -400,7 +394,7 @@
       {
         "name": "SaddleR",
         "pivot": [ -5.00, 21.00, 2.00 ],
-        "parent": "Saddle",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -5.50, 15.00, 1.50 ],
@@ -412,7 +406,7 @@
       {
         "name": "SaddleMouthL",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "parent": "HeadSaddle",
+        "rotation": [ 30.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 1.50, 26.00, -14.00 ],
@@ -424,7 +418,7 @@
       {
         "name": "SaddleMouthR",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "parent": "HeadSaddle",
+        "rotation": [ 30.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -2.50, 26.00, -14.00 ],
@@ -436,7 +430,7 @@
       {
         "name": "SaddleMouthLine",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "parent": "Neck",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ 2.60, 23.00, -16.00 ],
@@ -448,7 +442,7 @@
       {
         "name": "SaddleMouthLineR",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "parent": "Neck",
+        "rotation": [ 0.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -2.60, 23.00, -16.00 ],
@@ -460,8 +454,7 @@
       {
         "name": "Mane",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "bind_pose_rotation": [ 30.00, 0.00, 0.00 ],
-        "parent": "Neck",
+        "rotation": [ 30.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -1.00, 15.50, -5.00 ],
@@ -473,7 +466,7 @@
       {
         "name": "HeadSaddle",
         "pivot": [ 0.00, 20.00, -10.00 ],
-        "parent": "Head",
+        "rotation": [ 30.00, 0.00, 0.00 ],
         "cubes": [
           {
             "origin": [ -2.50, 25.10, -17.00 ],

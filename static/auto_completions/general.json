@@ -7,9 +7,9 @@
     "boolean": [ "true", "false" ],
     "number_boolean": [ "0", "1" ],
     
-    "format_version": [ "1.8.0", "1.9.0", "1.10.0", "1.11.0", "1.12.0", "1.13.0" ],
+    "format_version": [ "1.8.0", "1.9.0", "1.10.0", "1.11.0", "1.12.0", "1.13.0", "1.14.0" ],
     "translatable_text": { "@meta": { "is_value": true } },
-    "file_identifier": "('bridge:' + $dynamic.current_file_name)",
+    "file_identifier": "($dynamic.setting.project_prefix + $dynamic.current_file_name)",
     "inventory_type": [
         "minecart_chest", "horse", "minecart_hopper", "container"
     ],
@@ -41,9 +41,18 @@
     "particle_name": [
         "mobspellambient", "villagerangry", "blockbreak", "blockdust", "bubble", "evaporation", "crit", "dragonbreath", "driplava", "dripwater", "reddust", "spell", "mobappearance", "enchantingtable", "endrod",  "mobspell", "largeexplode", "hugeexplosion", "fallingdust", "fireworksspark", "waterwake", "flame", "villagerhappy", "heart", "mobspellinstantaneous", "iconcrack", "slime", "snowballpoof", "largesmoke", "lava", "mobflame", "townaura", "nautilus", "note", "explode", "portal", "rainsplash", "smoke", "watersplash", "ink", "terrain", "totem", "trackingemitter", "witchspell"
     ],
-    "entity_identifier": "$dynamic.cache.entity.identifiers and $vanilla.entity_identifier",
-    "block_identifier": "$dynamic.cache.block.identifiers and $vanilla.block_identifier",
-    "item_identifier": "$dynamic.cache.item.identifiers and $vanilla.item_identifier",
+    "entity_identifier": {
+        "@meta": { "definitions": [ "entity" ] },
+        "@import.value.entity": "$dynamic.cache.entity.identifiers and $vanilla.entity_identifier"
+    },
+    "block_identifier": {
+        "@meta": { "definitions": [ "block" ] },
+        "@import.value.block": "$dynamic.cache.block.identifiers and $vanilla.block_identifier"
+    },
+    "item_identifier": {
+        "@meta": { "definitions": [ "item" ] },
+        "@import.value.item": "$dynamic.cache.item.identifiers and $vanilla.item_identifier"
+    },
     "effect_name": [
         "absorption", "bad_omen", "blindness", "conduit_power", "fatal_poison", "fire_resistance", "haste", "health_boost", "hunger", "instant_damage", "instant_health", "invisibility", "jump_boost", "levitation", "mining_fatigue", "nausea", "night_vision", "poison", "regeneration", "resistance", "saturation", "slow_falling", "slowness", "speed", "strength", "village_hero", "water_breathing", "weakness", "wither"
     ],

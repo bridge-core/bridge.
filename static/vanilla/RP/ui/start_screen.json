@@ -227,7 +227,8 @@
                   },
                   {
                     "binding_name": "#is_appearance_visible",
-                    "binding_name_override": "#visible"
+                    "binding_name_override": "#visible",
+                    "binding_condition":  "always"
                   }
                 ]
               }
@@ -813,7 +814,7 @@
             },
             {
               "stacked_row_2@start.stacked_row": {
-                "ignored": "(not $trial)",
+                "ignored": "(not $trial or $use_single_column_for_buttons)",
                 "controls": [
                   {
                     "stacked_columns": {
@@ -878,7 +879,7 @@
             },
             {
               "settings@start.stacked_row": {
-                "ignored": "$trial",
+                "ignored": "($trial and not $use_single_column_for_buttons)",
                 "controls": [
                   { "settings_button@start.settings_button": {} }
                 ]
@@ -894,9 +895,9 @@
             },
             {
               "store@start.stacked_row": {
-                "ignored": "(($trial) or ($store_ignored))",
+                "ignored": "(($trial and not $use_single_column_for_buttons) or ($store_ignored))",
                 "controls": [
-                   {
+                  {
                     "store_button@start.store_button": {
                       "enabled": "(not $store_disabled)",
                       "bindings": [
@@ -934,8 +935,8 @@
                     }
                   },
                   {
-                    "marketplace_error_button@common_buttons.static_tooltip_notification_panel": {
-                      "size": [ "100%", "100%" ],
+                    "marketplace_error_button@common_buttons.dynamic_tooltip_notification_panel": {
+                      "size": [ "100% - 2px", "100%" ],
                       "button_mappings": [
                         {
                           "from_button_id": "button.menu_select",
@@ -949,11 +950,12 @@
                       ],
                       "consume_hover_events": false,
                       "focus_enabled": true,
-                      "$static_tooltip_button_visibility_binding_name": "#has_marketplace_errors",
+                      "$dynamic_tooltip_button_visibility_binding_name": "#has_marketplace_errors",
                       "$tooltip_popup_visible_binding": "#marketplace_errors_tooltip_visible",
                       "$override_tooltip_popup_image": true,
                       "$tooltip_popup_override_image_panel": "start.store_error_image",
                       "$tooltip_text_binding_name": "#marketplace_error_text",
+                      "$tool_tip_text_max_size": [ "300px", "default" ],
                       "$tooltip_panel_content": "start.store_error_content",
                       "bindings": [
                         {
@@ -1148,12 +1150,6 @@
         "ignored": "(not $nx_os)",
         "from_button_id": "button.controller_select",
         "to_button_id": "button.menu_offline",
-        "mapping_type": "global"
-      },
-      {
-        "ignored": "(not $is_berwick)",
-        "from_button_id": "button.controller_secondary_select",
-        "to_button_id": "button.menu_crossplatform",
         "mapping_type": "global"
       }
     ],

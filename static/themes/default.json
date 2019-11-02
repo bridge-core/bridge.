@@ -1,0 +1,64 @@
+{
+    "name": "Default",
+    "id": "bridge.default.theme",
+    "definition": {
+        "dark": {
+            "highlighter": {
+                "property": { "color": "#a6e22e" },
+                "keyword": { "color": "#f92672" },
+                "definition": { "color": "#fd971f" },
+                "atom": { "color": "#ae81ff" },
+                "number": { "color": "#ae81ff" },
+                "string": { "color": "#e6db74" },
+                "variable": { "color": "#9effff" },
+                "variable_strong": { "color": "#66d9ef" },
+                "meta": { "color": "white" },
+                "comment": { "color": "#75715e" }
+            },
+            "primary": "#1778D2",
+            "secondary": "#1778D2",
+            "accent": "#82B1FF",
+            "error": "#FF5252",
+            "info": "#2196F3",
+            "success": "#4CAF50",
+            "warning": "#FB8C00",
+            "background": "#303030",
+            "sidebar_navigation": "#424242",
+            "expanded_sidebar": "#424242",
+            "menu": "#424242",
+            "toolbar": "#000000",
+            "footer": "#212121",
+            "tooltip": "#303030",
+            "default_button": "#212121"
+        },
+        "light": {
+            "highlighter": {
+                "property": { "color": "black" },
+                "keyword": { "color": "#5A5CAD" },
+                "definition": { "text_decoration": "underline" },
+                "atom": { "color": "#6C8CD5" },
+                "number": { "color": "#164" },
+                "string": { "color": "red" },
+                "variable": { "color": "black" },
+                "variable_strong": { "color": "black" },
+                "meta": { "color": "yellow" },
+                "comment": { "color": "#0080FF" }
+            },
+            "primary": "#1778D2",
+            "secondary": "#1778D2",
+            "accent": "#82B1FF",
+            "error": "#FF5252",
+            "info": "#2196F3",
+            "success": "#4CAF50",
+            "warning": "#FB8C00",
+            "background": "#fafafa",
+            "sidebar_navigation": "#FFFFFF",
+            "expanded_sidebar": "#FFFFFF",
+            "menu": "#FFFFFF",
+            "toolbar": "#e0e0e0",
+            "footer": "#f5f5f5",
+            "tooltip": "#424242",
+            "default_button": "#f5f5f5"
+        }
+    }
+}

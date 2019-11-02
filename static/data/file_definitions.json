@@ -1,10 +1,11 @@
 [
     {
         "id": "animation",
-        "includes": "animations",
+        "includes": "animations/",
         "file_viewer": "json",
         
         "build_array_exceptions": [ "timeline" ],
+        "documentation": "Entity%20Events",
         "start_state": "animation/main",
         "lightning_cache": "animation",
         "highlighter": "animation",
@@ -13,9 +14,10 @@
     },
     {
         "id": "animation_controller",
-        "includes": "animation_controllers",
+        "includes": "animation_controllers/",
         "file_viewer": "json",
 
+        "documentation": "Entity%20Events",
         "start_state": "animation_controller/main",
         "lightning_cache": "animation_controller",
         "highlighter": "animation_controller",
@@ -24,9 +26,10 @@
     },
     {
         "id": "biome",
-        "includes": "biomes",
+        "includes": "biomes/",
         "file_viewer": "json",
 
+        "documentation": "Biomes",
         "start_state": "biome/main",
         "highlighter": "biome",
         "file_creator": "biome",
@@ -34,9 +37,10 @@
     },
     {
         "id": "block",
-        "includes": "blocks",
+        "includes": "blocks/",
         "file_viewer": "json",
 
+        "documentation": "Blocks",
         "start_state": "block/main",
         "lightning_cache": "block",
         "highlighter": "block",
@@ -45,10 +49,13 @@
     },
     {
         "id": "entity",
-        "includes": "entities",
+        "includes": "entities/",
         "file_viewer": "json",
 
-        "documentation": [ "add_entity_components", "entity" ],
+        "documentation": {
+            "base": "Entities",
+            "inject": "custom_entity"
+        },
         "start_state": "entity/main",
         "lightning_cache": "entity",
         "highlighter": "entity",
@@ -58,7 +65,7 @@
     },
     {
         "id": "feature",
-        "includes": "features",
+        "includes": "features/",
         "file_viewer": "json",
 
         "start_state": "feature/main",
@@ -68,7 +75,7 @@
     },
     {
         "id": "feature_rule",
-        "includes": "feature_rules",
+        "includes": "feature_rules/",
         "file_viewer": "json",
 
         "start_state": "feature_rule/main",
@@ -78,7 +85,7 @@
     },
     {
         "id": "function",
-        "includes": "functions",
+        "includes": "functions/",
         "file_viewer": "text",
         "comment_character": "#",
 
@@ -88,9 +95,13 @@
     },
     {
         "id": "item",
-        "includes": "items",
+        "includes": "items/",
         "file_viewer": "json",
 
+        "documentation": {
+            "base": "Item",
+            "inject": "custom_item"
+        },
         "start_state": "item/main",
         "lightning_cache": "item",
         "highlighter": "item",
@@ -99,13 +110,14 @@
     },
     {
         "id": "lang",
-        "includes": "texts",
+        "includes": "texts/",
         "file_viewer": "text",
+        "highlighter": "lang",
         "comment_character": "##"
     },
     {
         "id": "loot_table",
-        "includes": "loot_tables",
+        "includes": "loot_tables/",
         "file_viewer": "json",
 
         "start_state": "loot_table/main",
@@ -114,18 +126,20 @@
     },
     {
         "id": "molang",
-        "includes": "molang",
+        "includes": "molang/",
         "text_separators": [ "." ],
 
+        "documentation": "MoLang",
         "start_state": "molang/main",
         "highlighter": "molang"
     },
     {
         "id": "recipe",
-        "includes": "recipes",
+        "includes": "recipes/",
         "file_viewer": "json",
 
         "build_array_exceptions": [ "key" ],
+        "documentation": "Recipes",
         "start_state": "recipe/main",
         "highlighter": "recipe",
         "file_creator": "recipe",
@@ -133,16 +147,21 @@
     },
     {
         "id": "script",
-        "includes": "scripts",
+        "includes": "scripts/",
         "file_viewer": "text",
 
+        "documentation": "Scripting",
         "file_creator": "script"
     },
     {
         "id": "spawn_rule",
-        "includes": "spawn_rules",
+        "includes": "spawn_rules/",
         "file_viewer": "json",
 
+        "documentation": {
+            "base": "Entities",
+            "extend": "Spawn Rules"
+        },
         "start_state": "spawn_rule/main",
         "highlighter": "spawn_rule",
         "file_creator": "spawn_rule",
@@ -150,7 +169,7 @@
     },
     {
         "id": "trade_table",
-        "includes": "trading",
+        "includes": "trading/",
         "file_viewer": "json",
 
         "start_state": "trade_table/main",
@@ -162,7 +181,7 @@
 
     {
         "id": "rp_animation",
-        "includes": "animations",
+        "includes": "animations/",
         "file_viewer": "json",
         "rp_definition": true,
         
@@ -175,7 +194,7 @@
     },
     {
         "id": "rp_animation_controller",
-        "includes": "animation_controllers",
+        "includes": "animation_controllers/",
         "file_viewer": "json",
         "rp_definition": true,
         
@@ -187,11 +206,27 @@
         "problems": [ "rp_animation_controller", "format_version" ]
     },
     {
-        "id": "client_entity",
-        "includes": "entity",
+        "id": "attachable",
+        "includes": "attachables/",
         "file_viewer": "json",
         "rp_definition": true,
         
+        "start_state": "attachables/main",
+        "lightning_cache": "attachable",
+        "highlighter": "entity",
+        "file_creator": "attachable",
+        "problems": [ "format_version" ]
+    },
+    {
+        "id": "client_entity",
+        "includes": "entity/",
+        "file_viewer": "json",
+        "rp_definition": true,
+        
+        "documentation": {
+            "base": "Entities",
+            "extend": "Client Entity Documentation"
+        },
         "start_state": "client_entity/main",
         "lightning_cache": "client_entity",
         "highlighter": "entity",
@@ -200,7 +235,7 @@
     },
     {
         "id": "client_item",
-        "includes": "items",
+        "includes": "items/",
         "file_viewer": "json",
         "rp_definition": true,
         
@@ -211,14 +246,15 @@
     },
     {
         "id": "client_lang",
-        "includes": "texts",
+        "includes": "texts/",
         "file_viewer": "text",
+        "highlighter": "lang",
         "comment_character": "##",
         "rp_definition": true
     },
     {
         "id": "particle",
-        "includes": "particles",
+        "includes": "particles/",
         "file_viewer": "json",
         "rp_definition": true,
         
@@ -230,7 +266,7 @@
     },
     {
         "id": "render_controller",
-        "includes": "render_controllers",
+        "includes": "render_controllers/",
         "file_viewer": "json",
         "rp_definition": true,
         
@@ -240,5 +276,48 @@
         "file_creator": "render_controller",
         "highlighter": "render_controller",
         "problems": [ "render_controller", "format_version" ]
+    },
+
+    {
+        "id": "item_texture",
+        "includes": "textures/item_texture.json",
+        "file_viewer": "json",
+        "start_state": "simple/item_texture",
+        "rp_definition": true
+    },
+    {
+        "id": "client_block",
+        "includes": "blocks.json",
+        "file_viewer": "json",
+        "start_state": "simple/blocks",
+        "rp_definition": true
+    },
+    {
+        "id": "terrain_texture",
+        "includes": "textures/terrain_texture.json",
+        "file_viewer": "json",
+        "start_state": "simple/terrain_texture",
+        "rp_definition": true
+    },
+    {
+        "id": "client_biome",
+        "includes": "biomes_client.json",
+        "file_viewer": "json",
+        "start_state": "simple/biomes_client",
+        "rp_definition": true
+    },
+    {
+        "id": "sound_definition",
+        "includes": "sounds/sound_definitions.json",
+        "file_viewer": "json",
+        "start_state": "simple/sound_definitions",
+        "rp_definition": true
+    },
+    {
+        "id": "client_sound",
+        "includes": "sounds.json",
+        "file_viewer": "json",
+        "start_state": "simple/sounds",
+        "rp_definition": true
     }
 ]

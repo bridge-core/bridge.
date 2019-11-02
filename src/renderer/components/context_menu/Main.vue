@@ -10,15 +10,18 @@
                 :position-y="y_position"
                 absolute
             >
-                <v-list class="context-menu">
-                    <v-list-item
-                        v-for="(item, i) in items"
-                        :key="`${y_position}.${x_position}.${i}`"
-                        @click="item.action"
-                        dense
-                    >
-                        <v-list-item-action class="context-action"> {{ item.title }} </v-list-item-action>
-                    </v-list-item>
+                <v-list color="menu" class="small-list">
+                    <template v-for="(item, i) in items">
+                        <v-list-item
+                            v-if="item.type === undefined || item.type === 'default'"
+                            :key="`${y_position}.${x_position}.${i}`"
+                            @click="item.action"
+                            dense
+                        >
+                            <v-list-item-action class="context-menu-action"> {{ item.title }} </v-list-item-action>
+                        </v-list-item>
+                        <v-divider v-else-if="item.type === 'divider'" :key="`divider.${y_position}.${x_position}.${i}`"/>
+                    </template>
                 </v-list>
             </v-menu>
         </v-overlay>
@@ -56,7 +59,7 @@
 </script>
 
 <style>
-    .context-menu .context-action {
+    .small-list .context-menu-action {
         margin: 0 !important;
     }
 </style>

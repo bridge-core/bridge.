@@ -1,6 +1,7 @@
 <template>
     <span
-        :style="styles + (as_block ? 'display: block;' : '')"
+        :class="class_name"
+        :style="as_block ? 'display: block;' : ''"
         @click.stop="attrClick"
     >
         <highlight-text
@@ -12,14 +13,14 @@
         >{{ text }}</span>
 
         <v-tooltip
-            v-if="meta.is_molang && text !== ''"
-            color="success"
+            v-if="meta.is_molang && text !== '' && !is_immutable"
+            color="primary"
             right
         >
             <template v-slot:activator="{ on }">
                 <v-btn
                     v-on="on"
-                    color="success"
+                    color="primary"
                     style="margin: 0; margin-left: 4px; height: 20px; width: 20px;"
                     text
                     small
@@ -36,6 +37,7 @@
         <color-picker
             v-if="is_color"
             :node_context="node_context"
+            :is_immutable="is_immutable"
         />
     </span>
 </template>
@@ -57,6 +59,10 @@
             as_block: {
                 default: true,
                 type: Boolean
+            },
+            is_immutable: {
+                default: false,
+                type: Boolean
             }
         },
         components: {
@@ -71,13 +77,13 @@
                 if(this.data != undefined) return (this.data + "").trim();
                 return this.data;
             },
-            styles() {
-                if(this.text == "true" || this.text == "false" || this.text == "undefined") {
-                    return this.color_theme.atom;
+            class_name() {
+                if(this.text === "true" || this.text === "false" || this.text === "null") {
+                    return "cm-atom";
                 } else if(isNaN(this.text)) {
-                    return this.color_theme.string;
+                    return "cm-string";
                 } else {
-                    return this.color_theme.number;
+                    return "cm-number";
                 }
             },
             use_advanced_parsing() {

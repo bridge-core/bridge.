@@ -17,6 +17,7 @@
             toolbar_component="explorer-rp-toolbar"
         />
         <content-plugins v-else-if="menu_type === 'extensions'"/>
+        <content-debug-log v-else-if="menu_type === 'debug_log'"/>
         <content-documentation v-else-if="menu_type === 'documentation'"/>
         <content-custom v-else-if="sidebar.is_plugin" :content="sidebar.content" :toolbar="sidebar.toolbar"/>
         <content-not-implemented v-else/>
@@ -27,6 +28,7 @@
     import ContentExplorer from "./content/Explorer";
     import ContentDocumentation from "./content/Documentation";
     import ContentPlugins from "./content/Plugins";
+    import ContentDebugLog from "./content/DebugLog";
     import ContentCustom from "./content/Custom";
     import ContentNotImplemented from "./content/NotImplemented";
     
@@ -42,6 +44,7 @@
         components: {
             ContentExplorer,
             ContentPlugins,
+            ContentDebugLog,
             ContentCustom,
             ContentNotImplemented,
             ContentDocumentation

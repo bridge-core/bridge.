@@ -7,5 +7,5 @@
         "visible": "$general.number_boolean",
         "ambient": "$general.number_boolean"
     },
-    "saturation_modifier": [ "poor", "low", "normal", "good", "supernatural" ]
+    "saturation_modifier": [ "poor", "low", "normal", "good", "max", "supernatural" ]
 }

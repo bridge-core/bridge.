@@ -1,5 +1,10 @@
+/**
+ * Uses the Tokenizer to parse auto-completion statements
+ * 
+ * e.g. "('prefix:' + $example.identifier) and $example.prefixed_identifiers)
+ */
 import { Tokenizer } from "./Tokenizer";
-import detachObj from "../detachObj";
+import { detachMerge } from "../mergeUtils";
 import { LIB } from "./Provider";
 
 const OPS = [ "+", "and", "asValue" ];
@@ -27,11 +32,13 @@ export class Omega {
             } else if(!OPS.includes(data)) {
                 this.combine(res, this.dynamic(data, value_cast || prev_data === "asValue"), prefix);
                 prefix = "";
+            } else if(data === "+" && prefix === "") {
+                if(!prev_data) throw new Error("Expected prefix definition before '+' operator");
+                prefix = this.walk(prev_data);
             }
 
             i++;
         }
-
         return res;
     }
 
@@ -40,7 +47,7 @@ export class Omega {
 
         if(prefix === "") {
             original.value.push(...value);
-            original.object = detachObj(original.object, object);
+            original.object = detachMerge(original.object, object);
         } else {
             let new_value = value.map(v => prefix + v);
             let new_object = {};

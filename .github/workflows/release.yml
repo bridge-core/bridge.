@@ -1,0 +1,32 @@
+name: Build and deploy
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 13
+    - name: npm install and build
+      run: |
+        npm install
+        npm run build
+    - name: Upload to release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          build/*.exe
+          build/*.snap
+          build/*.AppImage
+          build/*.dmg
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

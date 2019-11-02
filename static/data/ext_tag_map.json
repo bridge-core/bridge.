@@ -1,0 +1,43 @@
+{
+    "View All": {
+        "icon": "mdi-format-list-bulleted-square",
+        "color": "primary"
+    },
+    "Curated": {
+        "icon": "mdi-star",
+        "color": "warning"
+    },
+    "Verified": {
+        "icon": "mdi-shield-check",
+        "color": "primary"
+    },
+    "Utility": {
+        "icon": "mdi-wrench"
+    },
+    "Theme": {
+        "icon": "mdi-palette",
+        "color": "error"
+    },
+    "Snippet": {
+        "icon": "mdi-attachment",
+        "color": "info"
+    },
+    "Component": {
+        "icon": "mdi-package-variant",
+        "color": "warning"
+    },
+
+    "Submissions": {
+        "icon": "mdi-send",
+        "color": "primary"
+    },
+
+    "0": {
+        "icon": "mdi-code-braces",
+        "color": "primary"
+    },
+    "1": {
+        "icon": "mdi-account",
+        "color": "success"
+    }
+}

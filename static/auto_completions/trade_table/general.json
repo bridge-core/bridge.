@@ -16,7 +16,7 @@
                 }   
             },
             "trader_exp": "$general.number",
-            "max_uses": "$general.number",
+            "max_uses": [ "-1", "1", "2", "3", "4", "5", "6", "7" ],
             "reward_exp": "$general.boolean"
         }
     }

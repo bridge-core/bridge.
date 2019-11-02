@@ -1,6 +1,6 @@
 <template>
-    <v-toolbar flat height="30px">
-        <v-tooltip bottom class="first">
+    <v-toolbar color="expanded_sidebar" flat height="30px">
+        <v-tooltip color="tooltip" bottom class="first">
             <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="refresh" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-refresh</v-icon>
@@ -9,7 +9,7 @@
             <span>Refresh</span>
         </v-tooltip>
 
-        <v-tooltip bottom>
+        <v-tooltip color="tooltip" bottom>
             <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="unlink" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-lock-open</v-icon>
@@ -18,7 +18,7 @@
             <span>Unlink RP</span>
         </v-tooltip>
 
-        <v-tooltip bottom>
+        <v-tooltip  color="tooltip" bottom>
             <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="openCreateFileWindow" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-file-document</v-icon>
@@ -27,7 +27,7 @@
             <span>New File</span>
         </v-tooltip>
 
-        <v-tooltip bottom>
+        <v-tooltip  color="tooltip" bottom>
             <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="packageProject" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-package-variant-closed</v-icon>
@@ -36,7 +36,7 @@
             <span>Package</span>
         </v-tooltip>
 
-        <v-tooltip bottom>
+        <v-tooltip  color="tooltip" bottom>
             <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="openInExplorer" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-folder-multiple</v-icon>

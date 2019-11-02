@@ -36,13 +36,26 @@
                 "output": {}
             }
         },
-        "Blank Brewing Recipe": {
-            "format_version": "1.12",
+        "Blank Brewing Mix Recipe": {
+            "format_version": {},
             "minecraft:recipe_brewing_mix": {
                 "description": {
                     "identifier": {}
                 },
                 "tags": {},
+                "input": {},
+                "reagent": {},
+                "output": {}
+            }
+        },
+        "Blank Brewing Container Recipe": {
+            "format_version": {},
+            "minecraft:recipe_brewing_container": {
+                "description": {
+                    "identifier": {}
+                },
+                "tags": {},
+
                 "input": {},
                 "reagent": {},
                 "output": {}

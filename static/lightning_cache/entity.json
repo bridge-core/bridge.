@@ -1,12 +1,14 @@
 [ 
-    { "key": "events", "path": "minecraft:entity/events" }, 
-    { "key": "identifiers", "path": "minecraft:entity/description/identifier" }, 
-    { "key": "animation_references", "path": "minecraft:entity/description/animations" }, 
+    { "key": "events", "path": "#;bridge_node_skip;#/events" }, 
+    { "key": "custom_components", "hook": "entity.custom_components" }, 
+    { "key": "bridge_core_tags", "path": "#;bridge_node_skip;#/description/tags" }, 
+    { "key": "identifiers", "path": "#;bridge_node_skip;#/description/identifier" }, 
+    { "key": "animation_references", "path": "#;bridge_node_skip;#/description/animations" }, 
     { 
         "key": "families", 
         "search": {
             "key": "minecraft:type_family",
-            "locations": [ "minecraft:entity/components", "minecraft:entity/component_groups" ],
+            "locations": [ "#;bridge_node_skip;#/components", "#;bridge_node_skip;#/component_groups" ],
             "data": "family"
         } 
     }

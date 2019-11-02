@@ -1,0 +1,7 @@
+{
+    "minecraft:food": {
+        "remove_effects": {
+            "$dynamic.list.next_index": "$general.effect_name"
+        }
+    }
+}

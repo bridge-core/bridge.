@@ -27,12 +27,12 @@
         "event_skip_count": "$general.number",
         "event": {
             "@meta": { "is_value": true },
-            "@import.value": "$dynamic.cache.entity.events"
+            "@import.value.entity_event": "$dynamic.cache.entity.events"
         },
         "initial_event_count": "$general.number",
         "initial_event": {
             "@meta": { "is_value": true },
-            "@import.value": "$dynamic.cache.entity.events"
+            "@import.value.entity_event": "$dynamic.cache.entity.events"
         }
     },
     "minecraft:density_limit": {

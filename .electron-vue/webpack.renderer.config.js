@@ -24,7 +24,7 @@ let whiteListedModules = ['vue', 'vuetify']
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
   entry: {
-    renderer: path.join(__dirname, '../src/renderer/main.js')
+    renderer: [ path.join(__dirname, '../src/renderer/main.js') ]
   },
   externals: [
     ...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))
@@ -50,6 +50,11 @@ let rendererConfig = {
       {
         test: /\.html$/,
         use: 'vue-html-loader'
+      },
+      {
+        test: /\.ts$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.js$/,
@@ -136,7 +141,7 @@ let rendererConfig = {
       '@': path.join(__dirname, '../src/renderer'),
       'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['.js', '.vue', '.json', '.css', '.node']
+    extensions: ['.ts', '.js', '.vue', '.json', '.css', '.node']
   },
   target: 'electron-renderer'
 }

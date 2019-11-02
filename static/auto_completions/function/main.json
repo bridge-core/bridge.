@@ -2,7 +2,7 @@
     "alwaysday": "$general.boolean",
     "clear": {
         "$function.general.target_selector": {
-            "$general.item_identifier": {
+            "$function.general.item_identifier": {
                 "$general.number": "$general.number"
             }
         }
@@ -57,7 +57,7 @@
                             "$function.general.location": {
                                 "$function.general.location": {
                                     "$function.general.location": {
-                                        "$general.block_identifier": {
+                                        "$function.general.block_identifier": {
                                             "$general.number": "$function.main"
                                         }
                                     } 
@@ -78,12 +78,12 @@
                         "$function.general.location": {
                             "$function.general.location": {
 
-                                "$general.block_identifier": {
+                                "$function.general.block_identifier": {
                                     "$general.number": {
                                         "$function.general.fill_option": {},
 
                                         "replace": {
-                                            "$general.block_identifier": "$general.number"
+                                            "$function.general.block_identifier": "$general.number"
                                         }
                                     }
                                 }
@@ -106,7 +106,7 @@
     },
     "give": {
         "$function.general.target_selector": {
-            "$general.item_identifier": {
+            "$function.general.item_identifier": {
                 "$general.number": {
                     "$general.number": {}
                 }
@@ -156,7 +156,7 @@
                     "$function.general.location": {
                         "slot.container": {
                             "$general.number": {
-                                "$general.item_identifier": {
+                                "$function.general.item_identifier": {
                                     "$general.number": "$general.number"
                                 }
                             }
@@ -169,7 +169,7 @@
             "$function.general.target_selector": {
                 "$general.slot_type": {
                     "$general.number": {
-                        "$general.item_identifier": {
+                        "$function.general.item_identifier": {
                             "$general.number": "$general.number"
                         }
                     }
@@ -242,7 +242,7 @@
         "$function.general.location": {
             "$function.general.location": {
                 "$function.general.location": {
-                    "$general.block_identifier": {
+                    "$function.general.block_identifier": {
                         "$general.number": [ "destroy", "keep", "replace" ]
                     }
                 }
@@ -275,6 +275,16 @@
     },
     "stopsound": {
         "$function.general.target_selector": {}
+    },
+    "summon": {
+        "$function.general.entity_identifier": {
+            "$function.general.location": {
+                "$dynamic.cache.entity.events": {}
+            },
+            "named": { 
+                "$placeholder": "$function.general.location"
+            }
+        }
     },
     "tag": {
         "$function.general.target_selector": {
@@ -331,7 +341,7 @@
         "$function.general.location": {
             "$function.general.location": {
                 "$function.general.location": {
-                    "$general.block_identifier": {
+                    "$function.general.block_identifier": {
                         "$general.number": {}
                     }
                 }

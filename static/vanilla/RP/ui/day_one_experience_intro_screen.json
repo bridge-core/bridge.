@@ -105,7 +105,9 @@
   //---------------------------------------------------------------------------
 
   "top_tab@common_tabs.tab_top": {
+    "$toggle_focus_enabled": false,
     "$toggle_name": "navigation_tab",
+    "$toggle_reset_on_focus_lost": false,
     "$toggle_group_default_selected": "$default_tab",
     "$background_texture": "textures/ui/Black"
   },
@@ -152,6 +154,7 @@
           "size": "$tab_size",
           "$tab_view_binding_name": "welcome_navigation_tab_toggle",
           "$toggle_group_forced_index": 0,
+          "$radio_toggle_group": true,
           "$texture": "textures/ui/day_one_carousel_logo_thumb",
           "$tab_panel": "day_one_experience_intro.image_panel"
         }
@@ -164,6 +167,7 @@
           "size": "$tab_size",
           "$tab_view_binding_name": "marketplace_navigation_tab_toggle",
           "$toggle_group_forced_index": 1,
+          "$radio_toggle_group": true,
           "$texture": "textures/ui/day_one_carousel_marketplace_thumb",
           "$tab_panel": "day_one_experience_intro.image_panel"
         }
@@ -176,6 +180,7 @@
           "size": "$tab_size",
           "$tab_view_binding_name": "cross_platform_navigation_tab_toggle",
           "$toggle_group_forced_index": 2,
+          "$radio_toggle_group": true,
           "$texture": "textures/ui/day_one_carousel_cross_platform_thumb",
           "$tab_panel": "day_one_experience_intro.image_panel"
         }
@@ -188,6 +193,7 @@
           "size": "$tab_size",
           "$tab_view_binding_name": "realms_navigation_tab_toggle",
           "$toggle_group_forced_index": 3,
+          "$radio_toggle_group": true,
           "$texture": "textures/ui/day_one_carousel_realms_thumb",
           "$tab_panel": "day_one_experience_intro.image_panel"
         }
@@ -200,6 +206,7 @@
           "size": "$tab_size",
           "$tab_view_binding_name": "villager_navigation_tab_toggle",
           "$toggle_group_forced_index": 4,
+          "$radio_toggle_group": true,
           "$texture": "textures/ui/day_one_carousel_villager_thumb",
           "$tab_panel": "day_one_experience_intro.image_panel"
         }
@@ -431,10 +438,6 @@
                 "size": [ "98%", 28 ],
                 "$pressed_button_name": "button.next_page",
                 "$button_text": "gui.continue",
-                "$focus_override_right": "FOCUS_OVERRIDE_STOP",
-                "$focus_override_left": "FOCUS_OVERRIDE_STOP",
-                "$focus_override_down": "FOCUS_OVERRIDE_STOP",
-                "$focus_override_up": "FOCUS_OVERRIDE_STOP",
                 "$focus_id": "continue_button"
               }
             }
@@ -471,6 +474,7 @@
     "controls": [
       {
         "welcome_dialog@common_dialogs.main_panel_no_buttons": {
+          "$show_close_button": false,
           "size": "$day_one_experience_intro_screen_size",
           "$title_panel": "common_dialogs.standard_title_label",
           "$text_name": "dayOneExperience.carousel.title",

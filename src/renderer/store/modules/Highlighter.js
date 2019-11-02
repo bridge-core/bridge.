@@ -1,5 +1,6 @@
 import Vue from "vue";
 import FileType from "../../scripts/editor/FileType";
+import ProjectConfig from "../../scripts/ProjectConfig";
 
 function getHighlighterDef() {
     return FileType.getHighlighter().define;
@@ -30,7 +31,7 @@ const mutations = {
 
 const getters = {
     highlighter_keywords(state, getters) {
-        return () => getHighlighterDef().keywords.concat(state.plugin_keywords);
+        return () => getHighlighterDef().keywords.concat(state.plugin_keywords).concat([ProjectConfig.getPrefixSync()]);
     },
     highlighter_titles(state, getters) {
         return () => getHighlighterDef().titles.concat(state.plugin_titles);

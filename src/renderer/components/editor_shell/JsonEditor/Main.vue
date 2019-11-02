@@ -4,7 +4,7 @@
             <span v-if="render_object.type == 'object' || render_object.type == 'array'">
                 <draggable 
                     v-model="render_object.children"
-                    v-bind="{ group: 'key', disabled: $store.state.Settings.disable_node_dragging }"
+                    v-bind="{ group: 'key', disabled: disabled_dragging }"
                     @change="draggedKey"
                 >
                     <details 
@@ -24,6 +24,7 @@
                             :error="e.error"
                             :child_contains_error="e.child_contains_error"
                             :node_context="e"
+                            :is_immutable="is_immutable"
                         />
 
                         <json-editor-main 
@@ -32,6 +33,7 @@
                             :first="false"
                             :tab_id="tab_id"
                             :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
+                            :is_immutable="is_immutable"
                         />
                     </details>
                 </draggable>
@@ -43,11 +45,12 @@
                 :data="value_data"
                 :meta="render_object.meta"
                 :node_context="render_object"
+                :is_immutable="is_immutable"
                 @click="attrClick"
             />
         </div>
-        <v-divider v-if="first"></v-divider>
-        <v-layout class="controls" v-if="first">
+        <v-divider v-if="first && !is_immutable"></v-divider>
+        <v-layout class="controls" v-if="first && !is_immutable">
             <template v-if="$store.state.Settings.bridge_predictions && isKnownFileType()">
                 <predicting-input
                     :render_object="render_object"
@@ -85,7 +88,7 @@
     import ObjectKey from "./ObjectKey";
     import JsonInput from "./JsonInput";
     import PredictingInput from "./PredictingInput";
-    import InternalJSON from "../../../scripts/editor/Json.js";
+    import InternalJSON from "../../../scripts/editor/Json";
     import TabSystem from '../../../scripts/TabSystem';
     import EventBus from '../../../scripts/EventBus';
     import JSONTree from '../../../scripts/editor/JsonTree';
@@ -114,6 +117,10 @@
             object_key: {
                 type: String,
                 default: "global"
+            },
+            is_immutable: {
+                type: Boolean,
+                default: false
             },
             first: {
                 type: Boolean,
@@ -150,7 +157,7 @@
         computed: {
             element_style() {
                 if(this.first) {
-                    return `height: ${this.available_height - 110}px; overflow: auto;`
+                    return `height: ${this.available_height - 170 * !this.is_immutable}px; overflow: auto;`
                 }   
                 return "";
             },
@@ -173,6 +180,9 @@
             },
             value_data() {
                 return this.render_object.data;
+            },
+            disabled_dragging() {
+                return this.$store.state.Settings.disable_node_dragging || this.is_immutable;
             }
         },
         methods: {
@@ -244,6 +254,9 @@
 <style scoped>
     div, .key {
         margin-left: 0.75em;
+    }
+    .controls {
+        margin-right: 0.75em;
     }
     .key {
         cursor: pointer;

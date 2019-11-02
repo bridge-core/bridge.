@@ -4,6 +4,7 @@ import TabSystem from "../scripts/TabSystem";
 import JSONTree from "../scripts/editor/JsonTree";
 import Store from "../store/index";
 import EventBus from "../scripts/EventBus";
+import InformationWindow from "../scripts/commonWindows/Information";
 
 let SNIPPETS; 
 
@@ -134,7 +135,13 @@ export default {
         // console.log(SNIPPETS);
 
         let type = FileType.get();
-        if(SNIPPETS === undefined || SNIPPETS[type] === undefined || SNIPPETS[type].length === 0) return;
+        if(SNIPPETS === undefined || SNIPPETS[type] === undefined || SNIPPETS[type].length === 0) {
+            if(TabSystem.getSelected())
+                return new InformationWindow("ERROR", "No snippets available for the currently opened file.", false);
+            else 
+                return new InformationWindow("ERROR", "You have to open a file to use snippets.", false);
+        }
+            
 
         try {
             WINDOW.showWin();

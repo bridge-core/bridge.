@@ -8,7 +8,7 @@
             "spawn_egg": {
                 "texture": { 
                     "@meta": { "is_value": true } ,
-                    "@import.value": "$dynamic.rp.item_textures"
+                    "@import.value.item_texture": "$dynamic.rp.item_textures"
                 },
                 "texture_index": "$general.number",
                 "base_color": { "@meta": { "is_value": true, "is_color": true } },
@@ -18,13 +18,13 @@
             "materials": {
                 "$placeholder": {
                     "@meta": { "is_value": true },
-                    "@import.value": "$client_entity.general.material"
+                    "@import.value.material": "$client_entity.general.material"
                 }
             },
             "textures": {
                 "$placeholder": {
                     "@meta": { "is_value": true },
-                    "@import.value": "$dynamic.rp.entity_textures"
+                    "@import.value.entity_texture": "$dynamic.rp.entity_textures"
                 }
             },
             "geometry": {
@@ -32,8 +32,8 @@
             },
             "animations": {
                 "$placeholder": { 
-                    "@meta": { "is_value": true },
-                    "@import.value": "$dynamic.cache.rp_animation.ids and $dynamic.cache.rp_animation_controller.ids"
+                    "@meta": { "is_value": true, "definitions": [ "rp_animation", "rp_animation_controller" ] },
+                    "@import.value.animations": "$dynamic.cache.rp_animation.ids and $dynamic.cache.rp_animation_controller.ids"
                 }
             },
             "scripts": {
@@ -45,9 +45,9 @@
                     "$dynamic.list.next_index": {
                         "$dynamic.client_entity.animation_references": {
                             "@meta": { "is_molang": true },
-                            "@import.value": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                            "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
                         },
-                        "@import.value": "$dynamic.client_entity.animation_references"
+                        "@import.value.animation": "$dynamic.client_entity.animation_references"
                     }
                 }
             },
@@ -56,14 +56,14 @@
             },
             "render_controllers": {
                 "$dynamic.list.next_index": {
-                    "@meta": { "is_value": true },
-                    "@import.value": "$dynamic.cache.render_controller.ids"
+                    "@meta": { "is_value": true, "definitions": [ "render_controller" ] },
+                    "@import.value.render_controller": "$dynamic.cache.render_controller.ids"
                 }
             },
             "particle_effects": {
                 "$placeholder": { 
-                    "@meta": { "is_value": true },
-                    "@import.value": "$dynamic.cache.particle.ids"
+                    "@meta": { "is_value": true, "definitions": [ "particle" ] },
+                    "@import.value.particle": "$dynamic.cache.particle.ids"
                 }
             },
             "particle_emitters": {

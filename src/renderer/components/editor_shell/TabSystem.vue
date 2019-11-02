@@ -7,11 +7,30 @@
             v-for="(file, i) in open_files"
             :key="`${selected_project}-${i}-${unsaved.join()}`"
             :ripple="selected_tab !== i"
-            :class="`tab ${selected_tab == i ? 'selected' : ''}`"
-            :style="`display: inline-block; border-bottom: 2px solid ${is_dark_mode ? '#525252' : 'rgba(119, 119, 119, 0.3)'}; background: ${is_dark_mode ? '#424242' : 'rgba(119, 119, 119, 0.1)'};`"
+            :class="`tab ${selected_tab === i ? 'selected' : ''}`"
+            :style="`display: inline-block; border-bottom: 2px solid var(--v-background-darken2); background: var(--v-background-darken1);`"
             @click.native="selected_tab = i"
-        > 
-            <v-tooltip :open-delay="600" transition="scale-transition" :disabled="file.file_name.length <= 27" bottom>
+        >
+            <v-btn
+                v-if="showDocButton(file.file_path)"
+                :disabled="selected_tab !== i"
+                color="primary"
+                @click.stop="openDoc(file.file_path)"
+                text
+                icon
+                small
+            >
+                <v-icon small>mdi-book-open-page-variant</v-icon>
+            </v-btn>
+            <v-icon
+                v-if="getIcon(file.file_path)"
+                :color="selected_tab === i ? 'primary' : undefined"
+                small
+            >
+                {{ getIcon(file.file_path) }}
+            </v-icon>
+
+            <v-tooltip color="tooltip" :open-delay="600" transition="scale-transition" :disabled="file.file_name.length <= 27" bottom>
                 <template v-slot:activator="{ on }">
                     <span v-on="on" :style="`font-style: ${unsaved[i] ? 'italic' : 'none'};`">{{ getFileName(file.file_name) }}</span>
                 </template>
@@ -26,6 +45,9 @@
 <script>
 import TabSystem from "../../scripts/TabSystem";
 import EventBus from "../../scripts/EventBus";
+import FileType from '../../scripts/editor/FileType';
+import { shell } from 'electron';
+import { DOC_URL } from '../../scripts/constants';
 
 export default {
     name: "editor-shell-tab-system",
@@ -83,13 +105,24 @@ export default {
         updateFiles() {
             this.open_files = TabSystem.filtered();
 
-            this.unsaved = this.open_files.map(f => f.is_unsaved === undefined ? false : f.is_unsaved);
+            this.unsaved = this.open_files.map(f => f.is_unsaved === undefined ? false : f.is_unsaved && !f.is_immutable);
         },
         updateSavedUI() {
-            this.unsaved = this.open_files.map(f => f.is_unsaved === undefined ? false : f.is_unsaved);
+            this.unsaved = this.open_files.map(f => f.is_unsaved === undefined ? false : f.is_unsaved && !f.is_immutable);
         },
         getFileName(file_name) {
             return file_name.length > 27 && !file_name.includes(" ") ? file_name.substr(0, 27) + "\u2026" : file_name;
+        },
+
+        showDocButton(file_path) {
+            let file_data = (FileType.getData(file_path) || {});
+            return file_data.file_viewer !== "json" && file_data.documentation !== undefined;
+        },
+        openDoc(file_path) {
+            shell.openExternal(`${DOC_URL}${encodeURI(FileType.getData(file_path).documentation)}`);
+        },
+        getIcon(file_path) {
+            return FileType.getFileIcon(file_path);
         }
     }
 }
@@ -110,8 +143,8 @@ export default {
     }
     .tab.selected {
         opacity: 1;
-        border-bottom: 2px solid #4caf50 !important;
-        color: #4caf50;
+        border-bottom: 2px solid var(--v-primary-base) !important;
+        color: var(--v-primary-base);
     }
     *::-webkit-scrollbar-track {
         border-bottom-left-radius: 2px;

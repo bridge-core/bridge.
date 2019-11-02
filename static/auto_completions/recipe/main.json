@@ -67,5 +67,16 @@
         "input": "$recipe.general.item_block_identifier",
         "reagent": "$recipe.general.item_block_identifier",
         "output": "$recipe.general.item_block_identifier"
+    },
+
+    "minecraft:recipe_brewing_container": {
+        "description": "$recipe.general.description",
+        "tags": {
+            "$dynamic.list.next_index": "$recipe.general.tags"
+        },
+
+        "input": "$recipe.general.item_block_identifier",
+        "reagent": "$recipe.general.item_block_identifier",
+        "output": "$recipe.general.item_block_identifier"
     }
 }

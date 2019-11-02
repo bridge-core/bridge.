@@ -1,9 +1,10 @@
 import fs from "fs";
+import path from "path";
 let DATA = [];
 
 function readData(key) {
     return new Promise((resolve, reject) => {
-        fs.readFile(`${__static}\\template_sets\\${key}.json`, (err, data) => {
+        fs.readFile(path.join(__static, "template_sets", `${key}.json`), (err, data) => {
             if(err) reject(err);
             else resolve(JSON.parse(data.toString()));
         });

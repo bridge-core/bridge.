@@ -7,6 +7,7 @@
         @click="(event) => $emit('mainClick', event)"
         @dblclick="(event) => $store.state.Settings.cade_node_click ? $emit('arrowClick', event) : undefined"
     >
+        <!-- OPEN/CLOSE ARROW DISPLAY -->
         <v-btn
             icon
             small
@@ -23,8 +24,9 @@
             >mdi-chevron-up</v-icon>
         </v-btn>
 
+        <!-- KEY DISPLAY ERROR -->
         <v-tooltip
-            v-if="error && error.show && !node_context.meta.ignore_error"
+            v-if="error && error.show && !node_context.meta.ignore_error && !is_immutable"
             :open-delay="1400"
             right
             :nudge-right="error.fix ? 12 : 0"
@@ -43,6 +45,7 @@
 
             <span>{{ error.message }}</span>
         </v-tooltip>
+        <!-- KEY DISPLAY NO ERROR -->
         <highlight-text
             v-else
             :style="`background: ${mark.replace(/;|:/g, '')};`"
@@ -50,7 +53,8 @@
         >
         {{ my_key }}
         </highlight-text>
-        
+
+        <!-- DATA DISPLAY -->
         <span v-if="node_context.data !== '' && !node_context.open && !$store.state.Settings.hide_data_next_to_nodes">
             :
             <highlight-attribute 
@@ -58,15 +62,25 @@
                 :as_block="false"
                 :meta="node_context.meta"
                 :node_context="node_context"
+                :is_immutable="is_immutable"
 
                 @click="(event) => $emit('mainClick', event)"
                 @dblclick.native="(event) => $store.state.Settings.cade_node_click ? $emit('arrowClick', event) : undefined"
             />
         </span>
 
-        <v-icon v-if="$store.state.Settings.error_icon_indicator && child_contains_error && !node_context.open" color="error" small>mdi-alert-circle</v-icon>
+        <!-- ERROR PARENT CIRCLE -->
+        <v-icon
+            v-if="$store.state.Settings.error_icon_indicator && child_contains_error && !node_context.open && !is_immutable"
+            color="error"
+            small
+        >
+            mdi-alert-circle
+        </v-icon>
+
+        <!-- ERROR FIX -->
         <v-tooltip
-            v-if="$store.state.Settings.error_auto_fix && error && error.fix && !node_context.meta.ignore_error"
+            v-if="$store.state.Settings.error_auto_fix && error && error.fix && !node_context.meta.ignore_error && !is_immutable"
             color="amber darken-2"
             right
         >
@@ -115,7 +129,8 @@
             object: Object,
             error: Object,
             child_contains_error: Boolean,
-            node_context: Object
+            node_context: Object,
+            is_immutable: Boolean
         },
         computed: {
             selected_class() {
@@ -142,6 +157,7 @@
                 this.$root.$emit(`load(${this.tab_id}):${this.object_key}`);
             },
             openContextMenu(event) {
+                if(this.is_immutable) return;
                 TabSystem.setCurrentFileNav(this.object_key);
                 let data;
                 if(Number.isNaN(Number(this.my_key))) data = `"${this.my_key}": ${JSON.stringify(this.object.toJSON(), null, "\t")}`;

@@ -1,9 +1,8 @@
 import ContentWindow from "../scripts/commonWindows/Content";
-import TabSystem from "../scripts/TabSystem";
-import { JSONAction } from "../scripts/TabSystem/CommonHistory";
+
 
 export default class ColorPicker extends ContentWindow {
-    constructor(node_context) {
+    constructor(color, onInput) {
         super({
             display_name: "Color Picker",
             options: {
@@ -18,15 +17,18 @@ export default class ColorPicker extends ContentWindow {
             content: [
                 {
                     type: "color-picker",
-                    input: node_context.data,
+                    input: color,
                     is_rounded: false,
                     action: (val) => {
-                        TabSystem.getHistory().add(new JSONAction("edit-data", node_context, node_context.data));
-                        TabSystem.setCurrentUnsaved();
-                        node_context.edit(val);
+                        this.color_val = val;
                     }
                 }
-            ]
+            ],
+            onClose: () => {
+                this.close();
+                if(typeof onInput === "function") onInput(this.color_val);
+            }
         });
+        this.color_val = color;
     }
 }

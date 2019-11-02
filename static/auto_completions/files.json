@@ -1,8 +1,10 @@
 [
     "general",
+    "vanilla",
     "_general/block_states",
 
     "biome/main",
+    "biome/main_beta",
     "biome/general",
     "biome/components",
     "biome/tags",
@@ -29,8 +31,10 @@
     "function/general",
 
     "item/main",
+    "item/main_beta",
     "item/general",
     "item/components",
+    "item/beta_components",
 
     "recipe/main",
     "recipe/general",
@@ -46,6 +50,9 @@
     "trade_table/main",
     "trade_table/general",
 
+    "tag/main",
+    "tag/main_beta",
+
     "spawn_rule/main",
     "spawn_rule/main_beta",
     "spawn_rule/general",
@@ -59,12 +66,25 @@
     "animation_controller/main",
     "animation_controller/rp_main",
 
+    "attachables/main",
+
     "client_entity/main",
     "client_entity/general",
     
     "client_item/main",
+
     "render_controller/main",
+    "render_controller/general",
+
     "particle/main",
     "particle/general",
-    "particle/components"
+    "particle/components",
+
+    "simple/general",
+    "simple/item_texture",
+    "simple/terrain_texture",
+    "simple/biomes_client",
+    "simple/blocks",
+    "simple/sound_definitions",
+    "simple/sounds"
 ]

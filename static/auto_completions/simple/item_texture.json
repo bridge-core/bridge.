@@ -1,0 +1,11 @@
+{
+    "resource_pack_name": { "@meta": { "is_value": true } },
+    "texture_name": [ "atlas.items" ],
+    "texture_data": {
+        "$placeholder": {
+            "textures": {
+                "$dynamic.list.next_index": { "@meta": { "is_value": true }, "@import.value.item_png": "$dynamic.rp.item_png" }
+            }
+        }
+    }
+}

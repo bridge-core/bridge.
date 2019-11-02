@@ -1,19 +1,24 @@
+/**
+ * Provide and process all auto-completion related logic
+ */
 import fs from "fs";
 import deepmerge from "deepmerge";
 import VersionMap from "../editor/VersionMap";
 import Store from "../../store/index";
 import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from "./Dynamic";
-import { detachMerge as detachObj } from "../detachObj";
+import { detachMerge as detachObj } from "../mergeUtils";
 import ComponentProvider from "./Components";
 import Assert from "../plugins/PluginAssert";
 import FileType from "../editor/FileType";
 import { Omega } from "./Omega";
+import { BridgeCore } from "../bridgeCore/main";
+import EventBus from "../EventBus";
 
 let FILE_DEFS = [];
 let PLUGIN_FILE_DEFS = [];
 let PLUGIN_COMPLETIONS = [];
 let PLUGINS_TO_LOAD = [];
-let LIB_LOADED = false;
+export let LIB_LOADED = false;
 const REMOVE_LIST = [ "$load", "$dynamic_template", "$placeholder" ];
 export let LIB = { dynamic: DYNAMIC };
 
@@ -23,6 +28,7 @@ class Provider {
     }
     static loadAssets() {
         let total = 0;
+
         this.loadAsset("files")
             .then(files => files.forEach(
                 f => this.loadAsset(f)
@@ -38,6 +44,7 @@ class Provider {
                         if(total >= files.length) {
                             LIB_LOADED = true;
                             this.loadAllPluginCompletions();
+                            EventBus.trigger("bridge:loadedFileDefs");
                         }
                     })
             ));
@@ -105,10 +112,10 @@ class Provider {
         PLUGIN_FILE_DEFS = [];
     }
     static get FILE_DEFS() {
-        return FILE_DEFS.concat(PLUGIN_FILE_DEFS);
+        return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(BridgeCore.FILE_DEFS);
     }
     get FILE_DEFS() {
-        return FILE_DEFS.concat(PLUGIN_FILE_DEFS);
+        return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(BridgeCore.FILE_DEFS);
     }
 
     validator(path) {
@@ -125,6 +132,7 @@ class Provider {
         path = path.replace("global", 
             VersionMap.convert(this.start_state, Store.state.Settings.target_version)
         );
+        
         SET_CONTEXT(context, context === undefined ? undefined : context.parent);
         let propose = this.walk(path.split("/"));
         // console.log("[PROPOSING]", path, propose, LIB);
@@ -135,55 +143,63 @@ class Provider {
     preparePropose(propose, context) {
         if(propose.object === LIB) return { value: [], object: [] };
         let { object, value } = propose;
-        let META = {};
+        this.META = {};
 
         if(object.$load !== undefined) {
             let { object: object_internal, value: value_internal } = this.omegaExpression(object.$load);
-            object = detachObj({}, object, object_internal);
+
+            object = detachObj(object, object_internal);
             value = value.concat(value_internal);
         }
         if(object.$dynamic_template !== undefined) {
             let t = this.compileTemplate(object.$dynamic_template);
             if(t !== undefined) {
-                object = Object.assign({}, object, t);
+                object = detachObj(object, t);
             } 
         }
 
         return {
-            object: Object.keys(object)
-                .map(key => {
-                    if(key.startsWith("$dynamic_template.")) {
-                        return key.split(".").pop();
-                    } else if(key.startsWith("@import.value")) {
-                        let { object: object_internal, value: value_internal } = this.omegaExpression(object[key]);
-                        value.push(...value_internal);
-                        value.push(...Object.keys(object_internal));
-                        return;
-                    } else if(key.startsWith("@value.")) {
-                        value.push(key.split(".").pop());
-                        return;
-                    } else if(key === "@meta") {
-                        META = deepmerge(META, object["@meta"]);
-                        return;
-                    }
-                    if(REMOVE_LIST.includes(key)) return undefined;
-
-                    if(key[0] === "$") {
-                        let { object: object_internal, value: value_internal } = this.omegaExpression(key);
-                        return Object.keys(object_internal).concat(...value_internal);
-                    }
-                    return key;
-                })
-                .reduce((propose, element) => {
-                    if(!Array.isArray(element)) element = [element];
-                    
-                    if(element[0] !== undefined)
-                        return propose.concat(element.filter(e => !context.includes(e)));
-                    return propose;
-                }, []),
+            object: this.parseObjectCompletions(object, value, context),
             value: value.filter(e => typeof e === "string" && e !== ""),
-            META
+            META: this.META
         }
+    }
+
+    parseObjectCompletions(object, value, context=[]) {
+        return Object.keys(object)
+            .map((key) => {
+                if(key.startsWith("$dynamic_template.")) {
+                    if(object[key].$if === undefined || Omega.walk(object[key].$if))
+                        return key.split(".").pop();
+                } else if(key.startsWith("@import.value")) {
+                    let { object: object_internal, value: value_internal } = this.omegaExpression(object[key]);
+                    value.push(...value_internal);
+                    value.push(...this.parseObjectCompletions(object_internal, value));
+                    return;
+                } else if(key.startsWith("@value.")) {
+                    value.push(key.split(".").pop());
+                    return;
+                } else if(key === "@meta") {
+                    this.META = detachObj(this.META, object["@meta"]);
+                    return;
+                } else if(key === "$asObject") {
+                    return Omega.walk(object.$asObject);
+                }
+                if(REMOVE_LIST.includes(key)) return undefined;
+        
+                if(key[0] === "$") {
+                    let { object: object_internal, value: value_internal } = this.omegaExpression(key);
+                    return Object.keys(object_internal).concat(...value_internal);
+                }
+                return key;
+            })
+            .reduce((propose, element) => {
+                if(!Array.isArray(element)) element = [element];
+                
+                if(element[0] !== undefined)
+                    return propose.concat(element.filter(e => !context.includes(e)));
+                return propose;
+            }, [])
     }
 
     walk(path_arr, current=LIB) {
@@ -228,11 +244,13 @@ class Provider {
     }
 
     omegaExpression(expression) {
-        // console.log(Omega.eval(expression));
+        // console.log(expression, Omega.eval(expression));
         return Omega.eval(expression);
     }
 
     compileTemplate(template) {
+        if(template.$if !== undefined && !Omega.walk(template.$if)) return {};
+
         let dyn = Omega.walk(template["$key"]);
         if(template[`$dynamic_template.${dyn}`] !== undefined) {
             return this.compileTemplate(template[`$dynamic_template.${dyn}`]);

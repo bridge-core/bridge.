@@ -5,6 +5,7 @@
     "minecraft:hand_equipped": "$general.boolean",
     "minecraft:stacked_by_data": "$general.boolean",
     "minecraft:foil": "$general.boolean",
+    "minecraft:block": "$general.block_identifier",
 
     "minecraft:food": {
         "nutrition": "$general.number",
@@ -14,17 +15,54 @@
             "$dynamic.list.next_index": "$item.general.effect_definition"
         },
         "using_converts_to": "$general.item_identifier",
-        "on_use_action": [ "chorus_teleport", "suspicious_stew_effect" ],
+        "on_use_action": [ "chorus_teleport", "suspicious_stew_effect", "none" ],
         "on_use_range": {
             "$dynamic.list.index_triple": "$general.number"
         },
-        "cooldown_type": [ "chorusfruit" ],
+        "cooldown_type": [ "chorusfruit", "none" ],
         "cooldown_time": "$general.number"
     },
     "minecraft:seed": {
         "crop_result": "$general.block_identifier",
         "plant_at": {
             "$dynamic.list.next_index": "$general.block_identifier"
+        }
+    },
+    "$dynamic_template.bridge:weapon_damage": {
+        "$if": "$dynamic.bridge_core.is_active",
+
+        "$default": "$general.number"
+    },
+    "$dynamic_template.bridge:item_equipped_sensor": {
+        "$if": "$dynamic.bridge_core.is_active",
+
+        "$default": {
+            "on_equip": {
+                "$dynamic.list.next_index": { "@meta": { "is_value": true }, "@import.value": "$dynamic.cache.entity.events" }
+            },
+            "on_unequip": {
+                "$dynamic.list.next_index": { "@meta": { "is_value": true }, "@import.value": "$dynamic.cache.entity.events" }
+            },
+            "execute_commands": {
+                "$dynamic.list.next_index": { "@meta": { "is_value": true } }
+            },
+
+            "$dynamic_template.is_equipped": {
+                "$key": "$dynamic.setting.target_version",
+                "$default": "$entity.components",
+                "$fallback": "$entity.components",
+
+                "Stable": "$entity.components",
+                "Beta": "$entity.components and $entity.beta_components"
+            },
+            "$dynamic_template.is_not_equipped": {
+                "$key": "$dynamic.setting.target_version",
+                "$default": "$entity.components",
+                "$fallback": "$entity.components",
+
+                "Stable": "$entity.components",
+                "Beta": "$entity.components and $entity.beta_components"
+            }
         }
     }
 }

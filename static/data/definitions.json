@@ -1,0 +1,30 @@
+{
+    "animation_controller": [
+        "ids"
+    ],
+    "animation": [
+        "ids"
+    ],
+    "block": [
+        "identifiers"
+    ],
+    "entity": [
+        "identifiers",
+        "families"
+    ],
+    "item": [
+        "identifiers"
+    ],
+    "particle": [
+        "identifiers"
+    ],
+    "render_controller": [
+        "ids"
+    ],
+    "rp_animation_controller": [
+        "ids"
+    ],
+    "rp_animation": [
+        "ids"
+    ]
+}

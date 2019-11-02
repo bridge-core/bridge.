@@ -120,13 +120,13 @@
         "pull_in_entities": true,
         "seats": [
           {
-            "position": [ 0.4, -0.15, 0.04 ],
+            "position": [ 0.4, -0.2, -0.1 ],
             "min_rider_count": 0,
             "max_rider_count": 0,
             "lock_rider_rotation": 0
           },
           {
-            "position": [ -0.4, -0.15, 0.04 ],
+            "position": [ -0.4, -0.2, -0.1 ],
             "min_rider_count": 1,
             "max_rider_count": 2,
             "lock_rider_rotation": 0

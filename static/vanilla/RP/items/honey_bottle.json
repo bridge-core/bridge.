@@ -1,0 +1,14 @@
+{
+  "format_version": "1.14",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:honey_bottle",
+      "category": "Nature"
+    },
+    "components": {
+      "minecraft:icon": "honey_bottle",
+      "minecraft:use_animation": "drink",
+      "minecraft:render_offsets": "bottles"
+    }
+  }
+}

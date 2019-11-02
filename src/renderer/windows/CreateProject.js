@@ -3,8 +3,11 @@ import ContentWindow from "../scripts/commonWindows/Content";
 import { BASE_PATH, RP_BASE_PATH } from "../scripts/constants";
 import Vue from "../main";
 import LoadingWindow from "./LoadingWindow";
-import Manifest from "../scripts/utilities/Manifest";
+import Manifest from "../scripts/files/Manifest";
 import uuidv4 from "uuid/v4";
+import CreateFiles from "../scripts/projects/CreateFiles";
+import path from "path";
+import EventBus from "../scripts/EventBus";
 
 export default class CreateProjectWindow extends ContentWindow {
     constructor(create_bp=true, cb) {
@@ -24,7 +27,7 @@ export default class CreateProjectWindow extends ContentWindow {
                 key: uuidv4(),
                 has_focus: true,
                 text: `${create_bp ? "Project" : "Resource Pack"} Name`,
-                color: "success",
+                color: "primary",
 
                 action: {
                     enter: () => {
@@ -41,7 +44,7 @@ export default class CreateProjectWindow extends ContentWindow {
                                 actions: this.actions
                             });
                         } else {
-                            this.content[0].color = "success";
+                            this.content[0].color = "primary";
                             this.content[2].color = "grey";
                             this.content[2].text = DEFAULT_TEXT;
                             if(this.des !== "") this.actions[1].is_disabled = false;
@@ -58,7 +61,7 @@ export default class CreateProjectWindow extends ContentWindow {
                 type: "input",
                 key: uuidv4(),
                 text: `${create_bp ? "Project" : "Resource Pack"} Description`,
-                color: "success",
+                color: "primary",
 
                 action: {
                     enter: () => {
@@ -75,7 +78,7 @@ export default class CreateProjectWindow extends ContentWindow {
                                 actions: this.actions
                             });
                         } else {
-                            this.content[1].color = "success";
+                            this.content[1].color = "primary";
                             this.content[2].color = "grey";
                             this.content[2].text = DEFAULT_TEXT;
                             if(this.input !== "") this.actions[1].is_disabled = false;
@@ -97,7 +100,7 @@ export default class CreateProjectWindow extends ContentWindow {
             },
             (create_bp ? {
                 type: "switch",
-                color: "success",
+                color: "primary",
                 text: "Register client data",
                 action: (val) => {
                     this.client_data = val;
@@ -111,9 +114,9 @@ export default class CreateProjectWindow extends ContentWindow {
             {
                 type: "button",
                 text: "Create!",
-                color: "success",
+                color: "primary",
                 is_disabled: true,
-                is_rounded: true,
+                is_rounded: false,
                 action: () => this.createProject(create_bp, cb)
             }
         ];
@@ -142,17 +145,25 @@ export default class CreateProjectWindow extends ContentWindow {
         let b_path = create_bp ? BASE_PATH : RP_BASE_PATH;
         
         window.setTimeout(() => {
-            fs.mkdir(b_path + this.input, (err) => {
+            fs.mkdir(b_path + this.input, { recursive: true }, (err) => {
                 if(err && err.message.includes("already exists")) return l_w.hide();
                 if(err) { l_w.hide(); throw err; }
-                else fs.writeFile(b_path + this.input + "/manifest.json", new Manifest(create_bp ? "data" : "resources", this.input, this.des, this.client_data).get(), () => {
-                    if(err && err.message.includes("already exists")) return l_w.hide();
-                    if(err) { l_w.hide(); throw err; }
-                    else Vue.$root.$emit("refreshExplorer");
 
-                    l_w.hide();
-                    if(typeof cb === "function") cb(this.input);
-                });
+                fs.writeFile(
+                    path.join(b_path, this.input, "/manifest.json"),
+                    new Manifest(create_bp ? "data" : "resources", this.input, this.des, this.client_data).get(),
+                    async () => {
+                        if(err && err.message.includes("already exists")) return l_w.hide();
+                        if(err) { l_w.hide(); throw err; }
+                        if(!create_bp) await CreateFiles.createRPFiles(path.join(b_path, this.input));
+                        else await CreateFiles.createBPFiles(path.join(b_path, this.input));
+                        Vue.$root.$emit("refreshExplorer");
+                        
+                        l_w.hide();
+                        if(typeof cb === "function") cb(this.input);
+                        if(create_bp) EventBus.trigger("bridge:selectProject", this.input);
+                    }
+                );
             });
         }, 50);
     }

@@ -1,19 +1,15 @@
 import KeyManager from "../../scripts/appMenu/KeyManager";
 import Vue from "vue";
-import Store from "../index";
 import { ipcRenderer, shell } from "electron";
 import SettingsWindow from "../../windows/Settings";
 import CreateFileWindow from "../../windows/CreateFile";
 import TabSystem from "../../scripts/TabSystem";
-import FileSystem from "../../scripts/FileSystem";
-import ConfirmWindow from "../../scripts/commonWindows/Confirm";
 import EventBus from "../../scripts/EventBus";
 import SnippetWindow from "../../windows/Snippets";
 import TemplateSetsWindow from "../../windows/TemplateSets";
-import CreditsWindow from "../../windows/Credits";
+import AboutWindow from "../../windows/About";
 import NodeShortcuts from "../../scripts/editor/NodeShortcuts";
-import OmegaCache from "../../scripts/editor/OmegaCache";
-import LightningCache from "../../scripts/editor/LightningCache";
+import ExtensionBrowser from "../../windows/Extensions/Browser";
 
 const state = {
     file: {
@@ -52,20 +48,6 @@ const state = {
                 action: () => TabSystem.closeSelected()
             },
             {
-                title: "Clear Cache",
-                action: () => {
-                    if(TabSystem.getSelected()) new ConfirmWindow(() => {
-                        try {
-                            let path = TabSystem.getSelected().file_path;
-                            OmegaCache.clear(path);
-                            LightningCache.clear(path);
-                            TabSystem.closeSelected();
-                            FileSystem.open(path);
-                        } catch(err) {}
-                    }, null, "Are you sure that you want to delete the cache of this file?");
-                } 
-            },
-            {
                 type: "divider"
             },
             {
@@ -80,7 +62,7 @@ const state = {
                     },
                     {
                         title: "Extensions",
-                        action: () => Store.commit("setPluginMenuOpen")
+                        action: () => new ExtensionBrowser()
                     }
                 ]
             }
@@ -225,11 +207,11 @@ const state = {
                 shortcut: "Ctrl + Q",
                 action: () => SnippetWindow.show()
             },
-            {
-                title: "Template Sets",
-                shortcut: "Ctrl + T",
-                action: () => TemplateSetsWindow.show()
-            }
+            // {
+            //     title: "Template Sets",
+            //     shortcut: "Ctrl + T",
+            //     action: () => TemplateSetsWindow.show()
+            // }
         ]
     },
     help: {
@@ -238,7 +220,7 @@ const state = {
         elements: [
             {
                 title: "About",
-                action: () => new CreditsWindow()
+                action: () => new AboutWindow()
             },
             {
                 title: "Latest Release",
@@ -250,7 +232,7 @@ const state = {
             },
             {
                 title: "Plugin API",
-                action: () => shell.openExternal("https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md")
+                action: () => shell.openExternal("https://github.com/solvedDev/bridge./blob/master/plugin_docs/main.md")
             }
         ]
     }

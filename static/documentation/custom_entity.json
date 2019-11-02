@@ -1,0 +1,6 @@
+{
+    "execute": {
+        "title": "Executing Commands",
+        "description": "bridge. generates an animation controller per entity which uses the new syntax. Those controller files are added to an \"animation_controllers/bridge\" folder. Internally, bridge. uses a bunch of \"minecraft:skin_id\" component groups to assign unique IDs to every single event definition with the new syntax. If you need to use this component on the entity, you have to create the animation controller manually. All component groups are namespaced as \"bridge:\" to avoid collisions."
+    }
+}

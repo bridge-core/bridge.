@@ -1,0 +1,33 @@
+{
+    "icon": "mdi-hat-fedora",
+    "title": "Attachable",
+    "extension": "json",
+    "path": "attachables/",
+
+    "templates": {
+        "$default_pack": {
+            "path": "RP/attachables"
+        },
+        "Blank Attachable": {
+            "format_version": {},
+            "minecraft:attachable": {
+                "description": {
+                    "identifier": {},
+                    "materials": {
+                        "default": {}
+                    },
+                    "textures": {
+                        "default": {}
+                    },
+                    "geometry": {
+                        "default": {}
+                    },
+                    "scripts": {
+                        "pre_animation": {}
+                    },
+                    "render_controllers": {}
+                }
+            }
+        }
+    }
+}

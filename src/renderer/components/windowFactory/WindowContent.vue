@@ -10,6 +10,10 @@
         v-else-if="content.type == 'header'"
         :color="content.color"
     >{{ content.text }}</v-subheader>
+    <h3
+        v-else-if="content.type == 'big-header'"
+        :class="pre_color"
+    >{{ content.text }}</h3>
     <v-img
         v-else-if="content.type == 'img'"
         :src="content.src"
@@ -31,10 +35,21 @@
     />
     <div
         v-else-if="content.type == 'container'"
-        :style="`background-color: ${content.color}; padding: 4px; width: ${content.full_width ? '100%' : 'unset'}; height: ${content.height}px; overflow-y: ${content.scroll ? 'auto' : 'hidden'};`"
+        :style="`background-color: ${content.color}; padding: 4px; width: ${content.full_width ? '100%' : 'unset'}; height: ${content.height}px; overflow-y: ${content.scroll ? 'auto' : 'hidden'}; white-space: ${content.no_wrap ? 'nowrap' : 'unset'}; overflow-x: auto;`"
+        :class="content.small_scrollbar ? 'small-scrollbar' : ''"
     >
-        <window-content v-for="(c) in content.content" :key="key(c)" :content="c"/>
+        <window-content :style="content.display ? `display: ${content.display};` : ''" v-for="(c) in content.content" :key="key(c)" :content="c"/>
     </div>
+    <v-chip
+        v-else-if="content.type == 'tag'"
+        :color="content.color"
+        @click.stop="action.default"
+        style="margin-right: 4px;"
+        small
+    >
+        <v-icon class="click-action" v-if="content.icon" left>{{ content.icon }}</v-icon>
+        {{ content.text }}
+    </v-chip>
     <!-- HORIZONTAL GROUPS -->
     <v-layout :align-end="!content.center" :align-center="content.center" v-else-if="content.type == 'horizontal' && Array.isArray(content.content)">
         <v-flex v-for="(c) in content.content" :key="key(c)">
@@ -47,7 +62,7 @@
         </v-flex>
     </v-layout>
     <!-- CARDS -->
-    <v-card v-else-if="content.type == 'card'">
+    <v-card v-else-if="content.type == 'card'" :color="content.color || 'background'" :tile="content.is_tiled" :elevation="content.elevation">
         <v-card-title v-if="content.above_content">
             <window-content v-for="(a_c) in content.above_content" :key="key(a_c)" :content="a_c"/>
         </v-card-title>
@@ -75,17 +90,19 @@
     <v-btn 
         v-else-if="content.type == 'button'"
         @click.stop.native="action.default"
-        :color="content.color"
+        :color="content.color || 'default_button'"
         :rounded="content.is_rounded"
         :text="content.is_flat"
         :disabled="content.is_disabled"
+        :loading="content.is_loading"
     >
-        {{ content.text }}
+        <v-icon v-if="content.icon" class="click-action" :color="content.text_color">{{ content.icon }}</v-icon>
+        <span :class="text_color">{{ content.text }}</span>
     </v-btn>
     <v-btn 
         v-else-if="content.type == 'icon-button'"
         @click.stop.native="action.default"
-        :color="content.color"
+        :color="content.color || 'default_button'"
         :rounded="content.is_rounded"
         :text="content.is_flat"
         :disabled="content.is_disabled"
@@ -113,6 +130,7 @@
         :value="content.input"
         :autofocus="content.has_focus"
         hide-details
+        style="margin-bottom: 1px;"
         ref="input"
     />
     <v-textarea
@@ -140,7 +158,7 @@
         :items="content.options"
         @change="action.default"
         :color="content.color"
-        background-color="rgba(0, 0, 0, 0)"
+        background-color="menu"
         :value="content.input"
         :autofocus="content.has_focus"
         solo
@@ -156,6 +174,7 @@
         :value="content.input"
         :solo="content.is_box"
         :color="content.color"
+        :background-color="content.is_box ? 'menu' : 'rgba(0, 0, 0, 0)'"
         :autofocus="content.has_focus"
         ref="input"
     />
@@ -172,6 +191,7 @@
         :value="content.input"
         :solo="content.is_box"
         :color="content.color"
+        :background-color="content.is_box ? 'menu' : 'rgba(0, 0, 0, 0)'"
         :autofocus="content.has_focus"
         ref="input"
     />
@@ -200,7 +220,7 @@
             :options="codemirror_options"
             ref="input"
         />
-        <text-auto-completions/>
+        <text-auto-completions v-if="$store.state.Settings.text_auto_completions"/>
     </span>
 
     <!-- ERROR -->
@@ -257,7 +277,7 @@
         },
         computed: {
             action() {
-                if(typeof this.internal_action == "object") {
+                if(typeof this.internal_action === "object") {
                     let res = {};
                     for(let act_key in this.internal_action) {
                         res[act_key] = this.makeFunction(this.internal_action[act_key]);
@@ -267,7 +287,7 @@
                 return { default: this.makeFunction(this.internal_action) };
             },
             internal_action() {
-                if(typeof this.content.action == "object") {
+                if(typeof this.content.action === "object") {
                     let a = this.content.action;
                     let res = {};
                     if(!a.default) {
@@ -291,6 +311,14 @@
                     return `${tmp[0]}--text text--${tmp[1]}`;
                 }
                 return `${this.content.color}--text`;
+            },
+            text_color() {
+                if(!this.content.text_color) return "";
+                if(this.content.text_color.includes(" ")) {
+                    let tmp = this.content.text_color.split(" ");
+                    return `${tmp[0]}--text text--${tmp[1]}`;
+                }
+                return `${this.content.text_color}--text`;
             },
 
             codemirror() {
@@ -334,11 +362,11 @@
         },
         methods: {
             makeFunction(action) {
-                if(typeof action != "function") return () => {};
+                if(typeof action !== "function") return () => {};
                 return action;
             },
             key(c) {
-                return (typeof c === 'function' ? c().key : c.key) || uuidv4();
+                return (typeof c === 'function' ? c().key : (c || {}).key) || uuidv4();
             },
 
             setCMTextSelection(sel_obj_1, sel_obj_2) {
@@ -384,5 +412,9 @@
     }
     .click-action {
         cursor: pointer;
+    }
+    .small-scrollbar::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
     }
 </style>

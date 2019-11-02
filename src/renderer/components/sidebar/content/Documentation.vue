@@ -1,38 +1,30 @@
 <template>
     <div>
         <v-container :style="`max-height: ${sidebar_height}px;`">
-            <v-progress-linear
-                :color="show_loading ? 'warning' : 'success'"
-                :value="DOC_LOADER.progress"
-                :indeterminate="DOC_WINDOW.loading"
-            />
+            <template v-for="(doc, i) in doc_list">
+                <v-btn
+                    :key="`btn.${i}`"
+                    @click.stop="openDoc(doc)"
+                    block
+                    text
+                >
+                    <span>{{ doc }}</span>
+                    <v-spacer/>
+                    <v-icon>mdi-chevron-right</v-icon>
+                </v-btn>
 
-            <div v-if="DOC_LOADER.finished_loading">
-                <template v-for="(doc, i) in doc_list">
-                    <v-btn
-                        :key="`btn.${i}`"
-                        @click.stop="() => DOC_WINDOW.open(doc)"
-                        block
-                       text
-                    >
-                        <span>{{ doc }}</span>
-                        <v-spacer/>
-                        <v-icon>mdi-chevron-right</v-icon>
-                    </v-btn>
-
-                    <v-divider
-                        v-if="i + 1 < doc_list.length"
-                        :key="`divider.${i}`"
-                    />
-                </template>
-            </div>
+                <v-divider
+                    v-if="i + 1 < doc_list.length"
+                    :key="`divider.${i}`"
+                />
+            </template>
         </v-container>
     </div>
 </template>
 
 <script>
-    import { DOC_LOADER, DOC_WINDOW } from "../../../scripts/documentation/main";
-    import { DOC_LIST } from '../../../scripts/constants';
+    import { DOC_LIST, DOC_URL } from '../../../scripts/constants';
+    import { shell } from "electron"
 
     export default {
         name: "content-documentation",
@@ -44,9 +36,7 @@
         },
         data() {
             return {
-                sidebar_height: window.innerHeight - 140,
-                DOC_LOADER,
-                DOC_WINDOW
+                sidebar_height: window.innerHeight - 140
             }
         },
         computed: {
@@ -54,15 +44,15 @@
                 return DOC_LIST.sort((a, b) => {
                     return a.toUpperCase().localeCompare(b.toUpperCase());
                 });
-            },
-
-            show_loading() {
-                return !DOC_LOADER.finished_loading || DOC_WINDOW.loading;
             }
         },
         methods: {
             onResize() {
                 this.sidebar_height = window.innerHeight - 140;
+            },
+
+            openDoc(doc) {
+                shell.openExternal(`${DOC_URL}${encodeURI(doc)}`);
             }
         }
     }

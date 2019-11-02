@@ -3,6 +3,7 @@ import safeEval from "safe-eval";
 import { RP_BASE_PATH, BASE_PATH } from "../scripts/constants";
 import { getTemplateSets, loadTemplateSets } from "../scripts/TemplateSets";
 import fs from "fs";
+import { join, sep as pathSep } from "path";
 import Store from "../store/index";
 import findRP from "../scripts/utilities/FindRP";
 import mkdirp from "mkdirp";
@@ -50,7 +51,7 @@ async function evalStatement(str, bindings) {
 }
 
 function parseDefine(path, as, bindings, cb) {
-    fs.readFile(`${__static}\\template_sets\\${path}`, async (err, data) => {
+    fs.readFile(path.join(__static, 'template_sets', path), async (err, data) => {
         // console.log(await evalStatement(as, bindings));
         if(err) 
             throw err;
@@ -58,7 +59,7 @@ function parseDefine(path, as, bindings, cb) {
             let path = await evalStatement(as, bindings);
             let folder = path.split(/\\|\//g);
             folder.pop();
-            folder = folder.join("\\");
+            folder = folder.join(pathSep);
 
             mkdirp.sync(folder);
             fs.writeFile(
@@ -125,14 +126,14 @@ class TemplateSetsWindow extends TabWindow {
             },
             {
                 type: "button",
-                is_rounded: true,
-                color: "success",
+                is_rounded: false,
+                color: "primary",
                 text: "Create!",
 
                 action: () => {
                     let { define } = SETS[this.selected_tab];
                     if(define === undefined || !this.inputsFilled())
-                        return new InformationWindow("Inputs", "\nNot all required inputs are filled.");
+                        return new InformationWindow("Inputs", "Not all required inputs are filled.");
                     
                     this.close();
                     L_W = new LoadingWindow("template_set.").show();

@@ -97,10 +97,6 @@
       {
         "requires": "$nx_os",
         "$visibility_binding_type": "none"
-      },
-      {
-        "requires": "$is_berwick",
-        "$visibility_binding_type": "none"
       }
     ],
     "bindings": [
@@ -113,7 +109,7 @@
   },
 
   "change_skin_button@common_buttons.light_glyph_button": {
-    "ignored": "($nx_os or $is_berwick)",
+    "ignored": "$nx_os",
     "size": [ 29, 26 ],
     "$pressed_button_name": "button.to_profile_or_skins_screen",
     "anchor_from": "bottom_middle",
@@ -146,10 +142,6 @@
     "variables": [
       {
         "requires": "$nx_os",
-        "$visibility_binding_type": "none"
-      },
-      {
-        "requires": "$is_berwick",
         "$visibility_binding_type": "none"
       }
     ],
@@ -743,6 +735,7 @@
               }
             },
             { "feedback_button@pause.feedback_button": {} },
+            { "feedback@pause.vertical_padding": {} },
             {
               "how_to_play@pause.vertical_padding": {
                 "ignored": "(not $education_edition or $education_edition_china)"

@@ -1,6 +1,6 @@
 <template>
-    <v-toolbar flat height="30px">
-        <v-tooltip bottom>
+    <v-toolbar color="expanded_sidebar" flat height="30px">
+        <v-tooltip color="tooltip" bottom>
             <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="refresh" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-refresh</v-icon>
@@ -9,7 +9,7 @@
             <span>Refresh</span>
         </v-tooltip>
 
-        <v-tooltip bottom>
+        <v-tooltip color="tooltip" bottom>
             <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="openCreateProjectWindow" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-folder-plus</v-icon>
@@ -18,7 +18,7 @@
             <span>New Project</span>
         </v-tooltip>
 
-        <v-tooltip bottom>
+        <v-tooltip color="tooltip" bottom>
             <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="openCreateFileWindow" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-file-document</v-icon>
@@ -27,7 +27,7 @@
             <span>New File</span>
         </v-tooltip>
 
-        <v-tooltip bottom>
+        <v-tooltip color="tooltip" bottom>
             <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="packageProject" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-package-variant-closed</v-icon>
@@ -36,7 +36,7 @@
             <span>Package</span>
         </v-tooltip>
 
-        <v-tooltip bottom>
+        <v-tooltip color="tooltip" bottom>
             <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="openInExplorer" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-folder-multiple</v-icon>
@@ -45,15 +45,24 @@
             <span>Open In Explorer</span>
         </v-tooltip>
 
-        <!-- <v-spacer></v-spacer>
-        <v-tooltip bottom>
+        <v-spacer/>
+        <v-menu content-class="json-input-suggestions" v-if="menu_elements.length" dense offset-y>
             <template v-slot:activator="{ on }">
                 <v-btn icon text @click.stop="" v-on="on" class="toolbar-button" small>
                     <v-icon small>mdi-dots-vertical</v-icon>
                 </v-btn>
             </template>
-            <span>More...</span>
-        </v-tooltip> -->
+            <v-list color="menu">
+                <v-list-item
+                    v-for="({ action, title, icon }, index) in menu_elements"
+                    :key="index"
+                    @click="action"
+                >
+                    <v-list-item-icon v-if="icon" style="margin: 4px 12px 4px 0;"><v-icon>{{ icon }}</v-icon></v-list-item-icon>
+                    <v-list-item-title>{{ title }}</v-list-item-title>
+                </v-list-item>
+            </v-list>
+        </v-menu>
     </v-toolbar>
 </template>
 
@@ -63,12 +72,38 @@
     import CreateProjectWindow from "../../../../windows/CreateProject";
     import LoadingWindow from "../../../../windows/LoadingWindow";
     import ZipFolder from "zip-a-folder";
+    import { join } from "path";
+    import InputWindow from "../../../../scripts/commonWindows/Input";
+    import ProjectConfig from "../../../../scripts/ProjectConfig";
 
     export default {
         name: "explorer-toolbar",
         props: {
             base_path: String,
             selected: String
+        },
+        data() {
+            return {
+                menu_elements: [
+                    {
+                        icon: "mdi-rename-box",
+                        title: "Project Namespace",
+                        action: async () => {
+                            let prefix;
+                            try { prefix = await ProjectConfig.prefix; }
+                            catch(e) { prefix = "bridge" }
+
+                            new InputWindow({
+                                header: "Project Namespace",
+                                label: "Namespace",
+                                text: prefix
+                            }, (val) => {
+                                ProjectConfig.setPrefix(val);
+                            })
+                        }
+                    }
+                ]
+            }
         },
         methods: {
             refresh() {
@@ -84,7 +119,7 @@
                 let lw = new LoadingWindow();
                 let project = this.selected;
                 let path = this.base_path + project;
-                ZipFolder.zipFolder(path, `${path}\\${project}.mcpack`, err => {
+                ZipFolder.zipFolder(path, join(path, `${project}.mcpack`), err => {
                     if(err) console.error(err);
                     this.refresh();
                     lw.close();

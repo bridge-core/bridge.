@@ -1,3 +1,6 @@
+/**
+ * Implements JSONNode (JSONTree.js) shortcuts
+ */
 import TabSystem from "../TabSystem";
 import { clipboard } from "electron";
 import { JSONAction } from "../TabSystem/CommonHistory";

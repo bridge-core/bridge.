@@ -10,9 +10,10 @@
             :compiled="file.is_compiled"
             :tab_id="tab_id"
             :object="json_object"
-            :available_height="available_height - 60"
+            :available_height="available_height - 6"
             :uuid="use_uuid"
             :current_file_path="file.file_path"
+            :is_immutable="file.is_immutable"
         />
         <span v-else>
             <codemirror
@@ -20,7 +21,7 @@
                 :options="cm_options"
                 ref="cm"
             />
-            <text-auto-completions/>
+            <text-auto-completions v-if="$store.state.Settings.text_auto_completions"/>
         </span>
     </span>
 </template>
@@ -34,9 +35,6 @@
 
     //Style
     import "codemirror/lib/codemirror.css";
-    import "codemirror/theme/monokai.css";
-    import "codemirror/theme/xq-light.css";
-    //import "codemirror/addon/hint/show-hint.css";
 
     //Other
     import "codemirror/addon/edit/closebrackets.js";
@@ -44,7 +42,7 @@
     import "codemirror/keymap/sublime.js";
     
     //Files
-    import loadAllTextHighlighters from "../../scripts/editor/CMLanguage.js";
+    import loadAllTextHighlighters from "../../scripts/editor/CMLanguage";
 
     import JsonEditorMain from "./JsonEditor/Main";
     import JsonErrorScreen from "./JsonErrorScreen";
@@ -173,13 +171,17 @@
                     lineNumbers: true,
                     line: true,
                     autoCloseBrackets: true,
+                    autofocus: true,
                     keyMap: "sublime",
-                    theme: this.$store.state.Appearance.is_dark_mode ? "monokai" : "xq-light",
+                    theme: "monokai",
                     mode: this.alias[this.extension] || this.extension,
                     styleActiveLine: true,
                     showCursorWhenSelecting: true,
                     lineWrapping: this.$store.state.Settings.line_wraps,
+                    indentWithTabs: true,
                     extraKeys: {
+                        "Alt-Up": "addCursorToPrevLine",
+                        "Alt-Down": "addCursorToNextLine",
                         "Ctrl-Space": this.shouldUpdateSuggestions,
                         "Up": () => {
                             EventBus.trigger("bridge:textCompletionsOpen", (is_open) => {
@@ -205,7 +207,14 @@
                                 else return this.setCMSelection("\t");
                             });
                         },
-                        "Esc": () => EventBus.trigger("bridge:closeTextCompletions")
+                        "Esc": () => EventBus.trigger("bridge:closeTextCompletions"),
+                        "Shift-Ctrl-C": () => {
+                            let line_number = this.codemirror.doc.getCursor().line;
+                            let text = this.codemirror.doc.getLine(line_number);
+                            let pos = { line: this.codemirror.doc.getCursor().line, ch: text.length };
+                            this.setCMTextSelection(pos);
+                            this.setCMSelection(`\n${text}`);
+                        }
                     }
                 };
             },
@@ -245,6 +254,7 @@
         },
         watch: {
             available_height() {
+                if(!this.codemirror) return;
                 this.codemirror.setSize("100%", this.available_height - 12)
             },
             content_as_string() {
@@ -256,10 +266,10 @@
 
 <style>
     .CodeMirror.cm-s-monokai > * {
-        background: #303030;
+        background: var(--v-background-base);
     }
-    .cm-s-monokai .CodeMirror-gutter, .cm-s-monokai .CodeMirror-linenumbers {
-        background: rgb(60, 60, 60);
+    .cm-s-monokai .CodeMirror-gutters, .cm-s-monokai .CodeMirror-linenumbers {
+        background: var(--v-background-lighten1);
     }
     .cm-s-monokai .CodeMirror-selected {
         background: rgb(60, 60, 60) !important;

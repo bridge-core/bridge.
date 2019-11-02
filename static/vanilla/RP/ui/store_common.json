@@ -1128,6 +1128,10 @@
       {
         "top_bar@common_store.store_top_bar": {
           "size": "$store_header_size",
+          "focus_container": true,
+          "focus_nagivation_mode_up": "stop",
+          "focus_nagivation_mode_right": "stop",
+          "focus_nagivation_mode_left": "none",
           "controls": [
             {
               "title_stack_panel": {
@@ -1167,7 +1171,19 @@
                       "size": [ 5, "100%" ]
                     }
                   },
-                  { "status_and_coins@common_store.status_with_coins": {} },
+                  {
+                    "status_and_coins@common_store.status_with_coins": {
+                      "$top_status_and_coins_visible_binding_type|default": "none",
+                      "$top_status_and_coins_visible_binding|default": "",
+                      "bindings": [
+                        {
+                          "binding_type": "$top_status_and_coins_visible_binding_type",
+                          "binding_name": "$top_status_and_coins_visible_binding",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
+                  },
                   {
                     "padding5": {
                       "type": "panel",

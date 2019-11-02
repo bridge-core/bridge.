@@ -1,0 +1,24 @@
+{
+    "RP": {
+        "folders": [
+            "textures",
+            "sounds"
+        ],
+        "files": {
+            "pack_icon.png": "pack_icon.png",
+            "RP/biomes_client.json": "biomes_client.json",
+            "RP/blocks.json": "blocks.json",
+            "RP/sounds.json": "sounds.json",
+            "RP/terrain_texture.json": "textures/terrain_texture.json",
+            "RP/item_texture.json": "textures/item_texture.json",
+            "RP/sound_definitions.json": "sounds/sound_definitions.json",
+            "RP/music_definitions.json": "sounds/music_definitions.json"
+        }
+    },
+    "BP": {
+        "folders": [],
+        "files": {
+            "pack_icon.png": "pack_icon.png"
+        }
+    }
+}

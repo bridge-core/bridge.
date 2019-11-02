@@ -1,0 +1,12 @@
+{
+    "define_multiple": true,
+    "definitions": [
+        {
+            "load": "entity",
+            "except": "identifiers"
+        },
+        [ 
+            { "key": "identifiers", "path": "bridge:tag/description/identifier" }
+        ]
+    ]
+}

@@ -1,6 +1,6 @@
 {
     "icon": "mdi-movie",
-    "title": "Animation",
+    "title": "Client Animation",
     "extension": "json",
     "path": "animations/",
     

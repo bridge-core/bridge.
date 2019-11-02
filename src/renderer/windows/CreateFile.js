@@ -10,7 +10,7 @@ import { join } from "path";
 import { promises as fs } from "fs";
 
 class FileContent {
-    constructor(name, ext="json", parent, expand_path="", { location, ...add_content }={}, use_rp_path) {
+    constructor(name, ext="json", parent, expand_path="", { add_location, ...add_content }={}, use_rp_path) {
         this.parent = parent;
         this.ext = ext;
         this.expand_path = expand_path;
@@ -27,7 +27,7 @@ class FileContent {
                     text: "Name",
                     input: this.curr_input,
                     has_focus: true,
-                    color: "success",
+                    color: "primary",
                     key: uuidv4(),
                     action: {
                         enter: () => {
@@ -47,7 +47,7 @@ class FileContent {
 
                                 this.parent.update({ content: this.content, actions: this.parent.actions });
                             } else if(this.parent.actions[1].is_disabled) {
-                                this.input.content[0].color = "success";
+                                this.input.content[0].color = "primary";
                                 this.input.content[0].key = uuidv4();
                                 this.input.content[0].input = this.curr_input;
                                 this.parent.actions[1].is_disabled = false;
@@ -88,9 +88,9 @@ class FileContent {
             this.path_info
         ];
 
-        if(location === undefined)
-            location = {};
-        if(add_content !== undefined)
+        if(add_location === undefined)
+            add_location = [];
+        if(add_content !== undefined && Object.keys(add_content).length !== 0)
             this.add({
                 ...add_content,
                 action: (parameter) => {
@@ -102,7 +102,7 @@ class FileContent {
                         throw new Error("Unknown add_content.action type: " + add_content.action.type);
                     }
                 }
-            }, ...location);
+            }, ...add_location);
     }
 
     getPath(val=this.curr_input, ext=this.ext, expand=this.expand_path) {
@@ -127,8 +127,12 @@ export default class CreateFileWindow extends ContentWindow {
     constructor(show_rp=false, apply_filter=true) {
         let FILE_DATA;
         if(apply_filter || Store.state.Explorer.project.resource_pack === undefined)
-            FILE_DATA = FileType.getFileCreator().filter(f => show_rp ? f.rp_definition : !f.rp_definition);
-        else FILE_DATA = FileType.getFileCreator();
+            FILE_DATA = FileType.getFileCreator()
+                .filter(f => show_rp ? f.rp_definition : !f.rp_definition)
+                .sort(({title: t1}, {title: t2}) => t1.localeCompare(t2));
+        else 
+            FILE_DATA = FileType.getFileCreator()
+                .sort(({title: t1}, {title: t2}) => t1.localeCompare(t2));
 
         super({
             display_name: "New File",
@@ -136,10 +140,11 @@ export default class CreateFileWindow extends ContentWindow {
                 is_visible: false,
                 is_persistent: false
             },
-            sidebar: FILE_DATA.map(({ icon, title }, index) => {
+            sidebar: FILE_DATA.map(({ icon, title, rp_definition }, index) => {
                 return {
                     icon,
                     title,
+                    rp_definition,
                     opacity: 0.25,
                     action: () => {
                         this.select(index)
@@ -164,8 +169,8 @@ export default class CreateFileWindow extends ContentWindow {
             {
                 type: "button",
                 text: "Create!",
-                color: "success",
-                is_rounded: true,
+                color: "primary",
+                is_rounded: false,
                 is_disabled: false,
                 action: this.createFile
             }
@@ -187,7 +192,7 @@ export default class CreateFileWindow extends ContentWindow {
     async select(id) {
         this.current_content = this.contents[id];
 
-        this.win_def.sidebar.forEach(e => { e.opacity = 0.25; e.is_selected = false; });
+        this.win_def.sidebar.forEach(e => { e.opacity = e.rp_definition ? 0.25 : 0.5; e.is_selected = false; });
         this.win_def.sidebar[id].opacity = 1;
         this.win_def.sidebar[id].is_selected = true;
         this.win_def.options.is_visible = true;

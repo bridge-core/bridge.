@@ -136,72 +136,31 @@
   // Visual Tip
   //---------------------------------------------------------------------------
 
-  "game_tip_size_animation_wait": {
-    "anim_type": "wait",
-    "duration": "$wait_time",
-    "next": "@game_tip.anim_game_tip_alpha"
+  "hint_tip_animation": {
+    "anim_type": "flip_book",
+    "initial_uv": [ 0, 0 ],
+    "frame_count": "$hint_frame_count",
+    "frame_step": 37,
+    "fps": 6,
+    "easing": "linear"
   },
 
-  "anim_game_tip_alpha": {
-    "anim_type": "alpha",
-    "easing": "in_sine",
-    "duration": 0.2,
-    "from": 1,
-    "to": 0
-  },
-
-  "cell_image_hint_tips@common.cell_image": {
+  "cell_image_hint_tip": {
     "layer": 14,
     "type": "image",
-    "$hint_texture|default": "textures/ui/hint_1",
+    "$hint_texture|default": "textures/ui/hint_burst",
+    "$hint_frame_count|default": 5,
     "variables": [
       {
         "requires": "($desktop_screen and $is_recipe_book_tip)",
-        "$hint_texture": "textures/ui/hint_small_1"
+        "$hint_texture": "textures/ui/hint_burst_small",
+        "$hint_frame_count": 4
       }
     ],
     "texture": "$hint_texture",
     "size": [ 37, 37 ],
-    "$wait_time": 0.2,
-    "anims": [
-      "@game_tip.game_tip_size_animation_wait"
-    ]
-  },
-
-  "cell_image_hint_tips_2@common.cell_image": {
-    "layer": 14,
-    "type": "image",
-    "$hint_texture|default": "textures/ui/hint_2",
-    "variables": [
-      {
-        "requires": "($desktop_screen and $is_recipe_book_tip)",
-        "$hint_texture": "textures/ui/hint_small_2"
-      }
-    ],
-    "texture": "$hint_texture",
-    "size": [ 37, 37 ],
-    "$wait_time": 0.4,
-    "anims": [
-      "@game_tip.game_tip_size_animation_wait"
-    ]
-  },
-
-  "cell_image_hint_tips_3@common.cell_image": {
-    "layer": 14,
-    "type": "image",
-    "$hint_texture|default": "textures/ui/hint_3",
-    "variables": [
-      {
-        "requires": "($desktop_screen and $is_recipe_book_tip)",
-        "$hint_texture": "textures/ui/hint_small_3"
-      }
-    ],
-    "texture": "$hint_texture",
-    "size": [ 37, 37 ],
-    "$wait_time": 0.6,
-    "anims": [
-      "@game_tip.game_tip_size_animation_wait"
-    ]
+    "uv_size": [ 37, 37 ],
+    "uv": "@game_tip.hint_tip_animation"
   },
 
   "cell_image_classic_hint@crafting.cell_image": {
@@ -210,11 +169,9 @@
     "size": "$cell_image_size",
     "factory": {
       "name": "visual_tip_item_factory",
-      "max_children_size": 5,
+      "max_children_size": 3,
       "control_ids": {
-        "visual_tip_item_1": "visual_tip_item_1@game_tip.cell_image_hint_tips",
-        "visual_tip_item_2": "visual_tip_item_2@game_tip.cell_image_hint_tips_2",
-        "visual_tip_item_3": "visual_tip_item_3@game_tip.cell_image_hint_tips_3",
+        "visual_tip_item": "visual_tip_item@game_tip.cell_image_hint_tip",
         "inventory_game_tip": "inventory_game_tip@game_tip.inventory_game_tip_panel"
       }
     },
@@ -233,11 +190,9 @@
     "type": "panel",
     "factory": {
       "name": "recipe_tip_item_factory",
-      "max_children_size": 5,
+      "max_children_size": 3,
       "control_ids": {
-        "visual_tip_item_1": "visual_tip_item_1@game_tip.cell_image_hint_tips",
-        "visual_tip_item_2": "visual_tip_item_2@game_tip.cell_image_hint_tips_2",
-        "visual_tip_item_3": "visual_tip_item_3@game_tip.cell_image_hint_tips_3",
+        "visual_tip_item": "visual_tip_item@game_tip.cell_image_hint_tip",
         "inventory_game_tip": "inventory_game_tip@game_tip.inventory_game_tip_panel"
       }
     }
@@ -396,11 +351,9 @@
     "$is_multiline": false,
     "factory": {
       "name": "open_recipe_book_factory",
-      "max_children_size": 5,
+      "max_children_size": 3,
       "control_ids": {
-        "visual_tip_item_1": "visual_tip_item_1@game_tip.cell_image_hint_tips",
-        "visual_tip_item_2": "visual_tip_item_2@game_tip.cell_image_hint_tips_2",
-        "visual_tip_item_3": "visual_tip_item_3@game_tip.cell_image_hint_tips_3",
+        "visual_tip_item": "visual_tip_item@game_tip.cell_image_hint_tip",
         "open_recipe_book_tip": "open_recipe_book_tip@game_tip.inventory_game_tip_panel"
       }
     }
@@ -412,11 +365,9 @@
     "$is_multiline": false,
     "factory": {
       "name": "close_inventory_factory",
-      "max_children_size": 5,
+      "max_children_size": 3,
       "control_ids": {
-        "visual_tip_item_1": "visual_tip_item_1@game_tip.cell_image_hint_tips",
-        "visual_tip_item_2": "visual_tip_item_2@game_tip.cell_image_hint_tips_2",
-        "visual_tip_item_3": "visual_tip_item_3@game_tip.cell_image_hint_tips_3",
+        "visual_tip_item": "visual_tip_item@game_tip.cell_image_hint_tip",
         "close_inventory_tip": "close_inventory_tip@game_tip.inventory_game_tip_panel"
       }
     }
@@ -439,11 +390,9 @@
     "$is_multiline": false,
     "factory": {
       "name": "open_search_tab_factory",
-      "max_children_size": 5,
+      "max_children_size": 3,
       "control_ids": {
-        "visual_tip_item_1": "visual_tip_item_1@game_tip.cell_image_hint_tips",
-        "visual_tip_item_2": "visual_tip_item_2@game_tip.cell_image_hint_tips_2",
-        "visual_tip_item_3": "visual_tip_item_3@game_tip.cell_image_hint_tips_3",
+        "visual_tip_item": "visual_tip_item@game_tip.cell_image_hint_tip",
         "open_search_tab_tip": "open_search_tab_tip@game_tip.inventory_game_tip_panel"
       }
     }

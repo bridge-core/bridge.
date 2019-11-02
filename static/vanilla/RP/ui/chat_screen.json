@@ -203,7 +203,8 @@
     "$scrolling_content": "chat.messages_stack_panel",
     "$scroll_size": [ 5, "100%-4px" ],
     "$jump_to_bottom_on_update": true,
-    "$show_background": false
+    "$show_background": false,
+    "$always_handle_scrolling": true
   },
 
   // Chat Text Edit //
@@ -213,6 +214,9 @@
     "anchor_to": "top_left",
     "size": [ "fill", 27 ],
     "max_length": 512,
+
+    "always_listening": true,
+
     "$text_box_name": "#message_text_box",
     "$text_edit_box_content_binding_name": "#message_text_box_content",
 

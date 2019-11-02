@@ -11,13 +11,17 @@ import OmegaCache from "./OmegaCache";
 import JSONTree from "./JsonTree";
 import fs from "fs";
 import deepmerge from "deepmerge";
+import EventBus from "../EventBus";
 
 function toUnifiedObj(obj) {
     let tmp = [];
     for(let key in obj) {
         tmp.push(obj[key]);
     }
-    return deepmerge.all(tmp, { ArrayMerge: (a, b) => a.concat(b) });
+
+    if(tmp.length > 0)
+        return deepmerge.all(tmp, { ArrayMerge: (a, b) => a.concat(b) });
+    return {};
 }
 
 export default class LightningCache {
@@ -28,6 +32,7 @@ export default class LightningCache {
     }
     static init() {
         this.global_cache = undefined;
+        this.compiled_cache = undefined;
     }
 
     static async add(file_path, content) {
@@ -37,6 +42,7 @@ export default class LightningCache {
 
         let defs = await FileType.getLightningCacheDefs(file_path);
         if(defs === undefined) return;
+        
         if(this.global_cache === undefined) {
             try {
                 this.global_cache = await readJSON(this.l_cache_path);
@@ -44,7 +50,29 @@ export default class LightningCache {
                 this.global_cache = {};
             }
         }
+
+        if(defs.define_multiple)
+            await Promise.all(defs.definitions.map(d => this.parse(file_path, type, d, content).catch(console.error)));
+        else
+            await this.parse(file_path, type, defs, content);
+
         
+        this.compiled_cache = undefined;
+        await writeJSON(this.l_cache_path, this.global_cache, true);
+    }
+
+    static async parse(file_path, type, defs, content) {
+        let except;
+        //LOAD DIFFERENT DEF OPTIONS
+        if(defs.as !== undefined) {
+            type = defs.as;
+            defs = defs.definitions;
+        } else if(defs.load !== undefined) {
+            type = defs.load;
+            except = defs.except;
+            defs = await FileType.getLightningCacheDefs(undefined, defs.load);
+        }
+
         let cache_key = OmegaCache.toCachePath(file_path, false);
         if(this.global_cache[type] === undefined) this.global_cache[type] = {};
         if(this.global_cache[type][cache_key] === undefined) this.global_cache[type][cache_key] = {};
@@ -86,22 +114,34 @@ export default class LightningCache {
                     });
                 });
                 cache[def.key] = res;
+            } else if(def.hook !== undefined) {
+                cache[def.key] = EventBus.trigger(`bridge:onCacheHook[${def.hook}]`).flat() || [];
             } else {
                 console.warn("Unknown cache definition: ", def);
             }
         });
-        
-        this.compiled_cache = undefined;
-        await writeJSON(this.l_cache_path, this.global_cache, true);
+
+        if(except)
+            cache[except] = [];
     }
-    static async load() {
-        if(this.global_cache !== undefined) return this.global_cache;
-        try {
-            return await readJSON(this.l_cache_path);
-        } catch(err) {
-            return {};
+
+    static async load(file_path, type) {
+        if(file_path === undefined) {
+            if(this.global_cache !== undefined) return this.global_cache;
+            try {
+                return await readJSON(this.l_cache_path);
+            } catch(err) {
+                return {};
+            }
+        } else {
+            if(type === undefined) type = FileType.get(file_path);
+            try {
+                if(this.global_cache !== undefined) return this.global_cache[type][OmegaCache.toCachePath(file_path, false)] || {};
+                return (await readJSON(this.l_cache_path))[type][OmegaCache.toCachePath(file_path, false)] || {};
+            } catch(err) {
+                return {};
+            }
         }
-        
     }
     static loadSync() {
         if(this.global_cache !== undefined) return this.global_cache;
@@ -113,16 +153,31 @@ export default class LightningCache {
     }
 
     static async rename(old_path, new_path) {
-        let type = FileType.get(old_path);
-        if(type === "unknown") return;
+        let old_type = FileType.get(old_path);
+        let new_type = FileType.get(new_path);
 
         this.global_cache = await this.load();
         try {
-            this.global_cache[type][OmegaCache.toCachePath(new_path, false)] = this.global_cache[type][OmegaCache.toCachePath(old_path, false)];
-            delete this.global_cache[type][OmegaCache.toCachePath(old_path, false)];
+            if(this.global_cache[old_type] === undefined) return;
+            if(this.global_cache[new_type] === undefined) this.global_cache[new_type] = {};
+            this.global_cache[new_type][OmegaCache.toCachePath(new_path, false)] = this.global_cache[old_type][OmegaCache.toCachePath(old_path, false)];
+            delete this.global_cache[old_type][OmegaCache.toCachePath(old_path, false)];
         } catch(e) {}
         
-        await writeJSON(this.l_cache_path, this.global_cache);
+        await writeJSON(this.l_cache_path, this.global_cache, true);
+    }
+    static async duplicate(what, as) {
+        let old_type = FileType.get(what);
+        let new_type = FileType.get(as);
+
+        this.global_cache = await this.load();
+        try {
+            if(this.global_cache[old_type] === undefined) return;
+            if(this.global_cache[new_type] === undefined) this.global_cache[new_type] = {};
+            this.global_cache[new_type][OmegaCache.toCachePath(as, false)] = this.global_cache[old_type][OmegaCache.toCachePath(what, false)];
+        } catch(e) {}
+        
+        await writeJSON(this.l_cache_path, this.global_cache, true);
     }
     static async clear(file_path) {
         let type = FileType.get(file_path);
@@ -132,7 +187,7 @@ export default class LightningCache {
         try {
             delete this.global_cache[type][OmegaCache.toCachePath(file_path, false)];
         } catch(e) {}
-        await writeJSON(this.l_cache_path, this.global_cache);
+        await writeJSON(this.l_cache_path, this.global_cache, true);
     }
 
     static async getCompiled() {

@@ -1,4 +1,6 @@
 import Runtime from "./Runtime";
+import PluginLoader from "./PluginLoader";
+import path from "path";
 
 export default class BlockedBridge {
     constructor(is_module, file_path) {
@@ -92,7 +94,7 @@ export default class BlockedBridge {
     }
 
     registerPlugin(plugin_info) {
-        Runtime.Plugins.add(this.plugin_id, { ...plugin_info, id: this.__file_path__ });
+        PluginLoader.pushPluginData({ ...plugin_info, id: path.basename(this.__file_path__, ".js") });
     }
     on() {}
     off() {}

@@ -39,6 +39,11 @@ let webConfig = {
         use: 'vue-html-loader'
       },
       {
+        test: /\.ts$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
         test: /\.js$/,
         use: 'babel-loader',
         include: [ path.resolve(__dirname, '../src/renderer') ],
@@ -108,7 +113,7 @@ let webConfig = {
       '@': path.join(__dirname, '../src/renderer'),
       'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['.js', '.vue', '.json', '.css']
+    extensions: ['.ts', '.js', '.vue', '.json', '.css']
   },
   target: 'web'
 }
