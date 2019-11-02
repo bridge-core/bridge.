@@ -80,7 +80,10 @@ export default class InputWindow {
         ];
         this.content = [
             {
-                type: "header",
+                text: "\n"
+            },
+            {
+                type: "big-header",
                 text: header
             },
             {

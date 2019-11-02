@@ -63,5 +63,9 @@ export async function parseAffectedFiles(log: string) {
     
     lw.close();
     if(res.length === 0)
-        new InformationWindow("ERROR", "Unable to fetch affected files from provided debug log.", false);
+        new InformationWindow(
+            "ERROR",
+            "Unable to fetch affected files from provided debug log. Make sure that you have the correct project selected.",
+            false
+        );
 }
