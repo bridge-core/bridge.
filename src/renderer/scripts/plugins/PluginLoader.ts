@@ -9,7 +9,7 @@ import path from "path";
 import { promises as fs, createReadStream } from "fs";
 import { readJSON } from "../utilities/JsonFS";
 import Store from "../../store/index";
-import Bridge from "../../scripts/plugins/PluginEnv";
+import Bridge from "./PluginEnv";
 import EventBus from "../EventBus";
 import { PluginSnippets } from "../../windows/Snippets";
 import { UI_DATA, BridgeCore } from "../bridgeCore/main";
@@ -20,16 +20,21 @@ import ComponentRegistry, { BridgeComponent } from "./CustomComponents";
 import InformationWindow from "../commonWindows/Information";
 import Provider from "../autoCompletions/Provider";
 
-let PLUGIN_FOLDERS;
-let PLUGIN_DATA = [];
+let PLUGIN_FOLDERS: string[];
+let PLUGIN_DATA: any[] = [];
+
+interface AutoCompletionFormat {
+    path?: string;
+    definition?: any;
+}
 
 export default class PluginLoader {
-    static unloaded_plugins;
+    static unloaded_plugins: string[];
 
     static getInstalledPlugins() {
         return PLUGIN_DATA;
     }
-    static pushPluginData(data) {
+    static pushPluginData(data: any) {
         PLUGIN_DATA.push(data);
     }
 
@@ -37,7 +42,7 @@ export default class PluginLoader {
         ComponentRegistry.reset();
     }
 
-    static async loadPlugins(project) {
+    static async loadPlugins(project: string) {
         if(project === undefined) return;
         //INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
         Store.commit("unloadPlugins");
@@ -69,7 +74,7 @@ export default class PluginLoader {
         EventBus.trigger("bridge:pluginsLoaded");
     }
 
-    static async loadPlugin(project, plugin_folder, unloaded_plugins) {
+    static async loadPlugin(project: string, plugin_folder: string, unloaded_plugins: string[]) {
         let plugin_path = path.join(BASE_PATH, project, "bridge/plugins", plugin_folder);
         if((await fs.lstat(plugin_path)).isFile()) {
             if(path.extname(plugin_path) === ".js") {
@@ -119,8 +124,8 @@ export default class PluginLoader {
         }
     }
 
-    static async loadScripts(plugin_path, api_version) {
-        let scripts;
+    static async loadScripts(plugin_path: string, api_version: number) {
+        let scripts: string[];
         try {
             scripts = await fs.readdir(path.join(plugin_path, "scripts"));
         } catch(e) { return; }
@@ -142,36 +147,36 @@ export default class PluginLoader {
         });
     }
 
-    static async loadSnippets(plugin_path) {
-        let snippets = await fs.readdir(path.join(plugin_path, "snippets")).catch(e => []);
+    static async loadSnippets(plugin_path: string) {
+        let snippets: string[] = await fs.readdir(path.join(plugin_path, "snippets")).catch(e => []);
 
-        snippets = await Promise.all(
+        let loaded_snippets: any[] = await Promise.all(
             snippets.map(s => 
                 readJSON(path.join(plugin_path, "snippets", s))
                     .catch(e => undefined)
             )
         );
-        snippets.forEach(s => {
+        loaded_snippets.forEach(s => {
             if(s !== undefined) PluginSnippets.add(s);
         });
     }
 
-    static async loadThemes(plugin_path) {
-        let themes = await fs.readdir(path.join(plugin_path, "themes")).catch(e => []);
+    static async loadThemes(plugin_path: string) {
+        let themes: string[] = await fs.readdir(path.join(plugin_path, "themes")).catch(e => []);
 
-        themes = await Promise.all(
+        let loaded_themes: any[] = await Promise.all(
             themes.map(t => 
                 readJSON(path.join(plugin_path, "themes", t))
                     .catch(e => undefined)
             )
         );
-        themes.forEach(t => {
+        loaded_themes.forEach(t => {
             if(t !== undefined) ThemeManager.addTheme(t);
         });
     }
 
-    static async loadComponents(plugin_path) {
-        let components = await fs.readdir(path.join(plugin_path, "components")).catch(e => []);
+    static async loadComponents(plugin_path: string) {
+        let components: string[] = await fs.readdir(path.join(plugin_path, "components")).catch(e => []);
 
         components = await Promise.all(
             components.map(c => 
@@ -183,27 +188,27 @@ export default class PluginLoader {
             if(c === undefined) return;
             
             try {
-                await safeEval(c.toString("utf-8"), {
+                await safeEval(c.toString(), {
                     Bridge: {
-                        register: (c) => ComponentRegistry.register(c),
-                        report: (info) => new InformationWindow("Information", info, false)
+                        register: (c: any) => ComponentRegistry.register(c),
+                        report: (info: string) => new InformationWindow("Information", info, false)
                     }
                 });
             } catch(e) { new InformationWindow("ERROR", `Error while loading custom component:\n${e.message}`); }
         }));
     }
 
-    static async loadAutoCompletions(plugin_path) {
-        let auto_completions = await fs.readdir(path.join(plugin_path, "auto_completions")).catch(e => []);
+    static async loadAutoCompletions(plugin_path: string) {
+        let auto_completions: string[] = await fs.readdir(path.join(plugin_path, "auto_completions")).catch(e => []);
 
-        auto_completions = await Promise.all(
+        let formats: AutoCompletionFormat[] = await Promise.all(
             auto_completions.map(a => 
                 readJSON(path.join(plugin_path, "auto_completions", a))
                     .catch(e => undefined)
             )
         );
 
-        auto_completions.forEach(({ path, definition }={}) => {
+        formats.forEach(({ path, definition }={}) => {
             if(path === undefined || definition === undefined) return;
             Provider.addPluginCompletion(path, definition);
         });

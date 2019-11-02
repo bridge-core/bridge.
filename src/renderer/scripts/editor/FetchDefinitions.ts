@@ -6,6 +6,10 @@ import LightningCache from "./LightningCache";
 import { CURRENT } from "../constants";
 import path from "path";
 
+interface FetchDefs {
+    [x: string]: string[]
+}
+
 export default class FetchDefinitions {
     /**
      * @param {string[]} file_types
@@ -15,8 +19,14 @@ export default class FetchDefinitions {
      * @param {boolean} fetch_all
      * @returns {Promise<string[]>}
      */
-    static async fetch(file_types, fetch_defs={}, fetch_search, fetch_all=true) {
-        return (await Promise.all(file_types.map(t => this.fetchSingle(t, fetch_defs[t], fetch_search, fetch_all))).catch(console.error)).flat();
+    static async fetch(file_types: string[], fetch_defs: FetchDefs = {}, fetch_search: string, fetch_all=true) {
+        let res = await Promise.all(file_types.map(t => this.fetchSingle(t, fetch_defs[t], fetch_search, fetch_all)))
+            .catch(console.error);
+
+        if(res)
+            return res.flat();
+        else 
+            return [];
     }
 
     /**
@@ -26,7 +36,7 @@ export default class FetchDefinitions {
      * @param {boolean} fetch_all 
      * @returns {Promise<string[]>}
      */
-    static async fetchSingle(file_type, fetch_defs=[], fetch_search, fetch_all=true) {
+    static async fetchSingle(file_type: string, fetch_defs: string[]=[], fetch_search: string, fetch_all=true) {
         let c = await LightningCache.load();
         let res = [];
 
@@ -59,7 +69,7 @@ export default class FetchDefinitions {
         return res;
     }
 
-    static async broadFetch(fetch_search, fetch_all=true) {
+    static async broadFetch(fetch_search: string, fetch_all=true) {
         let c = await LightningCache.load();
         let res = [];
         
@@ -102,7 +112,7 @@ export default class FetchDefinitions {
      * @param {boolean} fetch_all
      * @returns {string[]}
      */
-    static fetchSync(file_types, fetch_defs={}, fetch_search, fetch_all=true) {
+    static fetchSync(file_types: string[], fetch_defs: FetchDefs = {}, fetch_search: string, fetch_all=true) {
         return file_types.map(d => this.fetchSingleSync(d, fetch_defs[d], fetch_search, fetch_all)).flat();
     }
 
@@ -113,7 +123,7 @@ export default class FetchDefinitions {
      * @param {boolean} fetch_all 
      * @returns {string[]}
      */
-    static fetchSingleSync(file_type, fetch_defs=[], fetch_search, fetch_all=true) {
+    static fetchSingleSync(file_type: string, fetch_defs: string[]=[], fetch_search: string, fetch_all=true) {
         let c = LightningCache.loadSync();
         let res = [];
 

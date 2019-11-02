@@ -13,7 +13,7 @@ export interface BadgeObj {
 export interface NotificationObj {
     display_icon: string;
     display_name: string;
-    color: string;
+    color?: string;
     text_color: string;
     action: () => any;
 }

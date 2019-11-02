@@ -100,7 +100,7 @@ class Interpreter {
      * @param {*} is_module 
      * @param {Boolean} blocked Whether the environment should run inside blocked mode
      */
-    execute(code, file_path, depth, is_module=false, blocked) {
+    execute(code, file_path, depth, is_module=false, blocked=false) {
         try {
             return saveEval(this.wrap(code, file_path), new Environment(file_path, depth, is_module, blocked), { file_path });
         } catch(err) {

@@ -1,8 +1,13 @@
 import * as VERSION_UTILS from "../VersionUtils";
 import { WEB_APP_DATA, APP_VERSION } from "../constants";
 
+export interface fetchVersionRes {
+    latest_version?: string;
+    update_available?: boolean;
+}
+
 export default async function fetchLatestVersion() {
-    let res = {};
+    let res: fetchVersionRes = {};
     await fetch(WEB_APP_DATA + "app.json")
         .then(data => data.json())
         .then(({ latest_version }) => {
