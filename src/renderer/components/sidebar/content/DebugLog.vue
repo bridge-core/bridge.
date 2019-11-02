@@ -12,7 +12,7 @@
 
             <v-tooltip color="tooltip" bottom>
                 <template v-slot:activator="{ on }">
-                    <v-btn icon text @click.stop="" v-on="on" small class="toolbar-button">
+                    <v-btn icon text @click.stop="openSearchBrowser" v-on="on" small class="toolbar-button">
                         <v-icon small>mdi-magnify</v-icon>
                     </v-btn>
                 </template>
@@ -67,6 +67,7 @@
     import { processedDebugLog, parseAffectedFiles } from "../../../scripts/utilities/debugLog";
     import LogListView from "../../../windows/DebugLog/ListView";
     import { tag } from '../../../windows/DebugLog/Common';
+    import SearchDebugLogInput from '../../../windows/DebugLog/SearchInput';
     
 
     export default {
@@ -98,6 +99,9 @@
             },
             openBrowser(tag) {
                 new LogListView(tag);
+            },
+            openSearchBrowser() {
+                new SearchDebugLogInput();
             },
             getTagColor(t) {
                 return tag(t).color;

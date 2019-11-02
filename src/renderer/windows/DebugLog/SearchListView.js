@@ -4,10 +4,10 @@ import Title from "./Title";
 import { processedDebugLog } from "../../scripts/utilities/debugLog";
 import SearchDebugLogInput from "./SearchInput";
 
-export default class LogListView extends ContentWindow {
-    constructor(tag_filter, from=0) {
+export default class SearchListView extends ContentWindow {
+    constructor(search_filter, from=0) {
         super({
-            display_name: tag_filter ? `Debug Log | Filter: ${tag_filter.toUpperCase()}` : "Debug Log",
+            display_name: search_filter ? `Debug Log | Search: ${search_filter.toUpperCase()}` : "Debug Log",
             options: {
                 is_persistent: false,
                 is_maximizable: false,
@@ -28,17 +28,20 @@ export default class LogListView extends ContentWindow {
                     type: "loader"
                 }
             ]
-        }, "bridge.debug_log.");
+        }, "bridge.debug_log_search_list.");
 
         const BASE = [{ text: "\n" }];
-        if(tag_filter) {
-            BASE.push(...Title(tag_filter));
+        if(search_filter) {
+            BASE.push(...Title(search_filter));
         }
 
         processedDebugLog()
             .then(logs => {
-                if(tag_filter)
-                    logs = logs.filter(({ tags }) => tags.includes(tag_filter));
+                if(search_filter)
+                    logs = logs.filter(({ tags, error }) => tags.includes(search_filter) || error.includes(search_filter));
+                
+                if(logs.length === 0)
+                    BASE.push({ text: "No logs are matching your search." });
 
                 BASE.push(
                     ...logs
@@ -54,7 +57,7 @@ export default class LogListView extends ContentWindow {
                         is_disabled: from === 0,
                         action: () => {
                             this.close();
-                            new LogListView(tag_filter, from - 20);
+                            new LogListView(search_filter, from - 20);
                         }
                     },
                     {
@@ -63,7 +66,7 @@ export default class LogListView extends ContentWindow {
                         is_disabled: from + 20 > logs.length,
                         action: () => {
                             this.close();
-                            new LogListView(tag_filter, from + 20);
+                            new LogListView(search_filter, from + 20);
                         }
                     }
                 ];
