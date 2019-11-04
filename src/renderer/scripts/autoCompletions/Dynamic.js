@@ -110,10 +110,6 @@ export const DYNAMIC = {
         all_events() {
             return LightningCache.getCompiledSync().entity.events;
         },
-        "@events"() {
-            console.warn("[DEPRECATION] \"@events\" - Use \"('@s ' + $dynamic.entity.all_events) instead\"");
-            return LightningCache.getCompiledSync().entity.events.map(e => "@s " + e);
-        },
         animation_references() {
             try {
                 return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/description/animations").toJSON());
