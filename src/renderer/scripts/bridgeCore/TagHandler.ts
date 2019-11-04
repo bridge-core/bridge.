@@ -1,7 +1,8 @@
 import { JSONFileMasks } from "../editor/JSONFileMasks";
 import FetchDefinitions from "../editor/FetchDefinitions";
+import { OnSaveData } from "./main";
 
-export function transformTag(data) {
+export function transformTag(data: any) {
     let tag = data["bridge:tag"];
     if(!tag) return {};
 
@@ -12,7 +13,7 @@ export function transformTag(data) {
     };
 }
 
-export default async function TagHandler({ file_path, data, depth }) {
+export default async function TagHandler({ file_path, data, depth }: OnSaveData) {
     let tag = data["bridge:tag"];
     if(!tag) return;
 

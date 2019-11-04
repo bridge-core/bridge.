@@ -6,13 +6,22 @@ import TabSystem from "../TabSystem";
 import OmegaCache from "../editor/OmegaCache";
 import { JSONFileMasks } from "../editor/JSONFileMasks";
 import path from "path";
-import CORE_FILES from "./core_files";
+import CORE_FILES from "./CORE_FILES";
 
 import EntityHandler from "./EntityHandler";
 import ItemHandler from "./ItemHandler";
 import TagHandler from "./TagHandler";
 import InformationWindow from "../commonWindows/Information";
 import ComponentRegistry from "../plugins/CustomComponents";
+
+export interface OnSaveData {
+    file_path: string;
+    file_name: string;
+    file_uuid: string;
+    data: any;
+    depth: number;
+    simulated_call: boolean;
+}
 
 export const UI_DATA = {
     name: "bridge. Core",
@@ -24,7 +33,7 @@ export const UI_DATA = {
 
 export class BridgeCore {
     static is_active = false;
-    static save_registry = {};
+    static save_registry: { [t: string]: (data: OnSaveData) => any } = {};
 
     static isActive() {
         return this.is_active;
@@ -35,7 +44,7 @@ export class BridgeCore {
     static deactivate() {
         this.is_active = false;
     }
-    static setSaveHandler(file_type, handler) {
+    static setSaveHandler(file_type: string, handler: (data: OnSaveData) => any) {
         this.save_registry[file_type] = handler;
     }
 
@@ -45,7 +54,7 @@ export class BridgeCore {
      * @param {number} depth 
      * @param {boolean} simulated_call Whether the function call is coming from the JSONFileMasks.apply(...) method. The data received is not open inside a tab
      */
-    static async beforeSave(data, file_path=TabSystem.getCurrentFilePath(), depth=100, simulated_call=false) {
+    static async beforeSave(data: any, file_path=TabSystem.getCurrentFilePath(), depth=100, simulated_call=false) {
         if(depth <= 0) {
             new InformationWindow("ERROR", "Maximum import depth reached");
             return data;

@@ -9,7 +9,7 @@ export default class LightningCacheInspector extends CommonWindow {
         this.init(file_path);
     }
     async init(file_path=this.file_path) {
-        const LC = await LightningCache.load(file_path);
+        const LC = await LightningCache.loadType(file_path);
         this.content = [
             {
                 text: "\nbridge. extracts important data from your files upon saving. This data is used to improve your overall experience, including auto-completions.\n\n"

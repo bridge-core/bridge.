@@ -2,7 +2,7 @@
  * Multilayer cache system for advanced use cases
  * Enables rich custom syntax applications
  */
-import detachObj, { detachMerge, maskChannelMerge, maskMerge } from "../mergeUtils";
+import detachObj, { detachMerge, maskChannelMerge, maskMerge, MergeArrayConfig } from "../mergeUtils";
 import OmegaCache from "./OmegaCache";
 import { readJSON, writeJSON } from "../utilities/JsonFS";
 import path from "path";
@@ -12,28 +12,29 @@ import JSONTree from "./JsonTree";
 import { promises as fs } from "fs";
 
 export class JSONMask {
+    private data: { [channel: string]: any };
     constructor(data={}) {
         this.data = data;
     }
 
-    set(channel, mask_data, merge_arrays=[], merge_all=false) {
+    set(channel: string, mask_data: any, merge_arrays: string[] | MergeArrayConfig=[], merge_all=false) {
         if(this.data[channel] === undefined) return this.data[channel] = mask_data;
         if(merge_all) return this.data[channel] = detachMerge(this.data[channel], mask_data);
         if(merge_arrays.length === 0) return this.data[channel] = detachObj(this.data[channel], mask_data);
         return this.data[channel] = maskChannelMerge(this.data[channel], mask_data, merge_arrays);
     }
-    overwrite(channel, mask_data) {
+    overwrite(channel: string, mask_data: any) {
         this.data[channel] = mask_data;
     }
-    reset(channel) {
+    reset(channel: string) {
         if(!channel) this.data = {};
         else this.data[channel] = undefined;
     }
 
-    get(channel) {
+    get(channel: string) {
         return this.data[channel];
     }
-    all(filter) {
+    all(filter?: (layer_name: string) => boolean) {
         let all = [];
 
         for(let c in this.data) {
@@ -45,13 +46,10 @@ export class JSONMask {
 }
 
 export class JSONFileMasks {
-    static data = undefined;
+    static data: { [f: string]: JSONMask };
 
-    /**
-     * @param {string} file_path
-     * @returns {Promise<JSONMask>}
-     */
-    static async get(file_path) {
+
+    static async get(file_path: string) {
         if(this.data === undefined) this.data = await this.loadMasks();
         let key = OmegaCache.toCachePath(file_path, false);
         if(this.data[key] === undefined) this.data[key] = new JSONMask();
@@ -70,14 +68,14 @@ export class JSONFileMasks {
             masks = await readJSON(path.join(CURRENT.PROJECT_PATH, "bridge/.file_masks"))
         } catch(e) { return {}; }
 
-        let res = {};
+        let res: { [f: string]: JSONMask } = {};
         for(let mask_paths in masks) {
             res[mask_paths] = new JSONMask(masks[mask_paths].data);
         }
         return res;
     }
 
-    static async delete(file_path) {
+    static async delete(file_path: string) {
         if(this.data === undefined) this.data = await this.loadMasks();
         let key = OmegaCache.toCachePath(file_path, false);
         if(this.data[key] === undefined) return;
@@ -85,7 +83,7 @@ export class JSONFileMasks {
 
         await this.saveMasks();
     }
-    static async rename(old_path, new_path) {
+    static async rename(old_path: string, new_path: string) {
         if(this.data === undefined) this.data = await this.loadMasks();
         let key = OmegaCache.toCachePath(old_path, false);
         if(this.data[key] === undefined) return;
@@ -95,7 +93,7 @@ export class JSONFileMasks {
 
         await this.saveMasks();
     }
-    static async duplicate(what, as) {
+    static async duplicate(what: string, as: string) {
         if(this.data === undefined) this.data = await this.loadMasks();
         let key = OmegaCache.toCachePath(what, false);
         if(this.data[key] === undefined) return;
@@ -105,7 +103,7 @@ export class JSONFileMasks {
         await this.saveMasks();
     }
 
-    static async apply(file_path, depth=100) {
+    static async apply(file_path: string, depth=100) {
         let data;
         let loaded;
         try {
@@ -129,11 +127,11 @@ export class JSONFileMasks {
         await fs.mkdir(path.dirname(file_path), { recursive: true });
         return writeJSON(file_path, data, true, file_version);
     }
-    static async applyOnData(file_path, data, filter, overwrite_arrays=[]) {
+    static async applyOnData(file_path: string, data: any, filter: (layer_name: string) => boolean, overwrite_arrays?: string[]) {
         return maskMerge([data, ...(await this.get(file_path)).all(filter)], overwrite_arrays);
     }
 
-    static async generateFromMask(file_path, overwrite_arrays) {
+    static async generateFromMask(file_path: string, overwrite_arrays?: string[]) {
         await fs.mkdir(path.dirname(file_path), { recursive: true });
         return writeJSON(
             file_path,

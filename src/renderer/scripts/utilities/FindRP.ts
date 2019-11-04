@@ -4,9 +4,9 @@ import { RP_BASE_PATH, BASE_PATH } from "../constants";
 import { readJSON } from "./JsonFS";
 import path from "path";
 
-let last_selected;
-let last_result;
-export function setRP(val) {
+let last_selected: string;
+let last_result: string;
+export function setRP(val: string) {
     last_result = val;
 }
 export default async function findRP() {

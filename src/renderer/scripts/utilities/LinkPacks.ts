@@ -7,7 +7,7 @@ import { writeJSON, readJSON } from "./JsonFS";
 
 
 export default class PackLinker {
-    static async link(bp_name, rp_name) {
+    static async link(bp_name: string, rp_name: string) {
         let lw = new LoadingWindow();
         try {
             let bp_data = await readJSON(`${BASE_PATH}${bp_name}/manifest.json`);
@@ -30,7 +30,7 @@ export default class PackLinker {
         }
     }
 
-    static async unlink(bp_name) {
+    static async unlink(bp_name: string) {
         let lw = new LoadingWindow();
         try {
             let bp_data = await readJSON(`${BASE_PATH}${bp_name}/manifest.json`);

@@ -12,6 +12,7 @@ import { join } from "path";
 import { readJSON, readJSONSync } from "../utilities/JsonFS";
 import { escapeRegExpStr as eRE } from "../utilities/EscapeRegExp";
 import { FileDefinition, SnippetDefinition, ProblemDefinition } from "./FileDefinition";
+import { CacheDef } from "./LightningCache";
 
 let HIGHLIGHTER_CACHE: any = {};
 let FILE_CREATOR_CACHE: any[] = [];
@@ -249,7 +250,7 @@ export default class FileType {
         return data;
     }
 
-    static async getLightningCacheDefs(file_path: string, file_type: string) {
+    static async getLightningCacheDefs(file_path: string, file_type?: string): Promise<CacheDef> {
         let data = this.getData(file_path, file_type);
         if(data === undefined || data.lightning_cache === undefined) return;
 

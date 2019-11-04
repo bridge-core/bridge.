@@ -1,5 +1,5 @@
 {
-    "format_version": "$general.format_version",
+    "format_version": [ "1.10.0" ],
     "animations": {
         "$placeholder": {
             "animation_length": "$general.number",

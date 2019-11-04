@@ -13,20 +13,46 @@ import fs from "fs";
 import deepmerge from "deepmerge";
 import EventBus from "../EventBus";
 
-function toUnifiedObj(obj) {
+function toUnifiedObj(obj: any) {
     let tmp = [];
     for(let key in obj) {
         tmp.push(obj[key]);
     }
 
     if(tmp.length > 0)
-        return deepmerge.all(tmp, { ArrayMerge: (a, b) => a.concat(b) });
+        return deepmerge.all(tmp, { arrayMerge: (a: any[], b: any[]) => a.concat(b) });
     return {};
 }
 
+interface CacheDefConfig {
+    key: string;
+    path?: string;
+    hook?: string;
+    define_multiple?: boolean;
+    definitions?: CacheDefConfig[];
+    load?: string;
+    except?: string;
+    as?: string;
+    search?: {
+        key: string;
+        locations: string[];
+        data: string;
+    };
+};
+
+export type CacheDef = CacheDefConfig | CacheDefConfig[];
+
+export interface LightningCacheData {
+    [file_type: string]: {
+        [file_path: string]: {
+            [cache_key: string]: string[];
+        }
+    }
+}
+
 export default class LightningCache {
-    static global_cache = undefined;
-    static compiled_cache = undefined;
+    static global_cache: LightningCacheData = undefined;
+    static compiled_cache: any = undefined;
     static get l_cache_path() {
         return path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache");
     }
@@ -35,7 +61,7 @@ export default class LightningCache {
         this.compiled_cache = undefined;
     }
 
-    static async add(file_path, content) {
+    static async add(file_path: string, content: JSONTree) {
         if(!(content instanceof JSONTree)) return;
         let type = FileType.get(file_path);
         if(type === "unknown") return;
@@ -51,8 +77,8 @@ export default class LightningCache {
             }
         }
 
-        if(defs.define_multiple)
-            await Promise.all(defs.definitions.map(d => this.parse(file_path, type, d, content).catch(console.error)));
+        if(!Array.isArray(defs) && defs.define_multiple !== undefined)
+            await Promise.all((defs.definitions).map(d => this.parse(file_path, type, d, content).catch(console.error)));
         else
             await this.parse(file_path, type, defs, content);
 
@@ -61,16 +87,22 @@ export default class LightningCache {
         await writeJSON(this.l_cache_path, this.global_cache, true);
     }
 
-    static async parse(file_path, type, defs, content) {
+    static async parse(file_path: string, type: string, defs: CacheDef, content: JSONTree) {
         let except;
         //LOAD DIFFERENT DEF OPTIONS
-        if(defs.as !== undefined) {
-            type = defs.as;
-            defs = defs.definitions;
-        } else if(defs.load !== undefined) {
-            type = defs.load;
-            except = defs.except;
-            defs = await FileType.getLightningCacheDefs(undefined, defs.load);
+        if(!Array.isArray(defs)) {
+            if(defs.as !== undefined) {
+                type = defs.as;
+                defs = defs.definitions;
+            } else if(defs.load !== undefined) {
+                type = defs.load;
+                except = defs.except;
+                defs = await FileType.getLightningCacheDefs(undefined, defs.load);
+
+                if(!Array.isArray(defs)) {
+                    throw new Error("Deeply nesting cache definitions isn't supported yet!");
+                }
+            }
         }
 
         let cache_key = OmegaCache.toCachePath(file_path, false);
@@ -78,7 +110,7 @@ export default class LightningCache {
         if(this.global_cache[type][cache_key] === undefined) this.global_cache[type][cache_key] = {};
         let cache = this.global_cache[type][cache_key];
 
-        defs.forEach(def => {
+        (defs as CacheDefConfig[]).forEach(def => {
             if(def.path !== undefined) {
                 try {
                     let data = content.get(def.path).toJSON();
@@ -93,7 +125,7 @@ export default class LightningCache {
                     cache[def.key] = [];
                 }
             } else if(def.search !== undefined) {
-                let res = [];
+                let res: string[] = [];
                 def.search.locations.forEach(l => {
                     let n = content.get(l);
                     if(n === undefined) return;
@@ -125,24 +157,27 @@ export default class LightningCache {
             cache[except] = [];
     }
 
-    static async load(file_path, type) {
-        if(file_path === undefined) {
-            if(this.global_cache !== undefined) return this.global_cache;
-            try {
-                return await readJSON(this.l_cache_path);
-            } catch(err) {
-                return {};
-            }
-        } else {
-            if(type === undefined) type = FileType.get(file_path);
-            try {
-                if(this.global_cache !== undefined) return this.global_cache[type][OmegaCache.toCachePath(file_path, false)] || {};
-                return (await readJSON(this.l_cache_path))[type][OmegaCache.toCachePath(file_path, false)] || {};
-            } catch(err) {
-                return {};
-            }
+    static async load(file_path?: string): Promise<LightningCacheData> {
+        if(this.global_cache !== undefined) return this.global_cache;
+        
+        try {
+            return await readJSON(this.l_cache_path);
+        } catch(err) {
+            return {};
         }
     }
+
+    static async loadType(file_path?: string, type?: string): Promise<{ [cache_key: string]: string[] }> {
+        if(type === undefined) type = FileType.get(file_path);
+
+        try {
+            if(this.global_cache !== undefined) return this.global_cache[type][OmegaCache.toCachePath(file_path, false)] || {};
+            return (await readJSON(this.l_cache_path))[type][OmegaCache.toCachePath(file_path, false)] || {};
+        } catch(err) {
+            return {};
+        }
+    }
+
     static loadSync() {
         if(this.global_cache !== undefined) return this.global_cache;
         try {
@@ -152,7 +187,7 @@ export default class LightningCache {
         }  
     }
 
-    static async rename(old_path, new_path) {
+    static async rename(old_path: string, new_path: string) {
         let old_type = FileType.get(old_path);
         let new_type = FileType.get(new_path);
 
@@ -166,7 +201,7 @@ export default class LightningCache {
         
         await writeJSON(this.l_cache_path, this.global_cache, true);
     }
-    static async duplicate(what, as) {
+    static async duplicate(what: string, as: string) {
         let old_type = FileType.get(what);
         let new_type = FileType.get(as);
 
@@ -179,7 +214,7 @@ export default class LightningCache {
         
         await writeJSON(this.l_cache_path, this.global_cache, true);
     }
-    static async clear(file_path) {
+    static async clear(file_path: string) {
         let type = FileType.get(file_path);
         if(type === "unknown") return;
 
@@ -193,7 +228,7 @@ export default class LightningCache {
     static async getCompiled() {
         if(this.compiled_cache !== undefined) return this.compiled_cache;
         let cache = await this.load();
-        let res = {};
+        let res: any = {};
 
         for(let key in cache) {
             if(cache[key] !== null)
@@ -206,7 +241,7 @@ export default class LightningCache {
     static getCompiledSync() {
         if(this.compiled_cache !== undefined) return this.compiled_cache;
         let cache = this.loadSync();
-        let res = {};
+        let res: any = {};
 
         for(let key in cache) {
             if(cache[key] !== null)

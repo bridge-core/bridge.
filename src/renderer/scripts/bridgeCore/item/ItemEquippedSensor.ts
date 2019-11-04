@@ -1,6 +1,7 @@
 import { PUSH_ONCE } from "../../mergeUtils";
+import { ItemComponentData } from "../ItemHandler";
 
-export default function ItemEquippedSensor({ PLAYER_MASK, A_C_MASK, component, file_uuid, item_id }) {
+export default function ItemEquippedSensor({ PLAYER_MASK, A_C_MASK, component, file_uuid, item_id }: ItemComponentData) {
     let { is_not_equipped, is_equipped, on_equip, on_unequip, execute_commands } = component || {};
 
     A_C_MASK.set(file_uuid, {
@@ -18,10 +19,10 @@ export default function ItemEquippedSensor({ PLAYER_MASK, A_C_MASK, component, f
                         transitions: [ { default: `query.get_equipped_item_name(0, 0) != '${item_id}'` } ],
                         on_entry: [
                             "@s bridge:on_equipped_" + file_uuid
-                        ].concat((on_equip || []).map(e => "@s " + e).concat(execute_commands || [])),
+                        ].concat((on_equip || []).map((e: string) => "@s " + e).concat(execute_commands || [])),
                         on_exit: [
                             "@s bridge:on_unequipped_" + file_uuid
-                        ].concat((on_unequip || []).map(e => "@s " + e))
+                        ].concat((on_unequip || []).map((e: string) => "@s " + e))
                     }
                 }
             }

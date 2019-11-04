@@ -1,8 +1,10 @@
 import fs from "fs";
 import path from "path";
-let DATA = [];
+let DATA: any[] = [];
 
-function readData(key) {
+declare var __static: string;
+
+function readData(key: string) {
     return new Promise((resolve, reject) => {
         fs.readFile(path.join(__static, "template_sets", `${key}.json`), (err, data) => {
             if(err) reject(err);
@@ -13,7 +15,7 @@ function readData(key) {
 
 export async function loadTemplateSets() {
     console.log("[LOAD] TEMPLATE SETS");
-    let files = await readData("files");
+    let files = await readData("files") as any[];
     let proms = files.map(f => readData(f).then(data => DATA.push(data)));
     await Promise.all(proms);
     DATA = DATA.sort((a, b) => a.title.localeCompare(b.title));

@@ -1,6 +1,7 @@
 import { PUSH_ONCE } from "../../mergeUtils";
+import { ItemComponentData } from "../ItemHandler";
 
-export default function WeaponDamage({ PLAYER_MASK, A_C_MASK, component, file_uuid, item_id }) {
+export default function WeaponDamage({ PLAYER_MASK, A_C_MASK, component, file_uuid, item_id }: ItemComponentData) {
     A_C_MASK.set(file_uuid, {
         format_version: "1.10.0",
         animation_controllers: {

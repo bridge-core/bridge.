@@ -1,11 +1,21 @@
-import { JSONFileMasks } from "../editor/JSONFileMasks";
+import { JSONFileMasks, JSONMask } from "../editor/JSONFileMasks";
 import { CURRENT } from "../constants";
 import path from "path";
 import { set } from "../utilities/useAttr";
 import WeaponDamage from "./item/WeaponDamage";
 import ItemEquippedSensor from "./item/ItemEquippedSensor";
+import { OnSaveData } from "./main";
 
-export function transformComponents({ PLAYER_MASK, A_C_MASK, component_name, component, identifier, file_uuid }) {
+export type ItemComponentData = Partial<OnSaveData & { 
+    PLAYER_MASK: JSONMask;
+    A_C_MASK: JSONMask;
+    component_name: string;
+    component: any;
+    identifier: string;
+    item_id?: string;
+}>;
+
+export function transformComponents({ PLAYER_MASK, A_C_MASK, component_name, component, identifier, file_uuid }: ItemComponentData) {
     let item_id = identifier.split(":").pop();
 
     if(component_name === "bridge:weapon_damage") {
@@ -15,7 +25,7 @@ export function transformComponents({ PLAYER_MASK, A_C_MASK, component_name, com
     }
 }
 
-export default async function ItemHandler({ file_uuid, data }) {
+export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
     //FILE PATHS
     let player_file_path = path.join(CURRENT.PROJECT_PATH, "entities/player.json");
     let a_c_file_path = path.join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/custom_item_behavior.json`);

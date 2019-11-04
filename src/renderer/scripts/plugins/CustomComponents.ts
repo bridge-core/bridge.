@@ -1,5 +1,5 @@
 import FetchDefinitions from "../editor/FetchDefinitions";
-import { JSONFileMasks } from "../editor/JSONFileMasks";
+import { JSONFileMasks, JSONMask } from "../editor/JSONFileMasks";
 import InformationWindow from "../commonWindows/Information";
 import EventBus from "../EventBus";
 import { use } from "../utilities/useAttr";
@@ -7,18 +7,24 @@ import { detachMerge, PUSH_ONCE } from "../mergeUtils";
 import LightningCache from "../editor/LightningCache";
 import FileType from "../editor/FileType";
 
+export interface BridgeComponentClass {
+    component_name: string;
+
+    new (): BridgeComponent;
+}
+
 export class BridgeComponent {
     static component_name = "bridge:demo_component";
 
-    onApply() {}
+    onApply(data: any, location: string) {}
     onPropose() {}
 }
 
 export default class ComponentRegistry {
-    static components = {};
-    static register_updates = [];
+    static components: { [s: string]: BridgeComponent } = {};
+    static register_updates: string[] = [];
 
-    static async register(Component) {
+    static async register(Component: BridgeComponentClass) {
         let name = Component.component_name;
         if(!name || name.startsWith("minecraft:")) throw new Error("Invalid component namespace: 'minecraft:'!");
 
@@ -40,7 +46,7 @@ export default class ComponentRegistry {
         this.components = {};
     }
 
-    static set(MASK, component_name, component_data={}, simulated_call=false, location="components") {
+    static set(MASK: JSONMask, component_name: string, component_data={}, simulated_call=false, location="components") {
         if(this.components[component_name] === undefined)
             return new InformationWindow("ERROR", `Unknown component "${component_name}"!`);
         
@@ -52,12 +58,12 @@ export default class ComponentRegistry {
         MASK.overwrite(`component@${component_name}`, apply_data);
     }
 
-    static async parse(file_path, data, simulated_call) {
+    static async parse(file_path: string, data: any, simulated_call?: boolean) {
         if(data === undefined || data["minecraft:entity"] === undefined) return;
         const MASK = await JSONFileMasks.get(file_path);
 
         //RESET OLD CHANNELS
-        let { custom_components } = await LightningCache.load(file_path, FileType.get(file_path)) || {};
+        let { custom_components } = await LightningCache.loadType(file_path, FileType.get(file_path)) || {};
         (custom_components || []).forEach(c => MASK.reset(`component@${c}`));
 
         //PROCESS CUSTOM COMPONENTS

@@ -8,11 +8,15 @@ import { JSONFileMasks } from "../editor/JSONFileMasks";
 import { transformTag } from "./TagHandler";
 import LightningCache from "../editor/LightningCache";
 import FileType from "../editor/FileType";
+import { OnSaveData } from "./main";
 
 let COM_ID_COUNTER = 0;
-let A_C;
+let A_C: AnimationController;
 
-function transformEvent(event, { component_groups, description, events, file_name }={}) {
+function transformEvent(
+    event: any,
+    { component_groups, description, events, file_name }: Partial<OnSaveData & { component_groups: any; description: any; events: any; }>
+) {
     //SPELL EFFECTS
     let effect_id = uuid();
     let add_effects = use(event, "add/spell_effects");
@@ -81,17 +85,17 @@ function transformEvent(event, { component_groups, description, events, file_nam
     }
 
     if(event.sequence !== undefined)
-        event.sequence.forEach(e => transformEvent(e, { component_groups, description, events, file_name }));
+        event.sequence.forEach((e: any) => transformEvent(e, { component_groups, description, events, file_name }));
     if(event.randomize !== undefined)
-        event.randomize.forEach(e => transformEvent(e, { component_groups, description, events, file_name }));
+        event.randomize.forEach((e: any) => transformEvent(e, { component_groups, description, events, file_name }));
 }
 
-async function handleTags(file_path, tags=[], simulated_call) {
+async function handleTags(file_path: string, tags: string[]=[], simulated_call: boolean) {
     const MASK = await JSONFileMasks.get(file_path);
 
     //RESET OLD CHANNELS
     if(!simulated_call) {
-        let { bridge_core_tags } = await LightningCache.load(file_path, FileType.get(file_path)) || {};
+        let { bridge_core_tags } = await LightningCache.loadType(file_path, FileType.get(file_path)) || {};
         (bridge_core_tags || []).forEach(t => MASK.reset(`tag@${t}`));
     }
 
@@ -107,7 +111,7 @@ async function handleTags(file_path, tags=[], simulated_call) {
     ));
 }
 
-export default async function EntityHandler({ file_name, data, file_path, simulated_call }) {
+export default async function EntityHandler({ file_name, data, file_path, simulated_call }: OnSaveData) {
     let entity = data["minecraft:entity"];
     if(!entity) return;
     set(entity, "component_groups", {});

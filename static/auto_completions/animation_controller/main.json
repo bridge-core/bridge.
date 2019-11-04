@@ -1,5 +1,5 @@
 {
-    "format_version": "$general.format_version",
+    "format_version": [ "1.10.0" ],
     "animation_controllers": {
         "$placeholder": {
             "states": {
