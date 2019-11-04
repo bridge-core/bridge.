@@ -24,7 +24,13 @@ export default class NodeShortcuts {
     }
     static copy(node=TabSystem.getCurrentNavObj()) {
         try {
-            let obj = { [node.key]: node.toJSON() };
+            let copy_key = node.key;
+            let match = copy_key.match(/(.+_)(\d+)/);
+            if(match !== null) {
+                copy_key = match[1] + (Number(match[2]) + 1);
+            }
+
+            let obj = { [copy_key]: node.toJSON() };
             clipboard.writeText(JSON.stringify(obj, null, "\t"));
             return true;
         } catch(e) {
@@ -43,8 +49,7 @@ export default class NodeShortcuts {
                 TabSystem.setCurrentUnsaved();
             }
         } catch(e) {
-
-            console.log(e)
+            
         }
     }
 }

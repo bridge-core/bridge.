@@ -7,12 +7,17 @@ import { Tokenizer } from "./Tokenizer";
 import { detachMerge } from "../mergeUtils";
 import { LIB } from "./Provider";
 
+interface OmegaResult {
+    object?: any;
+    value?: string[];
+}
+
 const OPS = [ "+", "and", "asValue" ];
 
 export class Omega {
-    static eval(str, value_cast=false) {
+    static eval(str: string, value_cast=false) {
         let tokens = Tokenizer.parse(str);
-        let res = {
+        let res: OmegaResult = {
             object: {},
             value: []
         };
@@ -42,7 +47,7 @@ export class Omega {
         return res;
     }
 
-    static combine(original, { object, value }, prefix="") {
+    static combine(original: OmegaResult, { object, value }: OmegaResult, prefix=""): OmegaResult {
         if(object === undefined && value === undefined) return;
 
         if(prefix === "") {
@@ -50,7 +55,7 @@ export class Omega {
             original.object = detachMerge(original.object, object);
         } else {
             let new_value = value.map(v => prefix + v);
-            let new_object = {};
+            let new_object: any = {};
             for(let key in object) {
                 new_object[prefix + key] = object[key];
             }
@@ -59,7 +64,7 @@ export class Omega {
         }
     }
 
-    static dynamic(expression, value_cast=false) {
+    static dynamic(expression: string, value_cast=false) {
         let w = this.walk(expression);
         if(w === undefined) return {};
 
@@ -73,10 +78,10 @@ export class Omega {
         }
     }
 
-    static walk(expression) {
+    static walk(expression: string) {
         if(expression === undefined) return;
         let path = expression.substring(1, expression.length).split(".");
-        let current = LIB;
+        let current: any = LIB;
         while(path.length > 0 && current !== undefined) {
             current = current[path.shift().replace(/\&dot\;/g, ".")];
             if(typeof current === "function") current = current();
