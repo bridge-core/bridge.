@@ -3,21 +3,24 @@ import mkdirp from "mkdirp";
 import { sep, join } from "path";
 
 export default class BridgeStore {
-    constructor(path, namespace) {
+    namespace: string;
+    path: string;
+
+    constructor(path: string, namespace: string) {
         this.namespace = namespace + sep;
         this.path = path;
     }
 
-    setup(namespace) {
+    setup(namespace: string) {
         if(namespace === undefined) throw new Error("You need to define a namespace");
         this.namespace = namespace + sep;
         mkdirp.sync(join(this.path, this.namespace));
     }
-    load(name) {
+    load(name: string) {
         if(this.namespace === undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
-        return JSON.parse(fs.readFileSync(join(this.path, this.namespace, name)));
+        return JSON.parse(fs.readFileSync(join(this.path, this.namespace, name)).toString());
     }
-    save(name, data) {
+    save(name: string, data: any) {
         if(this.namespace === undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
 
         let tmp = {};
@@ -28,7 +31,7 @@ export default class BridgeStore {
         }
         return fs.writeFileSync(join(this.path, this.namespace, name), tmp);
     }
-    exists(name) {
+    exists(name: string) {
         if(this.namespace === undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
         return fs.existsSync(join(this.path, this.namespace, name));
     }

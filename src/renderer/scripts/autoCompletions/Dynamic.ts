@@ -11,12 +11,13 @@ import { BridgeCore } from "../bridgeCore/main";
 import { readJSONSync } from "../utilities/JsonFS";
 import ProjectConfig from "../ProjectConfig";
 import ComponentRegistry from "../plugins/CustomComponents";
+import JSONTree from "../editor/JsonTree";
 
-let PARENT_CONTEXT = {};
-let NODE_CONTEXT = {};
-let PREV_CONTEXT = [];
+let PARENT_CONTEXT: JSONTree;
+let NODE_CONTEXT: JSONTree;
+let PREV_CONTEXT: JSONTree[] = [];
 
-export function walkSync(dir, relative=false, relative_path="", filelist=[]) {
+export function walkSync(dir: string, relative=false, relative_path="", filelist: string[]=[]) {
     fs.readdirSync(dir).forEach(file => {
   
         filelist = fs.statSync(path.join(dir, file)).isDirectory()
@@ -27,7 +28,7 @@ export function walkSync(dir, relative=false, relative_path="", filelist=[]) {
     return filelist;
 }
 
-export function SET_CONTEXT(node, parent) {
+export function SET_CONTEXT(node?: JSONTree, parent?: JSONTree) {
     PARENT_CONTEXT = parent;
     NODE_CONTEXT = node;
 }
@@ -91,9 +92,6 @@ export const DYNAMIC = {
         }
     },
     entity: {
-        component_list() {
-            return [];
-        },
         cached_families() {
             return LightningCache.getCompiledSync().entity.families;
         },
@@ -120,8 +118,8 @@ export const DYNAMIC = {
         pattern_keys() {
             try {
                 let data = TabSystem.getSelected().content.get("minecraft:recipe_shaped/pattern").toJSON();
-                let res = [];
-                data.forEach(e => res = res.concat(e.split("")));
+                let res: string[] = [];
+                data.forEach((e: string) => res = res.concat(e.split("")));
                 return res.filter(e => e !== " ");
             } catch(e) { return []; }
         }

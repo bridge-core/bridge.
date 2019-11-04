@@ -13,26 +13,33 @@ import FileType from "../editor/FileType";
 import { Omega } from "./Omega";
 import { BridgeCore } from "../bridgeCore/main";
 import EventBus from "../EventBus";
+import { FileDefinition } from "../editor/FileDefinition";
+import JSONTree from "../editor/JsonTree";
 
-let FILE_DEFS = [];
-let PLUGIN_FILE_DEFS = [];
-let PLUGIN_COMPLETIONS = [];
-let PLUGINS_TO_LOAD = [];
+declare var __static: string;
+
+let FILE_DEFS: FileDefinition[] = [];
+let PLUGIN_FILE_DEFS: FileDefinition[] = [];
+let PLUGIN_COMPLETIONS: { key: string; created: boolean; }[][] = [];
+let PLUGINS_TO_LOAD: any[] = [];
 export let LIB_LOADED = false;
 const REMOVE_LIST = [ "$load", "$dynamic_template", "$placeholder" ];
-export let LIB = { dynamic: DYNAMIC };
+export let LIB: any = { dynamic: DYNAMIC };
 
 class Provider {
-    constructor(current) {
+    private start_state: string;
+    private META: any;
+    constructor(current?: string) {
         this.validator(current);
     }
+
     static loadAssets() {
         let total = 0;
 
         this.loadAsset("files")
-            .then(files => files.forEach(
+            .then((files: string[]) => files.forEach(
                 f => this.loadAsset(f)
-                    .then(data => {
+                    .then((data: any) => {
                         //ALLOW MULTIPLE FILES TO REGISTER THE SAME LIB KEY
                         if(data.$register_as !== undefined) {
                             f = data.$register_as;
@@ -49,9 +56,9 @@ class Provider {
                     })
             ));
         this.loadAsset("file_definitions", "data/")
-            .then(def => FILE_DEFS = def);
+            .then((def: FileDefinition[]) => FILE_DEFS = def);
     }
-    static loadAsset(name, path="auto_completions/") {
+    static loadAsset(name: string, path="auto_completions/"): any {
         return new Promise((resolve, reject) => {
             fs.readFile(__static + `/${path}${name}.json`, (err, data) => {
                 if(err) reject(err);
@@ -63,9 +70,12 @@ class Provider {
             });
         });
     }
-    static storeInLIB(path, store, current=LIB, native=true) {
-        if(typeof path === "string") path = path.split("/");
-        let key = path.shift();
+    static storeInLIB(path: string | string[], store: any, current=LIB, native=true) {
+        let arr_path: string[];
+        if(typeof path === "string") arr_path = path.split("/");
+        else arr_path = path;
+
+        let key = arr_path.shift();
         let created = false;
         if(current[key] === undefined) {
             current[key] = {};
@@ -73,21 +83,21 @@ class Provider {
         }
         if(!native) PLUGIN_COMPLETIONS[PLUGIN_COMPLETIONS.length - 1].push({ key, created });
 
-        if(path.length > 0) {
-            this.storeInLIB(path, store, current[key], native);
+        if(arr_path.length > 0) {
+            this.storeInLIB(arr_path, store, current[key], native);
         } else if(native || created) {            
             current[key] = deepmerge(current[key], store);
-        } else if(!native && path.length > 0) {
+        } else if(!native && arr_path.length > 0) {
             return Assert.throw("Auto-Completions", new Error("Unable to register auto-completions to already exisiting path."));
         }
     }
-    static removeFromLib(path, current=LIB) {
+    static removeFromLib(path: { key: string; created: boolean; }[], current=LIB) {
         let { key, created } = path.shift();
         // console.log(key, created);
         if(path.length > 0) this.removeFromLib(path, current[key]);
         if(created) delete current[key];    
     }
-    static addPluginCompletion(path, def) {
+    static addPluginCompletion(path: string[], def: any) {
         if(!LIB_LOADED) PLUGINS_TO_LOAD.push({ path, def });
         else {
             PLUGIN_COMPLETIONS.push([]);
@@ -105,20 +115,20 @@ class Provider {
         PLUGIN_COMPLETIONS.forEach(comp => this.removeFromLib(comp));
         PLUGIN_COMPLETIONS = [];
     }
-    static addPluginFileDef(def) {
+    static addPluginFileDef(def: FileDefinition) {
         PLUGIN_FILE_DEFS.push(def);
     }
     static removePluginFileDefs() {
         PLUGIN_FILE_DEFS = [];
     }
     static get FILE_DEFS() {
-        return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(BridgeCore.FILE_DEFS);
+        return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(BridgeCore.FILE_DEFS as FileDefinition[]);
     }
     get FILE_DEFS() {
-        return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(BridgeCore.FILE_DEFS);
+        return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(BridgeCore.FILE_DEFS as FileDefinition[]);
     }
 
-    validator(path) {
+    validator(path: string) {
         if(path === undefined) return this.start_state = "unknown";
         for(let def of this.FILE_DEFS) {
             if(FileType.pathIncludes(path, def.includes) && (path.includes("development_behavior_packs") || def.rp_definition || FileType.fallbackToBP(path))) 
@@ -127,7 +137,7 @@ class Provider {
         return this.start_state = "unknown";
     }
 
-    get(path, context) {
+    get(path: string, context?: JSONTree) {
         if(this.start_state === "unknown") return { object: [], value: [], META: {} };
         path = path.replace("global", 
             VersionMap.convert(this.start_state, Store.state.Settings.target_version)
@@ -140,7 +150,7 @@ class Provider {
         return this.preparePropose(propose, context === undefined ? [] : Object.keys(context.toJSON(false)));
     }
 
-    preparePropose(propose, context) {
+    preparePropose(propose: { object: any; value: string[] }, context: string[]): { value: string[]; object: string[]; META?: any; } {
         if(propose.object === LIB) return { value: [], object: [] };
         let { object, value } = propose;
         this.META = {};
@@ -165,7 +175,7 @@ class Provider {
         }
     }
 
-    parseObjectCompletions(object, value, context=[]) {
+    parseObjectCompletions(object: any, value: string[], context: string[]=[]) {
         return Object.keys(object)
             .map((key) => {
                 if(key.startsWith("$dynamic_template.")) {
@@ -197,12 +207,12 @@ class Provider {
                 if(!Array.isArray(element)) element = [element];
                 
                 if(element[0] !== undefined)
-                    return propose.concat(element.filter(e => !context.includes(e)));
+                    return propose.concat(element.filter((e: string) => !context.includes(e)));
                 return propose;
             }, [])
     }
 
-    walk(path_arr, current=LIB) {
+    walk(path_arr: string[], current=LIB): { object: any; value: string[] } {
         if(typeof current === "function") {
             if(path_arr.length === 0)
                 return { object: {}, value: current() };
@@ -243,12 +253,12 @@ class Provider {
         return this.walk(path_arr, current[key]);
     }
 
-    omegaExpression(expression) {
+    omegaExpression(expression: string) {
         // console.log(expression, Omega.eval(expression));
         return Omega.eval(expression);
     }
 
-    compileTemplate(template) {
+    compileTemplate(template: any): any {
         if(template.$if !== undefined && !Omega.walk(template.$if)) return {};
 
         let dyn = Omega.walk(template["$key"]);
