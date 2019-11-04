@@ -68,7 +68,6 @@ export async function processedDebugLog(force_reload=false) {
 export async function parseAffectedFiles(log: string) {
     let lw = new LoadingWindow();
     let res = (await Promise.all(log.split(" ").map(s => FetchDefinitions.broadFetch(s)))).flat();
-
     if(res.length > 0)
         res.forEach(f => FILE_SYSTEM.open(f));
     

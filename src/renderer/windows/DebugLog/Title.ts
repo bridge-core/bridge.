@@ -1,6 +1,6 @@
 import { tag } from "./Common";
 
-export default function Title(tag_filter) {
+export default function Title(tag_filter: string) {
     return [
         { 
             type: "container",

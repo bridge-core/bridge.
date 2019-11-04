@@ -27,6 +27,11 @@ const state = {
             menu_type: "debug_log"
         },
         {
+            title: "Search",
+            icon: "mdi-magnify",
+            menu_type: "file_search"
+        },
+        {
             title: "Extensions",
             icon: "mdi-puzzle",
             menu_type: "extensions"
