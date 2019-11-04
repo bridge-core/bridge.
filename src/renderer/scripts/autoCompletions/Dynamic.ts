@@ -97,12 +97,12 @@ export const DYNAMIC = {
         },
         component_groups() {
             try {
-                return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/component_groups").toJSON());
+                return Object.keys(TabSystem.getSelected().content.get("#;bridge_node_skip;#/component_groups").toJSON());
             } catch(e) { return []; }
         },
         events() {
             try {
-                return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/events").toJSON());
+                return Object.keys(TabSystem.getSelected().content.get("#;bridge_node_skip;#/events").toJSON());
             } catch(e) { return []; }
         },
         all_events() {
@@ -110,7 +110,7 @@ export const DYNAMIC = {
         },
         animation_references() {
             try {
-                return Object.keys(TabSystem.getSelected().content.get("minecraft:entity/description/animations").toJSON());
+                return Object.keys(TabSystem.getSelected().content.get("#;bridge_node_skip;#/description/animations").toJSON());
             } catch(e) { return []; }
         }
     },
@@ -159,17 +159,17 @@ export const DYNAMIC = {
     rp: {
         item_textures() {
             try {
-                return Object.keys(readJSONSync(path.join(CURRENT.RP_PATH, "/textures/item_texture.json")).texture_data);
+                return Object.keys(readJSONSync(path.join(CURRENT.RP_PATH, "textures/item_texture.json")).texture_data);
             } catch(e) { return []; }
         },
         terrain_texture() {
             try {
-                return Object.keys(readJSONSync(path.join(CURRENT.RP_PATH, "/textures/terrain_texture.json")).texture_data);
+                return Object.keys(readJSONSync(path.join(CURRENT.RP_PATH, "textures/terrain_texture.json")).texture_data);
             } catch(e) { console.log(e); return []; }
         },
         entity_textures() {
             try {
-                return walkSync(path.join(CURRENT.RP_PATH, "/textures/entity"))
+                return walkSync(path.join(CURRENT.RP_PATH, "textures/entity"))
                     .map(e => {
                         let tmp = e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
                         return `${path.dirname(tmp)}/${path.basename(tmp, path.extname(tmp))}`;
@@ -178,7 +178,7 @@ export const DYNAMIC = {
         },
         item_png() {
             try {
-                return walkSync(path.join(CURRENT.RP_PATH, "/textures/items")).map(e => {
+                return walkSync(path.join(CURRENT.RP_PATH, "textures/items")).map(e => {
                     let tmp = e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
                     return `${path.dirname(tmp)}/${path.basename(tmp, path.extname(tmp))}`;
                 });
@@ -186,7 +186,7 @@ export const DYNAMIC = {
         },
         block_png() {
             try {
-                return walkSync(path.join(CURRENT.RP_PATH, "/textures/blocks")).map(e => {
+                return walkSync(path.join(CURRENT.RP_PATH, "textures/blocks")).map(e => {
                     let tmp = e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
                     return `${path.dirname(tmp)}/${path.basename(tmp, path.extname(tmp))}`;
                 });
@@ -194,7 +194,7 @@ export const DYNAMIC = {
         },
         model_png() {
             try {
-                return walkSync(path.join(CURRENT.RP_PATH, "/textures/models")).map(e => {
+                return walkSync(path.join(CURRENT.RP_PATH, "textures/models")).map(e => {
                     let tmp = e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
                     return `${path.dirname(tmp)}/${path.basename(tmp, path.extname(tmp))}`;
                 });
@@ -202,7 +202,7 @@ export const DYNAMIC = {
         },
         sound_file() {
             try {
-                return walkSync(path.join(CURRENT.RP_PATH, "/sounds")).map(e => {
+                return walkSync(path.join(CURRENT.RP_PATH, "sounds")).map(e => {
                     let tmp = e.replace(RP_BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.resource_pack + "\\", "").replace(/\\/g, "/");
                     return `${path.dirname(tmp)}/${path.basename(tmp, path.extname(tmp))}`;
                 }).filter(e => !e.endsWith(".json"));
@@ -210,7 +210,7 @@ export const DYNAMIC = {
         },
         sound_definition() {
             try {
-                return Object.keys(readJSONSync(path.join(CURRENT.RP_PATH, "/sounds/sound_definitions.json")).texture_data);
+                return Object.keys(readJSONSync(path.join(CURRENT.RP_PATH, "sounds/sound_definitions.json")).texture_data);
             } catch(e) { return []; }
         }
     },
@@ -233,21 +233,21 @@ export const DYNAMIC = {
     },
     loot_table_files() {
         try {
-            return walkSync(CURRENT.PROJECT_PATH + "\\loot_tables").map(e => {
+            return walkSync(path.join(CURRENT.PROJECT_PATH, "loot_tables")).map(e => {
                 return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.explorer + "\\", "").replace(/\\/g, "/");
             });
         } catch(e) { return []; }
     },
     trade_table_files() {
         try {
-            return walkSync(CURRENT.PROJECT_PATH + "\\trading").map(e => {
+            return walkSync(path.join(CURRENT.PROJECT_PATH, "trading")).map(e => {
                 return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.explorer + "\\", "").replace(/\\/g, "/");
             });
         } catch(e) { return []; }
     },
     function_files() {
         try {
-            return walkSync(CURRENT.PROJECT_PATH + "\\functions").map(e => {
+            return walkSync(path.join(CURRENT.PROJECT_PATH, "functions")).map(e => {
                 return e.replace(BASE_PATH.replace(/\//g, "\\") + Store.state.Explorer.project.explorer + "\\functions\\", "").replace(/\\/g, "/").replace(".mcfunction", "");
             });
         } catch(e) { return []; }

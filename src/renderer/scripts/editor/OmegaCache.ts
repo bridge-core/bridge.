@@ -14,6 +14,7 @@ import { readJSON } from "../utilities/JsonFS";
 export interface OmegaCacheData {
     file_version?: number;
     file_uuid?: string;
+    [s: string]: any;
 }
 
 export default class OmegaCache {

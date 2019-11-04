@@ -316,7 +316,7 @@ class TabSystem {
         } catch(e) {}
     }
 
-    async transformContent(c: any, raw: any, toJSON=true) {
+    async transformContent(c: string | JSONTree | Buffer | object, raw: any, toJSON=true) {
         if(raw === c)
             return raw;
         else if(typeof c === "string")
@@ -350,7 +350,7 @@ class TabSystem {
                 new JSONTree("global").buildFromObject(current.content) :
                 current.content,
             file_extension: ext
-        }).content, current.raw_content);
+        }, true).content, current.raw_content);
 
         if(update_cache && OmegaCache.mayBeCached(current.file_path)) {
             await Promise.all([
@@ -376,7 +376,6 @@ class TabSystem {
         else current.file_version++;
         
         let comment_char = FileType.getCommentChar(current.file_path);
-
         FileSystem[fsMethod](
             current.file_path, 
             `${comment_char}bridge-file-version: #${current.file_version}\n${await this.getSaveContent(current, update_cache)}`,

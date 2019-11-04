@@ -15,12 +15,12 @@ export function trigger(name: string, arg?: any, init=true) {
         listeners.forEach((cb: any) => {
             let res;
             try { 
-                res = cb(init ? new_arg : arg) 
+                res = cb(init ? new_arg : arg);
             } catch(err) {
                 PluginAssert.throw("Event: " + name, err);
                 res = {};
             }
-
+            console.log(res)
             if(res) {
                 try {
                     new_arg = Object.assign(new_arg, res);
@@ -32,7 +32,7 @@ export function trigger(name: string, arg?: any, init=true) {
         });
         return new_arg;
     }
-    return arg;
+    return init ? arg : {};
 }
 
 export function booleanAnyOfTrigger(name: string, ...args: any[]) {

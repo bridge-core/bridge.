@@ -1,7 +1,7 @@
 import ContentWindow from "../../scripts/commonWindows/Content";
 import LogCard from "./LogCard";
 import Title from "./Title";
-import { processedDebugLog } from "../../scripts/utilities/debugLog";
+import { processedDebugLog } from "../../scripts/features/debugLog";
 import SearchDebugLogInput from "./SearchInput";
 import { PAGE_SIZE } from "./Common";
 

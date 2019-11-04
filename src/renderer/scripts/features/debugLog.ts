@@ -33,10 +33,13 @@ export async function loadDebugLog(force_reload=false) {
         if(prev && prev.ctime > curr.ctime)
             return prev;
         return curr;
-    });
+    }, undefined);
 
     if(newest)
         CACHE = (await fs.readFile(newest.absolute_path)).toString("utf-8");
+    else 
+        CACHE = "";
+        
     return CACHE; //Return debug file content
 }
 

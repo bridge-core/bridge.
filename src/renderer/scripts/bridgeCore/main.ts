@@ -75,7 +75,6 @@ export class BridgeCore {
 
         data = await JSONFileMasks.applyOnData(file_path, data, layer_name => !(layer_name.startsWith("component@") || layer_name.startsWith("tag@")));
         await JSONFileMasks.saveMasks();
-        
         return data;
     }
 

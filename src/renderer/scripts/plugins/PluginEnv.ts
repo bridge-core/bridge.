@@ -144,7 +144,7 @@ export default {
         }
     },
     reset: Runtime.reset,
-    trigger: (name: string, arg: any, readonly=false, init=false) => {
+    trigger: (name: string, arg: any, init=true, readonly=false) => {
         if(readonly) return readonlyTrigger(name, arg);
         return trigger(name, arg, init);
     }

@@ -1,6 +1,6 @@
 <template>
     <p v-if="logs && logs.length === 0" >
-        Unable to find debug log files.
+        Unable to find debug log files. Make sure that you activated debug logs inside of your Minecraft settings.
     </p>
 
     <div v-else v-resize="resize">
@@ -90,7 +90,7 @@
 
 <script>
     import os from "os";
-    import { processedDebugLog, parseAffectedFiles } from "../../../scripts/utilities/debugLog";
+    import { processedDebugLog, parseAffectedFiles } from "../../../scripts/features/debugLog";
     import LogListView from "../../../windows/DebugLog/ListView";
     import { tag } from '../../../windows/DebugLog/Common';
     import SearchDebugLogInput from '../../../windows/DebugLog/SearchInput';
@@ -144,7 +144,6 @@
         },
         watch: {
             page_number() {
-                console.log(this.$refs.log_container)
                 this.$refs.log_container.scrollTop = 0;
             }
         }

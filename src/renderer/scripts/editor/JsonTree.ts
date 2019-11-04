@@ -24,7 +24,7 @@ export function changeProvider(new_path: string) {
 }
 
 export class TreeIterator {
-    stack: Stack;
+    stack: Stack<{ node: JSONTree; step: number; }>;
 
     constructor(tree: JSONTree) {
         this.stack = new Stack();
