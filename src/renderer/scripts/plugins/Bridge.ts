@@ -17,7 +17,24 @@ import PluginLoader from "./PluginLoader";
 import path from "path";
 
 export default class Bridge {
-    constructor(is_module, file_path) {
+    plugin_id: number;
+    __file_path__: string;
+    Cache: { open(path: any, cb: any): void; openSync(): void; write(): void; Dependency: { add(): void; remove(): void; removeAll(): void; }; };
+    JSONTree: typeof JSONTree;
+    Store: { namespace: any; setup(namespace: any): void; load(name: any): any; save(name: any, data: any): void; exists(name: any): boolean; };
+    FS: { __file_path__: string; readFile(path: any, cb: any): void; readFileSync(path: any): Buffer; writeFile(path: any, data: any, cb: any, check?: boolean, add_file_version?: boolean): void; readDirectory(path: any, cb: any): void; readDirectorySync(path: any, deep?: boolean): string[]; exists(path: any): boolean; stats(path: any, cb: any): void; };
+    Language: { register(name: any, language: any): void; remove(name: any): void; addKeywords(keywords: any): void; addTitles(titles: any): void; addSymbols(symbols: any): void; };
+    Highlighter: { registerLanguage(): never; unregisterLanguage(): never; };
+    Menu: { register: (menu_input: any) => void; };
+    Sidebar: { register(sidebar_input: any): void; update(sidebar: any): void; remove(id: any): void; open(id: any): void; openDefault(): void; close(): void; };
+    Footer: { register(footer_element: any): void; update(footer_element: any): void; remove(id: any): void; };
+    Window: { register(window: any): void; update(window: any): void; open(id: any): void; close(id: any): void; remove(id: any): void; };
+    BuildableFile: { register(file: any): void; };
+    File: { register(file_def: any): void; };
+    AutoCompletions: { add(path: any, store: any): void; };
+    Utils: { readonly base_path: string; readonly current_project: any; readonly current_selected: JSONTree; readonly current_file_path: string; readonly current_file_content: any; readonly current_file_name: string; readonly APP_VERSION: string; };
+
+    constructor(is_module?: boolean, file_path?: string) {
         this.plugin_id = Runtime.Plugins.getRuntimeId();
         
         this.__file_path__ = file_path;
@@ -67,7 +84,7 @@ export default class Bridge {
             },
             load(name) {
                 if(this.namespace == undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
-                return JSON.parse(fs.readFileSync(Runtime.Paths.store() + this.namespace + name));
+                return JSON.parse(fs.readFileSync(Runtime.Paths.store() + this.namespace + name).toString());
             },
             save(name, data) {
                 if(this.namespace == undefined) throw new Error("You need to define a namespace using Bridge.Store.setup(namespace)");
@@ -261,8 +278,8 @@ export default class Bridge {
 
         this.BuildableFile = {
             register(file) {
-                function toObject(t) {
-                    let obj = {};
+                function toObject(t: { display_name: string; content: any; }[]) {
+                    let obj: any = {};
                     t.forEach(e => obj[e.display_name] = e.content);
                     return obj;
                 }
@@ -313,19 +330,19 @@ export default class Bridge {
         };
     }
 
-    registerPlugin(plugin_info) {
+    registerPlugin(plugin_info: any) {
         PluginLoader.pushPluginData({ ...plugin_info, id: path.basename(this.__file_path__, ".js") });
     }
     
 
-    on(event, cb) {
+    on(event: string, cb: (...args: any[]) => any) {
         Runtime.Listeners.add(event, cb);
     }
-    off(event, cb) {
-        if(!cb) PluginAssert.throw("You need to define a callback in order to remove an event listener.");
+    off(event: string, cb: (...args: any[]) => any) {
+        if(!cb) PluginAssert.throw("PLUGIN", new Error("You need to define a callback in order to remove an event listener."));
         Runtime.Listeners.remove(event, cb);
     }
-    trigger(name, arg, basic=false) {
+    trigger(name: string, arg: any, basic=false) {
         if(basic) {
             return overwriteTrigger(name, arg);
         } else {
@@ -335,7 +352,7 @@ export default class Bridge {
     /**
      * @deprecated
      */
-    open({ content, file_name, file_path }) {
+    open({ content, file_name, file_path }: any) {
         TabSystem.add({
             content,
             raw_content: content,
@@ -343,11 +360,11 @@ export default class Bridge {
             file_name
         });
     }
-    openFile(path) {
+    openFile(path: string) {
         new LoadingWindow("open-file").show();
         setTimeout(() =>  FileSystem.open(path), 75);
     }
-    openExternal(path) {
+    openExternal(path: string) {
         shell.openExternal(path);
     }
 }

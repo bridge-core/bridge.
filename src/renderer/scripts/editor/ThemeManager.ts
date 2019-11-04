@@ -5,9 +5,11 @@ import ProjectConfig from "../ProjectConfig";
 import Store from "../../store/index";
 import fs from "fs";
 
+declare var __static: string;
+
 function getDefaultThemes() {
     let files = fs.readdirSync(path.join(__static, "themes"));
-    let res = {};
+    let res: any = {};
     files.map(f => {
         const { id, ...theme } = readJSONSync(path.join(__static, `themes/${f}`));
         res[id] = theme;
@@ -16,10 +18,10 @@ function getDefaultThemes() {
 }
 
 export default class ThemeManager {
-    static themes = getDefaultThemes();
-    static plugin_themes = {};
-    static current_theme;
-    static options;
+    static themes: any = getDefaultThemes();
+    static plugin_themes: any = {};
+    static current_theme: string;
+    static options: any;
 
     static get theme_names() {
         let theme_names = [];
@@ -32,7 +34,7 @@ export default class ThemeManager {
         return theme_names.sort();
     }
 
-    static addTheme({ id, ...theme }) {
+    static addTheme({ id, ...theme }: { id: string, [other: string]: any }) {
         if(!id) return console.error("No valid ID provided for theme. IDs may not be 'falsy'");
         if(theme.definition.dark === undefined) theme.definition.dark = {};
         if(theme.definition.light === undefined) theme.definition.light = {};
@@ -40,7 +42,7 @@ export default class ThemeManager {
         this.plugin_themes[id] = theme;
     }
 
-    static applyTheme(id) {
+    static applyTheme(id: string) {
         this.current_theme = id;
 
         //Load theme options

@@ -3,7 +3,8 @@ import { WEB_APP_DATA } from "../scripts/constants";
 import ContentWindow from "../scripts/commonWindows/Content";
 
 export default class UpdateWindow extends ContentWindow {
-    constructor(latest_version) {
+    content: any;
+    constructor(latest_version: string) {
         super({
             is_visible: true,
             options: {

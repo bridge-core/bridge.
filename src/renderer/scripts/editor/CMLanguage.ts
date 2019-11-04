@@ -4,7 +4,7 @@
 import CodeMirror from "codemirror";
 import "codemirror/addon/mode/simple.js";
 import FileType from "./FileType";
-import eRE from "../utilities/EscapeRegExp";
+import eRE, { escapeRegExpStr } from "../utilities/EscapeRegExp";
 
 export default function loadAllTextHighlighters() {
     FileType.getTextHighlighters().forEach(({ set, define }) => {
@@ -26,8 +26,10 @@ export default function loadAllTextHighlighters() {
             start.push({ regex: new RegExp(`(?:${eRE(operators).join("|")})\\b`), token: "operator" });
 
         start.push({ regex: /[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i, token: "number" });
-        start.push({ regex: new RegExp(`${eRE(line_comment)}.*`), token: "comment" });
-    
+        start.push({ regex: new RegExp(`${escapeRegExpStr(line_comment)}.*`), token: "comment" });
+        
+        //Exists; see codemirror/addon/mode/simple import
+        //@ts-ignore
         CodeMirror.defineSimpleMode(extension, {
             start,
             meta: {

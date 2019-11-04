@@ -11,10 +11,15 @@ import FileType from "./FileType";
 import PluginEnv from "../plugins/PluginEnv";
 import { readJSON } from "../utilities/JsonFS";
 
-export default class OmegaCache {
-    static init(project) {
-        if(project === undefined) return console.warn("Called OmegaCache.init(..) with undefined project. Stopped initialization");
+export interface OmegaCacheData {
+    file_version?: number;
+    file_uuid?: string;
+}
 
+export default class OmegaCache {
+    static project: string;
+    static current_base: string;
+    static init(project: string) {
         this.project = project;
         this.current_base = path.join(BASE_PATH, project, "bridge/cache");
         fs.mkdir(this.current_base, (err) => {
@@ -22,12 +27,12 @@ export default class OmegaCache {
         });
     }
 
-    static mayBeCached(file_path) {
+    static mayBeCached(file_path: string) {
         const rel_bp = path.relative(BASE_PATH.slice(0, BASE_PATH.length - 1), file_path);
         const rel_rp = path.relative(RP_BASE_PATH.slice(0, RP_BASE_PATH.length - 1), file_path);
         return !rel_bp.startsWith('../') || !rel_rp.startsWith('../');
     }
-    static toCachePath(file_path, with_base=true) {
+    static toCachePath(file_path: string, with_base=true) {
         if(!file_path) throw new Error("[O.CACHE] Called OmegaCache.toCachePath(..) with falsy argument. Expected string");
         if(this.current_base === undefined) throw new Error("[O.CACHE] Called OmegaCache.toCachePath(..) before calling OmegaCache.init(..)");
 
@@ -39,7 +44,7 @@ export default class OmegaCache {
         return path.join(with_base ? this.current_base : "", is_bp ? "BP" : "RP", tmp_path.slice(this.project.length)).replace(/\\/g, '/');
     }
 
-    static extractFileVersion(file_path, file_str, comment_char=FileType.getCommentChar(file_path), initial=true) { 
+    static extractFileVersion(file_path: string, file_str: string, comment_char=FileType.getCommentChar(file_path), initial=true): number { 
         try {
             let str = file_str.split("\n").shift();
             let version_templ = `${comment_char}bridge-file-version: #`;
@@ -55,7 +60,7 @@ export default class OmegaCache {
         } catch(e) {}
     }
 
-    static isCacheFresh(file_path, cache, otherFile) {
+    static isCacheFresh(file_path: string, cache: OmegaCacheData, otherFile: string) {
         let file_version = this.extractFileVersion(file_path, otherFile);
         
         if(file_version !== undefined) {
@@ -67,7 +72,7 @@ export default class OmegaCache {
         }
     }
 
-    static load(file_path) {
+    static load(file_path: string) {
         return new Promise((resolve, reject) => {
             fs.readFile(this.toCachePath(file_path), (err, data) => {
                 if(err) reject(err);
@@ -75,21 +80,21 @@ export default class OmegaCache {
             });
         });
     }
-    static async loadFileUUID(file_path) {
+    static async loadFileUUID(file_path: string) {
         try {
             return (await readJSON(this.toCachePath(file_path))).file_uuid;
         } catch(e) {
             return "generic";
         }
     }
-    static async loadFileVersion(file_path) {
+    static async loadFileVersion(file_path: string) {
         try {
             return (await readJSON(this.toCachePath(file_path))).file_version;
         } catch(e) {
             return 0;
         }
     }
-    static save(file_path, data) {
+    static save(file_path: string, data: OmegaCacheData) {
         return new Promise((resolve, reject) => {
             mkdirp(path.dirname(this.toCachePath(file_path)), (err) => {
                 fs.writeFile(
@@ -98,7 +103,7 @@ export default class OmegaCache {
                         ...data 
                     }, null, "\t"),
                     (err) => {
-                        if(err) return reject("[O.CACHE] Error calling OmegaCache.save(..): ", err.message);
+                        if(err) return reject("[O.CACHE] Error calling OmegaCache.save(..): " + err.message);
                         else resolve();
                         // console.log("Cached file " + file_path);
                     }
@@ -107,16 +112,16 @@ export default class OmegaCache {
         });
     }
     
-    static clear(file_path) {
+    static clear(file_path: string) {
         fs.unlink(this.toCachePath(file_path), (err) => {});
     }
-    static async rename(old_path, new_path) {
+    static async rename(old_path: string, new_path: string) {
         if(!this.mayBeCached(new_path))
             return this.clear(old_path);
         
         await fse.move(this.toCachePath(old_path), this.toCachePath(new_path));
     }
-    static duplicate(what, as) {
+    static duplicate(what: string, as: string) {
         if(!this.mayBeCached(as))
             return;
 

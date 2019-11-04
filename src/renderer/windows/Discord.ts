@@ -1,7 +1,9 @@
 import Store from "../store/index";
 
 export default class DiscordWindow {
-    constructor(on_confirm, on_cancel) {
+    actions: any;
+    id: string;
+    constructor(on_confirm: (...args: any[]) => any, on_cancel: (...args: any[]) => any) {
         this.id = `main.core.windows.confirm_window.${Math.random()}`;
         this.actions = [
             {
@@ -53,7 +55,7 @@ export default class DiscordWindow {
         });
     }
 
-    update(opts) {
+    update(opts: any) {
         Store.commit("updatePluginWindow", { ...opts, id: this.id });
         return this;
     }

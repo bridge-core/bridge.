@@ -9,10 +9,13 @@ export interface SidebarElement {
 
 export interface WindowDefinition {
     display_name?: string;
+    is_visible?: boolean;
+    id?: string;
     sidebar?: SidebarElement[];
     content?: WindowContent[];
     actions?: WindowContent[];
     options?: WindowOptions;
+    onClose?: (...args: any[]) => any;
 }
 
 export interface WindowContent {

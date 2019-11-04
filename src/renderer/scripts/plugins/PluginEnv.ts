@@ -12,7 +12,17 @@ import mkdirp from "mkdirp";
 import { join } from "path";
 
 class Environment {
-    constructor(file_path, depth=1000, is_module, blocked) {
+    __file_path__: string;
+    __bridge_import_depth__: number;
+    Bridge: BlockedBridge | Bridge;
+    console: { log(): void; warn(): void; error(): void; dir(): void; };
+    JSON: { parse(str: string): any; stringify(data: any): string; };
+    LIB: { deepmerge(...args: any[]): any; };
+    use: (path: any) => any;
+    provide: (data: any) => { as(id: any): void; };
+    fetch: (input: any, init: any) => Promise<any>;
+
+    constructor(file_path: string, depth=1000, is_module?: boolean, blocked?: boolean) {
         //Internal
         this.__file_path__ = file_path;
         this.__bridge_import_depth__ = depth;
@@ -21,7 +31,7 @@ class Environment {
         if(blocked) {
             this.Bridge = new BlockedBridge(is_module, file_path);
             this.console = { log() {}, warn() {}, error() {}, dir(){} };
-            this.JSON = { parse() {}, stringify() {} };
+            this.JSON = { parse() {}, stringify() { return ""; } };
             this.LIB = { deepmerge() {} }
         } else {
             this.Bridge = new Bridge(is_module, file_path);
@@ -65,17 +75,7 @@ class Environment {
 
         this.fetch = (input, init) => {
             if(blocked) {
-                const then_case = {
-                    then() { return then_case },
-                    catch() { return catch_case },
-                    finally() {}
-                };
-                const catch_case = {
-                    then_case,
-                    catch_case,
-                    finally() {}
-                };
-                return then_case;
+                return new Promise((resolve, reject) => reject("Plugin execution blocked!"));
             }
             
             return window.fetch(input, init);
@@ -88,7 +88,7 @@ class Interpreter {
 
     }
 
-    wrap(code, file_path) {
+    wrap(code: string, file_path: string) {
         return `(function ${file_path.replace(/[^a-zA-Z]/g, "_")}() {${code}})()`;
     }
 
@@ -100,9 +100,9 @@ class Interpreter {
      * @param {*} is_module 
      * @param {Boolean} blocked Whether the environment should run inside blocked mode
      */
-    execute(code, file_path, depth, is_module=false, blocked=false) {
+    execute(code: string, file_path: string, depth: number, is_module=false, blocked=false) {
         try {
-            return saveEval(this.wrap(code, file_path), new Environment(file_path, depth, is_module, blocked), { file_path });
+            return saveEval(this.wrap(code, file_path), new Environment(file_path, depth, is_module, blocked));
         } catch(err) {
             PluginAssert.throw(file_path, err);
 
@@ -114,7 +114,7 @@ class Interpreter {
         }
     }
 
-    async init(project) {
+    async init(project: string) {
         Runtime.Paths.setProject(project);
 
         let path = join(Runtime.Paths.bridge(), "plugin_storage");
@@ -144,7 +144,7 @@ export default {
         }
     },
     reset: Runtime.reset,
-    trigger: (name, arg, readonly=false, init) => {
+    trigger: (name: string, arg: any, readonly=false, init=false) => {
         if(readonly) return readonlyTrigger(name, arg);
         return trigger(name, arg, init);
     }

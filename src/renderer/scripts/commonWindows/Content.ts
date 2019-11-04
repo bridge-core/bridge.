@@ -3,12 +3,13 @@
  */
 import Store from "../../store/index";
 import { WindowDefinition } from "./ContentTypes";
+import { uuid } from "../utilities/useAttr";
 
 export default class ContentWindow {
     id: string;
     win_def: WindowDefinition;
-    constructor(opts: WindowDefinition, add_id: string) {
-        this.id = `main.core.windows.content_window.${add_id}${Math.random()}`;
+    constructor(opts: WindowDefinition, add_id?: string) {
+        this.id = `main.core.windows.content_window.${add_id}${uuid()}`;
         this.win_def = opts;
 
         Store.commit("addPluginWindow", { is_visible: true, onClose: () => this.close(), ...opts, id: this.id });

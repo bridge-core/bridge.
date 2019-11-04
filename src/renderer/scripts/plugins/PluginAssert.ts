@@ -1,12 +1,11 @@
-// @ts-check
 import AssertWindow from "../../windows/AssertWindow";
 import Store from "../../store/index";
 
-window.onerror = (message) => {
-    if(typeof message === "string") return;
-    Assert.throw("bridge. core", undefined, message);
-};
-window.onunhandledrejection = (event) => {
+window.addEventListener("error", (ev) => {
+    Assert.throw("bridge. core", ev.error, ev.message);
+});
+
+window.onunhandledrejection = (event: PromiseRejectionEvent) => {
     Assert.throw("bridge. core", undefined, event.reason);
 };
 
@@ -17,7 +16,7 @@ export default class Assert {
      * @param {Error} err Error to show inside assertion window
      * @param {String | Event} message
      */
-    static throw(plugin, err, message=err.message) {
+    static throw(plugin: string, err?: Error, message=err.message) {
         // console.log(err.name, err.message, err.stack);
         if(Store.state.Settings.is_dev_mode) new AssertWindow(plugin, message);
         else if(err) console.error(err);

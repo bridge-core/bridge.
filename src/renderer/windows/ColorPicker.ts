@@ -2,7 +2,8 @@ import ContentWindow from "../scripts/commonWindows/Content";
 
 
 export default class ColorPicker extends ContentWindow {
-    constructor(color, onInput) {
+    color_val: string;
+    constructor(color: string, onInput: (s: string) => any) {
         super({
             display_name: "Color Picker",
             options: {
@@ -19,7 +20,7 @@ export default class ColorPicker extends ContentWindow {
                     type: "color-picker",
                     input: color,
                     is_rounded: false,
-                    action: (val) => {
+                    action: (val: string) => {
                         this.color_val = val;
                     }
                 }

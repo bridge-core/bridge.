@@ -5,6 +5,8 @@ build/*
 
 node_modules/*
 !node_modules/discord-rpc
+
+node_modules/*
 !node_modules/safe-eval
 node_modules/safe-eval/*
 !node_modules/safe-eval/index.d.ts

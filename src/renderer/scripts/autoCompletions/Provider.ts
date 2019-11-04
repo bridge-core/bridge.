@@ -97,7 +97,7 @@ class Provider {
         if(path.length > 0) this.removeFromLib(path, current[key]);
         if(created) delete current[key];    
     }
-    static addPluginCompletion(path: string[], def: any) {
+    static addPluginCompletion(path: string, def: any) {
         if(!LIB_LOADED) PLUGINS_TO_LOAD.push({ path, def });
         else {
             PLUGIN_COMPLETIONS.push([]);
