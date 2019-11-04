@@ -1,4 +1,4 @@
-import detachObj, { detachMerge } from "../mergeUtils";
+import { detachMerge } from "../mergeUtils";
 import uuidv4 from "uuid/v4";
 
 function internalUse(obj, path, del=true) {
@@ -26,7 +26,7 @@ function internalSet(obj, path, data) {
         if(obj[key] === undefined) obj[key] = data;
         else if(Array.isArray(obj[key]) && !Array.isArray(data)) obj[key].push(data);
         else if(Array.isArray(obj[key]) && Array.isArray(data)) obj[key].push(...data);
-        else obj[key] = detachObj(obj[key], data);
+        else obj[key] = detachMerge(obj[key], data);
         return obj;
     } else if(obj[key] === undefined) {
         obj[key] = {};
