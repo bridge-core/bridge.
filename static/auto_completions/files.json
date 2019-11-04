@@ -86,5 +86,6 @@
     "simple/biomes_client",
     "simple/blocks",
     "simple/sound_definitions",
-    "simple/sounds"
+    "simple/sounds",
+    "simple/lang_def"
 ]

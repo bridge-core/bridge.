@@ -109,10 +109,18 @@
         "problems": [ "format_version" ]
     },
     {
+        "id": "lang_def",
+        "includes": "texts/languages.json",
+        "file_viewer": "json",
+        "start_state": "simple/lang_def",
+        "comment_character": "//"
+    },
+    {
         "id": "lang",
         "includes": "texts/",
         "file_viewer": "text",
         "highlighter": "lang",
+        "file_creator": "lang",
         "comment_character": "##"
     },
     {
@@ -245,10 +253,19 @@
         "problems": [ "format_version" ]
     },
     {
+        "id": "client_lang_def",
+        "includes": "texts/languages.json",
+        "file_viewer": "json",
+        "start_state": "simple/lang_def",
+        "comment_character": "//",
+        "rp_definition": true
+    },
+    {
         "id": "client_lang",
         "includes": "texts/",
         "file_viewer": "text",
         "highlighter": "lang",
+        "file_creator": "lang",
         "comment_character": "##",
         "rp_definition": true
     },

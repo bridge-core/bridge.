@@ -9,10 +9,10 @@ export default class Manifest {
     modules: any[];
     dependencies: any[];
     
-    constructor(type: "resources" | "data", name: string, description: string, client_data?: boolean, dependency?: string) {
+    constructor(type: "resources" | "data", client_data?: boolean, dependency?: string) {
         this.header = {
-            description,
-            name,
+            name: "pack.name",
+            description: "pack.description",
             uuid: uuidv4(),
             version: [ 1, 0, 0 ],
             min_engine_version: [ 1, 0, 0 ]

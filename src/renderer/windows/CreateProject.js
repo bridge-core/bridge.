@@ -151,12 +151,15 @@ export default class CreateProjectWindow extends ContentWindow {
 
                 fs.writeFile(
                     path.join(b_path, this.input, "/manifest.json"),
-                    new Manifest(create_bp ? "data" : "resources", this.input, this.des, this.client_data).get(),
+                    new Manifest(create_bp ? "data" : "resources", this.client_data).get(),
                     async () => {
                         if(err && err.message.includes("already exists")) return l_w.hide();
                         if(err) { l_w.hide(); throw err; }
-                        if(!create_bp) await CreateFiles.createRPFiles(path.join(b_path, this.input));
-                        else await CreateFiles.createBPFiles(path.join(b_path, this.input));
+
+                        //CREATE DEFAULT FILES
+                        if(!create_bp) await CreateFiles.createRPFiles(path.join(b_path, this.input), { name: this.input, description: this.des });
+                        else await CreateFiles.createBPFiles(path.join(b_path, this.input), { name: this.input, description: this.des });
+
                         Vue.$root.$emit("refreshExplorer");
                         
                         l_w.hide();

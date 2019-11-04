@@ -216,7 +216,9 @@ export default class CreateFileWindow extends ContentWindow {
             });
         }
         let options = ["No template"].concat(Object.keys(templates));
-        
+        this.win_def.content.added_select = true;
+        if(options.length === 1)
+            return;
 
         this.win_def.content.push({
             type: "header",
@@ -237,6 +239,5 @@ export default class CreateFileWindow extends ContentWindow {
                 else this.chosen_template = JSON.stringify(templates[val], null, "\t");
             }
         });
-        this.win_def.content.added_select = true;
     }
 }
