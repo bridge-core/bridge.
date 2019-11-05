@@ -12,6 +12,7 @@ import { OnSaveData } from "./main";
 
 let COM_ID_COUNTER = 0;
 let A_C: AnimationController;
+let COMMAND_ANIM_REGISTERED = false;
 
 function transformEvent(
     event: any,
@@ -51,7 +52,11 @@ function transformEvent(
     if(e_c !== undefined) {
         let e_c_group = `execute_command_id_${++COM_ID_COUNTER}`;
 
-        set(description, "scripts/animate", [ "bridge_execute_commands" ]);
+        if(!COMMAND_ANIM_REGISTERED) {
+            set(description, "scripts/animate", [ "bridge_execute_commands" ]);
+            COMMAND_ANIM_REGISTERED = true;
+        }
+        
         set(description, "animations", { "bridge_execute_commands": `controller.animation.bridge_${file_name}.execute_commands` });
         set(component_groups, `bridge:${e_c_group}`, {
             "minecraft:skin_id": {
