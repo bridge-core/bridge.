@@ -46,6 +46,8 @@
                 @keydown.enter.native="replace"
             />
             <v-divider/>
+
+            Selected Nodes: {{ selected_nodes }}
         </v-container>
     </div>
 </template>
@@ -63,6 +65,11 @@ export default {
             replace_val: "",
             search_all: false,
             selection: []
+        }
+    },
+    computed: {
+        selected_nodes() {
+            return this.selection.reduce((prev, curr) => prev + curr.nodes.length, 0);
         }
     },
     methods: {
@@ -93,12 +100,13 @@ export default {
                     if(n.key === search_val) n.editKey(this.replace_val);
                     else n.edit(this.replace_val);
                     console.log(n.key, n.data, search_val, n);
-                })
-            })
+                });
+            });
+            TabSystem.setCurrentUnsaved();
+            this.reset();
         },
 
         reset() {
-            console.log(this.selection)
             this.selection.forEach(({ nodes }) => nodes.forEach(n => n.mark_color = undefined));
             this.selection = [];
         }
