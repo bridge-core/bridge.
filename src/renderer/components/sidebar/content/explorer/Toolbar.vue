@@ -75,6 +75,8 @@
     import { join } from "path";
     import InputWindow from "../../../../scripts/commonWindows/Input";
     import ProjectConfig from "../../../../scripts/ProjectConfig";
+    import ConfirmWindow from '../../../../scripts/commonWindows/Confirm';
+    import { MOJANG_PATH } from '../../../../../shared/Paths';
 
     export default {
         name: "explorer-toolbar",
@@ -101,6 +103,20 @@
                                 ProjectConfig.setPrefix(val);
                             })
                         }
+                    },
+                    {
+                        icon: "mdi-package-variant-closed",
+                        title: "Package Project",
+                        action: async () => {
+                            console.log("PACKAGE ALL");
+                        }
+                    },
+                    {
+                        icon: "mdi-delete",
+                        title: "Delete Project",
+                        action: async () => {
+                            console.log("DELETE");
+                        }
                     }
                 ]
             }
@@ -117,12 +133,17 @@
             },
             packageProject() {
                 let lw = new LoadingWindow();
-                let project = this.selected;
-                let path = this.base_path + project;
-                ZipFolder.zipFolder(path, join(path, `${project}.mcpack`), err => {
+
+                ZipFolder.zipFolder(MOJANG_PATH, join(MOJANG_PATH, `${this.selected}.mcpack`), err => {
                     if(err) console.error(err);
-                    this.refresh();
                     lw.close();
+
+                    new ConfirmWindow(
+                        () => shell.openExternal(MOJANG_PATH),
+                        null,
+                        "Project successfully packaged!",
+                        { confirm_text: "Open", cancel_text: "Later", display_name: "Project packaged!" }
+                    );
                 });
             },
             openInExplorer() {

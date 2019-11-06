@@ -26,6 +26,7 @@
             />
             <v-subheader
                 v-else
+                style="width: calc(100% - 48px);"
             >{{ selected }}</v-subheader>
         </v-layout>
 
