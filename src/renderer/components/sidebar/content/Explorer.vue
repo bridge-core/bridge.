@@ -12,7 +12,7 @@
             
             <v-select
                 v-if="force_project_algorithm === undefined"
-                style="margin: 4px 0; margin-right: 4px; border-radius: 0;"
+                style="margin: 4px 0; margin-right: 4px; border-radius: 0; width: calc(100% - 48px);"
                 ref="project_select"
                 :items="project_items" 
                 :value="selected" 
@@ -164,14 +164,7 @@
             },
 
             project_items() {
-                let size = Math.floor(this.project_select_size / 10.5);
-                
-                let tmp = [];
-                this.items.forEach(e => tmp.push({ 
-                    text: e.length > size && !e.includes(" ") ? e.substr(0, size) + "\u2026" : e, 
-                    value: e 
-                }));
-                return tmp;
+                return this.items;
             },
             project_icon() {
                 try {
