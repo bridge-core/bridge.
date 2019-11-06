@@ -32,6 +32,7 @@
                 dense
                 v-model="search_val"
                 @click:append-outer="search"
+                @keydown.enter.native="search"
             />
             <v-text-field
                 label="Replace"
@@ -42,6 +43,7 @@
                 dense
                 v-model="replace_val"
                 @click:append-outer="replace"
+                @keydown.enter.native="replace"
             />
             <v-divider/>
         </v-container>
@@ -51,6 +53,7 @@
 <script>
 import TabSystem from '../../../scripts/TabSystem';
 import JSONTree from '../../../scripts/editor/JsonTree';
+import InformationWindow from '../../../scripts/commonWindows/Information';
 
 export default {
     name: "content-file-search",
@@ -68,7 +71,7 @@ export default {
 
             } else {
                 let sel = TabSystem.getSelected();
-                if(!sel) return;
+                if(!sel) return new InformationWindow("ERROR", "You need to open a file to get started with file search.");
 
                 let c = sel.content;
                 if(c instanceof JSONTree) {
@@ -85,6 +88,13 @@ export default {
         },
         replace() {
             console.log("replace", this.replace_val);
+            this.selection.forEach(({ search_val, nodes }) => {
+                nodes.forEach(n => {
+                    if(n.key === search_val) n.editKey(this.replace_val);
+                    else n.edit(this.replace_val);
+                    console.log(n.key, n.data, search_val, n);
+                })
+            })
         },
 
         reset() {

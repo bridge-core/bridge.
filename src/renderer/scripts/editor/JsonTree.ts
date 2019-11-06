@@ -270,9 +270,15 @@ export default class JSONTree {
      * @param {String} new_data 
      */
     edit(new_data: string) {
-        if(!new_data) throw new Error("Data may not be undefined or null.");
         if(this.type === "object" || this.type === "array") this.type = "string";
         this.data = new_data;
+        this.updateUUID();
+    }
+    /**
+     * @param {String} new_key
+     */
+    editKey(new_key: string) {
+        this.key = new_key;
         this.updateUUID();
     }
     /**
