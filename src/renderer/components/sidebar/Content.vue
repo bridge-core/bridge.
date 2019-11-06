@@ -1,5 +1,6 @@
 <template>
     <div>
+        <keep-alive>
         <content-explorer
             v-if="menu_type === 'explorer'"
             key="explorer"
@@ -19,9 +20,12 @@
         <content-plugins v-else-if="menu_type === 'extensions'"/>
         <content-debug-log v-else-if="menu_type === 'debug_log'"/>
         <content-documentation v-else-if="menu_type === 'documentation'"/>
-        <content-file-search v-else-if="menu_type === 'file_search'"/>
+        
+        <content-file-search  v-else-if="menu_type === 'file_search'"/>
+        
         <content-custom v-else-if="sidebar.is_plugin" :content="sidebar.content" :toolbar="sidebar.toolbar"/>
         <content-not-implemented v-else/>
+        </keep-alive>
     </div>
 </template>
 

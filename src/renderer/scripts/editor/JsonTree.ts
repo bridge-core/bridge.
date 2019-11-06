@@ -428,11 +428,11 @@ export default class JSONTree {
             return prev_sibling;
         }
     }
-    searchAll(key: string) {
+    searchAll(key: string, search_data=false) {
         let res: JSONTree[] = [];
         this.children.forEach(c => {
-            if(c.key === key) res.push(c);
-            res = res.concat(c.searchAll(key));
+            if(c.key === key || (search_data && c.data === key)) res.push(c);
+            res = res.concat(c.searchAll(key, search_data));
         });
         return res;
     }
