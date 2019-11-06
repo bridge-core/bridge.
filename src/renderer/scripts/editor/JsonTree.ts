@@ -232,6 +232,14 @@ export default class JSONTree {
         }
         return -1;
     }
+    hasChild(key: string) {
+        for(let c of this.children) {
+            if(c.key === key)
+                return true;
+        }
+        return false;
+    }
+
     /**
      * Adds a new child to calling node
      * @param {JSONTree} child 
