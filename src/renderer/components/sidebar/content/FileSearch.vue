@@ -56,6 +56,7 @@
 import TabSystem from '../../../scripts/TabSystem';
 import JSONTree from '../../../scripts/editor/JsonTree';
 import InformationWindow from '../../../scripts/commonWindows/Information';
+import EventBus from '../../../scripts/EventBus';
 
 export default {
     name: "content-file-search",
@@ -66,6 +67,14 @@ export default {
             search_all: false,
             selection: []
         }
+    },
+    mounted() {
+        EventBus.on("updateTabUI", this.reset);
+        EventBus.on("updateSelectedTab", this.reset);
+    },
+    destroyed() {
+        EventBus.off("updateTabUI", this.reset);
+        EventBus.off("updateSelectedTab", this.reset);
     },
     computed: {
         selected_nodes() {
