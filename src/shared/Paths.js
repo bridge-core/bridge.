@@ -6,7 +6,7 @@ import { DefaultDir } from "./DefaultDir";
 import path from "path"
 let default_dir = DefaultDir.get();
 
-export const MOJANG_PATH = (() => {
+export const LOCAL_STATE_PATH = (() => {
     if(default_dir !== "") return default_dir;
 
     // Taken from minecraft-addon-tools/minecraft-addon-toolchain by @AtomicBlom
@@ -15,7 +15,7 @@ export const MOJANG_PATH = (() => {
         case "win32":
             platformRoot = path.join(
                 process.env["LOCALAPPDATA"],
-                "Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang"
+                "Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState"
             );
             break;
         case "linux":
@@ -33,5 +33,7 @@ export const MOJANG_PATH = (() => {
     return platformRoot;
 })();
 
+export const MOJANG_PATH = path.join(LOCAL_STATE_PATH, "games/com.mojang");
 export const BP_BASE_PATH = path.join(MOJANG_PATH, "development_behavior_packs/");
 export const RP_BASE_PATH = path.join(MOJANG_PATH, "development_resource_packs/");
+export const DEBUG_PATH = path.join(LOCAL_STATE_PATH, "logs");
