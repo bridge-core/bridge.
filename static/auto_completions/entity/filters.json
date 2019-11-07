@@ -5,6 +5,9 @@
     "any_of": {
         "$dynamic.list.next_index": "$entity.filters"
     },
+    "none_of": {
+        "$dynamic.list.next_index": "$entity.filters"
+    },
     "$dynamic_template.test": {
         "$key": "$dynamic.setting.target_version",
         
