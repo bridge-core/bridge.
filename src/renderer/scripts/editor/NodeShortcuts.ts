@@ -19,6 +19,8 @@ export default class NodeShortcuts {
 
     static paste() {
         let node = TabSystem.getCurrentNavObj();
+        if(node.data !== "") return; 
+        
         try {
             let obj = JSON.parse(clipboard.readText());
             let res: any = {};
