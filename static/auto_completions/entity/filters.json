@@ -10,7 +10,9 @@
     },
     "$dynamic_template.test": {
         "$key": "$dynamic.setting.target_version",
-        
+        "$fallback": "$entity.general.filters",
+        "$default": "$entity.general.filters",
+
         "v1.10": "$entity.general.filters",
         "v1.11": "$entity.general.filters",
 
