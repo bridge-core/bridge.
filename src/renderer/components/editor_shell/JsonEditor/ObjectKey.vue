@@ -35,10 +35,10 @@
             <template v-slot:activator="{ on }">
                 <span v-on="on">
                     <highlight-text 
-                        :style="`background: ${mark.replace(/;|:/g, '')};`"
+                        :style="`background: ${(node_context.mark_color || 'none').replace(/;|:/g, '')};`"
                         :class="`object ${error.is_warning ? 'warning-line' : 'error-line'}`"
                     >
-                    {{ my_key }}
+                    {{ node_context.key }}
                     </highlight-text>
                 </span>
             </template>
@@ -48,10 +48,10 @@
         <!-- KEY DISPLAY NO ERROR -->
         <highlight-text
             v-else
-            :style="`background: ${mark.replace(/;|:/g, '')};`"
+            :style="`background: ${(node_context.mark_color || 'none').replace(/;|:/g, '')};`"
             class="object"
         >
-        {{ my_key }}
+        {{ node_context.key }}
         </highlight-text>
 
         <!-- DATA DISPLAY -->
@@ -101,7 +101,7 @@
             <span>{{ error.fix.text || 'Auto-fix' }}</span>
         </v-tooltip>
 
-        <span v-if="comment && comment != ''" class="comment" :style="color_theme.comment">//{{ comment }}</span>
+        <span v-if="show_comment && comment != ''" class="comment" :style="color_theme.comment">//{{ comment }}</span>
     </summary>
 </template>
 
@@ -119,18 +119,13 @@
             HighlightAttribute
         },
         props: {
-            my_key: [String, Number],
             object_key: String,
-            comment: String,
-            mark: {
-                default: "none",
-                type: String
-            },
-            object: Object,
-            error: Object,
-            child_contains_error: Boolean,
             node_context: Object,
-            is_immutable: Boolean
+            is_immutable: Boolean,
+            show_comment: {
+                default: true,
+                type: Boolean
+            }
         },
         computed: {
             selected_class() {
@@ -146,6 +141,15 @@
             },
             color_theme() {
                 return this.is_dark_mode ? this.$store.state.Appearance.color_theme.dark : this.$store.state.Appearance.color_theme.light;
+            },
+            error() {
+                return this.node_context.error;
+            },
+            child_contains_error() {
+                return this.node_context.child_contains_error;
+            },
+            comment() {
+                return this.node_context.comment || "";
             }
         },
         methods: {
@@ -160,8 +164,8 @@
                 if(this.is_immutable) return;
                 TabSystem.setCurrentFileNav(this.object_key);
                 let data;
-                if(Number.isNaN(Number(this.my_key))) data = `"${this.my_key}": ${JSON.stringify(this.object.toJSON(), null, "\t")}`;
-                else data = JSON.stringify(this.object.toJSON(), null, "\t");
+                if(Number.isNaN(Number(this.node_context.key))) data = `"${this.node_context.key}": ${JSON.stringify(this.node_context.toJSON(), null, "\t")}`;
+                else data = JSON.stringify(this.node_context.toJSON(), null, "\t");
 
                 this.$store.commit("showEditorHoverCard", {
                     data,

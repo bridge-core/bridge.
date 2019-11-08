@@ -47,7 +47,14 @@
             />
             <v-divider/>
 
-            Selected Nodes: {{ selected_nodes }}
+            Selected Nodes: {{ selected_nodes_total }}
+        </v-container>
+        <v-container>
+            <node-preview
+                v-for="n in selected_nodes"
+                :key="n.uuid"
+                :node_context="n"
+            />
         </v-container>
     </div>
 </template>
@@ -57,9 +64,13 @@ import TabSystem from '../../../scripts/TabSystem';
 import JSONTree from '../../../scripts/editor/JsonTree';
 import InformationWindow from '../../../scripts/commonWindows/Information';
 import EventBus from '../../../scripts/EventBus';
+import NodePreview from '../../common/NodePreview';
 
 export default {
     name: "content-file-search",
+    components: {
+        NodePreview
+    },
     data() {
         return {
             search_val: "",
@@ -77,8 +88,11 @@ export default {
         EventBus.off("updateSelectedTab", this.reset);
     },
     computed: {
-        selected_nodes() {
+        selected_nodes_total() {
             return this.selection.reduce((prev, curr) => prev + curr.nodes.length, 0);
+        },
+        selected_nodes() {
+            return this.selection.reduce((prev, curr) => prev.concat(curr.nodes), []);
         }
     },
     methods: {

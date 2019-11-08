@@ -16,13 +16,7 @@
                         <object-key 
                             @mainClick="click($event, e.parsed_key)"
                             @arrowClick="$event.ctrlKey ? e.toggleOpenDeep() : e.toggleOpen()"
-                            :object="e"
-                            :my_key="e.key"
-                            :comment="e.comment"
                             :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
-                            :mark="e.mark_color"
-                            :error="e.error"
-                            :child_contains_error="e.child_contains_error"
                             :node_context="e"
                             :is_immutable="is_immutable"
                         />
