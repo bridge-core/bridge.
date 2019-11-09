@@ -10,7 +10,7 @@
                 <span>Refresh</span>
             </v-tooltip>
 
-            <v-tooltip color="tooltip" bottom>
+            <!-- <v-tooltip color="tooltip" bottom>
                 <template v-slot:activator="{ on }">
                     <v-btn icon text @click.stop="search_all = !search_all" v-on="on" class="toolbar-button" small>
                         <v-icon v-if="!search_all" small>mdi-numeric-1-circle</v-icon>
@@ -19,7 +19,7 @@
                 </template>
                 <span v-if="!search_all">Search Current File</span>
                 <span v-else>Search All Files</span>
-            </v-tooltip>
+            </v-tooltip> -->
         </v-toolbar>
         <v-divider/>
 
@@ -45,11 +45,15 @@
                 @click:append-outer="replace"
                 @keydown.enter.native="replace"
             />
+        </v-container>
+
+        <v-container class="px14-font">
             <v-divider/>
 
-            Selected Nodes: {{ selected_nodes_total }}
-        </v-container>
-        <v-container>
+            <span v-if="selected_nodes_total > 0">Selected Nodes: {{ selected_nodes_total }}</span>
+            <span v-else>Start searching for JSON nodes by opening a file and typing into the "Search" field.</span>
+
+
             <node-preview
                 v-for="n in selected_nodes"
                 :key="n.uuid"
@@ -117,7 +121,8 @@ export default {
             }
         },
         replace() {
-            console.log("replace", this.replace_val);
+            if(this.selection.length === 0) return;
+
             this.selection.forEach(({ search_val, nodes }) => {
                 nodes.forEach(n => {
                     if(n.key === search_val) n.editKey(this.replace_val);
