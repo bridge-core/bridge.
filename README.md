@@ -39,7 +39,10 @@ Additionally, "bridge." has a few more specific features which other editors do 
    - Handcrafted: We don't trust the Minecraft documentation and you shouldn't either. That's why we wrote all suggestions by hand
    - Context sensitive: bridge. proposes different data depending on what you wrote before. Adding e.g. a new item results in the corresponding identifier being proposed whenever an item identifier is a valid value throughout your behavior and resource pack files.
    - Ability to switch between auto-completions for multiple Minecraft versions seamlessly: We always support the latest stable release and the latest beta
-
+#### Debug Log Explorer
+   - A perfect tool for browsing content errors
+   - Filter by tags or search for specific logs
+   - Open affected files with only one click
 #### Documentation
    - Easy access to the Minecraft add-on documentation
    - Shortcut to lookup specific components in your file
