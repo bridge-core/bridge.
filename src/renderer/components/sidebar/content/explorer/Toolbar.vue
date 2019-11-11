@@ -71,12 +71,16 @@
     import CreateFileWindow from "../../../../windows/CreateFile";
     import CreateProjectWindow from "../../../../windows/CreateProject";
     import LoadingWindow from "../../../../windows/LoadingWindow";
-    import ZipFolder from "zip-a-folder";
+    import { zip } from "zip-a-folder";
     import { join } from "path";
     import InputWindow from "../../../../scripts/commonWindows/Input";
     import ProjectConfig from "../../../../scripts/ProjectConfig";
-    import ConfirmWindow from '../../../../scripts/commonWindows/Confirm';
     import { MOJANG_PATH } from '../../../../../shared/Paths';
+    import { CURRENT } from '../../../../scripts/constants';
+    import Notification from '../../../../scripts/Notification';
+    import { promises as fs } from "fs";
+    import trash from 'trash';
+import InformationWindow from '../../../../scripts/commonWindows/Information';
 
     export default {
         name: "explorer-toolbar",
@@ -108,7 +112,37 @@
                         icon: "mdi-package-variant-closed",
                         title: "Package Project",
                         action: async () => {
-                            console.log("PACKAGE ALL");
+                            new InputWindow({
+                                header: "Project Name",
+                                label: "Name",
+                                text: ""
+                            }, async (project_name) => {
+                                //Make sure that the resource pack can be loaded
+                                if(!CURRENT.RESOURCE_PACK)
+                                    return new InformationWindow("No Resource Pack", "Please connect a resource pack before packaging the whole project.");
+
+                                //Package whole project
+                                let lw = new LoadingWindow();
+                                await fs.mkdir(join(MOJANG_PATH, "bridge"), { recursive: true });
+                                await Promise.all([
+                                    zip(CURRENT.PROJECT_PATH, join(MOJANG_PATH, "bridge", `${CURRENT.PROJECT}.mcpack`)),
+                                    zip(CURRENT.RP_PATH, join(MOJANG_PATH, "bridge", `${CURRENT.RESOURCE_PACK}.mcpack`))
+                                ]);
+                                await zip(join(MOJANG_PATH, "bridge"), join(MOJANG_PATH, `${project_name}.mcaddon`));
+                                await trash(join(MOJANG_PATH, "bridge"));
+                                lw.close();
+
+                                //Notify user the packaging is complete
+                                const ready_push = new Notification({
+                                    display_icon: "mdi-package-variant-closed",
+                                    display_name: "Package ready!",
+                                    color: "info",
+                                    action: () => {
+                                        ready_push.remove();
+                                        shell.openExternal(MOJANG_PATH);
+                                    }
+                                }).send();
+                            });
                         }
                     },
                     {
@@ -131,20 +165,20 @@
             openCreateProjectWindow() {
                 new CreateProjectWindow();
             },
-            packageProject() {
+            async packageProject() {
                 let lw = new LoadingWindow();
+                await zip(CURRENT.PROJECT_PATH, join(MOJANG_PATH, `${this.selected}.mcpack`));
+                lw.close();
 
-                ZipFolder.zipFolder(MOJANG_PATH, join(MOJANG_PATH, `${this.selected}.mcpack`), err => {
-                    if(err) console.error(err);
-                    lw.close();
-
-                    new ConfirmWindow(
-                        () => shell.openExternal(MOJANG_PATH),
-                        null,
-                        "Project successfully packaged!",
-                        { confirm_text: "Open", cancel_text: "Later", display_name: "Project packaged!" }
-                    );
-                });
+                const ready_push = new Notification({
+                    display_icon: "mdi-package-variant-closed",
+                    display_name: "Package ready!",
+                    color: "info",
+                    action: () => {
+                        ready_push.remove();
+                        shell.openExternal(MOJANG_PATH);
+                    }
+                }).send();
             },
             openInExplorer() {
                 shell.openExternal(this.base_path + this.selected);

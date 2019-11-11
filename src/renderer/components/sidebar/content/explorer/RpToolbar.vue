@@ -51,8 +51,12 @@
     import { shell } from "electron";
     import CreateFileWindow from "../../../../windows/CreateFile";
     import LoadingWindow from "../../../../windows/LoadingWindow";
-    import ZipFolder from "zip-a-folder";
+    import { zip } from "zip-a-folder";
     import PackLinker from "../../../../scripts/utilities/LinkPacks";
+    import { CURRENT } from '../../../../scripts/constants';
+    import { MOJANG_PATH } from '../../../../../shared/Paths';
+    import { join } from "path";
+    import Notification from '../../../../scripts/Notification';
 
     export default {
         name: "explorer-rp-toolbar",
@@ -70,15 +74,20 @@
             openCreateFileWindow() {
                 new CreateFileWindow(true);
             },
-            packageProject() {
+            async packageProject() {
                 let lw = new LoadingWindow();
-                let project = this.selected;
-                let path = this.base_path + project;
-                ZipFolder.zipFolder(path, `${path}\\${project}.mcpack`, err => {
-                    if(err) console.error(err);
-                    this.refresh();
-                    lw.close();
-                });
+                await zip(CURRENT.RP_PATH, join(MOJANG_PATH, `${this.selected}.mcpack`));
+                lw.close();
+
+                const ready_push = new Notification({
+                    display_icon: "mdi-package-variant-closed",
+                    display_name: "Package ready!",
+                    color: "info",
+                    action: () => {
+                        ready_push.remove();
+                        shell.openExternal(MOJANG_PATH);
+                    }
+                }).send();
             },
             openInExplorer() {
                 shell.openExternal(this.base_path + this.selected);

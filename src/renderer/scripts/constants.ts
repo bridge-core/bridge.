@@ -25,6 +25,9 @@ export const CURRENT = {
     get PROJECT() {
         return Store.state.Explorer.project.explorer;
     },
+    get RESOURCE_PACK() {
+        return Store.state.Explorer.project.resource_pack;
+    },
     get RP_PATH() {
         return path.join(RP_BASE_PATH, Store.state.Explorer.project.resource_pack);
     }

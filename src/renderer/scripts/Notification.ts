@@ -48,6 +48,9 @@ export default class Notification {
         this.text_color = text_color;
         this.is_pushed = false;
     }
+    static send(config: NotificationConfig) {
+        return new Notification(config);
+    }
 
     addBadge(badge: Badge) {
         this.badge = badge;
@@ -58,6 +61,7 @@ export default class Notification {
 
         this.is_pushed = true;
         Store.commit("addNativeFooter", this);
+        return this;
     }
     update() {
         Store.commit("updateNativeFooter", this);
