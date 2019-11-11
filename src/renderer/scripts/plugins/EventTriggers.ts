@@ -20,7 +20,7 @@ export function trigger(name: string, arg?: any, init=true) {
                 PluginAssert.throw("Event: " + name, err);
                 res = {};
             }
-            console.log(res)
+
             if(res) {
                 try {
                     new_arg = Object.assign(new_arg, res);

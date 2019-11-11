@@ -237,7 +237,6 @@
                     this.selected = undefined;
                     if(force_refresh) setRP(undefined);
                     this.selected = await this.force_project_algorithm();
-                    console.log(this.selected)
                 } else {
                     try {
                         this.items = await fs.readdir(BP_BASE_PATH);

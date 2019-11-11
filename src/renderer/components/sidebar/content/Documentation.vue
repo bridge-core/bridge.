@@ -5,7 +5,7 @@
             <template v-for="(doc, i) in project_docs">
                 <v-btn
                     :key="`btn.${i}`"
-                    @click.stop="openDoc(doc)"
+                    @click.stop="getAction(doc)"
                     class="font-weight-light"
                     block
                     text
@@ -48,7 +48,8 @@
 
 <script>
     import { DOC_LIST, DOC_URL, CURRENT } from '../../../scripts/constants';
-    import { shell } from "electron"
+    import { shell } from "electron";
+    import TagDocumentation from '../../../windows/Documentation/Tag.ts';
 
     export default {
         name: "content-documentation",
@@ -72,7 +73,7 @@
             project_docs() {
                 return [
                     "Components",
-                    "Tags"
+                    "TAGS"
                 ]
             },
             project() {
@@ -86,6 +87,9 @@
 
             openDoc(doc) {
                 shell.openExternal(`${DOC_URL}${encodeURI(doc)}`);
+            },
+            getAction(doc) {
+                if(doc === "TAGS") new TagDocumentation();
             }
         }
     }

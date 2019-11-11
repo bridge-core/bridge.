@@ -2,7 +2,7 @@
  * A thin wrapper around the cached .json files ("./cache" folder)
  */
 
-import { BASE_PATH, RP_BASE_PATH } from "../constants";
+import { BASE_PATH, RP_BASE_PATH, CURRENT } from "../constants";
 import fs from "fs";
 import fse from "fs-extra";
 import path from "path";
@@ -10,6 +10,7 @@ import mkdirp from "mkdirp";
 import FileType from "./FileType";
 import PluginEnv from "../plugins/PluginEnv";
 import { readJSON } from "../utilities/JsonFS";
+import JSONTree from "./JsonTree";
 
 export interface OmegaCacheData {
     file_version?: number;
@@ -44,6 +45,10 @@ export default class OmegaCache {
 
         return path.join(with_base ? this.current_base : "", is_bp ? "BP" : "RP", tmp_path.slice(this.project.length)).replace(/\\/g, '/');
     }
+    static constructPath(file_path: string) {
+        if(!CURRENT.RESOURCE_PACK) return file_path.replace("BP", CURRENT.PROJECT_PATH);
+        return file_path.replace("BP", CURRENT.PROJECT_PATH).replace("RP", CURRENT.RP_PATH);
+    }
 
     static extractFileVersion(file_path: string, file_str: string, comment_char=FileType.getCommentChar(file_path), initial=true): number { 
         try {
@@ -73,7 +78,7 @@ export default class OmegaCache {
         }
     }
 
-    static load(file_path: string) {
+    static load(file_path: string): Promise<any> {
         return new Promise((resolve, reject) => {
             fs.readFile(this.toCachePath(file_path), (err, data) => {
                 if(err) reject(err);
@@ -111,6 +116,12 @@ export default class OmegaCache {
                 );
             });
         });
+    }
+
+    static loadContent(c: any, format_version=0) {
+        if(format_version === 0) return c;
+        else if(format_version === 1) return JSONTree.buildFromCache(c);
+        else throw new Error("Unknown cache format_version: " + format_version);
     }
     
     static clear(file_path: string) {
