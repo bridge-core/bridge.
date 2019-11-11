@@ -1,5 +1,5 @@
 {
-  "name": "bridge",
+  "name": "bridge-proprietary",
   "version": "0.13.24",
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
@@ -17,9 +17,9 @@
     "postinstall": ""
   },
   "build": {
-    "productName": "bridge",
-    "appId": "solved.editor.bridge",
-    "artifactName": "bridge@${version}.${ext}",
+    "productName": "bridge-proprietary",
+    "appId": "gamemodeone.editor.bridge",
+    "artifactName": "bridge-proprietary@${version}.${ext}",
     "directories": {
       "output": "build"
     },
