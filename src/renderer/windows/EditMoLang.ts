@@ -2,9 +2,12 @@ import ContentWindow from "../scripts/commonWindows/Content";
 import uuidv4 from "uuid/v4";
 import TabSystem from "../scripts/TabSystem";
 import { JSONAction } from "../scripts/TabSystem/CommonHistory";
+import JSONTree from "../scripts/editor/JsonTree";
 
 export default class EditMoLangWindow extends ContentWindow {
-    constructor(moLang, node_context) {
+    private input: string;
+    
+    constructor(moLang: string, node_context: JSONTree) {
         super({
             display_name: "Edit MoLang",
             options: {
@@ -28,7 +31,7 @@ export default class EditMoLangWindow extends ContentWindow {
 
                         mode: "molang"
                     },
-                    action: (val) => {
+                    action: (val: string) => {
                         val = val.split(/\n/g).filter(e => e !== '').join("\n");
                         this.input = val.replace(/\s\.\s/g, ".").replace(/\;\n/g, "; ").replace(/\n/g, "; ");
                     }

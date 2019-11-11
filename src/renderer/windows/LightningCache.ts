@@ -3,7 +3,10 @@ import LightningCache from "../scripts/editor/LightningCache";
 
 
 export default class LightningCacheInspector extends CommonWindow {
-    constructor(file_path) {     
+    private file_path: string;
+    private content: any[];
+    
+    constructor(file_path: string) {     
         super({ options: { is_persistent: false }, display_name: "Lightning Cache Inspector" }, "bridge.core.lightning_cache_inspector.");
         this.file_path = file_path;
         this.init(file_path);
