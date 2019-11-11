@@ -44,6 +44,15 @@
             </template>
             <span>Open In Explorer</span>
         </v-tooltip>
+
+        <v-tooltip  color="tooltip" bottom>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="deleteRP" v-on="on" class="toolbar-button" small>
+                    <v-icon small>mdi-delete</v-icon>
+                </v-btn>
+            </template>
+            <span>Delete Pack</span>
+        </v-tooltip>
     </v-toolbar>
 </template>
 
@@ -57,6 +66,9 @@
     import { MOJANG_PATH } from '../../../../../shared/Paths';
     import { join } from "path";
     import Notification from '../../../../scripts/Notification';
+    import ConfirmWindow from '../../../../scripts/commonWindows/Confirm';
+    import trash from 'trash';
+    import EventBus from '../../../../scripts/EventBus';
 
     export default {
         name: "explorer-rp-toolbar",
@@ -69,7 +81,7 @@
                 this.$root.$emit("refreshExplorer");
             },
             unlink() {
-                PackLinker.unlink(this.$store.state.Explorer.project.explorer);
+                PackLinker.unlink(CURRENT.PROJECT);
             },
             openCreateFileWindow() {
                 new CreateFileWindow(true);
@@ -91,6 +103,14 @@
             },
             openInExplorer() {
                 shell.openExternal(this.base_path + this.selected);
+            },
+            deleteRP() {
+                new ConfirmWindow(async () => {
+                    let lw = new LoadingWindow();
+                    PackLinker.unlink(CURRENT.PROJECT);
+                    await trash(CURRENT.RP_PATH);
+                    lw.close();
+                }, null, "Do you really want to delete this pack?");
             }
         }
     }

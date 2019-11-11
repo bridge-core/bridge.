@@ -81,6 +81,7 @@
     import { JSONFileMasks } from "../../../scripts/editor/JSONFileMasks";
     import LoadingWindow from '../../../windows/LoadingWindow';
     import FileType from '../../../scripts/editor/FileType';
+    import { setRP } from '../../../scripts/utilities/FindRP';
 
     export default {
         name: "content-explorer",
@@ -113,36 +114,23 @@
                 loaded_file_defs: FileType.LIB_LOADED
             };
         },
-        async mounted() {
+        mounted() {
             this.$root.$on("refreshExplorer", () => EventBus.trigger("bridge:refreshExplorer"));
             EventBus.on("bridge:refreshExplorer", this.refresh);
             EventBus.on("bridge:selectProject", this.selectProject);
             EventBus.on("bridge:loadedFileDefs", this.onFileDefsLoaded);
-
-            if(this.force_project_algorithm) {
-                this.selected = undefined;
-                this.selected = await this.force_project_algorithm();
-            } else {
-                try {
-                    this.items = await fs.readdir(BP_BASE_PATH);
-                } catch(e) { this.items = []; }
-                this.no_projects = false;
-
-                if(this.items.length === 0 || this.items[0] === "undefined") {
-                    this.no_projects = true;
-                } else if(this.selected === "" || this.selected === undefined) {
-                    this.loadDirectory(this.findDefaultProject());
-                }
-            }
-
+            EventBus.on("bridge:findDefaultPack", this.findDefaultProject);
             window.addEventListener("resize", this.onResize);
+
+
+            this.findDefaultProject();
         },
         destroyed() {
             this.$root.$off("refreshExplorer");
             EventBus.off("bridge:refreshExplorer", this.refresh);
             EventBus.off("bridge:selectProject", this.selectProject);
             EventBus.off("bridge:loadedFileDefs", this.onFileDefsLoaded);
-
+            EventBus.off("bridge:findDefaultPack", this.findDefaultProject);
             window.removeEventListener("resize", this.onResize);
         },
         computed: {
@@ -152,7 +140,8 @@
                 },
                 set(project) {
                     this.$store.commit("setExplorerProject", { store_key: this.explorer_type, project });
-                    this.loadDirectory(project);
+                    if(project !== undefined)
+                        this.loadDirectory(project);
                     EventBus.trigger("updateTabUI");
                     // EventBus.on("updateSelectedTab");
                 }
@@ -243,7 +232,31 @@
                 this.project_select_size = window.innerWidth / 7.5;
             },
 
-            findDefaultProject() {
+            async findDefaultProject(force_refresh=false) {
+                if(this.force_project_algorithm) {
+                    this.selected = undefined;
+                    if(force_refresh) setRP(undefined);
+                    this.selected = await this.force_project_algorithm();
+                    console.log(this.selected)
+                } else {
+                    try {
+                        this.items = await fs.readdir(BP_BASE_PATH);
+                    } catch(e) { this.items = []; }
+                    this.no_projects = false;
+                    if(force_refresh) this.selected = undefined;
+
+                    /**
+                    * items[0] === "undefined":
+                    *   Allows the no_projects screen to launch for users which didn't have a BP before the no_projects screen update
+                    */
+                    if(this.items.length === 0 || this.items[0] === "undefined") {
+                        this.no_projects = true;
+                    } else if(this.selected === "" || this.selected === undefined) {
+                        this.loadDirectory(this.findDefaultBPProject());
+                    }
+                }
+            },
+            findDefaultBPProject() {
                 if(this.$store.state.Settings.default_project === undefined) return this.items[0];
                 
                 for(let i = 0; i < this.items.length; i++) {

@@ -58,7 +58,7 @@ export class FileExplorer {
             this.is_folder = (await fs.lstat(this.absolute_path)).isDirectory();
             this.is_loading = false;
             if(this.parent) this.parent.sort();
-        } catch(e) { console.error(e); }
+        } catch(e) { }
     }
     async load() {
         this.children = (await fs.readdir(this.absolute_path)).map(p => new FileExplorer(this, path.join(this.path, p), path.join(this.absolute_path, p)));

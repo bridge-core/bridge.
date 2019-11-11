@@ -1,6 +1,6 @@
 <template>
     <div>
-        <keep-alive>
+        <!-- <keep-alive> -->
         <content-explorer
             v-if="menu_type === 'explorer'"
             key="explorer"
@@ -25,7 +25,7 @@
         
         <content-custom v-else-if="sidebar.is_plugin" :content="sidebar.content" :toolbar="sidebar.toolbar"/>
         <content-not-implemented v-else/>
-        </keep-alive>
+        <!-- </keep-alive> -->
     </div>
 </template>
 

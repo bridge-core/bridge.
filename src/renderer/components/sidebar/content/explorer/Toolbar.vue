@@ -80,7 +80,9 @@
     import Notification from '../../../../scripts/Notification';
     import { promises as fs } from "fs";
     import trash from 'trash';
-import InformationWindow from '../../../../scripts/commonWindows/Information';
+    import InformationWindow from '../../../../scripts/commonWindows/Information';
+    import ConfirmWindow from '../../../../scripts/commonWindows/Confirm';
+    import EventBus from '../../../../scripts/EventBus';
 
     export default {
         name: "explorer-toolbar",
@@ -148,8 +150,13 @@ import InformationWindow from '../../../../scripts/commonWindows/Information';
                     {
                         icon: "mdi-delete",
                         title: "Delete Project",
-                        action: async () => {
-                            console.log("DELETE");
+                        action: () => {
+                            new ConfirmWindow(async () => {
+                                let lw = new LoadingWindow();
+                                await trash(CURRENT.PROJECT_PATH);
+                                EventBus.trigger("bridge:findDefaultPack", true);
+                                lw.close();
+                            }, null, "Do you really want to delete this project?");
                         }
                     }
                 ]
