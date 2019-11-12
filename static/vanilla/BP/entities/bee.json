@@ -438,7 +438,6 @@
             "minecraft:navigation.hover": {
                 "can_path_over_water": true,
                 "can_sink": false,
-                "can_pass_doors": false,
                 "can_path_from_air": true,
                 "avoid_water": true,
                 "avoid_damage_blocks": true,

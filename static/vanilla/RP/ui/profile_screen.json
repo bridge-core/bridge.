@@ -1078,7 +1078,8 @@
     "controls": [
       {
         "main_panel@common_store.store_header_with_coins": {
-          "$child_control": "profile.profile_screen_main_panel"
+          "$child_control": "profile.profile_screen_main_panel",
+          "$back_button_pressed_button_name": "button.try_exiting"
         }
       },
       {
@@ -1101,7 +1102,7 @@
     "button_mappings": [
       {
         "from_button_id": "button.menu_cancel", // controller_B
-        "to_button_id": "button.menu_exit",
+        "to_button_id": "button.try_exiting",
         "mapping_type": "global"
       },
       {

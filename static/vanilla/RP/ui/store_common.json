@@ -1451,41 +1451,6 @@
     ]
   },
 
-  "sign_in_button@common_buttons.light_text_form_fitting_button": {
-    "size": [ "100%c", "100%" ],
-    "$anchor": "top_left",
-    "$pressed_button_name": "button.signin",
-    "$button_text": "store.xbl.signin",
-    "$button_state_panel": "common_buttons.new_ui_width_fitting_button_panel",
-    "$button_type_panel": "common_buttons.width_fitting_button_content_panel",
-    "$button_content": "common_buttons.new_ui_binding_button_label",
-    "$button_size_override": [ "100%c", "100%" ],
-    "$button_offset": [ 0, -0.5 ],
-    "bindings": [
-      {
-        "binding_name": "#show_signin_button",
-        "binding_name_override": "#visible"
-      }
-    ],
-    "button_mappings": [
-      {
-        "from_button_id": "button.controller_select",
-        "to_button_id": "button.signin",
-        "mapping_type": "global"
-      },
-      {
-        "from_button_id": "button.menu_select",
-        "to_button_id": "$pressed_button_name",
-        "mapping_type": "pressed"
-      },
-      {
-        "from_button_id": "button.menu_ok",
-        "to_button_id": "$pressed_button_name",
-        "mapping_type": "focused"
-      }
-    ]
-  },
-
   "my_account_button_content": {
     "type": "panel",
     "size": [ "100%c", "100%" ],

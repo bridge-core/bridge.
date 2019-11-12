@@ -74,10 +74,8 @@
     "size": [ "100% - 4px", "100% - 4px" ],
     "controls": [
       {
-        "description_label_wrapper@common.tts_label_focus_wrapper": {
-          "size": [ "100%", "fill" ],
-          "$tts_label_panel": "confirm_msa_unlink.scrolling_panel",
-          "$focus_border_size": [ "100% + 2px", "100%" ]
+        "body_content@confirm_msa_unlink.scrolling_panel": {
+          "size": [ "100%", "fill" ]
         }
       },
       {
@@ -145,7 +143,8 @@
           "controls": [
             {
               "check_box@common.checkbox": {
-                "size": [ 15, 15 ]
+                "size": [ 15, 15 ],
+                "$toggle_tts_header": "$checkbox_text"
               }
             }
           ]
@@ -197,7 +196,10 @@
     "layer": 1,
     "controls": [
       {
-        "header_panel@confirm_msa_unlink.header_panel": {}
+        "header_label_wrapper@common.tts_label_focus_wrapper": {
+          "$tts_label_panel": "confirm_msa_unlink.header_panel",
+          "$focus_border_size": [ "100%", "100%sm + 2px" ]
+        }
       },
       {
         "padding": {

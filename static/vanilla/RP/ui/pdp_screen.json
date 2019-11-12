@@ -3381,7 +3381,7 @@
     ]
   },
 
-  "static_tooltip_notification_panel@common.button": {
+  "dynamic_tooltip_notification_panel@common.button": {
     "size": [ "100%", 12 ],
     "sound_volume": 0.0,
 
@@ -3414,10 +3414,10 @@
         "default@common.empty_panel": {}
       },
       {
-        "hover@common.static_tooltip_popup_with_image_and_text": {}
+        "hover@common.dynamic_tooltip_popup_with_image_and_text": {}
       },
       {
-        "pressed@common.static_tooltip_popup_with_image_and_text": {}
+        "pressed@common.dynamic_tooltip_popup_with_image_and_text": {}
       }
     ],
     "bindings": [
@@ -3433,7 +3433,7 @@
     "size": [ "100%", "100%" ],
     "controls": [
       {
-        "static_tooltip_notification_panel@pdp.static_tooltip_notification_panel": {
+        "dynamic_tooltip_notification_panel@pdp.dynamic_tooltip_notification_panel": {
           "layer": 2
         }
       },
