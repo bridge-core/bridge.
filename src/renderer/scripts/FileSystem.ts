@@ -28,20 +28,19 @@ document.addEventListener("drop", event => {
         //@ts-ignore
         for(let file of files) {
             console.log(file);
-            FILE_SYSTEM.open(file.path, () => win.close());
+            FileSystem.open(file.path, () => win.close());
         }        
     }, 100);
 });
 ipcRenderer.on("openFile", (event, path) => {
-    FILE_SYSTEM.open(path);
+    FileSystem.open(path);
 });
 
-class FileSystem {
-    constructor() {}
-    get Cache() {
+export default class FileSystem {
+    static get Cache() {
         throw new Error("Calling FileSystem.Cache is deprecated!");
     }
-    save(file_path: string, content: string | Buffer, update=false, open=false) {
+    static save(file_path: string, content: string | Buffer, update=false, open=false) {
         let dir_path = path.dirname(file_path);
         fs.exists(dir_path, (exists) => {
             if(!exists) mkdirp.sync(dir_path);
@@ -58,7 +57,7 @@ class FileSystem {
             });
         });
     }
-    basicSave(path: string, content: string | Buffer, update=false, open=true) {
+    static basicSave(path: string, content: string | Buffer, update=false, open=true) {
         if(path === undefined) new InformationWindow("ERROR", "bridge. cannot save this tab's content!");
         fs.writeFile(path, content, err => {
             if(err) throw err;
@@ -71,11 +70,11 @@ class FileSystem {
             PluginEnv.trigger("bridge:finishedSaving", path, true, false);
         });
     }
-    basicSaveAs(path: string, content: string, update=false, open=true) {
+    static basicSaveAs(path: string, content: string, update=false, open=true) {
         ipcRenderer.send("saveAsFileDialog", { path, content });
     }
 
-    async open(file_path: string, cb?: () => any) {
+    static async open(file_path: string, cb?: () => any) {
         if(typeof file_path !== "string") return;
         if(!fs.statSync(file_path).isFile()) return this.loadDir(file_path);
         let file: Buffer;
@@ -108,12 +107,12 @@ class FileSystem {
         }
     }
 
-    loadFromDisk(file_path: string, file: string | Buffer, cb: () => any) {
+    static loadFromDisk(file_path: string, file: string | Buffer, cb: () => any) {
         let file_str = file.toString();
         this.addAsTab(file_path, file_str, 0, file, OmegaCache.extractFileVersion(file_path, file_str));
         if(typeof cb === "function") cb();
     }
-    loadDir(file_path: string, cb?: () => any) {
+    static loadDir(file_path: string, cb?: () => any) {
         fs.readdir(file_path, (err, files) => {
             if(err) throw err;
             setTimeout(() => {
@@ -122,7 +121,7 @@ class FileSystem {
         });
     }
 
-    async loadFile(file_path: string) {
+    static async loadFile(file_path: string) {
         let loaded;
         try {
             loaded = await OmegaCache.load(file_path);
@@ -142,7 +141,7 @@ class FileSystem {
         }
     }
 
-    addAsTab(file_path: string, data: any, format_version=0, raw_data?: string | Buffer, file_version?: number, file_uuid?: string) {
+    static addAsTab(file_path: string, data: any, format_version=0, raw_data?: string | Buffer, file_version?: number, file_uuid?: string) {
         let tree;
         if(format_version === 1) {
             tree = JSONTree.buildFromCache(data);
@@ -162,7 +161,7 @@ class FileSystem {
         });
     }
 
-    async readFile(file_path: string): Promise<Buffer> {
+    static async readFile(file_path: string): Promise<Buffer> {
         return new Promise((resolve, reject) => {
             fs.readFile(file_path, (err, data) => {
                 if(err) reject(err);
@@ -171,6 +170,3 @@ class FileSystem {
         })
     }
 }
-
-const FILE_SYSTEM = new FileSystem();
-export default FILE_SYSTEM;
