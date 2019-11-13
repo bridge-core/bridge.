@@ -1,5 +1,5 @@
 <template>
-    <div @click="$emit('click')" class="small-scrollbar" style="display: inline-block; overflow-x: auto; white-space: nowrap; width: 100%">
+    <div @click="$emit('click')" class="small-scrollbar" style="display: block; overflow-x: auto; white-space: nowrap; width: 100%">
         <!-- KEY DISPLAY -->
         <highlight-text>
             {{ node_context.key }}

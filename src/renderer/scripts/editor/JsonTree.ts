@@ -269,15 +269,19 @@ export default class JSONTree {
     /**
      * @param {String} new_data 
      */
-    edit(new_data: string) {
+    edit(new_data: string, update_history=false) {
         if(this.type === "object" || this.type === "array") this.type = "string";
+        if(update_history) TabSystem.getHistory().add(new JSONAction("edit-data", this, this.data));
+
         this.data = new_data;
         this.updateUUID();
     }
     /**
      * @param {String} new_key
      */
-    editKey(new_key: string) {
+    editKey(new_key: string, update_history=false) {
+        if(update_history) TabSystem.getHistory().add(new JSONAction("edit-key", this, this.key));
+
         this.key = new_key;
         this.updateUUID();
     }

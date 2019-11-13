@@ -53,12 +53,16 @@
             <span v-if="selected_nodes_total > 0">Selected Nodes: {{ selected_nodes_total }}</span>
             <span v-else>Start searching for JSON nodes by opening a file and typing into the "Search" field.</span>
 
-
-            <node-preview
-                v-for="n in selected_nodes"
-                :key="n.uuid"
-                :node_context="n"
-            />
+            <ul>
+                <li
+                    v-for="n in selected_nodes"
+                    :key="n.uuid"
+                >
+                     <node-preview
+                        :node_context="n"
+                    />
+                </li>
+            </ul>
         </v-container>
     </div>
 </template>
@@ -125,8 +129,8 @@ export default {
 
             this.selection.forEach(({ search_val, nodes }) => {
                 nodes.forEach(n => {
-                    if(n.key === search_val) n.editKey(this.replace_val);
-                    else n.edit(this.replace_val);
+                    if(n.key === search_val) n.editKey(this.replace_val, true);
+                    else n.edit(this.replace_val, true);
                     console.log(n.key, n.data, search_val, n);
                 });
             });
