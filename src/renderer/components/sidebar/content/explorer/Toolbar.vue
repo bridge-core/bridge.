@@ -125,13 +125,13 @@
 
                                 //Package whole project
                                 let lw = new LoadingWindow();
-                                await fs.mkdir(join(MOJANG_PATH, "bridge"), { recursive: true });
+                                await fs.mkdir(join(MOJANG_PATH, "bridge_proj_tmp"), { recursive: true });
                                 await Promise.all([
-                                    zip(CURRENT.PROJECT_PATH, join(MOJANG_PATH, "bridge", `${CURRENT.PROJECT}.mcpack`)),
-                                    zip(CURRENT.RP_PATH, join(MOJANG_PATH, "bridge", `${CURRENT.RESOURCE_PACK}.mcpack`))
+                                    zip(CURRENT.PROJECT_PATH, join(MOJANG_PATH, "bridge_proj_tmp", `${CURRENT.PROJECT}.mcpack`)),
+                                    zip(CURRENT.RP_PATH, join(MOJANG_PATH, "bridge_proj_tmp", `${CURRENT.RESOURCE_PACK}.mcpack`))
                                 ]);
-                                await zip(join(MOJANG_PATH, "bridge"), join(MOJANG_PATH, `${project_name}.mcaddon`));
-                                await trash(join(MOJANG_PATH, "bridge"));
+                                await zip(join(MOJANG_PATH, "bridge_proj_tmp"), join(MOJANG_PATH, `${project_name}.mcaddon`));
+                                await trash(join(MOJANG_PATH, "bridge_proj_tmp"));
                                 lw.close();
 
                                 //Notify user the packaging is complete
