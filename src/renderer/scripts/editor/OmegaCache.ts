@@ -30,13 +30,18 @@ export default class OmegaCache {
     }
 
     static mayBeCached(file_path: string) {
+        if(this.current_base === undefined) return false;
+        
         const rel_bp = path.relative(BASE_PATH.slice(0, BASE_PATH.length - 1), file_path);
         const rel_rp = path.relative(RP_BASE_PATH.slice(0, RP_BASE_PATH.length - 1), file_path);
         return !rel_bp.startsWith('../') || !rel_rp.startsWith('../');
     }
     static toCachePath(file_path: string, with_base=true) {
         if(!file_path) throw new Error("[O.CACHE] Called OmegaCache.toCachePath(..) with falsy argument. Expected string");
-        if(this.current_base === undefined) throw new Error("[O.CACHE] Called OmegaCache.toCachePath(..) before calling OmegaCache.init(..)");
+        if(this.current_base === undefined) {
+            console.error("[O.CACHE] Called OmegaCache.toCachePath(..) before calling OmegaCache.init(..)");
+            return "BP/undefined_file";
+        }
 
         const rel_bp = path.relative(BASE_PATH.slice(0, BASE_PATH.length - 1), file_path);
         const rel_rp = path.relative(RP_BASE_PATH.slice(0, RP_BASE_PATH.length - 1), file_path);
