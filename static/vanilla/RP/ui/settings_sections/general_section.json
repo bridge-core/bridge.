@@ -2811,7 +2811,7 @@
     "controls": [
       {
         "option_toggle0@settings_common.option_toggle": {
-          "ignored": "(not $text_to_speech_supported)",
+          "ignored": "(not $text_to_speech_supported or not $platform_tts_exists)",
           "$option_label": "options.enableAutoPlatformTextToSpeech",
           "$option_binding_name": "#enable_auto_text_to_speech",
           "$option_enabled_binding_name": "#enable_auto_text_to_speech_enabled",

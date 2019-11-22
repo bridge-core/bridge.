@@ -195,11 +195,14 @@
           "$toggle_group_forced_index": 3,
           "$radio_toggle_group": true,
           "$texture": "textures/ui/day_one_carousel_realms_thumb",
-          "$tab_panel": "day_one_experience_intro.image_panel"
+          "$tab_panel": "day_one_experience_intro.image_panel",
+          "ignored": "(not $is_realms_enabled)"
         }
       },
       {
-        "nav_padding_06@day_one_experience_intro.padding_horizontal": {}
+        "nav_padding_06@day_one_experience_intro.padding_horizontal": {
+          "ignored": "(not $is_realms_enabled)"
+        }
       },
       {
         "villagers_navigation_tab@day_one_experience_intro.top_tab": {
@@ -257,7 +260,9 @@
         "cross_platform_tab_content@day_one_experience_intro.cross_platform_tab_header_image_panel": {}
       },
       {
-        "realms_tab_content@day_one_experience_intro.realms_tab_header_image_panel": {}
+        "realms_tab_content@day_one_experience_intro.realms_tab_header_image_panel": {
+          "ignored": "(not $is_realms_enabled)"
+        }
       },
       {
         "villager_tab_content@day_one_experience_intro.villager_tab_header_image_panel": {}
@@ -280,7 +285,9 @@
         "cross_platform_tab_content@day_one_experience_intro.cross_platform_tab_content_panel": {}
       },
       {
-        "realms_tab_content@day_one_experience_intro.realms_tab_content_panel": {}
+        "realms_tab_content@day_one_experience_intro.realms_tab_content_panel": {
+          "ignored": "(not $is_realms_enabled)"
+        }
       },
       {
         "villager_tab_content@day_one_experience_intro.villager_tab_content_panel": {}
@@ -346,7 +353,13 @@
   "welcome_tab_content_panel@day_one_experience_intro.common_tab_content_panel": {
     "$visible_bind_toggle_source_control": "welcome_navigation_tab_toggle",
     "$scroll_tab_content": "day_one_experience_intro.text_panel",
-    "$description_text": "dayOneExperience.carousel.welcome_text"
+    "$description_text|default": "dayOneExperience.carousel.welcome_text",
+    "variables": [
+      {
+        "requires": "(not $is_realms_enabled)",
+        "$description_text": "dayOneExperience.carousel.welcome_text.no_realms"
+      }
+    ]
   },
 
   "marketplace_tab_header_image_panel@day_one_experience_intro.common_tab_header_image_panel": {
@@ -373,13 +386,17 @@
 
   "realms_tab_header_image_panel@day_one_experience_intro.common_tab_header_image_panel": {
     "$visible_bind_toggle_source_control": "realms_navigation_tab_toggle",
-    "$header_texture": "textures/ui/day_one_carousel_realms"
+    "$header_texture": "textures/ui/day_one_carousel_realms",
+    "ignored": "(not $is_realms_enabled)"
+
   },
 
   "realms_tab_content_panel@day_one_experience_intro.common_tab_content_panel": {
     "$visible_bind_toggle_source_control": "realms_navigation_tab_toggle",
     "$scroll_tab_content": "day_one_experience_intro.text_panel",
-    "$description_text": "dayOneExperience.carousel.realms"
+    "$description_text": "dayOneExperience.carousel.realms",
+    "ignored": "(not $is_realms_enabled)"
+
   },
 
   "villager_tab_header_image_panel@day_one_experience_intro.common_tab_header_image_panel": {

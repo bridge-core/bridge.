@@ -1286,6 +1286,12 @@
           "$label_offset|default": [ 1, 0 ],
           "$label_size|default": [ "100%", 10 ],
           "visible": "$label_panel_visible",
+          "variables": [
+            {
+              "requires": "$use_expanded_label_size",
+              "$label_size": [ "100%", 13 ]
+            }
+          ],
           "controls": [
             {
               "label_panel_layout": {
@@ -2958,14 +2964,18 @@
       },
       {
         "worlds_crossplatform_disabled_panel@play.crossplatform_disabled_panel": {
+          "ignored": "(not $is_realms_enabled)",
           "$cross_platform_information_text": "crossPlatformToggle.crossPlatformDisabled.realms"
         }
       },
       {
-        "worlds_crossplatform_disable_spacer@play.crossplatform_disable_spacer": {}
+        "worlds_crossplatform_disable_spacer@play.crossplatform_disable_spacer": {
+          "ignored": "(not $is_realms_enabled)"
+        }
       },
       {
         "realms_panel": {
+          "ignored": "(not $is_realms_enabled)",
           "type": "stack_panel",
           "size": [ "100%", "100%c" ],
           "bindings": [
@@ -3110,6 +3120,7 @@
       },
       {
         "realms_multiplayer_blocked_panel@play.label_content_template": {
+          "ignored": "(not $is_realms_enabled)",
           "$label_content_label": "playscreen.header.realms",
           "$label_content_content": "play.information_panel",
           "$information_panel_label_text": "#multiplayer_sessions",
@@ -3536,11 +3547,14 @@
             },
             {
               "friends_crossplatform_disabled_panel@play.crossplatform_disabled_panel": {
+                "ignored": "(not $is_realms_enabled)",
                 "$cross_platform_information_text": "crossPlatformToggle.crossPlatformDisabled.friends"
               }
             },
             {
-              "friends_crossplatform_disable_spacer@play.crossplatform_disable_spacer": {}
+              "friends_crossplatform_disable_spacer@play.crossplatform_disable_spacer": {
+                "ignored": "(not $is_realms_enabled)"
+              }
             },
             {
               "joinable_realms_panel": {

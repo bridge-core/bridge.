@@ -4311,7 +4311,7 @@
     "$display_time": 0.75,
     "$transition_in_time": 0.15,
     "$transition_out_time": 0.15,
-    "$popup_size": [ 148, 20 ],
+    "$popup_size": [ 184, 20 ],
     "$toast_text_offset": [ 0, 4 ],
     "$toast_offset": [ "16%", "-5%" ],
     "$toast_text_alignment": "center",

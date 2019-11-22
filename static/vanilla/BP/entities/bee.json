@@ -74,6 +74,11 @@
                     "duration": 25,
                     "broadcastAnger": true,
                     "broadcastRange": 20,
+                    "broadcast_filters": {
+                        "test": "is_family",
+                        "operator": "!=",
+                        "value": "pacified"
+                    },
                     "calm_event": {
                         "event": "calmed_down",
                         "target": "self"
@@ -120,6 +125,9 @@
                         "event": "perish_event",
                         "target": "self"
                     }
+                },
+                "minecraft:type_family": {
+                    "family": [ "bee", "mob", "arthropod", "pacified" ]
                 }
             },
             "perish": {

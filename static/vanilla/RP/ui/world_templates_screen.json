@@ -871,6 +871,12 @@
                 "size": [ "100%", 4 ]
               }
             }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#realms_plus_list_visible",
+              "binding_name_override": "#visible"
+            }
           ]
         }
       },

@@ -1,4 +1,4 @@
-{
+﻿{
   "namespace": "start",
 
   "feedback_icon": {
@@ -322,8 +322,9 @@
 
 
   "platform_signin_button@common_buttons.light_text_button": {
+    "size": [150, 32],
     "$pressed_button_name": "button.signin",
-    "$button_text_max_size": [ "100%", 20 ],
+    "$button_text_max_size": [ "100%", 26 ],
     "$focus_id": "menu_xbox_signin_button",
     "$button_text": "#platform_signin_text",
     "$button_text_binding_type": "global",
@@ -483,7 +484,7 @@
               "platform_signin_btn@start.column_frame": {
                 "ignored": "(not $nx_os and not $is_berwick)",
                 "size": [ 130, 32 ],
-                "max_size": [ "95%", 32 ],
+                "max_size": [ "95%", 64 ],
                 "controls": [
                   {
                     "platform_signin_button@start.platform_signin_button": {}
@@ -500,7 +501,7 @@
             {
               "signingin": {
                 "size": [ "default", "100%" ],
-                "max_size": [ 120, "100%" ],
+                "max_size": [ 150, "100%" ],
                 "type": "label",
                 "color": "$main_header_text_color",
                 "text": "#signingin_text",

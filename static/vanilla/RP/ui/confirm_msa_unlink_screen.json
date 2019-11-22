@@ -229,17 +229,20 @@
           "$toggle_enabled_binding_name": "#confirm_1_enabled"
         }
       },
-      {
-        "divider_2@confirm_msa_unlink.horizontal_divider": {}
-      },
-      {
-        "confirm_2@confirm_msa_unlink.confirm_checkbox": {
-          "$checkbox_text": "options.unlink_msa.confirm.checkbox3",
-          "$toggle_name": "confirm_2",
-          "$toggle_state_binding_name": "#confirm_2",
-          "$toggle_enabled_binding_name": "#confirm_2_enabled"
-        }
-      },
+//
+// No realms-related checkbox for now
+//
+//      {
+//        "divider_2@confirm_msa_unlink.horizontal_divider": {}
+//      },
+//      {
+//        "confirm_2@confirm_msa_unlink.confirm_checkbox": {
+//          "$checkbox_text": "options.unlink_msa.confirm.checkbox3",
+//          "$toggle_name": "confirm_2",
+//          "$toggle_state_binding_name": "#confirm_2",
+//          "$toggle_enabled_binding_name": "#confirm_2_enabled"
+//        }
+//      },
       {
         "divider_3@confirm_msa_unlink.horizontal_divider": {}
       },
