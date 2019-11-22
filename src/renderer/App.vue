@@ -94,11 +94,17 @@
             },
             theme_variant() {
                 return (this.$vuetify.theme.dark) ? "dark" : "light";
+            },
+            project_name() {
+                return this.$store.state.Explorer.project.explorer;
             }
         },
         watch: {
             is_dark_mode(to) {
                 this.$vuetify.theme.dark = to;
+            },
+            project_name(to) {
+                document.head.getElementsByTagName("title")[0].innerText = `${to ? to + " - " : ""}bridge.`;
             }
         },
         data() {
