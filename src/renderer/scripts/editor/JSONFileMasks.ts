@@ -12,7 +12,7 @@ import JSONTree from "./JsonTree";
 import { promises as fs } from "fs";
 
 export class JSONMask {
-    private data: { [channel: string]: any };
+    protected data: { [channel: string]: any };
     constructor(data={}) {
         this.data = data;
     }
@@ -35,6 +35,18 @@ export class JSONMask {
         return this.data[channel];
     }
     all(filter?: (layer_name: string) => boolean) {
+        let all = JSONFileMasks.getShared().all(filter);
+
+        for(let c in this.data) {
+            if(this.data[c] !== undefined && (typeof filter !== "function" || filter(c))) all.push(this.data[c]);
+        }
+
+        return all;
+    }
+}
+
+export class SharedJSONMask extends JSONMask {
+    all(filter?: (layer_name: string) => boolean) {
         let all = [];
 
         for(let c in this.data) {
@@ -46,7 +58,8 @@ export class JSONMask {
 }
 
 export class JSONFileMasks {
-    static data: { [f: string]: JSONMask };
+    private static data: { [f: string]: JSONMask };
+    private static shared_data = new SharedJSONMask(); //Data shared between all files
 
 
     static async get(file_path: string) {
@@ -54,6 +67,10 @@ export class JSONFileMasks {
         let key = OmegaCache.toCachePath(file_path, false);
         if(this.data[key] === undefined) this.data[key] = new JSONMask();
         return this.data[key];
+    }
+
+    static getShared() {
+        return this.shared_data;
     }
 
     static resetMasks() {

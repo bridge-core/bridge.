@@ -91,7 +91,7 @@ export default class OmegaCache {
             });
         });
     }
-    static async loadFileUUID(file_path: string) {
+    static async loadFileUUID(file_path: string): Promise<string> {
         try {
             return (await readJSON(this.toCachePath(file_path))).file_uuid;
         } catch(e) {

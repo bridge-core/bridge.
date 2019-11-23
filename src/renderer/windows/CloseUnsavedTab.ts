@@ -4,7 +4,7 @@ export default class CloseUnsavedTab {
     private id: string;
     private actions: any[];
 
-    constructor(on_confirm: () => any, on_close: () => any, on_cancel: () => any, opts: any) {
+    constructor(on_confirm: () => any, on_close: () => any, on_cancel: () => any, opts?: any) {
         this.id = `main.core.windows.confirm_window.${Math.random()}`;
         this.actions = [
             {

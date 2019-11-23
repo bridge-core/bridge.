@@ -6,6 +6,8 @@ import { promises as fs } from "fs";
 import OmegaCache from "./editor/OmegaCache";
 import LightningCache from "./editor/LightningCache";
 import { JSONFileMasks } from "./editor/JSONFileMasks";
+import TabSystem from "./TabSystem";
+import { BridgeCore } from "./bridgeCore/main";
 
 export class FileExplorerStorage {
     static data: { 
@@ -116,6 +118,9 @@ export class FileExplorer {
         if(this.children.length > 0) {
             await Promise.all(this.children.map(async c => await c.remove(false)));
         } else {
+            TabSystem.closeByPath(this.absolute_path);
+            BridgeCore.onDelete(this.absolute_path);
+            
             await Promise.all([
                 OmegaCache.clear(this.absolute_path),
                 LightningCache.clear(this.absolute_path),

@@ -1,0 +1,21 @@
+{
+    "icon": "mdi-shape-square-plus",
+    "title": "Map Area",
+    "extension": "json",
+    "path": "map_areas/",
+    "templates": {
+        "Blank Map Area": {
+            "bridge:map_area": {
+                "description": {
+                    "identifier": {},
+                    "subjects": {},
+                    "area": {
+                        "from": {},
+                        "to": {}
+                    }
+                },
+                "components": {}
+            }
+        }
+    }
+}

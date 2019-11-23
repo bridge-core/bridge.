@@ -53,6 +53,9 @@
     "tag/main",
     "tag/main_beta",
 
+    "map_area/main",
+    "map_area/general",
+
     "spawn_rule/main",
     "spawn_rule/main_beta",
     "spawn_rule/general",
