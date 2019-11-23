@@ -145,7 +145,7 @@ export class JSONFileMasks {
         return writeJSON(file_path, data, true, file_version);
     }
     static async applyOnData(file_path: string, data: any, filter: (layer_name: string) => boolean, overwrite_arrays?: string[]) {
-        return maskMerge([data, ...(await this.get(file_path)).all(filter)], overwrite_arrays);
+        return maskMerge([...(await this.get(file_path)).all(filter), data], overwrite_arrays);
     }
 
     static async generateFromMask(file_path: string, overwrite_arrays?: string[]) {
