@@ -3,6 +3,7 @@
     "title": "Map Area",
     "extension": "json",
     "path": "map_areas/",
+    "is_custom_syntax": true,
     "templates": {
         "Blank Map Area": {
             "bridge:map_area": {

@@ -44,6 +44,7 @@ export default async function MapAreaHandler({ file_path, data, depth, file_uuid
 
     await Promise.all(refs.map(async f => {
         const MASK = await JSONFileMasks.get(f);
+        //SETUP PLAYER - RUN DEFAULT CONTROLLER
         MASK.overwrite(`map_area@${identifier}`, {
             "minecraft:entity": { 
                 description: {
@@ -56,8 +57,8 @@ export default async function MapAreaHandler({ file_path, data, depth, file_uuid
                 }
             }
         });
-        await JSONFileMasks.apply(f, depth - 1);
-
+        
+        //BUILD DEFAULT CONTROLLER
         let trans_arg = generateTransArg(from, to)
         set(A_C, `animation_controllers/controller.animation.map_area.${identifier}/states`, {
             default: {
@@ -69,6 +70,25 @@ export default async function MapAreaHandler({ file_path, data, depth, file_uuid
                 on_exit: Object.values(area_sensor.on_leave || {}).filter(val => val !== undefined).flat()
             }
         });
+
+        if(timer !== undefined) {
+            //ADD TO CONTROLLER - RUN TIMER ANIMATION
+            set(A_C, `animation_controllers/controller.animation.map_area.${identifier}/states/in_area`, {
+                animations: [{ [`map_area_timer_${identifier}`]: timer.condition || "(1.0)" }]
+            });
+            //SETUP PLAYER - DEFINE TIMER ANIMATION
+            MASK.set(`map_area_timer@${identifier}`, {
+                "minecraft:entity": { 
+                    description: {
+                        animations: {
+                            [`map_area_timer_${identifier}`]: `animation.map_area_timer.${identifier}`
+                        }
+                    }
+                }
+            });
+        }
+
+        await JSONFileMasks.apply(f, depth - 1);
     })).catch(console.error);
 
     await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/map_area_${file_uuid}`));

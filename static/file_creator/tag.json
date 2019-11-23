@@ -1,10 +1,11 @@
 {
     "icon": "mdi-tag",
-    "title": "Tag",
+    "title": "Entity Tag",
     "extension": "json",
     "path": "tags/",
+    "is_custom_syntax": true,
     "templates": {
-        "Blank Tag": {
+        "Blank Entity Tag": {
             "bridge:tag": {
                 "description": {
                     "identifier": ""

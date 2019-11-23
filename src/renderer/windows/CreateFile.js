@@ -10,7 +10,7 @@ import { join } from "path";
 import { promises as fs } from "fs";
 
 class FileContent {
-    constructor(name, ext="json", parent, expand_path="", { add_location, ...add_content }={}, use_rp_path) {
+    constructor(name, ext="json", parent, expand_path="", { add_location, ...add_content }={}, use_rp_path, is_custom_syntax=false) {
         this.parent = parent;
         this.ext = ext;
         this.expand_path = expand_path;
@@ -74,9 +74,19 @@ class FileContent {
         };
 
         this.content = [
-            {
-                type: "header",
-                text: name
+            { text: "\n" },
+            { 
+                type: "container",
+                display: "inline-block",
+                height: "32px",
+                content: [
+                    (
+                        is_custom_syntax ? 
+                        [{ type: "icon", text: "mdi-test-tube", color: "purple", tooltip: "bridge. custom syntax" }] :
+                        []
+                    ),
+                    { type: "big-header", text: name }
+                ].flat()
             },
             {
                 type: "divider"
@@ -176,7 +186,7 @@ export default class CreateFileWindow extends ContentWindow {
             }
         ];
         this.win_def.actions = this.actions;
-        this.contents = FILE_DATA.map(({ title, extension, path, add_content, rp_definition }) => new FileContent(title, extension, this, path, add_content, rp_definition));
+        this.contents = FILE_DATA.map(({ title, extension, path, add_content, rp_definition, is_custom_syntax }) => new FileContent(title, extension, this, path, add_content, rp_definition, is_custom_syntax));
         //Templates
         this.templates = FILE_DATA.map(({ templates, rp_definition }) => {
             return {
