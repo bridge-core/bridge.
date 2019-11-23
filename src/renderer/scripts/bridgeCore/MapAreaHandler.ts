@@ -5,6 +5,7 @@ import AnimationController from "../files/AnimationController";
 import { join } from "path";
 import { CURRENT } from "../constants";
 import { set } from "../utilities/useAttr";
+import Animation from "../files/Animation";
 let A_C: AnimationController;
 
 
@@ -57,7 +58,7 @@ export default async function MapAreaHandler({ file_path, data, depth, file_uuid
                 }
             }
         });
-        
+
         //BUILD DEFAULT CONTROLLER
         let trans_arg = generateTransArg(from, to)
         set(A_C, `animation_controllers/controller.animation.map_area.${identifier}/states`, {
@@ -86,10 +87,20 @@ export default async function MapAreaHandler({ file_path, data, depth, file_uuid
                     }
                 }
             });
+
+            const ANIM = new Animation();
+            set(ANIM, `animations/animation.map_area_timer.${identifier}`, {
+                animation_length: timer.time,
+                loop: timer.looping,
+                timeline: {
+                    [timer.time]: Object.values(timer.event || {}).filter(val => val !== undefined).flat()
+                }
+            });
+            await ANIM.save(join(CURRENT.PROJECT_PATH, `animations/bridge/map_area_timer_${file_uuid}.json`));
         }
 
         await JSONFileMasks.apply(f, depth - 1);
     })).catch(console.error);
 
-    await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/map_area_${file_uuid}`));
+    await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/map_area_${file_uuid}.json`));
 }

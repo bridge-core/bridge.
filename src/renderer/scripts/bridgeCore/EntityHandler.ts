@@ -131,5 +131,5 @@ export default async function EntityHandler({ file_name, data, file_path, simula
 
     await handleTags(file_path, use(description, "tags"), simulated_call);
 
-    await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/commands_${file_name}`));
+    await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/commands_${file_name}.json`));
 }

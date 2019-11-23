@@ -58,7 +58,10 @@ export class BridgeCore {
 
         switch(file_type) {
             case "bridge_map_area": {
-                await trash(path.join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/map_area_${file_uuid}`));
+                await trash(path.join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/map_area_${file_uuid}.json`));
+                try {
+                    await trash(path.join(CURRENT.PROJECT_PATH, `animations/bridge/map_area_timer_${file_uuid}.json`));
+                } catch(err) {}
                 break;
             }
         }
