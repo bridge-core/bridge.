@@ -131,6 +131,7 @@
     "$pressed_button_name": "button.real_money_purchase",
     "$button_text": "#purchase_with_currency_button_text",
     "$button_text_binding_type": "global",
+    "$focus_id": "offer_real_money_purchase_button",
     "$persona_focus_precedence": 3
   },
 
@@ -177,14 +178,16 @@
           "size": [ "50% - 1px", "100%" ],
           "$purchase_panel_visible_binding": "#currency_purchase_visible",
           "$purchase_button_control": "persona.offer_real_money_purchase_button",
-          "$focus_override_down": "FOCUS_OVERRIDE_STOP",
-          "$focus_override_right": "FOCUS_OVERRIDE_STOP"
+          "$focus_override_down": "FOCUS_OVERRIDE_STOP"
         }
       }
     ]
   },
 
   "right_side_bottom_buttons": {
+    "focus_container": true,
+    "use_last_focus": false,
+    "focus_nagivation_mode_right": "stop",
     "ignored": "$ignore_right_side_buttom_buttons",
     "type": "stack_panel",
     "orientation": "horizontal",
@@ -1170,6 +1173,9 @@
   },
 
   "right_panel_bottom_buttons": {
+    "focus_container": true,
+    "use_last_focus": false,
+    "focus_nagivation_mode_right": "stop",
     "type": "stack_panel",
     "orientation": "horizontal",
     "anchor_from": "bottom_middle",
@@ -1194,6 +1200,7 @@
           "$font_type": "MinecraftTen",
           "$button_text": "dr.classic_skins.see_pack_in_store",
           "$focus_id": "see_pack_in_store_button",
+          "$focus_override_left": "offer_real_money_purchase_button",
           "$persona_focus_precedence": 3
         }
       }
@@ -2665,6 +2672,9 @@
       - #is_skin_index_visible
         Boolean to disable the entire object but the object still must be present for grid
         sizes. Has primary and secondary collections.
+      - #is_skin_not_equippable
+        Boolean to enable the locked icon on the skin in the primary collection. Has primary
+        and secondary collections.
 
     $content_size:
       The size of the panel. In general, the y component should be "153%x".
@@ -2725,6 +2735,25 @@
                     "binding_type": "collection",
                     "binding_collection_name": "$primary_collection_name",
                     "binding_name": "(not #is_skin_owned)",
+                    "binding_name_override": "#visible"
+                  },
+                  {
+                    "binding_type": "collection_details",
+                    "binding_collection_name": "$secondary_collection_name",
+                    "binding_collection_prefix": "$secondary_collection_prefix"
+                  }
+                ]
+              }
+            },
+            {
+              "unequippable_icon@persona.lock_icon": {
+                "anchor_from": "bottom_right",
+                "anchor_to": "bottom_right",
+                "bindings": [
+                  {
+                    "binding_type": "collection",
+                    "binding_collection_name": "$primary_collection_name",
+                    "binding_name": "#is_skin_not_equippable",
                     "binding_name_override": "#visible"
                   },
                   {
@@ -4013,6 +4042,7 @@
       {
         "style_un_selected@persona_category_select_button_panel": {
           "$focus_id": "style_category_button_selected",
+          "$focus_override_down": "piece_offer_button",
           "$pressed_button_name": "button.style_category_selected",
           "collection_index": 1,
           "bindings": [
@@ -4281,7 +4311,7 @@
     "$display_time": 0.75,
     "$transition_in_time": 0.15,
     "$transition_out_time": 0.15,
-    "$popup_size": [ 148, 20 ],
+    "$popup_size": [ 184, 20 ],
     "$toast_text_offset": [ 0, 4 ],
     "$toast_offset": [ "16%", "-5%" ],
     "$toast_text_alignment": "center",

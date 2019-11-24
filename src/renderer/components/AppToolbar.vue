@@ -11,7 +11,9 @@
             </template>
         </v-toolbar-items>
         
-        <v-spacer></v-spacer>
+        <v-spacer/>
+        <span style="font-size: 12px;">{{ project_name }}</span>
+        <v-spacer/>
 
         <v-toolbar-items v-if="!is_mac_os">
             <v-btn small icon @click.stop="minWindow">
@@ -67,14 +69,6 @@
                 })
             };
         },
-        // watch: {
-        //     is_dark_mode(is_dark_mode) {
-        //         this.icon_path = DataUrl.convert({
-        //             data: fs.readFileSync(path.join(__static, is_dark_mode ? "/icon.png" : "/icon_light.png")),
-        //             mimetype: `image/png`
-        //         })
-        //     }
-        // },
         computed: {
             menu_details() {
                 return this.$store.state.AppMenu;
@@ -84,10 +78,10 @@
             },
             no_logo_display() {
                 return this.$store.state.Appearance.options.no_logo_display;
+            },
+            project_name() {
+                return this.$store.state.Explorer.project.explorer;
             }
-            // is_dark_mode() {
-            //     return this.$store.state.Appearance.is_dark_mode;
-            // }
         },
         methods: {
             closeWindow() {

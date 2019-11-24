@@ -31,8 +31,7 @@
 </head>
 
 <body >
-    <img style="display: none;" id="dark" src="icon.png">
-    <img style="display: none;" id="light" src="icon_light.png">
+    <img id="dark" src="icon.png">
 
     <script>
         const fs = require("fs").promises;
@@ -47,13 +46,11 @@
             .then(str => JSON.parse(str.toString()))
             .then(({ is_dark_mode }) => setMode(is_dark_mode ? 'dark' : 'light'))
             .catch((err) => {
-                console.log(err);
                 setMode();
             });
 
         function setMode(mode="dark") {
             document.body.classList.add(mode);
-            document.getElementById(mode).style.display = "unset";
         }
     </script>
 </body>

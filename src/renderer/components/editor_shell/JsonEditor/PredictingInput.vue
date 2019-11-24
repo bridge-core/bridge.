@@ -6,7 +6,6 @@
 
                 v-model="value"
                 @input="click"
-                chips
                 label="Add"
                 :items="items"
                 :menu-props="{ maxHeight: 120, top: false, contentClass: 'json-input-suggestions' }"

@@ -2,7 +2,7 @@
  * A thin wrapper around the cached .json files ("./cache" folder)
  */
 
-import { BASE_PATH, RP_BASE_PATH } from "../constants";
+import { BASE_PATH, RP_BASE_PATH, CURRENT } from "../constants";
 import fs from "fs";
 import fse from "fs-extra";
 import path from "path";
@@ -10,6 +10,7 @@ import mkdirp from "mkdirp";
 import FileType from "./FileType";
 import PluginEnv from "../plugins/PluginEnv";
 import { readJSON } from "../utilities/JsonFS";
+import JSONTree from "./JsonTree";
 
 export interface OmegaCacheData {
     file_version?: number;
@@ -29,13 +30,18 @@ export default class OmegaCache {
     }
 
     static mayBeCached(file_path: string) {
+        if(this.current_base === undefined) return false;
+        
         const rel_bp = path.relative(BASE_PATH.slice(0, BASE_PATH.length - 1), file_path);
         const rel_rp = path.relative(RP_BASE_PATH.slice(0, RP_BASE_PATH.length - 1), file_path);
         return !rel_bp.startsWith('../') || !rel_rp.startsWith('../');
     }
     static toCachePath(file_path: string, with_base=true) {
         if(!file_path) throw new Error("[O.CACHE] Called OmegaCache.toCachePath(..) with falsy argument. Expected string");
-        if(this.current_base === undefined) throw new Error("[O.CACHE] Called OmegaCache.toCachePath(..) before calling OmegaCache.init(..)");
+        if(this.current_base === undefined) {
+            console.error("[O.CACHE] Called OmegaCache.toCachePath(..) before calling OmegaCache.init(..)");
+            return "BP/undefined_file";
+        }
 
         const rel_bp = path.relative(BASE_PATH.slice(0, BASE_PATH.length - 1), file_path);
         const rel_rp = path.relative(RP_BASE_PATH.slice(0, RP_BASE_PATH.length - 1), file_path);
@@ -43,6 +49,10 @@ export default class OmegaCache {
         const tmp_path = is_bp ? rel_bp : rel_rp;
 
         return path.join(with_base ? this.current_base : "", is_bp ? "BP" : "RP", tmp_path.slice(this.project.length)).replace(/\\/g, '/');
+    }
+    static constructPath(file_path: string) {
+        if(!CURRENT.RESOURCE_PACK) return file_path.replace("BP", CURRENT.PROJECT_PATH);
+        return file_path.replace("BP", CURRENT.PROJECT_PATH).replace("RP", CURRENT.RP_PATH);
     }
 
     static extractFileVersion(file_path: string, file_str: string, comment_char=FileType.getCommentChar(file_path), initial=true): number { 
@@ -73,7 +83,7 @@ export default class OmegaCache {
         }
     }
 
-    static load(file_path: string) {
+    static load(file_path: string): Promise<any> {
         return new Promise((resolve, reject) => {
             fs.readFile(this.toCachePath(file_path), (err, data) => {
                 if(err) reject(err);
@@ -81,7 +91,7 @@ export default class OmegaCache {
             });
         });
     }
-    static async loadFileUUID(file_path: string) {
+    static async loadFileUUID(file_path: string): Promise<string> {
         try {
             return (await readJSON(this.toCachePath(file_path))).file_uuid;
         } catch(e) {
@@ -111,6 +121,12 @@ export default class OmegaCache {
                 );
             });
         });
+    }
+
+    static loadContent(c: any, format_version=0) {
+        if(format_version === 0) return c;
+        else if(format_version === 1) return JSONTree.buildFromCache(c);
+        else throw new Error("Unknown cache format_version: " + format_version);
     }
     
     static clear(file_path: string) {

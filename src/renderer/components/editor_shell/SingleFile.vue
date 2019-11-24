@@ -1,7 +1,7 @@
 <template>
-    <span class="px14-font">
+    <span style="position: relative; top: -7px;" class="px14-font">
         <v-container v-if="file_viewer === 'image'">
-            <v-img class="image" :src="image" :style="`max-height: ${available_height}px;`"/>
+            <img class="image" :src="image" :height="available_height - 28"/>
         </v-container>
         <audio-player v-else-if="file_viewer === 'audio'" :src="audio"/>
         <json-error-screen v-else-if="file_viewer === 'json' && json_object == 'error'"/>
@@ -77,7 +77,7 @@
         mounted() { 
             if(!this.codemirror) return;
 
-            this.codemirror.setSize("100%", this.available_height - 12)
+            this.codemirror.setSize("100%", this.available_height);
             this.codemirror.on("cursorActivity", this.shouldUpdateSuggestions);
             EventBus.on("setCMSelection", this.setCMSelection);
             EventBus.on("setCMTextSelection", this.setCMTextSelection);
@@ -255,7 +255,7 @@
         watch: {
             available_height() {
                 if(!this.codemirror) return;
-                this.codemirror.setSize("100%", this.available_height - 12)
+                this.codemirror.setSize("100%", this.available_height)
             },
             content_as_string() {
                 if(this.file_viewer === 'text') TabSystem.setCurrentUnsaved();

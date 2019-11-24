@@ -63,10 +63,11 @@
             {
               "save_to_xbox_button@common_buttons.light_text_button": {
                 "$pressed_button_name": "button.save_to_xbl",
-                "$button_text": "xbl.savePurchase.saveButton",
+                "$button_text": "#confirm_button_text",
                 "size": [ "50% - 1px", 30 ],
                 "$button_text_max_size": [ "100%", 20 ],
-                "$button_focus_precedence": 10
+                "$button_focus_precedence": 10,
+                "$button_text_binding_type": "global"
               }
             },
             {
@@ -78,9 +79,10 @@
             {
               "leave_on_device_button@common_buttons.light_text_button": {
                 "$pressed_button_name": "button.leave_on_device",
-                "$button_text": "xbl.savePurchase.leaveOnDevice",
+                "$button_text": "#skip_button_text",
                 "size": [ "50% - 1px", 30 ],
-                "$button_text_max_size": [ "100%", 20 ]
+                "$button_text_max_size": [ "100%", 20 ],
+                "$button_text_binding_type": "global"
               }
             }
           ]

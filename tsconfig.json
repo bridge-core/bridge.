@@ -2,13 +2,13 @@
     "compilerOptions": {
         "outDir": "./dist/",
         "module": "commonjs",
-        "target": "es6",
+        "target": "esnext",
         "esModuleInterop": true,
         "noImplicitAny": true,
         "strictNullChecks": false,
         "allowJs": true,
         "lib": [
-          "es2019",
+          "esnext",
           "dom"
         ]
     }

@@ -1,10 +1,34 @@
 <template>
-    <div>
+    <v-container>
+        <v-subheader>Project "{{ project }}"</v-subheader>
+        <v-container :style="`max-height: ${sidebar_height}px;`">
+            <template v-for="(doc, i) in project_docs">
+                <v-btn
+                    :key="`btn.${i}`"
+                    @click.stop="getAction(doc)"
+                    class="font-weight-light"
+                    block
+                    text
+                >
+                    <span>{{ doc }}</span>
+                    <v-spacer/>
+                    <v-icon>mdi-chevron-right</v-icon>
+                </v-btn>
+
+                <v-divider
+                    v-if="i + 1 < project_docs.length"
+                    :key="`divider.${i}`"
+                />
+            </template>
+        </v-container>
+
+        <v-subheader style="margin-top: 32px;">Minecraft</v-subheader>
         <v-container :style="`max-height: ${sidebar_height}px;`">
             <template v-for="(doc, i) in doc_list">
                 <v-btn
                     :key="`btn.${i}`"
                     @click.stop="openDoc(doc)"
+                    class="font-weight-light"
                     block
                     text
                 >
@@ -19,12 +43,13 @@
                 />
             </template>
         </v-container>
-    </div>
+    </v-container>
 </template>
 
 <script>
-    import { DOC_LIST, DOC_URL } from '../../../scripts/constants';
-    import { shell } from "electron"
+    import { DOC_LIST, DOC_URL, CURRENT } from '../../../scripts/constants';
+    import { shell } from "electron";
+    import TagDocumentation from '../../../windows/Documentation/Tag.ts';
 
     export default {
         name: "content-documentation",
@@ -44,6 +69,15 @@
                 return DOC_LIST.sort((a, b) => {
                     return a.toUpperCase().localeCompare(b.toUpperCase());
                 });
+            },
+            project_docs() {
+                return [
+                    "Components",
+                    "TAGS"
+                ]
+            },
+            project() {
+                return CURRENT.PROJECT;
             }
         },
         methods: {
@@ -53,6 +87,9 @@
 
             openDoc(doc) {
                 shell.openExternal(`${DOC_URL}${encodeURI(doc)}`);
+            },
+            getAction(doc) {
+                if(doc === "TAGS") new TagDocumentation();
             }
         }
     }

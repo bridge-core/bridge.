@@ -1,7 +1,10 @@
 import Store from "../store/index";
 
 export default class CloseUnsavedTab {
-    constructor(on_confirm, on_close, on_cancel, opts) {
+    private id: string;
+    private actions: any[];
+
+    constructor(on_confirm: () => any, on_close: () => any, on_cancel: () => any, opts?: any) {
         this.id = `main.core.windows.confirm_window.${Math.random()}`;
         this.actions = [
             {
@@ -64,7 +67,7 @@ export default class CloseUnsavedTab {
         this.update(opts);
     }
 
-    update(opts) {
+    update(opts: any) {
         Store.commit("updatePluginWindow", { ...opts, id: this.id });
         return this;
     }

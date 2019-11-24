@@ -13,6 +13,9 @@ import ItemHandler from "./ItemHandler";
 import TagHandler from "./TagHandler";
 import InformationWindow from "../commonWindows/Information";
 import ComponentRegistry from "../plugins/CustomComponents";
+import MapAreaHandler from "./MapAreaHandler";
+import trash from "trash";
+import { CURRENT } from "../constants";
 
 export interface OnSaveData {
     file_path: string;
@@ -48,20 +51,34 @@ export class BridgeCore {
         this.save_registry[file_type] = handler;
     }
 
+
+    static async onDelete(file_path: string) {
+        let file_type = FileType.get(file_path);
+        let file_uuid = await OmegaCache.loadFileUUID(file_path);
+
+        switch(file_type) {
+            case "bridge_map_area": {
+                await trash(path.join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/map_area_${file_uuid}.json`));
+                try {
+                    await trash(path.join(CURRENT.PROJECT_PATH, `animations/bridge/map_area_timer_${file_uuid}.json`));
+                } catch(err) {}
+                break;
+            }
+        }
+    }
+
     /**
-     * @param {object} data 
-     * @param {string} file_path 
-     * @param {number} depth 
      * @param {boolean} simulated_call Whether the function call is coming from the JSONFileMasks.apply(...) method. The data received is not open inside a tab
      */
-    static async beforeSave(data: any, file_path=TabSystem.getCurrentFilePath(), depth=100, simulated_call=false) {
+    static async beforeSave(data: any, file_path=TabSystem.getCurrentFilePath(), depth=100, simulated_call=false, file_uuid?: string) {
         if(depth <= 0) {
             new InformationWindow("ERROR", "Maximum import depth reached");
             return data;
         }
         let file_name = path.basename(file_path);
-        let file_uuid = await OmegaCache.loadFileUUID(file_path);
         let file_type = FileType.get(file_path);
+        if(file_uuid === undefined)
+            file_uuid = await OmegaCache.loadFileUUID(file_path);
 
         //CUSTOM ENTITY COMPONENTS
         if(file_type === "entity") await ComponentRegistry.parse(file_path, data, simulated_call);
@@ -88,3 +105,4 @@ export class BridgeCore {
 BridgeCore.setSaveHandler("entity", EntityHandler);
 BridgeCore.setSaveHandler("item", ItemHandler);
 BridgeCore.setSaveHandler("entity_tag", TagHandler);
+BridgeCore.setSaveHandler("bridge_map_area", MapAreaHandler);

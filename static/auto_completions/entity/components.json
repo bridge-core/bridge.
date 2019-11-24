@@ -193,6 +193,8 @@
     "minecraft:entity_sensor": {
         "sensor_range": "$general.number",
         "minimum_count": "$general.number",
+        "maximum_count": "$general.number",
+        "require_all": "$general.boolean",
         "event_filters": "$entity.filters",
         "event": "$dynamic.entity.events"
     },

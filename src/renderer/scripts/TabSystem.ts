@@ -316,13 +316,19 @@ class TabSystem {
         } catch(e) {}
     }
 
-    async transformContent(c: string | JSONTree | Buffer | object, raw: any, toJSON=true) {
+    async transformContent(c: string | JSONTree | Buffer | object, raw: any, toJSON=true, file_uuid?: string) {
         if(raw === c)
             return raw;
         else if(typeof c === "string")
             return c;
         else if(c instanceof JSONTree)
-            return JSON.stringify(toJSON ? (await BridgeCore.beforeSave(Format.toJSON(c))) : c.buildForCache(), null, this.use_tabs ? "\t" : "  ");
+            return JSON.stringify(
+                toJSON ? 
+                    (await BridgeCore.beforeSave(Format.toJSON(c), undefined, undefined, undefined, file_uuid)) :
+                    c.buildForCache(),
+                null,
+                this.use_tabs ? "\t" : "  "
+            );
         return JSON.stringify(c, null, this.use_tabs ? "\t" : "  ");
     }
     transformForCache(c: any, raw: any) {
@@ -350,7 +356,7 @@ class TabSystem {
                 new JSONTree("global").buildFromObject(current.content) :
                 current.content,
             file_extension: ext
-        }, true).content, current.raw_content);
+        }, true).content, current.raw_content, undefined, current.file_uuid);
 
         if(update_cache && OmegaCache.mayBeCached(current.file_path)) {
             await Promise.all([

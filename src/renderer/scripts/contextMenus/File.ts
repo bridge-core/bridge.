@@ -21,13 +21,8 @@ export const FILE_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
         action: () => {
             new ConfirmWindow(
                 async () => {
-                    OmegaCache.clear(file_path);
-                    LightningCache.clear(file_path);
-                    JSONFileMasks.delete(file_path);
-
                     await trash(file_path);
                     file.remove();
-                    TabSystem.closeByPath(file_path);
                 }, 
                 () => {}, 
                 `Are you sure that you want to delete "${path.basename(file_path).replace(/\\/g, "/")}"?`,

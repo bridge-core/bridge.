@@ -1,7 +1,7 @@
 import ContentWindow from "../scripts/commonWindows/Content";
 
 export default class AssertWindow extends ContentWindow {
-    constructor(plugin_id, assert_msg) {
+    constructor(plugin_id: string, assert_msg: string) {
         super({
             display_name: "Error",
             options: {

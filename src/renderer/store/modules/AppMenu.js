@@ -10,6 +10,8 @@ import TemplateSetsWindow from "../../windows/TemplateSets";
 import AboutWindow from "../../windows/About";
 import NodeShortcuts from "../../scripts/editor/NodeShortcuts";
 import ExtensionBrowser from "../../windows/Extensions/Browser";
+import Store from "../index";
+import InformationWindow from "../../scripts/commonWindows/Information";
 
 const state = {
     file: {
@@ -19,7 +21,12 @@ const state = {
             {
                 title: "New File",
                 shortcut: "Ctrl + N",
-                action: () => new CreateFileWindow(undefined, false)
+                action: () => {
+                    if(Store.state.Explorer.project.explorer)
+                        new CreateFileWindow(undefined, false);
+                    else
+                        new InformationWindow("Information", "You need to create a project before you can create files.");
+                }
             },
             {
                 title: "Open File",
@@ -207,11 +214,11 @@ const state = {
                 shortcut: "Ctrl + Q",
                 action: () => SnippetWindow.show()
             },
-            // {
-            //     title: "Template Sets",
-            //     shortcut: "Ctrl + T",
-            //     action: () => TemplateSetsWindow.show()
-            // }
+            {
+                title: "Template Sets",
+                shortcut: "Ctrl + T",
+                action: () => TemplateSetsWindow.show()
+            }
         ]
     },
     help: {

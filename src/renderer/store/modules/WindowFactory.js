@@ -52,6 +52,16 @@ const mutations = {
     },
     __plugin_window_internal_remove(state, { index, id }) {
         if(state.elements.length > index && state.elements[index].id === id) state.elements.splice(index, 1);
+
+        // DIRTY FIX FOR https://github.com/vuetifyjs/vuetify/issues/8625
+        let overlays = Array.from(document.getElementsByClassName("v-overlay"))
+            .filter(o => o.parentNode.classList.contains("v-application"))
+            .map(o => Array.from(o.children).pop());
+        
+        overlays.forEach(o => {
+            if(o.children.length === 0)
+                o.parentElement.remove();
+        });
     },
     resetPluginWindows(state) {
         //Filter out plugin windows and keep native windows

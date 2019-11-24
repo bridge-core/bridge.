@@ -44,6 +44,15 @@
             </template>
             <span>Open In Explorer</span>
         </v-tooltip>
+
+        <v-tooltip  color="tooltip" bottom>
+            <template v-slot:activator="{ on }">
+                <v-btn icon text @click.stop="deleteRP" v-on="on" class="toolbar-button" small>
+                    <v-icon small>mdi-delete</v-icon>
+                </v-btn>
+            </template>
+            <span>Delete Pack</span>
+        </v-tooltip>
     </v-toolbar>
 </template>
 
@@ -51,8 +60,15 @@
     import { shell } from "electron";
     import CreateFileWindow from "../../../../windows/CreateFile";
     import LoadingWindow from "../../../../windows/LoadingWindow";
-    import ZipFolder from "zip-a-folder";
+    import { zip } from "zip-a-folder";
     import PackLinker from "../../../../scripts/utilities/LinkPacks";
+    import { CURRENT } from '../../../../scripts/constants';
+    import { MOJANG_PATH } from '../../../../../shared/Paths';
+    import { join } from "path";
+    import Notification from '../../../../scripts/Notification';
+    import ConfirmWindow from '../../../../scripts/commonWindows/Confirm';
+    import trash from 'trash';
+    import EventBus from '../../../../scripts/EventBus';
 
     export default {
         name: "explorer-rp-toolbar",
@@ -65,23 +81,36 @@
                 this.$root.$emit("refreshExplorer");
             },
             unlink() {
-                PackLinker.unlink(this.$store.state.Explorer.project.explorer);
+                PackLinker.unlink(CURRENT.PROJECT);
             },
             openCreateFileWindow() {
                 new CreateFileWindow(true);
             },
-            packageProject() {
+            async packageProject() {
                 let lw = new LoadingWindow();
-                let project = this.selected;
-                let path = this.base_path + project;
-                ZipFolder.zipFolder(path, `${path}\\${project}.mcpack`, err => {
-                    if(err) console.error(err);
-                    this.refresh();
-                    lw.close();
-                });
+                await zip(CURRENT.RP_PATH, join(MOJANG_PATH, `${this.selected}.mcpack`));
+                lw.close();
+
+                const ready_push = new Notification({
+                    display_icon: "mdi-package-variant-closed",
+                    display_name: "Package ready!",
+                    color: "info",
+                    action: () => {
+                        ready_push.remove();
+                        shell.openExternal(MOJANG_PATH);
+                    }
+                }).send();
             },
             openInExplorer() {
                 shell.openExternal(this.base_path + this.selected);
+            },
+            deleteRP() {
+                new ConfirmWindow(async () => {
+                    let lw = new LoadingWindow();
+                    PackLinker.unlink(CURRENT.PROJECT);
+                    await trash(CURRENT.RP_PATH);
+                    lw.close();
+                }, null, "Do you really want to delete this pack?");
             }
         }
     }

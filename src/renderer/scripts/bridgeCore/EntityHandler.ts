@@ -124,11 +124,12 @@ export default async function EntityHandler({ file_name, data, file_path, simula
     set(entity, "components", {});
     let { components, component_groups, events, description } = entity;
     COM_ID_COUNTER = 0;
+    COMMAND_ANIM_REGISTERED = false;
     A_C = new AnimationController();
 
     for(let e in events) transformEvent(events[e], { component_groups, description, events, file_name: file_name.replace(".json", "") });
 
     await handleTags(file_path, use(description, "tags"), simulated_call);
 
-    await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/commands_${file_name}`));
+    await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/commands_${file_name}.json`));
 }

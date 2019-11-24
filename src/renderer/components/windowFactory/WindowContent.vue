@@ -35,7 +35,7 @@
     />
     <div
         v-else-if="content.type == 'container'"
-        :style="`background-color: ${content.color}; padding: 4px; width: ${content.full_width ? '100%' : 'unset'}; height: ${content.height}px; overflow-y: ${content.scroll ? 'auto' : 'hidden'}; white-space: ${content.no_wrap ? 'nowrap' : 'unset'}; overflow-x: auto;`"
+        :style="`background-color: ${content.color}; padding: 4px; width: ${content.full_width ? '100%' : 'unset'}; height: ${content.height}px; overflow-y: ${content.scroll ? 'auto' : 'hidden'}; white-space: ${content.no_wrap ? 'nowrap' : 'unset'}; overflow-x: auto; height: ${content.height || 'unset'};`"
         :class="content.small_scrollbar ? 'small-scrollbar' : ''"
     >
         <window-content :style="content.display ? `display: ${content.display};` : ''" v-for="(c) in content.content" :key="key(c)" :content="c"/>
@@ -111,7 +111,7 @@
         <v-icon :small="content.small" class="click-action">{{ content.text }}</v-icon>
     </v-btn>
     <v-icon
-        v-else-if="content.type == 'icon'"
+        v-else-if="content.type == 'icon' && !content.tooltip"
         @click.stop.native="action.default"
         :color="content.color"
         :class="content.action != undefined ? 'click-action' : ''"
@@ -119,6 +119,27 @@
     >
         {{ content.text }}
     </v-icon>
+    <v-tooltip
+        v-else-if="content.type === 'icon'"
+        right
+        :color="content.color"
+        :disabled="!content.tooltip"
+    >
+        <template v-slot:activator="{ on }">
+            <v-icon
+                v-on="on"
+                @click.stop.native="action.default"
+                :color="content.color"
+                :class="content.action != undefined ? 'click-action' : ''"
+                :small="content.small"
+                
+            >
+                {{ content.text }}
+            </v-icon>
+        </template>
+
+        <span>{{ content.tooltip }}</span>
+    </v-tooltip>
 
     <!-- INPUTS -->
     <v-text-field

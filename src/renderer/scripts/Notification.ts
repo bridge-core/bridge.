@@ -5,12 +5,12 @@
 import Store from "../store/index";
 import uuid from "uuid/v4";
 
-export interface BadgeObj {
+export interface BadgeConfig {
     color: string;
     type: 'icon' | 'text';
     content: string;
 }
-export interface NotificationObj {
+export interface NotificationConfig {
     display_icon: string;
     display_name: string;
     color?: string;
@@ -22,7 +22,7 @@ export class Badge {
     color: string;
     type: 'icon' | 'text';
     content: string;
-    constructor({ color, type, content }: BadgeObj) {
+    constructor({ color, type, content }: BadgeConfig) {
         this.color = color;
         this.type = type;
         this.content = content;
@@ -39,7 +39,7 @@ export default class Notification {
     badge: Badge;
     action: () => any;
 
-    constructor({ display_name, display_icon, action, color, text_color }: NotificationObj) {
+    constructor({ display_name, display_icon, action, color, text_color }: NotificationConfig) {
         this.id = uuid();
         this.display_icon = display_icon;
         this.display_name = display_name;
@@ -47,6 +47,9 @@ export default class Notification {
         this.color = color;
         this.text_color = text_color;
         this.is_pushed = false;
+    }
+    static send(config: NotificationConfig) {
+        return new Notification(config);
     }
 
     addBadge(badge: Badge) {
@@ -58,6 +61,7 @@ export default class Notification {
 
         this.is_pushed = true;
         Store.commit("addNativeFooter", this);
+        return this;
     }
     update() {
         Store.commit("updateNativeFooter", this);

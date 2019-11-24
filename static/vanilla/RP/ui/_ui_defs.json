@@ -58,6 +58,7 @@
     "ui/furnace_screen.json",
     "ui/furnace_screen_pocket.json",
     "ui/game_tip_screen.json",
+    "ui/gamepad_disconnected.json",
     "ui/global_pause_screen.json",
     "ui/grindstone_screen.json",
     "ui/grindstone_screen_pocket.json",

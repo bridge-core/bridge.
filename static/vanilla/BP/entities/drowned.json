@@ -76,8 +76,7 @@
         "minecraft:behavior.melee_attack": {
           "priority": 3,
           "speed_multiplier": 1,
-          "track_target": false,
-          "require_complete_path": true
+          "track_target": false
         },
         "minecraft:equipment": {
           "table": "loot_tables/entities/drowned_equipment.json",

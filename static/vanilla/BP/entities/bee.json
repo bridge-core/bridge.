@@ -74,6 +74,11 @@
                     "duration": 25,
                     "broadcastAnger": true,
                     "broadcastRange": 20,
+                    "broadcast_filters": {
+                        "test": "is_family",
+                        "operator": "!=",
+                        "value": "pacified"
+                    },
                     "calm_event": {
                         "event": "calmed_down",
                         "target": "self"
@@ -120,6 +125,9 @@
                         "event": "perish_event",
                         "target": "self"
                     }
+                },
+                "minecraft:type_family": {
+                    "family": [ "bee", "mob", "arthropod", "pacified" ]
                 }
             },
             "perish": {
@@ -438,7 +446,6 @@
             "minecraft:navigation.hover": {
                 "can_path_over_water": true,
                 "can_sink": false,
-                "can_pass_doors": false,
                 "can_path_from_air": true,
                 "avoid_water": true,
                 "avoid_damage_blocks": true,

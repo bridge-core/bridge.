@@ -1,17 +1,46 @@
 {
     "bridge:map_area": {
-        "id": "tutorial",
-        "coordinates": {
-            "from": [0, 0, 0],
-            "to": [10, 10, 10]
+        "description": {
+            "identifier": "test:my_area",
+            "subjects": [
+                "minecraft:player"
+            ],
+            "area": {
+                "from": [0, 0, 0],
+                "to": [10, 10, 10]
+            }
         },
-        "on_enter": {
-            "commands": [],
-            "events": []
-        },
-        "on_leave":{
-            "commands": [],
-            "events": []
+        "components": {
+            "bridge:timer": {
+                "time": 0.5,
+                "looping": true,
+                "event": {
+                    "commands": [
+                        "/say Welcome in MyArea!"
+                    ],
+                    "entity_events": [
+                        "test:my_entity_event"
+                    ]
+                }
+            },
+            "bridge:area_sensor": {
+                "on_enter": {
+                    "commands": [
+                        "/say Welcome in MyArea!"
+                    ],
+                    "entity_events": [
+                        "test:my_entity_event"
+                    ]
+                },
+                "on_leave": {
+                    "commands": [
+                        "/say Welcome in MyArea!"
+                    ],
+                    "entity_events": [
+                        "test:my_entity_event"
+                    ]
+                }
+            }
         }
     }
 }

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import FileManager from "./FileManager";
+    import FileManager from "./SingleFile";
     import WelcomeScreen from "./WelcomeScreen";
     import TabSystem from "../../scripts/TabSystem";
     import EventBus from "../../scripts/EventBus";
@@ -37,7 +37,7 @@
         },
         data() {
             return {
-                available_height: window.innerHeight - 98,
+                available_height: window.innerHeight - 92,
                 open_files: TabSystem.filtered(),
                 selected_tab: TabSystem.selected
             };

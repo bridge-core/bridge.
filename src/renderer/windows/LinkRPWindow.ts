@@ -4,7 +4,9 @@ import { RP_BASE_PATH } from "../scripts/constants";
 import PackLinker from "../scripts/utilities/LinkPacks";
 
 export default class LinkRPWindow extends ContentWindow {
-    constructor(bp_name) {
+    private selected_rp: string;
+
+    constructor(bp_name: string) {
         const PROJECTS = fs.readdirSync(RP_BASE_PATH);
 
         super({
@@ -23,7 +25,7 @@ export default class LinkRPWindow extends ContentWindow {
                     color: "primary",
                     options: PROJECTS,
     
-                    action: (val) => {
+                    action: (val: string) => {
                         this.selected_rp = val;
                     }   
                 }

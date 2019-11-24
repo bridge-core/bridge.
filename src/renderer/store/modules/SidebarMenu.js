@@ -17,6 +17,11 @@ const state = {
             menu_type: "resource_pack"
         },
         {
+            title: "Search",
+            icon: "mdi-magnify",
+            menu_type: "file_search"
+        },
+        {
             title: "Documentation",
             icon: "mdi-book-open-page-variant",
             menu_type: "documentation"

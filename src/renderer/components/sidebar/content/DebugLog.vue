@@ -47,10 +47,7 @@
         </v-toolbar>
         <v-divider/>
 
-        <p v-if="!is_windows">
-            bridge. can only load the debug log on Windows computers.
-        </p>
-        <v-progress-linear v-else-if="logs === null" indeterminate/>
+        <v-progress-linear v-if="logs === null" indeterminate/>
 
         <div ref="log_container" :style="`height: ${sidebar_height}px; overflow-y: auto; padding: 4px;`" v-else>
             <v-card color="expanded_sidebar" v-for="({ tags, error }, i) in sliced_logs" style="margin-bottom: 8px;" :key="i">
@@ -89,7 +86,6 @@
 </template>
 
 <script>
-    import os from "os";
     import { processedDebugLog, parseAffectedFiles } from "../../../scripts/features/debugLog";
     import LogListView from "../../../windows/DebugLog/ListView";
     import { tag } from '../../../windows/DebugLog/Common';
@@ -110,9 +106,6 @@
             }
         },
         computed: {
-            is_windows() {
-                return os.platform() === "win32";
-            },
             sliced_logs() {
                 if(!this.logs) return this.logs;
                 return this.logs.slice(this.page_number, this.page_number + PAGE_SIZE);

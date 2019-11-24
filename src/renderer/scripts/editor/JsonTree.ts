@@ -232,6 +232,14 @@ export default class JSONTree {
         }
         return -1;
     }
+    hasChild(key: string) {
+        for(let c of this.children) {
+            if(c.key === key)
+                return true;
+        }
+        return false;
+    }
+
     /**
      * Adds a new child to calling node
      * @param {JSONTree} child 
@@ -261,10 +269,20 @@ export default class JSONTree {
     /**
      * @param {String} new_data 
      */
-    edit(new_data: string) {
-        if(!new_data) throw new Error("Data may not be undefined or null.");
+    edit(new_data: string, update_history=false) {
         if(this.type === "object" || this.type === "array") this.type = "string";
+        if(update_history) TabSystem.getHistory().add(new JSONAction("edit-data", this, this.data));
+
         this.data = new_data;
+        this.updateUUID();
+    }
+    /**
+     * @param {String} new_key
+     */
+    editKey(new_key: string, update_history=false) {
+        if(update_history) TabSystem.getHistory().add(new JSONAction("edit-key", this, this.key));
+
+        this.key = new_key;
         this.updateUUID();
     }
     /**
@@ -420,11 +438,11 @@ export default class JSONTree {
             return prev_sibling;
         }
     }
-    searchAll(key: string) {
+    searchAll(key: string, search_data=false) {
         let res: JSONTree[] = [];
         this.children.forEach(c => {
-            if(c.key === key) res.push(c);
-            res = res.concat(c.searchAll(key));
+            if(c.key === key || (search_data && c.data === key)) res.push(c);
+            res = res.concat(c.searchAll(key, search_data));
         });
         return res;
     }

@@ -2,9 +2,20 @@ import TabWindow from "../scripts/commonWindows/TabWindow";
 import { shell } from "electron";
 import { APP_VERSION } from "../scripts/constants";
 
+interface CreatorLinkConfig {
+    type?: "icon-button";
+    color?: string;
+    text?: string;
+    link?: string;
+    is_flat?: boolean;
+    action?: () => any;
+}
+
 class Creator {
-    constructor(content, creator, links) {
-        this.type = "container";
+    private type = "container";
+    private content: any[];
+
+    constructor(content: string, creator: string, links: CreatorLinkConfig[]) {
         this.content = [
             {
                 type: "header",
@@ -24,8 +35,10 @@ class Creator {
     }
 }
 class Link {
-    constructor(content, link_name, link) {
-        this.type = "container";
+    private type = "container";
+    private content: any[];
+
+    constructor(content: string, link_name: string, link: string) {
         this.content = [
             {
                 text: `${content}${content ? " " : ""}`

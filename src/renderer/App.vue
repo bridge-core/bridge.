@@ -39,7 +39,7 @@
     import SidebarMain from "@/components/sidebar/Main";
     import EditorShellTabSystem from "@/components/editor_shell/TabSystem";
     import JsonEditorHoverCard from "@/components/editor_shell/JsonEditor/HoverCard";
-    import EditorShellContentManager from "@/components/editor_shell/ContentManager";
+    import EditorShellContentManager from "@/components/editor_shell/TabContentManager";
     import WindowFactoryMain from "@/components/windowFactory/Main";
     import FooterMain from "@/components/footer/Main";
     import ContextMenuMain from "@/components/context_menu/Main";
@@ -94,11 +94,17 @@
             },
             theme_variant() {
                 return (this.$vuetify.theme.dark) ? "dark" : "light";
+            },
+            project_name() {
+                return this.$store.state.Explorer.project.explorer;
             }
         },
         watch: {
             is_dark_mode(to) {
                 this.$vuetify.theme.dark = to;
+            },
+            project_name(to) {
+                document.head.getElementsByTagName("title")[0].innerText = `${to ? to + " - " : ""}bridge.`;
             }
         },
         data() {

@@ -12,6 +12,19 @@ interface FetchDefs {
 
 export default class FetchDefinitions {
     /**
+     * Load a complete cache entry of all files of a given file_type
+     */
+    static async getAll(file_type: string, cache_key: string) {
+        let c = (await LightningCache.load())[file_type];
+        if(!c) return {};
+
+        let res: { [x: string]: string[] } = {};
+        for(let p in c)
+            res[p] = c[p][cache_key];
+        return res;
+    }
+
+    /**
      * @param {string[]} file_types
      * @param {Object.<string, string[]>} fetch_defs Object containing arrays of definitions to fetch per file_type (<- key)
      *      | e.g. { entity: [ "identifiers", "families" ], item: [ "identifiers" ] }

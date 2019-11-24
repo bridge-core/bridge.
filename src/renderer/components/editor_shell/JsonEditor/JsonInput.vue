@@ -14,7 +14,6 @@
                 v-else
                 v-model="value"
                 @input="click"
-                chips
                 :label="label"
                 :items="items"
                 dense
@@ -94,7 +93,7 @@
             }
         },
         methods: {
-            click() {
+            click(val) {
                 if(this.value === "")
                     this.value = this.$refs.input.$el.querySelector("input").value;
                 if(this.value == "" || !this.value) return;

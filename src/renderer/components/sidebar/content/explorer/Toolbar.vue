@@ -71,10 +71,18 @@
     import CreateFileWindow from "../../../../windows/CreateFile";
     import CreateProjectWindow from "../../../../windows/CreateProject";
     import LoadingWindow from "../../../../windows/LoadingWindow";
-    import ZipFolder from "zip-a-folder";
+    import { zip } from "zip-a-folder";
     import { join } from "path";
     import InputWindow from "../../../../scripts/commonWindows/Input";
     import ProjectConfig from "../../../../scripts/ProjectConfig";
+    import { MOJANG_PATH } from '../../../../../shared/Paths';
+    import { CURRENT } from '../../../../scripts/constants';
+    import Notification from '../../../../scripts/Notification';
+    import { promises as fs } from "fs";
+    import trash from 'trash';
+    import InformationWindow from '../../../../scripts/commonWindows/Information';
+    import ConfirmWindow from '../../../../scripts/commonWindows/Confirm';
+    import EventBus from '../../../../scripts/EventBus';
 
     export default {
         name: "explorer-toolbar",
@@ -101,6 +109,55 @@
                                 ProjectConfig.setPrefix(val);
                             })
                         }
+                    },
+                    {
+                        icon: "mdi-package-variant-closed",
+                        title: "Package Project",
+                        action: async () => {
+                            new InputWindow({
+                                header: "Project Name",
+                                label: "Name",
+                                text: ""
+                            }, async (project_name) => {
+                                //Make sure that the resource pack can be loaded
+                                if(!CURRENT.RESOURCE_PACK)
+                                    return new InformationWindow("No Resource Pack", "Please connect a resource pack before packaging the whole project.");
+
+                                //Package whole project
+                                let lw = new LoadingWindow();
+                                await fs.mkdir(join(MOJANG_PATH, "bridge_proj_tmp"), { recursive: true });
+                                await Promise.all([
+                                    zip(CURRENT.PROJECT_PATH, join(MOJANG_PATH, "bridge_proj_tmp", `${CURRENT.PROJECT}.mcpack`)),
+                                    zip(CURRENT.RP_PATH, join(MOJANG_PATH, "bridge_proj_tmp", `${CURRENT.RESOURCE_PACK}.mcpack`))
+                                ]);
+                                await zip(join(MOJANG_PATH, "bridge_proj_tmp"), join(MOJANG_PATH, `${project_name}.mcaddon`));
+                                await trash(join(MOJANG_PATH, "bridge_proj_tmp"));
+                                lw.close();
+
+                                //Notify user the packaging is complete
+                                const ready_push = new Notification({
+                                    display_icon: "mdi-package-variant-closed",
+                                    display_name: "Package ready!",
+                                    color: "info",
+                                    action: () => {
+                                        ready_push.remove();
+                                        shell.openExternal(MOJANG_PATH);
+                                    }
+                                }).send();
+                            });
+                        }
+                    },
+                    {
+                        icon: "mdi-delete",
+                        title: "Delete Project",
+                        action: () => {
+                            new ConfirmWindow(async () => {
+                                let lw = new LoadingWindow();
+                                await trash(CURRENT.PROJECT_PATH);
+                                EventBus.trigger("bridge:findDefaultPack", true);
+                                lw.close();
+                            }, null, "Do you really want to delete this project?");
+                        }
                     }
                 ]
             }
@@ -115,15 +172,20 @@
             openCreateProjectWindow() {
                 new CreateProjectWindow();
             },
-            packageProject() {
+            async packageProject() {
                 let lw = new LoadingWindow();
-                let project = this.selected;
-                let path = this.base_path + project;
-                ZipFolder.zipFolder(path, join(path, `${project}.mcpack`), err => {
-                    if(err) console.error(err);
-                    this.refresh();
-                    lw.close();
-                });
+                await zip(CURRENT.PROJECT_PATH, join(MOJANG_PATH, `${this.selected}.mcpack`));
+                lw.close();
+
+                const ready_push = new Notification({
+                    display_icon: "mdi-package-variant-closed",
+                    display_name: "Package ready!",
+                    color: "info",
+                    action: () => {
+                        ready_push.remove();
+                        shell.openExternal(MOJANG_PATH);
+                    }
+                }).send();
             },
             openInExplorer() {
                 shell.openExternal(this.base_path + this.selected);
