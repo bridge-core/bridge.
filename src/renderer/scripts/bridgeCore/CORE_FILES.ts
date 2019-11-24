@@ -17,6 +17,6 @@ export default [
 
         start_state: "map_area/main",
         highlighter: "map_area",
-        file_creator: "map_area"
+        // file_creator: "map_area"
     }
 ];

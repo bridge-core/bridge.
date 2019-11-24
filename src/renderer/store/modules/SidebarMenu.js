@@ -16,11 +16,11 @@ const state = {
             icon: "mdi-file-image",
             menu_type: "resource_pack"
         },
-        {
-            title: "Search",
-            icon: "mdi-magnify",
-            menu_type: "file_search"
-        },
+        // {
+        //     title: "Search",
+        //     icon: "mdi-magnify",
+        //     menu_type: "file_search"
+        // },
         {
             title: "Documentation",
             icon: "mdi-book-open-page-variant",

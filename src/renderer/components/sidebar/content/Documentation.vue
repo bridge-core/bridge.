@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-subheader>Project "{{ project }}"</v-subheader>
+        <!-- <v-subheader>Project "{{ project }}"</v-subheader>
         <v-container :style="`max-height: ${sidebar_height}px;`">
             <template v-for="(doc, i) in project_docs">
                 <v-btn
@@ -20,9 +20,9 @@
                     :key="`divider.${i}`"
                 />
             </template>
-        </v-container>
+        </v-container> -->
 
-        <v-subheader style="margin-top: 32px;">Minecraft</v-subheader>
+        <v-subheader style="/*margin-top: 32px;*/">Minecraft</v-subheader>
         <v-container :style="`max-height: ${sidebar_height}px;`">
             <template v-for="(doc, i) in doc_list">
                 <v-btn
