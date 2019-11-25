@@ -6,7 +6,7 @@ import Store from "../store/index";
 import EventBus from "../scripts/EventBus";
 import InformationWindow from "../scripts/commonWindows/Information";
 
-let SNIPPETS; 
+let SNIPPETS: any; 
 
 async function assureLoadedSnippets() {
     if(SNIPPETS === undefined)
@@ -16,22 +16,22 @@ async function assureLoadedSnippets() {
 async function convArr() {
     await assureLoadedSnippets();
 
-    let snippets = SNIPPETS[FileType.get()];
+    let snippets: any[] = SNIPPETS[FileType.get()];
     if(snippets === undefined) return [];
     return snippets.map((s, i) => (s.is_hidden ? undefined : { value: i, text: s.display_name })).filter(s => s !== undefined);
 }
-async function addSnippet(s) {
+async function addSnippet(s: any) {
     await assureLoadedSnippets();
 
     if(SNIPPETS[s.file_type] === undefined) SNIPPETS[s.file_type] = [];
     SNIPPETS[s.file_type].push(s);
 }
-async function removeSnippet(s) {
+async function removeSnippet(s: any) {
     await assureLoadedSnippets();
 
     SNIPPETS[s.file_type].splice(SNIPPETS[s.file_type].indexOf(s.id), 1);
 }
-async function insertSnippet(snippet_name, force_default_scope=false) {
+async function insertSnippet(snippet_name: string, force_default_scope=false) {
     let c = TabSystem.getSelected().content;
     let templ = SNIPPETS[FileType.get()][snippet_name].template;
 
@@ -50,10 +50,10 @@ async function insertSnippet(snippet_name, force_default_scope=false) {
     }
 }
 
-function expandTemplateData(data, data_path="") {
+function expandTemplateData(data: any, data_path="") {
     let keys = data_path.split("/");
     let return_data = {};
-    let current = return_data;
+    let current: any = return_data;
 
     for(let i = 0; i < keys.length; i++) {
         if(i === keys.length - 1) current[keys[i]] = data;
@@ -65,6 +65,7 @@ function expandTemplateData(data, data_path="") {
 }
 
 class SnippetWindow extends ContentWindow {
+    private content: any[];
     constructor() {
         super({
             options: {
@@ -88,7 +89,7 @@ class SnippetWindow extends ContentWindow {
                 text: "Search...",
                 has_focus: true,
 
-                action: (val) => {
+                action: (val: string) => {
                     insertSnippet(val, false);
                     this.close();
                 }
@@ -100,6 +101,7 @@ class SnippetWindow extends ContentWindow {
     close() {
         super.close();
         WINDOW = undefined;
+        return this;
     }
 
     updateContent() {
@@ -115,7 +117,7 @@ class SnippetWindow extends ContentWindow {
 }
 
 export class PluginSnippets {
-    static add(s) {
+    static add(s: any) {
         addSnippet({
             ...s,
             is_plugin: true
@@ -123,12 +125,12 @@ export class PluginSnippets {
     }
     static removeAll() {
         for(let type in SNIPPETS) {
-            SNIPPETS[type] = SNIPPETS[type].filter(s => !s.is_plugin);
+            SNIPPETS[type] = SNIPPETS[type].filter((s: any) => !s.is_plugin);
         }
     }
 }
 
-let WINDOW;
+let WINDOW: any;
 export default {
     show: async () => {
         await assureLoadedSnippets();

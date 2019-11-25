@@ -3,9 +3,14 @@ import FileType from "../scripts/editor/FileType";
 import InformationWindow from "../scripts/commonWindows/Information";
 import Snippets from "./Snippets";
 import uuidv4 from "uuid/v4";
+import SettingsWindow from "./Settings";
 
 export default class AddSnippetWindow extends ContentWindow {
-    constructor(parent) {
+    private data: { name: string; file_type: string; data_path: string; force_scope: boolean; template?: string; };
+    private content: any[];
+    private actions: any[];
+
+    constructor(parent: SettingsWindow) {
         super({
             display_name: "Custom Snippet",
             options: {
@@ -31,14 +36,14 @@ export default class AddSnippetWindow extends ContentWindow {
                 type: "select",
                 options: FileType.getAll(),
                 input: "entity",
-                action: (val) => this.data.file_type = val
+                action: (val: string) => this.data.file_type = val
             },
             {
                 type: "input",
                 key: uuidv4(),
                 has_focus: true,
                 text: "Snippet Name",
-                action: (val) => this.data.name = val
+                action: (val: string) => this.data.name = val
             },
             {
                 color: "grey",
@@ -48,19 +53,19 @@ export default class AddSnippetWindow extends ContentWindow {
                 type: "input",
                 key: uuidv4(),
                 input: "minecraft:entity/components",
-                action: (val) => this.data.data_path = val
+                action: (val: string) => this.data.data_path = val
             },
             {
                 type: "switch",
                 color: "primary",
                 text: "Force Default Scope",
-                action: (val) => this.data.force_scope = val
+                action: (val: boolean) => this.data.force_scope = val
             },
             {
                 type: "textarea",
                 key: uuidv4(),
                 text: "Snippet Template",
-                action: (val) => this.data.template = val
+                action: (val: string) => this.data.template = val
             }
         ];
         this.actions = [
@@ -78,7 +83,7 @@ export default class AddSnippetWindow extends ContentWindow {
                     if(data === undefined) return new InformationWindow("Invalid Template", "The provided snippet template does not contain valid JSON.");
                     
                     let s = {
-                        id: uuid4(),
+                        id: uuidv4(),
                         file_type: this.data.file_type,
                         display_name: this.data.name,
                         template: {
@@ -99,7 +104,7 @@ export default class AddSnippetWindow extends ContentWindow {
         this.updateContent();
     }
 
-    getTemplate(template) {
+    getTemplate(template: string) {
         if(template === "") return;
 
         try {
