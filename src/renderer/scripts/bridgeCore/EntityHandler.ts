@@ -95,7 +95,7 @@ function transformEvent(
         event.randomize.forEach((e: any) => transformEvent(e, { component_groups, description, events, file_name }));
 }
 
-async function handleTags(file_path: string, tags: string[]=[], simulated_call: boolean) {
+export async function handleTags(file_path: string, tags: string[]=[], simulated_call: boolean) {
     const MASK = await JSONFileMasks.get(file_path);
 
     //RESET OLD CHANNELS
@@ -107,11 +107,12 @@ async function handleTags(file_path: string, tags: string[]=[], simulated_call: 
     if(!Array.isArray(tags) || tags.length === 0) return;
 
     let tag_refs = await Promise.all(tags.map(t => FetchDefinitions.fetchSingle("entity_tag", [ "identifiers" ], t, true)));
+    
     await Promise.all(tag_refs.flat().map(
         async ref => {
-            const { identifier, ...entity } = transformTag(await FileSystem.loadFile(ref)) || {};
+            const { identifier, ...tag_entity } = transformTag(await FileSystem.loadFile(ref)) || {};
             if(!identifier) return;
-            MASK.set(`tag@${identifier}`, entity || {});
+            MASK.overwrite(`tag@${identifier}`, tag_entity || {});
         }
     ));
 }
@@ -128,8 +129,6 @@ export default async function EntityHandler({ file_name, data, file_path, simula
     A_C = new AnimationController();
 
     for(let e in events) transformEvent(events[e], { component_groups, description, events, file_name: file_name.replace(".json", "") });
-
-    await handleTags(file_path, use(description, "tags"), simulated_call);
 
     await A_C.save(join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/commands_${file_name}.json`));
 }

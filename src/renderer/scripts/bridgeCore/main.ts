@@ -8,7 +8,7 @@ import { JSONFileMasks } from "../editor/JSONFileMasks";
 import path from "path";
 import CORE_FILES from "./CORE_FILES";
 
-import EntityHandler from "./EntityHandler";
+import EntityHandler, { handleTags } from "./EntityHandler";
 import ItemHandler from "./ItemHandler";
 import TagHandler from "./TagHandler";
 import InformationWindow from "../commonWindows/Information";
@@ -16,6 +16,7 @@ import ComponentRegistry from "../plugins/CustomComponents";
 import MapAreaHandler from "./MapAreaHandler";
 import trash from "trash";
 import { CURRENT } from "../constants";
+import { use } from "../utilities/useAttr";
 
 export interface OnSaveData {
     file_path: string;
@@ -62,6 +63,7 @@ export class BridgeCore {
                 try {
                     await trash(path.join(CURRENT.PROJECT_PATH, `animations/bridge/map_area_timer_${file_uuid}.json`));
                 } catch(err) {}
+
                 break;
             }
         }
@@ -80,8 +82,16 @@ export class BridgeCore {
         if(file_uuid === undefined)
             file_uuid = await OmegaCache.loadFileUUID(file_path);
 
-        //CUSTOM ENTITY COMPONENTS
-        if(file_type === "entity") await ComponentRegistry.parse(file_path, data, simulated_call);
+        /**
+         * Custom entity components & entity tags
+         * ---------
+         * Needs to be outside of the entity save handler because we need to have tags & components
+         * ready for the custom entity syntax pass. That's also why we apply tags and components before all other file masks
+         */
+        if(file_type === "entity") {
+            await ComponentRegistry.parse(file_path, data, simulated_call);
+            await handleTags(file_path, use(data, "minecraft:entity/description/tags"), simulated_call);
+        }
         data = await JSONFileMasks.applyOnData(file_path, data, layer_name => layer_name.startsWith("component@") || layer_name.startsWith("tag@"));
 
         //Do not use custom syntax with deactivated bridgeCore

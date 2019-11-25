@@ -6,7 +6,7 @@ export interface MergeOptions {
 export default function objMerge(obj1: any, obj2: any, options: MergeOptions={}, path="") {
     let res: any = {};
     let { array_merge, custom_merge } = options;
-    if(array_merge === undefined) array_merge = (obj2) => obj2
+    if(array_merge === undefined) array_merge = (obj2) => obj2;
 
     if(typeof obj2 !== "object" || typeof obj1 !== "object") return obj2;
     if(Array.isArray(obj1) || Array.isArray(obj2)) {
