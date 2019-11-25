@@ -1,7 +1,6 @@
 import { ipcMain, app } from "electron";
 import { dialog } from "electron";
 import fs from "fs";
-import DirToJSON from "dir-to-json";
 import { DefaultDir } from "../shared/DefaultDir";
 
 ipcMain.on("openFileDialog", (event, args) => {

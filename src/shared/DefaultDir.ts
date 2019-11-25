@@ -4,7 +4,7 @@
 import fs from "fs";
 import path from "path";
 
-let DATA_PATH;
+let DATA_PATH: string;
 if (process.platform == "win32")
     DATA_PATH = path.join(process.env.HOMEDRIVE, process.env.HOMEPATH, ".bridge/data");
 else
@@ -12,7 +12,7 @@ else
 
 export { DATA_PATH };
 export class DefaultDir {
-    static set(dir_path) {
+    static set(dir_path: string) {
         fs.writeFileSync(path.join(DATA_PATH, "default_dir"), dir_path);
     }
     static get() {

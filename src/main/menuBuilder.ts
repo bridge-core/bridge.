@@ -1,4 +1,4 @@
-let MENU = [];
+let MENU: any[] = [];
 
 if(process.env.NODE_ENV === "development") {
     MENU.push({
