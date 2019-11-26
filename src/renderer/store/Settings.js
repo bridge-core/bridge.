@@ -32,6 +32,7 @@ function setup() {
             error_icon_indicator: true,
             error_auto_fix: true,
             focus_json_inputs: true,
+            is_alternative_append_with_copy: true,
             custom_snippets: []
         });
     } else {
@@ -40,12 +41,12 @@ function setup() {
 
     VueStore.commit("setSettings", DATA);
     VueStore.commit("setDarkMode", DATA.is_dark_mode);
-    if(DATA.id === undefined) {
+
+    //Upgrade old settings files
+    if(DATA.id === undefined)
         save({ id: uuid() });
-    }
-    if(DATA.text_auto_completions === undefined) {
+    if(DATA.text_auto_completions === undefined)
         save({ text_auto_completions: true });
-    }
 }
 function save(settings) {
     if(DATA) DATA = Object.assign(DATA, settings);

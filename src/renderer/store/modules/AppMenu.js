@@ -198,11 +198,20 @@ const state = {
                 title: "Paste",
                 shortcut: "Ctrl + V",
                 action: () => {
-                    if(!NodeShortcuts.paste()) {
+                    if(!NodeShortcuts.execPaste()) {
                         document.execCommand("paste");
                     }
                 }
-            }            
+            },
+            {
+                title: "Alternative Paste",
+                shortcut: "Ctrl + Shift + V",
+                action: () => {
+                    if(!NodeShortcuts.execPaste(true)) {
+                        document.execCommand("paste");
+                    }
+                }
+            } 
         ]
     },
     tools: {

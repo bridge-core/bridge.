@@ -168,6 +168,11 @@ export default class SettingsWindow extends TabWindow {
                     color: "grey",
                     text: "\nGeneral"
                 },
+                new ReactiveSwitch(this, "is_alternative_append_with_copy", {
+                    color: "primary",
+                    text: "Alternative Paste: Append \"_copy\"",
+                    key: `settings.editor.tab.alternative_append_copy.${Math.random()}`
+                }),
                 new ReactiveSwitch(this, "use_tabs", {
                     color: "primary",
                     text: "Use Tabs",

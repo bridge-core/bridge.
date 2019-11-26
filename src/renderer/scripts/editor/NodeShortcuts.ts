@@ -5,6 +5,7 @@ import TabSystem from "../TabSystem";
 import { clipboard } from "electron";
 import { JSONAction } from "../TabSystem/CommonHistory";
 import JSONTree from "./JsonTree";
+import Store from "../../store/index";
 
 export default class NodeShortcuts {
     private static transformKey(str: string, node: JSONTree): string {
@@ -16,6 +17,35 @@ export default class NodeShortcuts {
         }
         return str;
     }
+
+    static execPaste(alternative_paste=false) {
+        console.log(Store.state.Settings.is_alternative_append_with_copy, alternative_paste)
+        
+        if(Store.state.Settings.is_alternative_append_with_copy)
+            return alternative_paste ? this.paste() : this.classicPaste();
+        else
+            return alternative_paste ? this.classicPaste() : this.paste();
+    }
+
+    static classicPaste() {
+        let node = TabSystem.getCurrentNavObj();
+        if(node.data !== "") return; 
+        
+        try {
+            node.buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
+            TabSystem.setCurrentUnsaved();
+            return true;
+        } catch(e) {
+            //Try again with a fix if the key was still in front
+            try {
+                node.buildFromObject(JSON.parse("{" + clipboard.readText() + "}"), undefined, true);
+                TabSystem.setCurrentUnsaved();
+                return true;
+            } catch(e) {
+                return false;
+            }
+        }
+    }   
 
     static paste() {
         let node = TabSystem.getCurrentNavObj();
