@@ -215,10 +215,14 @@ export const DYNAMIC = {
         }
     },
     animation_controller_ids() {
-        return LightningCache.getCompiledSync().animation_controller.ids;
+        try {
+            return LightningCache.getCompiledSync().animation_controller.ids;
+        } catch(e) {}
     },
     animation_ids() {
-        return LightningCache.getCompiledSync().animation.ids;
+        try {
+            return LightningCache.getCompiledSync().animation.ids;
+        } catch(e) {}
     },
     siblings() {
         return PARENT_CONTEXT.toJSON();

@@ -45,8 +45,8 @@ async function evalStatement(str, bindings) {
         
     return safeEval(str, {
         ...bindings,
-        RP: RP_BASE_PATH + (Store.state.Explorer.project.resource_pack || "uncategorized"),
-        BP: BASE_PATH + Store.state.Explorer.project.explorer
+        RP: path.join(RP_BASE_PATH, (Store.state.Explorer.project.resource_pack || "uncategorized")),
+        BP: path.join(BASE_PATH, Store.state.Explorer.project.explorer)
     });
 }
 
