@@ -67,7 +67,7 @@
 </template>
 
 <script>
-    import { shell } from "electron";
+    import { shell, remote } from "electron";
     import CreateFileWindow from "../../../../windows/CreateFile";
     import CreateProjectWindow from "../../../../windows/CreateProject";
     import LoadingWindow from "../../../../windows/LoadingWindow";
@@ -141,7 +141,7 @@
                                     color: "info",
                                     action: () => {
                                         ready_push.remove();
-                                        shell.openExternal(MOJANG_PATH);
+                                        remote.shell.showItemInFolder(MOJANG_PATH);
                                     }
                                 }).send();
                             });
@@ -183,12 +183,12 @@
                     color: "info",
                     action: () => {
                         ready_push.remove();
-                        shell.openExternal(MOJANG_PATH);
+                        remote.shell.showItemInFolder(MOJANG_PATH);
                     }
                 }).send();
             },
             openInExplorer() {
-                shell.openExternal(this.base_path + this.selected);
+                remote.shell.showItemInFolder(join(this.base_path, this.selected));
             },
         }
     }

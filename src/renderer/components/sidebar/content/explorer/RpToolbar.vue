@@ -97,12 +97,12 @@
                     color: "info",
                     action: () => {
                         ready_push.remove();
-                        shell.openExternal(MOJANG_PATH);
+                        remote.shell.showItemInFolder(MOJANG_PATH);
                     }
                 }).send();
             },
             openInExplorer() {
-                shell.openExternal(this.base_path + this.selected);
+                remote.shell.showItemInFolder(join(this.base_path, this.selected));
             },
             deleteRP() {
                 new ConfirmWindow(async () => {
