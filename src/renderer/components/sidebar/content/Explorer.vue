@@ -82,6 +82,7 @@
     import LoadingWindow from '../../../windows/LoadingWindow';
     import FileType from '../../../scripts/editor/FileType';
     import { setRP } from '../../../scripts/utilities/FindRP';
+    import path from "path";
 
     export default {
         name: "content-explorer",
@@ -178,7 +179,7 @@
                     this.loadDirectory(this.selected, true);
                 } else {
                     try {
-                        this.items = await fs.readdir(BP_BASE_PATH);
+                        this.items = await this.getCurrentPacks();
                     } catch(e) { this.items = []; }
                     
                     this.no_projects = false;
@@ -239,8 +240,8 @@
                     this.selected = await this.force_project_algorithm();
                 } else {
                     try {
-                        this.items = await fs.readdir(BP_BASE_PATH);
-                    } catch(e) { this.items = []; }
+                        this.items = await this.getCurrentPacks();
+                    } catch(e) { this.items = []; console.log(e) }
                     this.no_projects = false;
                     if(force_refresh) this.selected = undefined;
 
@@ -275,6 +276,14 @@
                 new CreateProjectWindow(false, (rp_name) => {
                     PackLinker.link(this.$store.state.Explorer.project.explorer, rp_name);
                 });
+            },
+
+            async getCurrentPacks() {
+                let potential = (await fs.readdir(BP_BASE_PATH));
+                let stats = potential.map(pot => fs.stat(path.join(BP_BASE_PATH, pot)));
+                stats = await Promise.all(stats).catch(console.error);
+
+                return potential.filter((pot, i) => stats[i].isDirectory());
             }
         }
     }

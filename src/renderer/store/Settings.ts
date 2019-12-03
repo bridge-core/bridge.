@@ -3,13 +3,13 @@ import VueStore from "./index";
 import path from "path";
 import uuid from "uuid/v4";
 
-let STORE;
+let STORE: BridgeStore;
 if (process.platform === "win32")
     STORE = new BridgeStore(path.join(process.env.HOMEDRIVE, process.env.HOMEPATH, ".bridge/"), "data");
 else
     STORE = new BridgeStore(path.join(process.env.HOME, "bridge/"), "data");
 
-let DATA;
+let DATA: { [s: string]: any };
 function setup() {
     if(!STORE.exists("settings")) {
         console.log("[SETTING STORE] Not found - creating new store with default values");
@@ -48,7 +48,7 @@ function setup() {
     if(DATA.text_auto_completions === undefined)
         save({ text_auto_completions: true });
 }
-function save(settings) {
+function save(settings: { [s: string]: any }) {
     if(DATA) DATA = Object.assign(DATA, settings);
     else DATA = settings;
    
@@ -60,6 +60,6 @@ function load() {
 
 export default {
     load: () => load(),
-    save: (s) => save(s),
+    save: (s: { [s: string]: any }) => save(s),
     setup: () => setup()
 }
