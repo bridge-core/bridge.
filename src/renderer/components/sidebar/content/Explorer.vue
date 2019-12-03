@@ -241,7 +241,7 @@
                 } else {
                     try {
                         this.items = await this.getCurrentPacks();
-                    } catch(e) { this.items = []; console.log(e) }
+                    } catch(e) { this.items = []; }
                     this.no_projects = false;
                     if(force_refresh) this.selected = undefined;
 
