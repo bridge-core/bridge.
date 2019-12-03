@@ -3,10 +3,16 @@
  */
 import uuidv4 from "uuid/v4";
 
+interface Module {
+    type: string;
+    uuid: string;
+    version: [number, number, number];
+}
+
 export default class Manifest {
     format_version = 1;
     header: any;
-    modules: any[];
+    modules: Module[];
     dependencies: any[];
     
     constructor(type: "resources" | "data", client_data?: boolean, dependency?: string) {
@@ -25,17 +31,37 @@ export default class Manifest {
             }
         ];
 
-        if(client_data) {
-            this.modules.push({
-                type: "client_data",
-                uuid: uuidv4(),
-                version: [ 1, 0, 0 ]
-            });
-        }
+        if(client_data)
+            this.addClientData();
+
         if(dependency !== undefined) {
             this.dependencies = [ dependency ];
         }
     }
+
+    addClientData() {
+        Manifest.addClientData(this);
+    }
+    removeClientData() {
+        Manifest.removeClientData(this);
+    }
+    static removeClientData(manifest: Manifest) {
+        manifest.modules = manifest.modules.filter(({ type }) => type !== "client_data");
+    }
+    static addClientData(manifest: Manifest) {
+        manifest.modules.push({
+            type: "client_data",
+            uuid: uuidv4(),
+            version: [ 1, 0, 0 ]
+        });
+    }
+    static hasClientData(manifest: Manifest) {
+        for(let { type } of manifest.modules) {
+            if(type === "client_data") return true;
+        }
+        return false;
+    }
+
 
     get uuid() {
         return this.header.uuid;

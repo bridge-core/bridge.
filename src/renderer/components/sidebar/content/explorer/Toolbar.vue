@@ -58,7 +58,9 @@
                     :key="index"
                     @click="action"
                 >
-                    <v-list-item-icon v-if="icon" style="margin: 4px 12px 4px 0;"><v-icon>{{ icon }}</v-icon></v-list-item-icon>
+                    <v-list-item-icon v-if="icon" style="margin: 4px 12px 4px 0;">
+                        <v-icon>{{ icon }}</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-title>{{ title }}</v-list-item-title>
                 </v-list-item>
             </v-list>

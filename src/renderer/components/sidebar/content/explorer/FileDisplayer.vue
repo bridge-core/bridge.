@@ -156,18 +156,18 @@
                 }
                 if(removed === undefined) this.file_explorer.sort();          
             },
-            showContextMenu(event, file_path, file) {
+            async showContextMenu(event, file_path, file) {
                 this.$store.commit("openContextMenu", {
                     x_position: event.clientX,
                     y_position: event.clientY,
-                    menu: FILE_CONTEXT_MENU(file_path, file)
+                    menu: await FILE_CONTEXT_MENU(file_path, file)
                 });
             },
-            showFolderContextMenu(event, file_path, file) {
+            async showFolderContextMenu(event, file_path, file) {
                 this.$store.commit("openContextMenu", {
                     x_position: event.clientX,
                     y_position: event.clientY,
-                    menu: FOLDER_CONTEXT_MENU(file_path, file)
+                    menu: await FOLDER_CONTEXT_MENU(file_path, file)
                 });
             }
         },
