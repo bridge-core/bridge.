@@ -117,6 +117,11 @@
                 "minecraft:mark_variant": {
                   "value": 1
                 },
+                "minecraft:behavior.panic": {
+                    "priority": 1,
+                    "speed_multiplier": 1.25,
+                    "force": true
+                  },
                 "minecraft:timer": {
                     "looping": false,
                     "time": [10, 60],
@@ -478,23 +483,31 @@
         },
         "events": {
             "minecraft:entity_spawned": {
-                "randomize": [
+                "sequence": [
                     {
-                        "weight": 95,
-                        "add": {
-                            "component_groups": [
-                                "bee_adult",
-                                "track_attacker",
-                                "shelter_detection",
-                                "look_for_food"
-                            ]
-                        }
+                        "randomize": [
+                            {
+                                "weight": 95,
+                                "add": {
+                                    "component_groups": [
+                                        "bee_adult"
+                                    ]
+                                }
+                            },
+                            {
+                                "weight": 5,
+                                "add": {
+                                    "component_groups": [
+                                        "bee_baby"
+                                    ]
+                                }
+                            }
+                        ]
                     },
                     {
-                        "weight": 5,
                         "add": {
                             "component_groups": [
-                                "bee_baby",
+                                "track_attacker",
                                 "shelter_detection",
                                 "look_for_food"
                             ]
@@ -507,6 +520,7 @@
                     "component_groups": [
                         "bee_baby",
                         "shelter_detection",
+                        "track_attacker",
                         "look_for_food"
                     ]
                 }
@@ -519,8 +533,7 @@
                 },
                 "add": {
                     "component_groups": [
-                        "bee_adult",
-                        "track_attacker"
+                        "bee_adult"
                     ]
                 }
             },
@@ -541,11 +554,21 @@
                 }
             },
             "hive_destroyed": {
-                "add": {
-                    "component_groups": [
-                        "take_nearest_target"
-                    ]
-                }
+                "sequence": [
+                    {
+                        "filters": {
+                            "test": "is_family",
+                            "subject": "self",
+                            "operator": "!=",
+                            "value": "pacified"
+                        },
+                        "add": {
+                            "component_groups": [
+                                "take_nearest_target"
+                            ]
+                        }
+                    }
+                ]
             },
             "minecraft:exited_hive": {
                 "add": {

@@ -8,20 +8,31 @@ interface Module {
     uuid: string;
     version: [number, number, number];
 }
+interface Header {
+    name: string;
+    description: string;
+    uuid: string;
+    version: [number, number, number];
+    min_engine_version: [number, number, number];
+}
+interface Dependency {
+    version: [number, number, number];
+    uuid: string;
+}
 
 export default class Manifest {
     format_version = 1;
-    header: any;
+    header: Header;
     modules: Module[];
-    dependencies: any[];
+    dependencies: Dependency[];
     
-    constructor(type: "resources" | "data", client_data?: boolean, dependency?: string) {
+    constructor(type: "resources" | "data", client_data?: boolean, dependency?: Dependency) {
         this.header = {
             name: "pack.name",
             description: "pack.description",
             uuid: uuidv4(),
             version: [ 1, 0, 0 ],
-            min_engine_version: [ 1, 0, 0 ]
+            min_engine_version: [ 1, 13, 0 ]
         };
         this.modules = [
             {
