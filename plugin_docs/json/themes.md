@@ -21,6 +21,7 @@ bridge. applies the default color theme first and then overwrites it with the th
 | Name | Type | Description 
 | --- | --- | ---
 | ```no_logo_display``` | ```Boolean``` | Whether to display the blue bridge. logo or simply "bridge."
+| ```inherit_highlighter``` | ```Boolean``` | Whether your theme highlighter should use the default bridge. highlighter as a basis
 
 #### ThemeDefinition
 | Name | Type | Description 
