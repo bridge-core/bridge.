@@ -9,8 +9,8 @@ Since v0.13.0-pre10 it is possible to define which file data you want to cache. 
 ### Built-in References
 | Reference | Description 
 | --- | --- 
-| ```$dynamic.bridge_core.is_active``` | Returns whether the bridge. Core plugin is active
-| ```$dynamic.bridge_core.is_not_active``` | Returns whether the bridge.  plugin is not active
+| ```$dynamic.bridge_core.is_active``` | Returns whether bridge. Core plugin is active
+| ```$dynamic.bridge_core.is_not_active``` | Returns whether bridge. Core is not active
 | ```$dynamic.plugins.custom_components``` | Returns the auto-completion data for currently registered custom components
 | ```$dynamic.list.next_index``` | Returns the next array index
 | ```$dynamic.list.index_pair``` | Returns only "0" & "1"
