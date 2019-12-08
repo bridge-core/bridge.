@@ -18,10 +18,10 @@ bridge. applies the default color theme first and then overwrites it with the th
 | ```definition``` | ```Object<ThemeDefinition>``` | Theme definition object
 
 #### OptionObject
-| Name | Type | Description 
-| --- | --- | ---
-| ```no_logo_display``` | ```Boolean``` | Whether to display the blue bridge. logo or simply "bridge."
-| ```inherit_highlighter``` | ```Boolean``` | Whether your theme highlighter should use the default bridge. highlighter as a basis
+| Name | Type | Default | Description 
+| --- | --- | --- | ---
+| ```no_logo_display``` | ```Boolean``` | ```false``` | Whether to display the blue bridge. logo or simply "bridge."
+| ```inherit_highlighter``` | ```Boolean``` | ```false``` | Whether your theme highlighter should use the default bridge. highlighter as a basis
 
 #### ThemeDefinition
 | Name | Type | Description 
