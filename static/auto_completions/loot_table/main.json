@@ -21,7 +21,8 @@
                             "pools": "$loot_table.main.pools"
                         },
                         "loot_table": {
-                            "name": "$dynamic.loot_table_files"
+                            "name": "$dynamic.loot_table_files",
+                            "weight": "$general.number"
                         }
                     }
                 }
