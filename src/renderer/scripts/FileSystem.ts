@@ -18,16 +18,14 @@ document.addEventListener("dragover", event => {
     event.preventDefault();
 });
 document.addEventListener("drop", event => {
-    let win: LoadingWindow;
     event.preventDefault();
-    let files = event.dataTransfer.files;
+    
+    let win: LoadingWindow;
+    let files = Array.from(event.dataTransfer.files);
     if(files.length !== 0) win = new LoadingWindow("save-file").show();
-    // console.log(event.dataTransfer.files)
 
     setTimeout(() => {
-        //@ts-ignore
         for(let file of files) {
-            console.log(file);
             FileSystem.open(file.path, () => win.close());
         }        
     }, 100);

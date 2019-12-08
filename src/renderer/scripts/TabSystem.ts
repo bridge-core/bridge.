@@ -41,8 +41,8 @@ export interface Tab {
  * @todo Class JsonSelection to handle selected nodes
  */
 class TabSystem {
-    projects: { [x: string]: Tab[] };
-    selected = 0;
+    private projects: { [x: string]: Tab[] };
+    private selected = 0;
     constructor() {
         this.projects = {};
     }

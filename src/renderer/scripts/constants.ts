@@ -19,16 +19,19 @@ export * from "../../shared/Paths";
 export const BASE_PATH = BP_BASE_PATH;
 
 export const CURRENT = {
-    get PROJECT_PATH() {
-        return path.join(BASE_PATH, Store.state.Explorer.project.explorer);
-    },
     get PROJECT() {
         return Store.state.Explorer.project.explorer;
     },
     get RESOURCE_PACK() {
         return Store.state.Explorer.project.resource_pack;
     },
+    
+    get PROJECT_PATH() {
+        if(!CURRENT.PROJECT) throw new Error("CURRENT.PROJECT is not defined yet!");
+        return path.join(BASE_PATH, CURRENT.PROJECT);
+    },
     get RP_PATH() {
-        return path.join(RP_BASE_PATH, Store.state.Explorer.project.resource_pack);
+        if(!CURRENT.RESOURCE_PACK) throw new Error("CURRENT.RESOURCE_PACK is not defined yet!");
+        return path.join(RP_BASE_PATH, CURRENT.RESOURCE_PACK);
     }
 };

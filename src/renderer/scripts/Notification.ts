@@ -7,7 +7,7 @@ import uuid from "uuid/v4";
 
 export interface BadgeConfig {
     color: string;
-    type: 'icon' | 'text';
+    type: "icon" | "text";
     content: string;
 }
 export interface NotificationConfig {
@@ -20,7 +20,7 @@ export interface NotificationConfig {
 
 export class Badge {
     color: string;
-    type: 'icon' | 'text';
+    type: "icon" | "text";
     content: string;
     constructor({ color, type, content }: BadgeConfig) {
         this.color = color;
@@ -37,7 +37,7 @@ export default class Notification {
     text_color: string;
     is_pushed: boolean;
     badge: Badge;
-    action: () => any;
+    action: () => void;
 
     constructor({ display_name, display_icon, action, color, text_color }: NotificationConfig) {
         this.id = uuid();
