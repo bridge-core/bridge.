@@ -143,7 +143,7 @@
                                     color: "info",
                                     action: () => {
                                         ready_push.remove();
-                                        remote.shell.showItemInFolder(MOJANG_PATH);
+                                        remote.shell.showItemInFolder(join(MOJANG_PATH, `${project_name}.mcaddon`));
                                     }
                                 }).send();
                             });
@@ -185,7 +185,7 @@
                     color: "info",
                     action: () => {
                         ready_push.remove();
-                        remote.shell.showItemInFolder(MOJANG_PATH);
+                        remote.shell.showItemInFolder(join(MOJANG_PATH, `${this.selected}.mcpack`));
                     }
                 }).send();
             },

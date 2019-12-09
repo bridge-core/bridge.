@@ -3,7 +3,7 @@ declare var __static: string;
 import fs from "fs";
 import APP_VERSION from "../../shared/app_version";
 import path from "path";
-import { MOJANG_PATH, BP_BASE_PATH, RP_BASE_PATH } from "../../shared/Paths";
+import { BP_BASE_PATH, RP_BASE_PATH } from "../../shared/Paths";
 import Store from "../store/index";
 
 export const WEB_APP_DATA = "https://solveddev.github.io/bridge-data/";
@@ -14,7 +14,7 @@ export const DOC_LIST = [ "Entities", "Item", "Blocks", "Biomes", "Addons", "MoL
 
 export const MINECRAFT_VERSIONS = JSON.parse(fs.readFileSync(path.join(__static, "auto_completions/versions.json")).toString("UTF-8"));
 
-export { APP_VERSION, MOJANG_PATH };
+export { APP_VERSION };
 export * from "../../shared/Paths";
 export const BASE_PATH = BP_BASE_PATH;
 

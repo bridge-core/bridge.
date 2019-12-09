@@ -57,7 +57,7 @@
 </template>
 
 <script>
-    import { shell } from "electron";
+    import { shell, remote } from "electron";
     import CreateFileWindow from "../../../../windows/CreateFile";
     import LoadingWindow from "../../../../windows/LoadingWindow";
     import { zip } from "zip-a-folder";
@@ -97,7 +97,7 @@
                     color: "info",
                     action: () => {
                         ready_push.remove();
-                        remote.shell.showItemInFolder(MOJANG_PATH);
+                        remote.shell.showItemInFolder(join(MOJANG_PATH, `${this.selected}.mcpack`));
                     }
                 }).send();
             },
