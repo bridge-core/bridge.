@@ -93,6 +93,7 @@
         :color="content.color || 'default_button'"
         :rounded="content.is_rounded"
         :text="content.is_flat"
+        :block="content.is_block"
         :disabled="content.is_disabled"
         :loading="content.is_loading"
     >

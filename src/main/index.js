@@ -4,10 +4,18 @@ import "./Discord";
 import { BP_BASE_PATH } from "../shared/Paths";
 import { join } from "path";
 import MENU from "./menuBuilder";
+import fs from "fs";
+import { DATA_PATH } from "../shared/DefaultDir";
+
+const SETTINGS = JSON.parse(fs.readFileSync(join(DATA_PATH, "settings")).toString())
 
 //Set __static path to static files in production
 if (process.env.NODE_ENV !== "development") {
     global.__static = require("path").join(__dirname, "/static").replace(/\\/g, "\\\\")
+}
+
+if(SETTINGS.disable_hardware_acceleration) {
+    app.disableHardwareAcceleration();
 }
 
 let mainWindow, loadingWindow, windowOptions = {

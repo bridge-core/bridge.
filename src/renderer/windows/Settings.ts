@@ -7,7 +7,7 @@ import fs from "fs";
 import AddSnippetWindow from "./AddSnippet";
 import Snippets from "./Snippets";
 import ProblemIterator from "../scripts/editor/problems/Problems";
-import { ipcRenderer } from "electron";
+import { ipcRenderer, remote } from "electron";
 import ConfirmWindow from "../scripts/commonWindows/Confirm";
 import ThemeManager from "../scripts/editor/ThemeManager";
 import ProjectConfig from "../scripts/ProjectConfig";
@@ -373,8 +373,30 @@ export default class SettingsWindow extends TabWindow {
                     type: "button",
                     text: "Toggle Dev Tools",
                     color: "warning",
-                    is_rounded: false,
+                    is_block: true,
                     action: () => ipcRenderer.send("toggleDevTools")
+                },
+                {
+                    text: "\n"
+                },
+                {
+                    type: "button",
+                    text: this.data.disable_hardware_acceleration ? "Enable Hardware Acceleration" : "Disable Hardware Acceleration",
+                    color: this.data.disable_hardware_acceleration ? "success" : "error",
+                    is_block: true,
+                    action: () => {
+                        new ConfirmWindow(() => {
+                            this.data.disable_hardware_acceleration = !this.data.disable_hardware_acceleration;
+                            this.save();
+                            remote.app.relaunch();
+                        }, () => {}, "Disabling/enabling hardware acceleration requires an app restart. Make sure to save your progress first!", {
+                            cancel_text: "Cancel",
+                            confirm_text: "Continue"
+                        })
+                    }
+                },
+                {
+                    text: "\n"
                 },
                 new ReactiveSwitch(this, "is_dev_mode", {
                     color: "error",
