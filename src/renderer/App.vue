@@ -2,23 +2,27 @@
     <div id="app">
         <v-app :style="{ background: $vuetify.theme.themes[theme_variant].background }">
             <app-toolbar/>
+            <sidebar-navigation/>
 
             <v-content :style="`padding-bottom: ${footer_visible ? 44 : 22}px;`">
-                <v-container class="no-padding" fluid fill-height align>
-                    <v-layout style="margin: 0;" row align-space-between all fill-height>
-                        <sidebar-navigation/>
-                        <sidebar-main/>      
-
-                        <v-flex :xs10="is_sidebar_open" :xs12="!is_sidebar_open">
-                            <editor-shell-tab-system/>
-                            <editor-shell-content-manager/>
-
-                            <window-factory-main/>
-                            <context-menu-main/>
-                            <json-editor-hover-card/>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
+                <v-row style="height: 100%;" no-gutters>
+                    <v-col cols="2">
+                        <sidebar-main/>
+                    </v-col>
+                    <v-col
+                        @click="setSplitScreen(false)"
+                        :style="`border-right: 1px solid ${is_dark_mode ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'} !important;`"
+                        :cols="5 * has_split_screen"
+                    >
+                        <editor-shell-tab-system/>
+                        <editor-shell-content-manager/>
+                    </v-col>
+                    <v-col @click="setSplitScreen(true)" v-if="has_split_screen" cols="5">
+                        <editor-shell-tab-system :split_screen="true"/>
+                        <editor-shell-content-manager :split_screen="true"/>
+                    </v-col>
+                </v-row>
+                
             </v-content>
 
             <v-footer color="footer" :class="footer_visible ? 'big' : ''" fixed padless app>
@@ -29,6 +33,10 @@
                     created by <a class="grey--text text--lighten-1" @click="openTwitter">solvedDev</a>
                 </span>
             </v-footer>
+
+            <window-factory-main/>
+            <context-menu-main/>
+            <json-editor-hover-card/>
         </v-app>
     </div>
 </template>
@@ -48,6 +56,7 @@
     import startUp from "./scripts/utilities/startUp";
     import EventBus from './scripts/EventBus';
     import Vue from "vue";
+    import TabSystem from './scripts/TabSystem';
   
     export default {
         name: 'bridge',
@@ -81,6 +90,7 @@
                     update_styles: theme.update_styles
                 });
             });
+            EventBus.on("updateTabUI", this.updateSplitScreen);
         },
         computed: {
             is_sidebar_open() {
@@ -111,12 +121,19 @@
             return {
                 content: "",
                 file: "",
-                path: ""
+                path: "",
+                has_split_screen: false
             };
         },
         methods: {
             openTwitter() {
                 shell.openExternal("https://twitter.com/solvedDev");
+            },
+            updateSplitScreen() {
+                this.has_split_screen = TabSystem.getCurrentProjects(true).length > 0;
+            },
+            setSplitScreen(val) {
+                TabSystem.split_screen_active = val;
             }
         }
     }

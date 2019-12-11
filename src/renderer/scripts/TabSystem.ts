@@ -34,6 +34,9 @@ export interface Tab {
     is_compiled?: boolean;
     is_invalid?: boolean;
 }
+export interface ProjectData {
+    [x: string]: Tab[];
+}
 
 /**
  * @todo Refactor TabSystem to use dedicated classes IMGTab, CMTab, JSONTab,...
@@ -41,36 +44,80 @@ export interface Tab {
  * @todo Class JsonSelection to handle selected nodes
  */
 class TabSystem {
-    private projects: { [x: string]: Tab[] };
-    private selected = 0;
+    private main_screen_projects: ProjectData;
+    private split_screen_projects: ProjectData;
+    private main_screen_selected = 0;
+    private split_screen_selected = 0;
+
     constructor() {
-        this.projects = {};
+        this.main_screen_projects = {};
+        this.split_screen_projects = {};
     }
     get project() {
         return Store.state.Explorer.project.explorer;
     }
     //Whether the user has unsaved tabs open in any project
     get contains_unsaved() {
-        for(let p in this.projects) {
-            for(let t of this.projects[p])
+        for(let p in this.main_screen_projects) {
+            for(let t of this.main_screen_projects[p])
                 if(t.is_unsaved) return true;
         }
+
+        for(let p in this.split_screen_projects) {
+            for(let t of this.split_screen_projects[p])
+                if(t.is_unsaved) return true;
+        }
+
         return false;
+    }
+    get split_screen_active() {
+        return Store.state.TabSystem.split_screen_active;
+    }
+    set split_screen_active(val: boolean) {
+        Store.commit("setSplitScreenActive", val);
+    }
+    get projects() {
+        return this.split_screen_active ? this.split_screen_projects : this.main_screen_projects;
+    }
+    set projects(val) {
+        if(this.split_screen_active) this.split_screen_projects = val;
+        else this.main_screen_projects = val;
+    }
+    getProjects(split_screen?: boolean): ProjectData {
+        if(split_screen === undefined) return this.projects;
+        else if(split_screen) return this.split_screen_projects;
+        else return this.main_screen_projects;
+    }
+    getCurrentProjects(split_screen?: boolean) {
+        return this.getProjects(split_screen)[this.project] || [];
+    }
+    get selected() {
+        return this.split_screen_active ? this.split_screen_selected : this.main_screen_selected;
+    }
+    set selected(val) {
+        if(this.split_screen_active) this.split_screen_selected = val;
+        else this.main_screen_selected = val;
+    }
+    getSelectedIndex(split_screen?: boolean) {
+        if(split_screen === undefined) return this.selected;
+        else if(split_screen) return this.split_screen_selected;
+        else return this.main_screen_selected;
     }
 
     //Adding tab
-    add(tab: any) {
-        if(this.projects[this.project] === undefined) this.projects[this.project] = [];
+    add(tab: any, split_screen?: boolean) {
+        let projects = this.getProjects(split_screen);
+        if(projects[this.project] === undefined) projects[this.project] = [];
 
-        for(let i = 0; i < this.projects[this.project].length; i++) {
-            if(this.projects[this.project][i].file_path === tab.file_path.replace(/\//g, "\\")) {
+        for(let i = 0; i < projects[this.project].length; i++) {
+            if(projects[this.project][i].file_path === tab.file_path.replace(/\//g, "\\")) {
                 Store.commit("removeLoadingWindow", { id: "open-file" });
                 return this.select(i);
             } 
         }
         
         tab.file_path = tab.file_path.replace(/\//g, "\\");
-        this.projects[this.project].unshift({
+        projects[this.project].unshift({
             file_name: path.basename(tab.file_path),
             ...tab,
             uuid: `${this.project}-${uuid()}`,
@@ -79,7 +126,6 @@ class TabSystem {
             is_unsaved: false,
             history: new History()
         });
- 
         EventBus.trigger("updateTabUI");
         this.select(0);
     }
@@ -209,10 +255,6 @@ class TabSystem {
         current.updateUUID();
 
         EventBus.trigger("updateCurrentContent");
-    }
-    filtered() {
-        if(this.projects[this.project] === undefined) return [];
-        return this.projects[this.project];
     }
     navigationBack() {
         let nav = this.getCurrentNavigation().split("/");
