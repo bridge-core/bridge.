@@ -106,7 +106,14 @@ class TabSystem {
 
     //Adding tab
     add(tab: any, split_screen?: boolean) {
-        let projects = this.getProjects(split_screen);
+        let projects;
+        if((this.main_screen_projects[this.project] || []).length === 0) {
+            this.split_screen_active = false;
+            projects = this.getProjects(false);
+        } else {
+            projects = this.getProjects(split_screen);
+        }
+
         if(projects[this.project] === undefined) projects[this.project] = [];
 
         for(let i = 0; i < projects[this.project].length; i++) {
@@ -158,6 +165,14 @@ class TabSystem {
         this.projects[project].splice(id, 1);
         if(id <= this.selected && this.selected >= 0) {
             this.select(this.selected === 0 ? 0 : this.selected - 1);
+        }
+        
+        //Make split-screen main-screen if main-screen empty
+        if(this.main_screen_projects[this.project].length === 0) {
+            this.main_screen_projects[this.project] = this.split_screen_projects[this.project];
+            this.main_screen_selected = this.split_screen_selected;
+            this.split_screen_projects[this.project] = [];
+            this.split_screen_selected = 0;
         }
 
         EventBus.trigger("updateTabUI");
