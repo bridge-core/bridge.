@@ -29,7 +29,7 @@ export default class NodeShortcuts {
 
     static classicPaste() {
         let node = TabSystem.getCurrentNavObj();
-        if(node.data !== "") return; 
+        if(node === undefined || node.data !== "") return; 
         
         try {
             node.buildFromObject(JSON.parse(clipboard.readText()), undefined, true);
@@ -49,7 +49,7 @@ export default class NodeShortcuts {
 
     static paste() {
         let node = TabSystem.getCurrentNavObj();
-        if(node.data !== "") return; 
+        if(node === undefined || node.data !== "") return; 
         
         try {
             let obj = JSON.parse(clipboard.readText());
