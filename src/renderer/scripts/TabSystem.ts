@@ -59,12 +59,12 @@ class TabSystem {
     //Whether the user has unsaved tabs open in any project
     get contains_unsaved() {
         for(let p in this.main_screen_projects) {
-            for(let t of this.main_screen_projects[p])
+            for(let t of (this.main_screen_projects[p] || []))
                 if(t.is_unsaved) return true;
         }
 
         for(let p in this.split_screen_projects) {
-            for(let t of this.split_screen_projects[p])
+            for(let t of (this.split_screen_projects[p] || []))
                 if(t.is_unsaved) return true;
         }
 
