@@ -6,6 +6,7 @@
                 :file="file" 
                 :available_height="available_height"
                 :tab_id="i"
+                :is_active="$store.state.TabSystem.split_screen_active ? split_screen : !split_screen"
                 :uuid="`(${selected_project}-${i}`"
             ></file-manager>
         </span> 
@@ -21,6 +22,12 @@
 
     export default {
         name: "editor-shell-content-manager",
+        props: {
+            split_screen: {
+                type: Boolean,
+                default: false
+            }
+        },
         components: {
             WelcomeScreen,
             FileManager
@@ -38,8 +45,8 @@
         data() {
             return {
                 available_height: window.innerHeight - 92,
-                open_files: TabSystem.filtered(),
-                selected_tab: TabSystem.selected
+                open_files: TabSystem.getCurrentProjects(this.split_screen),
+                selected_tab: TabSystem.getSelectedIndex(this.split_screen)
             };
         },
         methods: {
@@ -47,11 +54,11 @@
                 this.available_height = window.innerHeight - this.base_height;
             },
             setOpenFiles() {
-                this.open_files = TabSystem.filtered();
+                this.open_files = TabSystem.getCurrentProjects(this.split_screen);
             },
             updateSelectedTab() {
                 EventBus.trigger("bridge:closeTextCompletions");
-                this.selected_tab = TabSystem.selected;
+                this.selected_tab = TabSystem.getSelectedIndex(this.split_screen);
             }
         },
         computed: {
@@ -59,7 +66,7 @@
             //     return this.$store.getters.open_files();
             // },
             // selected_tab() {
-            //     return this.$store.state.TabSystem.selected_tab;
+            //     return this.$store.state.TabSystem.getSelectedIndex(this.split_screen)_tab;
             // },
             base_height() {
                 return 98 + 22 * this.footer_visible;

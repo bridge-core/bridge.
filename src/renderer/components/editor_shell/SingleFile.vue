@@ -14,6 +14,7 @@
             :uuid="use_uuid"
             :current_file_path="file.file_path"
             :is_immutable="file.is_immutable"
+            :is_active="is_active"
         />
         <span v-else>
             <codemirror
@@ -69,7 +70,8 @@
             file: Object,
             available_height: Number,
             tab_id: Number, 
-            uuid: String
+            uuid: String,
+            is_active: Boolean
         },
         created() {
             loadAllTextHighlighters();
@@ -225,24 +227,31 @@
         },
         methods: {
             setCMTextSelection(sel_obj_1, sel_obj_2) {
+                if(!this.is_active) return;
                 this.codemirror.setSelection(sel_obj_1, sel_obj_2);
             },
             setCMSelection(str) {
+                if(!this.is_active) return;
                 this.codemirror.replaceSelection(str);
             },
             getCMSelection(cb) {
+                if(!this.is_active) return;
                 cb(this.codemirror.getSelection());
             },
             cmUndo() {
+                if(!this.is_active) return;
                 this.codemirror.execCommand("undo");
             },
             cmRedo() {
+                if(!this.is_active) return;
                 this.codemirror.execCommand("redo");
             },
             cmFocus() {
+                if(!this.is_active) return;
                 this.codemirror.focus();
             },
             shouldUpdateSuggestions(event) {
+                if(!this.is_active) return;
                 TextProvider.compile(event.doc, this.file.file_path, this.codemirror.cursorCoords(true));
             },
             getEncoded(type, ext, data) {

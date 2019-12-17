@@ -43,7 +43,8 @@
             tab_id: Number,
             render_object: Object,
             file_navigation: String,
-            current_file_path: String
+            current_file_path: String,
+            is_active: Boolean
         },
         data() {
             return {
@@ -55,17 +56,20 @@
             if(this.type == "edit") {
                 this.value = TabSystem.getCurrentNavContent();
                 EventBus.on("updateFileNavigation", this.updateValue);
-                EventBus.on("setWatcherInactive", () => this.watcher_active = false);
+                EventBus.on("setWatcherInactive", () => {
+                    if(!this.is_active) return;
+                    this.watcher_active = false;
+                });
             } else {
                 this.updateAutoCompletions();
-                EventBus.on("updateAutoCompletions", () => this.updateAutoCompletions());
+                EventBus.on("updateAutoCompletions", this.updateAutoCompletions);
             }
         },
         destroyed() {
             if(this.type == "edit") {
                 EventBus.off("updateFileNavigation", this.updateValue);
             } else {
-                EventBus.off("updateAutoCompletions", () => this.updateAutoCompletions());
+                EventBus.off("updateAutoCompletions", this.updateAutoCompletions);
             }
         },
         watch: {
@@ -154,6 +158,8 @@
             },
 
             updateAutoCompletions() {
+                if(!this.is_active) return;
+                
                 if(!this.provide_auto_completions) {
                     this.items = [];
                     return;
@@ -185,6 +191,7 @@
                 TabSystem.setCurrentFileNav(`${TabSystem.getCurrentNavigation()}/${path}`);
             },
             updateValue() {
+                if(!this.is_active) return;
                 this.watcher_active = false;
                 this.value = TabSystem.getCurrentNavContent();    
             },

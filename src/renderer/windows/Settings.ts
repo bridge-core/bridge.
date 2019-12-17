@@ -389,6 +389,7 @@ export default class SettingsWindow extends TabWindow {
                             this.data.disable_hardware_acceleration = !this.data.disable_hardware_acceleration;
                             this.save();
                             remote.app.relaunch();
+                            remote.app.quit();
                         }, () => {}, "Disabling/enabling hardware acceleration requires an app restart. Make sure to save your progress first!", {
                             cancel_text: "Cancel",
                             confirm_text: "Continue"

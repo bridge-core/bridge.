@@ -125,12 +125,13 @@
             show_comment: {
                 default: true,
                 type: Boolean
-            }
+            },
+            is_active: Boolean
         },
         computed: {
             selected_class() {
                 if(this.$el && this.is_selected() && this.$store.state.Settings.auto_scroll_json) this.$el.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-                return this.is_selected() ? "selected" : "";
+                return this.is_selected() && this.is_active ? "selected" : "";
             },
             inversed_arrows() {
                 return this.$store.state.Settings.inversed_arrows;

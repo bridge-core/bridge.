@@ -19,6 +19,7 @@
                             :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                             :node_context="e"
                             :is_immutable="is_immutable"
+                            :is_active="is_active"
                         />
 
                         <json-editor-main 
@@ -28,6 +29,7 @@
                             :tab_id="tab_id"
                             :object_key="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                             :is_immutable="is_immutable"
+                            :is_active="is_active"
                         />
                     </details>
                 </draggable>
@@ -51,6 +53,7 @@
                     :tab_id="tab_id"
                     :file_navigation="file_navigation"
                     :current_file_path="current_file_path"
+                    :is_active="is_active"
                 />
                 <json-input
                     ref="edit"
@@ -59,6 +62,7 @@
                     type="edit"
                     :file_navigation="file_navigation"
                     :current_file_path="current_file_path"
+                    :is_active="is_active"
                 />
             </template>
             <template v-else>
@@ -71,6 +75,7 @@
                     :key="`${input_type}`"
                     :file_navigation="file_navigation"
                     :current_file_path="current_file_path"
+                    :is_active="is_active"
                 />
             </template>
         </v-layout>
@@ -99,6 +104,7 @@
             draggable
         },
         props: {
+            is_active: Boolean,
             available_height: Number,
             current_file_path: String,
             object: [String, Object, Number, Boolean, Array],
@@ -127,6 +133,8 @@
                     this.file_navigation = TabSystem.getCurrentNavigation();
                 });
                 EventBus.on("updateCurrentContent", (new_o=this.computed_object()) => {
+                    if(!this.is_active) return;
+
                     this.render_object = new_o;
                 });
 
@@ -170,7 +178,7 @@
             },
 
             key_selected_class() {
-                return this.is_selected(undefined, "/" + this.evaluated_key) ? "selected" : "";
+                return this.is_selected(undefined, "/" + this.evaluated_key) && this.is_active ? "selected" : "";
             },
             value_data() {
                 return this.render_object.data;

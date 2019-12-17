@@ -44,7 +44,8 @@
             tab_id: Number,
             render_object: Object,
             file_navigation: String,
-            current_file_path: String
+            current_file_path: String,
+            is_active: Boolean
         },
         data() {
             return {
@@ -55,10 +56,10 @@
         },
         mounted() {
             this.updateAutoCompletions();
-            EventBus.on("updateAutoCompletions", () => this.updateAutoCompletions());
+            EventBus.on("updateAutoCompletions", this.updateAutoCompletions);
         },
         destroyed() {
-            EventBus.off("updateAutoCompletions", () => this.updateAutoCompletions());
+            EventBus.off("updateAutoCompletions", this.updateAutoCompletions);
         },
         watch: {
             file_navigation(nav) {
@@ -124,6 +125,7 @@
 
             updateAutoCompletions() {
                 this.mode = "object";
+                if(!this.is_active) return;
 
                 if(!this.provide_auto_completions) {
                     this.items = [];
