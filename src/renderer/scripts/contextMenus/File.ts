@@ -22,7 +22,7 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
     const file_name = path.basename(file_path);
     const DEFAULT_MENU = [
         {
-            title: "Open Split-Screen",
+            title: "Open to the Side",
             action: () => {
                 TabSystem.split_screen_active = true;
                 FileSystem.open(file_path)

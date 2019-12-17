@@ -170,9 +170,12 @@ class TabSystem {
         //Make split-screen main-screen if main-screen empty
         if(this.main_screen_projects[this.project].length === 0) {
             this.main_screen_projects[this.project] = this.split_screen_projects[this.project];
-            this.main_screen_selected = this.split_screen_selected;
             this.split_screen_projects[this.project] = [];
+            this.main_screen_selected = this.split_screen_selected;
             this.split_screen_selected = 0;
+            this.split_screen_active = false;
+        } else if(this.split_screen_projects[this.project].length === 0) {
+            this.split_screen_active = false;
         }
 
         EventBus.trigger("updateTabUI");

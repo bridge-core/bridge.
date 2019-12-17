@@ -268,9 +268,6 @@
             },
             content_as_string() {
                 if(this.file_viewer === 'text') TabSystem.setCurrentUnsaved();
-            },
-            is_active(to) {
-                console.log(to);
             }
         }
     }
