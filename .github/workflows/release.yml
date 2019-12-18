@@ -24,7 +24,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          build/*.exe
+          build/nsis-web/*.exe
+          build/nsis-web/*.nsis.7z
           build/*.snap
           build/*.AppImage
           build/*.dmg
