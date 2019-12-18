@@ -1,6 +1,6 @@
 {
   "name": "bridge",
-  "version": "0.13.28",
+  "version": "0.13.29",
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
   "license": "GNU",
@@ -48,7 +48,7 @@
       "icon": "build/icons/icon.ico",
       "target": [
         {
-          "target": "nsis",
+          "target": "nsis-web",
           "arch": [
             "x64",
             "ia32"

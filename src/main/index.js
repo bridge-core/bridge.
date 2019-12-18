@@ -7,7 +7,11 @@ import MENU from "./menuBuilder";
 import fs from "fs";
 import { DATA_PATH } from "../shared/DefaultDir";
 
-const SETTINGS = JSON.parse(fs.readFileSync(join(DATA_PATH, "settings")).toString())
+let SETTINGS = {};
+try {
+    SETTINGS = JSON.parse(fs.readFileSync(join(DATA_PATH, "settings")).toString());
+} catch(e) {}
+ 
 
 //Set __static path to static files in production
 if (process.env.NODE_ENV !== "development") {
