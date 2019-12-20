@@ -70,7 +70,7 @@ export class BridgeCore {
     }
 
     /**
-     * @param {boolean} simulated_call Whether the function call is coming from the JSONFileMasks.apply(...) method. The data received is not open inside a tab
+     * @param {boolean} simulated_call Whether the function call is coming from the JSONFileMasks.apply(...) method. The data received is not open inside of a tab
      */
     static async beforeSave(data: any, file_path=TabSystem.getCurrentFilePath(), depth=100, simulated_call=false, file_uuid?: string) {
         if(depth <= 0) {

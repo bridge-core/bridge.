@@ -26,7 +26,7 @@ export class JSONMask {
     overwrite(channel: string, mask_data: any) {
         this.data[channel] = mask_data;
     }
-    reset(channel: string) {
+    reset(channel?: string) {
         if(!channel) this.data = {};
         else this.data[channel] = undefined;
     }
@@ -59,7 +59,7 @@ export class SharedJSONMask extends JSONMask {
 
 export class JSONFileMasks {
     private static data: { [f: string]: JSONMask };
-    private static shared_data = new SharedJSONMask(); //Data shared between all files
+    private static shared_data = new SharedJSONMask(); //Data shared between all files; TODO: Allow unique shared data per file type
 
 
     static async get(file_path: string) {

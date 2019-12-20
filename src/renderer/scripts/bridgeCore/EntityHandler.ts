@@ -96,13 +96,13 @@ function transformEvent(
 }
 
 export async function handleTags(file_path: string, tags: string[]=[], simulated_call: boolean) {
+    if(simulated_call) return;
     const MASK = await JSONFileMasks.get(file_path);
 
     //RESET OLD CHANNELS
-    if(!simulated_call) {
-        let { bridge_core_tags } = await LightningCache.loadType(file_path, FileType.get(file_path)) || {};
-        (bridge_core_tags || []).forEach(t => MASK.reset(`tag@${t}`));
-    }
+    let { bridge_core_tags } = await LightningCache.loadType(file_path, FileType.get(file_path)) || {};
+    (bridge_core_tags || []).forEach(t => MASK.reset(`tag@${t}`));
+
 
     if(!Array.isArray(tags) || tags.length === 0) return;
 

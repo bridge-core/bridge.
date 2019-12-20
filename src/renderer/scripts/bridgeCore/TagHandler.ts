@@ -21,11 +21,13 @@ export default async function TagHandler({ file_path, data, depth }: OnSaveData)
     if(!identifier) return;
 
     let refs = await FetchDefinitions.fetchSingle("entity", [ "bridge_core_tags" ], identifier, true);
+
     await Promise.all(refs.map(async f => {
         const MASK = await JSONFileMasks.get(f);
         MASK.overwrite(`tag@${identifier}`, {
             "minecraft:entity": { description, ...entity }
         });
+
         await JSONFileMasks.apply(f, depth - 1);
     })).catch(console.error);
 }
