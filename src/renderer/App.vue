@@ -12,7 +12,7 @@
                     <v-col
                         @click="setSplitScreen(false)"
                         :style="`border-right: 1px solid ${is_dark_mode ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'} !important;`"
-                        :cols="5 * has_split_screen"
+                        :cols="5 + 5 * !has_split_screen"
                     >
                         <editor-shell-tab-system/>
                         <editor-shell-content-manager/>
