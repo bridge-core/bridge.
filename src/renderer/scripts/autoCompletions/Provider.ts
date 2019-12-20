@@ -137,8 +137,13 @@ class Provider {
         return this.start_state = "unknown";
     }
 
-    get(path: string, context?: JSONTree) {
-        if(this.start_state === "unknown") return { object: [], value: [], META: {} };
+    get(path: string, file_path?: string, context?: JSONTree) {
+        //Set validator if file_path !== undefined
+        if(file_path !== undefined) 
+            this.validator(file_path);
+        if(this.start_state === "unknown")
+            return { object: [], value: [], META: {} };
+
         path = path.replace("global", 
             VersionMap.convert(this.start_state, Store.state.Settings.target_version)
         );

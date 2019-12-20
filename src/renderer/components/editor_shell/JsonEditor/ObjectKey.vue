@@ -155,7 +155,7 @@
         },
         methods: {
             is_selected() {
-                return TabSystem.getCurrentNavigation() == this.object_key;
+                return TabSystem.getCurrentNavigation() === this.object_key;
                 //return this.$store.getters.current_internal_file_path() == this.object_key;
             },
             open_current() {

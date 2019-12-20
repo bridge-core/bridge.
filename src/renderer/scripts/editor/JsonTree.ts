@@ -18,10 +18,7 @@ function getType(data: any) {
     if(Array.isArray(data)) return "array";
     return typeof data;
 }
-export function changeProvider(new_path: string) {
-    if(PROVIDER === undefined) PROVIDER = new Provider("");
-    PROVIDER.validator(new_path);
-}
+
 
 export class TreeIterator {
     stack: Stack<{ node: JSONTree; step: number; }>;
@@ -338,9 +335,11 @@ export default class JSONTree {
     }
 
     propose(path=this.path) {
+        if(PROVIDER === undefined)
+            PROVIDER = new Provider("");
         //console.log(PROVIDER.get(path), path)
         if(Store.state.Settings.bridge_predictions) {
-            let { META, ...propose } = PROVIDER.get(path, this);
+            let { META, ...propose } = PROVIDER.get(path, TabSystem.getCurrentFilePath(), this);
             this.addMeta(META);
 
             this.propose_cache = null;
@@ -348,7 +347,7 @@ export default class JSONTree {
             return propose;
         } else {
             if(this.propose_cache_uses === 0) {
-                let { META, ...propose } = PROVIDER.get(path, this);
+                let { META, ...propose } = PROVIDER.get(path, TabSystem.getCurrentFilePath(), this);
                 this.addMeta(META);
 
                 this.propose_cache = propose;

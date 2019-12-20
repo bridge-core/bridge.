@@ -7,7 +7,6 @@ import { Format } from "./editor/Json";
 import FileSystem from "./FileSystem";
 import PluginEnv from "./plugins/PluginEnv";
 import JSONTree from "./editor/JsonTree";
-import { changeProvider } from "./editor/JsonTree";
 import LoadingWindow from "../windows/LoadingWindow";
 import { History } from "./TabSystem/CommonHistory";
 import ProblemIterator from "./editor/problems/Problems";
@@ -74,7 +73,10 @@ class TabSystem {
         return Store.state.TabSystem.split_screen_active;
     }
     set split_screen_active(val: boolean) {
+        if(val === this.split_screen_active) return;
+
         Store.commit("setSplitScreenActive", val);
+        EventBus.trigger("updateFileNavigation", this.getCurrentNavigation());
     }
     get projects() {
         return this.split_screen_active ? this.split_screen_projects : this.main_screen_projects;
@@ -292,8 +294,6 @@ class TabSystem {
         
         if(this.getSelected()) {
             let sel = this.getSelected();
-            //UPDATES AUTO_COMPLETIONS
-            changeProvider(sel.file_path);
 
             //PLUGIN TRIGGER
             PluginEnv.trigger("bridge:changedTab", { 
@@ -311,7 +311,10 @@ class TabSystem {
         
         this.projects[this.project][tab].file_navigation = str_path;
         EventBus.trigger("updateFileNavigation", str_path);
-        PluginEnv.trigger("bridge:selectedNode", { node: this.getSelected().content.get(str_path) }, true);
+        
+        try {
+            PluginEnv.trigger("bridge:selectedNode", { node: this.getSelected().content.get(str_path) }, true);
+        } catch(e) {}
     }
     setCurrentFileNav(val: string) {
         this.selectNavigation(val);
