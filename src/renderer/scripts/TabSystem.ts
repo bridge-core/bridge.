@@ -176,7 +176,7 @@ class TabSystem {
             this.main_screen_selected = this.split_screen_selected;
             this.split_screen_selected = 0;
             this.split_screen_active = false;
-        } else if(this.split_screen_projects[this.project].length === 0) {
+        } else if(this.split_screen_projects[this.project] !== undefined &&  this.split_screen_projects[this.project].length === 0) {
             this.split_screen_active = false;
         }
 
@@ -311,7 +311,7 @@ class TabSystem {
         
         this.projects[this.project][tab].file_navigation = str_path;
         EventBus.trigger("updateFileNavigation", str_path);
-        
+
         try {
             PluginEnv.trigger("bridge:selectedNode", { node: this.getSelected().content.get(str_path) }, true);
         } catch(e) {}
