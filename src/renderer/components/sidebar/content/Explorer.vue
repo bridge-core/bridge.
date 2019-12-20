@@ -279,11 +279,9 @@
             },
 
             async getCurrentPacks() {
-                let potential = (await fs.readdir(BP_BASE_PATH));
-                let stats = potential.map(pot => fs.stat(path.join(BP_BASE_PATH, pot)));
-                stats = await Promise.all(stats).catch(console.error);
-
-                return potential.filter((pot, i) => stats[i].isDirectory());
+                let potential = await fs.readdir(BP_BASE_PATH, { withFileTypes: true });
+                return potential.filter(dirent => dirent.isDirectory())
+                    .map(dirent => dirent.name);
             }
         }
     }
