@@ -39,6 +39,12 @@
         "mutate_transformation": {
             "$dynamic.list.next_index": "$dynamic.biome.name_references and $biome.general.vanilla_biomes"
         },
+        "shore_transformation": {
+            "$dynamic.list.next_index": "$dynamic.biome.name_references and $biome.general.vanilla_biomes"
+        },
+        "river_transformation": {
+            "$dynamic.list.next_index": "$dynamic.biome.name_references and $biome.general.vanilla_biomes"
+        },
         "generate_for_climates": {
             "$dynamic.list.next_index": {
                 "0": "$biome.general.temperature",
