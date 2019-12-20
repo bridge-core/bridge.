@@ -28,7 +28,7 @@
                 <v-icon small>mdi-book-open-page-variant</v-icon>
             </v-btn>
             <v-icon
-                v-if="isSelected(i) && getIcon(file.file_path)"
+                v-if="getIcon(file.file_path)"
                 :color="isSelected(i) ? 'primary' : undefined"
                 small
             >
