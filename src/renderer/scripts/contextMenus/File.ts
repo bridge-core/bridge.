@@ -77,18 +77,7 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
                     label: "Name",
                     header: "Name Input",
                     expand_text: path.extname(file_path)
-                }, async (new_name: string) => {
-                    let closed = TabSystem.closeByPath(file_path);
-
-                    let new_path = path.join(path.dirname(file_path), new_name);
-                    OmegaCache.duplicate(file_path, new_path);
-                    LightningCache.duplicate(file_path, new_path);
-                    JSONFileMasks.duplicate(file_path, new_path);
-                    
-                    await fs.copyFile(file_path, new_path);
-                    file.parent.children.push(new FileExplorer(file.parent, path.join(file.parent.path, new_name), new_path));
-                    if(closed) FileSystem.open(new_path);
-                });
+                }, (new_name: string) => file.duplicate(new_name));
             }
         },
         { type: "divider" },

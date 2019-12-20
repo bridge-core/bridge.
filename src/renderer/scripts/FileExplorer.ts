@@ -8,6 +8,7 @@ import LightningCache from "./editor/LightningCache";
 import { JSONFileMasks } from "./editor/JSONFileMasks";
 import TabSystem from "./TabSystem";
 import { BridgeCore } from "./bridgeCore/main";
+import InformationWindow from "./commonWindows/Information";
 
 export class FileExplorerStorage {
     static data: { 
@@ -87,6 +88,10 @@ export class FileExplorer {
             return 0;
         });
     }
+    find(name: string) {
+        for(let c of this.children)
+            if(c.name === name) return c;
+    }
     wasOpen(absolute_path: string): [boolean, FileExplorer[]] {
         for(let { absolute_path: c_path, is_open, children } of this.children) {
             if(absolute_path === c_path) return [ is_open, children ];
@@ -127,6 +132,20 @@ export class FileExplorer {
                 JSONFileMasks.delete(this.absolute_path)
             ]);
         }
+    }
+    async duplicate(new_name: string) {
+        if(this.parent.find(new_name) !== undefined)
+            return new InformationWindow("Error", `A file with the name "${new_name}" already exists`);
+        let new_path = path.join(path.dirname(this.absolute_path), new_name);
+
+        await Promise.all([
+            OmegaCache.duplicate(this.absolute_path, new_path),
+            LightningCache.duplicate(this.absolute_path, new_path),
+            JSONFileMasks.duplicate(this.absolute_path, new_path),
+            fs.copyFile(this.absolute_path, new_path)
+        ]);
+
+        this.parent.children.push(new FileExplorer(this.parent, path.join(this.parent.path, new_name), new_path));
     }
     rename(val: string) {
         this.name = val;
