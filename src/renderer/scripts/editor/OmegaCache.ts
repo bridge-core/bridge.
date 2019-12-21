@@ -12,10 +12,15 @@ import PluginEnv from "../plugins/PluginEnv";
 import { readJSON } from "../utilities/JsonFS";
 import JSONTree from "./JsonTree";
 
+export type FormatVersion = 0 | 1;
+
 export interface OmegaCacheData {
     file_version?: number;
     file_uuid?: string;
-    [s: string]: any;
+    cache_content: any;
+    format_version?: FormatVersion;
+    file_path?: string;
+    file_type?: string;
 }
 
 export default class OmegaCache {

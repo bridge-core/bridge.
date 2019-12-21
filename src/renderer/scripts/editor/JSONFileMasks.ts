@@ -10,6 +10,7 @@ import { CURRENT } from "../constants";
 import { BridgeCore } from "../bridgeCore/main";
 import JSONTree from "./JsonTree";
 import { promises as fs } from "fs";
+import { uuid } from "../utilities/useAttr";
 
 export class JSONMask {
     protected data: { [channel: string]: any };
@@ -126,11 +127,18 @@ export class JSONFileMasks {
         try {
             loaded = await OmegaCache.load(file_path);
         } catch(e) { 
+            let cache_content = {}
             try {
-                loaded = { format_version: 0, cache_content: await readJSON(file_path), file_version: 0 };
-            } catch(e) {
-                loaded = { format_version: 0, cache_content: {}, file_version: 0 };
-            }
+                cache_content = await readJSON(file_path);
+            } catch(e) {}
+            
+            OmegaCache.save(file_path, {
+                cache_content,
+                format_version: 0,
+                file_version: 0,
+                file_uuid: uuid()
+            });
+            loaded = { format_version: 0, cache_content, file_version: 0 };
         }
 
         let { format_version, cache_content, file_version } = loaded;

@@ -12,7 +12,7 @@ import { History } from "./TabSystem/CommonHistory";
 import ProblemIterator from "./editor/problems/Problems";
 import path from "path";
 import FileType from "./editor/FileType";
-import OmegaCache from "./editor/OmegaCache";
+import OmegaCache, { FormatVersion } from "./editor/OmegaCache";
 import LightningCache from "./editor/LightningCache";
 import { BridgeCore } from "./bridgeCore/main";
 import { uuid } from "./utilities/useAttr";
@@ -404,7 +404,7 @@ class TabSystem {
     //SAVING
     async getSaveContent(current: any, update_cache=true) {
         let ext = path.extname(current.file_path);
-        let format_version = 0;
+        let format_version: FormatVersion = 0;
         if(current.content instanceof JSONTree) {
             ProblemIterator.findProblems(current.content);
             format_version = 1;
