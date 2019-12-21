@@ -1,7 +1,7 @@
 /**
  * Uses the Tokenizer to parse auto-completion statements
  * 
- * e.g. "('prefix:' + $example.identifier) and $example.prefixed_identifiers)
+ * e.g. "('prefix:' + $example.identifier) and $example.prefixed_identifiers)"
  */
 import { Tokenizer } from "./Tokenizer";
 import { detachMerge } from "../mergeUtils";

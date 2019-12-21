@@ -51,7 +51,7 @@ export default class ComponentRegistry {
             return new InformationWindow("ERROR", `Unknown component "${component_name}"!`);
         
         //Save that this file is using the specific custom component inside the LightningCache
-        if(!simulated_call) EventBus.once("bridge:onCacheHook[entity.custom_components]", () => component_name);
+        EventBus.once("bridge:onCacheHook[entity.custom_components]", () => component_name);
 
         let apply_data = this.components[component_name].onApply(component_data, location);
         if(typeof apply_data !== "object" || Array.isArray(apply_data)) return;
@@ -82,6 +82,9 @@ export default class ComponentRegistry {
                     this.set(MASK, component_name, c, simulated_call, component_group);
             }
         }
+
+        //Trigger LightningCache update if simulated_call
+        if(simulated_call) await LightningCache.triggerHook(file_path, "custom_components", "entity.custom_components")
     }
 
     static propose() {

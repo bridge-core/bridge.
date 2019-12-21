@@ -87,6 +87,23 @@ export default class LightningCache {
         await writeJSON(this.l_cache_path, this.global_cache, true);
     }
 
+    //Manually triggers a hook update for a specific identifier
+    static async triggerHook(file_path: string, identifier: string, hook: string) {
+        let cache_key = OmegaCache.toCachePath(file_path, false);
+        let file_type = FileType.get(file_path);
+        if(this.global_cache === undefined) {
+            try {
+                this.global_cache = await readJSON(this.l_cache_path);
+            } catch(e) {
+                this.global_cache = {};
+            }
+        }
+
+        this.global_cache[file_type][cache_key][identifier] = EventBus.trigger(`bridge:onCacheHook[${hook}]`).flat() || [];
+        this.compiled_cache = undefined;
+        await writeJSON(this.l_cache_path, this.global_cache, true);
+    }
+
     static async parse(file_path: string, type: string, defs: CacheDef, content: JSONTree) {
         let except;
         //LOAD DIFFERENT DEF OPTIONS

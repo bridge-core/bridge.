@@ -89,10 +89,13 @@ export class BridgeCore {
          * ready for the custom entity syntax pass. That's also why we apply tags and components before all other file masks
          */
         if(file_type === "entity") {
-            await ComponentRegistry.parse(file_path, data, simulated_call);
+            //Load tags first (may contain custom components)
             await handleTags(file_path, use(data, "minecraft:entity/description/tags"), simulated_call);
+            data = await JSONFileMasks.applyOnData(file_path, data, layer_name => layer_name.startsWith("tag@"));
+            //Then parse custom components
+            await ComponentRegistry.parse(file_path, data, simulated_call);
+            data = await JSONFileMasks.applyOnData(file_path, data, layer_name => layer_name.startsWith("component@"));
         }
-        data = await JSONFileMasks.applyOnData(file_path, data, layer_name => layer_name.startsWith("component@") || layer_name.startsWith("tag@"));
 
         //Do not use custom syntax with deactivated bridgeCore
         if(!this.is_active) return data;
