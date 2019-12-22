@@ -125,7 +125,7 @@ class TabSystem {
             } 
         }
         
-        tab.file_path = tab.file_path.replace(/\//g, "\\");
+        // tab.file_path = tab.file_path.replace(/\//g, "\\");
         projects[this.project].unshift({
             file_name: path.basename(tab.file_path),
             ...tab,
