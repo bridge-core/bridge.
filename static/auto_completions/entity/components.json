@@ -65,7 +65,8 @@
     },
     "minecraft:boss": {
         "should_darken_sky": "$general.boolean",
-        "hud_range": "$general.number"
+        "hud_range": "$general.number",
+        "name": { "@meta": { "is_value": true } }
     },
     "minecraft:break_blocks": {
         "breakable_blocks": {
