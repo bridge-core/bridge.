@@ -76,7 +76,7 @@
     "trash": "^5.2.0",
     "unzipper": "^0.10.5",
     "uuid": "^3.3.2",
-    "vue": "^2.6.10",
+    "vue": "^2.6.11",
     "vue-electron": "^1.0.6",
     "vuedraggable": "^2.23.0",
     "vuetify": "^2.1.10",
