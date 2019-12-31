@@ -69,7 +69,7 @@ export class FileExplorer {
             this.is_loading = false;
             return;
         }
-        
+
         try {
             this.is_folder = (await fs.lstat(this.absolute_path)).isDirectory();
             this.is_loading = false;
@@ -86,6 +86,7 @@ export class FileExplorer {
                     p.isDirectory()
                 )
             );
+        this.sort();
         this.loaded_children = true;
     }
     async refresh() {
@@ -100,6 +101,7 @@ export class FileExplorer {
                     ...this.loadPrevData(path.join(this.absolute_path, p.name))
                 )
             );
+        this.sort();
     }
 
     sort() {
