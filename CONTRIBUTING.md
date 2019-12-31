@@ -1,6 +1,7 @@
 Thank you for considering to contribute to **"bridge."**
 
 ## Starting development
+You need to install [NodeJS](https://nodejs.org/en/) in order to get started.
 Open the terminal, cd to the directory you have cloned "bridge." to and run ```npm i```. Afterwards, you can use ```npm run dev``` and ```npm run build```
 to start the development environment and build versions of "bridge.".
 
