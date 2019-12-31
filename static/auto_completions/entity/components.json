@@ -52,6 +52,17 @@
     "minecraft:balloonable": {
         "mass": "$general.decimal"
     },
+    "minecraft:block_sensor": {
+        "sensor_radius": "$general.number",
+        "on_break": {
+            "$dynamic.list.next_index": {
+                "block_list": {
+                    "$dynamic.list.next_index": "$general.block_identifier"
+                },
+                "on_block_broken": "$dynamic.entity.events"
+            }
+        }
+    },
     "minecraft:boostable": {
         "speed_multiplier": "$general.decimal",
         "duration": "$general.number",
@@ -312,6 +323,10 @@
     "minecraft:ground_offset": {
         "value": "$general.decimal"
     },
+    "minecraft:grows_crop": {
+        "charges": "$general.number",
+        "chance": "$general.decimal"
+    },
 
     "minecraft:healable": {
         "force_use": "$general.boolean",
@@ -458,6 +473,7 @@
     "minecraft:movement.basic": "$entity.components.minecraft:movement&dot;amphibious",
     "minecraft:movement.fly": "$entity.components.minecraft:movement&dot;amphibious",
     "minecraft:movement.generic": "$entity.components.minecraft:movement&dot;amphibious",
+    "minecraft:movement.hover": "$entity.components.minecraft:movement&dot;amphibious",
     "minecraft:movement.jump": {
         "$load": "$entity.components.minecraft:movement&dot;amphibious",
         "jump_delay": {
@@ -497,11 +513,13 @@
         "can_open_doors": "$general.boolean",
         "can_pass_doors": "$general.boolean",
         "can_path_over_water": "$general.boolean",
-        "can_sink": "$general.boolean"
+        "can_sink": "$general.boolean",
+        "can_path_from_air": "$general.boolean"
     },
     "minecraft:navigation.float": "$entity.components.minecraft:navigation&dot;climb",
     "minecraft:navigation.fly": "$entity.components.minecraft:navigation&dot;climb",
     "minecraft:navigation.generic": "$entity.components.minecraft:navigation&dot;climb",
+    "minecraft:navigation.hover": "$entity.components.minecraft:navigation&dot;climb",
     "minecraft:navigation.swim": "$entity.components.minecraft:navigation&dot;climb",
     "minecraft:navigation.walk": "$entity.components.minecraft:navigation&dot;climb",
 

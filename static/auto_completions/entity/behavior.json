@@ -218,7 +218,8 @@
       "speed_multiplier": "$general.decimal",
       "interval": "$general.number",
       "goal_radius": "$general.number",
-      "on_home": "$entity.general.event_definition"
+      "on_home": "$entity.general.event_definition",
+      "on_failed": "$entity.general.event_definition"
     },
     "minecraft:behavior.guardian_attack": {
         "priority": "$general.number"
@@ -232,6 +233,10 @@
         "speed_multiplier": "$general.decimal",
         "poi_type": "$general.poi_type",
         "duration": "$general.number"
+    },
+    "minecraft:behavior.hover": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal"
     },
     "minecraft:behavior.hurt_by_target": {
         "priority": "$general.number",
@@ -303,7 +308,21 @@
         "reach_multiplier": "$general.decimal",
         "require_complete_path": "$general.boolean",
         "speed_multiplier": "$general.decimal",
-        "track_target": "$general.boolean"
+        "track_target": "$general.boolean",
+        "target_dist": "$general.number",
+        "look_distance": "$general.number",
+        "untrackable_cooldown_delay": "$general.number",
+        "target_tracking": {
+            "refresh_period_min": "$general.number",
+            "refresh_period_max": "$general.number",
+            "backoff": {
+                "$dynamic.list.next_index": {
+                    "distance_squared_gt": "$general.number",
+                    "refresh_period_delta": "$general.number"
+                }
+            }
+        },
+        "on_attack": "$entity.general.event_definition"
     },
     "minecraft:behavior.mingle": {
         "priority": "$general.number",
@@ -337,6 +356,25 @@
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal",
         "within_radius": "$general.number"
+    },
+    "minecraft:behavior.move_to_block": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "tick_interval": "$general.number",
+        "start_chance": "$general.decimal",
+        "search_range": "$general.number",
+        "search_height": "$general.number",
+        "goal_radius": "$general.decimal",
+        "stay_duration": "$general.number",
+        "target_selection_method": [ "nearest", "random" ],
+        "target_offset": {
+            "$dynamic.list.index_triple": "$general.decimal"
+        },
+        "target_blocks": {
+            "$dynamic.list.next_index": "$general.item_identifier"
+        },
+        "on_stay_completed": "$entity.general.event_definition",
+        "on_reach": "$entity.general.event_definition"
     },
     "minecraft:behavior.move_to_land": "$entity.behavior.minecraft:behavior&dot;move_to_water",
     "minecraft.behavior.move_to_poi": {
@@ -459,6 +497,10 @@
         "goal_radius": "$general.number",
         "speed_multiplier": "$general.decimal"
     },
+    "minecraft:behavior.random_breach": {
+        "$load": "$entity.behavior.minecraft:behavior&dot;random_stroll",
+        "cooldown_time": "$general.number"
+    },
     "minecraft:behavior.random_fly": {
         "priority": "$general.number",
         "xz_dist": "$general.number",
@@ -468,9 +510,16 @@
         "can_land_on_trees": "$general.boolean",
         "avoid_damage_blocks": "$general.boolean"
     },
-    "minecraft:behavior.random_breach": {
-        "$load": "$entity.behavior.minecraft:behavior&dot;random_stroll",
-        "cooldown_time": "$general.number"
+    "minecraft:behavior.random_hover": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "xz_dist": "$general.number",
+        "y_dist": "$general.number",
+        "y_offset": "$general.number",
+        "interval": "$general.number",
+        "hover_height": {
+            "$dynamic.list.index_pair": "$general.number"
+        }
     },
     "minecraft:behavior.random_look_around": {
         "priority": "$general.number",
@@ -699,6 +748,7 @@
     "minecraft:behavior.tempt": {
         "priority": "$general.number",
         "can_get_scared": "$general.boolean",
+        "can_tempt_vertically": "$general.boolean",
         "items": {
             "$dynamic.list.next_index": "$general.item_identifier"
         },

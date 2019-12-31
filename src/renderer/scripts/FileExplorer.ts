@@ -90,7 +90,6 @@ export class FileExplorer {
         this.loaded_children = true;
     }
     async refresh() {
-        console.log(this.absolute_path);
         this.children = (await fs.readdir(this.absolute_path, { withFileTypes: true }))
             .map(p => 
                 new FileExplorer(
