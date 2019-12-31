@@ -29,16 +29,21 @@ export async function loadDebugLog(force_reload=false) {
     );
 
     //Find the most recently modified file
-    let newest = stats.reduce((prev, curr) => {
+    let newest_log = stats.reduce((prev, curr) => {
         if(prev && prev.ctime > curr.ctime)
             return prev;
         return curr;
     }, undefined);
 
-    if(newest)
-        CACHE = (await fs.readFile(newest.absolute_path)).toString("utf-8");
-    else 
+    if(newest_log !== undefined) {
+        try {
+            CACHE = (await fs.readFile(newest_log.absolute_path)).toString("utf-8");
+        } catch(e) {
+            CACHE = "";
+        }
+    } else {
         CACHE = "";
+    }
         
     return CACHE; //Return debug file content
 }
