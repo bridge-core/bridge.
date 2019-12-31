@@ -455,6 +455,29 @@ class TabSystem {
         this.setCurrentSaved();
         win.close();
     }
+    async saveAllScreen(split_screen = false) {
+        let tabs = this.getCurrentProjects(split_screen);
+        this.split_screen_active = split_screen;
+
+        for (let i = 0; i < tabs.length; i++) {
+            if(tabs[i].is_unsaved) {
+                this.select(i);
+                await this.saveCurrent();
+            }
+        }
+    }
+    async saveAll() {
+        let curr_selected = this.selected;
+        let s_active = this.split_screen_active;
+        let win = new LoadingWindow();
+
+        await this.saveAllScreen(false);
+        await this.saveAllScreen(true);
+
+        win.close();
+        this.split_screen_active = s_active;
+        this.selected = curr_selected;
+    }
     saveCurrentAs() {
         this.saveCurrent("basicSaveAs", false);
     }

@@ -47,6 +47,11 @@ const state = {
                 action: () => TabSystem.saveCurrentAs()
             },
             {
+                title: "Save All",
+                shortcut: "Ctrl + Alt + S",
+                action: () => TabSystem.saveAll()
+            },
+            {
                 type: "divider"
             },
             {
