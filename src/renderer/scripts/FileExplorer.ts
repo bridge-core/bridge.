@@ -31,21 +31,29 @@ export class FileExplorer {
     path: string;
     absolute_path: string;
     name: string;
-    children: FileExplorer[];
-    is_open: boolean;
     is_folder?: boolean;
+    is_open: boolean;
+    children: FileExplorer[];
     is_loading = true;
     loaded_children = false;
 
     loading_promise: Promise<void>;
 
-    constructor(parent: FileExplorer, f_path: string, absolute_path: string, is_open=false, children: FileExplorer[]=[]) {
+    constructor(
+        parent: FileExplorer,
+        f_path: string,
+        absolute_path: string,
+        is_folder?: boolean,
+        is_open=false,
+        children: FileExplorer[]=[]
+    ) {
         this.parent = parent;
         this.path = f_path;
-        this.absolute_path = absolute_path;
         this.name = path.basename(f_path);
-        this.children = children;
+        this.absolute_path = absolute_path;
+        this.is_folder = is_folder;
         this.is_open = is_open;
+        this.children = children;
 
         this.loading_promise = this.init();
 
@@ -57,6 +65,11 @@ export class FileExplorer {
 
 
     async init() {
+        if(this.is_folder !== undefined) {
+            this.is_loading = false;
+            return;
+        }
+        
         try {
             this.is_folder = (await fs.lstat(this.absolute_path)).isDirectory();
             this.is_loading = false;
@@ -64,17 +77,27 @@ export class FileExplorer {
         } catch(e) { }
     }
     async load() {
-        this.children = (await fs.readdir(this.absolute_path)).map(p => new FileExplorer(this, path.join(this.path, p), path.join(this.absolute_path, p)));
-        this.loaded_children = true;
-    }
-    async refresh() {
-        this.children = (await fs.readdir(this.absolute_path))
+        this.children = (await fs.readdir(this.absolute_path, { withFileTypes: true }))
             .map(p => 
                 new FileExplorer(
                     this,
-                    path.join(this.path, p),
-                    path.join(this.absolute_path, p),
-                    ...this.wasOpen(path.join(this.absolute_path, p))
+                    path.join(this.path, p.name),
+                    path.join(this.absolute_path, p.name),
+                    p.isDirectory()
+                )
+            );
+        this.loaded_children = true;
+    }
+    async refresh() {
+        console.log(this.absolute_path);
+        this.children = (await fs.readdir(this.absolute_path, { withFileTypes: true }))
+            .map(p => 
+                new FileExplorer(
+                    this,
+                    path.join(this.path, p.name),
+                    path.join(this.absolute_path, p.name),
+                    p.isDirectory(),
+                    ...this.loadPrevData(path.join(this.absolute_path, p.name))
                 )
             );
     }
@@ -92,7 +115,7 @@ export class FileExplorer {
         for(let c of this.children)
             if(c.name === name) return c;
     }
-    wasOpen(absolute_path: string): [boolean, FileExplorer[]] {
+    loadPrevData(absolute_path: string): [boolean, FileExplorer[]] {
         for(let { absolute_path: c_path, is_open, children } of this.children) {
             if(absolute_path === c_path) return [ is_open, children ];
         }
@@ -145,7 +168,7 @@ export class FileExplorer {
             fs.copyFile(this.absolute_path, new_path)
         ]);
 
-        this.parent.children.push(new FileExplorer(this.parent, path.join(this.parent.path, new_name), new_path));
+        this.parent.children.push(new FileExplorer(this.parent, path.join(this.parent.path, new_name), new_path, false));
     }
     rename(val: string) {
         this.name = val;

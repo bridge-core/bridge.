@@ -39,7 +39,7 @@ export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 
                 let curr_file = file;
                 name.split(/\\|\//g).forEach(folder => {
-                    let tmp = new FileExplorer(file, path.join(file.path, folder), path.join(file_path, folder), true);
+                    let tmp = new FileExplorer(file, path.join(file.path, folder), path.join(file_path, folder), true, true);
                     curr_file.children.push(tmp);
                     curr_file = tmp;
                 })
