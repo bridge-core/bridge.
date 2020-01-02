@@ -21,7 +21,7 @@ interface Dependency {
 }
 
 export default class Manifest {
-    format_version = 1;
+    format_version = 2;
     header: Header;
     modules: Module[];
     dependencies: Dependency[];
