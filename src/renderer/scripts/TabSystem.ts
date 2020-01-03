@@ -22,6 +22,7 @@ export interface Tab {
     file_name: string;
     file_path: string;
     content: string | any | JSONTree;
+    raw_content: Buffer;
     uuid: string;
     file_navigation: string;
     category: string;
@@ -439,7 +440,8 @@ class TabSystem {
         let win = new LoadingWindow("save-file").show();
         PluginEnv.trigger("bridge:startedSaving", null);
         let current = this.getSelected();
-        if(current === undefined || current.is_invalid || current.is_immutable) return win.close();
+        if(current === undefined || current.is_invalid || current.is_immutable)
+            return win.close();
 
         if(current.file_version === undefined) current.file_version = 0;
         else current.file_version++;
@@ -454,6 +456,9 @@ class TabSystem {
         
         this.setCurrentSaved();
         win.close();
+    }
+    saveCurrentAs() {
+        this.saveCurrent("basicSaveAs", false);
     }
     async saveAllScreen(split_screen = false) {
         let tabs = this.getCurrentProjects(split_screen);
@@ -477,9 +482,6 @@ class TabSystem {
         win.close();
         this.split_screen_active = s_active;
         this.selected = curr_selected;
-    }
-    saveCurrentAs() {
-        this.saveCurrent("basicSaveAs", false);
     }
 
     //MOVING & NAVIGATING
