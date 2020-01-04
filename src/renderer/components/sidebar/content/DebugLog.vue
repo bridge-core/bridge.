@@ -86,7 +86,7 @@
 </template>
 
 <script>
-    import { processedDebugLog, parseAffectedFiles } from "../../../scripts/features/debugLog";
+    import { processedDebugLog, parseAffectedFiles } from "../../../scripts/Sidebar/DebugLog";
     import LogListView from "../../../windows/DebugLog/ListView";
     import { tag } from '../../../windows/DebugLog/Common';
     import SearchDebugLogInput from '../../../windows/DebugLog/SearchInput';

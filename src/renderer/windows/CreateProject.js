@@ -5,7 +5,7 @@ import Vue from "../main";
 import LoadingWindow from "./LoadingWindow";
 import Manifest from "../scripts/files/Manifest";
 import uuidv4 from "uuid/v4";
-import CreateFiles from "../scripts/projects/CreateFiles";
+import CreateFiles from "../scripts/Project/CreateFiles";
 import path from "path";
 import EventBus from "../scripts/EventBus";
 

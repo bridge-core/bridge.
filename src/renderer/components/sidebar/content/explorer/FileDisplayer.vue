@@ -67,7 +67,7 @@
     import OmegaCache from '../../../../scripts/editor/OmegaCache';
     import LightningCache from '../../../../scripts/editor/LightningCache';
     import { JSONFileMasks } from '../../../../scripts/editor/JSONFileMasks';
-    import { FileExplorer, FileExplorerStorage } from "../../../../scripts/FileExplorer";
+    import { FileExplorer, FileExplorerStorage } from "../../../../scripts/Sidebar/FileExplorer";
     import EventBus from '../../../../scripts/EventBus';
     import InformationWindow from '../../../../scripts/commonWindows/Information';
     import { FILE_CONTEXT_MENU } from '../../../../scripts/contextMenus/File';

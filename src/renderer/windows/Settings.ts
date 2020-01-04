@@ -10,7 +10,7 @@ import ProblemIterator from "../scripts/editor/problems/Problems";
 import { ipcRenderer, remote } from "electron";
 import ConfirmWindow from "../scripts/commonWindows/Confirm";
 import ThemeManager from "../scripts/editor/ThemeManager";
-import ProjectConfig from "../scripts/ProjectConfig";
+import ProjectConfig from "../scripts/Project/Config";
 import { uuid } from "../scripts/utilities/useAttr";
 
 class ReactiveListEntry {

@@ -1,4 +1,4 @@
-import KeyManager from "../../scripts/appMenu/KeyManager";
+import KeyManager from "../../scripts/AppMenu/KeyManager";
 import Vue from "vue";
 import { ipcRenderer, shell } from "electron";
 import SettingsWindow from "../../windows/Settings";

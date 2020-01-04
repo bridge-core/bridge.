@@ -9,7 +9,7 @@ import fs from "fs";
 import LightningCache from "../editor/LightningCache";
 import { BridgeCore } from "../bridgeCore/main";
 import { readJSONSync } from "../utilities/JsonFS";
-import ProjectConfig from "../ProjectConfig";
+import ProjectConfig from "../Project/Config";
 import ComponentRegistry from "../plugins/CustomComponents";
 import JSONTree from "../editor/JsonTree";
 

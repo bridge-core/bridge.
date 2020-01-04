@@ -38,7 +38,7 @@
     import AppMenu from "./AppMenu";
     import { remote } from "electron";
     import MouseTrap from "mousetrap";
-    import KeyManager from "../scripts/appMenu/KeyManager";
+    import KeyManager from "../scripts/AppMenu/KeyManager";
     import TabSystem from '../scripts/TabSystem';
     import ConfirmWindow from '../scripts/commonWindows/Confirm';
     import ThemeManager from "../scripts/editor/ThemeManager";

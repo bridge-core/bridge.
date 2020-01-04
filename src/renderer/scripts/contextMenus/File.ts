@@ -12,7 +12,7 @@ import OmegaCache from '../editor/OmegaCache';
 import LightningCache from '../editor/LightningCache';
 import { JSONFileMasks } from '../editor/JSONFileMasks';
 import path from "path";
-import { FileExplorer } from "../FileExplorer";
+import { FileExplorer } from "../Sidebar/FileExplorer";
 import LightningCacheInspector from "../../windows/LightningCache";
 import { readJSON } from "../utilities/JsonFS";
 import Manifest from "../files/Manifest";

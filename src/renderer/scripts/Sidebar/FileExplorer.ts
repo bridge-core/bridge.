@@ -3,12 +3,12 @@
  */
 import path from "path";
 import { promises as fs } from "fs";
-import OmegaCache from "./editor/OmegaCache";
-import LightningCache from "./editor/LightningCache";
-import { JSONFileMasks } from "./editor/JSONFileMasks";
-import TabSystem from "./TabSystem";
-import { BridgeCore } from "./bridgeCore/main";
-import InformationWindow from "./commonWindows/Information";
+import OmegaCache from "../editor/OmegaCache";
+import LightningCache from "../editor/LightningCache";
+import { JSONFileMasks } from "../editor/JSONFileMasks";
+import TabSystem from "../TabSystem";
+import { BridgeCore } from "../bridgeCore/main";
+import InformationWindow from "../commonWindows/Information";
 
 export class FileExplorerStorage {
     static data: { 

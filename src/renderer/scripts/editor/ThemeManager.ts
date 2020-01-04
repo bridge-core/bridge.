@@ -1,7 +1,7 @@
 import { readJSONSync } from "../utilities/JsonFS";
 import path from "path";
 import EventBus from "../EventBus";
-import ProjectConfig from "../ProjectConfig";
+import ProjectConfig from "../Project/Config";
 import Store from "../../store/index";
 import fs from "fs";
 

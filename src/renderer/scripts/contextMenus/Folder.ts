@@ -6,7 +6,7 @@ import InputWindow from '../commonWindows/Input';
 import trash from "trash";
 import { promises as fs } from "fs";
 import path from "path";
-import { FileExplorer } from "../FileExplorer";
+import { FileExplorer } from "../Sidebar/FileExplorer";
 
 export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
     {

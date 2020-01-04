@@ -1,10 +1,10 @@
 /**
  * Save data per project inside a "bridge/config.json" file
  */
-import { CURRENT } from "./constants";
+import { CURRENT } from "../constants";
 import path from "path";
-import { readJSON, writeJSON, readJSONSync } from "./utilities/JsonFS";
-import SETTINGS from "../store/Settings";
+import { readJSON, writeJSON, readJSONSync } from "../utilities/JsonFS";
+import SETTINGS from "../../store/Settings";
 
 export default class ProjectConfig {
     static get config_path() {

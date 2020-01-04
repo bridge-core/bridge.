@@ -6,18 +6,18 @@
 
             <v-content :style="`padding-bottom: ${footer_visible ? 44 : 22}px;`">
                 <v-row style="height: 100%;" no-gutters>
-                    <v-col cols="2">
+                    <v-col v-if="is_sidebar_open" cols="2">
                         <sidebar-main/>
                     </v-col>
                     <v-col
                         @click="setSplitScreen(false)"
-                        :style="`border-right: 1px solid ${is_dark_mode ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'} !important;`"
-                        :cols="5 + 5 * !has_split_screen"
+                        :style="`max-width: none; width: 100%; border-right: 1px solid ${is_dark_mode ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'} !important;`"
+                        :cols="5 + 5 * !has_split_screen + (1 + 1 * !has_split_screen) * !is_sidebar_open"
                     >
                         <editor-shell-tab-system/>
                         <editor-shell-content-manager/>
                     </v-col>
-                    <v-col @click="setSplitScreen(true)" v-if="has_split_screen" cols="5">
+                    <v-col @click="setSplitScreen(true)" v-if="has_split_screen" :cols="5 + 1 * !is_sidebar_open" >
                         <editor-shell-tab-system :split_screen="true"/>
                         <editor-shell-content-manager :split_screen="true"/>
                     </v-col>

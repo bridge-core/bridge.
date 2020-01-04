@@ -76,7 +76,7 @@
     import { zip } from "zip-a-folder";
     import { join } from "path";
     import InputWindow from "../../../../scripts/commonWindows/Input";
-    import ProjectConfig from "../../../../scripts/ProjectConfig";
+    import ProjectConfig from "../../../../scripts/Project/Config";
     import { MOJANG_PATH } from '../../../../../shared/Paths';
     import { CURRENT } from '../../../../scripts/constants';
     import Notification from '../../../../scripts/Notification';
