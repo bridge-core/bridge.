@@ -98,6 +98,8 @@ export default class LightningCache {
                 this.global_cache = {};
             }
         }
+        if(this.global_cache[file_type] === undefined) this.global_cache[file_type] = {};
+        if(this.global_cache[file_type][cache_key] === undefined) this.global_cache[file_type][cache_key] = {};
 
         this.global_cache[file_type][cache_key][identifier] = EventBus.trigger(`bridge:onCacheHook[${hook}]`).flat() || [];
         this.compiled_cache = undefined;
