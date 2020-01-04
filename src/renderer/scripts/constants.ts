@@ -6,8 +6,8 @@ import path from "path";
 import { BP_BASE_PATH, RP_BASE_PATH } from "../../shared/Paths";
 import Store from "../store/index";
 
-export const WEB_APP_DATA = "https://solveddev.github.io/bridge-data/";
-export const WEB_APP_PLUGINS = "https://solveddev.github.io/bridge-plugins/";
+export const WEB_APP_DATA = "https://bridge-core.github.io/data/";
+export const WEB_APP_PLUGINS = "https://bridge-core.github.io/plugins/";
 
 export const DOC_URL = "https://bedrock.dev/1.14.0.0/1.14.0.6/";
 export const DOC_LIST = [ "Entities", "Item", "Blocks", "Biomes", "Addons", "MoLang", "UI", "Scripting", "Particles", "Animations", "Entity Events", "Recipes" ];

@@ -1,4 +1,4 @@
 /**
  * Current bridge. app version
 */
-export default "v0.13.33";
+export default "v0.13.34";
