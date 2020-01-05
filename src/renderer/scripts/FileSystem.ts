@@ -27,6 +27,7 @@ export default class FileSystem {
         
         if(update) Vue.$root.$emit("refreshExplorer");
         if(open) this.addAsTab(file_path, content, undefined, content);
+        PluginEnv.trigger("bridge:finishedSaving", file_path, true, false);
     }
     static async basicSave(path: string, content: string | Buffer, update=false, open=true) {
         if(path === undefined) new InformationWindow("ERROR", "bridge. cannot save this tab's content!");
