@@ -26,7 +26,7 @@ class GoToFileWindow extends ContentWindow {
             content: [
                 {
                     type: "header",
-                    text: "Search Files"
+                    text: "Go to File"
                 },
                 {
                     type: "divider"

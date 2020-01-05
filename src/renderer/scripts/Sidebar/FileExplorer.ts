@@ -9,6 +9,7 @@ import { JSONFileMasks } from "../editor/JSONFileMasks";
 import TabSystem from "../TabSystem";
 import { BridgeCore } from "../bridgeCore/main";
 import InformationWindow from "../commonWindows/Information";
+declare function requestIdleCallback(cb: () => void): number;
 
 export class FileExplorerStorage {
     static data: { 
@@ -67,6 +68,10 @@ export class FileExplorer {
     async init() {
         if(this.is_folder !== undefined) {
             this.is_loading = false;
+
+            if(!this.is_folder) this.loaded_children = true; 
+            else requestIdleCallback(() => this.load()); //Load more files and folders in CPU idle time
+
             return;
         }
 
@@ -74,6 +79,8 @@ export class FileExplorer {
             this.is_folder = (await fs.lstat(this.absolute_path)).isDirectory();
             this.is_loading = false;
             if(this.parent) this.parent.sort();
+            
+            requestIdleCallback(() => this.load()); //Load more files and folders in CPU idle time
         } catch(e) { }
     }
     async load() {
