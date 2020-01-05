@@ -2,8 +2,8 @@ import FetchDefinitions from "../editor/FetchDefinitions";
 import { JSONFileMasks, JSONMask } from "../editor/JSONFileMasks";
 import InformationWindow from "../commonWindows/Information";
 import EventBus from "../EventBus";
-import { use } from "../utilities/useAttr";
-import { detachMerge, PUSH_ONCE } from "../mergeUtils";
+import { use } from "../Utilities/useAttr";
+import { detachMerge, PUSH_ONCE } from "../Utilities/mergeUtils";
 import LightningCache from "../editor/LightningCache";
 import FileType from "../editor/FileType";
 

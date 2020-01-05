@@ -1,7 +1,7 @@
 import { JSONFileMasks, JSONMask } from "../editor/JSONFileMasks";
 import { CURRENT } from "../constants";
 import path from "path";
-import { set } from "../utilities/useAttr";
+import { set } from "../Utilities/useAttr";
 import WeaponDamage from "./item/WeaponDamage";
 import ItemEquippedSensor from "./item/ItemEquippedSensor";
 import { OnSaveData } from "./main";

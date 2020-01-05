@@ -139,6 +139,9 @@ export class FileExplorer {
         if(!this.loaded_children && this.is_folder) await this.load();
         await Promise.all(this.children.map(c => c.update(this.absolute_path, this.path)));
     }
+    getAllFiles(): string[] {
+        return this.is_folder ? this.children.map(c => c.getAllFiles()).flat().filter(c => c !== undefined) : [this.absolute_path];
+    }
 
     async remove(first=true) {
         if(first)

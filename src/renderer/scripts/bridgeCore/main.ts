@@ -16,7 +16,7 @@ import ComponentRegistry from "../plugins/CustomComponents";
 import MapAreaHandler from "./MapAreaHandler";
 import trash from "trash";
 import { CURRENT } from "../constants";
-import { use } from "../utilities/useAttr";
+import { use } from "../Utilities/useAttr";
 
 export interface OnSaveData {
     file_path: string;

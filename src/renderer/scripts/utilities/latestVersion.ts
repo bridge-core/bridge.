@@ -1,4 +1,4 @@
-import * as VERSION_UTILS from "../VersionUtils";
+import * as VERSION_UTILS from "./VersionUtils";
 import { WEB_APP_DATA, APP_VERSION } from "../constants";
 
 export interface fetchVersionRes {

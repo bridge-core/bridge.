@@ -2,15 +2,15 @@
  * Multilayer cache system for advanced use cases
  * Enables rich custom syntax applications
  */
-import detachObj, { detachMerge, maskChannelMerge, maskMerge, MergeArrayConfig } from "../mergeUtils";
+import detachObj, { detachMerge, maskChannelMerge, maskMerge, MergeArrayConfig } from "../Utilities/mergeUtils";
 import OmegaCache from "./OmegaCache";
-import { readJSON, writeJSON } from "../utilities/JsonFS";
+import { readJSON, writeJSON } from "../Utilities/JsonFS";
 import path from "path";
 import { CURRENT } from "../constants";
 import { BridgeCore } from "../bridgeCore/main";
 import JSONTree from "./JsonTree";
 import { promises as fs } from "fs";
-import { uuid } from "../utilities/useAttr";
+import { uuid } from "../Utilities/useAttr";
 
 export class JSONMask {
     protected data: { [channel: string]: any };

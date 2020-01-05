@@ -15,7 +15,7 @@ import FileType from "./editor/FileType";
 import OmegaCache, { FormatVersion } from "./editor/OmegaCache";
 import LightningCache from "./editor/LightningCache";
 import { BridgeCore } from "./bridgeCore/main";
-import { uuid } from "./utilities/useAttr";
+import { uuid } from "./Utilities/useAttr";
 import CloseUnsavedTab from "../windows/CloseUnsavedTab";
 
 export interface Tab {
@@ -126,6 +126,10 @@ class TabSystem {
             } 
         }
         
+        /**
+         * Broke saving on Linux
+         * Might break legacy functionality on Windows in the current commented state though
+         */
         // tab.file_path = tab.file_path.replace(/\//g, "\\");
         projects[this.project].unshift({
             file_name: path.basename(tab.file_path),

@@ -1,4 +1,4 @@
-import { use, set, uuid } from "../utilities/useAttr";
+import { use, set, uuid } from "../Utilities/useAttr";
 import AnimationController from "../files/AnimationController";
 import { CURRENT } from "../constants";
 import { join } from "path";

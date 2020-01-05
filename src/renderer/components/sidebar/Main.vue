@@ -33,8 +33,7 @@
                 return this.$store.state.SidebarMenu.menu_state;
             },
             current_menu() {
-                console.log(this.sidebar_menu_state - 1)
-                return this.menu_items[this.sidebar_menu_state - 1] || {};
+                return this.menu_items[this.sidebar_menu_state - 1];
             },
             is_dark_mode() {
                 return this.$store.state.Appearance.is_dark_mode;

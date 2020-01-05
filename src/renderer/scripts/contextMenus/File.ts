@@ -14,7 +14,7 @@ import { JSONFileMasks } from '../editor/JSONFileMasks';
 import path from "path";
 import { FileExplorer } from "../Sidebar/FileExplorer";
 import LightningCacheInspector from "../../windows/LightningCache";
-import { readJSON } from "../utilities/JsonFS";
+import { readJSON } from "../Utilities/JsonFS";
 import Manifest from "../files/Manifest";
 import { writeJSON } from "fs-extra";
 

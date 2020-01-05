@@ -1,4 +1,4 @@
-import { readJSONSync } from "../../scripts/utilities/JsonFS";
+import { readJSONSync } from "../../scripts/Utilities/JsonFS";
 import path from "path";
 
 declare var __static: string;

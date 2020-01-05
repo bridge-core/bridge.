@@ -12,7 +12,7 @@ import path from "path";
 import OmegaCache from "./editor/OmegaCache";
 import ConfirmWindow from "./commonWindows/Confirm";
 import InformationWindow from "./commonWindows/Information";
-import { readJSON } from "./utilities/JsonFS";
+import { readJSON } from "./Utilities/JsonFS";
 
 document.addEventListener("dragover", event => {
     event.preventDefault();

@@ -1,6 +1,6 @@
 import Store from "../index";
 import Bridge from "../../scripts/plugins/PluginEnv";
-import detachObj from "../../scripts/mergeUtils";
+import detachObj from "../../scripts/Utilities/mergeUtils";
 import Vue from "vue";
 
 const state = {

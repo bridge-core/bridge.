@@ -9,8 +9,8 @@ import TabSystem from "../TabSystem";
 import Provider, { LIB_LOADED } from "../autoCompletions/Provider";
 import fs from "fs";
 import { join } from "path";
-import { readJSON, readJSONSync } from "../utilities/JsonFS";
-import { escapeRegExpStr as eRE } from "../utilities/EscapeRegExp";
+import { readJSON, readJSONSync } from "../Utilities/JsonFS";
+import { escapeRegExpStr as eRE } from "../Utilities/EscapeRegExp";
 import { FileDefinition, SnippetDefinition, ProblemDefinition } from "./FileDefinition";
 import { CacheDef } from "./LightningCache";
 

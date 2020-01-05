@@ -39,7 +39,7 @@
     import ContentFileSearch from "./content/FileSearch";
     
     import { BASE_PATH, RP_BASE_PATH } from "../../scripts/constants";
-    import findRP from "../../scripts/utilities/FindRP";
+    import findRP from "../../scripts/Utilities/FindRP";
 
     export default {
         name: "sidebar-content",

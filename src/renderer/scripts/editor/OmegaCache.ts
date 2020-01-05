@@ -9,7 +9,7 @@ import path from "path";
 import mkdirp from "mkdirp";
 import FileType from "./FileType";
 import PluginEnv from "../plugins/PluginEnv";
-import { readJSON } from "../utilities/JsonFS";
+import { readJSON } from "../Utilities/JsonFS";
 import JSONTree from "./JsonTree";
 
 export type FormatVersion = 0 | 1;

@@ -5,8 +5,8 @@ import OmegaCache from "../scripts/editor/OmegaCache";
 import JSONTree from "../scripts/editor/JsonTree";
 import TabSystem from "../scripts/TabSystem";
 import path from "path";
-import { uuid } from "../scripts/utilities/useAttr";
-import { readJSON } from "../scripts/utilities/JsonFS";
+import { uuid } from "../scripts/Utilities/useAttr";
+import { readJSON } from "../scripts/Utilities/JsonFS";
 
 class ReactiveListEntry {
     constructor(key, channel, mask, parent) {

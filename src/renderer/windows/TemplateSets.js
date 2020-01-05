@@ -5,7 +5,7 @@ import { getTemplateSets, loadTemplateSets } from "../scripts/TemplateSets";
 import fs from "fs";
 import { join, sep as pathSep } from "path";
 import Store from "../store/index";
-import findRP from "../scripts/utilities/FindRP";
+import findRP from "../scripts/Utilities/FindRP";
 import mkdirp from "mkdirp";
 import LoadingWindow from "./LoadingWindow";
 import InformationWindow from "../scripts/commonWindows/Information";

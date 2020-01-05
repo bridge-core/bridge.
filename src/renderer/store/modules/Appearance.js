@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { readJSONSync } from "../../scripts/utilities/JsonFS";
+import { readJSONSync } from "../../scripts/Utilities/JsonFS";
 import path from "path";
 import ThemeManager from "../../scripts/editor/ThemeManager";
 const CM_NAME_MAP = readJSONSync(path.join(__static, "data/cm_name_map.json"));

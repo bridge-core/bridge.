@@ -56,7 +56,7 @@
 <script>
     import PluginLoader from "../../../../scripts/plugins/PluginLoader";
     import { shell } from "electron";
-    import { readJSON, writeJSON } from '../../../../scripts/utilities/JsonFS';
+    import { readJSON, writeJSON } from '../../../../scripts/Utilities/JsonFS';
     import path from "path";
     import { CURRENT } from '../../../../scripts/constants';
     import LoadingWindow from '../../../../windows/LoadingWindow';

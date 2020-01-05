@@ -11,7 +11,7 @@ import { ipcRenderer, remote } from "electron";
 import ConfirmWindow from "../scripts/commonWindows/Confirm";
 import ThemeManager from "../scripts/editor/ThemeManager";
 import ProjectConfig from "../scripts/Project/Config";
-import { uuid } from "../scripts/utilities/useAttr";
+import { uuid } from "../scripts/Utilities/useAttr";
 
 class ReactiveListEntry {
     type = "card";

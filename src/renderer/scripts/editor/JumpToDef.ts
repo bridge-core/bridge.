@@ -2,7 +2,7 @@
  * Wrapper around FetchDefinitions.js to allow efficient usage inside the JSON context menu (HoverCard.vue) 
  * for the "Jump To Definition" action
  */
-import { readJSON } from "../utilities/JsonFS";
+import { readJSON } from "../Utilities/JsonFS";
 import fs from "fs";
 import path from "path";
 import FetchDefinitions from "./FetchDefinitions";

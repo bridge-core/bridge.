@@ -1,6 +1,6 @@
 import ListView from "./ListView";
 import Session, { tag, download, RELOAD_NOTIFICATION, isInstalled } from "./Common";
-import { greaterThan } from "../../scripts/VersionUtils";
+import { greaterThan } from "../../scripts/Utilities/VersionUtils";
 
 class DownloadButton {
     type = "button";

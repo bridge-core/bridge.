@@ -1,5 +1,5 @@
 import { WEB_APP_PLUGINS, CURRENT } from "../../scripts/constants";
-import { readJSONSync } from "../../scripts/utilities/JsonFS";
+import { readJSONSync } from "../../scripts/Utilities/JsonFS";
 import { promises as fs } from "fs";
 import path from "path";
 import Notification from '../../scripts/Notification';

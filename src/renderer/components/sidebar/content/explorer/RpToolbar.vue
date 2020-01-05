@@ -61,7 +61,7 @@
     import CreateFileWindow from "../../../../windows/CreateFile";
     import LoadingWindow from "../../../../windows/LoadingWindow";
     import { zip } from "zip-a-folder";
-    import PackLinker from "../../../../scripts/utilities/LinkPacks";
+    import PackLinker from "../../../../scripts/Utilities/LinkPacks";
     import { CURRENT } from '../../../../scripts/constants';
     import { MOJANG_PATH } from '../../../../../shared/Paths';
     import { join } from "path";

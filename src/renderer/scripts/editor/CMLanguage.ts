@@ -4,7 +4,7 @@
 import CodeMirror from "codemirror";
 import "codemirror/addon/mode/simple.js";
 import FileType from "./FileType";
-import eRE, { escapeRegExpStr } from "../utilities/EscapeRegExp";
+import eRE, { escapeRegExpStr } from "../Utilities/EscapeRegExp";
 
 export default function loadAllTextHighlighters() {
     FileType.getTextHighlighters().forEach(({ set, define }) => {

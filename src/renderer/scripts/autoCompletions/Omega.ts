@@ -4,7 +4,7 @@
  * e.g. "('prefix:' + $example.identifier) and $example.prefixed_identifiers)"
  */
 import { Tokenizer } from "./Tokenizer";
-import { detachMerge } from "../mergeUtils";
+import { detachMerge } from "../Utilities/mergeUtils";
 import { LIB } from "./Provider";
 
 interface OmegaResult {

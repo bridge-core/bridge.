@@ -53,7 +53,7 @@
     import ContextMenuMain from "@/components/context_menu/Main";
 
     import { shell } from 'electron';
-    import startUp from "./scripts/utilities/startUp";
+    import startUp from "./scripts/Utilities/startUp";
     import EventBus from './scripts/EventBus';
     import Vue from "vue";
     import TabSystem from './scripts/TabSystem';

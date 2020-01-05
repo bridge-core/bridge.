@@ -3,7 +3,7 @@
  */
 import { CURRENT } from "../constants";
 import path from "path";
-import { readJSON, writeJSON, readJSONSync } from "../utilities/JsonFS";
+import { readJSON, writeJSON, readJSONSync } from "../Utilities/JsonFS";
 import SETTINGS from "../../store/Settings";
 
 export default class ProjectConfig {

@@ -4,7 +4,7 @@
  */
 import { promises as fs } from "fs";
 import path from "path";
-import { escapeRegExpStr } from "../utilities/EscapeRegExp";
+import { escapeRegExpStr } from "../Utilities/EscapeRegExp";
 
 declare var __static: string;
 

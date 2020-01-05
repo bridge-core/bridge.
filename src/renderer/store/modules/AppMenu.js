@@ -12,6 +12,7 @@ import NodeShortcuts from "../../scripts/editor/NodeShortcuts";
 import ExtensionBrowser from "../../windows/Extensions/Browser";
 import Store from "../index";
 import InformationWindow from "../../scripts/commonWindows/Information";
+import GoToFileWindow from "../../windows/GoToFileWindow";
 
 const state = {
     file: {
@@ -223,6 +224,11 @@ const state = {
         trusted: true,
         display_name: "Tools",
         elements: [
+            {
+                title: "Go to File",
+                shortcut: "Ctrl + P",
+                action: () => GoToFileWindow.show()
+            },
             {
                 title: "Snippets",
                 shortcut: "Ctrl + Q",

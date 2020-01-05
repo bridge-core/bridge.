@@ -73,7 +73,7 @@
     import fsync, { promises as fs } from "fs";
     import LinkRPWindow from "../../../windows/LinkRPWindow";
     import CreateProjectWindow from '../../../windows/CreateProject';
-    import PackLinker from '../../../scripts/utilities/LinkPacks';
+    import PackLinker from '../../../scripts/Utilities/LinkPacks';
     import OmegaCache from '../../../scripts/editor/OmegaCache';
     import ExplorerNoProjects from "./explorer/NoProjects";
     import PluginLoader from "../../../scripts/plugins/PluginLoader";
@@ -81,7 +81,7 @@
     import { JSONFileMasks } from "../../../scripts/editor/JSONFileMasks";
     import LoadingWindow from '../../../windows/LoadingWindow';
     import FileType from '../../../scripts/editor/FileType';
-    import { setRP } from '../../../scripts/utilities/FindRP';
+    import { setRP } from '../../../scripts/Utilities/FindRP';
     import path from "path";
 
     export default {

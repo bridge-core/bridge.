@@ -2,7 +2,7 @@
  * Utilities for merging objects
  */
 import deepmerge from "deepmerge";
-import objMerge, { objMergeAll } from "./utilities/objMerge";
+import objMerge, { objMergeAll } from "./objMerge";
 
 const ARRAY_MERGE = (target: any[], source: any[]) => {
     let tmp: any[] = [];

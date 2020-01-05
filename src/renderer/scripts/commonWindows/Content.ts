@@ -3,7 +3,7 @@
  */
 import Store from "../../store/index";
 import { WindowDefinition } from "./ContentTypes";
-import { uuid } from "../utilities/useAttr";
+import { uuid } from "../Utilities/useAttr";
 
 export default class ContentWindow {
     id: string;

@@ -4,7 +4,7 @@
  */
 
 import FileType from "./FileType";
-import { readJSON, writeJSON } from "../utilities/JsonFS";
+import { readJSON, writeJSON } from "../Utilities/JsonFS";
 import { BASE_PATH } from "../constants";
 import path from "path";
 import OmegaCache from "./OmegaCache";

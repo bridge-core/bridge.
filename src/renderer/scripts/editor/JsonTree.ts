@@ -2,7 +2,7 @@
  * Implements a JSONTree
  * Used for storing JSON data and displaying JSON files
  */
-import Stack from "../utilities/Stack";
+import Stack from "../Utilities/Stack";
 import Json from "./Json";
 import Provider from "../autoCompletions/Provider";
 import PluginEnv from "../plugins/PluginEnv";

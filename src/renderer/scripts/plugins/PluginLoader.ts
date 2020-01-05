@@ -7,7 +7,7 @@
 import { BASE_PATH } from "../constants";
 import path from "path";
 import { promises as fs, createReadStream } from "fs";
-import { readJSON } from "../utilities/JsonFS";
+import { readJSON } from "../Utilities/JsonFS";
 import Store from "../../store/index";
 import Bridge from "./PluginEnv";
 import EventBus from "../EventBus";

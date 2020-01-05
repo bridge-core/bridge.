@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
-import { readJSON } from "../utilities/JsonFS";
+import { readJSON } from "../Utilities/JsonFS";
 
 export default class AnimationController {
     format_version = "1.10.0";

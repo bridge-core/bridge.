@@ -4,7 +4,7 @@ import { OnSaveData } from "./main";
 import AnimationController from "../files/AnimationController";
 import { join } from "path";
 import { CURRENT } from "../constants";
-import { set } from "../utilities/useAttr";
+import { set } from "../Utilities/useAttr";
 import Animation from "../files/Animation";
 let A_C: AnimationController;
 
