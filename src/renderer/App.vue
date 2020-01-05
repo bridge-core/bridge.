@@ -11,7 +11,7 @@
                     </v-col>
                     <v-col
                         @click="setSplitScreen(false)"
-                        :style="`max-width: none; width: 100%; border-right: 1px solid ${is_dark_mode ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'} !important;`"
+                        :style="`border-right: 1px solid ${is_dark_mode ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'} !important;`"
                         :cols="5 + 5 * !has_split_screen + (1 + 1 * !has_split_screen) * !is_sidebar_open"
                     >
                         <editor-shell-tab-system/>
@@ -57,6 +57,7 @@
     import EventBus from './scripts/EventBus';
     import Vue from "vue";
     import TabSystem from './scripts/TabSystem';
+    import "./scripts/UserActions/DropFile";
   
     export default {
         name: 'bridge',

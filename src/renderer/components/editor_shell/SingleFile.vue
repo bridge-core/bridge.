@@ -1,7 +1,7 @@
 <template>
     <span style="position: relative; top: -7px;" class="px14-font">
         <v-container v-if="file_viewer === 'image'">
-            <img class="image" :src="image" :height="available_height - 28"/>
+            <img class="image" :src="image" style="max-width: 100%;"/>
         </v-container>
         <audio-player v-else-if="file_viewer === 'audio'" :src="audio"/>
         <json-error-screen v-else-if="file_viewer === 'json' && json_object == 'error'"/>
