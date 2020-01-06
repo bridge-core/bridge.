@@ -23,6 +23,7 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
     const DEFAULT_MENU = [
         {
             title: "Open to the Side",
+            icon: "mdi-arrow-split-vertical",
             action: () => {
                 TabSystem.split_screen_active = true;
                 FileSystem.open(file_path)
@@ -31,6 +32,7 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
         { type: "divider" },
         {
             title: "Delete",
+            icon: "mdi-delete",
             action: () => {
                 new ConfirmWindow(
                     async () => {
@@ -49,6 +51,7 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
         },
         {
             title: "Rename",
+            icon: "mdi-pencil",
             action: () => {
                 new InputWindow({
                     text: path.basename(file_path, path.extname(file_path)),
@@ -71,6 +74,7 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
         },
         {
             title: "Duplicate",
+            icon: "mdi-content-duplicate",
             action: () => {
                 new InputWindow({
                     text: path.basename(file_path, path.extname(file_path)),
@@ -83,12 +87,14 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
         { type: "divider" },
         {
             title: "File Layers",
+            icon: "mdi-layers",
             action: () => {
                 new ManageFileMasks(file_path);
             }
         },
         {
             title: "LC Inspector",
+            icon: "mdi-magnify",
             action: () => {
                 new LightningCacheInspector(file_path);
             }
@@ -104,6 +110,7 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
         if(Manifest.hasClientData(manifest)) {
             DEFAULT_MENU.push({
                 title: "Remove Client Scripts",
+                icon: "mdi-minus",
                 action: () => {
                     Manifest.removeClientData(manifest);
                     writeJSON(file_path, manifest);
@@ -112,6 +119,7 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
         } else {
             DEFAULT_MENU.push({
                 title: "Add Client Scripts",
+                icon: "mdi-plus",
                 action: () => {
                     Manifest.addClientData(manifest);
                     writeJSON(file_path, manifest);

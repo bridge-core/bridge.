@@ -11,16 +11,17 @@
                 absolute
             >
                 <v-list color="menu" class="small-list">
-                    <template v-for="(item, i) in items">
+                    <template v-for="({ type, title, icon, action }, i) in items">
                         <v-list-item
-                            v-if="item.type === undefined || item.type === 'default'"
+                            v-if="type === undefined || type === 'default'"
                             :key="`${y_position}.${x_position}.${i}`"
-                            @click="item.action"
+                            @click="action"
                             dense
                         >
-                            <v-list-item-action class="context-menu-action"> {{ item.title }} </v-list-item-action>
+                            <v-list-item-icon v-if="icon"><v-icon>{{ icon }}</v-icon></v-list-item-icon>
+                            <v-list-item-action class="context-menu-action"> {{ title }} </v-list-item-action>
                         </v-list-item>
-                        <v-divider v-else-if="item.type === 'divider'" :key="`divider.${y_position}.${x_position}.${i}`"/>
+                        <v-divider v-else-if="type === 'divider'" :key="`divider.${y_position}.${x_position}.${i}`"/>
                     </template>
                 </v-list>
             </v-menu>

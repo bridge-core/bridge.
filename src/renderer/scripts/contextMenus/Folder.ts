@@ -11,6 +11,7 @@ import { FileExplorer } from "../Sidebar/FileExplorer";
 export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
     {
         title: "Delete",
+        icon: "mdi-delete",
         action: () => {
             new ConfirmWindow(
                 async () => {
@@ -29,6 +30,7 @@ export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
     },
     {
         title: "New Folder",
+        icon: "mdi-folder-plus",
         action: () => {
             new InputWindow({
                 text: "",
