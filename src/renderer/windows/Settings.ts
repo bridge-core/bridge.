@@ -132,7 +132,10 @@ export default class SettingsWindow extends TabWindow {
         this.data = SETTINGS.load();
         let PROJECTS: string[] = [];
         try {
-            PROJECTS = fs.readdirSync(BASE_PATH);
+            PROJECTS = fs.readdirSync(BASE_PATH, { withFileTypes: true })
+                .reduce(
+                    (arr, dirent) => dirent.isDirectory() ? arr.concat([dirent.name]) : arr,
+                []);
         } catch(e) {}
 
         this.addTab({
