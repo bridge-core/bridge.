@@ -70,7 +70,7 @@ export class FileExplorer {
             this.is_loading = false;
 
             if(!this.is_folder) this.loaded_children = true; 
-            else requestIdleCallback(() => this.load()); //Load more files and folders in CPU idle time
+            else requestIdleCallback(() => this.load()); //Load more files and folders during CPU idle time
 
             return;
         }
@@ -80,7 +80,7 @@ export class FileExplorer {
             this.is_loading = false;
             if(this.parent) this.parent.sort();
             
-            requestIdleCallback(() => this.load()); //Load more files and folders in CPU idle time
+            requestIdleCallback(() => this.load()); //Load more files and folders during CPU idle time
         } catch(e) { }
     }
     async load() {
