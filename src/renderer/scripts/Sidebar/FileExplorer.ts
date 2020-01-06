@@ -147,6 +147,7 @@ export class FileExplorer {
         await Promise.all(this.children.map(c => c.update(this.absolute_path, this.path)));
     }
     getAllFiles(): string[] {
+        if(this.name === "cache") return [];
         return this.is_folder ? this.children.map(c => c.getAllFiles()).flat().filter(c => c !== undefined) : [this.absolute_path];
     }
 
