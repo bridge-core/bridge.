@@ -13,7 +13,7 @@ import LightningCache from '../editor/LightningCache';
 import { JSONFileMasks } from '../editor/JSONFileMasks';
 import path from "path";
 import { FileExplorer } from "../Sidebar/FileExplorer";
-import LightningCacheInspector from "../../windows/LightningCache";
+import FileInspector from "../../windows/FileInspector";
 import { readJSON } from "../Utilities/JsonFS";
 import Manifest from "../files/Manifest";
 import { writeJSON } from "fs-extra";
@@ -93,10 +93,10 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
             }
         },
         {
-            title: "LC Inspector",
+            title: "File Inspector",
             icon: "mdi-magnify",
             action: () => {
-                new LightningCacheInspector(file_path);
+                new FileInspector(file_path);
             }
         }
     ];
