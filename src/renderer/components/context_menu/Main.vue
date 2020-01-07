@@ -18,7 +18,9 @@
                             @click="action"
                             dense
                         >
-                            <v-list-item-icon v-if="icon"><v-icon>{{ icon }}</v-icon></v-list-item-icon>
+                            <v-list-item-icon v-if="icon"  style="margin: 4px 12px 4px 0;">
+                                <v-icon>{{ icon }}</v-icon>
+                            </v-list-item-icon>
                             <v-list-item-action class="context-menu-action"> {{ title }} </v-list-item-action>
                         </v-list-item>
                         <v-divider v-else-if="type === 'divider'" :key="`divider.${y_position}.${x_position}.${i}`"/>
