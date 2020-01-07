@@ -6,7 +6,7 @@
     <div :style="element_style" :class="element_class" v-else>
         <draggable 
             v-model="file_explorer.children"
-            v-bind="{ group: 'file-displayer', disabled: true }"
+            v-bind="{ group: `file-displayer-${move_group}`, disabled: first }"
             @change="draggedFile"
         >
             <template v-for="(file) in file_explorer.children">
@@ -39,6 +39,7 @@
                             :base_path="base_path"
                             :explorer_type="explorer_type"
                             :prop_explorer="file"
+                            :move_group="first ? file.name : move_group"
                         />
                     </details>
 
@@ -84,7 +85,8 @@
             base_path: String,
             project: String,
             explorer_type: String,
-            prop_explorer: Object
+            prop_explorer: Object,
+            move_group: String
         },
         components: {
             draggable
