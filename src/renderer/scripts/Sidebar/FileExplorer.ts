@@ -9,6 +9,7 @@ import { JSONFileMasks } from "../editor/JSONFileMasks";
 import TabSystem from "../TabSystem";
 import { BridgeCore } from "../bridgeCore/main";
 import InformationWindow from "../commonWindows/Information";
+import uuid from "uuid/v4";
 declare function requestIdleCallback(cb: () => void): number;
 
 export class FileExplorerStorage {
@@ -37,6 +38,7 @@ export class FileExplorer {
     children: FileExplorer[];
     is_loading = true;
     loaded_children = false;
+    uuid = uuid();
 
     loading_promise: Promise<void>;
 
@@ -95,6 +97,7 @@ export class FileExplorer {
             );
         this.sort();
         this.loaded_children = true;
+        this.updateUUID();
     }
     async refresh() {
         this.children = (await fs.readdir(this.absolute_path, { withFileTypes: true }))
@@ -108,8 +111,18 @@ export class FileExplorer {
                 )
             );
         this.sort();
+        this.updateUUID();
+    }
+    loadPrevData(absolute_path: string): [boolean, FileExplorer[]] {
+        for(let { absolute_path: c_path, is_open, children } of this.children) {
+            if(absolute_path === c_path) return [ is_open, children ];
+        }
+        return [ false, [] ];
     }
 
+    updateUUID() {
+        this.uuid = uuid();
+    }
     sort() {
         this.children = this.children.sort((a, b) => {
             if(a.is_folder && !b.is_folder) return -1;
@@ -118,16 +131,11 @@ export class FileExplorer {
             if(a.name < b.name) return -1;
             return 0;
         });
+        this.updateUUID();
     }
     find(name: string) {
         for(let c of this.children)
             if(c.name === name) return c;
-    }
-    loadPrevData(absolute_path: string): [boolean, FileExplorer[]] {
-        for(let { absolute_path: c_path, is_open, children } of this.children) {
-            if(absolute_path === c_path) return [ is_open, children ];
-        }
-        return [ false, [] ];
     }
 
     async update(absolute_path: string, f_path: string) {
@@ -145,6 +153,7 @@ export class FileExplorer {
         
         if(!this.loaded_children && this.is_folder) await this.load();
         await Promise.all(this.children.map(c => c.update(this.absolute_path, this.path)));
+        this.updateUUID();
     }
     getAllFiles(): string[] {
         if(this.name === "cache") return [];
@@ -167,6 +176,7 @@ export class FileExplorer {
                 JSONFileMasks.delete(this.absolute_path)
             ]);
         }
+        this.parent.updateUUID();
     }
     async duplicate(new_name: string) {
         if(this.parent.find(new_name) !== undefined)
@@ -181,20 +191,24 @@ export class FileExplorer {
         ]);
 
         this.parent.children.push(new FileExplorer(this.parent, path.join(this.parent.path, new_name), new_path, false));
+        this.parent.updateUUID();
     }
     rename(val: string) {
         this.name = val;
         this.absolute_path = path.join(this.parent.absolute_path, val);
         this.path = path.join(this.parent.path, val);
+        this.updateUUID();
     }
 
     open() {
         this.is_open = true;
+        this.updateUUID();
         if(!this.loaded_children) this.load();
         return this;
     }
     close() {
         this.is_open = false;
+        this.updateUUID();
         return this;
     }
 }

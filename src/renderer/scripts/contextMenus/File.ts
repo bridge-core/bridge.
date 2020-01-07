@@ -62,9 +62,13 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
                     let closed = TabSystem.closeByPath(file_path);
 
                     let new_path = path.join(path.dirname(file_path), new_name);
-                    OmegaCache.rename(file_path, new_path);
-                    LightningCache.rename(file_path, new_path);
-                    JSONFileMasks.rename(file_path, new_path);
+
+                    try {   
+                        await OmegaCache.rename(file_path, new_path);
+                        await LightningCache.rename(file_path, new_path);
+                        await JSONFileMasks.rename(file_path, new_path);
+                    } catch {}
+                    
 
                     await fs.rename(file_path, new_path);
                     file.rename(new_name);

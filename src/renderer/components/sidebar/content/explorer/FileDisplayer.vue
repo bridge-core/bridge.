@@ -21,7 +21,7 @@
                     <details
                         v-else-if="file.is_folder"
                         :open="file.is_open && !file.absolute_path.includes('cache')"
-                        :key="file.absolute_path + file.is_open"
+                        :key="file.uuid"
                     >
                         <summary
                             @click="file.is_open ? file.close() : file.open()"
