@@ -17,6 +17,7 @@ import LightningCache from "./editor/LightningCache";
 import { BridgeCore } from "./bridgeCore/main";
 import { uuid } from "./Utilities/useAttr";
 import CloseUnsavedTab from "../windows/CloseUnsavedTab";
+import { useCache } from "./Project/NoCacheConfig";
 
 export interface Tab {
     file_name: string;
@@ -453,7 +454,9 @@ class TabSystem {
         let comment_char = FileType.getCommentChar(current.file_path);
         FileSystem[fsMethod](
             current.file_path, 
-            `${comment_char}bridge-file-version: #${current.file_version}\n${await this.getSaveContent(current, update_cache)}`,
+            `${comment_char}bridge-file-version: #${current.file_version}\n${
+                await this.getSaveContent(current, update_cache && await useCache(current.file_path))
+            }`,
             false,
             false
         );
