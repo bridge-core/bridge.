@@ -14,7 +14,7 @@ export interface NotificationConfig {
     display_icon: string;
     display_name: string;
     color?: string;
-    text_color: string;
+    text_color?: string;
     action: () => any;
 }
 

@@ -1,11 +1,14 @@
 /**
  * Responsible for providing fast access to important data like entity identifiers, entity event names,
  * created animation controllers etc.
+ * 
+ * Defined cache hooks at the moment:
+ * - bridge:onCacheHook[entity.custom_components]
  */
 
 import FileType from "./FileType";
 import { readJSON, writeJSON } from "../Utilities/JsonFS";
-import { BASE_PATH } from "../constants";
+import { BASE_PATH, CURRENT } from "../constants";
 import path from "path";
 import OmegaCache from "./OmegaCache";
 import JSONTree from "./JsonTree";
@@ -54,26 +57,31 @@ export default class LightningCache {
     static global_cache: LightningCacheData = undefined;
     static compiled_cache: any = undefined;
     static get l_cache_path() {
-        return path.join(BASE_PATH, OmegaCache.project, "bridge/.lightning_cache");
+        return path.join(BASE_PATH, CURRENT.PROJECT, "bridge/.lightning_cache");
     }
     static init() {
         this.global_cache = undefined;
         this.compiled_cache = undefined;
     }
+    static async saveCache() {
+        await writeJSON(this.l_cache_path, this.global_cache, true);
+    }
 
-    static async add(file_path: string, content: JSONTree) {
+    static async add(file_path: string, content: JSONTree, fs_access=true) {
         if(!(content instanceof JSONTree)) return;
         let type = FileType.get(file_path);
         if(type === "unknown") return;
 
         let defs = await FileType.getLightningCacheDefs(file_path);
         if(defs === undefined) return;
-        
         if(this.global_cache === undefined) {
-            try {
-                this.global_cache = await readJSON(this.l_cache_path);
-            } catch(e) {
-                this.global_cache = {};
+            if(!fs_access) this.global_cache = {};
+            else {
+                try {
+                    this.global_cache = await readJSON(this.l_cache_path);
+                } catch(e) {
+                    this.global_cache = {};
+                }
             }
         }
 
@@ -84,7 +92,7 @@ export default class LightningCache {
 
         
         this.compiled_cache = undefined;
-        await writeJSON(this.l_cache_path, this.global_cache, true);
+        if(fs_access) await writeJSON(this.l_cache_path, this.global_cache, true);
     }
 
     //Manually triggers a hook update for a specific identifier
@@ -116,9 +124,9 @@ export default class LightningCache {
             } else if(defs.load !== undefined) {
                 type = defs.load;
                 except = defs.except;
-                defs = await FileType.getLightningCacheDefs(undefined, defs.load);
-
-                if(!Array.isArray(defs)) {
+                defs = await FileType.getLightningCacheDefs(undefined, defs.load) || [];
+                
+                if(defs !== undefined && !Array.isArray(defs)) {
                     throw new Error("Deeply nesting cache definitions isn't supported yet!");
                 }
             }

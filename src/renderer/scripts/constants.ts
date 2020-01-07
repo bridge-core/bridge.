@@ -5,6 +5,7 @@ import APP_VERSION from "../../shared/app_version";
 import path from "path";
 import { BP_BASE_PATH, RP_BASE_PATH } from "../../shared/Paths";
 import Store from "../store/index";
+import { FileExplorerStorage } from "./Sidebar/FileExplorer";
 
 export const WEB_APP_DATA = "https://bridge-core.github.io/data/";
 export const WEB_APP_PLUGINS = "https://bridge-core.github.io/plugins/";
@@ -33,5 +34,12 @@ export const CURRENT = {
     get RP_PATH() {
         if(!CURRENT.RESOURCE_PACK) throw new Error("CURRENT.RESOURCE_PACK is not defined yet!");
         return path.join(RP_BASE_PATH, CURRENT.RESOURCE_PACK);
+    },
+
+    get BPFileExplorer() {
+        return FileExplorerStorage.get("explorer", CURRENT.PROJECT);
+    },
+    get RPFileExplorer() {
+        return FileExplorerStorage.get("resource_pack", CURRENT.RESOURCE_PACK);
     }
 };

@@ -462,6 +462,9 @@ export default class JSONTree {
     }
 
     //JSON -> TREE
+    static buildFromObject(data: any) {
+        return new JSONTree("global").buildFromObject(data);
+    }
     buildFromObject(data: any, first=true, update_history=false, open_nodes=false) {
         if(data instanceof JSONTree) return data;
         this.type = getType(data);

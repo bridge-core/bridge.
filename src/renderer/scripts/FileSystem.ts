@@ -106,6 +106,21 @@ export default class FileSystem {
             return cache_content;
         }
     }
+    static async loadFileAsTree(file_path: string) {
+        try {
+            let { format_version, cache_content } = await OmegaCache.load(file_path);
+            if(format_version === 1) {
+                return JSONTree.buildFromCache(cache_content);
+            } else {  
+                if(typeof cache_content === "string") return;  
+                return JSONTree.buildFromObject(cache_content);
+            }
+        } catch(e) { 
+            try {
+                return JSONTree.buildFromObject(await readJSON(file_path));
+            } catch(e) {}
+        }
+    }
 
     static addAsTab(file_path: string, data: any, format_version=0, raw_data?: string | Buffer, file_version?: number, file_uuid?: string) {
         let tree;

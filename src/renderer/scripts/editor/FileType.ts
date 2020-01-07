@@ -68,10 +68,12 @@ export default class FileType {
     static getData(file_path?: string, file_type?: string) {
         let path = file_path;
         
-        if(path === undefined) {
+        if(path === undefined && file_type === undefined) {
             try {
                 path = TabSystem.getSelected().file_path;
             } catch(e) { return; }
+        } else if(path === undefined) {
+            path = "";
         }
 
         
@@ -250,7 +252,7 @@ export default class FileType {
         return data;
     }
 
-    static async getLightningCacheDefs(file_path: string, file_type?: string): Promise<CacheDef> {
+    static async getLightningCacheDefs(file_path?: string, file_type?: string): Promise<CacheDef> {
         let data = this.getData(file_path, file_type);
         if(data === undefined || data.lightning_cache === undefined) return;
 

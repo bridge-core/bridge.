@@ -85,6 +85,7 @@
     import InformationWindow from '../../../../scripts/commonWindows/Information';
     import ConfirmWindow from '../../../../scripts/commonWindows/Confirm';
     import EventBus from '../../../../scripts/EventBus';
+    import BPMore from "../../../../scripts/contextMenus/BPMore";
 
     export default {
         name: "explorer-toolbar",
@@ -94,74 +95,7 @@
         },
         data() {
             return {
-                menu_elements: [
-                    {
-                        icon: "mdi-rename-box",
-                        title: "Project Namespace",
-                        action: async () => {
-                            let prefix;
-                            try { prefix = await ProjectConfig.prefix; }
-                            catch(e) { prefix = "bridge" }
-
-                            new InputWindow({
-                                header: "Project Namespace",
-                                label: "Namespace",
-                                text: prefix
-                            }, (val) => {
-                                ProjectConfig.setPrefix(val);
-                            })
-                        }
-                    },
-                    {
-                        icon: "mdi-package-variant-closed",
-                        title: "Package Project",
-                        action: async () => {
-                            new InputWindow({
-                                header: "Project Name",
-                                label: "Name",
-                                text: ""
-                            }, async (project_name) => {
-                                //Make sure that the resource pack can be loaded
-                                if(!CURRENT.RESOURCE_PACK)
-                                    return new InformationWindow("No Resource Pack", "Please connect a resource pack before packaging the whole project.");
-
-                                //Package whole project
-                                let lw = new LoadingWindow();
-                                await fs.mkdir(join(MOJANG_PATH, "bridge_proj_tmp"), { recursive: true });
-                                await Promise.all([
-                                    zip(CURRENT.PROJECT_PATH, join(MOJANG_PATH, "bridge_proj_tmp", `${CURRENT.PROJECT}.mcpack`)),
-                                    zip(CURRENT.RP_PATH, join(MOJANG_PATH, "bridge_proj_tmp", `${CURRENT.RESOURCE_PACK}.mcpack`))
-                                ]);
-                                await zip(join(MOJANG_PATH, "bridge_proj_tmp"), join(MOJANG_PATH, `${project_name}.mcaddon`));
-                                await trash(join(MOJANG_PATH, "bridge_proj_tmp"));
-                                lw.close();
-
-                                //Notify user the packaging is complete
-                                const ready_push = new Notification({
-                                    display_icon: "mdi-package-variant-closed",
-                                    display_name: "Package ready!",
-                                    color: "info",
-                                    action: () => {
-                                        ready_push.remove();
-                                        remote.shell.showItemInFolder(join(MOJANG_PATH, `${project_name}.mcaddon`));
-                                    }
-                                }).send();
-                            });
-                        }
-                    },
-                    {
-                        icon: "mdi-delete",
-                        title: "Delete Project",
-                        action: () => {
-                            new ConfirmWindow(async () => {
-                                let lw = new LoadingWindow();
-                                await trash(CURRENT.PROJECT_PATH);
-                                EventBus.trigger("bridge:findDefaultPack", true);
-                                lw.close();
-                            }, null, "Do you really want to delete this project?");
-                        }
-                    }
-                ]
+                menu_elements: BPMore
             }
         },
         methods: {
