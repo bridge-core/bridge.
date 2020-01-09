@@ -13,7 +13,7 @@ let LOAD_LOCATIONS: string[] = [];
 export function addLoadLocation(str: string) {
     LOAD_LOCATIONS.push(str);
 }
-export function resetLoadLocation() {
+export function resetLoadLocations() {
     LOAD_LOCATIONS = [];
 }
 

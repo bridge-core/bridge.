@@ -19,6 +19,7 @@ import safeEval from "safe-eval";
 import ComponentRegistry, { BridgeComponent } from "./CustomComponents";
 import InformationWindow from "../commonWindows/Information";
 import Provider from "../autoCompletions/Provider";
+import { addLoadLocation, resetLoadLocations } from "../Presets";
 
 let PLUGIN_FOLDERS: string[];
 let PLUGIN_DATA: any[] = [];
@@ -40,6 +41,7 @@ export default class PluginLoader {
 
     static reset() {
         ComponentRegistry.reset();
+        resetLoadLocations();
     }
 
     static async loadPlugins(project: string) {
@@ -119,6 +121,7 @@ export default class PluginLoader {
                     this.loadComponents(plugin_path),
                     this.loadAutoCompletions(plugin_path)
                 ]).catch(e => {});
+                addLoadLocation(plugin_path);
             } 
             PLUGIN_DATA.push(manifest);
         }
