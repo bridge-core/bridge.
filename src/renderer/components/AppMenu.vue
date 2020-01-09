@@ -9,7 +9,7 @@
         :class="is_submenu ? 'sidemenu app-menu' : 'app-menu'"
     >
         <template v-slot:activator="{ on }">
-            <v-btn v-if="!is_submenu" v-on="on" class="app-menu-item" small text>
+            <v-btn @click="menu.action" v-if="!is_submenu" v-on="on" class="app-menu-item" small text>
                 {{ menu.display_name }}
             </v-btn>
 
@@ -25,7 +25,7 @@
             </v-list-item>
         </template>
 
-        <v-list color="menu" ref="main_menu" class="list app-menu" dense>
+        <v-list v-if="menu.elements" color="menu" ref="main_menu" class="list app-menu" dense>
             <app-menu-element 
                 v-for="(element, i) in menu.elements"
                 :key="i"
@@ -44,6 +44,7 @@
 
 <script>
     import AppMenuElement from "./AppMenuElement.vue";
+    import InformationWindow from "../scripts/commonWindows/Information";
 
     export default {
         name: "app-menu",

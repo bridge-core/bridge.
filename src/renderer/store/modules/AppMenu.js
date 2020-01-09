@@ -6,13 +6,14 @@ import CreateFileWindow from "../../windows/CreateFile";
 import TabSystem from "../../scripts/TabSystem";
 import EventBus from "../../scripts/EventBus";
 import SnippetWindow from "../../windows/Snippets";
-import TemplateSetsWindow from "../../windows/TemplateSets";
 import AboutWindow from "../../windows/About";
 import NodeShortcuts from "../../scripts/editor/NodeShortcuts";
 import ExtensionBrowser from "../../windows/Extensions/Browser";
 import Store from "../index";
 import InformationWindow from "../../scripts/commonWindows/Information";
 import GoToFileWindow from "../../windows/GoToFileWindow";
+import { getMenu } from "../../scripts/Presets";
+import PresetWindow from "../../windows/PresetWindow";
 
 const state = {
     file: {
@@ -219,6 +220,11 @@ const state = {
                 }
             } 
         ]
+    },
+    presets: {
+        trusted: true,
+        display_name: "Presets",
+        action: () => new PresetWindow()
     },
     tools: {
         trusted: true,

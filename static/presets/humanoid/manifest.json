@@ -1,0 +1,21 @@
+{
+    "display_name": "Humanoid",
+    "description": "Creates a new humanoid entity.",
+    "icon": "mdi-human",
+
+    "bp_map": {
+        "entity.json": "entities/",
+        "loot_table.json": "loot_tables/entities/",
+        "spawn_rule.json": "spawn_rules/"
+    },
+    "rp_map": {
+        "client_entity.json": "entity/"
+    },
+    "expand_rp_files": {
+        "item_texture.json": "textures/item_texture.json"
+    },
+    "copy_rp_files": {
+        "icon.png": "textures/items/",
+        "texture.png": "textures/entity/"
+    }
+}

@@ -3,9 +3,12 @@ import { promises as fs } from "fs";
 import { RP_BASE_PATH, BASE_PATH } from "../constants";
 import { readJSON } from "./JsonFS";
 import path from "path";
+import Store from "../../store/index";
 
 let last_selected: string;
 let last_result: string;
+
+export const NEGATIVE_RESPONSES = ["/@NO-RP@/", "/@NO-DEPENDENCY@/"];
 export function setRP(val: string) {
     last_result = val;
 }
@@ -42,4 +45,12 @@ export default async function findRP() {
 
     last_result = "/@NO-RP@/";
     return "/@NO-RP@/";
+}
+
+export async function trySetRP() {
+    let resp = await findRP();
+    if(NEGATIVE_RESPONSES.includes(resp)) return false;
+
+    Store.commit("setExplorerProject", { store_key: "resource_pack", project: resp });
+    return true;
 }

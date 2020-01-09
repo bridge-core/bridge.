@@ -1,0 +1,17 @@
+{
+    "display_name": "Food",
+    "description": "Creates a new food item.",
+    "icon": "mdi-food-apple",
+    "bp_map": {
+        "item.json": "items/"
+    },
+    "rp_map": {
+        "client_item.json": "items/"
+    },
+    "expand_rp_files": {
+        "item_texture.json": "textures/item_texture.json"
+    },
+    "copy_rp_files": {
+        "icon.png": "textures/items/"
+    }
+}
