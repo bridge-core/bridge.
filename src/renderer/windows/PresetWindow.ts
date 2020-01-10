@@ -74,7 +74,7 @@ export default class PresetWindow extends TabWindow {
                         },
                         {
                             key: uuid(),
-                            text: "\nThe identifier will be used as a file name for all files this preset creates. The identifier should not contain your namespace. bridge. adds it automatically.\n"
+                            text: "\nThe identifier will be used as a file name for all files this preset creates. It should not contain your namespace because bridge. adds it automatically where needed.\n"
                         },
                         {
                             key: uuid(),

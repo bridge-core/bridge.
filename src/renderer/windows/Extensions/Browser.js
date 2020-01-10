@@ -17,6 +17,8 @@ export default class Browser extends ContentWindow {
             { type: "divider" },
             new Category("Snippet", () => { new ListView("Snippet") }),
             { type: "divider" },
+            new Category("Presets", () => { new ListView("Presets") }),
+            { type: "divider" },
             new Category("Theme", () => { new ListView("Theme") }),
             { type: "divider" },
             new Category("View All", () => { new ListView() }),

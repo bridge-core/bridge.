@@ -121,7 +121,7 @@ export default class PluginLoader {
                     this.loadComponents(plugin_path),
                     this.loadAutoCompletions(plugin_path)
                 ]).catch(e => {});
-                addLoadLocation(plugin_path);
+                addLoadLocation(path.join(plugin_path, "presets"));
             } 
             PLUGIN_DATA.push(manifest);
         }

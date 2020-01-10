@@ -26,6 +26,10 @@
         "icon": "mdi-package-variant",
         "color": "warning"
     },
+    "Presets": {
+        "icon": "mdi-file-document-box-multiple-outline",
+        "color": "purple"
+    },
 
     "Submissions": {
         "icon": "mdi-send",

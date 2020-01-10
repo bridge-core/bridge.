@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { promises as fs, Dirent } from "fs";
 import path from "path";
 import { readJSON, writeJSON } from "./Utilities/JsonFS";
 import ProjectConfig from "./Project/Config";
@@ -55,8 +55,14 @@ export async function loadPresets() {
         [path.join(__static, "presets")]
             .concat(LOAD_LOCATIONS)
             .map(async load_path => {
+                let dirents: Dirent[] = [];
+                try {
+                    dirents = (await fs.readdir(load_path, { withFileTypes: true }));
+                } catch {}
+               
+
                 await Promise.all(
-                    (await fs.readdir(load_path, { withFileTypes: true })).map(async dirent => {
+                    dirents.map(async dirent => {
                         if(dirent.isFile()) return; //Only folders are valid presets
 
                         try {
