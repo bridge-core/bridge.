@@ -59,20 +59,16 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
                     header: "Name Input",
                     expand_text: path.extname(file_path)
                 }, async (new_name: string) => {
-                    let closed = TabSystem.closeByPath(file_path);
-
-                    let new_path = path.join(path.dirname(file_path), new_name);
-
-                    try {   
-                        await OmegaCache.rename(file_path, new_path);
-                        await LightningCache.rename(file_path, new_path);
-                        await JSONFileMasks.rename(file_path, new_path);
-                    } catch {}
+                    const CLOSED = TabSystem.closeByPath(file_path);
+                    const NEW_PATH = path.join(path.dirname(file_path), path.dirname(new_name), path.basename(new_name));
+                    console.log(NEW_PATH);
                     
+                    await fs.mkdir(path.dirname(NEW_PATH), { recursive: true });
+                    await fs.rename(file_path, NEW_PATH);
+                    await file.update(NEW_PATH, path.join(path.dirname(file.path), path.dirname(new_name), path.basename(new_name)));
+                    await file.parent.refresh();
 
-                    await fs.rename(file_path, new_path);
-                    file.rename(new_name);
-                    if(closed) FileSystem.open(new_path);
+                    if(CLOSED) FileSystem.open(NEW_PATH);
                 });
             }
         },

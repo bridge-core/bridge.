@@ -60,7 +60,7 @@
 </template>
 
 <script>
-    import fse from "fs-extra";
+    import { promises as fs } from "fs";
     import path from "path";
     import draggable from "vuedraggable";
     import FileSystem from "../../../../scripts/FileSystem";
@@ -148,8 +148,9 @@
             async draggedFile({ removed, moved, added }) {
                 if(added !== undefined) {
                     let { absolute_path, name } = added.element;
+                    
                     try {
-                        await fse.move(absolute_path, path.join(this.file_explorer.absolute_path, name));
+                        await fs.rename(absolute_path, path.join(this.file_explorer.absolute_path, name));
                         added.element.update(this.file_explorer.absolute_path, this.file_explorer.path);
                     } catch(e) {
                         new InformationWindow("ERROR", "Failed to move file/folder because a file/folder with the same name already exists.");

@@ -3,7 +3,7 @@
  */
 
 import { BASE_PATH, RP_BASE_PATH, CURRENT } from "../constants";
-import fs from "fs";
+import fs, { promises as fsp } from "fs";
 import fse from "fs-extra";
 import path from "path";
 import mkdirp from "mkdirp";
@@ -140,8 +140,11 @@ export default class OmegaCache {
     static async rename(old_path: string, new_path: string) {
         if(!this.mayBeCached(new_path))
             return this.clear(old_path);
-        
-        await fse.move(this.toCachePath(old_path), this.toCachePath(new_path));
+
+        try {
+            await fsp.mkdir(path.dirname(new_path), { recursive: true });
+            await fse.move(this.toCachePath(old_path), this.toCachePath(new_path));
+        } catch {}
     }
     static duplicate(what: string, as: string) {
         if(!this.mayBeCached(as))
