@@ -12,6 +12,7 @@ import OmegaCache from "./editor/OmegaCache";
 import ConfirmWindow from "./commonWindows/Confirm";
 import InformationWindow from "./commonWindows/Information";
 import { readJSON } from "./Utilities/JsonFS";
+import { stripFileVersion } from "./Utilities/FileVersioning";
 
 ipcRenderer.on("openFile", (event, path) => {
     FileSystem.open(path);
@@ -133,7 +134,7 @@ export default class FileSystem {
             file_version,
             file_uuid,
 
-            content: format_version === 1 ? tree : data,
+            content: format_version === 1 ? tree : (typeof data === "string" ? stripFileVersion(data) : data),
             raw_content: raw_data,
             file_path,
             is_compiled: format_version === 1,

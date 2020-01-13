@@ -57,6 +57,7 @@
     import DataUrl from "dataurl";
     import AudioPlayer from "./AudioPlayer";
     import FileType from '../../scripts/editor/FileType';
+import OmegaCache from '../../scripts/editor/OmegaCache';
 
     export default {
         name: "file-manager",
@@ -267,7 +268,7 @@
                 this.codemirror.setSize("100%", this.available_height)
             },
             content_as_string() {
-                if(this.file_viewer === 'text') TabSystem.setCurrentUnsaved();
+                if(this.file_viewer === "text") TabSystem.setCurrentUnsaved();
             }
         }
     }
