@@ -57,7 +57,6 @@
     import DataUrl from "dataurl";
     import AudioPlayer from "./AudioPlayer";
     import FileType from '../../scripts/editor/FileType';
-import OmegaCache from '../../scripts/editor/OmegaCache';
 
     export default {
         name: "file-manager",
