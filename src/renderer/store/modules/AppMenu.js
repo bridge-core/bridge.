@@ -232,7 +232,7 @@ const state = {
         elements: [
             {
                 title: "Go to File",
-                shortcut: "Ctrl + P",
+                shortcut: "Ctrl + Shift + O",
                 action: () => GoToFileWindow.show()
             },
             {
