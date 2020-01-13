@@ -53,7 +53,6 @@
     import Runtime from '../../scripts/plugins/Runtime';
     import EventBus from "../../scripts/EventBus";
     import TextProvider from "../../scripts/autoCompletions/TextProvider";
-    import { webContents } from "electron";
     import DataUrl from "dataurl";
     import AudioPlayer from "./AudioPlayer";
     import FileType from '../../scripts/editor/FileType';
