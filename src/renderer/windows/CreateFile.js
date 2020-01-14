@@ -90,7 +90,7 @@ class FileContent {
                         [{ type: "icon", text: "mdi-code-braces", color: "purple", tooltip: "Custom Syntax" }] :
                         []
                     ),
-                    { type: "big-header", text: "  " + name }
+                    { type: "big-header", text: name }
                 ].flat()
             },
             {
