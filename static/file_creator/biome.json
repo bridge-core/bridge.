@@ -3,6 +3,8 @@
     "title": "Biome",
     "extension": "json",
     "path": "biomes/",
+    "is_experimental": true,
+    
     "templates": {
         "$default_pack": {
             "path": "BP/biomes"

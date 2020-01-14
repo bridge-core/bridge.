@@ -3,6 +3,8 @@
     "title": "Feature Rules",
     "extension": "json",
     "path": "feature_rules/",
+    "is_experimental": true,
+    
     "templates": {
         "$default_pack": {
             "path": "BP/feature_rules"

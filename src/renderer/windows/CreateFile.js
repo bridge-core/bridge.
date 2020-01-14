@@ -10,7 +10,7 @@ import { join } from "path";
 import { promises as fs } from "fs";
 
 class FileContent {
-    constructor(name, ext="json", parent, expand_path="", { add_location, ...add_content }={}, use_rp_path, is_custom_syntax=false) {
+    constructor(name, ext="json", parent, expand_path="", { add_location, ...add_content }={}, use_rp_path, is_custom_syntax=false, is_experimental=false) {
         this.parent = parent;
         this.ext = ext;
         this.expand_path = expand_path;
@@ -81,11 +81,16 @@ class FileContent {
                 height: "32px",
                 content: [
                     (
-                        is_custom_syntax ? 
-                        [{ type: "icon", text: "mdi-test-tube", color: "purple", tooltip: "bridge. custom syntax" }] :
+                        is_experimental ? 
+                        [{ type: "icon", text: "mdi-test-tube", color: "purple", tooltip: "Experimental Gamplay" }] :
                         []
                     ),
-                    { type: "big-header", text: name }
+                    (
+                        is_custom_syntax ? 
+                        [{ type: "icon", text: "mdi-code-braces", color: "purple", tooltip: "Custom Syntax" }] :
+                        []
+                    ),
+                    { type: "big-header", text: "  " + name }
                 ].flat()
             },
             {
@@ -186,7 +191,7 @@ export default class CreateFileWindow extends ContentWindow {
             }
         ];
         this.win_def.actions = this.actions;
-        this.contents = FILE_DATA.map(({ title, extension, path, add_content, rp_definition, is_custom_syntax }) => new FileContent(title, extension, this, path, add_content, rp_definition, is_custom_syntax));
+        this.contents = FILE_DATA.map(({ title, extension, path, add_content, rp_definition, is_custom_syntax, is_experimental }) => new FileContent(title, extension, this, path, add_content, rp_definition, is_custom_syntax, is_experimental));
         //Templates
         this.templates = FILE_DATA.map(({ templates, rp_definition }) => {
             return {

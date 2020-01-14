@@ -3,6 +3,8 @@
     "title": "Recipe",
     "extension": "json",
     "path": "recipes/",
+    "is_experimental": true,
+    
     "templates": {
         "$default_pack": {
             "path": "BP/recipes"

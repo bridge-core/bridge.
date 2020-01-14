@@ -3,6 +3,7 @@
     "title": "Client Item",
     "extension": "json",
     "path": "items/",
+    "is_experimental": true,
     
     "templates": {
         "$default_pack": {

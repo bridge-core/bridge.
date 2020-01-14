@@ -4,6 +4,7 @@
     "extension": "json",
     "path": "tags/",
     "is_custom_syntax": true,
+    
     "templates": {
         "Blank Entity Tag": {
             "bridge:tag": {
