@@ -82,7 +82,7 @@ class FileContent {
                 content: [
                     (
                         is_experimental ? 
-                        [{ type: "icon", text: "mdi-test-tube", color: "purple", tooltip: "Experimental Gamplay" }] :
+                        [{ type: "icon", text: "mdi-test-tube", color: "purple", tooltip: "Experimental Gameplay" }] :
                         []
                     ),
                     (
