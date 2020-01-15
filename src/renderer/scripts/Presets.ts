@@ -6,6 +6,7 @@ import { CURRENT } from "./constants";
 import { detachMerge } from "./Utilities/mergeUtils";
 import InformationWindow from "./commonWindows/Information";
 import { trySetRP } from "./Utilities/FindRP";
+import EventBus from "./EventBus";
 declare var __static: string;
 
 let LOAD_LOCATIONS: string[] = [];
@@ -128,7 +129,12 @@ export async function buildPreset(preset: IPresetData, identifier: string) {
         }));
     
     await Promise.all(promises)
-        .catch(console.error)
+        .catch(console.error);
+
+    try {
+        await CURRENT.BPFileExplorer.refresh();
+        await CURRENT.RPFileExplorer.refresh();
+    } catch {}
 }
 
 export async function buildPresetFile(from_path: string, to_path: string, ENV: IPresetEnv) {
@@ -145,7 +151,7 @@ export async function expandPresetFile(from_path: string, to_path: string, ENV: 
         original = await readJSON(to_path);
     } catch {
         try {
-            original = await fs.readFile(to_path);
+            original = (await fs.readFile(to_path)).toString("utf-8");
         } catch {
             original = "";
         }
