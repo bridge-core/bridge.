@@ -56,7 +56,7 @@ export async function loadPresets() {
         [path.join(__static, "presets")]
             .concat(LOAD_LOCATIONS)
             .map(async load_path => {
-                let dirents: Dirent[] = [];
+                let dirents: (Dirent | { name: string; isFile: () => false })[] = [];
                 try {
                     dirents = (await fs.readdir(load_path, { withFileTypes: true }));
                 } catch {}
@@ -64,6 +64,9 @@ export async function loadPresets() {
 
                 await Promise.all(
                     dirents.map(async dirent => {
+                        //Apparently electron doesn't support withFileTypes inside of .asar archives yet, just returns string
+                        if(typeof dirent === "string")
+                            dirent = { name: dirent, isFile: () => false };
                         if(dirent.isFile()) return; //Only folders are valid presets
 
                         try {

@@ -92,31 +92,6 @@ function createSplashScreen() {
     });
 }
 
-function openFile(file) {
-    mainWindow.webContents.send("openFile", file)
-}
-
-const gotTheLock = app.requestSingleInstanceLock();
-if(!gotTheLock) {
-    if(process.platform === 'win32' && process.argv.length >= 2)
-        app.quit();
-} else {
-    app.on("second-instance", (event, argv, working_directory) => {
-        if(process.platform === 'win32' && argv.length >= 2) {
-            if(mainWindow) {
-                if (mainWindow.isMinimized()) mainWindow.restore();
-                mainWindow.focus();
-            }
-            if(loadingWindow) {
-                if (loadingWindow.isMinimized()) loadingWindow.restore();
-                loadingWindow.focus();
-            }
-
-            openFile(argv[3]);
-        }
-    });
-}
-
 app.on('ready', () => {
     createWindow();
     createSplashScreen();
@@ -127,7 +102,7 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
-    if (mainWindow === null) {
+    if(mainWindow === null) {
         createWindow();
     }
 });
