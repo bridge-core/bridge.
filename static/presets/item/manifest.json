@@ -9,7 +9,8 @@
         "client_item.json": "items/"
     },
     "expand_rp_files": {
-        "item_texture.json": "textures/item_texture.json"
+        "item_texture.json": "textures/item_texture.json",
+        "en_US.lang": "texts/en_US.lang"
     },
     "copy_rp_files": {
         "icon.png": "textures/items/"

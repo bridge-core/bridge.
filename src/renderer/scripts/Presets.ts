@@ -45,6 +45,7 @@ export interface IPresetData {
 
 export interface IPresetEnv {
     IDENTIFIER: string;
+    IDENTIFIER_NAME: string; //Identifier, first letter capitalized & "_" replaced with spaces
     PROJ_PREFIX: string;
     [x: string]: string;
 }
@@ -85,6 +86,7 @@ export async function buildPreset(preset: IPresetData, identifier: string) {
     const { folder_path, manifest: { bp_map={}, rp_map={}, expand_bp_files={}, expand_rp_files={}, copy_rp_files= {} }={} } = preset;
     const ENV: IPresetEnv = {
         IDENTIFIER: identifier,
+        IDENTIFIER_NAME: identifier[0].toUpperCase() + identifier.slice(1).replace(/\_/g, " "),
         PROJ_PREFIX: await ProjectConfig.prefix
     }
     let promises = [];
@@ -135,14 +137,22 @@ export async function buildPresetFile(from_path: string, to_path: string, ENV: I
 }
 
 export async function expandPresetFile(from_path: string, to_path: string, ENV: IPresetEnv) {
-    let original = {};
+    let original: any = {};
     try {
         original = await readJSON(to_path);
-    } catch(e) { console.log(e) }
+    } catch {
+        try {
+            original = await fs.readFile(to_path);
+        } catch {
+            original = "";
+        }
+    }
 
     let templ = (await fs.readFile(from_path)).toString("UTF-8");
     templ = templ.replace(/{{[^{}]+}}/g, (match: string) => ENV[match.replace(/{{|}}/g, "")] || "undefined");
 
     await fs.mkdir(path.dirname(to_path), { recursive: true });
-    await writeJSON(to_path, detachMerge({}, original, JSON.parse(templ)));
+    
+    if(typeof original === "string") await fs.writeFile(to_path, `${original}\n${templ}`);
+    else await writeJSON(to_path, detachMerge({}, original, JSON.parse(templ)));
 }

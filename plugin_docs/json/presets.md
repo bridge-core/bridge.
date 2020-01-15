@@ -60,6 +60,7 @@ Files which are defined inside of a ```FileMap``` or a ```FileFolderMap``` have 
 | Name | Description
 | --- | ---
 | ```IDENTIFIER``` | Identifier the user entered (does not include prefix)
+| ```IDENTIFIER_NAME``` | Prettified identifier to be used e.g. inside of an actual name displaying to players
 | ```PROJ_PREFIX``` | Prefix/Namespace of the current project
 
 Variables can be referenced by using them inside of two curly brackets: ```{{VARIABLE}}```. bridge. automatically replaces variables with the current corresponding variable value.
