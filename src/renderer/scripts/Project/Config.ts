@@ -24,7 +24,11 @@ export default class ProjectConfig {
     }
     static get prefix() {
         return (async () => {
-            return (await readJSON(this.config_path)).prefix;
+            try {
+                return (await readJSON(this.config_path)).prefix || "bridge";
+            } catch {
+                return "bridge";
+            }
         })();
     }
     static setPrefix(val: string) {
@@ -43,7 +47,11 @@ export default class ProjectConfig {
 
     static get theme() {
         return (async () => {
-            return (await readJSON(this.config_path)).theme[SETTINGS.load().id] || "bridge.default.theme";
+            try {
+                return (await readJSON(this.config_path)).theme[SETTINGS.load().id] || "bridge.default.theme";
+            } catch {
+                return "bridge.default.theme";
+            }
         })();
 
         
