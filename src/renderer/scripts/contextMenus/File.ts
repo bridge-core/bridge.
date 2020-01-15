@@ -61,7 +61,6 @@ export const FILE_CONTEXT_MENU = async (file_path: string, file: FileExplorer) =
                 }, async (new_name: string) => {
                     const CLOSED = TabSystem.closeByPath(file_path);
                     const NEW_PATH = path.join(path.dirname(file_path), path.dirname(new_name), path.basename(new_name));
-                    console.log(NEW_PATH);
                     
                     await fs.mkdir(path.dirname(NEW_PATH), { recursive: true });
                     await fs.rename(file_path, NEW_PATH);
