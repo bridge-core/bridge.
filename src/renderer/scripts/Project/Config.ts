@@ -22,7 +22,7 @@ export default class ProjectConfig {
         }
         
     }
-    static get prefix() {
+    static get prefix(): Promise<string> {
         return (async () => {
             try {
                 return (await readJSON(this.config_path)).prefix || "bridge";
@@ -45,7 +45,7 @@ export default class ProjectConfig {
         })();
     }
 
-    static get theme() {
+    static get theme(): Promise<string> {
         return (async () => {
             try {
                 return (await readJSON(this.config_path)).theme[SETTINGS.load().id] || "bridge.default.theme";

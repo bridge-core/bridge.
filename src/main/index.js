@@ -85,10 +85,6 @@ function createSplashScreen() {
 
     loadingWindow.webContents.on("did-finish-load", () => {
         loadingWindow.show();
-
-        if(process.platform == 'win32' && process.argv.length >= 2 && process.env.NODE_ENV !== "development") {
-            openFile(process.argv[1]);
-        }
     });
 }
 
