@@ -4,7 +4,7 @@
         <div>
             <br>
             <p>
-                Creating Minecraft addons was never more convenient!
+                Creating Minecraft addons has never been more convenient!
             </p>
             <ul>
                 <li>

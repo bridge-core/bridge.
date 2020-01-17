@@ -41,6 +41,10 @@ export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
     let PLAYER_MASK = await JSONFileMasks.get(player_file_path);
     let A_C_MASK = await JSONFileMasks.get(a_c_file_path);
     A_C_MASK.reset(file_uuid);
+    A_C_MASK.set(file_uuid, {
+        format_version: "1.10.0",
+        animation_controllers: {}
+    });
     
     //READ COMPONENTS
     for(let c in components) {
