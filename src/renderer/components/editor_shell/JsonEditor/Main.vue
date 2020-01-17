@@ -12,6 +12,7 @@
                         :key="e.uuid"
                         :ref="`${object_key}/${(e.key + '').replace(/\//g, '#;slash;#')}`"
                         :open="e.open"
+                        :class="{ comment: !e.is_active }"
                     >
                         <object-key 
                             @mainClick="click($event, e.parsed_key)"
@@ -176,6 +177,12 @@
                 if(typeof this.render_object.data != "string") return this.render_object.data;
                 return (this.render_object.data + "").replace(/\//g, "#;slash;#");
             },
+            is_dark_mode() {
+                return this.$store.state.Appearance.is_dark_mode;
+            },
+            color_theme() {
+                return this.is_dark_mode ? this.$store.state.Appearance.color_theme.dark : this.$store.state.Appearance.color_theme.light;
+            },
 
             key_selected_class() {
                 return this.is_selected(undefined, "/" + this.evaluated_key) && this.is_active ? "selected" : "";
@@ -266,5 +273,9 @@
     .key.selected {
         font-style: italic;
         background: rgba(119, 119, 119, 0.1);
+    }
+
+    .comment {
+        opacity: 0.3;
     }
 </style>

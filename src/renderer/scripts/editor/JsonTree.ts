@@ -66,6 +66,7 @@ export default class JSONTree {
     propose_cache_uses: number;
     mark_color?: string;
     error?: any;
+    is_active = true; //Whether to output the tree to the final JSON file upon saving
     uuid: string;
     meta: any;
 
@@ -235,6 +236,10 @@ export default class JSONTree {
                 return true;
         }
         return false;
+    }
+    toggleIsActive() {
+        this.is_active = !this.is_active;
+        this.updateUUID();
     }
 
     /**
@@ -502,6 +507,7 @@ export default class JSONTree {
             key: this.key,
             type: this.type,
             meta: this.meta,
+            is_active: this.is_active === true ? undefined : false,
             children: this.children.map(c => c.buildForCache())
         };
     }
@@ -513,6 +519,7 @@ export default class JSONTree {
         this.comment = c.comment;
         this.type = c.type || (c.data === "" ? "object" : typeof Json.toCorrectType(c.data));
         this.meta = c.meta || {};
+        this.is_active = c.is_active !== undefined ?  c.is_active :  true;
 
         if(c.children)
             this.children = c.children.map((child: any) => new JSONTree(child.key, child.data, this, undefined, child.open).buildFromCache(child));

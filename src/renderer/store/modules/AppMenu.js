@@ -143,6 +143,16 @@ const state = {
                         title: "Move Down",
                         shortcut: "Ctrl + Shift + D",
                         action: () => TabSystem.moveCurrentDown()
+                    },
+                    {
+                        title: "Comment/Uncomment",
+                        shortcut: "Ctrl + I",
+                        action: () => {
+                            try { 
+                                TabSystem.getCurrentNavObj().toggleIsActive();
+                                TabSystem.setCurrentUnsaved();
+                            } catch {}
+                        }
                     }
                 ]
             },

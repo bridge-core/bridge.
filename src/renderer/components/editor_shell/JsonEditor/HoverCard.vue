@@ -181,6 +181,18 @@ export default {
                     }
                 },
                 {
+                    title: "Comment/Uncomment",
+                    icon: "//",
+                    color: "warning",
+                    action: () => {
+                        try { 
+                            TabSystem.getCurrentNavObj().toggleIsActive();
+                            TabSystem.setCurrentUnsaved();
+                        } catch {}
+                        this.is_visible = false;
+                    }
+                },
+                {
                     title: "Delete",
                     icon: "mdi-delete",
                     color: "error",

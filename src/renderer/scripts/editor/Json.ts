@@ -8,12 +8,20 @@ function private_toJSON(tree: JSONTree, build_arrays?: boolean, default_build_ar
     } else {
         if(build_arrays && tree.is_array) {
             let arr: any[] = [];
-            tree.children.forEach(c => arr.push(private_toJSON(c.identity(), build_arrays)));
+            tree.children.forEach(c => {
+                if(!c.is_active) return;
+
+                arr.push(private_toJSON(c.identity(), build_arrays))
+            });
             return arr;
         } else {
             if(default_build_arrays && tree.children.length === 0) return [];
             let obj: any = {};
-            tree.children.forEach(c => obj[c.key] = private_toJSON(c.identity(), build_arrays));
+            tree.children.forEach(c => {
+                if(!c.is_active) return;
+
+                obj[c.key] = private_toJSON(c.identity(), build_arrays)
+            });
             return obj;
         }
     }
