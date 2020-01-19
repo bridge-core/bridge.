@@ -11,7 +11,7 @@
             ></file-manager>
         </span> 
     </div>
-    <welcome-screen v-else></welcome-screen> 
+    <welcome-screen :available_height="available_height + 52" v-else></welcome-screen> 
 </template>
 
 <script>

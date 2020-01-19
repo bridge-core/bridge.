@@ -139,7 +139,7 @@ export default class FileSystem {
             file_path,
             is_compiled: format_version === 1,
             category: Store.state.Explorer.project.explorer,
-            file_name: file_path.split(/\/|\\/).pop()
+            file_name: path.basename(file_path)
         });
     }
 }

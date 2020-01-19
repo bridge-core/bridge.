@@ -1,5 +1,9 @@
 <template>
-    <v-layout style="margin-top: 8em;" justify-center align-center column>
+    <v-layout
+        :style="`padding: 10em; height: ${available_height}px;`"
+        @dblclick="createFile"
+        column
+    >
         <h1>Welcome to bridge.</h1>
         <div>
             <br>
@@ -33,8 +37,28 @@
 </template>
 
 <script>
+    import TabSystem from '../../scripts/TabSystem';
+    import path from "path";
+    import { CURRENT } from '../../scripts/constants';
+
     export default {
-        name: "welcome-screen"
+        name: "welcome-screen",
+        props: {
+            available_height: Number
+        },
+        methods: {
+            createFile(event) {
+                TabSystem.add({
+                    file_version: 0,
+                    content: "",
+                    raw_content: new Buffer(""),
+                    file_path: path.join(CURRENT.PROJECT_PATH, "untitled.txt"),
+                    is_compiled: false,
+                    category: CURRENT.PROJECT,
+                    file_name: "untitled.txt"
+                });
+            }
+        }
     }
 </script>
 
