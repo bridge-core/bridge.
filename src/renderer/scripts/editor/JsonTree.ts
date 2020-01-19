@@ -11,7 +11,6 @@ import { JSONAction } from "../TabSystem/CommonHistory";
 import FileType from "./FileType";
 import uuidv4 from "uuid/v4";
 import Store from "../../store/index";
-import CommonProblem from "./problems/CommonProblem";
 let PROVIDER: Provider;
 
 function getType(data: any) {
