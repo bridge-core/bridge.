@@ -15,7 +15,7 @@
                 background: var(--v-background-darken1);
             `"
             @click.native="selected_tab = i"
-            @click.middle.native="closeTab(i)"
+            @click.middle.native="event => (event.preventDefault(), closeTab(i))"
         >
             <v-btn
                 v-if="showDocButton(file.file_path)"
