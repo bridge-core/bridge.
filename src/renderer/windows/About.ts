@@ -95,6 +95,14 @@ export default class AboutWindow extends TabWindow {
                 {
                     type: "divider"
                 },
+                new Creator("Contributor", "BSavage81", [{
+                    color: "info",
+                    text: "mdi-twitter",
+                    link: "https://twitter.com/BSavage_81"
+                }]),
+                {
+                    type: "divider"
+                },
                 new Creator("Contributor", "CodeHZ", [{
                     color: "black",
                     text: "mdi-github-circle",

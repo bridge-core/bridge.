@@ -4,19 +4,19 @@
     "icon": "mdi-human",
 
     "bp_map": {
-        "entity.json": "entities/",
-        "loot_table.json": "loot_tables/entities/",
-        "spawn_rule.json": "spawn_rules/"
+        "entity.json": "entities/{{IDENTIFIER}}.json",
+        "loot_table.json": "loot_tables/entities/{{IDENTIFIER}}.json",
+        "spawn_rule.json": "spawn_rules/{{IDENTIFIER}}.json"
     },
     "rp_map": {
-        "client_entity.json": "entity/"
+        "client_entity.json": "entity/{{IDENTIFIER}}.json"
     },
     "expand_rp_files": {
         "item_texture.json": "textures/item_texture.json",
         "en_US.lang": "texts/en_US.lang"
     },
     "copy_rp_files": {
-        "icon.png": "textures/items/",
-        "texture.png": "textures/entity/"
+        "icon.png": "textures/items/{{IDENTIFIER}}.png",
+        "texture.png": "textures/entity/{{IDENTIFIER}}.png"
     }
 }

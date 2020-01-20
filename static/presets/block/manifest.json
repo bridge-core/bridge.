@@ -1,0 +1,18 @@
+{
+    "display_name": "Block",
+    "description": "Creates a new generic block.",
+    "icon": "mdi-wall",
+    "bp_map": {
+        "block.json": "blocks/{{IDENTIFIER}}.json"
+    },
+    "rp_map": {
+        "client_block.json": "blocks.json"
+    },
+    "expand_rp_files": {
+        "terrain_texture.json": "textures/terrain_texture.json",
+        "en_US.lang": "texts/en_US.lang"
+    },
+    "copy_rp_files": {
+        "icon.png": "textures/blocks/{{IDENTIFIER}}.png"
+    }
+}

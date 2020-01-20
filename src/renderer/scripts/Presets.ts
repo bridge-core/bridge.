@@ -98,12 +98,12 @@ export async function buildPreset(preset: IPresetData, identifier: string) {
     promises.push(...Object.entries(bp_map)
         .map(([preset_path, create_path]) => buildPresetFile(
             path.join(folder_path, preset_path),
-            path.join(CURRENT.PROJECT_PATH, create_path, identifier + ".json"), ENV)
+            path.join(CURRENT.PROJECT_PATH, create_path), ENV)
         ));
     promises.push(...Object.entries(rp_map)
         .map(([preset_path, create_path]) => buildPresetFile(
             path.join(folder_path, preset_path),
-            path.join(CURRENT.RP_PATH, create_path, identifier + ".json"), ENV)
+            path.join(CURRENT.RP_PATH, create_path), ENV)
         ));
 
     promises.push(...Object.entries(expand_bp_files)
@@ -119,7 +119,7 @@ export async function buildPreset(preset: IPresetData, identifier: string) {
 
     promises.push(...Object.entries(copy_rp_files)
         .map(async ([preset_path, copy_path]) => {
-            let file_path = path.join(CURRENT.RP_PATH, copy_path, identifier + path.extname(preset_path));
+            let file_path = transformPath(path.join(CURRENT.RP_PATH, copy_path), path.extname(preset_path), ENV);
 
             await fs.mkdir(path.dirname(file_path), { recursive: true });
             await fs.copyFile(
@@ -137,7 +137,17 @@ export async function buildPreset(preset: IPresetData, identifier: string) {
     } catch {}
 }
 
+export function transformPath(file_path: string, ext: string, ENV: IPresetEnv) {
+    file_path = file_path.replace(/{{[^{}]+}}/g, (match: string) => ENV[match.replace(/{{|}}/g, "")] || "undefined");
+
+    if(path.extname(file_path) === "")
+        return path.join(file_path, `${ENV.IDENTIFIER}${ext}`);
+
+    return file_path;
+}
+
 export async function buildPresetFile(from_path: string, to_path: string, ENV: IPresetEnv) {
+    to_path = transformPath(to_path, path.extname(from_path), ENV);
     let templ = (await fs.readFile(from_path)).toString("UTF-8");
     templ = templ.replace(/{{[^{}]+}}/g, (match: string) => ENV[match.replace(/{{|}}/g, "")] || "undefined");
 

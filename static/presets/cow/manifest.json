@@ -1,0 +1,25 @@
+{
+    "display_name": "Cow",
+    "description": "Creates a new cow entity.",
+    "icon": "mdi-cow",
+
+    "bp_map": {
+        "entity.json": "entities/",
+        "loot_table.json": "loot_tables/entities/",
+        "spawn_rule.json": "spawn_rules/"
+    },
+    "rp_map": {
+        "client_entity.json": "entity/",
+		"geometry.json": "models/entity/",
+		"animation.json": "animations/",
+		"render_controller.json": "render_controllers/"
+    },
+    "expand_rp_files": {
+        "item_texture.json": "textures/item_texture.json",
+        "en_US.lang": "texts/en_US.lang"
+    },
+    "copy_rp_files": {
+        "texture.png": "textures/entity/",
+        "icon.png": "textures/items/"
+    }
+}
