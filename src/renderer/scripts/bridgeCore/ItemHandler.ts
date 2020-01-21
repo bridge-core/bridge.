@@ -39,6 +39,7 @@ export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
 
     //ADDITIONAL FILES
     let PLAYER_MASK = await JSONFileMasks.get(player_file_path);
+    PLAYER_MASK.reset(`item_component@${file_uuid}`);
     let A_C_MASK = await JSONFileMasks.get(a_c_file_path);
     A_C_MASK.reset(file_uuid);
     A_C_MASK.set(file_uuid, {

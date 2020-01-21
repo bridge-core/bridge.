@@ -32,7 +32,7 @@ export default function ItemEquippedSensor({ PLAYER_MASK, A_C_MASK, component, f
         ["holds_" + item_id + "/on_entry"]: PUSH_ONCE
     });
 
-    PLAYER_MASK.set("item_components", {
+    PLAYER_MASK.set("item_component@general", {
         "minecraft:entity": {
             "description": {
                 "animations": {
@@ -43,7 +43,11 @@ export default function ItemEquippedSensor({ PLAYER_MASK, A_C_MASK, component, f
                         "bridge_custom_item_behavior"
                     ]
                 }
-            },
+            }
+        }
+    });
+    PLAYER_MASK.set(`item_component@${file_uuid}`, {
+        "minecraft:entity": {
             "component_groups": {
                 "bridge:default_player": is_not_equipped || {},
                 ["bridge:equipped_" + file_uuid]: is_equipped || {}

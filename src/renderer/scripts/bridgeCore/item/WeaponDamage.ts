@@ -30,7 +30,7 @@ export default function WeaponDamage({ PLAYER_MASK, A_C_MASK, component, file_uu
         ["holds_" + item_id + "/on_entry"]: PUSH_ONCE
     });
 
-    PLAYER_MASK.set("item_components", {
+    PLAYER_MASK.set("item_component@general", {
         "minecraft:entity": {
             "description": {
                 "animations": {
@@ -41,7 +41,11 @@ export default function WeaponDamage({ PLAYER_MASK, A_C_MASK, component, file_uu
                         "bridge_custom_item_behavior"
                     ]
                 }
-            },
+            }
+        }
+    });
+    PLAYER_MASK.set(`item_component@${file_uuid}`, {
+        "minecraft:entity": {
             "component_groups": {
                 "bridge:default_player": {
                     "minecraft:attack": {
