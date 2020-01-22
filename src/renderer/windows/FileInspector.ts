@@ -5,6 +5,7 @@ import FileType from "../scripts/editor/FileType";
 import path from "path";
 import { CURRENT } from "../scripts/constants";
 import FileSystem from "../scripts/FileSystem";
+import OmegaCache from "../scripts/editor/OmegaCache";
 
 function findID(arr: [string, string[]][]) {
     for(const [cache_key, [id]] of arr) {
@@ -24,6 +25,8 @@ export default class FileInspector extends CommonWindow {
     }
     async init(file_path=this.file_path) {
         const LC = Object.entries(await LightningCache.loadType(file_path));
+        const { file_uuid } = await OmegaCache.load(file_path);
+        LC.unshift(["file_uuid", [file_uuid]]);
 
         //Output regular lightning cache data
         this.content = [
