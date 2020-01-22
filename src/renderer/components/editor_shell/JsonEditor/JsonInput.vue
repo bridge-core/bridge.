@@ -49,7 +49,8 @@
         data() {
             return {
                 items: [],
-                value: ""
+                value: "",
+                trigger_cooldown: false
             };
         },
         mounted() {
@@ -98,9 +99,11 @@
         },
         methods: {
             click(val) {
+                if(this.trigger_cooldown) return;
+
                 if(this.value === "")
                     this.value = this.$refs.input.$el.querySelector("input").value;
-                if(this.value == "" || !this.value) return;
+                if(this.value === "" || !this.value) return;
                 let current = this.render_object.get(this.file_navigation);
                 let is_data_path = TabSystem.getSelected().content.isDataPath(this.file_navigation);
                 if(this.type === "object") {
@@ -153,8 +156,10 @@
                 if(this.type !== "edit") {
                     this.$nextTick(() => {
                         this.value = "";
+                        this.trigger_cooldown = false;
                     });
-                }               
+                    this.trigger_cooldown = true;
+                }
             },
 
             updateAutoCompletions() {

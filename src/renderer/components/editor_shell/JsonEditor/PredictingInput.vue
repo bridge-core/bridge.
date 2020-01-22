@@ -51,7 +51,8 @@
             return {
                 items: [],
                 value: "",
-                mode: "object"
+                mode: "object",
+                trigger_cooldown: false
             };
         },
         mounted() {
@@ -77,6 +78,7 @@
         },
         methods: {
             click(val, force) {
+                if(this.trigger_cooldown) return;
                 if(this.value === "")
                     this.value = val || this.$refs.input.$el.querySelector("input").value;
                 if(this.value === "" || this.value === undefined || this.value === null) return;
@@ -120,7 +122,9 @@
 
                 this.$nextTick(() => {
                     this.value = "";
-                });            
+                    this.trigger_cooldown = false;
+                });
+                this.trigger_cooldown = true;           
             },
 
             updateAutoCompletions() {
