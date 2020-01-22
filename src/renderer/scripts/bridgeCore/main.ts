@@ -66,6 +66,21 @@ export class BridgeCore {
 
                 break;
             }
+            case "item": {
+                let player_file_path = path.join(CURRENT.PROJECT_PATH, "entities/player.json");
+                let a_c_file_path = path.join(CURRENT.PROJECT_PATH, `animation_controllers/bridge/custom_item_behavior.json`);
+                let PLAYER_MASK = await JSONFileMasks.get(player_file_path);
+                PLAYER_MASK.reset(`item_component@${file_uuid}`);
+                let A_C_MASK = await JSONFileMasks.get(a_c_file_path);
+                A_C_MASK.reset(file_uuid);
+                
+
+                await Promise.all([
+                    JSONFileMasks.apply(player_file_path),
+                    JSONFileMasks.generateFromMask(a_c_file_path, [ "default/on_entry" ])
+                ]);
+                break;
+            }
         }
     }
 
