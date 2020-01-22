@@ -37,9 +37,7 @@
 </template>
 
 <script>
-    import TabSystem from '../../scripts/TabSystem';
-    import path from "path";
-    import { CURRENT } from '../../scripts/constants';
+    import CreateFileWindow from '../../windows/CreateFile';
 
     export default {
         name: "welcome-screen",
@@ -48,15 +46,7 @@
         },
         methods: {
             createFile(event) {
-                TabSystem.add({
-                    file_version: 0,
-                    content: "",
-                    raw_content: new Buffer(""),
-                    file_path: path.join(CURRENT.PROJECT_PATH, "untitled.txt"),
-                    is_compiled: false,
-                    category: CURRENT.PROJECT,
-                    file_name: "untitled.txt"
-                });
+                new CreateFileWindow(undefined, false);
             }
         }
     }
