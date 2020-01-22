@@ -99,7 +99,10 @@ const state = {
                         title: "Select Parent",
                         shortcut: "Ctrl + P",
                         action: () => {
-                            let p = TabSystem.getCurrentNavObj().parent;
+                            try {
+                                let p = TabSystem.getCurrentNavObj().parent;
+                            } catch {}
+                            
                             if(p !== undefined) TabSystem.setCurrentFileNav(p.path);
                         }
                     },
