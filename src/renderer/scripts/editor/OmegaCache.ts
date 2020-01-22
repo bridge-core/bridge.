@@ -88,7 +88,7 @@ export default class OmegaCache {
         }
     }
 
-    static load(file_path: string): Promise<any> {
+    static load(file_path: string): Promise<OmegaCacheData> {
         return new Promise((resolve, reject) => {
             fs.readFile(this.toCachePath(file_path), (err, data) => {
                 if(err) reject(err);
