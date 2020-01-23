@@ -5,11 +5,9 @@
     "bp_map": {
         "block.json": "blocks/{{IDENTIFIER}}.json"
     },
-    "rp_map": {
-        "client_block.json": "blocks.json"
-    },
     "expand_rp_files": {
         "terrain_texture.json": "textures/terrain_texture.json",
+        "client_block.json": "blocks.json",
         "en_US.lang": "texts/en_US.lang"
     },
     "copy_rp_files": {
