@@ -101,9 +101,8 @@ const state = {
                         action: () => {
                             try {
                                 let p = TabSystem.getCurrentNavObj().parent;
+                                if(p !== undefined) TabSystem.setCurrentFileNav(p.path);
                             } catch {}
-                            
-                            if(p !== undefined) TabSystem.setCurrentFileNav(p.path);
                         }
                     },
                     {
