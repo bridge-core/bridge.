@@ -11,7 +11,8 @@ import EventBus from "../EventBus";
 import Notification from "../Notification";
 import { promises as fs } from "fs";
 import { refreshCache } from "../Project/RefreshCache";
-declare function zip(path_1: string, path_2: string): Promise<void>; 
+import { zip } from "zip-a-folder";
+
 
 export default [
     {

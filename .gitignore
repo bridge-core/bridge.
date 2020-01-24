@@ -6,11 +6,6 @@ build/*
 node_modules/*
 !node_modules/discord-rpc
 
-node_modules/*
-!node_modules/safe-eval
-node_modules/safe-eval/*
-!node_modules/safe-eval/index.d.ts
-
 npm-debug.log
 npm-debug.log.*
 thumbs.db
