@@ -1,1 +1,1 @@
-import "./DropFile";
+import './DropFile'
