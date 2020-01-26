@@ -1,15 +1,15 @@
 {
-    "compilerOptions": {
-        "outDir": "./dist/",
-        "module": "commonjs",
-        "target": "esnext",
-        "esModuleInterop": true,
-        "noImplicitAny": true,
-        "strictNullChecks": false,
-        "allowJs": true,
-        "lib": [
-          "esnext",
-          "dom"
-        ]
-    }
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "module": "commonjs",
+    "target": "esnext",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "strictNullChecks": false,
+    "allowJs": true,
+    "lib": [
+      "esnext",
+      "dom"
+    ]
+  }
 }
