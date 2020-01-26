@@ -22,15 +22,30 @@ function getDefaultThemes() {
 		)
 		res[id] = theme
 	})
+
+	let css_files = fs.readdirSync(path.join(__static, 'css'), {
+		withFileTypes: true,
+	})
+	css_files.map(css_file => {
+		if (css_file.isDirectory()) return
+
+		ThemeManager.css.set(
+			css_file.name,
+			fs
+				.readFileSync(path.join(__static, 'css', css_file.name))
+				.toString('utf-8')
+		)
+	})
+
 	return res
 }
 
 export default class ThemeManager {
+	static css = new Map<string, string>()
 	static themes: any = getDefaultThemes()
 	static plugin_themes: any = {}
 	static current_theme: string
 	static options: IThemeOptions
-	static css = new Map<string, string>()
 
 	static get theme_names() {
 		let theme_names = []
