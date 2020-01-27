@@ -1,5 +1,5 @@
 import SETTINGS from "../../store/Settings";
-import UpdateWindow from "../../windows/UpdateApp";
+import UpdateWindow from "../../windows/NewUpdateWindow";
 import Notification from "../Notification";
 import DiscordWindow from "../../windows/Discord";
 import { shell } from 'electron';
@@ -36,5 +36,5 @@ export default async function startUp() {
             new UpdateWindow(latest_version);
         }
     })
-    if(update_available) update_msg.send();
+    if(true) update_msg.send();
 }
