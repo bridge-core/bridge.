@@ -12,6 +12,6 @@ USER gitpod
 USER root
 
 RUN apt-get -q update
-RUN apt-get install libnss3-dev
+RUN apt-get install libnss3
 
 USER gitpod
