@@ -1,0 +1,5 @@
+tasks:
+  - init: npm i
+    command: echo installed dependencies
+image:
+  file: .gitpod.Dockerfile
