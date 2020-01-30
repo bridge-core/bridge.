@@ -8,13 +8,20 @@ import Store from '../../store/index'
 let last_selected: string
 let last_result: string
 
-export const NEGATIVE_RESPONSES = ['/@NO-RP@/', '/@NO-DEPENDENCY@/']
+export const NEGATIVE_RESPONSES = [
+	'/@NO-RP@/',
+	'/@NO-DEPENDENCY@/',
+	'/@NO-BP@/'
+]
+
 export function setRP(val: string) {
 	last_result = val
 }
+
 export default async function findRP() {
 	let selected = TabSystem.project
-	if (selected === undefined) return '/@NO-RP@/'
+	if (selected === undefined)
+		return '/@NO-BP@/'
 	if (selected === last_selected && last_result !== undefined)
 		return last_result
 	last_selected = selected
