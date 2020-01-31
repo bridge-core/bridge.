@@ -4,7 +4,8 @@
 			v-if="
 				selected !== undefined &&
 					selected !== '/@NO-RP@/' &&
-					selected !== '/@NO-DEPENDENCY@/'
+					selected !== '/@NO-DEPENDENCY@/' &&
+					selected !== '/@NO-BP@/'
 			"
 		>
 			<component
@@ -45,7 +46,8 @@
 				loaded_file_defs &&
 					selected !== undefined &&
 					selected !== '/@NO-RP@/' &&
-					selected !== '/@NO-DEPENDENCY@/'
+					selected !== '/@NO-DEPENDENCY@/' &&
+					selected !== '/@NO-BP@/'
 			"
 			:files="directory"
 			:project="selected"
@@ -65,6 +67,11 @@
 
 			<v-btn @click="createRP" style="margin-right: 4px;">Create</v-btn
 			><v-btn color="primary" @click="linkRP">Link</v-btn>
+		</div>
+		<div v-else-if="selected === '/@NO-BP@/'" style="padding: 4px;">
+			<p style="word-break: break-word;">
+				Please load a behavior pack before trying to link a resource pack.
+			</p>
 		</div>
 		<div v-else style="padding: 4px; word-break: break-word;">
 			<p style="word-break: break-word;">
@@ -246,7 +253,8 @@ export default {
 			if (
 				dir === undefined ||
 				dir === '/@NO-RP@/' ||
-				dir === '/@NO-DEPENDENCY@/'
+				dir === '/@NO-DEPENDENCY@/' ||
+				dir === '/@NO-BP@/'
 			)
 				return lw.close()
 			if (dir !== this.selected) {
