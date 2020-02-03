@@ -56,9 +56,9 @@
 				<v-divider v-if="footer_visible" vertical></v-divider>
 				<span style="padding: 0 1em; white-space: nowrap;">
 					created by
-					<a class="grey--text text--lighten-1" @click="openTwitter"
-						>solvedDev</a
-					>
+					<a class="grey--text text--lighten-1" @click="openTwitter">
+						solvedDev
+					</a>
 				</span>
 			</v-footer>
 
