@@ -19,11 +19,6 @@ export default class NodeShortcuts {
 	}
 
 	static execPaste(alternative_paste = false) {
-		console.log(
-			Store.state.Settings.is_alternative_append_with_copy,
-			alternative_paste
-		)
-
 		if (Store.state.Settings.is_alternative_append_with_copy)
 			return alternative_paste ? this.paste() : this.classicPaste()
 		else return alternative_paste ? this.classicPaste() : this.paste()

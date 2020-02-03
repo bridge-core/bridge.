@@ -70,7 +70,8 @@
 		</div>
 		<div v-else-if="selected === '/@NO-BP@/'" style="padding: 4px;">
 			<p style="word-break: break-word;">
-				Please load a behavior pack before trying to link a resource pack.
+				Please load a behavior pack before trying to link a resource
+				pack.
 			</p>
 		</div>
 		<div v-else style="padding: 4px; word-break: break-word;">

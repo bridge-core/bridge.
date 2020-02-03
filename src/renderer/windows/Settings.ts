@@ -85,8 +85,8 @@ class ReactiveList {
 }
 
 class ReactiveSwitch {
-	type = 'switch';
 	[x: string]: any
+	type = 'switch'
 
 	constructor(parent: SettingsWindow, watch_key: string, def: any) {
 		this.input = parent.data[watch_key]
@@ -103,8 +103,8 @@ class ReactiveSwitch {
 }
 
 class ReactiveInput {
-	type = 'input';
 	[x: string]: any
+	type = 'input'
 
 	constructor(parent: SettingsWindow, watch_key: string, def: any) {
 		this.input = parent.data[watch_key]
@@ -121,8 +121,8 @@ class ReactiveInput {
 }
 
 class ReactiveDropdown {
-	type: 'autocomplete' | 'select';
 	[x: string]: any
+	type: 'autocomplete' | 'select'
 
 	constructor(
 		parent: SettingsWindow,

@@ -23,19 +23,21 @@ function getDefaultThemes() {
 		res[id] = theme
 	})
 
-	let css_files = fs.readdirSync(path.join(__static, 'css'), {
-		withFileTypes: true,
-	})
-	css_files.map(css_file => {
-		if (css_file.isDirectory()) return
+	try {
+		let css_files = fs.readdirSync(path.join(__static, 'css'), {
+			withFileTypes: true,
+		})
+		css_files.map(css_file => {
+			if (css_file.isDirectory()) return
 
-		ThemeManager.css.set(
-			css_file.name,
-			fs
-				.readFileSync(path.join(__static, 'css', css_file.name))
-				.toString('utf-8')
-		)
-	})
+			ThemeManager.css.set(
+				css_file.name,
+				fs
+					.readFileSync(path.join(__static, 'css', css_file.name))
+					.toString('utf-8')
+			)
+		})
+	} catch {}
 
 	return res
 }
@@ -75,7 +77,6 @@ export default class ThemeManager {
 		//Load theme options
 		this.options =
 			(this.themes[id] || this.plugin_themes[id] || {}).options || {}
-		console.log(this.options.css, this.css.get(this.options.css), this.css)
 		this.options.css = this.css.get(this.options.css)
 		Store.commit('setThemeOptions', this.options)
 

@@ -11,7 +11,7 @@ let last_result: string
 export const NEGATIVE_RESPONSES = [
 	'/@NO-RP@/',
 	'/@NO-DEPENDENCY@/',
-	'/@NO-BP@/'
+	'/@NO-BP@/',
 ]
 
 export function setRP(val: string) {
@@ -20,8 +20,7 @@ export function setRP(val: string) {
 
 export default async function findRP() {
 	let selected = TabSystem.project
-	if (selected === undefined)
-		return '/@NO-BP@/'
+	if (selected === undefined) return '/@NO-BP@/'
 	if (selected === last_selected && last_result !== undefined)
 		return last_result
 	last_selected = selected
