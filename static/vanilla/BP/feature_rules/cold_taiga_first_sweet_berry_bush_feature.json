@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "cold_taiga_first_sweet_berry_bush_feature",
+      "identifier": "minecraft:cold_taiga_first_sweet_berry_bush_feature",
       "places_feature": "minecraft:sweet_berry_bush_feature"
     },
     "conditions": {

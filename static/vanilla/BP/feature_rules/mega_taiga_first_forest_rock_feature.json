@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "mega_taiga_first_forest_rock_feature",
+      "identifier": "minecraft:mega_taiga_first_forest_rock_feature",
       "places_feature": "minecraft:legacy:forest_rock_feature"
     },
     "conditions": {

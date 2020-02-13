@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "plains_surface_flowers_feature",
+      "identifier": "minecraft:plains_surface_flowers_feature",
       "places_feature": "minecraft:legacy:plains_flower_feature"
     },
     "conditions": {

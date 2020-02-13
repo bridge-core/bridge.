@@ -1509,7 +1509,7 @@
         "priority": 10,
         "speed_multiplier": 0.6
       },
-      "minecraft:physics": {
+        "minecraft:physics": {
       },
       "minecraft:pushable": {
         "is_pushable": true,

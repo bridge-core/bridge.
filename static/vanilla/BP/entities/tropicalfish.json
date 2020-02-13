@@ -578,7 +578,9 @@
         "is_pushable_by_piston": true
       },
       "minecraft:behavior.swim_idle": {
-        "priority": 5
+        "priority": 5,
+        "idle_time": 5.0,
+        "success_rate": 0.1
       },
       "minecraft:behavior.random_swim": { // Randomly selects points to go to, even in water
         "priority": 3,
@@ -604,9 +606,10 @@
       },
       "minecraft:behavior.swim_wander": {
         "priority": 4,
+        "interval": 0.1,
+        "look_ahead": 2.0,
         "speed_multiplier": 1.0,
-        "interval": 10,
-        "look_ahead": 2.0
+        "wander_time": 5.0
       },
       "minecraft:flocking": {
         "in_water": true,

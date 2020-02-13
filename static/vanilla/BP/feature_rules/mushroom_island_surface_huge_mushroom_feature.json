@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "mushroom_island_surface_huge_mushroom_feature",
+      "identifier": "minecraft:mushroom_island_surface_huge_mushroom_feature",
       "places_feature": "minecraft:huge_mushroom_feature"
     },
     "conditions": {

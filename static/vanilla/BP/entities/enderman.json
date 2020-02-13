@@ -30,9 +30,7 @@
           "value": 0.45
         },
         "minecraft:behavior.melee_attack": {
-          "priority": 2,
-          "speed_multiplier": 1.0,
-          "track_target": false
+          "priority": 2
         }
       }
     },
@@ -113,18 +111,15 @@
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 5,
+        "must_see": true,
         "attack_interval": 10,
+
         "entity_types": [
           {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "endermite"
-            },
+            "filters": { "test": "is_family", "subject": "other", "value": "endermite" },
             "max_dist": 64
           }
-        ],
-        "must_see": true
+        ]
       },
       "minecraft:navigation.walk": {
         "can_path_over_water": false,

@@ -69,6 +69,7 @@
         "file_viewer": "json",
 
         "start_state": "feature/main",
+        "lightning_cache": "feature",
         "highlighter": "feature",
         "file_creator": "feature",
         "problems": [ "format_version" ]
@@ -79,6 +80,7 @@
         "file_viewer": "json",
 
         "start_state": "feature_rule/main",
+        "lightning_cache": "feature",
         "highlighter": "feature_rule",
         "file_creator": "feature_rule",
         "problems": [ "format_version" ]

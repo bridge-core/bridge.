@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "overworld_surface_pumpkin_feature",
+      "identifier": "minecraft:overworld_surface_pumpkin_feature",
       "places_feature": "minecraft:pumpkin_feature"
     },
     "conditions": {

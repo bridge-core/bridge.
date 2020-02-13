@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:ore_feature": {
     "description": {
-      "identifier": "lapis_ore_feature"
+      "identifier": "minecraft:lapis_ore_feature"
     },
     "count": 7,
     "places_block": "minecraft:lapis_ore",

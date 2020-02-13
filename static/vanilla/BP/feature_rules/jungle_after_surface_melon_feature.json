@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "jungle_after_surface_melon_feature",
+      "identifier": "minecraft:jungle_after_surface_melon_feature",
       "places_feature": "minecraft:melon_feature"
     },
     "conditions": {

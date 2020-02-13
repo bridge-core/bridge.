@@ -75,6 +75,9 @@
 
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 2,
+          "must_see": true,
+          "attack_interval": 5,
+
           "entity_types": [
             {
               "filters": {
@@ -84,11 +87,9 @@
                   { "test" :  "is_family", "subject" : "other", "value" :  "irongolem"}
                 ]
                },
-               "max_dist": 16
-             }
-          ],
-          "must_see": true,
-          "attack_interval": 5
+              "max_dist": 16
+            }
+          ]
         },
         "minecraft:behavior.leap_at_target": {
           "priority": 4,
@@ -97,7 +98,6 @@
         },
         "minecraft:behavior.melee_attack": {
           "priority": 3,
-          "speed_multiplier": 1.0,
           "track_target": true,
           "random_stop_interval": 100,
           "reach_multiplier": 0.8
@@ -115,6 +115,9 @@
         },
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 2,
+          "must_see": true,
+          "attack_interval": 10,
+
           "entity_types": [
             {
               "filters": {
@@ -126,9 +129,7 @@
                },
               "max_dist": 16
             }
-          ],
-          "attack_interval": 10,
-          "must_see": true
+          ]
         },
         "minecraft:behavior.leap_at_target": {
           "priority": 4,
@@ -137,7 +138,6 @@
         },
         "minecraft:behavior.melee_attack": {
           "priority": 3,
-          "speed_multiplier": 1.0,
           "track_target": true,
           "reach_multiplier": 1.4
         }
@@ -205,7 +205,6 @@
         "can_path_over_water": true
       },
       "minecraft:movement.basic": {
-        
       },
       "minecraft:jump.static": {
       },

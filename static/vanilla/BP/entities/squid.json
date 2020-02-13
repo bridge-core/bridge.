@@ -22,12 +22,12 @@
       "minecraft:experience_reward": {
         "on_death": "!query.is_baby && query.last_hit_by_player ? Math.Random(1,3) : 0"
       },
-	    "minecraft:nameable": {
-	    },
-      "minecraft:type_family": {
-        "family":["squid", "mob"]          
+      "minecraft:nameable": {
       },
-      "minecraft:collision_box":{
+      "minecraft:type_family": {
+        "family":["squid", "mob"]
+      },
+      "minecraft:collision_box": {
         "width": 0.95,
         "height": 0.95
       },
@@ -72,24 +72,22 @@
         "hard_distance": 6.0,
         "max_distance": 10.0
       },
-      "minecraft:balloonable": {
-      },
-      "minecraft:behavior.squid_move_away_from_ground":{
+      "minecraft:behavior.squid_move_away_from_ground": {
         "priority": 1
       },
-      "minecraft:behavior.squid_flee":{
+      "minecraft:behavior.squid_flee": {
         "priority": 2
       },
-      "minecraft:behavior.squid_idle":{
+      "minecraft:behavior.squid_idle": {
         "priority": 2
       },
-      "minecraft:behavior.squid_dive":{
+      "minecraft:behavior.squid_dive": {
         "priority": 2
       },
-      "minecraft:behavior.squid_out_of_water":{
+      "minecraft:behavior.squid_out_of_water": {
         "priority": 2
       },
-	    "minecraft:physics": {
+      "minecraft:physics": {
       },
       "minecraft:pushable": {
         "is_pushable": true,

@@ -15,7 +15,8 @@
         "fuse_lit": true,
         "power": 1,
         "causes_fire": false,
-        "destroy_affected_by_griefing": true
+        "destroy_affected_by_griefing": true,
+        "allow_damage_underwater": true
       }
     }
   },

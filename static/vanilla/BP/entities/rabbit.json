@@ -134,7 +134,7 @@
         "max_distance":  10.0
       },
       "minecraft:balloonable": {
-        "mass": 0.75
+        "mass": 0.4
       },
       "minecraft:behavior.float": {
         "priority": 0

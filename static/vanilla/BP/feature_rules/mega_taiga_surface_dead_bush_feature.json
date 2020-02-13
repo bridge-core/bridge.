@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "mega_taiga_surface_dead_bush_feature",
+      "identifier": "minecraft:mega_taiga_surface_dead_bush_feature",
       "places_feature": "minecraft:dead_bush_feature"
     },
     "conditions": {

@@ -1,0 +1,12 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:aggregate_feature": {
+    "description": {
+      "identifier": "minecraft:scatter_jungle_tree_cocoa_feature"
+    },
+    "features": [
+      "minecraft:scatter_jungle_tree_lower_cocoa_feature",
+      "minecraft:scatter_jungle_tree_upper_cocoa_feature"
+    ]
+  }
+}

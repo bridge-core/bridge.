@@ -1,5 +1,5 @@
 {
     "distributions": [ "gaussian", "uniform" ],
-    "early_outs": [ "first_success" ],
+    "early_outs": [ "none", "first_failure", "first_success" ],
     "coordinate_eval_orders": [ "xyz", "zyx", "yxz", "xzy", "zxy", "yzx" ]
 }

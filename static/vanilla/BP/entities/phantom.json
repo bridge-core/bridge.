@@ -78,10 +78,10 @@
         "entity_types": [
           {
             "filters": {
-                "any_of": [
-                  { "test" :  "is_family", "subject" : "other", "value" :  "ocelot"},
-                  { "test" :  "is_family", "subject" : "other", "value" :  "cat"}
-                ]
+              "any_of": [
+                { "test": "is_family", "subject": "other", "value": "ocelot" },
+                { "test": "is_family", "subject": "other", "value": "cat" }
+              ]
             },
             "max_dist": 16,
             "walk_speed_multiplier": 1,
@@ -91,25 +91,23 @@
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 1,
-        "within_radius": 64,
         "reselect_targets": true,
+        "scan_interval": 20,
+        "within_radius": 64.0,
+        "must_see_forget_duration": 0.5,
+        "target_search_height": 80.0,
+
         "entity_types": [
           {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "player"
-            },
+            "filters": { "test": "is_family", "subject": "other", "value": "player" },
             "max_dist": 64
           }
-        ],
-        "must_see": false,
-        "must_see_forget_duration": 0.5,
-        "scan_interval": 20,
-        "target_search_height": 80.0
+        ]
       },
       "minecraft:behavior.swoop_attack": {
         "priority": 2,
+        "damage_reach": 0.2,
+        "speed_multiplier": 1.0,
         "delay_range": [ 10.0, 20.0 ]
       },
       "minecraft:behavior.circle_around_anchor": {

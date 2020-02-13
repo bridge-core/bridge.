@@ -166,12 +166,7 @@ export const DYNAMIC = {
 			})
 		},
 		feature_references() {
-			return walkSync(CURRENT.PROJECT_PATH + '\\features').map(e => {
-				return e
-					.split(/\\|\//g)
-					.pop()
-					.replace('.json', '')
-			})
+			return LightningCache.getCompiledSync().feature.identifiers
 		},
 	},
 	animation_controller: {
@@ -182,7 +177,8 @@ export const DYNAMIC = {
 			while (current !== undefined && current.key !== 'states') {
 				current = current.parent
 			}
-			if (current.key === 'states') return Object.keys(current.toJSON())
+			if (current && current.key === 'states')
+				return Object.keys(current.toJSON())
 			return []
 		},
 	},

@@ -2,8 +2,8 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "taiga_first_double_plant_fern_feature",
-      "places_feature": "fern_double_plant_patch_feature"
+      "identifier": "minecraft:taiga_first_double_plant_fern_feature",
+      "places_feature": "minecraft:fern_double_plant_patch_feature"
     },
     "conditions": {
       "placement_pass": "first_pass",

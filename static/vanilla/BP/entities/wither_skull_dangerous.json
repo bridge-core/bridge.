@@ -16,7 +16,8 @@
         "power": 1,
         "causes_fire": false,
         "max_resistance": 4.0,
-        "destroy_affected_by_griefing": true
+        "destroy_affected_by_griefing": true,
+        "allow_damage_underwater": true
       }
     }
   },

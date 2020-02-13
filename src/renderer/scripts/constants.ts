@@ -10,9 +10,10 @@ import { FileExplorerStorage } from './Sidebar/FileExplorer'
 export const WEB_APP_DATA = 'https://bridge-core.github.io/data/'
 export const WEB_APP_PLUGINS = 'https://bridge-core.github.io/plugins/'
 
-export const DOC_URL = 'https://bedrock.dev/1.14.0.0/1.14.0.6/'
+export const DOC_URL = 'https://bedrock.dev/1.15.0.0/1.15.0.51/'
 export const DOC_LIST = [
 	'Entities',
+	'Features',
 	'Item',
 	'Blocks',
 	'Biomes',
@@ -24,7 +25,7 @@ export const DOC_LIST = [
 	'Animations',
 	'Entity Events',
 	'Recipes',
-]
+].sort()
 
 export const MINECRAFT_VERSIONS = JSON.parse(
 	fs

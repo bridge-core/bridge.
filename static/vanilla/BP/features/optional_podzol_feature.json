@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:scatter_feature": {
     "description": {
-      "identifier": "optional_podzol_feature"
+      "identifier": "minecraft:optional_podzol_feature"
     },
     "iterations": 1,
     "scatter_chance": 20.0,

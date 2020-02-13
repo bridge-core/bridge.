@@ -1,0 +1,12 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:sequence_feature": {
+    "description": {
+      "identifier": "minecraft:jungle_tree_with_cocoa_feature"
+    },
+    "features": [
+      "minecraft:jungle_tree_feature",
+      "minecraft:optional_jungle_tree_cocoa_feature"
+    ]
+  }
+}

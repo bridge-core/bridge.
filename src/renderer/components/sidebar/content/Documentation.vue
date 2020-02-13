@@ -66,9 +66,7 @@ export default {
 	},
 	computed: {
 		doc_list() {
-			return DOC_LIST.sort((a, b) => {
-				return a.toUpperCase().localeCompare(b.toUpperCase())
-			})
+			return DOC_LIST
 		},
 		project_docs() {
 			return ['Components', 'TAGS']

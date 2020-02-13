@@ -202,15 +202,9 @@
           "priority": 5,
           "speed_multiplier": 1.2,
           "items": [
-            "apple",
-            "carrot",
             "golden_apple",
             "appleEnchanted",
-            "golden_carrot",
-            "hay_block",
-            "sugar",
-            "bread",
-            "wheat"
+            "golden_carrot"
           ]
         }
       },
@@ -285,7 +279,7 @@
         "minecraft:mark_variant": {
           "value": 4
         }
-      }      
+      }
     },
 
     "components": {
@@ -294,7 +288,7 @@
           {
             "slot": 0,
             "item": "saddle",
-            "accepted_items": ["saddle"],
+            "accepted_items": [ "saddle" ],
             "on_equip": {
               "event": "minecraft:horse_saddled"
             },
@@ -342,7 +336,7 @@
       },
       "minecraft:movement": {
         "value": {
-          "range_min": 0.1125, 
+          "range_min": 0.1125,
           "range_max": 0.3375
         }
       },
@@ -352,7 +346,6 @@
         "avoid_damage_blocks": true
       },
       "minecraft:movement.basic": {
-        
       },
       "minecraft:jump.static": {
       },
@@ -360,7 +353,7 @@
       },
       "minecraft:horse.jump_strength": {
         "value": {
-          "range_min": 0.4, 
+          "range_min": 0.4,
           "range_max": 1.0
         }
       },
@@ -422,7 +415,7 @@
       "minecraft:behavior.random_look_around": {
         "priority": 8
       },
-	    "minecraft:physics": {
+      "minecraft:physics": {
       },
       "minecraft:pushable": {
         "is_pushable": true,
@@ -459,43 +452,43 @@
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:base_white"]
+                  "component_groups": [ "minecraft:base_white" ]
                 }
               },
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:base_creamy"]
+                  "component_groups": [ "minecraft:base_creamy" ]
                 }
               },
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:base_chestnut"]
+                  "component_groups": [ "minecraft:base_chestnut" ]
                 }
               },
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:base_brown"]
+                  "component_groups": [ "minecraft:base_brown" ]
                 }
               },
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:base_black"]
+                  "component_groups": [ "minecraft:base_black" ]
                 }
               },
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:base_gray"]
+                  "component_groups": [ "minecraft:base_gray" ]
                 }
               },
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:base_darkbrown"]
+                  "component_groups": [ "minecraft:base_darkbrown" ]
                 }
               }
             ]
@@ -505,35 +498,35 @@
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:markings_none"]
+                  "component_groups": [ "minecraft:markings_none" ]
                 }
               },
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:markings_white_details"]
+                  "component_groups": [ "minecraft:markings_white_details" ]
                 }
               },
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:markings_white_fields"]
+                  "component_groups": [ "minecraft:markings_white_fields" ]
                 }
               },
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:markings_white_dots"]
+                  "component_groups": [ "minecraft:markings_white_dots" ]
                 }
               },
               {
                 "weight": 1,
                 "add": {
-                  "component_groups": ["minecraft:markings_black_dots"]
+                  "component_groups": [ "minecraft:markings_black_dots" ]
                 }
               }
             ]
-          }          
+          }
         ]
       },
 
@@ -589,37 +582,37 @@
 
       "minecraft:make_white": {
         "add": {
-          "component_groups": ["minecraft:base_white"]
+          "component_groups": [ "minecraft:base_white" ]
         }
       },
       "minecraft:make_creamy": {
         "add": {
-          "component_groups": ["minecraft:base_creamy"]
+          "component_groups": [ "minecraft:base_creamy" ]
         }
       },
       "minecraft:make_chestnut": {
         "add": {
-          "component_groups": ["minecraft:base_chestnut"]
+          "component_groups": [ "minecraft:base_chestnut" ]
         }
       },
       "minecraft:make_brown": {
         "add": {
-          "component_groups": ["minecraft:base_brown"]
+          "component_groups": [ "minecraft:base_brown" ]
         }
       },
       "minecraft:make_black": {
         "add": {
-          "component_groups": ["minecraft:base_black"]
+          "component_groups": [ "minecraft:base_black" ]
         }
       },
       "minecraft:make_gray": {
         "add": {
-          "component_groups": ["minecraft:base_gray"]
+          "component_groups": [ "minecraft:base_gray" ]
         }
       },
       "minecraft:make_darkbrown": {
         "add": {
-          "component_groups": ["minecraft:base_darkbrown"]
+          "component_groups": [ "minecraft:base_darkbrown" ]
         }
       }
     }
