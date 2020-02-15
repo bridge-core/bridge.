@@ -12,6 +12,19 @@ export const getTabContextMenu = (tabIndex: number) => [
 			TabSystem.closeById(tabIndex)
 		},
 	},
+	{
+		title: 'Close All',
+		icon: 'mdi-table-row',
+		action: () => {
+			let tabs = TabSystem.getCurrentTabs()
+			for (let i = 0; i < tabs.length; i++) {
+				if (!tabs[i].is_unsaved) {
+					TabSystem.closeById(i)
+					i--
+				}
+			}
+		},
+	},
 	{ type: 'divider' },
 	{
 		title: 'Close Tabs to the Right',
