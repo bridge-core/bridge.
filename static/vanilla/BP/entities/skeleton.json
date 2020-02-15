@@ -18,9 +18,10 @@
       },
       "minecraft:ranged_attack": {
         "minecraft:behavior.ranged_attack": {
-          "attack_interval_min": 1,
-          "attack_interval_max": 3,
-          "attack_radius": 15
+          "priority": 0,
+          "attack_interval_min": 1.0,
+          "attack_interval_max": 3.0,
+          "attack_radius": 15.0
         },
         "minecraft:shooter": {
           "type": "Arrow",
@@ -41,9 +42,8 @@
       "minecraft:melee_attack": {
         "minecraft:behavior.melee_attack": {
           "priority": 4,
-          "target_dist": 1.2,
-          "speed_multiplier": 1.25,
-          "track_target": true
+          "track_target": true,
+          "speed_multiplier": 1.25
         },
         "minecraft:attack": {
           "damage": 3
@@ -133,53 +133,38 @@
         }
       },
       "minecraft:behavior.ranged_attack": {
-        "attack_interval_min": 1,
-        "attack_interval_max": 3,
-        "attack_radius": 15
+        "priority": 0,
+        "attack_interval_min": 1.0,
+        "attack_interval_max": 3.0,
+        "attack_radius": 15.0
       },
       "minecraft:behavior.hurt_by_target": {
         "priority": 1
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
+        "must_see": true,
         "reselect_targets": true,
+
         "entity_types": [
           {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "player"
-            },
+            "filters": { "test": "is_family", "subject": "other", "value": "player" },
             "max_dist": 16
           },
           {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "irongolem"
-            },
+            "filters": { "test": "is_family", "subject": "other", "value": "irongolem" },
             "max_dist": 16
           },
           {
             "filters": {
               "all_of": [
-                {
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "baby_turtle"
-                },
-                {
-                  "test": "in_water",
-                  "subject": "other",
-                  "operator": "!=",
-                  "value": true
-                }
+                { "test": "is_family", "subject": "other", "value": "baby_turtle" },
+                { "test": "in_water", "subject": "other", "operator": "!=", "value": true }
               ]
             },
             "max_dist": 16
           }
-        ],
-        "must_see": true
+        ]
       },
       "minecraft:behavior.flee_sun": {
         "priority": 2,

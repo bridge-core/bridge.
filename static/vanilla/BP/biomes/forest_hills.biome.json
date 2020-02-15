@@ -25,9 +25,7 @@
       "hills": {},
       "monster": {},
       "overworld": {},
-      // "forest" tag cannot be present due to mob spawning rules, but is
-      // required for correct world generation -- hence: forest_generation
-      "forest_generation": {}
+      "forest": {}
     }
   }
 }

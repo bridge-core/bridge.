@@ -182,9 +182,7 @@
 
       // Zombie Behaviors
       "minecraft:behavior.melee_attack": {
-        "priority": 3,
-        "speed_multiplier": 1,
-        "track_target": false
+        "priority": 3
       },
       "minecraft:behavior.stomp_turtle_egg": {
         "priority": 4,
@@ -216,8 +214,11 @@
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
-        "within_radius": 25,
+        "must_see": true,
         "reselect_targets": true,
+        "within_radius": 25.0,
+        "must_see_forget_duration": 17.0,
+
         "entity_types": [
           {
             "filters": {
@@ -248,9 +249,7 @@
             },
             "max_dist": 35
           }
-        ],
-        "must_see": true,
-        "must_see_forget_duration": 17.0
+        ]
       },
       "minecraft:physics": {
       },

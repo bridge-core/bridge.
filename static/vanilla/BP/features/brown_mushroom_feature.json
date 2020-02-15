@@ -1,0 +1,14 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:single_block_feature": {
+    "description": {
+      "identifier": "minecraft:brown_mushroom_feature"
+    },
+    "places_block": "minecraft:brown_mushroom",
+    "enforce_survivability_rules": true,
+    "enforce_placement_rules": true,
+    "may_replace": [
+      "minecraft:air"
+    ]
+  }
+}

@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "mesa_surface_reeds_feature",
+      "identifier": "minecraft:mesa_surface_reeds_feature",
       "places_feature": "minecraft:reeds_feature"
     },
     "conditions": {

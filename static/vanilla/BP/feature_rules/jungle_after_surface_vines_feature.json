@@ -2,8 +2,8 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "jungle_after_surface_vines_feature",
-      "places_feature": "fixup_vines_position_feature"
+      "identifier": "minecraft:jungle_after_surface_vines_feature",
+      "places_feature": "minecraft:fixup_vines_position_feature"
     },
     "conditions": {
       "placement_pass": "after_surface_pass",

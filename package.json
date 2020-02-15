@@ -1,6 +1,6 @@
 {
   "name": "bridge",
-  "version": "0.13.39",
+  "version": "0.13.41",
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
   "license": "GNU",
@@ -14,7 +14,7 @@
     "pack": "npm run pack:main && npm run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
-    "postinstall": ""
+    "style": "prettier --write --parser typescript \"src/**/*.ts\" && prettier --write \"src/**/*.js\" && prettier --write --parser vue \"src/**/*.vue\""
   },
   "build": {
     "productName": "bridge",
@@ -79,7 +79,7 @@
     "vue": "^2.6.10",
     "vue-electron": "^1.0.6",
     "vuedraggable": "^2.23.0",
-    "vuetify": "^2.1.10",
+    "vuetify": "^2.2.5",
     "vuex": "^3.1.0",
     "vuex-electron": "^1.0.0",
     "zip-a-folder": "0.0.7"
@@ -138,7 +138,8 @@
     "mini-css-extract-plugin": "0.4.0",
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
-    "node-sass": "^4.9.2",
+    "node-sass": "^4.13.1",
+    "prettier": "^1.19.1",
     "sass-loader": "^7.0.3",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.21.0",

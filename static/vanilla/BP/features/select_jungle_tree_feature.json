@@ -1,0 +1,19 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:aggregate_feature": {
+    "description": {
+      "identifier": "minecraft:select_jungle_tree_feature"
+    },
+    "early_out": "first_success",
+    "features": [
+      "minecraft:optional_fallen_jungle_tree_feature",
+      "minecraft:jungle_tree_with_cocoa_feature",
+      // Undecorated jungle trees are only used by sapling blocks, but
+      // still must be loaded. No-op so they're never placed in the world
+      // during world gen, but still referenced so definitions are loaded.
+      // This wouldn't be necessary if saplings were data driven and could
+      // define which tree they grow.
+      "minecraft:noop_undecorated_jungle_tree_feature"
+    ]
+  }
+}

@@ -304,8 +304,10 @@
       "minecraft:navigation.walk": {
         "is_amphibious": true,
         "can_pass_doors": true,
-        "can_open_doors": true,
+        "can_break_doors": true,
         "avoid_sun": false
+      },
+      "minecraft:annotation.break_door": {
       },
       "minecraft:movement.basic": {
       },
@@ -365,13 +367,8 @@
       },
 
       // Zombie_villager Behaviors
-      "minecraft:behavior.break_door": {
-        "priority": 1
-      },
       "minecraft:behavior.melee_attack": {
-        "priority": 6,
-        "speed_multiplier": 1,
-        "track_target": false
+        "priority": 6
       },
       "minecraft:behavior.stomp_turtle_egg": {
         "priority": 4,
@@ -403,7 +400,9 @@
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
+        "must_see": true,
         "reselect_targets": true,
+
         "entity_types": [
           {
             "filters": {
@@ -426,8 +425,7 @@
             },
             "max_dist": 35
           }
-        ],
-        "must_see": true
+        ]
       },
       "minecraft:physics": {
       },

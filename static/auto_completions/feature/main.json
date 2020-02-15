@@ -1,8 +1,31 @@
 {
     "format_version": "$general.format_version",
+    "minecraft:aggregate_feature": {
+        "description": {
+            "identifier": "$general.file_identifier"
+        },
+        "early_out": "$feature.general.early_outs",
+        "features": {
+            "$dynamic.list.next_index": {
+                "@meta": { "is_value": true },
+                "@import.value.feature_ref": "$dynamic.biome.feature_references"
+            }
+        }
+    },
+    "minecraft:sequence_feature": {
+        "description": {
+            "identifier": "$general.file_identifier"
+        },
+        "features": {
+            "$dynamic.list.next_index": {
+                "@meta": { "is_value": true },
+                "@import.value.feature_ref": "$dynamic.biome.feature_references"
+            }
+        }
+    },
     "minecraft:ore_feature": {
         "description": {
-            "identifier": "$dynamic.current_file_name"
+            "identifier": "$general.file_identifier"
         },
         "count": "$general.number",
         "places_block": {
@@ -18,37 +41,24 @@
             }
         }
     },
-    "minecraft:single_block_feature": {
-        "description": {
-            "identifier": "$dynamic.current_file_name"
-        },
-        "places_block": {
-            "@import.value.block_id": "$general.block_identifier",
-            "name": "$general.block_identifier",
-            "states": "$_general.block_states"
-        },
-        "enforce_survivability_rules": "$general.boolean",
-        "enforce_placement_rules": "$general.boolean",
-        "may_replace": {
-            "$dynamic.list.next_index": {
-                "@import.value.block_id": "$general.block_identifier",
-                "name": "$general.block_identifier",
-                "states": "$_general.block_states"
-            }
-        }
-    },
     "minecraft:scatter_feature": {
         "description": {
-            "identifier": "$dynamic.current_file_name"
+            "identifier": "$general.file_identifier"
         },
         "iterations": "$general.number",
         "project_input_to_floor": "$general.boolean",
         "coordinate_eval_order": "$feature.general.coordinate_eval_orders",
         "scatter_chance": {
+            "@meta": { "is_molang": true },
+            "@import.value.molang": "$molang.general.boolean and ('query.' + $molang.general.query)",
+
             "numerator": "$general.number",
             "denominator": "$general.number"
         },
         "x": {
+            "@meta": { "is_molang": true },
+            "@import.value.molang": "$molang.general.boolean and ('query.' + $molang.general.query)",
+
             "extent": {
                 "$dynamic.list.index_pair": "$general.number"
             },
@@ -59,19 +69,110 @@
         "places_feature": {
             "$dynamic.list.next_index": {
                 "@meta": { "is_value": true },
-                "@import.value.block_id": "$dynamic.biome.feature_references"
+                "@import.value.feature_ref": "$dynamic.biome.feature_references"
             }
         }
     },
-    "minecraft:aggregate_feature": {
+    "minecraft:search_feature": {
         "description": {
-            "identifier": "$dynamic.current_file_name"
+            "identifier": "$general.file_identifier"
+        },
+        "places_features": {
+            "@meta": { "is_value": true },
+            "@import.value.feature_ref": "$dynamic.biome.feature_references"
+        },
+        "search_volume": {
+            "min": {
+                "$dynamic.list.index_triple": "$general.number"
+            },
+            "max": {
+                "$dynamic.list.index_triple": "$general.number"
+            }
+        },
+        "search_axis": [ "-x", "+x", "-y", "+y", "-z", "+z" ],
+        "required_successes": "$general.number"
+    },
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "$general.file_identifier"
+        },
+        "places_block": {
+            "@import.value.block_id": "$general.block_identifier",
+            "name": "$general.block_identifier",
+            "states": "$_general.block_states"
+        },
+        "enforce_survivability_rules": "$general.boolean",
+        "enforce_placement_rules": "$general.boolean",
+        "may_attach_to": {
+            "min_sides_must_attach": ["1", "2", "3", "4"],
+            "auto_rotate": "$general.boolean",
+            "top": {
+                "$dynamic.list.next_index": "$general.block_identifier"
+            },
+            "bottom": {
+                "$dynamic.list.next_index": "$general.block_identifier"
+            },
+            "north": {
+                "$dynamic.list.next_index": "$general.block_identifier"
+            },
+            "east": {
+                "$dynamic.list.next_index": "$general.block_identifier"
+            },
+            "south": {
+                "$dynamic.list.next_index": "$general.block_identifier"
+            },
+            "west": {
+                "$dynamic.list.next_index": "$general.block_identifier"
+            },
+            "all": {
+                "$dynamic.list.next_index": "$general.block_identifier"
+            },
+            "sides": {
+                "$dynamic.list.next_index": "$general.block_identifier"
+            }
+        },
+        "may_replace": {
+            "$dynamic.list.next_index": {
+                "@import.value.block_id": "$general.block_identifier",
+                "name": "$general.block_identifier",
+                "states": "$_general.block_states"
+            }
+        }
+    },
+    "minecraft:structure_template_feature": {
+        "description": {
+            "identifier": "$general.file_identifier"
+        },
+        "structure_name": {},
+        "adjustment_radius": [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
+        "facing_direction": [ "north", "south", "east", "west", "random" ],
+        "constraints": {
+            "grounded": {},
+            "unburied": {},
+            "block_intersection": {
+                "$dynamic.list.next_index": {
+                    "@meta": { "is_value": true },
+                    "@import.value.block_id": "$general.block_identifier"
+                }
+            }
+        }
+    },
+    "minecraft:tree_feature": {},
+    "minecraft:weighted_features": {
+        "description": {
+            "identifier": "$general.file_identifier"
         },
         "early_out": "$feature.general.early_outs",
         "features": {
             "$dynamic.list.next_index": {
-                "@meta": { "is_value": true },
-                "@import.value.block_id": "$dynamic.biome.feature_references"
+                "0": {
+                    "@meta": { "is_value": true },
+                    "@import.value.feature_ref": "$dynamic.biome.feature_references"
+                },
+                "1": {
+                    "@meta": { "is_value": true },
+                    "@import.value.weight": "$general.number"
+                }
             }
         }
     }

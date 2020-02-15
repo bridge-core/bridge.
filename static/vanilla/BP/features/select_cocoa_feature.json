@@ -1,0 +1,13 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:weighted_random_feature": {
+    "description": {
+      "identifier": "minecraft:select_cocoa_feature"
+    },
+    "features": [
+      [ "minecraft:cocoa_age_0_feature", 1 ],
+      [ "minecraft:cocoa_age_1_feature", 1 ],
+      [ "minecraft:cocoa_age_2_feature", 1 ]
+    ]
+  }
+}

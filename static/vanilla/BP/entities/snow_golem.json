@@ -136,8 +136,7 @@
             "filters": { "test" :  "is_family", "subject" : "other", "value" :  "monster"},
             "within_default": 6
           }
-        ],
-        "must_reach": true
+        ]
       },
       "minecraft:persistent": {
       },

@@ -147,7 +147,32 @@
         "ui.loom.take_result" :  {"sound": "ui.loom.take_result", "volume" : 0.65, "pitch" : 1.0},
         "raid.horn" :  {"sound": "raid.horn", "volume" : 60.0, "pitch" : 1.0},
         "convert_mooshroom" :  {"sound": "mob.mooshroom.convert", "volume" : 1.0, "pitch" : 1.0},
-        "milk_suspiciously": {"sound": "mob.mooshroom.suspicious_milk", "volume" : 1.0, "pitch" : 1.0}
+        "milk_suspiciously": {"sound": "mob.mooshroom.suspicious_milk", "volume" : 1.0, "pitch" : 1.0},
+        "block.beehive.enter": {
+          "sound": "block.beehive.enter",
+          "volume": 1.0,
+          "pitch": [ 0.7, 0.8 ]
+        },
+        "block.beehive.exit": {
+          "sound": "block.beehive.exit",
+          "volume": 1.0,
+          "pitch": [0.9, 1.1]
+        },
+        "block.beehive.shear": {
+          "sound": "block.beehive.shear",
+          "volume": 0.8,
+          "pitch": [0.8, 1.0]
+        },
+        "block.beehive.work": {
+          "sound": "block.beehive.work",
+          "volume": 0.6,
+          "pitch": 1.0
+        },
+        "block.beehive.drip": {
+          "sound": "block.beehive.drip",
+          "volume": 0.3,
+          "pitch": [0.7, 0.9]
+        }
      }
   }, 
   
@@ -185,6 +210,7 @@
         "swim": {"sound": "random.swim","pitch": [ 0.6, 1.4 ]},
         "fizz": {"sound": "random.fizz","volume": 0.7,"pitch": [ 1.2, 2.0 ]},
         "drink": {"sound": "random.drink","volume": 0.5,"pitch": [ 0.9, 1.0 ]},
+        "drink.honey": {"sound": "random.drink_honey", "volume": 0.5, "pitch": [ 0.9, 1.0 ]},
         "eat": {"sound": "random.eat","volume": [ 0.5, 1.5 ],"pitch": [ 0.8, 1.2 ]},
         "ambient": "",
         "flop":  "",
@@ -209,6 +235,30 @@
             "sound": "mob.bat.takeoff",
             "volume": 0.05,
             "pitch": [ 0.8, 1.2 ]
+          }
+        }
+      },
+      "bee": {
+        "volume": 0.6,
+        "pitch": 1.0,
+        "events": {
+          "hurt": {
+            "sound": "mob.bee.hurt",
+            "volume": 0.6,
+            "pitch": [ 0.9, 1.1 ]
+          },
+          "death": {
+            "sound": "mob.bee.death",
+            "volume": 0.6,
+            "pitch": [ 0.9, 1.1 ]
+          },
+          "attack": {
+            "sound": "mob.bee.sting",
+            "pitch": [ 0.8, 1.0 ]
+          },
+          "ambient.pollinate": {
+            "sound": "mob.bee.pollinate",
+            "volume": 0.85
           }
         }
       },

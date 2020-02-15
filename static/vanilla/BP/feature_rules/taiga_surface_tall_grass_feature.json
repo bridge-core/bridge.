@@ -2,8 +2,8 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "taiga_surface_tall_grass_feature",
-      "places_feature": "taiga_tall_grass_feature"
+      "identifier": "minecraft:taiga_surface_tall_grass_feature",
+      "places_feature": "minecraft:taiga_tall_grass_feature"
     },
     "conditions": {
       "placement_pass": "surface_pass",

@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "ice_plains_spikes_first_ice_patch_feature",
+      "identifier": "minecraft:ice_plains_spikes_first_ice_patch_feature",
       "places_feature": "minecraft:ice_patch_feature"
     },
     "conditions": {

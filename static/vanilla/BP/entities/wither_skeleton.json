@@ -62,49 +62,32 @@
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
         "reselect_targets": true,
+        "must_see": true,
+
         "entity_types": [
           {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "player"
-            },
+            "filters": { "test": "is_family", "subject": "other", "value": "player" },
             "max_dist": 16
           },
           {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "irongolem"
-            },
+            "filters": { "test": "is_family", "subject": "other", "value": "irongolem" },
             "max_dist": 16
           },
           {
             "filters": {
               "all_of": [
-                {
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "baby_turtle"
-                },
-                {
-                  "test": "in_water",
-                  "subject": "other",
-                  "operator": "!=",
-                  "value": true
-                }
+                { "test": "is_family", "subject": "other", "value": "baby_turtle" },
+                { "test": "in_water", "subject": "other", "operator": "!=", "value": true }
               ]
             },
             "max_dist": 16
           }
-        ],
-        "must_see": true
+        ]
       },
       "minecraft:behavior.melee_attack": {
         "priority": 4,
-        "target_dist": 1.2,
-        "speed_multiplier": 1.25,
-        "track_target": true
+        "track_target": true,
+        "speed_multiplier": 1.25
       },
       "minecraft:behavior.random_stroll": {
         "priority": 5,

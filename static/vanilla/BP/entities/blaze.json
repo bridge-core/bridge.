@@ -31,17 +31,15 @@
         "value": 0.23
       },
       "minecraft:navigation.walk": {
-        "can_path_over_water": true
+        "can_path_over_water": true,
+        "avoid_water": true,
+        "avoid_damage_blocks":  true
       },
       "minecraft:movement.basic": {
-
       },
       "minecraft:jump.static": {
       },
       "minecraft:can_climb": {
-      },
-      "minecraft:can_fly": {
-        "value": true
       },
       "minecraft:health": {
         "value": 20,
@@ -72,24 +70,19 @@
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
+        "must_see": true,
+
         "entity_types": [
           {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "player"
-            },
-            "max_dist": 48
+            "filters": { "test": "is_family", "subject": "other", "value": "player" },
+            "max_dist": 48.0
           }
-        ],
-        "must_see": true
+        ]
       },
       "minecraft:behavior.melee_attack": {
         "priority": 3,
-        "max_dist": 3,
-        "speed_multiplier": 1,
-        "random_stop_interval": 2.0,
-        "track_target": true
+        "track_target": true,
+        "random_stop_interval": 2
       },
       "minecraft:shooter": {
         "type": "smallfireball",
@@ -97,13 +90,13 @@
       },
       "minecraft:behavior.ranged_attack": {
         "priority": 4,
-        "attack_interval_min": 3,
-        "attack_interval_max": 5,
+        "burst_shots": 3,
+        "burst_interval": 0.3,
         "charge_charged_trigger": 0.0,
         "charge_shoot_trigger": 4.0,
-        "attack_radius": 16,
-        "burst_shots": 3,
-        "burst_interval": 0.3
+        "attack_interval_min": 3.0,
+        "attack_interval_max": 5.0,
+        "attack_radius": 16.0
       },
       "minecraft:behavior.random_stroll": {
         "priority": 5,

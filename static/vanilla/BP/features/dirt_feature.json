@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:ore_feature": {
     "description": {
-      "identifier": "dirt_feature"
+      "identifier": "minecraft:dirt_feature"
     },
     "count": 33,
     "places_block": "minecraft:dirt",

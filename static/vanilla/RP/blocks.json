@@ -2071,5 +2071,40 @@
   },
   "light_block": {
     "carried_textures": "light_block_carried"
+  },
+  "bee_nest": {
+    "textures": {
+      "up": "bee_nest_top",
+      "down": "bee_nest_bottom",
+      "north": "bee_nest_side",
+      "south": "bee_nest_front",
+      "west": "bee_nest_side",
+      "east": "bee_nest_side"
+    }
+  },
+  "beehive": {
+    "textures": {
+      "up": "beehive_top",
+      "down": "beehive_top",
+      "north": "beehive_side",
+      "south": "beehive_front",
+      "west": "beehive_side",
+      "east": "beehive_side"
+    }
+  },
+  "honey_block": {
+    "textures": {
+      "up": "honey_top",
+      "down": "honey_bottom",
+      "north": "honey_side",
+      "south": "honey_side",
+      "west": "honey_side",
+      "east": "honey_side"
+    },
+      "sound": "slime"
+  },
+  "honeycomb_block": {
+    "textures": "honeycomb_block",
+    "sound": "stone"
   }
 }

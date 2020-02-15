@@ -1,23 +1,21 @@
-const state = {
-
-}
+const state = {}
 
 const mutations = {
-    addLoadingWindow(state, { id, window }) {
-        if(state[id] !== undefined) {
-            state[id].push(window);
-        } else {
-            state[id] = [window];
-        }
-    },
-    removeLoadingWindow(state, { id }) {
-        if(state[id] === undefined) return;
-        state[id].forEach(w => w.hide());
-        delete state[id];
-    }
+	addLoadingWindow(state, { id, window }) {
+		if (state[id] !== undefined) {
+			state[id].push(window)
+		} else {
+			state[id] = [window]
+		}
+	},
+	removeLoadingWindow(state, { id }) {
+		if (state[id] === undefined) return
+		state[id].forEach(w => w.hide())
+		delete state[id]
+	},
 }
 
 export default {
-    state,
-    mutations
+	state,
+	mutations,
 }

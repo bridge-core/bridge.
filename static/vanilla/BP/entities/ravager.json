@@ -92,11 +92,14 @@
         },
         "minecraft:behavior.delayed_attack": {
           "priority": 4,
-          "reach_multiplier": 1.5,
-          "attack_duration": 0.75,
-          "hit_delay_pct": 0.5,
+          "attack_once": false,
           "track_target": true,
-          "sound_event": "attack.strong"
+          "require_complete_path": false,
+          "random_stop_interval": 0,
+          "reach_multiplier": 1.5,
+          "speed_multiplier": 1.0,
+          "attack_duration": 0.75,
+          "hit_delay_pct": 0.5
         },
         "minecraft:behavior.random_stroll": {
           "priority": 6,
@@ -131,20 +134,16 @@
           }
         },
         "minecraft:behavior.nearest_attackable_target": {
+          "priority": 3,
+          "must_see": true,
+          "within_radius": 16.0,
+
           "entity_types": [
             {
               "filters": {
                 "any_of": [
-                  {
-                    "subject": "other",
-                    "test": "is_family",
-                    "value": "player"
-                  },
-                  {
-                    "subject": "other",
-                    "test": "is_family",
-                    "value": "irongolem"
-                  }
+                  { "subject": "other", "test": "is_family", "value": "player" },
+                  { "subject": "other", "test": "is_family", "value": "irongolem" }
                 ]
               },
               "max_dist": 16
@@ -152,25 +151,13 @@
             {
               "filters": {
                 "all_of": [
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "villager"
-                  },
-                  {
-                    "test": "has_component",
-                    "subject": "other",
-                    "operator": "!=",
-                    "value": "minecraft:is_baby"
-                  }
+                  { "test": "is_family", "subject": "other", "value": "villager" },
+                  { "test": "has_component", "subject": "other", "operator": "!=", "value": "minecraft:is_baby" }
                 ]
               },
               "max_dist": 16
             }
-          ],
-          "must_see": true,
-          "priority": 3,
-          "within_radius": 16
+          ]
         },
         "minecraft:behavior.mount_pathing": {
           "priority": 5,

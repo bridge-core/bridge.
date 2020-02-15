@@ -77,32 +77,19 @@
         },
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 1,
-          "attack_interval": 10,
           "reselect_targets": true,
           "within_radius": 16.0,
+
           "entity_types": [
             {
-              "filters": {
-                "test": "is_family",
-                "subject": "other",
-                "value": "rabbit"
-              },
+              "filters": { "test": "is_family", "subject": "other", "value": "rabbit" },
               "max_dist": 8
             },
             {
               "filters": {
                 "all_of": [
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "baby_turtle"
-                  },
-                  {
-                    "test": "in_water",
-                    "subject": "other",
-                    "operator": "!=",
-                    "value": true
-                  }
+                  { "test": "is_family", "subject": "other", "value": "baby_turtle" },
+                  { "test": "in_water", "subject": "other", "operator": "!=", "value": true }
                 ]
               },
               "max_dist": 8
@@ -123,11 +110,7 @@
           "priority": 6,
           "entity_types": [
             {
-              "filters": {
-                "test": "is_family",
-                "subject": "other",
-                "value": "player"
-              },
+              "filters": { "test": "is_family", "subject": "other", "value": "player" },
               "max_dist": 10,
               "walk_speed_multiplier": 0.8,
               "sprint_speed_multiplier": 1.33
@@ -360,9 +343,16 @@
       },
       "minecraft:behavior.ocelotattack": {
         "priority": 4,
-        "walk_speed_multiplier": 0.8,
+        "cooldown_time": 1.0,
+        "x_max_rotation": 30.0,
+        "y_max_head_rotation": 30.0,
+        "max_distance": 15.0,
+        "max_sneak_range": 15.0,
+        "max_sprint_range": 4.0,
+        "reach_multiplier": 2.0,
+        "sneak_speed_multiplier": 0.6,
         "sprint_speed_multiplier": 1.33,
-        "sneak_speed_multiplier": 0.6
+        "walk_speed_multiplier": 0.8
       },
       "minecraft:behavior.random_stroll": {
         "priority": 8,

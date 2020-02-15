@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "swamp_surface_swamp_foliage_feature",
+      "identifier": "minecraft:swamp_surface_swamp_foliage_feature",
       "places_feature": "minecraft:legacy:swamp_foliage_feature"
     },
     "conditions": {

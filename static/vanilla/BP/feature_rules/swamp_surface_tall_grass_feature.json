@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "swamp_surface_tall_grass_feature",
+      "identifier": "minecraft:swamp_surface_tall_grass_feature",
       "places_feature": "minecraft:tall_grass_feature"
     },
     "conditions": {

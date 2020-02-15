@@ -1,6 +1,6 @@
 {
   "texture_data": {
-    "{{IDENTIFIER}}": {
+    "{{PROJ_PREFIX}}_{{IDENTIFIER}}": {
       "textures": "textures/items/{{IDENTIFIER}}"
     }
   }

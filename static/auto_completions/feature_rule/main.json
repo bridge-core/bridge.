@@ -2,7 +2,7 @@
     "format_version": "$general.format_version",
     "minecraft:feature_rules": {
         "description": {
-            "identifier": "$dynamic.current_file_name",
+            "identifier": "$general.file_identifier",
             "places_feature": {
                 "@meta": { "is_value": true },
                 "@import.value.feature_ref": "$dynamic.biome.feature_references"

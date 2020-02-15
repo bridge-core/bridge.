@@ -1,0 +1,14 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:aggregate_feature": {
+    "description": {
+      "identifier": "minecraft:beehive_wes_order_feature"
+    },
+    "early_out": "first_success",
+    "features": [
+      "minecraft:beehive_west_feature",
+      "minecraft:beehive_east_feature",
+      "minecraft:beehive_south_feature"
+    ]
+  }
+}

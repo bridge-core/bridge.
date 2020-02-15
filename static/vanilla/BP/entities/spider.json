@@ -87,32 +87,21 @@
         },
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 2,
+          "must_see": true,
+          "attack_interval": 5,
+
           "entity_types": [
             {
               "filters": {
                 "any_of": [
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "player"
-                  },
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "snowgolem"
-                  },
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "irongolem"
-                  }
+                  { "test": "is_family", "subject": "other", "value": "player" },
+                  { "test": "is_family", "subject": "other", "value": "snowgolem" },
+                  { "test": "is_family", "subject": "other", "value": "irongolem" }
                 ]
               },
               "max_dist": 16
             }
-          ],
-          "attack_interval": 5,
-          "must_see": true
+          ]
         }
       },
 
@@ -132,7 +121,6 @@
         },
         "minecraft:behavior.melee_attack": {
           "priority": 3,
-          "speed_multiplier": 1.0,
           "track_target": true,
           "reach_multiplier": 0.8
         }

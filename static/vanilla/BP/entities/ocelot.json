@@ -1,5 +1,5 @@
 {
-  "format_version": "1.14.0",
+  "format_version": "1.13.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:ocelot",
@@ -118,6 +118,19 @@
         },
         "minecraft:sittable": {
         },
+        "minecraft:leashable": {
+          "soft_distance": 4.0,
+          "hard_distance": 6.0,
+          "max_distance": 10.0,
+          "on_leash": {
+            "event": "minecraft:on_leash",
+            "target": "self"
+          },
+          "on_unleash": {
+            "event": "minecraft:on_unleash",
+            "target": "self"
+          }
+        },
         "minecraft:behavior.follow_owner": {
           "priority": 4,
           "speed_multiplier": 1.0,
@@ -142,12 +155,7 @@
       "minecraft:hurt_on_condition": {
         "damage_conditions": [
           {
-            "filters": {
-              "test": "in_lava",
-              "subject": "self",
-              "operator": "==",
-              "value": true
-            },
+            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
             "cause": "lava",
             "damage_per_tick": 4
           }
@@ -199,31 +207,18 @@
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 1,
-        "attack_interval": 10,
         "reselect_targets": true,
+
         "entity_types": [
           {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "chicken"
-            },
+            "filters": { "test": "is_family", "subject": "other", "value": "chicken" },
             "max_dist": 8
           },
           {
             "filters": {
               "all_of": [
-                {
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "baby_turtle"
-                },
-                {
-                  "test": "in_water",
-                  "subject": "other",
-                  "operator": "!=",
-                  "value": true
-                }
+                { "test": "is_family", "subject": "other", "value": "baby_turtle" },
+                { "test": "in_water", "subject": "other", "operator": "!=", "value": true }
               ]
             },
             "max_dist": 8
@@ -242,9 +237,16 @@
       },
       "minecraft:behavior.ocelotattack": {
         "priority": 4,
-        "walk_speed_multiplier": 0.8,
+        "cooldown_time": 1.0,
+        "x_max_rotation": 30.0,
+        "y_max_head_rotation": 30.0,
+        "max_distance": 15.0,
+        "max_sneak_range": 15.0,
+        "max_sprint_range": 4.0,
+        "reach_multiplier": 2.0,
+        "sneak_speed_multiplier": 0.6,
         "sprint_speed_multiplier": 1.33,
-        "sneak_speed_multiplier": 0.6
+        "walk_speed_multiplier": 0.8
       },
       "minecraft:behavior.random_stroll": {
         "priority": 8,
@@ -258,19 +260,6 @@
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
-      },
-      "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0,
-        "on_leash": {
-          "event": "minecraft:on_leash",
-          "target": "self"
-        },
-        "on_unleash": {
-          "event": "minecraft:on_unleash",
-          "target": "self"
-        }
       }
     },
 
