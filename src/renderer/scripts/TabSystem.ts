@@ -97,6 +97,9 @@ class TabSystem {
 	getCurrentProjects(split_screen?: boolean) {
 		return this.getProjects(split_screen)[this.project] || []
 	}
+	getCurrentTabs(split_screen?: boolean) {
+		return this.getProjects(split_screen)[this.project] || []
+	}
 	get selected() {
 		return this.split_screen_active
 			? this.split_screen_selected
@@ -134,11 +137,6 @@ class TabSystem {
 			}
 		}
 
-		/**
-		 * Broke saving on Linux
-		 * Might break legacy functionality on Windows in the current commented state though
-		 */
-		// tab.file_path = tab.file_path.replace(/\//g, "\\");
 		projects[this.project].unshift({
 			file_name: path.basename(tab.file_path),
 			...tab,

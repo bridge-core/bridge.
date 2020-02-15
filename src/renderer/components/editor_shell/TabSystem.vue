@@ -19,6 +19,8 @@
             `
 			"
 			@click.native="selected_tab = i"
+			@click.middle.native="onMiddleClick($event, i)"
+			@contextmenu.native="onContextMenu($event, i)"
 		>
 			<v-btn
 				v-if="showDocButton(file.file_path)"
@@ -71,6 +73,7 @@ import EventBus from '../../scripts/EventBus'
 import FileType from '../../scripts/editor/FileType'
 import { shell } from 'electron'
 import { DOC_URL } from '../../scripts/constants'
+import { getTabContextMenu } from '../../scripts/contextMenus/Tab'
 
 export default {
 	name: 'editor-shell-tab-system',
@@ -194,6 +197,17 @@ export default {
 		},
 		getIcon(file_path) {
 			return FileType.getFileIcon(file_path)
+		},
+		onMiddleClick(event, index) {
+			event.preventDefault()
+			this.closeTab(index)
+		},
+		async onContextMenu(event, index) {
+			this.$store.commit('openContextMenu', {
+				x_position: event.clientX,
+				y_position: event.clientY,
+				menu: await getTabContextMenu(index),
+			})
 		},
 	},
 }
