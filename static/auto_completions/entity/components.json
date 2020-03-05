@@ -867,7 +867,12 @@
     },
     "minecraft:trail": {
         "block_type": "$general.block_identifier",
-        "spawn_filter": "$entity.filters"
+        "spawn_filter": "$entity.filters",
+        "spawn_offset": {
+            "x": "$general.number",
+            "y": "$general.number",
+            "z": "$general.number"
+        }
     },
     "minecraft:transformation": {
         "into": "$general.entity_identifier",
