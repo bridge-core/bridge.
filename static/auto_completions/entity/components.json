@@ -134,7 +134,8 @@
             "min_variant": "$general.number",
             "max_variant": "$general.number"
         },
-        "require_tame": "$general.boolean"
+        "require_tame": "$general.boolean",
+        "require_full_health": "$general.boolean"
     },
     "minecraft:bribeable": {
         "bribe_cooldown": "$general.number",
@@ -846,6 +847,7 @@
         "looping": "$general.boolean",
         "random_interval": "$general.boolean",
         "time": {
+            "@import.value.decimal": "$general.decimal",
             "$dynamic.list.index_pair": "$general.decimal"
         },
         "random_time_choices": {

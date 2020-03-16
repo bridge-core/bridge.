@@ -3,7 +3,7 @@
   "minecraft:item": {
     "description": {
       "identifier": "minecraft:honey_bottle",
-      "category": "Nature"
+      "category": "Items"
     },
     "components": {
       "minecraft:icon": "honey_bottle",

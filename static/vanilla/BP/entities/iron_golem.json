@@ -223,7 +223,7 @@
       },
       "minecraft:behavior.random_stroll": {
         "priority": 6,
-        "speed_multiplier": 1,
+        "speed_multiplier": 0.6,
         "xz_dist": 16
       },
       "minecraft:behavior.look_at_player": {

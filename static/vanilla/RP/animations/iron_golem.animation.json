@@ -24,10 +24,10 @@
 			"loop" : true,
 			"bones" : {
 				"arm0" : {
-					"rotation" : [ "variable.modified_tcos0", 0.0, 0.0 ]
+					"rotation": [ "-variable.modified_tcos0 * 2.0", 0.0, 0.0 ]
 				},
 				"arm1" : {
-					"rotation" : [ "-variable.modified_tcos0", 0.0, 0.0 ]
+					"rotation": [ "variable.modified_tcos0 * 2.0", 0.0, 0.0 ]
 				}
 			}
 		},
@@ -46,16 +46,16 @@
 			"loop" : true,
 			"bones" : {
 				"body" : {
-					"rotation" : [ 0.0, 0.0, "variable.modified_tcos0 / 6.0" ]
+					"rotation": [ 0.0, 0.0, "variable.modified_tcos0 / 1.5" ]
 				},
 				"head" : {
-					"rotation" : [ 0.0, 0.0, "variable.modified_tcos0 / 6.0" ]
+					"rotation": [ 0.0, 0.0, "variable.modified_tcos0 / 1.5" ]
 				},
 				"leg0" : {
-					"rotation" : [ "-variable.modified_tcos0 / 2.0", 0.0, 0.0 ]
+					"rotation": [ "variable.modified_tcos0 * 6.0", 0.0, 0.0 ]
 				},
 				"leg1" : {
-					"rotation" : [ "variable.modified_tcos0 / 2.0", 0.0, 0.0 ]
+					"rotation": [ "-variable.modified_tcos0 * 6.0", 0.0, 0.0 ]
 				}
 			}
 		},

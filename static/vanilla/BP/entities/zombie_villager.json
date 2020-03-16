@@ -291,10 +291,9 @@
       "minecraft:behavior.stomp_turtle_egg": {
         "priority": 4,
         "speed_multiplier": 1,
-        "search_range": 24,
-        "search_height": 3,
+        "search_range": 10,
+        "search_height": 2,
         "goal_radius": 1.14,
-        "search_count": 4,
         "interval": 20
       },
       "minecraft:behavior.move_towards_restriction": {

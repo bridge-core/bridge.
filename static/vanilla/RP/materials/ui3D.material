@@ -122,7 +122,6 @@
       "vertexShader": "shaders/uv.vertex",
       "vrGeometryShader": "shaders/uv.geometry",
       "fragmentShader": "shaders/texture_ccolor.fragment",
-      "depthFunc": "Always",
       "vertexFields": [
         { "field": "Position" },
         { "field": "UV0" }
