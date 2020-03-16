@@ -189,7 +189,7 @@ export default async function EntityHandler({
 	await A_C.save(
 		join(
 			CURRENT.PROJECT_PATH,
-			`animation_controllers/bridge/commands_${file_name}.json`
+			`animation_controllers/bridge/commands_${file_name}`
 		)
 	)
 }
