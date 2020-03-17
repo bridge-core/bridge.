@@ -22,13 +22,13 @@ const vuetify = new Vuetify({
 				primary: '#1778D2',
 				secondary: '#1778D2',
 
-				background: '#303030',
-				sidebar_navigation: '#424242',
-				expanded_sidebar: '#424242',
-				tooltip: '#303030',
+				background: "#121212",
+				sidebar_navigation: "#1F1F1F",
+				expanded_sidebar: "#1F1F1F",
+				menu: "#1F1F1F",
 				menu: '#424242',
-				toolbar: '#000000',
-				footer: '#212121',
+				footer: "#111111",
+				tooltip: "#1F1F1F",
 			},
 			light: {
 				primary: '#1778D2',
@@ -46,7 +46,9 @@ const vuetify = new Vuetify({
 })
 
 export default new Vue({
-	components: { App },
+	components: {
+		App
+	},
 	vuetify,
 	store,
 	template: '<App/>',

@@ -6,7 +6,13 @@
     },
     "definition": {
         "dark": {
-            "primary": "#4caf50"
+            "primary": "#4caf50",
+            "background": "#303030",
+            "sidebar_navigation": "#424242",
+            "expanded_sidebar": "#424242",
+            "menu": "#424242",
+            "footer": "#212121",
+            "tooltip": "#303030"
         },
         "light": {
             "primary": "#4caf50"
