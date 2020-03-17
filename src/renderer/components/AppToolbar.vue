@@ -25,7 +25,7 @@
 		</v-toolbar-items>
 
 		<v-spacer />
-		<span style="font-size: 12px;">{{ project_name.split(/\\|\//g).pop() }}</span>
+		<span v-if="project_name" style="font-size: 12px;">{{ project_name.split(/\\|\//g).pop() }}</span>
 		<v-spacer />
 
 		<v-toolbar-items v-if="!is_mac_os">
