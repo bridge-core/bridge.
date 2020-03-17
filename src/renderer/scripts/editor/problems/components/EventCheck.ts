@@ -17,7 +17,10 @@ export default class EventCheck extends CommonProblem {
 		if (node.key === 'event') {
 			let t = node.parent.get('target')
 
-			if (t === undefined || t.data === 'self') {
+			if (
+				(t === undefined || t.data === 'self') &&
+				!node.path.includes('minecraft:behavior.send_event')
+			) {
 				try {
 					let current_events = TabSystem.getSelected().content.get(
 						'minecraft:entity/events'
