@@ -1,6 +1,6 @@
 import TabSystem from '../TabSystem'
 import { promises as fs } from 'fs'
-import { RP_BASE_PATH, BASE_PATH } from '../constants'
+import { RP_BASE_PATH, BASE_PATH, MOJANG_PATH } from '../constants'
 import { readJSON } from './JsonFS'
 import path from 'path'
 import Store from '../../store/index'
@@ -38,6 +38,41 @@ export default async function findRP() {
 	}
 
 	let rps = await fs.readdir(RP_BASE_PATH)
+
+	//Load resource packs from worlds
+	let map_packs = await fs.readdir(path.join(MOJANG_PATH, 'minecraftWorlds'))
+	map_packs = (
+		await Promise.all(
+			map_packs.map(async p => {
+				try {
+					return (
+						await fs.readdir(
+							path.join(
+								MOJANG_PATH,
+								'minecraftWorlds',
+								p,
+								'resource_packs'
+							),
+							{
+								withFileTypes: true,
+							}
+						)
+					)
+						.filter(dirent => dirent.isDirectory())
+						.map(dirent =>
+							path.join(
+								'../minecraftWorlds',
+								p,
+								'resource_packs',
+								dirent.name
+							)
+						)
+				} catch {}
+			})
+		)
+	).flat()
+	rps.push(...map_packs)
+
 	let rp_data = await Promise.all(
 		rps.map(rp =>
 			readJSON(path.join(RP_BASE_PATH, rp, 'manifest.json')).catch(

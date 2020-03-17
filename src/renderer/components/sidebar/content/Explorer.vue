@@ -8,18 +8,16 @@
 					selected !== '/@NO-BP@/'
 			"
 		>
-			<component
-				:is="toolbar_component"
-				:selected="selected"
-				:base_path="base_path"
-			/>
+			<component :is="toolbar_component" :selected="selected" :base_path="base_path" />
 			<v-divider />
 		</span>
 
 		<v-layout align-center>
-			<span style="padding: 0 4px;"
-				><v-avatar tile size="36px"><img :src="project_icon"/></v-avatar
-			></span>
+			<span style="padding: 0 4px;">
+				<v-avatar tile size="36px">
+					<img :src="project_icon" />
+				</v-avatar>
+			</span>
 
 			<v-select
 				v-if="force_project_algorithm === undefined"
@@ -35,9 +33,11 @@
 				@input="choice => (selected = choice)"
 				hide-details
 			/>
-			<v-subheader v-else style="width: calc(100% - 48px);">{{
-				selected
-			}}</v-subheader>
+			<v-subheader v-else style="width: calc(100% - 48px);">
+				{{
+				selected.split(/\\|\//g).pop()
+				}}
+			</v-subheader>
 		</v-layout>
 
 		<v-divider></v-divider>
@@ -55,18 +55,15 @@
 			:explorer_type="explorer_type"
 			class="file-displayer"
 		/>
-		<v-progress-linear
-			v-else-if="!loaded_file_defs || selected === undefined"
-			indeterminate
-		/>
+		<v-progress-linear v-else-if="!loaded_file_defs || selected === undefined" indeterminate />
 		<div v-else-if="selected === '/@NO-DEPENDENCY@/'" style="padding: 4px;">
 			<p style="word-break: break-word;">
 				It doesn't look like your current behavior pack has a
 				corresponding resource pack registered inside its manifest file.
 			</p>
 
-			<v-btn @click="createRP" style="margin-right: 4px;">Create</v-btn
-			><v-btn color="primary" @click="linkRP">Link</v-btn>
+			<v-btn @click="createRP" style="margin-right: 4px;">Create</v-btn>
+			<v-btn color="primary" @click="linkRP">Link</v-btn>
 		</div>
 		<div v-else-if="selected === '/@NO-BP@/'" style="padding: 4px;">
 			<p style="word-break: break-word;">
@@ -79,9 +76,9 @@
 				The resource pack which belongs to this behavior pack does not
 				exist.
 			</p>
-			<v-btn color="primary" @click="unlinkRP" style="margin-right: 4px;"
-				><v-icon>mdi-lock-open</v-icon>Unlink</v-btn
-			>
+			<v-btn color="primary" @click="unlinkRP" style="margin-right: 4px;">
+				<v-icon>mdi-lock-open</v-icon>Unlink
+			</v-btn>
 		</div>
 
 		<v-divider></v-divider>
@@ -96,7 +93,11 @@ import ExplorerToolbar from './explorer/Toolbar.vue'
 import ExplorerRpToolbar from './explorer/RpToolbar.vue'
 import EventBus from '../../../scripts/EventBus'
 import TabSystem from '../../../scripts/TabSystem'
-import { BASE_PATH, BP_BASE_PATH } from '../../../scripts/constants'
+import {
+	BASE_PATH,
+	BP_BASE_PATH,
+	MOJANG_PATH,
+} from '../../../scripts/constants'
 import DataUrl from 'dataurl'
 import fsync, { promises as fs } from 'fs'
 import LinkRPWindow from '../../../windows/LinkRPWindow'
@@ -192,7 +193,10 @@ export default {
 		},
 
 		project_items() {
-			return this.items
+			return this.items.map(p => ({
+				text: p.split(/\\|\//g).pop(),
+				value: p,
+			}))
 		},
 		project_icon() {
 			try {
@@ -344,9 +348,44 @@ export default {
 			let potential = await fs.readdir(BP_BASE_PATH, {
 				withFileTypes: true,
 			})
+
+			//load behavior packs from worlds
+			let map_packs = await fs.readdir(
+				path.join(MOJANG_PATH, 'minecraftWorlds')
+			)
+			map_packs = await Promise.all(
+				map_packs.map(async p => {
+					try {
+						return (
+							await fs.readdir(
+								path.join(
+									MOJANG_PATH,
+									'minecraftWorlds',
+									p,
+									'behavior_packs'
+								),
+								{
+									withFileTypes: true,
+								}
+							)
+						)
+							.filter(dirent => dirent.isDirectory())
+							.map(dirent =>
+								path.join(
+									'../minecraftWorlds',
+									p,
+									'behavior_packs',
+									dirent.name
+								)
+							)
+					} catch {}
+				})
+			)
+
 			return potential
 				.filter(dirent => dirent.isDirectory())
 				.map(dirent => dirent.name)
+				.concat(map_packs.flat())
 		},
 	},
 }

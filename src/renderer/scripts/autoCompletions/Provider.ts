@@ -158,6 +158,7 @@ class Provider {
 			if (
 				FileType.pathIncludes(path, def.includes) &&
 				(path.includes('development_behavior_packs') ||
+					path.includes('behavior_packs') ||
 					def.rp_definition ||
 					FileType.fallbackToBP(path))
 			)
