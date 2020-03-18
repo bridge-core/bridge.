@@ -67,7 +67,9 @@ export default async function findRP() {
 								dirent.name
 							)
 						)
-				} catch {}
+				} catch {
+					return []
+				}
 			})
 		)
 	).flat()
