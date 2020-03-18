@@ -33,7 +33,7 @@
 				@input="choice => (selected = choice)"
 				hide-details
 			/>
-			<v-subheader v-else style="width: calc(100% - 48px);">
+			<v-subheader v-else-if="selected" style="width: calc(100% - 48px);">
 				{{
 				selected.split(/\\|\//g).pop()
 				}}
@@ -350,9 +350,13 @@ export default {
 			})
 
 			//load behavior packs from worlds
-			let map_packs = await fs.readdir(
-				path.join(MOJANG_PATH, 'minecraftWorlds')
-			)
+			let map_packs = []
+			try {
+				map_packs = await fs.readdir(
+					path.join(MOJANG_PATH, 'minecraftWorlds')
+				)
+			} catch {}
+
 			map_packs = await Promise.all(
 				map_packs.map(async p => {
 					try {
