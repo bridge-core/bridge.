@@ -8,7 +8,11 @@
 					selected !== '/@NO-BP@/'
 			"
 		>
-			<component :is="toolbar_component" :selected="selected" :base_path="base_path" />
+			<component
+				:is="toolbar_component"
+				:selected="selected"
+				:base_path="base_path"
+			/>
 			<v-divider />
 		</span>
 
@@ -34,9 +38,7 @@
 				hide-details
 			/>
 			<v-subheader v-else-if="selected" style="width: calc(100% - 48px);">
-				{{
-				selected.split(/\\|\//g).pop()
-				}}
+				{{ selected.split(/\\|\//g).pop() }}
 			</v-subheader>
 		</v-layout>
 
@@ -55,7 +57,10 @@
 			:explorer_type="explorer_type"
 			class="file-displayer"
 		/>
-		<v-progress-linear v-else-if="!loaded_file_defs || selected === undefined" indeterminate />
+		<v-progress-linear
+			v-else-if="!loaded_file_defs || selected === undefined"
+			indeterminate
+		/>
 		<div v-else-if="selected === '/@NO-DEPENDENCY@/'" style="padding: 4px;">
 			<p style="word-break: break-word;">
 				It doesn't look like your current behavior pack has a
@@ -382,7 +387,9 @@ export default {
 									dirent.name
 								)
 							)
-					} catch {}
+					} catch {
+						return []
+					}
 				})
 			)
 
