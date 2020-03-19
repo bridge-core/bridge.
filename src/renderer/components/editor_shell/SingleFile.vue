@@ -340,6 +340,10 @@ export default {
 .CodeMirror-vscrollbar {
 	outline: none !important;
 }
+
+.theme--dark .CodeMirror-cursor {
+	border-left: 1px solid white !important;
+}
 </style>
 <style scoped>
 .image {
