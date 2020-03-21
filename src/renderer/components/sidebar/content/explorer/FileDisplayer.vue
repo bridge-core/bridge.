@@ -3,24 +3,17 @@
 		v-if="
 			first && file_explorer.children === 0 && !file_explorer.is_loading
 		"
-	>
-		This directory has no content.
-	</p>
+	>This directory has no content.</p>
 	<v-progress-linear v-else-if="file_explorer.is_loading" indeterminate />
 	<div :style="element_style" :class="element_class" v-else>
 		<draggable
 			v-model="file_explorer.children"
-			v-bind="{ group: `file-displayer-${move_group}`, disabled: first }"
+			v-bind="{ group: `file-displayer-${move_group}`, disabled: first || is_immutable }"
 			@change="draggedFile"
 		>
 			<template v-for="file in file_explorer.children">
 				<!--LOADING-->
-				<v-skeleton-loader
-					v-if="file.is_loading"
-					:key="file.absolute_path"
-					height="21"
-					type="text"
-				></v-skeleton-loader>
+				<v-skeleton-loader v-if="file.is_loading" :key="file.absolute_path" height="21" type="text"></v-skeleton-loader>
 				<!--FOLDER-->
 				<details
 					v-else-if="file.is_folder"
@@ -32,7 +25,8 @@
 					<summary
 						@click="file.is_open ? file.close() : file.open()"
 						@contextmenu="
-							event =>
+							event => 
+								!is_immutable &&
 								showFolderContextMenu(
 									event,
 									file.absolute_path,
@@ -42,12 +36,14 @@
 						v-ripple="!file.absolute_path.includes('cache')"
 					>
 						<v-icon class="open" small>mdi-folder-open</v-icon>
-						<v-icon class="closed" small>{{
+						<v-icon class="closed" small>
+							{{
 							file.absolute_path.includes('cache')
-								? 'mdi-folder-lock'
-								: 'mdi-folder'
-						}}</v-icon>
-						<span class="folder"> {{ file.name }}</span>
+							? 'mdi-folder-lock'
+							: 'mdi-folder'
+							}}
+						</v-icon>
+						<span class="folder">{{ file.name }}</span>
 					</summary>
 					<file-displayer
 						v-if="file.is_open"
@@ -57,6 +53,7 @@
 						:explorer_type="explorer_type"
 						:prop_explorer="file"
 						:move_group="first ? file.name : move_group"
+						:is_immutable="is_immutable"
 					/>
 				</details>
 
@@ -68,6 +65,7 @@
 					@click.stop="openFile(file.absolute_path)"
 					@contextmenu="
 						event =>
+							!is_immutable &&
 							showContextMenu(event, file.absolute_path, file)
 					"
 					v-ripple
@@ -111,6 +109,7 @@ export default {
 		explorer_type: String,
 		prop_explorer: Object,
 		move_group: String,
+		is_immutable: Boolean,
 	},
 	components: {
 		draggable,
@@ -146,6 +145,7 @@ export default {
 			this.explorer_type,
 			this.project
 		)
+		this.$emit('receiveFileExplorer', this.file_explorer)
 	},
 	destroyed() {
 		if (this.first) {
@@ -170,7 +170,7 @@ export default {
 		openFile(path) {
 			if (!this.$store.state.LoadingWindow['open-file']) {
 				new LoadingWindow('open-file').show()
-				FileSystem.open(path)
+				FileSystem.open(path, this.is_immutable)
 			}
 		},
 		getIcon(file_path) {

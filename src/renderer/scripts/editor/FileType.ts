@@ -41,7 +41,7 @@ export default class FileType {
 		try {
 			let path_arr = path
 				.split(
-					/development_behavior_packs|development_resource_pack|behavior_packs|resource_pack/g
+					/development_behavior_packs|development_resource_pack|behavior_packs|resource_pack|vanilla/g
 				)[1]
 				.split(/\\|\//g)
 			path_arr.shift()
@@ -58,7 +58,7 @@ export default class FileType {
 	static fallbackToBP(path: string) {
 		return (
 			path.split(
-				/development_behavior_packs|development_resource_pack|behavior_packs|resource_pack/g
+				/development_behavior_packs|development_resource_pack|behavior_packs|resource_pack|vanilla/g
 			)[1] === undefined
 		)
 	}
@@ -78,11 +78,11 @@ export default class FileType {
 	 * @returns {object} file type definition of provided file_path
 	 */
 	static getData(file_path?: string, file_type?: string) {
-		let path = file_path
+		let path = file_path?.replace(/\\/g, '/')
 
 		if (path === undefined && file_type === undefined) {
 			try {
-				path = TabSystem.getSelected().file_path
+				path = TabSystem.getSelected().file_path?.replace(/\\/g, '/')
 			} catch (e) {
 				return
 			}
@@ -97,6 +97,7 @@ export default class FileType {
 				(this.pathIncludes(path, def.includes) &&
 					(path.includes('development_behavior_packs') ||
 						path.includes('behavior_packs') ||
+						path.includes('/BP/') ||
 						def.rp_definition ||
 						this.fallbackToBP(path)))
 			)

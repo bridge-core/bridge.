@@ -5,7 +5,7 @@ import fs from 'fs'
 import path from 'path'
 
 let DATA_PATH: string
-if (process.platform == 'win32')
+if (process.platform === 'win32')
 	DATA_PATH = path.join(
 		process.env.HOMEDRIVE,
 		process.env.HOMEPATH,

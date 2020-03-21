@@ -14,9 +14,10 @@ declare function requestIdleCallback(cb: () => void): number
 
 export class FileExplorerStorage {
 	static data: {
+		other: { [x: string]: FileExplorer }
 		explorer: { [x: string]: FileExplorer }
 		resource_pack: { [x: string]: FileExplorer }
-	} = { explorer: {}, resource_pack: {} }
+	} = { explorer: {}, resource_pack: {}, other: {} }
 
 	static set(
 		explorer_type: 'explorer' | 'resource_pack',

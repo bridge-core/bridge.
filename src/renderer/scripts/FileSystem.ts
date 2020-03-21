@@ -61,11 +61,12 @@ export default class FileSystem {
 		ipcRenderer.send('saveAsFileDialog', { path, content })
 	}
 
-	static async open(file_path: string) {
-		if ((await fs.lstat(file_path)).isFile()) this.openFile(file_path)
-		else this.openDir(file_path)
+	static async open(file_path: string, is_immutable = false) {
+		if ((await fs.lstat(file_path)).isFile())
+			this.openFile(file_path, is_immutable)
+		else this.openDir(file_path, is_immutable)
 	}
-	static async openFile(file_path: string) {
+	static async openFile(file_path: string, is_immutable = false) {
 		let file: Buffer
 		try {
 			file = await fs.readFile(file_path)
@@ -76,7 +77,7 @@ export default class FileSystem {
 		try {
 			cache = await OmegaCache.load(file_path)
 		} catch {
-			return this.loadFromDisk(file_path, file)
+			return this.loadFromDisk(file_path, file, is_immutable)
 		}
 
 		if (OmegaCache.isCacheFresh(file_path, cache, file.toString())) {
@@ -92,7 +93,8 @@ export default class FileSystem {
 				format_version,
 				null,
 				file_version,
-				file_uuid
+				file_uuid,
+				is_immutable
 			)
 		} else {
 			new ConfirmWindow(
@@ -111,7 +113,8 @@ export default class FileSystem {
 									format_version,
 									null,
 									file_version,
-									file_uuid
+									file_uuid,
+									is_immutable
 								)
 							}
 						)
@@ -132,25 +135,38 @@ export default class FileSystem {
 			)
 		}
 	}
-	static async openDir(file_path: string) {
+	static async openDir(file_path: string, is_immutable = false) {
 		let dirents = await fs.readdir(file_path, { withFileTypes: true })
 		await Promise.all(
 			dirents.map(async dirent => {
 				if (dirent.isFile())
-					await this.openFile(path.join(file_path, dirent.name))
-				else await this.openDir(path.join(file_path, dirent.name))
+					await this.openFile(
+						path.join(file_path, dirent.name),
+						is_immutable
+					)
+				else
+					await this.openDir(
+						path.join(file_path, dirent.name),
+						is_immutable
+					)
 			})
 		)
 	}
 
-	static loadFromDisk(file_path: string, file: string | Buffer) {
+	static loadFromDisk(
+		file_path: string,
+		file: string | Buffer,
+		is_immutable = false
+	) {
 		let file_str = file.toString()
 		this.addAsTab(
 			file_path,
 			file_str,
 			0,
 			file,
-			OmegaCache.extractFileVersion(file_path, file_str)
+			OmegaCache.extractFileVersion(file_path, file_str),
+			undefined,
+			is_immutable
 		)
 	}
 
@@ -205,7 +221,8 @@ export default class FileSystem {
 		format_version = 0,
 		raw_data?: string | Buffer,
 		file_version?: number,
-		file_uuid?: string
+		file_uuid?: string,
+		is_immutable?: boolean
 	) {
 		let tree
 		if (format_version === 1) {
@@ -226,6 +243,7 @@ export default class FileSystem {
 			raw_content: raw_data,
 			file_path,
 			is_compiled: format_version === 1,
+			is_immutable,
 			category: Store.state.Explorer.project.explorer,
 			file_name: path.basename(file_path),
 		})

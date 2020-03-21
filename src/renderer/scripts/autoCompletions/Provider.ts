@@ -152,13 +152,16 @@ class Provider {
 		)
 	}
 
-	validator(path: string) {
+	validator(path?: string) {
 		if (path === undefined) return (this.start_state = 'unknown')
+		path = path.replace(/\\/g, '/')
+
 		for (let def of this.FILE_DEFS) {
 			if (
 				FileType.pathIncludes(path, def.includes) &&
 				(path.includes('development_behavior_packs') ||
 					path.includes('behavior_packs') ||
+					path.includes('/BP/') ||
 					def.rp_definition ||
 					FileType.fallbackToBP(path))
 			)

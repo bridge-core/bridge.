@@ -8,11 +8,7 @@
 					selected !== '/@NO-BP@/'
 			"
 		>
-			<component
-				:is="toolbar_component"
-				:selected="selected"
-				:base_path="base_path"
-			/>
+			<component :is="toolbar_component" :selected="selected" :base_path="base_path" />
 			<v-divider />
 		</span>
 
@@ -37,9 +33,10 @@
 				@input="choice => (selected = choice)"
 				hide-details
 			/>
-			<v-subheader v-else-if="selected" style="width: calc(100% - 48px);">
-				{{ selected.split(/\\|\//g).pop() }}
-			</v-subheader>
+			<v-subheader
+				v-else-if="selected"
+				style="width: calc(100% - 48px);"
+			>{{ selected.split(/\\|\//g).pop() }}</v-subheader>
 		</v-layout>
 
 		<v-divider></v-divider>
@@ -51,16 +48,12 @@
 					selected !== '/@NO-DEPENDENCY@/' &&
 					selected !== '/@NO-BP@/'
 			"
-			:files="directory"
 			:project="selected"
 			:base_path="base_path"
 			:explorer_type="explorer_type"
 			class="file-displayer"
 		/>
-		<v-progress-linear
-			v-else-if="!loaded_file_defs || selected === undefined"
-			indeterminate
-		/>
+		<v-progress-linear v-else-if="!loaded_file_defs || selected === undefined" indeterminate />
 		<div v-else-if="selected === '/@NO-DEPENDENCY@/'" style="padding: 4px;">
 			<p style="word-break: break-word;">
 				It doesn't look like your current behavior pack has a
@@ -191,11 +184,6 @@ export default {
 		loading() {
 			return this.items.length == 0
 		},
-		directory() {
-			return this.$store.state.Explorer.files[this.explorer_type]
-				? this.$store.state.Explorer.files[this.explorer_type].child
-				: []
-		},
 
 		project_items() {
 			return this.items.map(p => ({
@@ -272,9 +260,6 @@ export default {
 				TabSystem.select(0)
 				return lw.close()
 			}
-			if (this.explorer_type === 'explorer')
-				EventBus.trigger('bridge:changedProject')
-			if (this.explorer_type === 'explorer') OmegaCache.init(dir)
 
 			if (this.load_plugins) {
 				await PluginLoader.loadPlugins(dir)

@@ -22,6 +22,7 @@
 		<content-documentation v-else-if="menu_type === 'documentation'" />
 
 		<content-file-search v-else-if="menu_type === 'file_search'" />
+		<content-vanilla-assets v-else-if="menu_type === 'vanilla_assets'" />
 
 		<content-custom
 			v-else-if="sidebar.is_plugin"
@@ -41,6 +42,7 @@ import ContentDebugLog from './content/DebugLog'
 import ContentCustom from './content/Custom'
 import ContentNotImplemented from './content/NotImplemented'
 import ContentFileSearch from './content/FileSearch'
+import ContentVanillaAssets from './content/VanillaAssets'
 
 import { BASE_PATH, RP_BASE_PATH } from '../../scripts/constants'
 import findRP from '../../scripts/Utilities/FindRP'
@@ -59,6 +61,7 @@ export default {
 		ContentDocumentation,
 		ContentFileSearch,
 		ContentNotImplemented,
+		ContentVanillaAssets,
 	},
 	data() {
 		return {

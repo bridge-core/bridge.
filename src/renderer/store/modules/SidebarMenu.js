@@ -5,8 +5,7 @@ import Vue from 'vue'
 
 const state = {
 	menu_state: 1,
-	items: [
-		{
+	items: [{
 			title: 'Explorer',
 			icon: 'mdi-folder',
 			menu_type: 'explorer',
@@ -25,6 +24,11 @@ const state = {
 			title: 'Documentation',
 			icon: 'mdi-book-open-page-variant',
 			menu_type: 'documentation',
+		},
+		{
+			title: 'Vanilla Packs',
+			icon: 'mdi-minecraft',
+			menu_type: 'vanilla_assets',
 		},
 		{
 			title: 'Debug Log',
@@ -67,13 +71,10 @@ const mutations = {
 
 		if (i == state.plugin_items.length)
 			state.plugin_items.push(
-				detachObj(
-					{},
-					{
-						...new_sidebar,
-						is_plugin: true,
-					}
-				)
+				detachObj({}, {
+					...new_sidebar,
+					is_plugin: true,
+				})
 			)
 
 		Store.commit('sortPluginSidebars')
