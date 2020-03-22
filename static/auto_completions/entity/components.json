@@ -6,6 +6,10 @@
         "entity_type": "$general.entity_identifier",
         "spawn_event": "$dynamic.cache.entity.events"
     },
+    "minecraft:admire_item": {
+        "duration": "$general.number",
+        "cooldown_after_being_attacked": "$general.number"
+    },
     "minecraft:ageable": {
         "duration": "$general.number",
         "feed_items": {
@@ -26,8 +30,11 @@
     },
     "minecraft:angry": {
         "broadcast_anger": "$general.boolean",
+        "broadcast_anger_on_attack": "$general.boolean",
+        "broadcast_anger_on_being_attacked": "$general.boolean",
         "broadcast_range": "$general.number",
         "broadcast_filters": "$entity.filters",
+        "filters": "$entity.filters",
         "broadcast_targets": {
             "$dynamic.list.next_index": { "@meta": { "is_value": true } }
         },
@@ -45,6 +52,13 @@
         "damage": "$general.number",
         "effect_name": "$general.effect_name",
         "effect_duration": "$general.number"
+    },
+    "minecraft:attack_cooldown": {
+        "attack_cooldown_time": {
+            "$dynamic.list.index_pair": "$general.number",
+            "@import.value": "$general.number"
+        },
+        "attack_cooldown_complete_event": "$entity.general.event_definition"
     },
     "minecraft:attack_damage": {
         "value": "$general.number"
@@ -104,6 +118,7 @@
         "allow_sitting": "$general.boolean",
         "blend_attributes": "$general.boolean",
         "breed_cooldown": "$general.number",
+        "love_filters": "$entity.filters", 
         "breed_items": {
             "$dynamic.list.next_index": "$general.item_identifier"
         },
@@ -149,6 +164,13 @@
     "minecraft:can_fly": { "value": "$general.boolean" },
     "minecraft:can_power_jump": {},
 
+    "minecraft:celebrate_hunt": {
+        "celebration_targets": "$entity.filters",
+        "broadcast": "$general.boolean",
+        "duration": "$general.number",
+        "radius": "$general.number"
+    },
+
     "minecraft:collision_box": {
         "width": "$general.number",
         "height": "$general.number"
@@ -158,6 +180,17 @@
     },
     "minecraft:color2": {
         "value": "$general.number"
+    },
+    "minecraft:custom_hit_test": {
+        "hitboxes": {
+            "$dynamic.list.next_index": {
+                "width": "$general.number",
+              "height":  "$general.number",
+              "pivot": {
+                  "$dynamic.list.index_triple": "$general.number"
+              }
+            }
+        }
     },
     "minecraft:damage_over_time": {
         "damage_per_hurt": "$general.number",
@@ -207,6 +240,7 @@
         "sensor_range": "$general.number",
         "minimum_count": "$general.number",
         "maximum_count": "$general.number",
+        "relative_range": "$general.boolean",
         "require_all": "$general.boolean",
         "event_filters": "$entity.filters",
         "event": "$dynamic.entity.events"
@@ -254,7 +288,8 @@
         "causes_fire": "$general.boolean",
         "breaks_blocks": "$general.boolean",
         "fire_affected_by_griefing": "$general.boolean",
-        "destroy_affected_by_griefing": "$general.boolean"
+        "destroy_affected_by_griefing": "$general.boolean",
+          "allow_damage_underwater": "$general.boolean"
     },
     "minecraft:fire_immune": "$general.boolean",
     "minecraft:floats_in_liquid": {},
@@ -323,6 +358,10 @@
     },
     "minecraft:ground_offset": {
         "value": "$general.decimal"
+    },
+    "minecraft:group_size": {
+        "radius": "$general.number",
+        "filters": "$entity.filters"
     },
     "minecraft:grows_crop": {
         "charges": "$general.number",
@@ -511,6 +550,7 @@
         "avoid_portals": "$general.boolean",
         "avoid_sun": "$general.boolean",
         "avoid_water": "$general.boolean",
+        "avoid_damage_blocks": "$general.boolean",
         "can_open_doors": "$general.boolean",
         "can_pass_doors": "$general.boolean",
         "can_path_over_water": "$general.boolean",
@@ -747,10 +787,12 @@
         "all_items_max_amount": "$general.number",
         "items": {
             "$dynamic.list.next_index": {
+                "priority": "$general.number",
                 "item": "$general.item_identifier",
                 "craft_into": "$general.item_identifier",
                 "want_amount": "$general.number",
-                "surplus_amount": "$general.number"
+                "surplus_amount": "$general.number",
+                "admire": "$general.boolean"
             }
         }
     },

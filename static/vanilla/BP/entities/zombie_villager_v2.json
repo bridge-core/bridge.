@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:zombie_villager_v2",
@@ -304,10 +304,8 @@
       "minecraft:navigation.walk": {
         "is_amphibious": true,
         "can_pass_doors": true,
-        "can_break_doors": true,
+        "can_open_doors": true,
         "avoid_sun": false
-      },
-      "minecraft:annotation.break_door": {
       },
       "minecraft:movement.basic": {
       },
@@ -347,6 +345,160 @@
       },
       "minecraft:nameable": {
       },
+      "minecraft:shareables": {
+        "items": [
+          {
+            "item": "minecraft:diamond_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:iron_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:golden_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:stone_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:wooden_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:diamond_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:chainmail_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:golden_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:leather_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:diamond_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:chainmail_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:golden_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:leather_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:diamond_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:chainmail_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:golden_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:leather_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:diamond_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:chainmail_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:golden_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:leather_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          }
+        ]
+      },
 
       "minecraft:interact": {
         "interactions": {
@@ -365,43 +517,72 @@
           "interact_text": "action.interact.cure"
         }
       },
-
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       // Zombie_villager Behaviors
+      "minecraft:behavior.break_door": {
+        "priority": 1
+      },
       "minecraft:behavior.melee_attack": {
         "priority": 6
       },
       "minecraft:behavior.stomp_turtle_egg": {
         "priority": 4,
         "speed_multiplier": 1,
-        "search_range": 10,
-        "search_height": 2,
+        "search_range": 24,
+        "search_height": 3,
         "goal_radius": 1.14,
+        "search_count": 4,
         "interval": 20
       },
       "minecraft:behavior.move_towards_restriction": {
         "priority": 7,
         "speed_multiplier": 1
       },
-      "minecraft:behavior.random_stroll": {
+      "minecraft:behavior.pickup_items": {
         "priority": 8,
+        "max_dist": 3,
+        "goal_radius": 2,
+        "speed_multiplier": 1.0,
+        "pickup_based_on_chance": true,
+        "can_pickup_any_item": true
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 9,
         "speed_multiplier": 1
       },
       "minecraft:behavior.look_at_player": {
-        "priority": 9,
+        "priority": 10,
         "look_distance": 6,
         "probability": 0.02
       },
       "minecraft:behavior.random_look_around": {
-        "priority": 9
+        "priority": 11
       },
       "minecraft:behavior.hurt_by_target": {
         "priority": 1
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
-        "must_see": true,
         "reselect_targets": true,
-
         "entity_types": [
           {
             "filters": {
@@ -424,7 +605,8 @@
             },
             "max_dist": 35
           }
-        ]
+        ],
+        "must_see": true
       },
       "minecraft:physics": {
       },

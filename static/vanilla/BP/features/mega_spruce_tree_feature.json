@@ -8,7 +8,7 @@
       "trunk_width": 2,
       "trunk_height": {
         "base": 13,
-        "intervals": [ 15 ]
+        "intervals": [ 3, 15 ]
       },
       "trunk_block": {
         "name": "minecraft:log",
@@ -63,10 +63,8 @@
         }
       }
     ],
-    "may_grow_through": [
+    "may_replace": [
       "minecraft:air",
-      "minecraft:dirt",
-      "minecraft:grass",
       {
         "name": "minecraft:leaves",
         "states": {
@@ -101,6 +99,16 @@
         "name": "minecraft:leaves2",
         "states": {
           "new_leaf_type": "dark_oak"
+        }
+      }
+    ],
+    "may_grow_through": [
+      "minecraft:dirt",
+      "minecraft:grass",
+      {
+        "name": "minecraft:dirt",
+        "states": {
+          "dirt_type": "coarse"
         }
       }
     ]

@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:cod",
@@ -67,10 +67,29 @@
       "minecraft:movement.sway": {
         "sway_amplitude": 0.0
       },
+     "minecraft:despawn": {
+        "filters": {
+          "any_of": [
+            {
+              "all_of": [
+                { "test": "is_persistent", "value": false },
+                { "test": "distance_to_nearest_player", "operator": ">", "value": 40 }
+
+              ]
+            },
+            {
+              "all_of": [
+                { "test": "is_persistent", "value": false },
+                { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                { "test": "random_chance", "value": 800 },
+                { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+              ]
+            }
+          ]
+        }
+      },
       "minecraft:behavior.swim_idle": {
-        "priority": 5,
-        "idle_time": 5.0,
-        "success_rate": 0.1
+        "priority": 5
       },
       "minecraft:behavior.random_swim": { // Randomly selects points to go to, even in water
         "priority": 3,
@@ -81,10 +100,9 @@
       },
       "minecraft:behavior.swim_wander": {
         "priority": 4,
-        "interval": 0.1,
-        "look_ahead": 2.0,
         "speed_multiplier": 1.0,
-        "wander_time": 5.0
+        "interval": 10,
+        "look_ahead": 2.0
       },
       "minecraft:behavior.avoid_mob_type": {
         "priority": 1,

@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:guardian",
@@ -115,6 +115,26 @@
       "minecraft:loot": {
         "table": "loot_tables/entities/guardian.json"
       },
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 1,
         "entity_types": [
@@ -147,11 +167,10 @@
         "speed_multiplier": 1.0,
         "control_flags": [ "move", "look" ]
       },
-      "minecraft:behavior.random_swim": {
+      "minecraft:behavior.random_stroll": {
         "priority": 7,
         "speed_multiplier": 1.0,
-        "interval": 80,
-        "avoid_surface": false
+        "interval": 80
       },
       "minecraft:behavior.look_at_player": {
         "priority": 8,

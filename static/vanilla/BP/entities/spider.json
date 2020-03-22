@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:spider",
@@ -87,21 +87,32 @@
         },
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 2,
-          "must_see": true,
-          "attack_interval": 5,
-
           "entity_types": [
             {
               "filters": {
                 "any_of": [
-                  { "test": "is_family", "subject": "other", "value": "player" },
-                  { "test": "is_family", "subject": "other", "value": "snowgolem" },
-                  { "test": "is_family", "subject": "other", "value": "irongolem" }
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "snowgolem"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "irongolem"
+                  }
                 ]
               },
               "max_dist": 16
             }
-          ]
+          ],
+          "attack_interval": 5,
+          "must_see": true
         }
       },
 
@@ -175,6 +186,26 @@
       "minecraft:attack": {
         "damage": 3
       },
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.float": {
         "priority": 1
       },

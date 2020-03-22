@@ -48,7 +48,7 @@
         }
       }
     ],
-    "may_grow_through": [
+    "may_replace": [
       "minecraft:air",
       {
         "name": "minecraft:leaves",

@@ -1,0 +1,20 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shapeless": {
+    "description": {
+    "identifier": "minecraft:netherite_leggings"
+    },
+    "tags": [ "crafting_table" ],
+    "ingredients": [
+      {
+        "item": "minecraft:diamond_leggings"
+      },
+      {
+        "item": "minecraft:netherite_ingot"
+      }
+    ],
+    "result": {
+      "item": "minecraft:netherite_leggings"
+    }
+  }
+}

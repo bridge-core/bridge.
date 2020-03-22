@@ -13,14 +13,15 @@
       "minecraft:overworld_height": {
         "noise_type": "lowlands"
       },
-      "minecraft:overworld_surface": {
-        "floor_depth": 7,
-        "floor_material": "minecraft:gravel",
+      "minecraft:surface_parameters": {
+        "sea_floor_depth": 7,
+        "sea_floor_material": "minecraft:gravel",
         "foundation_material": "minecraft:stone",
         "mid_material": "minecraft:dirt",
-        "top_material": "minecraft:grass"
+        "top_material": "minecraft:grass",
+        "sea_material": "minecraft:water"
       },
-      "minecraft:world_generation_rules": {
+      "minecraft:overworld_generation_rules": {
         "hills_transformation": [
           [ "forest_hills", 1 ],
           [ "forest", 2 ]

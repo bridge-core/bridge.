@@ -28,17 +28,9 @@
             "identifier": "$general.file_identifier"
         },
         "count": "$general.number",
-        "places_block": {
-            "@import.value.block_id": "$general.block_identifier",
-            "name": "$general.block_identifier",
-            "states": "$_general.block_states"
-        },
+        "places_block": "$feature.general.block_reference",
         "may_replace": {
-            "$dynamic.list.next_index": {
-                "@import.value.block_id": "$general.block_identifier",
-                "name": "$general.block_identifier",
-                "states": "$_general.block_states"
-            }
+            "$dynamic.list.next_index": "$feature.general.block_reference"
         }
     },
     "minecraft:scatter_feature": {
@@ -52,8 +44,7 @@
             "@meta": { "is_molang": true },
             "@import.value.molang": "$molang.general.boolean and ('query.' + $molang.general.query)",
 
-            "numerator": "$general.number",
-            "denominator": "$general.number"
+            "$load": "$feature.general.chance_information"
         },
         "x": {
             "@meta": { "is_molang": true },
@@ -96,11 +87,7 @@
         "description": {
             "identifier": "$general.file_identifier"
         },
-        "places_block": {
-            "@import.value.block_id": "$general.block_identifier",
-            "name": "$general.block_identifier",
-            "states": "$_general.block_states"
-        },
+        "places_block": "$feature.general.block_reference",
         "enforce_survivability_rules": "$general.boolean",
         "enforce_placement_rules": "$general.boolean",
         "may_attach_to": {
@@ -132,32 +119,137 @@
             }
         },
         "may_replace": {
-            "$dynamic.list.next_index": {
-                "@import.value.block_id": "$general.block_identifier",
-                "name": "$general.block_identifier",
-                "states": "$_general.block_states"
-            }
+            "$dynamic.list.next_index": "$feature.general.block_reference"
         }
     },
     "minecraft:structure_template_feature": {
         "description": {
             "identifier": "$general.file_identifier"
         },
-        "structure_name": {},
+        "structure_name": { "@meta": { "is_value": true } },
         "adjustment_radius": [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
         "facing_direction": [ "north", "south", "east", "west", "random" ],
         "constraints": {
             "grounded": {},
             "unburied": {},
             "block_intersection": {
-                "$dynamic.list.next_index": {
-                    "@meta": { "is_value": true },
-                    "@import.value.block_id": "$general.block_identifier"
+                "block_whitelist": {
+                    "$dynamic.list.next_index": "$feature.general.block_reference"
                 }
             }
         }
     },
-    "minecraft:tree_feature": {},
+    "minecraft:tree_feature": {
+        "description": {
+            "identifier": "$general.file_identifier"
+        },
+        "can_be_submerged": {
+            "@import.value": "$general.boolean",
+            "max_depth": "$general.number"
+        },
+        "base_block": "$feature.general.block_reference",
+        "base_cluster": {
+            "may_replace": {
+                "$general.list.next_index": "$feature.general.block_reference"
+            },
+            "num_clusters": "$general.number",
+            "cluster_radius": "$general.number"
+        },
+        "may_grow_on": {
+            "$general.list.next_index": "$feature.general.block_reference"
+        },
+        "may_grow_through": {
+            "$general.list.next_index": "$feature.general.block_reference"
+        },
+        "may_replace": {
+            "$general.list.next_index": "$feature.general.block_reference"
+        },
+
+        "$load": "$feature.general.branches_reference",
+
+        "acacia_trunk": {
+            "trunk_height": {
+                "range_min": "$general.number",
+                "range_max": "$general.number"
+            },
+            "trunk_width": "$general.number",
+            "trunk_lean": {
+                "allow_diagonal_growth": "$general.boolean",
+                "lean_height": "$general.number",
+                "lean_steps": "$general.number"
+            },
+            "trunk_block": "$feature.general.block_reference",
+            "trunk_decoration": {
+                "decoration_chance": "$feature.general.chance_information",
+                "block_reference": "$feature.general.block_reference",
+                "num_steps": "$general.number",
+                "step_direction": [ "down", "up", "out", "away" ]
+            },
+            "branches": "$feature.general.branches_reference"
+        },
+        "fallen_trunk": {
+            "stump_height": "$general.number",
+            "height_modifier": "$general.number",
+            "log_length": "$general.number",
+            "trunk_block": "$feature.general.block_reference",
+            "log_decoration_feature": "$dynamic.biome.feature_references",
+            "trunk_decoration": {
+                "decoration_chance": "$feature.general.chance_information",
+                "block_reference": "$feature.general.block_reference",
+                "num_steps": "$general.number",
+                "step_direction": [ "down", "up", "out", "away" ]
+            }
+        },
+        "fancy_trunk": {
+            "trunk_height": {
+                "base": "$general.number",
+                "variance": "$general.number",
+                "scale": "$general.decimal"
+            },
+            "trunk_width": "$general.number",
+            "width_scale": "$general.decimal",
+            "foliage_altitude_factor": "$general.decimal",
+            "trunk_block": "$feature.general.block_reference",
+            "branches": {
+                "slope": "$general.decimal",
+                "density": "$general.decimal",
+                "min_altitude_factor": "$general.decimal"
+            }
+        },
+
+        "mega_trunk": {
+            "trunk_height": {
+                "base": "$general.number",
+                "intervals": {
+                    "$dynamic.list.index_pair": "$general.number"
+                }
+            },
+            "trunk_width": "$general.number",
+            "trunk_block": "$feature.general.block_reference",
+            "trunk_decoration": {
+                "decoration_chance": "$feature.general.chance_information",
+                "block_reference": "$feature.general.block_reference",
+                "num_steps": "$general.number",
+                "step_direction": [ "down", "up", "out", "away" ]
+            },
+            "branches": "$feature.general.branches_reference"
+        },
+
+        "trunk": {
+            "trunk_height": {
+                "range_min": "$general.number",
+                "range_max": "$general.number"
+            },
+            "trunk_width": "$general.number",
+            "trunk_block": "$feature.general.block_reference",
+            "trunk_decoration": {
+                "decoration_chance": "$feature.general.chance_information",
+                "block_reference": "$feature.general.block_reference",
+                "num_steps": "$general.number",
+                "step_direction": [ "down", "up", "out", "away" ]
+            }
+        }
+    },
     "minecraft:weighted_features": {
         "description": {
             "identifier": "$general.file_identifier"

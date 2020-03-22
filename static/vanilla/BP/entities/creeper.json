@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:creeper",
@@ -153,6 +153,26 @@
           "interact_text": "action.interact.creeper"
         }
       },
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.float": {
         "priority": 0
       },
@@ -196,15 +216,18 @@
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 1,
-        "must_see": true,
-        "must_see_forget_duration": 0.0,
-
         "entity_types": [
           {
-            "filters": { "test": "is_family", "subject": "other", "value": "player" },
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "player"
+            },
             "max_dist": 16
           }
-        ]
+        ],
+        "must_see": true,
+        "must_see_forget_duration": 0.0
       },
       "minecraft:behavior.hurt_by_target": {
         "priority": 2

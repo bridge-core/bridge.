@@ -13,14 +13,15 @@
       "minecraft:overworld_height": {
         "noise_type": "ocean"
       },
-      "minecraft:overworld_surface": {
-        "floor_depth": 3,
-        "floor_material": "minecraft:sand",
+      "minecraft:surface_parameters": {
+        "sea_floor_depth": 3,
+        "sea_floor_material": "minecraft:sand",
         "foundation_material": "minecraft:stone",
         "mid_material": "minecraft:dirt",
-        "top_material": "minecraft:grass"
+        "top_material": "minecraft:grass",
+        "sea_material": "minecraft:water"
       },
-      "minecraft:world_generation_rules": {
+      "minecraft:overworld_generation_rules": {
         "generate_for_climates": [
           [ "lukewarm", 1 ]
         ]

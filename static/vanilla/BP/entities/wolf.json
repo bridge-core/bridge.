@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:wolf",
@@ -48,7 +48,6 @@
         },
         "minecraft:breedable": {
           "require_tame": true,
-          "require_full_health": true,
           "breeds_with": {
             "mate_type": "minecraft:wolf",
             "baby_type": "minecraft:wolf",
@@ -121,8 +120,6 @@
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 4,
           "reselect_targets": true,
-          "must_see": true,
-
           "entity_types": [
             {
               "filters": {
@@ -138,8 +135,17 @@
             {
               "filters": {
                 "all_of": [
-                  { "test": "is_family", "subject": "other", "value": "baby_turtle" },
-                  { "test": "in_water", "subject": "other", "operator": "!=", "value": true }
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "baby_turtle"
+                  },
+                  {
+                    "test": "in_water",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": true
+                  }
                 ]
               },
               "max_dist": 16
@@ -147,13 +153,23 @@
             {
               "filters": {
                 "all_of": [
-                  { "test": "is_family", "subject": "other", "value": "skeleton" },
-                  { "test": "is_underwater", "subject": "other", "operator": "!=", "value": true }
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "skeleton"
+                  },
+                  {
+                    "test": "is_underwater",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": true
+                  }
                 ]
               },
               "max_dist": 16
             }
-          ]
+          ],
+          "must_see": true
         },
         "minecraft:on_target_acquired": {
           "event": "minecraft:become_angry",
@@ -190,8 +206,7 @@
           "damage": 4
         },
         "minecraft:behavior.breed": {
-          "priority": 2,
-          "speed_multiplier":  1.0
+          "priority": 7
         },
 
         "minecraft:behavior.owner_hurt_by_target": {
@@ -202,14 +217,13 @@
         },
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 5,
-          "must_see": true,
-
           "entity_types": [
             {
               "filters": { "test" :  "is_family", "subject" : "other", "value" :  "skeleton"},
               "max_dist": 16
             }
-          ]
+          ],
+          "must_see": true
         },
 
         "minecraft:sittable": {
@@ -354,6 +368,26 @@
           }
         ]
       },
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.float": {
         "priority": 0
       },

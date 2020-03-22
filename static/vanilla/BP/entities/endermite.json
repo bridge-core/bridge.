@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:endermite",
@@ -54,7 +54,26 @@
       "minecraft:attack": {
         "damage": 2
       },
-
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.float": {
         "priority": 0
       },
@@ -66,20 +85,27 @@
 
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 5,
-        "must_see": true,
-        "within_radius": 16.0,
-
+        "within_radius": 16,
         "entity_types": [
           {
             "filters": {
               "any_of": [
-                { "test": "is_family", "subject": "other", "value": "player" },
-                { "test": "is_family", "subject": "other", "value": "enderman" }
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "enderman"
+                }
               ]
             },
             "max_dist": 16
           }
-        ]
+        ],
+        "must_see": true
       },
       "minecraft:behavior.random_stroll": {
         "priority": 6,

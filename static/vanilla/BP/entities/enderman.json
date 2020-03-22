@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:enderman",
@@ -109,17 +109,40 @@
           ]
         }
       },
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 5,
-        "must_see": true,
         "attack_interval": 10,
-
         "entity_types": [
           {
-            "filters": { "test": "is_family", "subject": "other", "value": "endermite" },
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "endermite"
+            },
             "max_dist": 64
           }
-        ]
+        ],
+        "must_see": true
       },
       "minecraft:navigation.walk": {
         "can_path_over_water": false,

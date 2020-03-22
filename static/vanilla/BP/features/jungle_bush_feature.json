@@ -11,6 +11,9 @@
         "states": {
           "old_log_type": "jungle"
         }
+      },
+      "can_be_submerged": {
+        "max_depth": 1
       }
     },
     "canopy": {
@@ -30,12 +33,9 @@
         "run": 1
       },
       "variation_chance": {
-          "numerator": 1,
-          "denominator": 2
-       }
-    },
-    "can_be_submerged": {
-      "max_depth": 1
+        "numerator": 1,
+        "denominator": 2
+      }
     },
     "base_block": [
       "minecraft:grass",
@@ -45,10 +45,8 @@
       "minecraft:grass",
       "minecraft:dirt"
     ],
-    "may_grow_through": [
+    "may_replace": [
       "minecraft:air",
-      "minecraft:dirt",
-      "minecraft:grass",
       {
         "name": "minecraft:leaves",
         "states": {
@@ -83,6 +81,16 @@
         "name": "minecraft:leaves2",
         "states": {
           "new_leaf_type": "dark_oak"
+        }
+      }
+    ],
+    "may_grow_through": [
+      "minecraft:dirt",
+      "minecraft:grass",
+      {
+        "name": "minecraft:dirt",
+        "states": {
+          "dirt_type": "coarse"
         }
       }
     ]

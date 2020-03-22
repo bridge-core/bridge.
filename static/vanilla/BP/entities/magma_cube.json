@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:magma_cube",
@@ -119,23 +119,37 @@
         "event": "minecraft:become_calm",
         "target": "self"
       },
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.slime_float": {
-        "priority": 1,
-        "jump_chance_percentage": 0.8,
-        "speed_multiplier":  1.2
+        "priority": 1
       },
       "minecraft:behavior.slime_attack": {
         "priority": 3
       },
       "minecraft:behavior.slime_random_direction": {
-        "priority": 4,
-        "add_random_time_range": 3,
-        "turn_range": 360,
-        "min_change_direction_time": 2.0
+        "priority": 4
       },
       "minecraft:behavior.slime_keep_on_jumping": {
-        "priority": 5,
-        "speed_multiplier": 1.0
+        "priority": 5
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
@@ -151,7 +165,7 @@
         ],
         "must_see": true
       },
-	    "minecraft:physics": {
+      "minecraft:physics": {
       },
       "minecraft:pushable": {
         "is_pushable": true,

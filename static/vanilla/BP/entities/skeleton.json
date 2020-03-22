@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:skeleton",
@@ -18,25 +18,35 @@
       },
       "minecraft:ranged_attack": {
         "minecraft:behavior.ranged_attack": {
-          "priority": 0,
-          "attack_interval_min": 1.0,
-          "attack_interval_max": 3.0,
-          "attack_radius": 15.0
+          "attack_interval_min": 1,
+          "attack_interval_max": 3,
+          "attack_radius": 15
         },
         "minecraft:shooter": {
           "type": "Arrow",
           "def": "minecraft:arrow"
         },
         "minecraft:environment_sensor": {
-          "triggers": {
-            "filters": {
-              "test": "is_underwater",
-              "subject": "self",
-              "operator": "==",
-              "value": true
+          "triggers": [
+            {
+              "filters": {
+                "test": "is_underwater",
+                "subject": "self",
+                "operator": "==",
+                "value": true
+              },
+              "event": "minecraft:melee_mode"
             },
-            "event": "minecraft:melee_mode"
-          }
+            {
+              "filters": {
+                "test": "has_ranged_weapon",
+                "subject": "self",
+                "operator": "==",
+                "value": false
+              },
+              "event": "minecraft:melee_mode"
+            }
+          ]
         }
       },
       "minecraft:melee_attack": {
@@ -49,15 +59,27 @@
           "damage": 3
         },
         "minecraft:environment_sensor": {
-          "triggers": {
-            "filters": {
-              "test": "in_water",
-              "subject": "self",
-              "operator": "==",
-              "value": false
-            },
-            "event": "minecraft:ranged_mode"
-          }
+          "triggers": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "in_water",
+                    "subject": "self",
+                    "operator": "==",
+                    "value": false
+                  },
+                  {
+                    "test": "has_ranged_weapon",
+                    "subject": "self",
+                    "operator": "==",
+                    "value": true
+                  }
+                ]
+              },
+              "event": "minecraft:ranged_mode"
+            }
+          ]
         }
       }
     },
@@ -122,49 +144,255 @@
         "def": "minecraft:arrow"
       },
       "minecraft:environment_sensor": {
-        "triggers": {
-          "filters": {
-            "test": "is_underwater",
-            "subject": "self",
-            "operator": "==",
-            "value": true
+        "triggers": [
+          {
+            "filters": {
+              "test": "is_underwater",
+              "subject": "self",
+              "operator": "==",
+              "value": true
+            },
+            "event": "minecraft:melee_mode"
           },
-          "event": "minecraft:melee_mode"
-        }
+          {
+            "filters": {
+              "test": "has_ranged_weapon",
+              "subject": "self",
+              "operator": "==",
+              "value": false
+            },
+            "event": "minecraft:melee_mode"
+          }
+        ]
+      },
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
+      "minecraft:shareables": {
+        "items": [
+          {
+            "item": "minecraft:diamond_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:iron_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:golden_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:stone_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:wooden_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:bow",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
+          },
+          {
+            "item": "minecraft:diamond_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:chainmail_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:golden_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:leather_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:diamond_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:chainmail_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:golden_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:leather_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:diamond_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:chainmail_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:golden_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:leather_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          },
+          {
+            "item": "minecraft:diamond_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
+          },
+          {
+            "item": "minecraft:chainmail_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
+          },
+          {
+            "item": "minecraft:iron_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:golden_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 3
+          },
+          {
+            "item": "minecraft:leather_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 4
+          }
+        ]
       },
       "minecraft:behavior.ranged_attack": {
-        "priority": 0,
-        "attack_interval_min": 1.0,
-        "attack_interval_max": 3.0,
-        "attack_radius": 15.0
+        "attack_interval_min": 1,
+        "attack_interval_max": 3,
+        "attack_radius": 15
       },
       "minecraft:behavior.hurt_by_target": {
         "priority": 1
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
-        "must_see": true,
         "reselect_targets": true,
-
         "entity_types": [
           {
-            "filters": { "test": "is_family", "subject": "other", "value": "player" },
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "player"
+            },
             "max_dist": 16
           },
           {
-            "filters": { "test": "is_family", "subject": "other", "value": "irongolem" },
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "irongolem"
+            },
             "max_dist": 16
           },
           {
             "filters": {
               "all_of": [
-                { "test": "is_family", "subject": "other", "value": "baby_turtle" },
-                { "test": "in_water", "subject": "other", "operator": "!=", "value": true }
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "baby_turtle"
+                },
+                {
+                  "test": "in_water",
+                  "subject": "other",
+                  "operator": "!=",
+                  "value": true
+                }
               ]
             },
             "max_dist": 16
           }
-        ]
+        ],
+        "must_see": true
       },
       "minecraft:behavior.flee_sun": {
         "priority": 2,
@@ -185,16 +413,24 @@
           }
         ]
       },
-      "minecraft:behavior.random_stroll": {
+      "minecraft:behavior.pickup_items": {
         "priority": 5,
+        "max_dist": 3,
+        "goal_radius": 2,
+        "speed_multiplier": 1.0,
+        "pickup_based_on_chance": true,
+        "can_pickup_any_item": true
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
         "speed_multiplier": 1
       },
       "minecraft:behavior.look_at_player": {
-        "priority": 6,
+        "priority": 7,
         "look_distance": 8
       },
       "minecraft:behavior.random_look_around": {
-        "priority": 6
+        "priority": 8
       },
       "minecraft:physics": {
       },

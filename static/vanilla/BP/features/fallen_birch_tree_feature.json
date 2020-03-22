@@ -86,7 +86,7 @@
         }
       }
     ],
-    "may_grow_through": [
+    "may_replace": [
       "minecraft:air",
       {
         "name": "minecraft:leaves",
@@ -122,6 +122,16 @@
         "name": "minecraft:leaves2",
         "states": {
           "new_leaf_type": "dark_oak"
+        }
+      }
+    ],
+    "may_grow_through": [
+      "minecraft:dirt",
+      "minecraft:grass",
+      {
+        "name": "minecraft:dirt",
+        "states": {
+          "dirt_type": "coarse"
         }
       }
     ]

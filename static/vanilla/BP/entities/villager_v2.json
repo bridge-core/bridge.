@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:villager_v2",
@@ -434,7 +434,7 @@
             {
               "item": "minecraft:carrot",
               "want_amount": 60,
-              "surplus_amount": 24
+              "surplus_amount": 4
             },
             {
               "item": "minecraft:potato",
@@ -564,7 +564,7 @@
             {
               "item": "minecraft:carrot",
               "want_amount": 60,
-              "surplus_amount": 24
+              "surplus_amount": 4
             },
             {
               "item":"minecraft:potato",

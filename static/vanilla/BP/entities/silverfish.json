@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:silverfish",
@@ -11,9 +11,9 @@
     "component_groups": {
       "minecraft:silverfish_calm": {
         "minecraft:on_target_acquired" : {
-          "event": "minecraft:become_angry",
-          "target": "self"
-        }
+					"event": "minecraft:become_angry",
+					"target": "self"
+				}
       },
       "minecraft:silverfish_angry": {
         "minecraft:angry": {
@@ -35,22 +35,22 @@
       }
     },
 
-    "components": {
-      "minecraft:experience_reward": {
-        "on_death": "query.last_hit_by_player ? 5 : 0"
-      },
+	"components": {
+    "minecraft:experience_reward": {
+      "on_death": "query.last_hit_by_player ? 5 : 0"
+    },
 	  "minecraft:type_family": {
 		  "family":["silverfish", "monster", "mob", "arthropod" ]          
-      },
+	  },
       "minecraft:breathable": {
         "total_supply": 15,
         "suffocate_time": 0
       },
-      "minecraft:nameable": {
-      },
-      "minecraft:loot": {
-        "table": "loot_tables/entities/silverfish.json"
-      },
+	  "minecraft:nameable": {
+	  },
+    "minecraft:loot": {
+      "table": "loot_tables/entities/silverfish.json"
+    },
       "minecraft:health": {
         "value": 8,
         "max": 8
@@ -64,12 +64,12 @@
           }
         ]
       },
-      "minecraft:movement": {
-        "value": 0.25
-      },
-      "minecraft:navigation.walk": {
-        "can_path_over_water": true
-      },
+			"minecraft:movement": {
+				"value": 0.25
+			},
+    "minecraft:navigation.walk": {
+      "can_path_over_water": true
+    },
       "minecraft:movement.basic": {
         
       },
@@ -77,14 +77,33 @@
       },
       "minecraft:can_climb": {
       },
-      "minecraft:attack": {
-        "damage": 1
-      },
+			"minecraft:attack": {
+				"damage": 1
+			},
       "minecraft:collision_box": {
-        "width": 0.4,
-        "height": 0.3
-      },
-
+				"width": 0.4,
+				"height": 0.3
+			},
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.float": {
         "priority": 1
       },      
@@ -93,18 +112,16 @@
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
-        "attack_interval": 10,
-
         "entity_types": [
           {
-            "filters": {
-              "any_of": [
-                { "test" :  "is_family", "subject" : "other", "value" :  "player"},
-                { "test" :  "is_family", "subject" : "other", "value" :  "snowgolem"},
-                { "test" :  "is_family", "subject" : "other", "value" :  "irongolem"}
-              ]
-            },
-            "max_dist": 8
+            "filters": {  
+                "any_of": [
+                  { "test" :  "is_family", "subject" : "other", "value" :  "player"},
+                  { "test" :  "is_family", "subject" : "other", "value" :  "snowgolem"},
+                  { "test" :  "is_family", "subject" : "other", "value" :  "irongolem"}
+                ]  },
+            "max_dist": 8,
+            "attack_interval": 10
           }
         ]
       },
@@ -112,13 +129,13 @@
         "priority": 1,
         "alert_same_type": true
       },
-      "minecraft:physics": {
+	    "minecraft:physics": {
       },
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
       }
-    },
+	},
 
     "events": {
       "minecraft:entity_spawned": {
