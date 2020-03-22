@@ -3,6 +3,7 @@
         "expand_path_exceptions": [ "minecraft:nether_surface", "minecraft:the_end_surface" ]
     },
 
+    "minecraft:ignore_automatic_features": "$general.boolean",
     "minecraft:climate": {
         "downfall": "$general.decimal",
         "snow_accumulation": {
@@ -37,6 +38,15 @@
         "top_material": "$general.block_identifier"
     },
     "minecraft:swamp_surface": "$biome.components.minecraft:surface_parameters",
+    "minecraft:frozen_ocean_surface": "$biome.components.minecraft:surface_parameters",
+    "minecraft:mesa_surface": {
+        "$load": "$biome.components.minecraft:surface_parameters",
+
+        "clay_material": "$general.block_identifier",
+        "hard_clay_material": "$general.block_identifier",
+        "bryce_pillars": "$general.boolean",
+        "has_forest": "$general.boolean"
+    },
     "minecraft:the_end_surface": {},
     "minecraft:overworld_generation_rules": {
         "hills_transformation": {
