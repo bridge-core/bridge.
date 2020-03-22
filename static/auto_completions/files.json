@@ -69,7 +69,7 @@
     "animation_controller/main",
     "animation_controller/rp_main",
 
-    "attachables/main",
+    "attachable/main",
 
     "client_entity/main",
     "client_entity/general",
