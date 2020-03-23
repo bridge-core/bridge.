@@ -1,0 +1,18 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:scatter_feature": {
+    "description": {
+      "identifier": "minecraft:optional_upper_cocoa_feature"
+    },
+    "iterations": 1,
+    "scatter_chance": {
+      "numerator": 1,
+      "denominator": 3
+    },
+    "x": 0,
+    "z": 0,
+    "y": 0,
+    "project_input_to_floor": false,
+    "places_feature": "minecraft:select_cocoa_feature"
+  }
+}

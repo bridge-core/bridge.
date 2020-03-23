@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "frozen_ocean_after_surface_ice_feature",
+      "identifier": "minecraft:frozen_ocean_after_surface_ice_feature",
       "places_feature": "minecraft:legacy:ice_feature"
     },
     "conditions": {

@@ -2,8 +2,8 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "bamboo_jungle_after_surface_bamboo_feature",
-      "places_feature": "bamboo_then_podzol_feature"
+      "identifier": "minecraft:bamboo_jungle_after_surface_bamboo_feature",
+      "places_feature": "minecraft:bamboo_then_podzol_feature"
     },
     "conditions": {
       "placement_pass": "after_surface_pass",

@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "roofed_forest_first_foliage_feature",
+      "identifier": "minecraft:roofed_forest_first_foliage_feature",
       "places_feature": "minecraft:legacy:roofed_forest_foliage_feature"
     },
     "conditions": {

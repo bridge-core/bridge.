@@ -22,7 +22,8 @@
             "particle": "dragonbreath",
             "duration": 120,
             "color": [ 220, 0, 239 ],
-            "affect_owner": false
+            "affect_owner": false,
+            "reapplication_delay": 20
           },
           "remove_on_hit": { }
         },

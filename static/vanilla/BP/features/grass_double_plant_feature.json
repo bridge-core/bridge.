@@ -2,12 +2,12 @@
   "format_version": "1.13.0",
   "minecraft:aggregate_feature": {
     "description": {
-      "identifier": "grass_double_plant_feature"
+      "identifier": "minecraft:grass_double_plant_feature"
     },
     "early_out": "first_failure",
     "features": [
-      "grass_double_plant_lower_feature",
-      "fixup_grass_double_plant_upper_position_feature"
+      "minecraft:grass_double_plant_lower_feature",
+      "minecraft:fixup_grass_double_plant_upper_position_feature"
     ]
   }
 }

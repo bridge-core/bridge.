@@ -1,40 +1,39 @@
 //@ts-check
-import FileType from "../FileType";
-import PROBLEM_STORE from "./components";
-import Store from "../../../store/index";
-import EventBus from "../../EventBus";
-import TabSystem from "../../TabSystem";
-import JSONTree from "../JsonTree";
+import FileType from '../FileType'
+import PROBLEM_STORE from './components'
+import Store from '../../../store/index'
+import EventBus from '../../EventBus'
+import TabSystem from '../../TabSystem'
+import JSONTree from '../JsonTree'
 
-EventBus.on("updateSelectedTab", () => {
-    let tree;
-    if(TabSystem.getSelected()) tree = TabSystem.getSelected().content;
-    if(tree instanceof JSONTree) ProblemIterator.findProblems(tree);
-});
+EventBus.on('updateSelectedTab', () => {
+	let tree
+	if (TabSystem.getSelected()) tree = TabSystem.getSelected().content
+	if (tree instanceof JSONTree) ProblemIterator.findProblems(tree)
+})
 
 class ProblemIterator {
-    static last_tree: JSONTree;
-    
-    static async findProblems(node_tree: JSONTree, file_path?: string) {
-        if(this.last_tree !== node_tree) this.last_tree = node_tree;
-        
-        let arr = (await PROBLEM_STORE())[FileType.get(file_path)];
-        if(arr === undefined) return;
-        arr.forEach(p => p.reset());
+	static last_tree: JSONTree
 
-        if(Store.state.Settings.when_error === "Never") return;
+	static async findProblems(node_tree: JSONTree, file_path?: string) {
+		if (this.last_tree !== node_tree) this.last_tree = node_tree
 
-        for(let node of node_tree) {
-            arr.forEach(p => p.processPeek(node));
-        }
+		let arr = (await PROBLEM_STORE())[FileType.get(file_path)]
+		if (arr === undefined) return
+		arr.forEach(p => p.reset())
 
-        return arr.map(p => p.report());
-    }
+		if (Store.state.Settings.when_error === 'Never') return
 
-    static repeatLast() {
-        if(this.last_tree !== undefined) this.findProblems(this.last_tree);
-    }
+		for (let node of node_tree) {
+			arr.forEach(p => p.processPeek(node))
+		}
+
+		return arr.map(p => p.report())
+	}
+
+	static repeatLast() {
+		if (this.last_tree !== undefined) this.findProblems(this.last_tree)
+	}
 }
 
-
-export default ProblemIterator;
+export default ProblemIterator

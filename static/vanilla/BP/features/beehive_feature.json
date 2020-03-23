@@ -1,0 +1,77 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:single_block_feature": {
+    "description": {
+      "identifier": "minecraft:beehive_feature"
+    },
+    "places_block": {
+      "name": "minecraft:bee_nest",
+      "states": {
+        "facing_direction": 3
+      }
+    },
+    "enforce_survivability_rules": true,
+    "enforce_placement_rules": true,
+    "may_attach_to": {
+      "auto_rotate": false,
+      "min_sides_must_attach": 2,
+      "top": [
+        {
+          "name": "minecraft:leaves",
+          "states": {
+            "old_leaf_type": "oak"
+          }
+        },
+        {
+          "name": "minecraft:leaves",
+          "states": {
+            "old_leaf_type": "birch"
+          }
+        }
+      ],
+      "west": [
+        {
+          "name": "minecraft:log",
+          "states": {
+            "old_log_type": "oak"
+          }
+        },
+        {
+          "name": "minecraft:log",
+          "states": {
+            "old_log_type": "birch"
+          }
+        }
+      ],
+      "north": [
+        {
+          "name": "minecraft:log",
+          "states": {
+            "old_log_type": "oak"
+          }
+        },
+        {
+          "name": "minecraft:log",
+          "states": {
+            "old_log_type": "birch"
+          }
+        }
+      ],
+      "east": [
+        {
+          "name": "minecraft:log",
+          "states": {
+            "old_log_type": "oak"
+          }
+        },
+        {
+          "name": "minecraft:log",
+          "states": {
+            "old_log_type": "birch"
+          }
+        }
+      ],
+      "south": "minecraft:air"
+    }
+  }
+}

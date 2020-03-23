@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "mushroom_island_surface_mushrooms_feature",
+      "identifier": "minecraft:mushroom_island_surface_mushrooms_feature",
       "places_feature": "minecraft:legacy:small_mushrooms_feature"
     },
     "conditions": {

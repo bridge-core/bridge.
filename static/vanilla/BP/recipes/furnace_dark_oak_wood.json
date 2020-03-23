@@ -2,7 +2,7 @@
   "format_version": "1.12",
   "minecraft:recipe_furnace": {
     "description": {
-    "identifier": "minecraft:furnace_oak_wood"
+    "identifier": "minecraft:furnace_dark_oak_wood"
     },
 
     

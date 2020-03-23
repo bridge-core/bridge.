@@ -1,0 +1,95 @@
+{
+	"format_version" : "1.8.0",
+	"animations" : {
+		"animation.piglin.crossbow.charge" : {
+			"bones" : {
+				"leftarm" : {
+					"rotation" : [ "math.lerp(-90.0 + 34.38, -90.0, variable.crossbow_charge)  -this", "math.lerp(22.92, 48.70, variable.crossbow_charge) -this", 0.0 ]
+				},
+				"rightarm" : {
+					"rotation" : [ "-90.0 + 34.38 -this", "-45.84 -this", 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.piglin.crossbow.hold" : {
+			"bones" : {
+				"leftarm" : {
+					"rotation" : [ "-85.94 + query.target_x_rotation -this", "34.38 + math.clamp(query.target_y_rotation, -45, 25) -this", 0.0 ]
+				},
+				"rightarm" : {
+					"rotation" : [ "-90.0 + 5.73 + query.target_x_rotation -this", "-17.19 + math.clamp(query.target_y_rotation, -25, 45) -this", 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.piglin.sword.attack" : {
+			"bones" : {
+				"leftarm" : {
+					"rotation" : [ "-90 + (variable.attack2 * 1.2 - variable.attack * 0.4) - variable.x_bob - this", "5.73 - (variable.attack2 * 0.6) - this", "-variable.z_bob - this" ]
+				},
+				"rightarm" : {
+					"rotation" : [ "-90 + (variable.attack2 * 1.2 - variable.attack * 0.4) + variable.x_bob - this", "variable.attack2 * 0.6 - 5.73 - this", "variable.z_bob - this" ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.piglin.move" : {
+			"loop" : true,
+			"bones": {
+				"leftear": {
+					"rotation" : [ 0.0, 0.0, "variable.tcos_left_side * 0.5" ]
+				},
+				"rightear": {
+					"rotation" : [ 0.0, 0.0, "variable.tcos_right_side * 0.5" ]
+				},
+				"leftarm" : {
+					"rotation" : [ "variable.tcos_left_side", 0.0, 0.0 ]
+				},
+				"leftleg" : {
+					"rotation" : [ "variable.tcos_left_side * 1.4", 0.0, 0.0 ]
+				},
+				"rightarm" : {
+					"rotation" : [ "variable.tcos_right_side", 0.0, 0.0 ]
+				},
+				"rightleg" : {
+					"rotation" : [ "variable.tcos_right_side * 1.4", 0.0, 0.0 ]
+				}
+			}
+		},
+		"animation.piglin.celebrate_hunt": {
+			"loop": true,
+			"bones": {
+				"leftear": {
+					"rotation": [ 0.0, 0.0, "Math.sin(query.time_stamp * 30) * 10" ]
+				},
+				"rightear": {
+					"rotation": [ 0.0, 0.0, "Math.cos(query.time_stamp * 30) * 10" ]
+				}
+			}
+		},
+		"animation.piglin.celebrate_hunt_special": {
+			"loop": true,
+			"bones": {
+				"leftear": {
+					"rotation": [ 0.0, 0.0, "Math.sin(query.time_stamp * 30) * 10" ]
+				},
+				"rightear": {
+					"rotation": [ 0.0, 0.0, "Math.cos(query.time_stamp * 30) * 10" ]
+				},
+				"head": {
+					"position": [ "Math.sin(query.time_stamp * 10)", "Math.sin(query.time_stamp * 40)", 0.0 ]
+				},
+				"rightarm": {
+					"rotation": [ 0.0, 0.0, "70 + Math.cos(query.time_stamp * 40) * 10"]
+				},
+				"leftarm": {
+					"rotation": [ 0.0, 0.0, "-70 - Math.cos(query.time_stamp * 40) * 10"]
+				},
+				"body": {
+					"position": [ 0.0, "Math.sin(query.time_stamp * 40) * 0.35", 0.0 ]
+				}
+			}
+		}
+	}
+}

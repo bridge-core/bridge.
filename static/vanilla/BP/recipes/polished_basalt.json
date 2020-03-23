@@ -1,0 +1,23 @@
+{
+  "format_version": "1.16",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "minecraft:polished_basalt_block"
+    },
+
+    
+    "tags": [ "crafting_table" ],
+    "pattern": [
+      "##",
+      "##"
+    ],
+    "key": {
+      "#": {
+          "item": "minecraft:basalt_block"
+      }
+    },
+    "result": {
+      "item": "minecraft:polished_basalt_block"
+    }
+  }
+}

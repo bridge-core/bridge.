@@ -7,25 +7,25 @@ import fetchLatestVersion from "./latestVersion";
 import fetchLatestJson from "./FetchLatestJson";
 
 export default async function startUp() {
-    SETTINGS.setup();
+	SETTINGS.setup()
 
-    let discord_msg = new Notification({
-      display_icon: "mdi-discord",
-      display_name: "Discord Server",
-      color: "#7289DA",
-      text_color: "white",
-      action: () => {
-            new DiscordWindow(
-                () => {
-                    shell.openExternal("https://discord.gg/jj2PmqU");
-                },
-                () => {
-                    discord_msg.remove();
-                }
-            );
-      }
-    })
-    discord_msg.send();
+	let discord_msg = new Notification({
+		display_icon: 'mdi-discord',
+		display_name: 'Discord Server',
+		color: '#7289DA',
+		text_color: 'white',
+		action: () => {
+			new DiscordWindow(
+				() => {
+					shell.openExternal('https://discord.gg/jj2PmqU')
+				},
+				() => {
+					discord_msg.remove()
+				}
+			)
+		},
+	})
+	discord_msg.send()
 
     let { description, latest_version, update_available, downloads } = await fetchLatestJson();
 

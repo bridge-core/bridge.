@@ -1,0 +1,46 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "soulsand_valley"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.0,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 2.0,
+        "ash": 0.05
+      },
+      "minecraft:surface_parameters": {
+        "sea_floor_depth": 1,
+        "sea_floor_material": "minecraft:soul_soil_block",
+        "foundation_material": "minecraft:netherrack",
+        "mid_material": "minecraft:soul_soil_block",
+        "top_material": "minecraft:soul_soil_block",
+        "sea_material": "minecraft:lava"
+      },
+      "minecraft:surface_material_adjustments": {
+        "adjustments":[
+          {
+            "materials": {
+              "top_material": "minecraft:soul_sand",
+              "mid_material": "minecraft:soul_sand"
+            },
+            "noise_frequency_scale": 0.04125,
+            "noise_range": [ -1.0, -0.1 ]
+          }
+        ]
+      },
+      "minecraft:nether_generation_rules": {
+        "target_temperature": 0.0,
+        "target_humidity": 0.0,
+        "target_altitude": 0.0,
+        "target_weirdness": 0.5,
+        "weight": 0.25
+      },
+
+      "nether": {},
+      "soulsand_valley": {}
+    }
+  }
+}

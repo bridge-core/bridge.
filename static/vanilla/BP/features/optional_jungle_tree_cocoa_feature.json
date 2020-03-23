@@ -1,0 +1,18 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:scatter_feature": {
+    "description": {
+      "identifier": "minecraft:optional_jungle_tree_cocoa_feature"
+    },
+    "iterations": 1,
+    "scatter_chance": {
+      "numerator": 1,
+      "denominator": 5
+    },
+    "x": 0,
+    "z": 0,
+    "y": 0,
+    "project_input_to_floor": false,
+    "places_feature": "minecraft:scatter_jungle_tree_cocoa_feature"
+  }
+}

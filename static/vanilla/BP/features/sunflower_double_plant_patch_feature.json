@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:scatter_feature": {
     "description": {
-      "identifier": "sunflower_double_plant_patch_feature"
+      "identifier": "minecraft:sunflower_double_plant_patch_feature"
     },
     "iterations": 64,
     "coordinate_eval_order": "zyx",
@@ -19,6 +19,6 @@
       "distribution": "gaussian"
     },
     "project_input_to_floor": false,
-    "places_feature": "sunflower_double_plant_feature"
+    "places_feature": "minecraft:sunflower_double_plant_feature"
   }
 }

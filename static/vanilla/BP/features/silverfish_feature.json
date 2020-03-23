@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:ore_feature": {
     "description": {
-      "identifier": "silverfish_feature"
+      "identifier": "minecraft:silverfish_feature"
     },
     "count": 8,
     "places_block": "minecraft:monster_egg",

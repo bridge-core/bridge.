@@ -1,0 +1,24 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:scatter_feature": {
+    "description": {
+      "identifier": "minecraft:scatter_jungle_tree_upper_cocoa_feature"
+    },
+    "iterations": 4,
+    "scatter_chance": 100.0,
+    "x": {
+      "distribution": "fixed_grid",
+      "extent": [ -1, 1 ],
+      "step_size": 2,
+      "grid_offset": 1
+    },
+    "z": {
+      "distribution": "fixed_grid",
+      "extent": [ -1, 1 ],
+      "step_size": 1
+    },
+    "y": -4,
+    "project_input_to_floor": false,
+    "places_feature": "minecraft:optional_upper_cocoa_feature"
+  }
+}

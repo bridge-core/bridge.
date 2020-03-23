@@ -2,12 +2,12 @@
   "format_version": "1.13.0",
   "minecraft:aggregate_feature": {
     "description": {
-      "identifier": "sunflower_double_plant_feature"
+      "identifier": "minecraft:sunflower_double_plant_feature"
     },
     "early_out": "first_failure",
     "features": [
-      "sunflower_double_plant_lower_feature",
-      "fixup_sunflower_double_plant_upper_position_feature"
+      "minecraft:sunflower_double_plant_lower_feature",
+      "minecraft:fixup_sunflower_double_plant_upper_position_feature"
     ]
   }
 }

@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:cave_spider",
@@ -97,7 +97,6 @@
         },
         "minecraft:behavior.melee_attack": {
           "priority": 3,
-          "speed_multiplier": 1.0,
           "track_target": true,
           "random_stop_interval": 100,
           "reach_multiplier": 0.8
@@ -137,7 +136,6 @@
         },
         "minecraft:behavior.melee_attack": {
           "priority": 3,
-          "speed_multiplier": 1.0,
           "track_target": true,
           "reach_multiplier": 1.4
         }
@@ -205,12 +203,31 @@
         "can_path_over_water": true
       },
       "minecraft:movement.basic": {
-        
       },
       "minecraft:jump.static": {
       },
       "minecraft:can_climb": {
       },
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.float": {
         "priority": 1
       },

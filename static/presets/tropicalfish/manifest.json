@@ -1,0 +1,36 @@
+//bridge-file-version: #2
+{
+	"display_name": "Tropical Fish",
+	"description": "Creates a new Tropical Fish entity.",
+	"icon": "mdi-fish",
+	"bp_map": {
+		"entity.json": "entities/",
+		"loot_table.json": "loot_tables/entities/{{IDENTIFIER}}.json",
+		"spawn_rule.json": "spawn_rules/"
+	},
+	"rp_map": {
+		"client_entity.json": "entity/",
+		"geometry.json": "models/entity/",
+		"animation.json": "animations/",
+		"render_controller.json": "render_controllers/"
+	},
+	"expand_rp_files": {
+		"en_US.lang": "texts/en_US.lang"
+	},
+	"copy_rp_files": {
+		"texture_a.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_a.png",
+		"texture_a_pattern_1.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_a_pattern_1.png",		
+		"texture_a_pattern_2.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_a_pattern_2.png",
+		"texture_a_pattern_3.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_a_pattern_3.png",
+		"texture_a_pattern_4.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_a_pattern_4.png",
+		"texture_a_pattern_5.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_a_pattern_5.png",
+		"texture_a_pattern_6.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_a_pattern_6.png",
+		"texture_b.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_b.png",
+		"texture_b_pattern_1.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_b_pattern_1.png",		
+		"texture_b_pattern_2.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_b_pattern_2.png",
+		"texture_b_pattern_3.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_b_pattern_3.png",
+		"texture_b_pattern_4.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_b_pattern_4.png",
+		"texture_b_pattern_5.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_b_pattern_5.png",
+		"texture_b_pattern_6.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_b_pattern_6.png"
+	}
+}

@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:snow_golem",
@@ -136,8 +136,7 @@
             "filters": { "test" :  "is_family", "subject" : "other", "value" :  "monster"},
             "within_default": 6
           }
-        ],
-        "must_reach": true
+        ]
       },
       "minecraft:persistent": {
       },

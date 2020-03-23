@@ -1,0 +1,13 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:aggregate_feature": {
+    "description": {
+      "identifier": "minecraft:select_birch_tree_feature"
+    },
+    "early_out": "first_success",
+    "features": [
+      "minecraft:optional_fallen_birch_tree_feature",
+      "minecraft:birch_tree_with_optional_beehive_feature"
+    ]
+  }
+}

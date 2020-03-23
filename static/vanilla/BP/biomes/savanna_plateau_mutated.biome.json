@@ -13,12 +13,13 @@
       "minecraft:overworld_height": {
         "noise_params": [ 1.05, 1.2125 ]
       },
-      "minecraft:overworld_surface": {
-        "floor_depth": 7,
-        "floor_material": "minecraft:gravel",
+      "minecraft:surface_parameters": {
+        "sea_floor_depth": 7,
+        "sea_floor_material": "minecraft:gravel",
         "foundation_material": "minecraft:stone",
         "mid_material": "minecraft:dirt",
-        "top_material": "minecraft:grass"
+        "top_material": "minecraft:grass",
+        "sea_material": "minecraft:water"
       },
       "minecraft:surface_material_adjustments": {
         "adjustments": [
@@ -27,7 +28,8 @@
               "mid_material": "minecraft:stone",
               "top_material": "minecraft:stone"
             },
-            "noise_range": [ 1.750, "infinity" ]
+            "noise_frequency_scale": 0.0625,
+            "noise_range": [ 0.212, 1.0 ]
           },
           {
             "materials": {
@@ -38,7 +40,8 @@
                 }
               }
             },
-            "noise_range": [ -0.50, 1.750 ]
+            "noise_frequency_scale": 0.0625,
+            "noise_range": [ -0.061, 0.212 ]
           }
         ]
       },
