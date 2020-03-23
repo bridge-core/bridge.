@@ -1,10 +1,11 @@
 import { shell } from "electron";
 import fetchLatestJson from "../scripts/Utilities/FetchLatestJson";
+import { WEB_APP_DATA } from "../scripts/constants"
 import ContentWindow from "../scripts/commonWindows/Content";
 
 export default class UpdateWindow extends ContentWindow {
       content: any;
-      constructor(latest_version: string) {
+      constructor(latest_version: string, description: string, downloads: number) {
             super({
                   is_visible: true,
                   options: {
@@ -59,7 +60,7 @@ export default class UpdateWindow extends ContentWindow {
                         type: "divider"
                   },
                   {
-                        text: `\n${latest_version} of bridge. is now available for download. Updates deliver new features for this editor and may include important bug fixes.\n\nPlease take the time to update bridge.!\n\n`
+                        text: `\n${latest_version} of bridge. is now available for download.\nChangeLog:\n${description}\nDownloads: ${downloads}`
                   }
             ];
             this.update({ content: this.content });
