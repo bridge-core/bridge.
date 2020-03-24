@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:vindicator",
@@ -41,19 +41,15 @@
       "minecraft:vindicator_johnny": {
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 2,
-          "within_radius": 12,
           "must_see": true,
+          "within_radius": 12.0,
           "must_see_forget_duration": 40.0,
+
           "entity_types": [
             {
               "filters": {
                 "all_of": [
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "operator": "!=",
-                    "value": "illager"
-                  }
+                  { "test": "is_family", "subject": "other", "operator": "!=", "value": "illager" }
                 ]
               },
               "max_dist": 12
@@ -64,33 +60,18 @@
       "minecraft:default_targeting": {
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 2,
-          "within_radius": 12,
           "must_see": true,
+          "within_radius": 12.0,
           "must_see_forget_duration": 40.0,
+
           "entity_types": [
             {
               "filters": {
                 "any_of": [
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "player"
-                  },
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "snowgolem"
-                  },
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "irongolem"
-                  },
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "wandering_trader"
-                  }
+                  { "test": "is_family", "subject": "other", "value": "player" },
+                  { "test": "is_family", "subject": "other", "value": "snowgolem" },
+                  { "test": "is_family", "subject": "other", "value": "irongolem" },
+                  { "test": "is_family", "subject": "other", "value": "wandering_trader" }
                 ]
               },
               "max_dist": 12
@@ -98,17 +79,8 @@
             {
               "filters": {
                 "all_of": [
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "villager"
-                  },
-                  {
-                    "test": "has_component",
-                    "subject": "other",
-                    "operator": "!=",
-                    "value": "minecraft:is_baby"
-                  }
+                  { "test": "is_family", "subject": "other", "value": "villager" },
+                  { "test": "has_component", "subject": "other", "operator": "!=", "value": "minecraft:is_baby" }
                 ]
               },
               "max_dist": 12
@@ -315,9 +287,7 @@
         "priority": 0
       },
       "minecraft:behavior.melee_attack": {
-        "priority": 3,
-        "speed_multiplier": 1,
-        "track_target": false
+        "priority": 3
       },
       "minecraft:behavior.random_stroll": {
         "priority": 9,

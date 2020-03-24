@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:enderman",
@@ -30,9 +30,7 @@
           "value": 0.45
         },
         "minecraft:behavior.melee_attack": {
-          "priority": 2,
-          "speed_multiplier": 1.0,
-          "track_target": false
+          "priority": 2
         }
       }
     },
@@ -111,6 +109,26 @@
           ]
         }
       },
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 5,
         "attack_interval": 10,

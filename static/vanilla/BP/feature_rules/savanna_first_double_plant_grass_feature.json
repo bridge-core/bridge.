@@ -2,8 +2,8 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "savanna_first_double_plant_grass_feature",
-      "places_feature": "grass_double_plant_patch_feature"
+      "identifier": "minecraft:savanna_first_double_plant_grass_feature",
+      "places_feature": "minecraft:grass_double_plant_patch_feature"
     },
     "conditions": {
       "placement_pass": "first_pass",

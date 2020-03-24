@@ -2,8 +2,8 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "extreme_hills_after_surface_silverfish_feature",
-      "places_feature": "silverfish_feature"
+      "identifier": "minecraft:extreme_hills_after_surface_silverfish_feature",
+      "places_feature": "minecraft:silverfish_feature"
     },
     "conditions": {
       "placement_pass": "after_surface_pass",

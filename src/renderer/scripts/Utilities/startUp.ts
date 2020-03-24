@@ -7,7 +7,7 @@ import fetchLatestJson from "./FetchLatestJson";
 import { startListening } from "./ConnectionStatus";
 
 export default async function startUp() {
-    SETTINGS.setup();
+	SETTINGS.setup()
 
     startListening()
 

@@ -2,7 +2,7 @@
   "format_version": "1.12",
   "minecraft:recipe_brewing_mix": {
     "description": {
-      "identifier": "minecraft:brew_strength_fermented_spider_eye"
+      "identifier": "minecraft:brew_long_strength_fermented_spider_eye"
     },
 
     "tags": [ "brewing_stand" ],

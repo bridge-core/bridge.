@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:ore_feature": {
     "description": {
-      "identifier": "andesite_feature"
+      "identifier": "minecraft:andesite_feature"
     },
     "count": 33,
     "places_block": {

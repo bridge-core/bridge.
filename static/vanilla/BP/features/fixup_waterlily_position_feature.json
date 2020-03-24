@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:scatter_feature": {
     "description": {
-      "identifier": "fixup_waterlily_position_feature"
+      "identifier": "minecraft:fixup_waterlily_position_feature"
     },
     "iterations": 1,
     "x": 0,

@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:villager_v2",
@@ -1509,7 +1509,7 @@
         "priority": 10,
         "speed_multiplier": 0.6
       },
-      "minecraft:physics": {
+        "minecraft:physics": {
       },
       "minecraft:pushable": {
         "is_pushable": true,

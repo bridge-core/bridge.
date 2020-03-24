@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}",
+      "min_engine_version": "1.8.0",
+      "materials": { "default": "pig" },
+      "textures": {
+        "default": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}",
+        "saddled": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_saddle"
+      },
+      "geometry": {
+        "default": "geometry.{{IDENTIFIER}}"
+      },
+      "animations": {
+        "setup": "animation.{{IDENTIFIER}}.setup",
+        "walk": "animation.quadruped.walk",
+        "look_at_target": "animation.common.look_at_target",
+        "baby_transform": "animation.{{IDENTIFIER}}.baby_transform"
+      },
+      "scripts": {
+        "animate": [
+          "setup",
+          { "walk": "query.modified_move_speed" },
+          "look_at_target",
+          { "baby_transform": "query.is_baby" }
+        ]
+      },
+      "render_controllers": [ "controller.render.{{IDENTIFIER}}" ],
+      "spawn_egg": {
+        "texture": "spawn_egg",
+        "texture_index": 2
+      }
+    }
+  }
+}

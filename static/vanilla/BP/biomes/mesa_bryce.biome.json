@@ -13,8 +13,8 @@
       "minecraft:mesa_surface": {
         "bryce_pillars": true,
         "clay_material": "minecraft:stained_hardened_clay",
-        "floor_depth": 7,
-        "floor_material": "minecraft:gravel",
+        "sea_floor_depth": 7,
+        "sea_floor_material": "minecraft:gravel",
         "foundation_material": "minecraft:stone",
         "hard_clay_material": "minecraft:hardened_clay",
         "has_forest": false,
@@ -24,7 +24,8 @@
           "states": {
             "sand_type": "red"
           }
-        }
+        },
+        "sea_material": "minecraft:water"
       },
       "minecraft:overworld_height": {
         "noise_type": "default"

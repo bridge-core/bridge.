@@ -1,0 +1,29 @@
+{
+  "format_version": "1.16",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "minecraft:soul_torch"
+    },
+    "tags": [ "crafting_table" ],
+    "pattern": [
+      ".",
+      "|",
+      "#"
+    ],
+    "key": {
+      ".": {
+        "item": "minecraft:coal"
+      },
+      "|": {
+        "item": "minecraft:stick"
+      },
+      "#": {
+        "item": "minecraft:soul_soil_block"
+      }
+    },
+    "result": {
+      "item": "minecraft:soul_torch",
+      "count": 4
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:ore_feature": {
     "description": {
-      "identifier": "gold_ore_feature"
+      "identifier": "minecraft:gold_ore_feature"
     },
     "count": 9,
     "places_block": "minecraft:gold_ore",

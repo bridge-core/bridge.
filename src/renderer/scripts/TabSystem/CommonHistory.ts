@@ -1,119 +1,119 @@
-import Store from "../../store/index";
-import ProblemIterator from "../editor/problems/Problems";
-import TabSystem from "../TabSystem";
-import JSONTree from "../editor/JsonTree";
+import Store from '../../store/index'
+import ProblemIterator from '../editor/problems/Problems'
+import TabSystem from '../TabSystem'
+import JSONTree from '../editor/JsonTree'
 
-export type CommitType = "add" | "remove" | "edit-key" | "edit-data";
+export type CommitType = 'add' | 'remove' | 'edit-key' | 'edit-data'
 
 /**
  * @class History
  */
 export class History {
-    private undo_arr: Action[];
-    private redo_arr: Action[];
-    constructor() {
-        this.undo_arr = [];
-        this.redo_arr = [];
-    }
+	private undo_arr: Action[]
+	private redo_arr: Action[]
+	constructor() {
+		this.undo_arr = []
+		this.redo_arr = []
+	}
 
-    updateError() {
-        if(Store.state.Settings.when_error === "On File Change") {
-            setTimeout(() => ProblemIterator.repeatLast(), 10);
-        }
-    }
+	updateError() {
+		if (Store.state.Settings.when_error === 'On File Change') {
+			setTimeout(() => ProblemIterator.repeatLast(), 10)
+		}
+	}
 
-    /**
-     * Adds an action to the undo queue
-     * @param {Action} action Action to add to the undo queue
-     */
-    add(action: Action) {
-        this.updateError();
+	/**
+	 * Adds an action to the undo queue
+	 * @param {Action} action Action to add to the undo queue
+	 */
+	add(action: Action) {
+		this.updateError()
 
-        if(this.undo_arr.length == 0) return this.undo_arr.unshift(action);
-        this.undo_arr[0].push(this.undo_arr, action);
-    }
+		if (this.undo_arr.length == 0) return this.undo_arr.unshift(action)
+		this.undo_arr[0].push(this.undo_arr, action)
+	}
 
-    /**
-     * Commits an undo-action
-     */
-    undo() {
-        let undo = this.undo_arr.shift();
-        if(undo == undefined) return false;
+	/**
+	 * Commits an undo-action
+	 */
+	undo() {
+		let undo = this.undo_arr.shift()
+		if (undo == undefined) return false
 
-        this.redo_arr.unshift(undo.reverse());
-        undo.commit();
-        TabSystem.setCurrentFileNav("global");
-        TabSystem.setCurrentUnsaved();
+		this.redo_arr.unshift(undo.reverse())
+		undo.commit()
+		TabSystem.setCurrentFileNav('global')
+		TabSystem.setCurrentUnsaved()
 
-        this.updateError();
-        return true;
-    }
-    /**
-     * Commits a redo-action
-     */
-    redo() {
-        let redo = this.redo_arr.shift();
-        if(redo == undefined) return false;
+		this.updateError()
+		return true
+	}
+	/**
+	 * Commits a redo-action
+	 */
+	redo() {
+		let redo = this.redo_arr.shift()
+		if (redo == undefined) return false
 
-        this.undo_arr.unshift(redo.reverse());
-        redo.commit();
-        TabSystem.setCurrentFileNav("global");
-        TabSystem.setCurrentUnsaved();
+		this.undo_arr.unshift(redo.reverse())
+		redo.commit()
+		TabSystem.setCurrentFileNav('global')
+		TabSystem.setCurrentUnsaved()
 
-        this.updateError();
-        return true;
-    }
+		this.updateError()
+		return true
+	}
 
-    /**
-     * Clears the current history
-     */
-    clear() {
-        this.undo_arr = [];
-        this.redo_arr = [];
-    }
-    /**
-     * Clears the current undo history
-     */
-    clearUndo() {
-        this.undo_arr = [];
-    }
-    /**
-     * Clears the current redo history
-     */
-    clearRedo() {
-        this.redo_arr = [];
-    }
+	/**
+	 * Clears the current history
+	 */
+	clear() {
+		this.undo_arr = []
+		this.redo_arr = []
+	}
+	/**
+	 * Clears the current undo history
+	 */
+	clearUndo() {
+		this.undo_arr = []
+	}
+	/**
+	 * Clears the current redo history
+	 */
+	clearRedo() {
+		this.redo_arr = []
+	}
 }
 
 export class Action {
-    /**
-     * Commits an action & returns current action object
-     * @abstract
-     * @returns {Action}
-     */
-    commit() {
-        return this;
-    }
-    /**
-     * Creates a new action object which has the opposite effect of the calling object
-     * @abstract
-     * @returns {Action}
-     */
-    reverse() {
-        return new Action();
-    }
-    /**
-     * Called on first object in "arr" upon trying to push a new action
-     * @abstract
-     * @param {Array<Action>} arr
-     * @param {Action} action
-     */
-    push(arr: Action[], action: Action) {}
+	/**
+	 * Commits an action & returns current action object
+	 * @abstract
+	 * @returns {Action}
+	 */
+	commit() {
+		return this
+	}
+	/**
+	 * Creates a new action object which has the opposite effect of the calling object
+	 * @abstract
+	 * @returns {Action}
+	 */
+	reverse() {
+		return new Action()
+	}
+	/**
+	 * Called on first object in "arr" upon trying to push a new action
+	 * @abstract
+	 * @param {Array<Action>} arr
+	 * @param {Action} action
+	 */
+	push(arr: Action[], action: Action) {}
 }
 
 /**
  * @typedef {"add"|"remove"|"edit-key"|"edit-data"} CommitType
- * 
+ *
  * @typedef {Object} JSONTree
  * @property {Function} buildFromObject
  * @property {Function} updateUUID
@@ -124,39 +124,43 @@ export class Action {
  * @property {String} data
  */
 export class JSONAction extends Action {
-    private type: CommitType;
-    private context: JSONTree;
-    private data: any;
+	private type: CommitType
+	private context: JSONTree
+	private data: any
 
-    constructor(type: CommitType, context: JSONTree, data: any) {
-        super();
-        this.type = type;
-        this.context = context;
-        this.data = data;
-    }
+	constructor(type: CommitType, context: JSONTree, data: any) {
+		super()
+		this.type = type
+		this.context = context
+		this.data = data
+	}
 
-    commit() {
-        if(this.type == "add") this.context.add(this.data);
-        else if(this.type == "remove") this.context.removeNode(this.data);
-        else if(this.type == "edit-key") {
-            this.context.key = this.data;
-            TabSystem.setCurrentFileNav("global");
-        } else if(this.type == "edit-data") {
-            this.context.data = this.data;
-            TabSystem.setCurrentFileNav("global");
-        }
-        this.context.updateUUID();
-        return this;
-    }
+	commit() {
+		if (this.type == 'add') this.context.add(this.data)
+		else if (this.type == 'remove') this.context.removeNode(this.data)
+		else if (this.type == 'edit-key') {
+			this.context.key = this.data
+			TabSystem.setCurrentFileNav('global')
+		} else if (this.type == 'edit-data') {
+			this.context.data = this.data
+			TabSystem.setCurrentFileNav('global')
+		}
+		this.context.updateUUID()
+		return this
+	}
 
-    reverse() {
-        if(this.type == "add") return new JSONAction("remove", this.context, this.data);
-        else if(this.type == "remove") return new JSONAction("add", this.context, this.data);
-        else if(this.type == "edit-key") return new JSONAction("edit-key", this.context, this.context.key);
-        else if(this.type == "edit-data") return new JSONAction("edit-data", this.context, this.context.data);
-    }
+	reverse() {
+		if (this.type == 'add')
+			return new JSONAction('remove', this.context, this.data)
+		else if (this.type == 'remove')
+			return new JSONAction('add', this.context, this.data)
+		else if (this.type == 'edit-key')
+			return new JSONAction('edit-key', this.context, this.context.key)
+		else if (this.type == 'edit-data')
+			return new JSONAction('edit-data', this.context, this.context.data)
+	}
 
-    push(arr: Action[], action: Action) {
-        arr.unshift(action);
-    }
+	push(arr: Action[], action: Action) {
+		arr.unshift(action)
+	}
 }

@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:ore_feature": {
     "description": {
-      "identifier": "redstone_ore_feature"
+      "identifier": "minecraft:redstone_ore_feature"
     },
     "count": 8,
     "places_block": "minecraft:redstone_ore",

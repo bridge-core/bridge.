@@ -1,3 +1,3 @@
-declare module "zip-a-folder" {
-    export function zip(path_1: string, path_2: string): Promise<void>;
+declare module 'zip-a-folder' {
+	export function zip(path_1: string, path_2: string): Promise<void>
 }

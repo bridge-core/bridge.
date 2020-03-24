@@ -63,6 +63,70 @@
                 "y": {},
                 "places_feature": {}
             }
+        },
+        "Blank Tree Feature": {
+            "format_version": {},
+            "minecraft:tree_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "can_be_submerged": {},
+                "base_block": {},
+                "base_cluster": {},
+                "may_grow_on": {},
+                "may_grow_through": {},
+                "may_replace": {}
+            }
+        },
+        "Blank Weighted Features": {
+            "format_version": {},
+            "minecraft:weighted_features": {
+                "description": {
+                    "identifier": {}
+                },
+                "early_out": {},
+                "features": {}
+            }
+        },
+        "Blank Structure Features": {
+            "format_version": {},
+            "minecraft:structure_template_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "structure_name": {},
+                "adjustment_radius": {},
+                "facing_direction": {},
+                "constraints": {
+                    "grounded": {},
+                    "unburied": {},
+                    "block_intersection": {}
+                }
+            }
+        },
+        "Blank Search Features": {
+            "format_version": {},
+            "minecraft:search_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "places_features": {},
+                "search_volume": {
+                    "min": {},
+                    "max": {}
+                },
+                "search_axis": {},
+                "required_successes": {}
+            }
+        },
+        "Blank Sequence Features": {
+            "format_version": {},
+            "minecraft:sequence_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "features": {}
+            }
         }
     }
 }

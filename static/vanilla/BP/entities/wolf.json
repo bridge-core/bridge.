@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:wolf",
@@ -83,6 +83,15 @@
           }
         },
         "minecraft:on_target_acquired": {
+        },
+        "minecraft:rideable": {
+          "seat_count": 1,
+          "family_types": [
+            "zombie"
+          ],
+          "seats": {
+            "position": [ 0.0, 0.675, -0.1 ]
+          }
         }
       },
 
@@ -110,7 +119,6 @@
 
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 4,
-          "attack_interval": 10,
           "reselect_targets": true,
           "entity_types": [
             {
@@ -209,7 +217,6 @@
         },
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 5,
-          "attack_interval": 10,
           "entity_types": [
             {
               "filters": { "test" :  "is_family", "subject" : "other", "value" :  "skeleton"},
@@ -361,6 +368,26 @@
           }
         ]
       },
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.float": {
         "priority": 0
       },
@@ -378,10 +405,7 @@
         "target_dist": 0.4
       },
       "minecraft:behavior.melee_attack": {
-        "priority": 5,
-        "target_dist": 1.2,
-        "track_target": true,
-        "reach_multiplier": 1.0
+        "priority": 5
       },
       "minecraft:behavior.random_stroll": {
         "priority": 8,
@@ -403,7 +427,7 @@
       "minecraft:behavior.hurt_by_target": {
         "priority": 3
       },
-	    "minecraft:physics": {
+      "minecraft:physics": {
       },
       "minecraft:pushable": {
         "is_pushable": true,

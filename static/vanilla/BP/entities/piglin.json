@@ -1,0 +1,807 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:piglin",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+
+    "component_groups": {
+      "zombification_sensor": {
+        "minecraft:environment_sensor": {
+          "triggers": {
+            "filters": {
+              "test": "in_nether",
+              "subject": "self",
+              "operator": "==",
+              "value": false
+            },
+            "event": "start_zombification_event"
+          }
+        }
+      },
+
+      "start_zombification": {
+        "minecraft:is_shaking": {},
+        "minecraft:environment_sensor": {
+          "triggers": {
+            "filters": {
+              "test": "in_nether",
+              "subject": "self",
+              "operator": "==",
+              "value": true
+            },
+            "event": "stop_zombification_event"
+          }
+        },
+        "minecraft:timer": {
+          "looping": false,
+          "time": 15,
+          "time_down_event": {
+            "event": "become_zombie_event"
+          }
+        }
+      },
+
+      "become_zombie": {
+        "minecraft:transformation": {
+          "into": "minecraft:zombie_pigman",
+          "keep_level": true
+        }
+      },
+
+      // TODO: Use the real name when decided
+      "ranged_unit": {
+        "minecraft:behavior.ranged_attack": {
+          "priority": 4,
+          "attack_interval_min": 1,
+          "attack_interval_max": 1,
+          "attack_radius": 8,
+          "attack_radius_min": 4,
+          "speed_multiplier": 1.5,
+          "target_in_sight_time": 0.1
+        },
+        "minecraft:shooter": {
+          "type": "Arrow",
+          "def": "minecraft:arrow"
+        },
+        "minecraft:behavior.charge_held_item": {
+          "priority": 3,
+          "items": [
+            "minecraft:arrow"
+          ]
+        },
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/piglin_gear_ranged.json"
+        },
+        "minecraft:variant": {
+          "value": 0
+        }
+      },
+
+      "melee_unit": {
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.25,
+          "track_target": true
+        },
+        "minecraft:attack": {
+          "damage": 5
+        },
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/piglin_gear_melee.json"
+        },
+        "minecraft:variant": {
+          "value": 1
+        }
+      },
+
+      "angry": {
+        "minecraft:angry": {
+          "duration": 30,
+          "broadcast_anger": true,
+          "broadcast_anger_on_attack": true,
+          "broadcast_anger_on_being_attacked": true,
+          "broadcast_range": 16,
+          "calm_event": {
+            "event": "become_calm_event",
+            "target": "self"
+          },
+          "filters": {
+            "all_of": [
+              {
+                "test": "is_family",
+                "subject": "other",
+                "operator": "!=",
+                "value": "piglin"
+              }
+            ]
+          }
+        }
+      },
+
+      "attack_cooldown": {
+        "minecraft:attack_cooldown": {
+          "attack_cooldown_time": [ 30.0, 120.0 ],
+          "attack_cooldown_complete_event": {
+            "event": "attack_cooldown_complete_event",
+            "target": "self"
+          }
+        } 
+      },
+
+      "piglin_baby": {
+        "minecraft:is_baby": {},
+        "minecraft:scale": {
+          "value": 0.5
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 1 + (query.equipment_count * Math.Random(1,2)) : 0"
+        },
+        "minecraft:behavior.panic": {
+          "priority": 1,
+          "speed_multiplier": 1.25
+        }
+      },
+
+      "piglin_adult": {
+        "minecraft:group_size": {
+          "radius": 32,
+          "filters": {
+            "all_of": [
+              {
+                "test": "has_component",
+                "operator": "!=",
+                "value": "minecraft:is_baby"
+              },
+              {
+                "test": "is_family",
+                "value": "piglin"
+              }
+            ]
+          }
+        },
+        "minecraft:admire_item": {
+          "duration": 8,
+          "cooldown_after_being_attacked": 10
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 + (query.equipment_count * Math.Random(1,3)) : 0"
+        },
+        "minecraft:behavior.barter": {
+          "priority": 2,
+          "max_dist": 10,
+          "goal_radius": 1,
+          "speed_multiplier": 1.1
+        },
+        "minecraft:celebrate_hunt": {
+          "celebration_targets": {
+            "all_of": [
+              {
+                "test": "is_family",
+                "value": "hoglin"
+              }
+            ]
+          },
+          "broadcast": true,
+          "duration": 10,
+          "radius": 16
+        },
+        "minecraft:interact": {
+          "interactions": [
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "gold_ingot"},
+                    { "test" :  "is_family", "subject" : "other", "value" :  "player"}
+                  ]
+                }
+              },
+              "spawn_items": {
+                "table": "loot_tables/entities/piglin_barter.json"
+              },
+              "use_item": true,
+              "interact_text": "action.interact.barter"
+            }
+          ]
+        },
+        "minecraft:block_sensor": {
+          "sensor_radius": 16,
+          "on_break": [
+            {
+              "block_list": [
+                "minecraft:gold_block", "minecraft:chest", "minecraft:ender_chest", "minecraft:barrel", "minecraft:shulker_box", "minecraft:undyed_shulker_box"
+              ],
+              "on_block_broken": "important_block_destroyed_event"
+            }
+          ]
+        }
+      },
+
+      "alert_for_attack_targets": {
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 3,
+          "within_radius": 16.0,
+          "persist_time": 2.0,
+          "entity_types": [
+            {
+              "filters": {
+                "any_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "wither"
+                  }
+                ]
+              },
+              "max_dist": 16
+            },
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "hoglin"
+                  },
+                  {
+                    "test": "has_component",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "minecraft:is_baby"
+                  },
+                  {
+                    "test": "has_component",
+                    "subject": "self",
+                    "operator": "!=",
+                    "value": "minecraft:attack_cooldown"
+                  }
+                ]
+              },
+              "max_dist": 16
+            },
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "subject": "other",
+                    "domain": "head",
+                    "operator": "!=",
+                    "value": "golden_helmet"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "subject": "other",
+                    "domain": "torso",
+                    "operator": "!=",
+                    "value": "golden_chestplate"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "subject": "other",
+                    "domain": "leg",
+                    "operator": "!=",
+                    "value": "golden_leggings"
+                  },
+                  {
+                    "test": "has_equipment",
+                    "subject": "other",
+                    "domain": "feet",
+                    "operator": "!=",
+                    "value": "golden_boots"
+                  }
+                ]
+              },
+              "max_dist": 16
+            },
+            {
+              "filters": {
+                "any_of": [
+                  {
+                    "test": "has_container_open",
+                    "subject": "other",
+                    "operator": "==",
+                    "value": true
+                  }
+                ]
+              },
+              "max_dist": 16
+            }
+          ],
+          "must_see": true
+        }
+      },
+
+      "take_target_as_response_to_block_break": {
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 3,
+          "entity_types": [
+            {
+              "filters": {
+                "test": "is_family",
+                "subject": "other",
+                "value": "player"
+              },
+              "max_dist": 16
+            }
+          ]
+        }
+      },
+      "piglin_jockey": {
+        "minecraft:behavior.find_mount": {
+          "priority": 1,
+          "within_radius": 16,
+          "start_delay": 15,
+          "max_failed_attempts": 20
+        }
+      }
+    },
+
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.9
+      },
+      "minecraft:type_family": {
+        "family": [
+          "piglin",
+          "monster"
+        ]
+      },
+      "minecraft:on_target_acquired": {
+        "event": "become_angry_event",
+        "target": "self"
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0
+      },
+      "minecraft:health": {
+        "value": 24,
+        "max": 24
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": {
+              "test": "in_lava",
+              "subject": "self",
+              "operator": "==",
+              "value": true
+            },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/piglin.json"
+      },
+      "minecraft:movement": {
+        "value": 0.35
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true,
+        "can_open_doors": true
+      },
+      "minecraft:annotation.open_door": {
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:nameable": {},
+      "minecraft:inventory": {
+        "inventory_size": 3,
+        "private": true
+      },
+      "minecraft:economy_trade_table": {
+        "display_name": "entity.piglin",
+        "table": "trading/economy_trades/piglin_trades.json",
+        "persist_trades": true,
+        "show_trade_screen": false
+      },
+      "minecraft:despawn": {
+        "filters": {
+          "any_of": [
+            {
+              "all_of": [
+                {
+                  "test": "is_persistent",
+                  "value": false
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": ">",
+                  "value": 54
+                }
+              ]
+            },
+            {
+              "all_of": [
+                {
+                  "test": "is_persistent",
+                  "value": false
+                },
+                {
+                  "test": "inactivity_timer",
+                  "subject": "self",
+                  "value": 30
+                },
+                {
+                  "test": "random_chance",
+                  "value": 800
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": ">",
+                  "value": 32
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.avoid_block": {
+        "priority": 6,
+        "tick_interval": 5,
+        "search_range": 8,
+        "search_height": 4,
+        "sprint_speed_modifier": 1.2,
+        "target_selection_method": "nearest",
+        "target_blocks": [
+          "minecraft:blue_fire",
+          "minecraft:soul_lantern",
+          "minecraft:soul_torch"
+        ]
+      },
+      "minecraft:behavior.pickup_items": {
+        "priority": 1,
+        "max_dist": 10,
+        "goal_radius": 2,
+        "speed_multiplier": 1.2,
+        "pickup_based_on_chance": false,
+        "can_pickup_any_item": false
+      },
+      "minecraft:behavior.avoid_mob_type": {
+        "priority": 0,
+        "remove_target": true,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zombie_pigman"
+                }
+              ]
+            },
+            "max_dist": 6
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_target",
+                  "subject": "other",
+                  "value": true
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "hoglin"
+                }
+              ]
+            },
+            "check_if_outnumbered": true
+          }
+        ],
+        "on_escape_event": {
+          "event": "become_calm_event",
+          "target": "self"
+        }
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 1
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 7,
+        "look_distance": 8
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 8
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:follow_range": {
+        "value": 64
+      },
+      "minecraft:shareables": {
+        "items": [
+          {
+            "item": "minecraft:golden_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:golden_axe",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:golden_hoe",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:golden_pickaxe",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:golden_shovel",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:golden_rail",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:golden_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:golden_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:golden_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:golden_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:golden_apple",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:golden_carrot",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:gold_block",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:gold_nugget",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2
+          },
+          {
+            "item": "minecraft:gold_ore",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:horsearmorgold",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 2,
+            "admire": true
+          },
+          {
+            "item": "minecraft:porkchop",
+            "priority": 3,
+            "max_amount": 64
+          },
+          {
+            "item": "minecraft:cooked_porkchop",
+            "priority": 3,
+            "max_amount": 64
+          }
+        ]
+      }
+    },
+
+    "events": {
+      "minecraft:entity_spawned": {
+        "randomize": [
+          {
+            "weight": 5,
+            "trigger": "spawn_baby"
+          },
+          {
+            "weight": 95,
+            "trigger": "spawn_adult"
+          }
+        ]
+      },
+      "minecraft:entity_born": {
+        "trigger": "spawn_baby"
+      },
+      "spawn_adult": {
+        "randomize": [
+          {
+            "weight": 1,
+            "trigger": "spawn_adult_ranged"
+          },
+          {
+            "weight": 1,
+            "trigger": "spawn_adult_melee"
+          }
+        ]
+      },
+      "spawn_adult_ranged": {
+        "add": {
+          "component_groups": [
+            "piglin_adult",
+            "zombification_sensor",
+            "alert_for_attack_targets",
+            "ranged_unit",
+            "attack_cooldown"
+          ]
+        }
+      },
+      "spawn_adult_melee": {
+        "add": {
+          "component_groups": [
+            "piglin_adult",
+            "zombification_sensor",
+            "alert_for_attack_targets",
+            "melee_unit",
+            "attack_cooldown"
+          ]
+        }
+      },
+      "spawn_baby": {
+        "randomize" : [
+          {
+            "weight": 9,
+            "add": {
+              "component_groups": [
+                "piglin_baby",
+                "zombification_sensor"
+              ]
+            }
+          },
+          {
+            "weight": 1,
+            "add": {
+              "component_groups": [
+                "piglin_baby",
+                "zombification_sensor",
+                "piglin_jockey"
+              ]
+            }
+          }
+        ]
+      },
+      "stop_zombification_event": {
+        "add": {
+          "component_groups": [
+            "zombification_sensor"
+          ]
+        },
+        "remove": {
+          "component_groups": [
+            "start_zombification"
+          ]
+        }
+      },
+      "start_zombification_event": {
+        "add": {
+          "component_groups": [
+            "start_zombification"
+          ]
+        },
+        "remove": {
+          "component_groups": [
+            "zombification_sensor"
+          ]
+        }
+      },
+      "become_angry_event": {
+        "add": {
+          "component_groups": [
+            "angry"
+          ]
+        }
+      },
+      "become_calm_event": {
+        "remove": {
+          "component_groups": [
+            "angry",
+            "take_target_as_response_to_block_break"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "alert_for_attack_targets",
+            "attack_cooldown"
+          ]
+        }
+      }, 
+      "attack_cooldown_complete_event": {
+        "remove": {
+          "component_groups": [
+            "attack_cooldown"
+          ]
+        }
+      },
+      "become_zombie_event": {
+        "add": {
+          "component_groups": [
+            "become_zombie"
+          ]
+        }
+      },
+      "important_block_destroyed_event": {
+        "remove": {
+          "component_groups": [
+            "alert_for_attack_targets"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "take_target_as_response_to_block_break"
+          ]
+        }
+      }
+    }
+  }
+}

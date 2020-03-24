@@ -1,0 +1,92 @@
+{
+	"format_version" : "1.10.0",
+	"animation_controllers" : {
+		"controller.animation.piglin.move" : {
+			"initial_state" : "default",
+			"states" : {
+				"default" : {
+					"animations" : [ "move" ]
+				}
+			}
+		},
+		"controller.animation.piglin.celebrate": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"celebrating" : "query.is_celebrating == 1"
+						},
+						{
+							"celebrating_special": "query.is_celebrating_special == 1"
+						}
+					]
+				},
+				"celebrating": {
+					"animations": [ "celebrate_hunt" ],
+					"transitions": [
+						{
+							"default": "query.is_celebrating == 0"
+						}
+					]
+				},
+				"celebrating_special": {
+					"animations": [ "celebrate_hunt_special" ],
+					"transitions": [
+						{
+							"default": "query.is_celebrating_special == 0"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.piglin.attack" : {
+			"initial_state" : "default",
+			"states" : {
+				"ranged_charge" : {
+					"animations" : [ "crossbow_charge" ],
+					"transitions" : [
+						{
+							"default" : "variable.attack_state == 0"
+						},
+						{
+							"ranged_hold" : "variable.attack_state == 1"
+						}
+					]
+				},
+				"default" : {
+					"transitions" : [
+						{
+							"ranged_hold" : "query.variant == 0 && variable.attack_state == 1"
+						},
+						{
+							"ranged_charge" : "query.variant == 0 && variable.attack_state == 2"
+						},
+						{
+							"melee_attack": "variable.has_target && query.variant == 1 && variable.attack_time >= 0.0"
+						}
+					]
+				},
+				"ranged_hold" : {
+					"animations" : [ "crossbow_hold" ],
+					"transitions" : [
+						{
+							"default" : "variable.attack_state == 0"
+						},
+						{
+							"ranged_charge" : "variable.attack_state == 2"
+						}
+					]
+				},
+				"melee_attack" : {
+					"animations": ["melee_attack"],
+					"transitions" : [
+						{
+							"default" : "!variable.has_target || variable.attack_time < 0.0"
+						}
+					]
+				}
+			}
+		}
+	}
+}

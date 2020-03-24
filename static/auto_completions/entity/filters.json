@@ -57,8 +57,11 @@
         "is_avoiding_mobs": "$general.boolean",
         "is_visible": "$general.boolean",
         "is_snow_covered": "$general.boolean",
+        "is_persistent": "$general.boolean",
         "has_trade_supply": "$general.boolean",
         "trusts": "$general.boolean",
+        "has_container_open": "$general.boolean",
+        "has_target": "$general.boolean",
 
         "has_equipment": "$general.item_identifier and $general.block_identifier",
         "$dynamic_template.has_component": {
@@ -79,6 +82,8 @@
         "is_difficulty": "$general.game_difficulty",
         "is_temperature_type": [ "ocean", "cold", "mild", "warm" ],
         "moon_phase": [ "0", "1", "2", "3", "4", "5", "6", "7" ],
+        "weather": [ "clear", "rain", "thunderstorm", "precipitation" ],
+        "weather_at_position": [ "clear", "rain", "thunderstorm", "precipitation" ],
         
         "hourly_clock_time": "$general.hourly_clock_time",
         "clock_time": "$general.decimal",
@@ -91,6 +96,8 @@
         "is_brightness": "$general.decimal",
         "is_temperature_value": "$general.decimal",
         "rider_count": "$general.number",
+        "inactivity_timer": "$general.number",
+        "random_chance": "$general.number",
         
         "has_tag": { "@meta": { "is_value": true } }
     }

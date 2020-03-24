@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:single_block_feature": {
     "description": {
-      "identifier": "grass_double_plant_lower_feature"
+      "identifier": "minecraft:grass_double_plant_lower_feature"
     },
     "places_block": {
       "name": "minecraft:double_plant",

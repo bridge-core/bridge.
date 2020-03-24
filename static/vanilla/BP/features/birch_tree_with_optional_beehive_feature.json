@@ -1,0 +1,12 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:aggregate_feature": {
+    "description": {
+      "identifier": "minecraft:birch_tree_with_optional_beehive_feature"
+    },
+    "features": [
+      "minecraft:birch_tree_feature",
+      "minecraft:optional_beehive_feature"
+    ]
+  }
+}

@@ -1,13 +1,28 @@
 {
+    "minecraft:behavior.avoid_block": {
+        "priority": "$general.number",
+        "tick_interval": "$general.number",
+        "search_range": "$general.number",
+        "search_height": "$general.number",
+        "walk_speed_modifier": "$general.decimal",
+        "sprint_speed_modifier": "$general.decimal",
+        "target_selection_method": [ "nearest" ],
+        "target_blocks": {
+            "$dynamic.list.next_index": "$general.block_identifier"
+        },
+        "on_escape": "$entity.general.event_definition"
+    },
     "minecraft:behavior.avoid_mob_type": {
         "priority": "$general.number",
         "entity_types": "$entity.general.entity_types",
         "ignore_visibility": "$general.boolean",
+        "remove_target": "$general.boolean",
         "max_dist": "$general.number",
         "max_flee": "$general.number",
         "probability_per_strength": "$general.decimal",
         "sprint_speed_multiplier": "$general.decimal",
-        "walk_speed_multiplier": "$general.decimal"
+        "walk_speed_multiplier": "$general.decimal",
+        "on_escape_event": "$entity.general.event_definition"
     },
     "minecraft:behavior.beg": {
         "priority": "$general.number",
@@ -82,11 +97,16 @@
     },
     "minecraft:behavior.delayed_attack": {
         "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "attack_once": "$general.boolean",
+        "require_complete_path": "$general.boolean",
+        "random_stop_interval": "$general.number",
         "reach_multiplier": "$general.decimal",
         "attack_duration": "$general.decimal",
         "hit_delay_pct": "$general.decimal",
         "track_target": "$general.boolean",
-        "sound_event": "$general.sound"
+        "sound_event": "$general.sound",
+        "hit_delay_pct": "$general.decimal"
     },
     "minecraft:behavior.door_interact": {
         "priority": "$general.number"
@@ -158,7 +178,8 @@
         "avoid_water": "$general.boolean",
         "mount_distance": "$general.number",
         "start_delay": "$general.number",
-        "target_needed": "$general.boolean"
+        "target_needed": "$general.boolean",
+        "max_failed_attempts": "$general.number"
     },
     "minecraft:behavior.find_underwater_treasure": {
         "priority": "$general.number",
@@ -433,7 +454,14 @@
         "priority": "$general.number",
         "sneak_speed_multiplier": "$general.decimal",
         "sprint_speed_multiplier": "$general.decimal",
-        "walk_speed_multiplier": "$general.decimal"
+        "walk_speed_multiplier": "$general.decimal",
+        "cooldown_time": "$general.number",
+        "x_max_rotation": "$general.degree",
+        "y_max_head_rotation": "$general.degree",
+        "max_distance": "$general.number",
+        "max_sneak_range": "$general.number",
+        "max_sprint_range": "$general.number",
+        "reach_multiplier": "$general.number"
     },
     "minecraft:behavior.ocelot_sit_on_block": {
       "priority": "$general.number",
@@ -476,7 +504,9 @@
         "max_dist": "$general.number",
         "goal_radius": "$general.number",
         "speed_multiplier": "$general.decimal",
-        "track_target": "$general.boolean"
+        "track_target": "$general.boolean",
+        "pickup_based_on_chance": "$general.boolean",
+        "can_pickup_any_item": "$general.boolean"
     },
     "minecraft:behavior.play": {
         "priority": "$general.number",
@@ -549,7 +579,10 @@
         "xz_dist": "$general.number",
         "y_dist": "$general.number"
     },
-    "minecraft:behavior.random_swim": "$entity.behavior.minecraft:behavior&dot;random_stroll",
+    "minecraft:behavior.random_swim": {
+        "$load": "$entity.behavior.minecraft:behavior&dot;random_stroll",
+        "avoid_surface": "$general.boolean"
+    },
     "minecraft:behavior.ranged_attack": {
         "priority": "$general.number",
         "attack_interval_max": "$general.number",
@@ -560,7 +593,8 @@
         "charge_charged_trigger": "$general.decimal",
         "charge_shoot_trigger": "$general.decimal",
         "ranged_fov": "$general.degree",
-        "speed_multiplier": "$general.decimal"
+        "speed_multiplier": "$general.decimal",
+        "target_in_sight_time": "$general.decimal"
     },
     "minecraft:behavior.receive_love": {
         "priority": "$general.number"
@@ -627,10 +661,22 @@
         "sleep_collider_width": "$general.decimal",
         "sleep_y_offset": "$general.decimal"
     },
-    "minecraft:behavior.slime_float": { "priority": "$general.number" },
+    "minecraft:behavior.slime_float": { 
+        "priority": "$general.number",
+        "jump_chance_percentage": "$general.decimal",
+        "speed_multiplier": "$general.decimal"
+    },
     "minecraft:behavior.slime_attack": { "priority": "$general.number" },
-    "minecraft:behavior.slime_random_direction": { "priority": "$general.number" },
-    "minecraft:behavior.slime_keep_on_jumping": { "priority": "$general.number" },
+    "minecraft:behavior.slime_random_direction": { 
+        "priority": "$general.number",
+        "add_random_time_range": "$general.number",
+        "turn_range": "$general.degree",
+        "min_change_direction_time": "$general.number"
+    },
+    "minecraft:behavior.slime_keep_on_jumping": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal"
+    },
     "minecraft:behavior.snacking": {
         "priority": "$general.number",
         "snacking_cooldown": "$general.number",
@@ -673,14 +719,16 @@
         "priority": "$general.number"
     },
     "minecraft:behavior.stomp_attack": {
-      "priority": "$general.number",
-      "attack_once": "$general.boolean",
-      "attack_types": { "@meta": { "is_value": true } },
-      "random_stop_interval": "$general.number",
-      "reach_multiplier": "$general.decimal",
-      "track_target": "$general.boolean",
-      "speed_multiplier": "$general.decimal",
-      "require_complete_path": "$general.boolean"
+        "priority": "$general.number",
+        "attack_once": "$general.boolean",
+        "attack_types": { "@meta": { "is_value": true } },
+        "random_stop_interval": "$general.number",
+        "reach_multiplier": "$general.decimal",
+        "track_target": "$general.boolean",
+        "speed_multiplier": "$general.decimal",
+        "require_complete_path": "$general.boolean",
+        "stomp_range_multiplier": "$general.decimal",
+        "no_damage_range_multiplier": "$general.decimal"
     },
     "minecraft:behavior.stomp_turtle_egg": {
         "priority": "$general.number",
@@ -728,16 +776,39 @@
         "stop_distance": "$general.number"
     },
     "minecraft:behavior.swim_idle": {
-        "priority": "$general.number"
+        "priority": "$general.number",
+        "idle_time": "$general.number",
+        "success_rate": "$general.decimal"
     },
     "minecraft:behavior.swim_wander": {
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal",
         "interval": "$general.number",
-        "look_ahead": "$general.decimal"
+        "look_ahead": "$general.decimal",
+        "wander_time": "$general.number"
+    },
+    "minecraft:behavior.swim_with_entity": {
+        "priority": "$general.number",
+        "success_rate": "$general.decimal",
+        "chance_to_stop": "$general.decimal",
+        "state_check_interval": "$general.decimal",
+        "catch_up_threshold": "$general.number",
+        "match_direction_threshold": "$general.number",
+        "catch_up_multiplier": "$general.decimal",
+        "speed_multiplier": "$general.decimal",
+        "search_range": "$general.number",
+        "stop_distance": "$general.number",
+
+        "entity_types": {
+            "$dynamic.list.next_index": {
+                "filters": "$entity.general.entity_types"
+            }
+        }
     },
     "minecraft:behavior.swoop_attack": {
         "priority": "$general.number",
+        "damage_reach": "$general.decimal",
+        "speed_multiplier": "$general.decimal",
         "delay_range": {
             "$dynamic.list.index_pair": "$general.number"
         }

@@ -8,6 +8,7 @@
         "conditions": [
             {
                 "minecraft:spawns_on_surface": {},
+                "minecraft:spawns_on_block_filter": "minecraft:sand",
                 "minecraft:brightness_filter": {
                     "min": 7,
                     "max": 15,

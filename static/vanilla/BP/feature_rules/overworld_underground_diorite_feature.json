@@ -2,8 +2,8 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "overworld_underground_diorite_feature",
-      "places_feature": "diorite_feature"
+      "identifier": "minecraft:overworld_underground_diorite_feature",
+      "places_feature": "minecraft:diorite_feature"
     },
     "conditions": {
       "placement_pass": "underground_pass",

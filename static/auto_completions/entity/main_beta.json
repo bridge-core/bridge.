@@ -35,6 +35,7 @@
             "$asObject": "$entity.general.built_in_event",
 
             "$placeholder": {
+                "trigger": "$dynamic.entity.events",
                 "sequence": {
                     "$dynamic.list.next_index": {
                         "filters": "$entity.filters",

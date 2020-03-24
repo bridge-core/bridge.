@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:elder_guardian",
@@ -84,9 +84,10 @@
         "speed_multiplier": 1.0,
         "control_flags": [ "move", "look" ]
       },
-      "minecraft:behavior.random_stroll": {
+      "minecraft:behavior.random_swim": {
         "priority": 7,
-        "speed_multiplier": 0.5
+        "speed_multiplier": 0.5,
+        "avoid_surface": false
       },
       "minecraft:behavior.look_at_player": {
         "priority": 8,

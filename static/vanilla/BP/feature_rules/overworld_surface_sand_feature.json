@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "overworld_surface_sand_feature",
+      "identifier": "minecraft:minecraft:overworld_surface_sand_feature",
       "places_feature": "minecraft:sand_feature"
     },
     "conditions": {

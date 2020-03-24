@@ -1,33 +1,50 @@
-import { JSONFileMasks } from "../editor/JSONFileMasks";
-import FetchDefinitions from "../editor/FetchDefinitions";
-import { OnSaveData } from "./main";
+import { JSONFileMasks } from '../editor/JSONFileMasks'
+import FetchDefinitions from '../editor/FetchDefinitions'
+import { OnSaveData } from './main'
 
 export function transformTag(data: any) {
-    let tag = data["bridge:tag"];
-    if(!tag) return {};
+	let tag = data['bridge:tag']
+	if (!tag) return {}
 
-    let { description: { identifier, ...description }, ...entity } = tag;
-    return {
-        identifier,
-        "minecraft:entity": { description, ...entity }
-    };
+	let {
+		description: { identifier, ...description },
+		...entity
+	} = tag
+	return {
+		identifier,
+		'minecraft:entity': { description, ...entity },
+	}
 }
 
-export default async function TagHandler({ file_path, data, depth }: OnSaveData) {
-    let tag = data["bridge:tag"];
-    if(!tag) return;
+export default async function TagHandler({
+	file_path,
+	data,
+	depth,
+}: OnSaveData) {
+	let tag = data['bridge:tag']
+	if (!tag) return
 
-    let { description: { identifier, ...description }, ...entity } = tag;
-    if(!identifier) return;
+	let {
+		description: { identifier, ...description },
+		...entity
+	} = tag
+	if (!identifier) return
 
-    let refs = await FetchDefinitions.fetchSingle("entity", [ "bridge_core_tags" ], identifier, true);
+	let refs = await FetchDefinitions.fetchSingle(
+		'entity',
+		['bridge_core_tags'],
+		identifier,
+		true
+	)
 
-    await Promise.all(refs.map(async f => {
-        const MASK = await JSONFileMasks.get(f);
-        MASK.overwrite(`tag@${identifier}`, {
-            "minecraft:entity": { description, ...entity }
-        });
+	await Promise.all(
+		refs.map(async f => {
+			const MASK = await JSONFileMasks.get(f)
+			MASK.overwrite(`tag@${identifier}`, {
+				'minecraft:entity': { description, ...entity },
+			})
 
-        await JSONFileMasks.apply(f, depth - 1);
-    })).catch(console.error);
+			await JSONFileMasks.apply(f, depth - 1)
+		})
+	).catch(console.error)
 }

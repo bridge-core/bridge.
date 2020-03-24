@@ -2,8 +2,8 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "swamp_surface_waterlily_feature",
-      "places_feature": "fixup_waterlily_position_feature"
+      "identifier": "minecraft:swamp_surface_waterlily_feature",
+      "places_feature": "minecraft:fixup_waterlily_position_feature"
     },
     "conditions": {
       "placement_pass": "surface_pass",

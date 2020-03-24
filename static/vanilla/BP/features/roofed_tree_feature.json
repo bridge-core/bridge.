@@ -1,0 +1,185 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:tree_feature": {
+    "description": {
+      "identifier": "minecraft:roofed_tree_feature"
+    },
+    "acacia_trunk": {
+      "trunk_width": 2,
+      "trunk_height": {
+        "base": 6,
+        "intervals": [ 3, 2 ]
+      },
+      "trunk_block": {
+        "name": "minecraft:log2",
+        "states": {
+          "new_log_type": "dark_oak"
+        }
+      },
+      "trunk_lean": {
+        "allow_diagonal_growth": false,
+        "lean_height": {
+          "range_min": 0,
+          "range_max": 4
+        },
+        "lean_steps": {
+          "range_min": 0,
+          "range_max": 3
+        }
+      },
+      "branches": {
+        "branch_chance": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "branch_length": {
+          "range_min": 2,
+          "range_max": 5
+        },
+        "branch_position": 1,
+        "branch_canopy": {
+          "acacia_canopy": {
+            "canopy_size": 2,
+            "leaf_block": {
+              "name": "minecraft:leaves2",
+              "states": {
+                "new_leaf_type": "dark_oak"
+              }
+            },
+            "simplify_canopy": true
+          }
+        }
+      }
+    },
+    "roofed_canopy": {
+      "canopy_height": 4,
+      "core_width": 2,
+      "outer_radius": 2,
+      "inner_radius": 3,
+      "leaf_block": {
+        "name": "minecraft:leaves2",
+        "states": {
+          "new_leaf_type": "dark_oak"
+        }
+      }
+    },
+    "base_block": [
+      "minecraft:dirt",
+      {
+        "name": "minecraft:dirt",
+        "states": {
+          "dirt_type": "coarse"
+        }
+      }
+    ],
+    "may_grow_on": [
+      "minecraft:dirt",
+      "minecraft:grass",
+      "minecraft:podzol",
+      // Block aliases sure would be sweet
+      {
+        "name": "minecraft:dirt",
+        "states": {
+          "dirt_type": "coarse"
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 0
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 1
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 2
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 3
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 4
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 5
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 6
+        }
+      },
+      {
+        "name": "minecraft:farmland",
+        "states": {
+          "moisturized_amount": 7
+        }
+      }
+    ],
+    "may_replace": [
+      "minecraft:air",
+      {
+        "name": "minecraft:leaves",
+        "states": {
+          "old_leaf_type": "oak"
+        }
+      },
+      {
+        "name": "minecraft:leaves",
+        "states": {
+          "old_leaf_type": "spruce"
+        }
+      },
+      {
+        "name": "minecraft:leaves",
+        "states": {
+          "old_leaf_type": "birch"
+        }
+      },
+      {
+        "name": "minecraft:leaves",
+        "states": {
+          "old_leaf_type": "jungle"
+        }
+      },
+      {
+        "name": "minecraft:leaves2",
+        "states": {
+          "new_leaf_type": "acacia"
+        }
+      },
+      {
+        "name": "minecraft:leaves2",
+        "states": {
+          "new_leaf_type": "dark_oak"
+        }
+      }
+    ],
+    "may_grow_through": [
+      "minecraft:dirt",
+      "minecraft:grass",
+      {
+        "name": "minecraft:dirt",
+        "states": {
+          "dirt_type": "coarse"
+        }
+      }
+    ]
+  }
+}

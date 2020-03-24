@@ -1,0 +1,14 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:scatter_feature": {
+    "description": {
+      "identifier": "minecraft:beehive_east_feature"
+    },
+    "iterations": 1,
+    "x": 1,
+    "y": 0,
+    "z": 0,
+    "project_input_to_floor": false,
+    "places_feature": "minecraft:beehive_feature"
+  }
+}

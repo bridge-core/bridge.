@@ -6,11 +6,10 @@
       "min_engine_version": "1.8.0",
       "materials": { "default": "zombie" },
       "textures": {
-        "default": "textures/entity/pig/pigzombie"
+        "default": "textures/entity/piglin/zombie_piglin"
       },
       "geometry": {
-        "default": "geometry.pigzombie.v1.8",
-        "baby": "geometry.pigzombie.baby.v1.8"
+        "default": "geometry.piglin"
       },
       "spawn_egg": {
         "texture": "spawn_egg",

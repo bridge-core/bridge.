@@ -1,0 +1,18 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:single_block_feature": {
+    "description": {
+      "identifier": "minecraft:nether_sprouts_feature"
+    },
+    "places_block": {
+      "name": "minecraft:nether_sprouts",
+      "states": {
+      }
+    },
+    "enforce_survivability_rules": true,
+    "enforce_placement_rules": true,
+    "may_replace": [
+      "minecraft:air"
+    ]
+  }
+}

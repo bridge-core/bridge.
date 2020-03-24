@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "jungle_surface_flowers_feature",
+      "identifier": "minecraft:jungle_surface_flowers_feature",
       "places_feature": "minecraft:legacy:overworld_flower_feature"
     },
     "conditions": {

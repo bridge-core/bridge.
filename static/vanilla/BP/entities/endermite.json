@@ -1,5 +1,5 @@
 {
-  "format_version": "1.13.0",
+  "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:endermite",
@@ -33,13 +33,12 @@
         "can_path_over_water": true
       },
       "minecraft:movement.basic": {
-        
       },
       "minecraft:jump.static": {
       },
       "minecraft:can_climb": {
       },
-		  "minecraft:health": {
+      "minecraft:health": {
         "value": 8,
         "max": 8
       },
@@ -55,14 +54,32 @@
       "minecraft:attack": {
         "damage": 2
       },
-
+      "minecraft:despawn": {
+         "filters": {
+           "any_of": [
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
+               ]
+             },
+             {
+               "all_of": [
+                 { "test": "is_persistent", "value": false },
+                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
+                 { "test": "random_chance", "value": 800 },
+                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
+               ]
+             }
+           ]
+         }
+       },
       "minecraft:behavior.float": {
         "priority": 0
       },
 
       "minecraft:behavior.melee_attack": {
         "priority": 3,
-        "speed_multiplier": 1,
         "track_target": true
       },
 
@@ -94,7 +111,7 @@
         "priority": 6,
         "speed_multiplier": 1
       },
-	    "minecraft:physics": {
+      "minecraft:physics": {
       },
       "minecraft:pushable": {
         "is_pushable": true,
@@ -103,4 +120,3 @@
     }
   }
 }
-
