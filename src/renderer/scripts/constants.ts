@@ -6,6 +6,7 @@ import path from "path";
 import { BP_BASE_PATH, RP_BASE_PATH } from "../../shared/Paths";
 import Store from "../store/index";
 import { FileExplorerStorage } from "./Sidebar/FileExplorer";
+import { remote } from "electron";
 
 export const WEB_APP_DATA = "https://bridge-core.github.io/data/";
 export const WEB_APP_PLUGINS = "https://bridge-core.github.io/plugins/";
@@ -18,6 +19,8 @@ export const MINECRAFT_VERSIONS = JSON.parse(fs.readFileSync(path.join(__static,
 export { APP_VERSION };
 export * from "../../shared/Paths";
 export const BASE_PATH = BP_BASE_PATH;
+
+export const browser_window = remote.getCurrentWindow();
 
 export const CURRENT = {
     get PROJECT() {

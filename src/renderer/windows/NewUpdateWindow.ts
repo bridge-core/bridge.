@@ -1,11 +1,16 @@
-import { shell } from "electron";
-import fetchLatestJson from "../scripts/Utilities/FetchLatestJson";
+import { newVersionRes } from "../scripts/Utilities/FetchLatestJson";
+import { Marked } from "@ts-stack/markdown";
 import { WEB_APP_DATA } from "../scripts/constants"
 import ContentWindow from "../scripts/commonWindows/Content";
+import updateApp from "../scripts/Utilities/updateApp";
 
 export default class UpdateWindow extends ContentWindow {
       content: any;
-      constructor(latest_version: string, description: string, downloads: number) {
+      constructor(data: newVersionRes) {
+            let { description, latest_version, downloads, latest_version_name, urls } = data;
+            if (latest_version_name.indexOf('-') == -1) {
+                  latest_version_name = latest_version.concat(" - Update Available");
+            }
             super({
                   is_visible: true,
                   options: {
@@ -37,7 +42,7 @@ export default class UpdateWindow extends ContentWindow {
                               color: "primary",
                               action: () => {
                                     this.close();
-                                    shell.openExternal("https://github.com/solvedDev/bridge./releases/latest");
+                                    updateApp(urls);
                               }
                         }
                   ]
@@ -46,7 +51,8 @@ export default class UpdateWindow extends ContentWindow {
             this.content = [
                   {
                         type: "header",
-                        text: "Update Available"
+                        text: latest_version_name
+                        //text: `${latest_version} of bridge. is now available for download.`
                   },
                   {
                         type: "divider"
@@ -60,7 +66,11 @@ export default class UpdateWindow extends ContentWindow {
                         type: "divider"
                   },
                   {
-                        text: `\n${latest_version} of bridge. is now available for download.\nChangeLog:\n${description}\nDownloads: ${downloads}`
+                        type: "html-text",
+                        text: `<br>${Marked.parse(description)}`
+                  },
+                  {
+                        text: `\nDownloads: ${ downloads }\n\n`
                   }
             ];
             this.update({ content: this.content });

@@ -3,11 +3,13 @@ import UpdateWindow from "../../windows/NewUpdateWindow";
 import Notification from "../Notification";
 import DiscordWindow from "../../windows/Discord";
 import { shell } from 'electron';
-import fetchLatestVersion from "./latestVersion";
 import fetchLatestJson from "./FetchLatestJson";
+import { startListening } from "./ConnectionStatus";
 
 export default async function startUp() {
     SETTINGS.setup();
+
+    startListening()
 
     let discord_msg = new Notification({
       display_icon: "mdi-discord",
@@ -27,14 +29,14 @@ export default async function startUp() {
     })
     discord_msg.send();
 
-    let { description, latest_version, update_available, downloads } = await fetchLatestJson();
+    let update_data = await fetchLatestJson();
 
     let update_msg = new Notification({
         display_icon: "mdi-update",
         display_name: "Update Available",
         text_color: "white",
         action: () => {
-            new UpdateWindow(latest_version, description, downloads);
+            new UpdateWindow(update_data);
         }
     })
     if(true) update_msg.send();
