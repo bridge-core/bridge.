@@ -32,14 +32,6 @@ export default async function updateApp(urls: Array<string>) {
         throw new Error("ERROR! Your platform isn't supported by the auto updater, please update manually.");
     }
     file_path = file_path.concat(extension);
-    downloadFile(url, file_path);
-    
-    access(file_path, (err) => {
-        if(err) {
-
-        } else {
-            shell.openItem(file_path);
-        }
-    });
+    await downloadFile(url, file_path);
     lw.close();
 }

@@ -1,75 +1,4 @@
 <template>
-    <!-- TEXT -->
-    <pre 
-        v-if="content.type == 'text' || content.type == undefined"
-        :class="`${pre_color} ${content.action != undefined ? 'click-action' : ''}`"
-        @click.stop="action.default"
-        style="overflow-x: auto;"
-    >{{ content.text }}</pre>
-    <div 
-        v-else-if="content.type == 'html-text'"
-        v-html="`${content.text}`"
-    ></div>
-    <v-subheader 
-        v-else-if="content.type == 'header'"
-        :color="content.color"
-    >{{ content.text }}</v-subheader>
-    <h3
-        v-else-if="content.type == 'big-header'"
-        :class="pre_color"
-    >{{ content.text }}</h3>
-    <v-img
-        v-else-if="content.type == 'img'"
-        :src="content.src"
-        :height="content.height"
-    >
-        <v-container v-if="content.content !== undefined" fill-height fluid>
-            <v-layout fill-height>
-                <v-flex xs12 align-end flexbox>
-                    <window-content v-for="(c) in content.content" :content="c" :key="key(c)"/>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-img>
-    
-    <!-- GENERAL -->
-    <v-spacer v-else-if="content.type == 'space'"/>
-    <v-divider
-        v-else-if="content.type == 'divider'"
-    />
-    <div
-        v-else-if="content.type == 'container'"
-        :style="`background-color: ${content.color}; padding: 4px; width: ${content.full_width ? '100%' : 'unset'}; height: ${content.height}px; overflow-y: ${content.scroll ? 'auto' : 'hidden'}; white-space: ${content.no_wrap ? 'nowrap' : 'unset'}; overflow-x: auto; height: ${content.height || 'unset'};`"
-        :class="content.small_scrollbar ? 'small-scrollbar' : ''"
-    >
-        <window-content :style="content.display ? `display: ${content.display};` : ''" v-for="(c) in content.content" :key="key(c)" :content="c"/>
-    </div>
-    <v-chip
-        v-else-if="content.type == 'tag'"
-        :color="content.color"
-        @click.stop="action.default"
-        style="margin-right: 4px;"
-        small
-    >
-        <v-icon class="click-action" v-if="content.icon" left>{{ content.icon }}</v-icon>
-        {{ content.text }}
-    </v-chip>
-    <!-- HORIZONTAL GROUPS -->
-    <v-layout :align-end="!content.center" :align-center="content.center" v-else-if="content.type == 'horizontal' && Array.isArray(content.content)">
-        <v-flex v-for="(c) in content.content" :key="key(c)">
-            <window-content :content="c"/>
-        </v-flex>
-    </v-layout>
-    <v-layout v-else-if="content.type == 'horizontal' && content.content">
-        <v-flex>
-            <window-content :content="content.content"/>
-        </v-flex>
-    </v-layout>
-    <!-- CARDS -->
-    <v-card v-else-if="content.type == 'card'" :color="content.color || 'background'" :tile="content.is_tiled" :elevation="content.elevation">
-        <v-card-title v-if="content.above_content">
-            <window-content v-for="(a_c) in content.above_content" :key="key(a_c)" :content="a_c"/>
-        </v-card-title>
 	<!-- TEXT -->
 	<pre
 		v-if="content.type == 'text' || content.type == undefined"
@@ -80,6 +9,7 @@
 		style="overflow-x: auto;"
 		>{{ content.text }}</pre
 	>
+	<div v-else-if="content.type == 'html-text'" v-html="`${content.text}`" ></div>
 	<v-subheader v-else-if="content.type == 'header'" :color="content.color">{{
 		content.text
 	}}</v-subheader>
