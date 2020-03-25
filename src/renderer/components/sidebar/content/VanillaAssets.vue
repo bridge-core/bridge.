@@ -25,7 +25,7 @@
 			:base_path="base_path"
 			explorer_type="other"
 			:is_immutable="true"
-			@receiveFileExplorer="exp => file_explorer = exp"
+			@receiveFileExplorer="exp => (file_explorer = exp)"
 		/>
 	</div>
 </template>
@@ -69,6 +69,8 @@ export default {
 	},
 	methods: {
 		async openFile(path) {
+			if (!path) return
+
 			let lw = new LoadingWindow()
 
 			this.curr_search = ''

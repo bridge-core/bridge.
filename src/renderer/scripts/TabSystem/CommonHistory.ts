@@ -158,6 +158,7 @@ export class JSONAction extends Action {
 			return new JSONAction('edit-key', this.context, this.context.key)
 		else if (this.type == 'edit-data')
 			return new JSONAction('edit-data', this.context, this.context.data)
+		else throw new Error('Unknown commit type')
 	}
 
 	push(arr: Action[], action: Action) {

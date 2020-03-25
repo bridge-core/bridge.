@@ -19,7 +19,7 @@ export default class NodeShortcuts {
 	}
 
 	static execPaste(alternative_paste = false) {
-		if (TabSystem.getSelected().is_immutable) return
+		if (TabSystem.getSelected()?.is_immutable) return
 
 		if (Store.state.Settings.is_alternative_append_with_copy)
 			return alternative_paste ? this.paste() : this.classicPaste()
@@ -92,7 +92,7 @@ export default class NodeShortcuts {
 		}
 	}
 	static cut() {
-		if (TabSystem.getSelected().is_immutable) return
+		if (TabSystem.getSelected()?.is_immutable) return
 
 		try {
 			let node = TabSystem.getCurrentNavObj()
