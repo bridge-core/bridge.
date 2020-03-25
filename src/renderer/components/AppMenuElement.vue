@@ -6,15 +6,19 @@
 		>
 			<v-list-item-content>
 				<v-list-item-title>{{ element.title }}</v-list-item-title>
-				<v-list-item-subtitle v-if="element.subtitle">{{
-					element.subtitle
-				}}</v-list-item-subtitle>
+				<v-list-item-subtitle v-if="element.subtitle">
+					{{ element.subtitle }}
+				</v-list-item-subtitle>
 			</v-list-item-content>
 
-			<v-list-item-action>
-				<v-list-item-action-text>{{
-					element.shortcut
-				}}</v-list-item-action-text>
+			<v-list-item-action v-if="element.shortcut">
+				<v-list-item-action-text>
+					{{
+						platform === 'darwin'
+							? element.shortcut.replace('Ctrl', 'Cmd')
+							: element.shortcut
+					}}
+				</v-list-item-action-text>
 			</v-list-item-action>
 		</v-list-item>
 
@@ -30,6 +34,7 @@
 
 <script>
 import AppMenu from './AppMenu.vue'
+import { platform } from 'os'
 
 export default {
 	name: 'app-menu-element',
@@ -40,7 +45,11 @@ export default {
 	components: {
 		AppMenu: AppMenu,
 	},
-	computed: {},
+	computed: {
+		platform() {
+			return platform()
+		},
+	},
 	methods: {
 		click(action = this.element.action) {
 			this.$root.$emit('close-all-menus')
