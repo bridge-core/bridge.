@@ -40,7 +40,10 @@ export default async function findRP() {
 	let rps = await fs.readdir(RP_BASE_PATH)
 
 	//Load resource packs from worlds
-	let map_packs = await fs.readdir(path.join(MOJANG_PATH, 'minecraftWorlds'))
+	let map_packs
+	try {
+		map_packs = await fs.readdir(path.join(MOJANG_PATH, 'minecraftWorlds'))
+	} catch {}
 	map_packs = (
 		await Promise.all(
 			map_packs.map(async p => {
