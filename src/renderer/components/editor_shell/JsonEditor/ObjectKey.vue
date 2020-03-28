@@ -25,7 +25,7 @@
 						(!inversed_arrows && !node_context.open)
 				"
 				small
-				>mdi-chevron-down</v-icon
+				>mdi-chevron-right</v-icon
 			>
 			<v-icon
 				v-if="
@@ -33,7 +33,7 @@
 						(inversed_arrows && !node_context.open)
 				"
 				small
-				>mdi-chevron-up</v-icon
+				>mdi-chevron-down</v-icon
 			>
 		</v-btn>
 
