@@ -12,26 +12,30 @@ import { shell, app, systemPreferences } from "electron";
 export default async function updateApp(urls: Array<string>) {
     // log dev things
     console.log("running on: "+platform());
-    console.log("user tmpdir set to:"+tmpdir());
+    console.log("user tmpdir set to: "+tmpdir());
 
     let url: string;
-    let file_path = tmpdir + path.sep+"bridgeInstaller";
+    let file_path = tmpdir + path.sep;
     let extension: string;
     const lw = new LoadingWindow("com.enderzombi102.updateWindow");
     if (platform() == "darwin") {
-        url = urls[urls.indexOf(".dmg")];
-        extension = ".dmg";
+        for (let i in urls) {
+            if (urls[i].indexOf(".dmg") != -1) url = urls[i];
+        }
     } else if (platform() == "win32") {
-        url = urls[urls.indexOf(".exe")];
-        extension = ".exe";
+        for (let i in urls) {
+            if (urls[i].indexOf(".exe") != -1) url = urls[i];
+        }
     } else if (platform() == "linux") {
-        url = urls[urls.indexOf(".AppImage")];
-        extension = ".AppImage"
+        for (let i in urls) {
+            if (urls[i].indexOf(".AppImage") != -1) url = urls[i];
+        }
     } else {
+        console.log("if this get executed, its bad");
         lw.close();
         throw new Error("ERROR! Your platform isn't supported by the auto updater, please update manually.");
     }
-    file_path = file_path.concat(extension);
+    if (url.indexOf("%40") != -1) url = url.replace("%40", "@");
     await downloadFile(url, file_path);
     lw.close();
 }
