@@ -7,7 +7,7 @@
     "boolean": [ "true", "false" ],
     "number_boolean": [ "0", "1" ],
     
-    "format_version": [ "1.8.0", "1.9.0", "1.10.0", "1.11.0", "1.12.0", "1.13.0", "1.14.0" ],
+    "format_version": [ "1.8.0", "1.9.0", "1.10.0", "1.11.0", "1.12.0", "1.13.0", "1.14.0", "1.16.0" ],
     "translatable_text": { "@meta": { "is_value": true } },
     "file_identifier": "($dynamic.setting.project_prefix + $dynamic.current_file_name)",
     "inventory_type": [
