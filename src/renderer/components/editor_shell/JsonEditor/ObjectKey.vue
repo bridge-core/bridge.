@@ -19,22 +19,8 @@
 			style="margin: 0; height: 16px; width: 16px;"
 			@click="event => $emit('arrowClick', event)"
 		>
-			<v-icon
-				v-if="
-					(inversed_arrows && node_context.open) ||
-						(!inversed_arrows && !node_context.open)
-				"
-				small
-				>mdi-chevron-right</v-icon
-			>
-			<v-icon
-				v-if="
-					(!inversed_arrows && node_context.open) ||
-						(inversed_arrows && !node_context.open)
-				"
-				small
-				>mdi-chevron-down</v-icon
-			>
+			<v-icon v-if="node_context.open" small>mdi-chevron-down</v-icon>
+			<v-icon v-else small>mdi-chevron-right</v-icon>
 		</v-btn>
 
 		<!-- KEY DISPLAY ERROR -->
@@ -63,9 +49,7 @@
 								error.is_warning ? 'warning-line' : 'error-line'
 							}`
 						"
-					>
-						{{ node_context.key }}
-					</highlight-text>
+					>{{ node_context.key }}</highlight-text>
 				</span>
 			</template>
 
@@ -81,9 +65,7 @@
 				)};`
 			"
 			class="object"
-		>
-			{{ node_context.key }}
-		</highlight-text>
+		>{{ node_context.key }}</highlight-text>
 
 		<!-- DATA DISPLAY -->
 		<span
@@ -120,9 +102,7 @@
 			"
 			color="error"
 			small
-		>
-			mdi-alert-circle
-		</v-icon>
+		>mdi-alert-circle</v-icon>
 
 		<!-- ERROR FIX -->
 		<v-tooltip
@@ -157,8 +137,7 @@
 			v-if="show_comment && comment != ''"
 			class="comment"
 			:style="color_theme.comment"
-			>//{{ comment }}</span
-		>
+		>//{{ comment }}</span>
 	</summary>
 </template>
 

@@ -405,11 +405,6 @@ export default class SettingsWindow extends TabWindow {
 					text: 'Dark Mode',
 					key: `settings.appearance.tab.${Math.random()}`,
 				}),
-				new ReactiveSwitch(this, 'inversed_arrows', {
-					color: 'primary',
-					text: 'Inverse Arrows',
-					key: `settings.appearance.tab.arrows.${Math.random()}`,
-				}),
 				new ReactiveSwitch(this, 'hide_data_next_to_nodes', {
 					color: 'primary',
 					text: 'Hide Data Next To Nodes',
