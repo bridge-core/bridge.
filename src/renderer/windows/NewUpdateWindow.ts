@@ -7,10 +7,17 @@ import updateApp from "../scripts/Utilities/updateApp";
 export default class UpdateWindow extends ContentWindow {
       content: any;
       constructor(data: newVersionRes) {
+            // take the data we need
             let { description, latest_version, downloads, latest_version_name, urls } = data;
-            if (latest_version_name.indexOf('-') == -1) {
+            // chack if there's an update name, if not, add a generic "update available"
+            let need_update = true;
+            for (let i of latest_version_name) {
+                  if ( "qwertyuiopasdfghjklzxcbnm".indexOf(i) != -1) need_update = false;
+            }
+            if (latest_version_name.indexOf('-') == -1 || need_update) {
                   latest_version_name = latest_version.concat(" - Update Available");
             }
+            // create the window
             super({
                   is_visible: true,
                   options: {
@@ -46,13 +53,12 @@ export default class UpdateWindow extends ContentWindow {
                               }
                         }
                   ]
-            }, "update_app.");
+            }, "update_app_window.");
 
             this.content = [
                   {
                         type: "header",
                         text: latest_version_name
-                        //text: `${latest_version} of bridge. is now available for download.`
                   },
                   {
                         type: "divider"

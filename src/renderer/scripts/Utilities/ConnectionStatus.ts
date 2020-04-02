@@ -1,20 +1,20 @@
-import { request } from "http";
-import { writeFile, access } from "fs";
-import fs from "fs"
 import { browser_window } from "../constants";
-import { promisify } from 'util'
-import { Buffer } from "buffer";
-import { remove } from "fs-extra";
-import { DownloadItem, webContents, session } from "electron";
 
+// online status, true = online false = offline
+let status: boolean;
 
+// adds the listeners
 export function startListening () {
       window.addEventListener("online", listener);
+      window.addEventListener('offline', listener);
+}
+// listener
+function listener (this: Window, ev: Event) {
+      status = this.navigator.onLine;
 }
 
-export function listener (this: Window, ev: Event) {
-      
-}
+// use this to know if you're online or not
+export default status;
 
 export async function downloadFile(file_url: string, path: string) {
       try {
@@ -22,79 +22,45 @@ export async function downloadFile(file_url: string, path: string) {
             contents.downloadURL(file_url)
             contents.session.on("will-download", (event, item, webContents) =>{
                   event.preventDefault();
-                  // Set the save path, making Electron not to prompt a save dialog.
+                  // Set the save path, making Electron not to prompt a save dialog. i tried :C
                   path = path + item.getFilename();
-                  print(path)
+                  console.log(path)
                   item.savePath = path;
                   item.setSavePath(path)
-                  
+                  // set the icon's progress bar to 0
                   browser_window.setProgressBar(0);
+                  // get total bytes
                   let total = item.getTotalBytes(), filename = item.getFilename();
                   item.on('updated', (event, state) => {
                         if (state === 'progressing') {
                               if (item.isPaused()) {
+                                    // if its possible to resume the download, resume it
                                     if(item.canResume()) item.resume();
                               } else {
                                     if (total != 0) {
+                                          // update the progress bar
                                           let percentage = (item.getReceivedBytes() * 100) / total;
                                           browser_window.setProgressBar(percentage);
                                     }
+                                    // log recived bytes
                                     console.log(`Received bytes: ${item.getReceivedBytes()}`);
                               }
                         }
                   });
                   item.once('done', (event, state) => {
                         if (state === 'completed') {
+                              // finished
                               return filename;
                         } else {
+                              //an error occurred, throw it
                               throw new Error(`${state}`);
                         }
                   });
             });
       }
       catch(e) {
-            print(e);
-      }
-      
-}
-
-//trying new method
-export async function download(url: string, path: string) {
-      const request = new Request(url, {
-            headers: new Headers({ 'Content-Type': 'application/octet-stream' })
-      });
-
-      const response = await fetch(request);
-      if (!response.ok) {
-            throw Error(`Unable to download, server returned ${response.status} ${response.statusText}`);
-      }
-
-      if (response.body == null) {
-            throw Error('No response body');
-      }
-
-      const finalLength = parseInt(response.headers.get('Content-Length' || '0'), 10);
-      const reader = response.body.getReader();
-      const writer = fs.createWriteStream(path);
-      let bytesDone = 0;
-
-      while (true) {
-            const result = await reader.read();
-            if (result.done) {
-                  writer.end();
-                  return;
-            }
-
-            const chunk = result.value;
-            if (chunk == null) {
-                  throw Error('Empty chunk received during download');
-            } else {
-                  writer.write(Buffer.from(chunk));
-                  bytesDone += chunk.byteLength;
-                  const percentage = length === 0 ? null : Math.floor(bytesDone / length * 100);
-                  browser_window.setProgressBar(percentage);
-                  
-            }
+            // in case thing go REALLY bad
+            //console.log(e);
+            throw new Error(e);
       }
 }
-function print(txt: any) { console.log(txt)};

@@ -5,10 +5,25 @@ import DiscordWindow from "../../windows/Discord";
 import { shell } from 'electron';
 import fetchLatestJson from "./FetchLatestJson";
 import { startListening } from "./ConnectionStatus";
+import { browser_window } from "../constants";
+import { isNullOrUndefined } from "util";
 
 export default async function startUp() {
-	SETTINGS.setup()
+    SETTINGS.setup()
 
+    // load and set the last window position
+    try {
+        let data = SETTINGS.load();
+        if (isNullOrUndefined(data.pos_x) && isNullOrUndefined(data.pos_y)) {
+            browser_window.setPosition(0, 0);
+        }   
+        else {
+            browser_window.setPosition(data.pos_x, data.pos_y);
+        }
+    }
+    // not too bad if fails
+    catch(e){console.log(e)}
+    // start listening for online and offline events
     startListening()
 
     let discord_msg = new Notification({
@@ -29,6 +44,7 @@ export default async function startUp() {
     })
     discord_msg.send();
 
+    // fetch the latest json/version data
     let update_data = await fetchLatestJson();
 
     let update_msg = new Notification({
@@ -38,6 +54,15 @@ export default async function startUp() {
         action: () => {
             new UpdateWindow(update_data);
         }
-    })
+    });
+    // if there's an update, notify the user
     if(true) update_msg.send();
+
+    //listener for saving the window position on bridge. closing
+    window.addEventListener("beforeunload", () => {
+        let data = SETTINGS.load(), pos = browser_window.getPosition();
+        data.pos_x = pos[0];
+        data.pos_y = pos[1];
+        SETTINGS.save(data);
+    });
 }
