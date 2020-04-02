@@ -8,7 +8,7 @@
 
 
 ## About bridge.
-bridge. is a powerful **add-on editor** designed to speed up your development. It provides a rich editing experience for all files inside behavior and resource packs (JavaScript, JSON and functions) and provides a **powerful work environment**.
+bridge. is a powerful **add-on editor** designed to speed up your development process. It provides a rich editing experience for all files inside behavior and resource packs (JavaScript, JSON and functions) and provides a **powerful work environment**.
 Unleash the full power of add-ons with bridge. plugins and make use of rich auto-completions provided as you navigate through a file. **Creating Minecraft add-ons was never more convenient!**
 
 ## Why *you* should use bridge.
