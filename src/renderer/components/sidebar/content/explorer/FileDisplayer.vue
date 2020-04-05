@@ -138,11 +138,13 @@ export default {
 
 		if (this.prop_explorer) return (this.file_explorer = this.prop_explorer)
 		if (
-			FileExplorerStorage.get(this.explorer_type, this.project) ===
-			undefined
+			FileExplorerStorage.get(
+				this.explorer_type || 'other',
+				this.project
+			) === undefined
 		) {
 			FileExplorerStorage.set(
-				this.explorer_type,
+				this.explorer_type || 'other',
 				this.project,
 				new FileExplorer(
 					undefined,

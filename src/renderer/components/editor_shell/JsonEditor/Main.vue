@@ -1,12 +1,10 @@
 <template>
 	<span class="px14-font">
 		<div v-if="open" :style="element_style">
-			<span
-				v-if="
+			<span v-if="
 					render_object.type == 'object' ||
 						render_object.type == 'array'
-				"
-			>
+				">
 				<draggable
 					v-model="render_object.children"
 					v-bind="{ group: 'key', disabled: disabled_dragging }"
@@ -72,12 +70,10 @@
 		</div>
 		<v-divider v-if="first && !is_immutable"></v-divider>
 		<v-layout class="controls" v-if="first && !is_immutable">
-			<template
-				v-if="
+			<template v-if="
 					$store.state.Settings.bridge_predictions &&
 						isKnownFileType()
-				"
-			>
+				">
 				<predicting-input
 					:render_object="render_object"
 					:tab_id="tab_id"
@@ -123,6 +119,7 @@ import EventBus from '../../../scripts/EventBus'
 import JSONTree from '../../../scripts/editor/JsonTree'
 import FileType from '../../../scripts/editor/FileType'
 import draggable from 'vuedraggable'
+import { MoveAction } from '../../../scripts/TabSystem/CommonHistory'
 
 export default {
 	name: 'json-editor-main',
@@ -305,13 +302,21 @@ export default {
 		draggedKey(data) {
 			TabSystem.setCurrentUnsaved()
 
-			if ('added' in data) {
+			if ('removed' in data) {
+				TabSystem.getHistory().add(
+					new MoveAction(undefined, this.object, data.removed.element)
+				)
+			} else if ('added' in data) {
 				let c = data.added.element
 				let update_path = false
 				if (TabSystem.getCurrentNavigation() === c.path)
 					update_path = true
 				c.parent = this.object
 				if (update_path) TabSystem.setCurrentFileNav(c.path)
+
+				TabSystem.getHistory().add(
+					new MoveAction(c.parent, undefined, c)
+				)
 			}
 		},
 

@@ -20,14 +20,17 @@ export class FileExplorerStorage {
 	} = { explorer: {}, resource_pack: {}, other: {} }
 
 	static set(
-		explorer_type: 'explorer' | 'resource_pack',
+		explorer_type: 'explorer' | 'resource_pack' | 'other',
 		project: string,
 		file_explorer: FileExplorer
 	) {
 		this.data[explorer_type][project] = file_explorer
 	}
 
-	static get(explorer_type: 'explorer' | 'resource_pack', project: string) {
+	static get(
+		explorer_type: 'explorer' | 'resource_pack' | 'other',
+		project: string
+	) {
 		return this.data[explorer_type][project]
 	}
 }
@@ -89,16 +92,18 @@ export class FileExplorer {
 		} catch (e) {}
 	}
 	async load() {
-		this.children = (
-			await fs.readdir(this.absolute_path, { withFileTypes: true })
-		).map(
-			p =>
-				new FileExplorer(
-					this,
-					path.join(this.path, p.name),
-					path.join(this.absolute_path, p.name),
-					p.isDirectory()
-				)
+		this.children = await Promise.all(
+			(await fs.readdir(this.absolute_path)).map(
+				async p =>
+					new FileExplorer(
+						this,
+						path.join(this.path, p),
+						path.join(this.absolute_path, p),
+						(
+							await fs.lstat(path.join(this.absolute_path, p))
+						).isDirectory()
+					)
+			)
 		)
 		this.sort()
 		this.loaded_children = true

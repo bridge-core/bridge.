@@ -5,6 +5,7 @@ import {
 	MINECRAFT_VERSIONS,
 	BASE_PATH,
 	MOJANG_PATH,
+	LOCAL_STATE_PATH,
 } from '../scripts/constants'
 import EventBus from '../scripts/EventBus'
 import fs from 'fs'
@@ -345,7 +346,7 @@ export default class SettingsWindow extends TabWindow {
 					text: '\nChosen Default Directory:\n',
 				},
 				{
-					text: MOJANG_PATH + '\n',
+					text: LOCAL_STATE_PATH + '\n',
 					color: 'grey',
 				},
 				{

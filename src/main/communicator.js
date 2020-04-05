@@ -1,11 +1,17 @@
-import { ipcMain, app } from 'electron'
-import { dialog } from 'electron'
+import {
+	ipcMain,
+	app
+} from 'electron'
+import {
+	dialog
+} from 'electron'
 import fs from 'fs'
-import { DefaultDir } from '../shared/DefaultDir'
+import {
+	DefaultDir
+} from '../shared/DefaultDir'
 
 ipcMain.on('openFileDialog', (event, args) => {
-	dialog.showOpenDialog(
-		{
+	dialog.showOpenDialog({
 			title: 'Select a File',
 			properties: ['openFile', 'multiSelections'],
 		},
@@ -16,9 +22,13 @@ ipcMain.on('openFileDialog', (event, args) => {
 	)
 })
 
-ipcMain.on('saveAsFileDialog', (event, { path, content }) => {
-	dialog.showSaveDialog(
-		{ defaultPath: path.replace(/\//g, '\\') },
+ipcMain.on('saveAsFileDialog', (event, {
+	path,
+	content
+}) => {
+	dialog.showSaveDialog({
+			defaultPath: path.replace(/\//g, '\\')
+		},
 		file_path => {
 			if (file_path) {
 				fs.writeFile(file_path, content, err => {
@@ -29,18 +39,18 @@ ipcMain.on('saveAsFileDialog', (event, { path, content }) => {
 	)
 })
 
-ipcMain.on('chooseDefaultDirectory', (event, args) => {
-	dialog.showOpenDialog(
-		{
-			title: 'Select a Default Directory',
-			properties: ['openDirectory'],
-		},
-		file_path => {
-			if (file_path) {
-				DefaultDir.set(file_path)
-				app.relaunch()
-				app.quit()
-			}
-		}
-	)
+ipcMain.on('chooseDefaultDirectory', async (event, args) => {
+	let {
+		filePaths,
+		canceled
+	} = await dialog.showOpenDialog({
+		title: 'Select a Default Directory',
+		properties: ['openDirectory'],
+	})
+
+	if (!canceled && filePaths[0] !== undefined) {
+		DefaultDir.set(filePaths[0])
+		app.relaunch()
+		app.quit()
+	}
 })
