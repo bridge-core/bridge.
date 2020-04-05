@@ -49,7 +49,8 @@
 								error.is_warning ? 'warning-line' : 'error-line'
 							}`
 						"
-					>{{ node_context.key }}</highlight-text>
+						>{{ node_context.key }}</highlight-text
+					>
 				</span>
 			</template>
 
@@ -65,7 +66,8 @@
 				)};`
 			"
 			class="object"
-		>{{ node_context.key }}</highlight-text>
+			>{{ node_context.key }}</highlight-text
+		>
 
 		<!-- DATA DISPLAY -->
 		<span
@@ -102,7 +104,8 @@
 			"
 			color="error"
 			small
-		>mdi-alert-circle</v-icon>
+			>mdi-alert-circle</v-icon
+		>
 
 		<!-- ERROR FIX -->
 		<v-tooltip
@@ -137,7 +140,8 @@
 			v-if="show_comment && comment != ''"
 			class="comment"
 			:style="color_theme.comment"
-		>//{{ comment }}</span>
+			>//{{ comment }}</span
+		>
 	</summary>
 </template>
 

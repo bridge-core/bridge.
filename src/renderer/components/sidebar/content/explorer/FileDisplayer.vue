@@ -3,17 +3,27 @@
 		v-if="
 			first && file_explorer.children === 0 && !file_explorer.is_loading
 		"
-	>This directory has no content.</p>
+	>
+		This directory has no content.
+	</p>
 	<v-progress-linear v-else-if="file_explorer.is_loading" indeterminate />
 	<div :style="element_style" :class="element_class" v-else>
 		<draggable
 			v-model="file_explorer.children"
-			v-bind="{ group: `file-displayer-${move_group}`, disabled: first || is_immutable }"
+			v-bind="{
+				group: `file-displayer-${move_group}`,
+				disabled: first || is_immutable,
+			}"
 			@change="draggedFile"
 		>
 			<template v-for="file in file_explorer.children">
 				<!--LOADING-->
-				<v-skeleton-loader v-if="file.is_loading" :key="file.absolute_path" height="21" type="text"></v-skeleton-loader>
+				<v-skeleton-loader
+					v-if="file.is_loading"
+					:key="file.absolute_path"
+					height="21"
+					type="text"
+				></v-skeleton-loader>
 				<!--FOLDER-->
 				<details
 					v-else-if="file.is_folder"
@@ -25,7 +35,7 @@
 					<summary
 						@click="file.is_open ? file.close() : file.open()"
 						@contextmenu="
-							event => 
+							event =>
 								!is_immutable &&
 								showFolderContextMenu(
 									event,
@@ -38,9 +48,9 @@
 						<v-icon class="open" small>mdi-folder-open</v-icon>
 						<v-icon class="closed" small>
 							{{
-							file.absolute_path.includes('cache')
-							? 'mdi-folder-lock'
-							: 'mdi-folder'
+								file.absolute_path.includes('cache')
+									? 'mdi-folder-lock'
+									: 'mdi-folder'
 							}}
 						</v-icon>
 						<span class="folder">{{ file.name }}</span>

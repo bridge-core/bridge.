@@ -1,12 +1,15 @@
 import SETTINGS from '../../store/Settings'
-import UpdateWindow from '../../windows/UpdateApp'
+import UpdateWindow from '../../windows/NewUpdateWindow'
 import Notification from '../Notification'
 import DiscordWindow from '../../windows/Discord'
 import { shell } from 'electron'
-import fetchLatestVersion from './latestVersion'
+import fetchLatestJson from './FetchLatestJson'
+import { CONNECTION } from './ConnectionStatus'
 
 export default async function startUp() {
 	SETTINGS.setup()
+	// Start listening for online and offline events
+	CONNECTION.startListening()
 
 	let discord_msg = new Notification({
 		display_icon: 'mdi-discord',
@@ -26,15 +29,17 @@ export default async function startUp() {
 	})
 	discord_msg.send()
 
-	let { update_available, latest_version } = await fetchLatestVersion()
+	// Fetch the latest json/version data
+	let update_data = await fetchLatestJson()
 
 	let update_msg = new Notification({
 		display_icon: 'mdi-update',
 		display_name: 'Update Available',
 		text_color: 'white',
 		action: () => {
-			new UpdateWindow(latest_version)
+			new UpdateWindow(update_data)
 		},
 	})
-	if (update_available) update_msg.send()
+	// If there's an update, notify the user
+	if (update_data.update_available) update_msg.send()
 }
