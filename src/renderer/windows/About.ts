@@ -84,7 +84,7 @@ export default class AboutWindow extends TabWindow {
 				{
 					type: 'divider',
 				},
-				new Creator('Contributor', 'Monte Hellawell', [
+				new Creator('Developer', 'Monte Hellawell', [
 					{
 						color: 'info',
 						text: 'mdi-twitter',
@@ -94,6 +94,16 @@ export default class AboutWindow extends TabWindow {
 						color: 'black',
 						text: 'mdi-github-circle',
 						link: 'https://github.com/montudor',
+					},
+				]),
+				{
+					type: 'divider',
+				},
+				new Creator('Developer', 'Enderzombi102', [
+					{
+						color: 'black',
+						text: 'mdi-github-circle',
+						link: 'https://github.com/ENDERZOMBI102',
 					},
 				]),
 				{
