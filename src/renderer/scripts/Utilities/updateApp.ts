@@ -5,7 +5,7 @@ import { ipcRenderer, shell } from 'electron'
 
 export default async function updateApp(urls: Array<string>) {
 	let file_path = path.join(tmpdir(), 'bridge-update')
-	let extension = 'n'
+	let extension = ''
 
 	// Create a loading window so the user know that there's a process working
 	const lw = new LoadingWindow()
@@ -37,7 +37,7 @@ export default async function updateApp(urls: Array<string>) {
 		}
 	}
 
-	let file_url = urls.find(url => url.endsWith('.dmg'))
+	let file_url = urls.find(url => url.endsWith(extension))
 	// Compose the file path
 	file_path = file_path + extension
 

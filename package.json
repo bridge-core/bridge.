@@ -1,6 +1,6 @@
 {
   "name": "bridge",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
   "license": "GNU",
@@ -19,6 +19,7 @@
   "build": {
     "productName": "bridge",
     "appId": "solved.editor.bridge",
+    "publish": "never",
     "artifactName": "bridge@${version}.${ext}",
     "directories": {
       "output": "build"
@@ -27,7 +28,6 @@
       "dist/electron/**/*"
     ],
     "dmg": {
-      "publish": "never",
       "contents": [
         {
           "x": 410,
@@ -43,11 +43,9 @@
       ]
     },
     "mac": {
-      "publish": "never",
       "icon": "build/icons/icon.icns"
     },
     "win": {
-      "publish": "never",
       "icon": "build/icons/icon.ico",
       "target": [
         {
