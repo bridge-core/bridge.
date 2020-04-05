@@ -48,7 +48,7 @@ ipcMain.on('chooseDefaultDirectory', async (event, args) => {
 		properties: ['openDirectory'],
 	})
 
-	if (!canceled && filePaths[0]) {
+	if (!canceled && filePaths[0] !== undefined) {
 		DefaultDir.set(filePaths[0])
 		app.relaunch()
 		app.quit()

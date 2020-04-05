@@ -37,7 +37,12 @@ export default async function findRP() {
 		return '/@NO-DEPENDENCY@/'
 	}
 
-	let rps = await fs.readdir(RP_BASE_PATH)
+	let rps: string[]
+	try {
+		rps = await fs.readdir(RP_BASE_PATH)
+	} catch {
+		rps = []
+	}
 
 	//Load resource packs from worlds
 	let map_packs
