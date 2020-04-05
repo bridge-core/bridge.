@@ -1,33 +1,33 @@
 name: Build and deploy
 
 on:
-  release:
-    types: [published]
+    release:
+        types: [published]
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        platform: [windows-latest, ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.platform }}
-    steps:
-    - uses: actions/checkout@v1
-    - name: Setup Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 10
-    - name: npm install and build
-      run: |
-        npm install
-        npm run build
-    - name: Upload to release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: |
-          build/nsis-web/*.exe
-          build/nsis-web/*.nsis.7z
-          build/*.snap
-          build/*.AppImage
-          build/*.dmg
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    build:
+        strategy:
+            matrix:
+                platform: [windows-latest, ubuntu-latest, macos-latest]
+        runs-on: ${{ matrix.platform }}
+        steps:
+            - uses: actions/checkout@v1
+            - name: Setup Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+            - name: npm install and build
+              run: |
+                  npm install
+                  npm run build
+            - name: Upload to release
+              uses: softprops/action-gh-release@v1
+              with:
+                  files: |
+                      build/nsis-web/*.exe
+                      build/nsis-web/*.nsis.7z
+                      build/*.snap
+                      build/*.AppImage
+                      build/*.dmg
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
