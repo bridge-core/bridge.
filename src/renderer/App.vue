@@ -1,72 +1,54 @@
 <template>
-	<div id="app">
-		<v-app
-			:style="{
+	<v-app :style="{
 				background: $vuetify.theme.themes[theme_variant].background,
-			}"
-		>
-			<app-toolbar />
-			<sidebar-navigation />
+			}">
+		<app-toolbar />
+		<sidebar-navigation />
 
-			<v-content
-				:style="`padding-bottom: ${footer_visible ? 44 : 22}px;`"
-			>
-				<v-row style="height: 100%;" no-gutters>
-					<v-col v-if="is_sidebar_open" cols="2">
-						<sidebar-main />
-					</v-col>
-					<v-col
-						@click="setSplitScreen(false)"
-						:style="
+		<v-content :style="`padding-bottom: ${footer_visible ? 44 : 22}px;`">
+			<v-row style="height: 100%;" no-gutters>
+				<v-col v-if="is_sidebar_open" cols="2">
+					<sidebar-main />
+				</v-col>
+				<v-col
+					@click="setSplitScreen(false)"
+					:style="
 							`border-right: 1px solid ${
 								is_dark_mode
 									? 'rgba(255, 255, 255, 0.12)'
 									: 'rgba(0, 0, 0, 0.12)'
 							} !important;`
 						"
-						:cols="
+					:cols="
 							5 +
 								5 * !has_split_screen +
 								(1 + 1 * !has_split_screen) * !is_sidebar_open
 						"
-					>
-						<editor-shell-tab-system />
-						<editor-shell-content-manager />
-					</v-col>
-					<v-col
-						@click="setSplitScreen(true)"
-						v-if="has_split_screen"
-						:cols="5 + 1 * !is_sidebar_open"
-					>
-						<editor-shell-tab-system :split_screen="true" />
-						<editor-shell-content-manager :split_screen="true" />
-					</v-col>
-				</v-row>
-			</v-content>
+				>
+					<editor-shell-tab-system />
+					<editor-shell-content-manager />
+				</v-col>
+				<v-col @click="setSplitScreen(true)" v-if="has_split_screen" :cols="5 + 1 * !is_sidebar_open">
+					<editor-shell-tab-system :split_screen="true" />
+					<editor-shell-content-manager :split_screen="true" />
+				</v-col>
+			</v-row>
+		</v-content>
 
-			<v-footer
-				color="footer"
-				:class="footer_visible ? 'big' : ''"
-				fixed
-				padless
-				app
-			>
-				<footer-main></footer-main>
-				<v-spacer></v-spacer>
-				<v-divider v-if="footer_visible" vertical></v-divider>
-				<span style="padding: 0 1em; white-space: nowrap;">
-					created by
-					<a class="grey--text text--lighten-1" @click="openTwitter">
-						solvedDev
-					</a>
-				</span>
-			</v-footer>
+		<v-footer color="footer" :class="footer_visible ? 'big' : ''" fixed padless app>
+			<footer-main></footer-main>
+			<v-spacer></v-spacer>
+			<v-divider v-if="footer_visible" vertical></v-divider>
+			<span style="padding: 0 1em; white-space: nowrap;">
+				created by
+				<a class="grey--text text--lighten-1" @click="openTwitter">solvedDev</a>
+			</span>
+		</v-footer>
 
-			<window-factory-main />
-			<context-menu-main />
-			<json-editor-hover-card />
-		</v-app>
-	</div>
+		<window-factory-main />
+		<context-menu-main />
+		<json-editor-hover-card />
+	</v-app>
 </template>
 
 <script>
@@ -134,7 +116,13 @@ export default {
 			})
 		})
 		EventBus.on('updateTabUI', this.updateSplitScreen)
+
+		//Disable middle-mouse scrolling
+		window.addEventListener('mousedown', event => {
+			if (event.button === 1) event.preventDefault()
+		})
 	},
+	mounted() {},
 	computed: {
 		is_sidebar_open() {
 			return this.$store.state.SidebarMenu.menu_state > 0

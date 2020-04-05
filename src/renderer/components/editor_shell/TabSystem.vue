@@ -19,7 +19,7 @@
             `
 			"
 			@click.native="selected_tab = i"
-			@click.middle.native="onMiddleClick($event, i)"
+			@click.middle.native="closeTab(i)"
 			@contextmenu.native="onContextMenu($event, i)"
 		>
 			<v-btn
@@ -37,9 +37,7 @@
 				v-if="getIcon(file.file_path)"
 				:color="isSelected(i) ? 'primary' : undefined"
 				small
-			>
-				{{ getIcon(file.file_path) }}
-			</v-icon>
+			>{{ getIcon(file.file_path) }}</v-icon>
 
 			<v-tooltip
 				color="tooltip"
@@ -54,15 +52,14 @@
 						:style="
 							`font-style: ${unsaved[i] ? 'italic' : 'none'};`
 						"
-						>{{ getFileName(file.file_name) }}</span
-					>
+					>{{ getFileName(file.file_name) }}</span>
 				</template>
 				<span>{{ file.file_name }}</span>
 			</v-tooltip>
 
-			<v-btn @click.stop="closeTab(i)" text icon small
-				><v-icon small>mdi-close</v-icon></v-btn
-			>
+			<v-btn @click.stop="closeTab(i)" text icon small>
+				<v-icon small>mdi-close</v-icon>
+			</v-btn>
 		</v-tab>
 	</div>
 </template>
@@ -197,10 +194,6 @@ export default {
 		},
 		getIcon(file_path) {
 			return FileType.getFileIcon(file_path)
-		},
-		onMiddleClick(event, index) {
-			event.preventDefault()
-			this.closeTab(index)
 		},
 		async onContextMenu(event, index) {
 			this.$store.commit('openContextMenu', {
