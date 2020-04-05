@@ -9,7 +9,10 @@
 		style="overflow-x: auto;"
 		>{{ content.text }}</pre
 	>
-	<div v-else-if="content.type == 'html-text'" v-html="`${content.text}`" ></div>
+	<div
+		v-else-if="content.type == 'html-text'"
+		v-html="`${content.text}`"
+	></div>
 	<v-subheader v-else-if="content.type == 'header'" :color="content.color">{{
 		content.text
 	}}</v-subheader>

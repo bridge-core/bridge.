@@ -3,7 +3,7 @@
  * e.g. v0.1.0 <-> v2.1.20
  */
 
-import { stringify } from "querystring";
+import { stringify } from 'querystring'
 
 interface compareResult {
 	result: boolean

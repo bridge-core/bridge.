@@ -1,12 +1,12 @@
 declare var __static: string
 
-import fs from "fs";
-import APP_VERSION from "../../shared/app_version";
-import path from "path";
-import { BP_BASE_PATH, RP_BASE_PATH } from "../../shared/Paths";
-import Store from "../store/index";
-import { FileExplorerStorage } from "./Sidebar/FileExplorer";
-import { remote } from "electron";
+import fs from 'fs'
+import APP_VERSION from '../../shared/app_version'
+import path from 'path'
+import { BP_BASE_PATH, RP_BASE_PATH } from '../../shared/Paths'
+import Store from '../store/index'
+import { FileExplorerStorage } from './Sidebar/FileExplorer'
+import { remote } from 'electron'
 
 export const WEB_APP_DATA = 'https://bridge-core.github.io/data/'
 export const WEB_APP_PLUGINS = 'https://bridge-core.github.io/plugins/'
@@ -38,7 +38,7 @@ export { APP_VERSION }
 export * from '../../shared/Paths'
 export const BASE_PATH = BP_BASE_PATH
 
-export const browser_window = remote.getCurrentWindow();
+export const browser_window = remote.getCurrentWindow()
 
 export const CURRENT = {
 	get PROJECT() {

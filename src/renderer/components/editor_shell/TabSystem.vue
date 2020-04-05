@@ -37,7 +37,8 @@
 				v-if="getIcon(file.file_path)"
 				:color="isSelected(i) ? 'primary' : undefined"
 				small
-			>{{ getIcon(file.file_path) }}</v-icon>
+				>{{ getIcon(file.file_path) }}</v-icon
+			>
 
 			<v-tooltip
 				color="tooltip"
@@ -52,7 +53,8 @@
 						:style="
 							`font-style: ${unsaved[i] ? 'italic' : 'none'};`
 						"
-					>{{ getFileName(file.file_name) }}</span>
+						>{{ getFileName(file.file_name) }}</span
+					>
 				</template>
 				<span>{{ file.file_name }}</span>
 			</v-tooltip>

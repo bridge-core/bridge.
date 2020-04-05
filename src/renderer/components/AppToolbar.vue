@@ -14,18 +14,29 @@
 			:src="icon_path"
 			style="height: 16px; padding-right: 4px;"
 		/>
-		<span v-else-if="no_logo_display" class="font-weight-bold" style="padding-right: 7px;">bridge.</span>
+		<span
+			v-else-if="no_logo_display"
+			class="font-weight-bold"
+			style="padding-right: 7px;"
+			>bridge.</span
+		>
 
 		<v-toolbar-items class="px14-font">
 			<v-divider vertical />
 			<template v-for="(menu, key, i) in menu_details">
 				<app-menu :key="`app-menu-${key}`" :menu="menu"></app-menu>
-				<v-divider v-if="i + 1 < Object.keys(menu_details).length" :key="`divider-${key}`" vertical />
+				<v-divider
+					v-if="i + 1 < Object.keys(menu_details).length"
+					:key="`divider-${key}`"
+					vertical
+				/>
 			</template>
 		</v-toolbar-items>
 
 		<v-spacer />
-		<span v-if="project_name" style="font-size: 12px;">{{ project_name.split(/\\|\//g).pop() }}</span>
+		<span v-if="project_name" style="font-size: 12px;">{{
+			project_name.split(/\\|\//g).pop()
+		}}</span>
 		<v-spacer />
 
 		<v-toolbar-items v-if="!is_mac_os">
