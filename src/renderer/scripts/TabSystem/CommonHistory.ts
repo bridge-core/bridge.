@@ -29,7 +29,7 @@ export class History {
 	add(action: Action) {
 		this.updateError()
 
-		if (this.undo_arr.length == 0) return this.undo_arr.unshift(action)
+		if (this.undo_arr.length === 0) return this.undo_arr.unshift(action)
 		this.undo_arr[0].push(this.undo_arr, action)
 	}
 
@@ -38,7 +38,7 @@ export class History {
 	 */
 	undo() {
 		let undo = this.undo_arr.shift()
-		if (undo == undefined) return false
+		if (undo === undefined) return false
 
 		this.redo_arr.unshift(undo.reverse())
 		undo.commit()
@@ -53,7 +53,7 @@ export class History {
 	 */
 	redo() {
 		let redo = this.redo_arr.shift()
-		if (redo == undefined) return false
+		if (redo === undefined) return false
 
 		this.undo_arr.unshift(redo.reverse())
 		redo.commit()
@@ -108,21 +108,11 @@ export class Action {
 	 * @param {Array<Action>} arr
 	 * @param {Action} action
 	 */
-	push(arr: Action[], action: Action) {}
+	push(arr: Action[], action: Action) {
+		arr.unshift(action)
+	}
 }
 
-/**
- * @typedef {"add"|"remove"|"edit-key"|"edit-data"} CommitType
- *
- * @typedef {Object} JSONTree
- * @property {Function} buildFromObject
- * @property {Function} updateUUID
- * @property {Function} removeNode
- * @property {Function} add
- * @property {String} path
- * @property {String} key
- * @property {String} data
- */
 export class JSONAction extends Action {
 	private type: CommitType
 	private context: JSONTree
@@ -136,12 +126,12 @@ export class JSONAction extends Action {
 	}
 
 	commit() {
-		if (this.type == 'add') this.context.add(this.data)
-		else if (this.type == 'remove') this.context.removeNode(this.data)
-		else if (this.type == 'edit-key') {
+		if (this.type === 'add') this.context.add(this.data)
+		else if (this.type === 'remove') this.context.removeNode(this.data)
+		else if (this.type === 'edit-key') {
 			this.context.key = this.data
 			TabSystem.setCurrentFileNav('global')
-		} else if (this.type == 'edit-data') {
+		} else if (this.type === 'edit-data') {
 			this.context.data = this.data
 			TabSystem.setCurrentFileNav('global')
 		}
@@ -150,18 +140,50 @@ export class JSONAction extends Action {
 	}
 
 	reverse() {
-		if (this.type == 'add')
+		if (this.type === 'add')
 			return new JSONAction('remove', this.context, this.data)
-		else if (this.type == 'remove')
+		else if (this.type === 'remove')
 			return new JSONAction('add', this.context, this.data)
-		else if (this.type == 'edit-key')
+		else if (this.type === 'edit-key')
 			return new JSONAction('edit-key', this.context, this.context.key)
-		else if (this.type == 'edit-data')
+		else if (this.type === 'edit-data')
 			return new JSONAction('edit-data', this.context, this.context.data)
 		else throw new Error('Unknown commit type')
 	}
+}
+
+export class MoveAction extends Action {
+	protected context1: JSONTree
+	protected context2: JSONTree
+	private child: JSONTree
+
+	constructor(context1: JSONTree, context2: JSONTree, child: JSONTree) {
+		super()
+
+		this.context1 = context1
+		this.context2 = context2
+		this.child = child
+	}
+
+	commit() {
+		this.context1.removeNode(this.child)
+		this.context2.add(this.child)
+		return this
+	}
+
+	reverse() {
+		return new MoveAction(this.context2, this.context1, this.child)
+	}
 
 	push(arr: Action[], action: Action) {
-		arr.unshift(action)
+		if (action instanceof MoveAction) {
+			if (this.context1 === undefined) {
+				this.context1 = action.context1
+			} else if (this.context2 === undefined) {
+				this.context2 = action.context2
+			}
+		} else {
+			super.push(arr, action)
+		}
 	}
 }
