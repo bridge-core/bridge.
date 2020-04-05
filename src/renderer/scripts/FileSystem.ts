@@ -13,6 +13,7 @@ import ConfirmWindow from './commonWindows/Confirm'
 import InformationWindow from './commonWindows/Information'
 import { readJSON } from './Utilities/JsonFS'
 import { stripFileVersion } from './Utilities/FileVersioning'
+import { useCache } from './Project/NoCacheConfig'
 
 ipcRenderer.on('openFile', (event, path) => {
 	FileSystem.open(path)
@@ -80,7 +81,9 @@ export default class FileSystem {
 			return this.loadFromDisk(file_path, file, is_immutable)
 		}
 
-		if (OmegaCache.isCacheFresh(file_path, cache, file.toString())) {
+		if (!(await useCache(file_path))) {
+			this.loadFromDisk(file_path, file)
+		} else if (OmegaCache.isCacheFresh(file_path, cache, file.toString())) {
 			let {
 				cache_content,
 				format_version,
