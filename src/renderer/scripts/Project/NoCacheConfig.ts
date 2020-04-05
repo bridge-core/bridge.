@@ -14,5 +14,7 @@ export async function getNoCacheFiles() {
 }
 
 export async function useCache(file_path: string) {
+	if (file_path === path.join(CURRENT.PROJECT_PATH, '.no-cache')) return false
+
 	return !(await getNoCacheFiles()).includes(FileType.get(file_path))
 }
