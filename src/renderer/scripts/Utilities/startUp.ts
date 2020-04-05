@@ -4,7 +4,7 @@ import Notification from '../Notification'
 import DiscordWindow from '../../windows/Discord'
 import { shell } from 'electron'
 import fetchLatestJson from './FetchLatestJson'
-import { startListening } from './ConnectionStatus'
+import { CONNECTION } from './ConnectionStatus'
 import { browser_window } from '../constants'
 import { isNullOrUndefined } from 'util'
 
@@ -24,7 +24,7 @@ export default async function startUp() {
 		console.log(e)
 	}
 	// start listening for online and offline events
-	startListening()
+	CONNECTION.startListening()
 
 	let discord_msg = new Notification({
 		display_icon: 'mdi-discord',
@@ -44,7 +44,7 @@ export default async function startUp() {
 	})
 	discord_msg.send()
 
-	// fetch the latest json/version data
+	// Fetch the latest json/version data
 	let update_data = await fetchLatestJson()
 
 	let update_msg = new Notification({
@@ -55,8 +55,8 @@ export default async function startUp() {
 			new UpdateWindow(update_data)
 		},
 	})
-	// if there's an update, notify the user
-	if (true) update_msg.send()
+	// If there's an update, notify the user
+	if (update_data.update_available || true) update_msg.send()
 
 	//listener for saving the window position on bridge. closing
 	window.addEventListener('beforeunload', () => {

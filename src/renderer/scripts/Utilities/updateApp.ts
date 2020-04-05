@@ -4,25 +4,25 @@
  */
 import path from 'path'
 import { platform, tmpdir } from 'os'
-import { downloadFile } from './ConnectionStatus'
 import LoadingWindow from '../../windows/LoadingWindow'
-import { execFile } from 'child_process'
-import { app } from 'electron'
+import { ipcRenderer, shell } from 'electron'
 
 export default async function updateApp(urls: Array<string>) {
-	// log dev things
-	console.log('running on: ' + platform())
-	console.log('user tmpdir set to: ' + tmpdir())
-	// useful variables
+	// Log dev things
+	console.log('Running on: ' + platform())
+	console.log('User tmpdir set to: ' + tmpdir())
+	// Variables
 	let url: string
-	let file_path = tmpdir + path.sep + 'bridge'
+	let file_path = path.join(tmpdir(), 'bridge')
 	let extension: string
-	// create a loading window so the user know that there's a process working
-	const lw = new LoadingWindow('com.enderzombi102.updateWindow')
-	/*
-    check the platform and take the url that download the correct installer
-    and set the file's extension, this allow to reuse code
-    */
+
+	// Create a loading window so the user know that there's a process working
+	const lw = new LoadingWindow()
+
+	/**
+	 * Check the platform and take the url which downloads the correct installer
+	 * Also sets the file's extension to reuse later
+	 */
 	if (platform() == 'darwin') {
 		for (let i in urls) {
 			if (urls[i].indexOf('.dmg') != -1) url = urls[i]
@@ -39,24 +39,14 @@ export default async function updateApp(urls: Array<string>) {
 			extension = '.AppImage'
 		}
 	} else {
-		// the user OS isn't supported by bridge or by the updater
-		console.log('if this get executed, its bad')
-		// close the cloading window
-		lw.close()
-		throw new Error(
-			"ERROR! Your platform isn't supported by the auto updater, please update manually."
+		// User's OS isn't supported by the update
+		lw.close() // Close the loading window
+		shell.openExternal(
+			'https://github.com/bridge-core/bridge./releases/latest'
 		)
 	}
-	// compose the file path
+	// Compose the file path
 	file_path = file_path + extension
-	// replace the url-version of @ for the symbol
-	if (url.indexOf('%40') != -1) url = url.replace('%40', '@')
-	// wait for the file to download
-	await downloadFile(url, file_path)
-	// execute the file
-	execFile(file_path)
-	// close the loading window
-	lw.close()
-	// close bridge.
-	app.quit()
+
+	await ipcRenderer.invoke('bridge:downloadUpdate', url, file_path)
 }
