@@ -6,25 +6,18 @@ import updateApp from '../scripts/Utilities/updateApp'
 
 export default class UpdateWindow extends ContentWindow {
 	content: any
-	constructor(data: newVersionRes) {
-		// take the data we need
-		let {
-			description,
-			latest_version,
-			downloads,
-			latest_version_name,
-			urls,
-		} = data
-		// chack if there's an update name, if not, add a generic "update available"
-		let need_update = true
-		for (let i of latest_version_name) {
-			if ('qwertyuiopasdfghjklzxcbnm'.indexOf(i) != -1)
-				need_update = false
-		}
-		if (latest_version_name.indexOf('-') == -1 || need_update) {
+	constructor({
+		description,
+		latest_version,
+		downloads,
+		latest_version_name,
+		urls,
+	}: newVersionRes) {
+		// Check if there's an update name, if not, add a generic "update available"
+		if (!latest_version_name.includes('-'))
 			latest_version_name = latest_version.concat(' - Update Available')
-		}
-		// create the window
+
+		// Create the window
 		super(
 			{
 				is_visible: true,
