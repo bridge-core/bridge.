@@ -5,25 +5,10 @@ import DiscordWindow from '../../windows/Discord'
 import { shell } from 'electron'
 import fetchLatestJson from './FetchLatestJson'
 import { CONNECTION } from './ConnectionStatus'
-import { browser_window } from '../constants'
-import { isNullOrUndefined } from 'util'
 
 export default async function startUp() {
 	SETTINGS.setup()
-
-	// load and set the last window position
-	try {
-		let data = SETTINGS.load()
-		if (isNullOrUndefined(data.pos_x) && isNullOrUndefined(data.pos_y)) {
-			browser_window.setPosition(0, 0)
-		} else {
-			browser_window.setPosition(data.pos_x, data.pos_y)
-		}
-	} catch (e) {
-		// not too bad if fails
-		console.log(e)
-	}
-	// start listening for online and offline events
+	// Start listening for online and offline events
 	CONNECTION.startListening()
 
 	let discord_msg = new Notification({
@@ -56,14 +41,5 @@ export default async function startUp() {
 		},
 	})
 	// If there's an update, notify the user
-	if (update_data.update_available || true) update_msg.send()
-
-	//listener for saving the window position on bridge. closing
-	window.addEventListener('beforeunload', () => {
-		let data = SETTINGS.load(),
-			pos = browser_window.getPosition()
-		data.pos_x = pos[0]
-		data.pos_y = pos[1]
-		SETTINGS.save(data)
-	})
+	if (update_data.update_available) update_msg.send()
 }
