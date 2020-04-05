@@ -105,27 +105,36 @@ export class FileExplorer {
 		this.updateUUID()
 	}
 	async refresh() {
-		this.children = (
-			await fs.readdir(this.absolute_path, { withFileTypes: true })
-		).map(
-			p =>
-				new FileExplorer(
-					this,
-					path.join(this.path, p.name),
-					path.join(this.absolute_path, p.name),
-					p.isDirectory(),
-					...this.loadPrevData(path.join(this.absolute_path, p.name))
-				)
+		this.children = await Promise.all(
+			(await fs.readdir(this.absolute_path, { withFileTypes: true })).map(
+				async p => {
+					let abs_path = path.join(this.absolute_path, p.name)
+					let rel_path = path.join(this.path, p.name)
+					let child = this.getChild(abs_path)
+
+					if (child) {
+						if (p.isDirectory()) return await child.refresh()
+						return child
+					}
+
+					return new FileExplorer(
+						this,
+						rel_path,
+						abs_path,
+						p.isDirectory()
+					)
+				}
+			)
 		)
+
 		this.sort()
 		this.updateUUID()
+		return this
 	}
-	loadPrevData(absolute_path: string): [boolean, FileExplorer[]] {
-		for (let { absolute_path: c_path, is_open, children } of this
-			.children) {
-			if (absolute_path === c_path) return [is_open, children]
+	getChild(absolute_path: string): FileExplorer {
+		for (let explorer of this.children) {
+			if (absolute_path === explorer.absolute_path) return explorer
 		}
-		return [false, []]
 	}
 
 	updateUUID() {
