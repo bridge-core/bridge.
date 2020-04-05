@@ -1,4 +1,4 @@
-import { ipcMain, app, BrowserWindow } from 'electron'
+import { ipcMain, app, BrowserWindow, shell } from 'electron'
 import { dialog } from 'electron'
 import fs from 'fs'
 import { DefaultDir } from '../shared/DefaultDir'
@@ -49,5 +49,7 @@ ipcMain.handle('bridge:downloadUpdate', async (event, file_url, file_path) => {
 		filename: path.basename(file_path),
 		directory: path.dirname(file_path),
 	})
-	execFile(file_path)
+
+	shell.openItem(file_path)
+	app.quit()
 })
