@@ -1,10 +1,6 @@
 <template>
 	<div>
-		<window
-			v-for="(win, i) in windows"
-			:key="`plugin-popup-window-${i}-${win.id}`"
-			:win="win"
-		/>
+		<window v-for="(win, i) in windows" :key="`plugin-popup-window-${i}-${win.id}`" :win="win" />
 	</div>
 </template>
 
@@ -18,7 +14,9 @@ export default {
 	},
 	computed: {
 		windows() {
-			return this.$store.state.WindowFactory.elements
+			return this.$store.state.WindowFactory.elements.filter(
+				win => win.is_visible
+			)
 		},
 	},
 }

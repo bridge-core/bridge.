@@ -1,23 +1,25 @@
 <template>
-	<v-dialog
+	<v-overlay
 		v-model="is_window_visible"
 		scrollable
 		:persistent="is_persistent"
 		:hide-overlay="!blur_background"
-		:max-width="is_fullscreen ? maxWidth : width"
-		:content-class="
-			(win.options || {}).elevation !== undefined
-				? `elevation-${win.options.elevation}`
-				: ''
-		"
+		@click.native="is_window_visible = false"
 	>
 		<v-card
 			ref="movable_card"
+			:width="is_fullscreen ? maxWidth : width"
+			:class="
+				(win.options || {}).elevation !== undefined
+					? `elevation-${win.options.elevation}`
+					: ''
+			"
 			:color="
 				win.options
 					? win.options.main_color || 'background'
 					: 'background'
 			"
+			@click.native="$event.stopPropagation()"
 		>
 			<v-system-bar
 				v-if="has_toolbar"
@@ -34,10 +36,7 @@
 				<v-spacer></v-spacer>
 				<v-toolbar-items>
 					<template v-for="(icon, i) in win.toolbar">
-						<toolbar-element
-							:key="`plugin-popup-window-toolbar-element-${i}`"
-							:element="icon"
-						/>
+						<toolbar-element :key="`plugin-popup-window-toolbar-element-${i}`" :element="icon" />
 						<v-divider
 							:key="`plugin-popup-window-toolbar-divider-${i}`"
 							v-if="
@@ -48,12 +47,7 @@
 							vertical
 						/>
 					</template>
-					<v-btn
-						small
-						icon
-						@click.stop="is_fullscreen = !is_fullscreen"
-						v-if="has_maximize_button"
-					>
+					<v-btn small icon @click.stop="is_fullscreen = !is_fullscreen" v-if="has_maximize_button">
 						<v-icon small>mdi-plus</v-icon>
 					</v-btn>
 					<v-divider v-if="has_close_button" vertical />
@@ -79,6 +73,8 @@
                 padding-right: ${has_no_padding ? '0px' : '16px'};
                 padding-left: ${has_sidebar || has_no_padding ? 0 : 8}px;
                 padding-bottom: 0px;
+				padding-top: 0px;
+				overflow-y: auto;
             `
 				"
 			>
@@ -139,10 +135,7 @@
 				<window-content :content="win.content" />
 			</v-card-text>
 			<v-divider v-if="win.actions != undefined" />
-			<v-card-actions
-				background-color="footer"
-				v-if="win.actions != undefined"
-			>
+			<v-card-actions background-color="footer" v-if="win.actions != undefined">
 				<window-content
 					v-for="content in actions"
 					:key="key(content)"
@@ -153,7 +146,7 @@
 				/>
 			</v-card-actions>
 		</v-card>
-	</v-dialog>
+	</v-overlay>
 </template>
 
 <script>
