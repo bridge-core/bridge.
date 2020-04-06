@@ -19,7 +19,6 @@
   "build": {
     "productName": "bridge",
     "appId": "solved.editor.bridge",
-    "publish": "never",
     "artifactName": "bridge@${version}.${ext}",
     "directories": {
       "output": "build"
