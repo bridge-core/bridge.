@@ -44,7 +44,7 @@ ipcMain.handle('bridge:closeApp', () => {
 	app.quit()
 })
 
-ipcMain.handle('bridge:downloadUpdate', async (event, file_url, file_path) => {
+ipcMain.handle('bridge:installUpdate', async (event, file_url, file_path) => {
 	await download(BrowserWindow.getFocusedWindow(), file_url, {
 		filename: path.basename(file_path),
 		directory: path.dirname(file_path),
@@ -52,4 +52,14 @@ ipcMain.handle('bridge:downloadUpdate', async (event, file_url, file_path) => {
 
 	shell.openItem(file_path)
 	app.quit()
+})
+
+ipcMain.handle('bridge:downloadFile', async (event, file_url, file_path) => {
+	await download(BrowserWindow.getFocusedWindow(), file_url, {
+		filename: path.basename(file_path),
+		directory: path.dirname(file_path),
+	})
+	.catch(e => {
+		throw e;
+	});
 })

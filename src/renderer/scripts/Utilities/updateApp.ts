@@ -41,5 +41,5 @@ export default async function updateApp(urls: Array<string>) {
 	// Compose the file path
 	file_path = file_path + extension
 
-	await ipcRenderer.invoke('bridge:downloadUpdate', file_url, file_path)
+	await ipcRenderer.invoke('bridge:installUpdate', file_url, file_path)
 }
