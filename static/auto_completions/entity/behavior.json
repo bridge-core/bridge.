@@ -87,6 +87,7 @@
 
     "minecraft:behavior.defend_trusted_target": {
         "priority": "$general.number",
+        "attack_chance": "$general.decimal",
         "within_radius": "$general.number",
         "must_see": "$general.boolean",
         "aggro_sound": "$general.sound",
@@ -738,7 +739,6 @@
         "search_range": "$general.number",
         "search_height": "$general.number",
         "goal_radius": "$general.decimal",
-        "search_count": "$general.number",
         "interval": "$general.number"
     },
     "minecraft:behavior.summon_entity": {
