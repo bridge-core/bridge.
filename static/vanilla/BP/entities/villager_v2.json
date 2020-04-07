@@ -434,7 +434,7 @@
             {
               "item": "minecraft:carrot",
               "want_amount": 60,
-              "surplus_amount": 4
+              "surplus_amount": 24
             },
             {
               "item": "minecraft:potato",
@@ -564,7 +564,7 @@
             {
               "item": "minecraft:carrot",
               "want_amount": 60,
-              "surplus_amount": 4
+              "surplus_amount": 24
             },
             {
               "item":"minecraft:potato",

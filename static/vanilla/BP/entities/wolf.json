@@ -48,6 +48,7 @@
         },
         "minecraft:breedable": {
           "require_tame": true,
+          "require_full_health": true,
           "breeds_with": {
             "mate_type": "minecraft:wolf",
             "baby_type": "minecraft:wolf",
@@ -206,7 +207,8 @@
           "damage": 4
         },
         "minecraft:behavior.breed": {
-          "priority": 7
+          "priority": 2,
+          "speed_multiplier": 1.0
         },
 
         "minecraft:behavior.owner_hurt_by_target": {

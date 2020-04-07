@@ -51,17 +51,19 @@
           "target": "self"
         }
       },
-      "minecraft:spawn_entity": [
-        {
-          "min_wait_time": 0,
-          "max_wait_time": 0,
-          "spawn_entity": "llama",
-          "spawn_event": "minecraft:from_wandering_trader",
-          "single_use": true,
-          "num_to_spawn": 2,
-          "should_leash": true
-        }
-      ],
+      "minecraft:spawn_entity": {
+        "entities": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "spawn_entity": "llama",
+            "spawn_event": "minecraft:from_wandering_trader",
+            "single_use": true,
+            "num_to_spawn": 2,
+            "should_leash": true
+          }
+        ]
+      },
       "minecraft:economy_trade_table": {
         "display_name": "entity.wandering_trader.name",
         "table": "trading/economy_trades/wandering_trader_trades.json",

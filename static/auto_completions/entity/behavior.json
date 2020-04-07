@@ -71,15 +71,17 @@
         "radius_range": {
             "$dynamic.list.index_pair": "$general.number"
         },
-        "radius_change_chance": "$general.number",
+        "radius_change": "$general.number",
+        "radius_adjustment_chance": "$general.number",
         "height_above_target_range": {
             "$dynamic.list.index_pair": "$general.number"
         },
         "height_offset_range": {
             "$dynamic.list.index_pair": "$general.number"
         },
-        "height_change_chance": "$general.number",
+        "height_adjustment_chance": "$general.number",
         "goal_radius": "$general.number",
+        "angle_change": "$general.number",
         "speed_multiplier": "$general.decimal"
     },
 

@@ -72,12 +72,14 @@
           }
         },
         "minecraft:spawn_entity": {
-          "min_wait_time": 300,
-          "max_wait_time": 600,
-          "spawn_sound": "plop",
-          "spawn_item": "egg",
-          "filters": {
-            "test": "rider_count", "subject": "self", "operator": "==", "value": 0
+          "entities": {
+            "min_wait_time": 300,
+            "max_wait_time": 600,
+            "spawn_sound": "plop",
+            "spawn_item": "egg",
+            "filters": {
+              "test": "rider_count", "subject": "self", "operator": "==", "value": 0
+            }
           }
         }
       }

@@ -145,7 +145,6 @@
         "probability": 0.02
       },
       "minecraft:shooter": {
-        "type": "ShulkerBullet",
         "def": "minecraft:shulker_bullet"
       },
       "minecraft:behavior.random_look_around": {

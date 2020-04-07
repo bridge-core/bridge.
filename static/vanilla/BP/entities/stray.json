@@ -17,12 +17,12 @@
       },
       "minecraft:ranged_attack": {
         "minecraft:behavior.ranged_attack": {
-          "attack_interval_min": 1,
-          "attack_interval_max": 3,
-          "attack_radius": 15
+          "priority": 0,
+          "attack_interval_min": 1.0,
+          "attack_interval_max": 3.0,
+          "attack_radius": 15.0
         },
         "minecraft:shooter": {
-          "type": "Arrow",
           "def": "minecraft:arrow",
           "aux_val": 19
         },
@@ -135,7 +135,6 @@
         "table": "loot_tables/entities/skeleton_gear.json"
       },
       "minecraft:shooter": {
-        "type": "Arrow",
         "def": "minecraft:arrow",
         "aux_val": 19
       },
@@ -342,16 +341,19 @@
         ]
       },
       "minecraft:behavior.ranged_attack": {
-        "attack_interval_min": 1,
-        "attack_interval_max": 3,
-        "attack_radius": 15
+        "priority": 0,
+        "attack_interval_min": 1.0,
+        "attack_interval_max": 3.0,
+        "attack_radius": 15.0
       },
       "minecraft:behavior.hurt_by_target": {
         "priority": 1
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
+        "must_see": true,
         "reselect_targets": true,
+
         "entity_types": [
           {
             "filters": {
@@ -387,8 +389,7 @@
             },
             "max_dist": 16
           }
-        ],
-        "must_see": true
+        ]
       },
 
       "minecraft:behavior.flee_sun": {

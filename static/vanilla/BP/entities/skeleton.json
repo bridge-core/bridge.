@@ -23,7 +23,6 @@
           "attack_radius": 15
         },
         "minecraft:shooter": {
-          "type": "Arrow",
           "def": "minecraft:arrow"
         },
         "minecraft:environment_sensor": {
@@ -140,7 +139,6 @@
         "table": "loot_tables/entities/skeleton_gear.json"
       },
       "minecraft:shooter": {
-        "type": "Arrow",
         "def": "minecraft:arrow"
       },
       "minecraft:environment_sensor": {

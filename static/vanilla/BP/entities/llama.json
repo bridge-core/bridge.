@@ -379,7 +379,6 @@
         ]
       },
       "minecraft:shooter": {
-        "type": "llamaspit",
         "def": "minecraft:llama_spit"
       },
       "minecraft:despawn": {

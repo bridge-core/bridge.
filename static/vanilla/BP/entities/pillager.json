@@ -36,7 +36,6 @@
           "attack_radius": 8
         },
         "minecraft:shooter": {
-          "type": "Arrow",
           "def": "minecraft:arrow"
         },
         "minecraft:environment_sensor": {

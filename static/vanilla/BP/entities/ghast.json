@@ -43,7 +43,6 @@
         "table": "loot_tables/entities/ghast.json"
       },
       "minecraft:shooter": {
-        "type": "largefireball",
         "def": "minecraft:fireball"
       },
       "minecraft:type_family": {

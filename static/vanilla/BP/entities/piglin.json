@@ -64,7 +64,6 @@
           "target_in_sight_time": 0.1
         },
         "minecraft:shooter": {
-          "type": "Arrow",
           "def": "minecraft:arrow"
         },
         "minecraft:behavior.charge_held_item": {

@@ -110,7 +110,6 @@
         "random_stop_interval": 2
       },
       "minecraft:shooter": {
-        "type": "smallfireball",
         "def": "minecraft:small_fireball"
       },
       "minecraft:behavior.ranged_attack": {

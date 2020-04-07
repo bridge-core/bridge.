@@ -26,5 +26,39 @@
                 }
             }
         }
+    },
+
+    "minecraft:spawn_entity": {
+        "entities": {
+            "$dynamic.list.next_index": {
+                "should_leash": "$general.boolean",
+                "num_to_spawn": "$general.number",
+                "min_wait_time": "$general.number",
+                "max_wait_time": "$general.number",
+                "spawn_entity": "$general.entity_identifier",
+                "spawn_event": "$dynamic.entity.events",
+                "spawn_item": "$general.item_identifier",
+                "spawn_method": [ "born" ],
+                "spawn_sound": "$general.sound",
+                "filters": "$entity.filters",
+                "single_use": "$general.boolean"
+            }
+        }
+    },
+
+    "minecraft:behavior.eat_block": {
+        "priority": "$general.number",
+        "success_chance": {
+            "@meta": { "is_value": true, "is_molang": true },
+            "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
+        },
+        "time_until_eat": "$general.number",
+        "eat_and_replace_block_pairs": {
+            "$dynamic.list.next_index": {
+                "eat_block": "$general.block_identifier",
+                "replace_block": "$general.block_identifier"
+            }
+        },
+        "on_eat": "$entity.general.event_definition"
     }
 }
