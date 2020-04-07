@@ -24,12 +24,17 @@ export default async function fetchLatestJson() {
 			console.log(
 				`Running bridge. ${APP_VERSION} | Latest: ${data.tag_name}`
 			)
+
 			// Set interface data
 			res.latest_version = data.tag_name
 			res.description = String(data.body)
 			res.downloads = 0
 			res.urls = Array<string>()
 			res.latest_version_name = data.name
+			res.update_available = VERSION_UTILS.lessThan(
+				APP_VERSION,
+				data.tag_name
+			)
 
 			// Count the downloads + push the download url to the interface
 			for (let asset of data.assets) {
