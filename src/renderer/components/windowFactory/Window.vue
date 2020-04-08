@@ -19,7 +19,7 @@
 					: 'background'
 			"
 		>
-			<v-system-bar
+			<v-toolbar
 				v-if="has_toolbar"
 				ref="drag_region"
 				height="30px"
@@ -28,11 +28,12 @@
 						? win.options.toolbar_color || 'toolbar'
 						: 'toolbar'
 				"
+				class="app-window-toolbar"
 				style="overflow-x: auto; overflow-y: hidden;"
 			>
 				<span class="px14-font">{{ window_title }}</span>
 				<v-spacer></v-spacer>
-				<v-toolbar-items>
+				<v-toolbar-items style="position: relative; left: 14px;">
 					<template v-for="(icon, i) in win.toolbar">
 						<toolbar-element
 							:key="`plugin-popup-window-toolbar-element-${i}`"
@@ -64,10 +65,10 @@
 						@click.stop="is_window_visible = false"
 						v-if="has_close_button"
 					>
-						<v-icon small>mdi-close</v-icon>
+						<v-icon color="white" small>mdi-close</v-icon>
 					</v-btn>
 				</v-toolbar-items>
-			</v-system-bar>
+			</v-toolbar>
 
 			<v-card-text
 				v-if="Array.isArray(win.content)"
