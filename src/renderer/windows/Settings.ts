@@ -395,6 +395,20 @@ export default class SettingsWindow extends TabWindow {
 			content: [
 				{
 					color: 'grey',
+					text: '\nGeneral',
+				},
+				new ReactiveSwitch(this, 'is_dark_mode', {
+					color: 'primary',
+					text: 'Dark Mode',
+					key: `settings.appearance.tab.${Math.random()}`,
+				}),
+				new ReactiveSwitch(this, 'hide_data_next_to_nodes', {
+					color: 'primary',
+					text: 'Hide Data Next To Nodes',
+					key: `settings.appearance.tab.hide_data_next_to_nodes.${Math.random()}`,
+				}),
+				{
+					color: 'grey',
 					text: '\nTheme',
 				},
 				{
@@ -445,14 +459,15 @@ export default class SettingsWindow extends TabWindow {
 					type: 'button',
 					text: 'Reset Font',
 					action: () => {
-						this.data.font_family = 'Roboto'
+						this.data.ui_font_family = undefined
+						this.data.ui_font_size = undefined
 						this.save()
 						this.close()
 					},
 				},
 				{
 					color: 'grey',
-					text: '\nFile Font',
+					text: '\n\n\nFile Font',
 				},
 				new ReactiveDropdown(
 					this,
@@ -485,21 +500,15 @@ export default class SettingsWindow extends TabWindow {
 					type: 'button',
 					text: 'Reset Font',
 					action: () => {
-						this.data.font_family = 'Roboto'
+						this.data.file_font_family = undefined
+						this.data.file_font_size = undefined
 						this.save()
 						this.close()
 					},
 				},
-				new ReactiveSwitch(this, 'is_dark_mode', {
-					color: 'primary',
-					text: 'Dark Mode',
-					key: `settings.appearance.tab.${Math.random()}`,
-				}),
-				new ReactiveSwitch(this, 'hide_data_next_to_nodes', {
-					color: 'primary',
-					text: 'Hide Data Next To Nodes',
-					key: `settings.appearance.tab.hide_data_next_to_nodes.${Math.random()}`,
-				}),
+				{
+					text: '\n\n',
+				},
 			],
 		})
 		this.addTab({
