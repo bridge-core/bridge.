@@ -11,6 +11,7 @@ import FileType from './FileType'
 import PluginEnv from '../plugins/PluginEnv'
 import { readJSON } from '../Utilities/JsonFS'
 import JSONTree from './JsonTree'
+import { uuid } from '../Utilities/useAttr'
 
 export type FormatVersion = 0 | 1
 
@@ -205,9 +206,21 @@ export default class OmegaCache {
 			)
 		} catch {}
 	}
-	static duplicate(what: string, as: string) {
+	static async duplicate(what: string, as: string) {
 		if (!this.mayBeCached(as)) return
 
-		fs.copyFile(this.toCachePath(what), this.toCachePath(as), err => {})
+		const { file_uuid, ...other } = await this.load(what)
+
+		await fsp.writeFile(
+			this.toCachePath(as),
+			JSON.stringify(
+				{
+					file_uuid: uuid(),
+					...other,
+				},
+				null,
+				'\t'
+			)
+		)
 	}
 }
