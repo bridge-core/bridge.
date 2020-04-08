@@ -1,5 +1,5 @@
 import Runtime from './Runtime'
-import { shell, ipcRenderer } from 'electron';
+import { shell, ipcRenderer } from 'electron'
 import fs from 'fs'
 import Store from '../../store/index'
 import { trigger, overwriteTrigger } from './EventTriggers'
@@ -15,7 +15,7 @@ import OmegaCache from '../editor/OmegaCache'
 import FileType from '../editor/FileType'
 import PluginLoader from './PluginLoader'
 import path from 'path'
-import { download } from 'electron-dl';
+import { download } from 'electron-dl'
 
 export default class Bridge {
 	plugin_id: number
@@ -459,12 +459,13 @@ export default class Bridge {
 			get APP_VERSION() {
 				return APP_VERSION
 			},
-			downloadFile(file_url, file_path) {
-				ipcRenderer.invoke("bridge:downloadFile", file_url, file_path)
-				.catch(e => {
-					throw e;
-				});
-			}
+			async downloadFile(file_url, file_path) {
+				await ipcRenderer
+					.invoke('bridge:downloadFile', file_url, file_path)
+					.catch(error => {
+						throw error
+					})
+			},
 		}
 	}
 

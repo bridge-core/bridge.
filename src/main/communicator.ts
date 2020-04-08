@@ -59,7 +59,4 @@ ipcMain.handle('bridge:downloadFile', async (event, file_url, file_path) => {
 		filename: path.basename(file_path),
 		directory: path.dirname(file_path),
 	})
-	.catch(e => {
-		throw e;
-	});
 })
