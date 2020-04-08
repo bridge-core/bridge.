@@ -4,7 +4,6 @@ import SETTINGS from '../store/Settings'
 import {
 	MINECRAFT_VERSIONS,
 	BASE_PATH,
-	MOJANG_PATH,
 	LOCAL_STATE_PATH,
 } from '../scripts/constants'
 import EventBus from '../scripts/EventBus'
@@ -17,6 +16,7 @@ import ConfirmWindow from '../scripts/commonWindows/Confirm'
 import ThemeManager from '../scripts/editor/ThemeManager'
 import ProjectConfig from '../scripts/Project/Config'
 import { uuid } from '../scripts/Utilities/useAttr'
+import FontList from 'font-list'
 
 class ReactiveListEntry {
 	type = 'card'
@@ -123,18 +123,27 @@ class ReactiveInput {
 
 class ReactiveDropdown {
 	[x: string]: any
-	type: 'autocomplete' | 'select'
+	type: 'autocomplete' | 'select' | 'loading'
 
 	constructor(
 		parent: SettingsWindow,
 		watch_key: string,
-		options: string[],
+		options: string[] | Promise<string[]>,
 		def: any,
 		cb?: (a: string) => any
 	) {
-		this.type = options.length > 5 ? 'autocomplete' : 'select'
+		if (options instanceof Promise) {
+			this.type = 'loading'
+			options.then(value => {
+				this.type = value.length > 5 ? 'autocomplete' : 'select'
+				this.options = value
+			})
+		} else {
+			this.type = options.length > 5 ? 'autocomplete' : 'select'
+			this.options = options
+		}
 		this.input = parent.data[watch_key]
-		this.options = options
+
 		this.is_box = true
 		for (let key in def) {
 			this[key] = def[key]
@@ -403,17 +412,84 @@ export default class SettingsWindow extends TabWindow {
 				},
 				{
 					color: 'grey',
-					text: '\nFont',
+					text: '\nUI Font',
 				},
 				new ReactiveDropdown(
 					this,
-					'font_size',
+					'ui_font_size',
 					['10px', '12px', '14px', '16px', '18px', '20px'],
 					{
-						text: 'Unset',
-						key: `settings.editor.tab.appearance.font_size`,
+						text: '14px',
+						key: `settings.editor.tab.appearance.ui_font_size`,
 					}
 				),
+				new ReactiveDropdown(
+					this,
+					'ui_font_family',
+					FontList.getFonts().then(arr =>
+						arr
+							.concat(['monospace', 'Roboto', 'sans-serif'])
+							.sort((a, b) => {
+								if (a[0] === '"') a = a.substring(1, a.length)
+								if (b[0] === '"') b = b.substring(1, b.length)
+
+								return a.localeCompare(b)
+							})
+					),
+					{
+						text: 'Roboto',
+						key: `settings.editor.tab.appearance.ui_font_family`,
+					}
+				),
+				{
+					type: 'button',
+					text: 'Reset Font',
+					action: () => {
+						this.data.font_family = 'Roboto'
+						this.save()
+						this.close()
+					},
+				},
+				{
+					color: 'grey',
+					text: '\nFile Font',
+				},
+				new ReactiveDropdown(
+					this,
+					'file_font_size',
+					['10px', '12px', '14px', '16px', '18px', '20px'],
+					{
+						text: '14px',
+						key: `settings.editor.tab.appearance.file_font_size`,
+					}
+				),
+				new ReactiveDropdown(
+					this,
+					'file_font_family',
+					FontList.getFonts().then(arr =>
+						arr
+							.concat(['monospace', 'Roboto', 'sans-serif'])
+							.sort((a, b) => {
+								if (a[0] === '"') a = a.substring(1, a.length)
+								if (b[0] === '"') b = b.substring(1, b.length)
+
+								return a.localeCompare(b)
+							})
+					),
+					{
+						text: 'Roboto',
+						key: `settings.editor.tab.appearance.file_font_family`,
+					}
+				),
+				{
+					type: 'button',
+					text: 'Reset Font',
+					action: () => {
+						this.data.font_family = 'Roboto'
+						this.save()
+						this.close()
+					},
+				},
 				new ReactiveSwitch(this, 'is_dark_mode', {
 					color: 'primary',
 					text: 'Dark Mode',

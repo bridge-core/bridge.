@@ -49,6 +49,7 @@
 								@click="btn.action"
 							>
 								<v-icon
+									style="font-family: Roboto;"
 									:color="btn.color ? 'white' : undefined"
 									>{{ btn.icon }}</v-icon
 								>

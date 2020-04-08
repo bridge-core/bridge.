@@ -2,7 +2,8 @@
 	<v-app
 		:style="{
 			background: $vuetify.theme.themes[theme_variant].background,
-			fontSize: $store.state.Settings.font_size || '16px',
+			fontSize: $store.state.Settings.ui_font_size || '14px',
+			fontFamily: $store.state.Settings.ui_font_family || 'Roboto',
 		}"
 	>
 		<app-toolbar />

@@ -6,7 +6,11 @@
 			`${pre_color} ${content.action != undefined ? 'click-action' : ''}`
 		"
 		@click.stop="action.default"
-		style="overflow-x: auto;"
+		:style="{
+			overflowX: 'auto',
+			fontSize: $store.state.Settings.ui_font_size || '14px',
+			fontFamily: $store.state.Settings.ui_font_family || 'Roboto',
+		}"
 		>{{ content.text }}</pre
 	>
 	<div
@@ -534,7 +538,6 @@ export default {
 
 <style scoped>
 pre {
-	font-family: 'Roboto', sans-serif;
 	display: inline;
 	white-space: pre-wrap;
 	cursor: default;

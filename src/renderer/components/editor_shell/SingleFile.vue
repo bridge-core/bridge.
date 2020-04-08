@@ -1,5 +1,12 @@
 <template>
-	<span style="position: relative; top: -7px;">
+	<span
+		:style="{
+			position: 'relative',
+			top: '-7px',
+			fontSize: $store.state.Settings.file_font_size || '14px',
+			fontFamily: $store.state.Settings.file_font_family || 'Roboto',
+		}"
+	>
 		<v-container v-if="file_viewer === 'image'">
 			<img class="image" :src="image" style="max-width: 100%;" />
 		</v-container>
@@ -327,6 +334,9 @@ export default {
 </script>
 
 <style>
+.CodeMirror {
+	font-family: inherit;
+}
 .CodeMirror.cm-s-monokai > * {
 	background: var(--v-background-base);
 }
