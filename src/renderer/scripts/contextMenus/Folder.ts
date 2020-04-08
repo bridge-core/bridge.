@@ -7,6 +7,7 @@ import trash from 'trash'
 import { promises as fs } from 'fs'
 import path from 'path'
 import { FileExplorer } from '../Sidebar/FileExplorer'
+import CreateFileHereWindow from '../../windows/CreateFileHere'
 
 export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 	{
@@ -60,6 +61,16 @@ export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 					})
 				}
 			)
+		},
+	},
+	{
+		type: 'divider',
+	},
+	{
+		title: 'Create File Here',
+		icon: 'mdi-file-plus',
+		action: () => {
+			new CreateFileHereWindow('unknown', file_path, file)
 		},
 	},
 ]

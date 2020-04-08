@@ -15,6 +15,7 @@ import {
 	FileDefinition,
 	SnippetDefinition,
 	ProblemDefinition,
+	FileCreator,
 } from './FileDefinition'
 import { CacheDef } from './LightningCache'
 
@@ -122,7 +123,7 @@ export default class FileType {
 	 * Loads and returns file creator data. Used by "New File" window
 	 * @returns {object} file creator data
 	 */
-	static getFileCreator() {
+	static getFileCreators() {
 		if (FILE_CREATOR_CACHE.length === 0) {
 			FILE_CREATOR_CACHE = this.FILE_DEFS.reduce((acc, file) => {
 				if (file.file_creator !== undefined) {
@@ -153,6 +154,17 @@ export default class FileType {
 			}, [])
 		}
 		return FILE_CREATOR_CACHE
+	}
+	static getFileCreator(file_path: string): FileCreator {
+		const { file_creator } = this.getData(file_path) ?? {}
+
+		if (typeof file_creator === 'string') {
+			return readJSONSync(
+				join(__static, 'file_creator', `${file_creator}.json`)
+			)
+		} else {
+			return file_creator
+		}
 	}
 
 	/**
