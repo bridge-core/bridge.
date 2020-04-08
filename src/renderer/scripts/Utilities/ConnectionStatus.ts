@@ -9,10 +9,10 @@ export const CONNECTION = {
 	// Adds listeners for connection status
 	startListening() {
 		window.addEventListener('online', () => {
-			isOnline = this.navigator.onLine
+			isOnline = navigator.onLine
 		})
 		window.addEventListener('offline', () => {
-			isOnline = this.navigator.onLine
+			isOnline = navigator.onLine
 		})
 	},
 }
