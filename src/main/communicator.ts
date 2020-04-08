@@ -2,7 +2,6 @@ import { ipcMain, app, BrowserWindow, shell } from 'electron'
 import { dialog } from 'electron'
 import fs from 'fs'
 import { DefaultDir } from '../shared/DefaultDir'
-import { execFile } from 'child_process'
 import { download } from 'electron-dl'
 import path from 'path'
 
