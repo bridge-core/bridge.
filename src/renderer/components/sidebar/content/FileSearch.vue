@@ -54,7 +54,7 @@
 			/>
 		</v-container>
 
-		<v-container class="px14-font">
+		<v-container>
 			<v-divider />
 
 			<span v-if="selected_nodes_total > 0"

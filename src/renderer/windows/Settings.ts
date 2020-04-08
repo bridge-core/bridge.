@@ -393,7 +393,7 @@ export default class SettingsWindow extends TabWindow {
 					type: 'autocomplete',
 					is_box: true,
 					color: 'primary',
-					text: 'Choose a theme...',
+					text: 'Choose a Theme...',
 					input: ThemeManager.current_theme,
 					options: ThemeManager.theme_names,
 					action: (val: string) => {
@@ -401,6 +401,19 @@ export default class SettingsWindow extends TabWindow {
 						ProjectConfig.setTheme(val)
 					},
 				},
+				{
+					color: 'grey',
+					text: '\nFont',
+				},
+				new ReactiveDropdown(
+					this,
+					'font_size',
+					['10px', '12px', '14px', '16px', '18px', '20px'],
+					{
+						text: 'Unset',
+						key: `settings.editor.tab.appearance.font_size`,
+					}
+				),
 				new ReactiveSwitch(this, 'is_dark_mode', {
 					color: 'primary',
 					text: 'Dark Mode',

@@ -21,7 +21,7 @@
 			>bridge.</span
 		>
 
-		<v-toolbar-items class="px14-font">
+		<v-toolbar-items>
 			<v-divider vertical />
 			<template v-for="(menu, key, i) in menu_details">
 				<app-menu :key="`app-menu-${key}`" :menu="menu"></app-menu>

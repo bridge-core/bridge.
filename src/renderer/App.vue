@@ -2,6 +2,7 @@
 	<v-app
 		:style="{
 			background: $vuetify.theme.themes[theme_variant].background,
+			fontSize: $store.state.Settings.font_size || '16px',
 		}"
 	>
 		<app-toolbar />
@@ -194,9 +195,6 @@ export default {
 html {
 	overflow: hidden;
 	overscroll-behavior: contain;
-}
-.px14-font {
-	font-size: 14px;
 }
 body {
 	overflow: unset;

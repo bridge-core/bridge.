@@ -1,5 +1,5 @@
 <template>
-	<span style="position: relative; top: -7px;" class="px14-font">
+	<span style="position: relative; top: -7px;">
 		<v-container v-if="file_viewer === 'image'">
 			<img class="image" :src="image" style="max-width: 100%;" />
 		</v-container>

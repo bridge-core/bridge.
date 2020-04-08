@@ -23,7 +23,7 @@
 					:key="file.absolute_path"
 					height="21"
 					type="text"
-				></v-skeleton-loader>
+				/>
 				<!--FOLDER-->
 				<details
 					v-else-if="file.is_folder"
@@ -172,7 +172,7 @@ export default {
 				: ''
 		},
 		element_class() {
-			return this.first ? 'file-displayer px14-font' : 'px14-font'
+			return this.first ? 'file-displayer' : ''
 		},
 	},
 	methods: {
@@ -267,6 +267,7 @@ div {
 div.file {
 	cursor: pointer;
 	overflow-x: auto;
+	overflow-y: hidden;
 	white-space: nowrap;
 }
 div.file::-webkit-scrollbar,

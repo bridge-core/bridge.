@@ -31,7 +31,7 @@
 				class="app-window-toolbar"
 				style="overflow-x: auto; overflow-y: hidden;"
 			>
-				<span class="px14-font">{{ window_title }}</span>
+				<span>{{ window_title }}</span>
 				<v-spacer></v-spacer>
 				<v-toolbar-items style="position: relative; left: 14px;">
 					<template v-for="(icon, i) in win.toolbar">
