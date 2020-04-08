@@ -65,7 +65,15 @@
 						@click.stop="is_window_visible = false"
 						v-if="has_close_button"
 					>
-						<v-icon color="white" small>mdi-close</v-icon>
+						<v-icon
+							:color="
+								$store.state.Appearance.is_dark_mode
+									? 'white'
+									: 'grey darken-1'
+							"
+							small
+							>mdi-close</v-icon
+						>
 					</v-btn>
 				</v-toolbar-items>
 			</v-toolbar>
