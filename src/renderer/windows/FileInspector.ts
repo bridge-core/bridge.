@@ -31,7 +31,9 @@ export default class FileInspector extends CommonWindow {
 	}
 	async init(file_path = this.file_path) {
 		const LC = Object.entries(await LightningCache.loadType(file_path))
-		const { file_uuid } = await OmegaCache.load(file_path)
+		const { file_uuid } = await OmegaCache.load(file_path).catch(() => ({
+			file_uuid: 'Not generated yet',
+		}))
 		LC.unshift(['file_uuid', [file_uuid]])
 
 		//Output regular lightning cache data
