@@ -38,6 +38,9 @@
             },
             "scripts": {
                 "scale": "$general.decimal",
+                "initialize": {
+                    "$dynamic.list.next_index": { "@meta": { "is_value": true, "is_molang": true } }
+                },
                 "pre_animation": {
                     "$dynamic.list.next_index": { "@meta": { "is_value": true, "is_molang": true } }
                 },
