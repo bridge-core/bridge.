@@ -1,11 +1,22 @@
-import { app, BrowserWindow, ipcMain, Menu } from 'electron'
+import {
+	app,
+	BrowserWindow,
+	ipcMain,
+	Menu
+} from 'electron'
 import './communicator'
 import './Discord'
-import { BP_BASE_PATH } from '../shared/Paths'
-import { join } from 'path'
+import {
+	BP_BASE_PATH
+} from '../shared/Paths'
+import {
+	join
+} from 'path'
 import MENU from './menuBuilder'
 import fs from 'fs'
-import { DATA_PATH } from '../shared/DefaultDir'
+import {
+	DATA_PATH
+} from '../shared/DefaultDir'
 
 let SETTINGS = {}
 try {
@@ -37,12 +48,13 @@ let mainWindow,
 		show: false,
 		webPreferences: {
 			nodeIntegration: true,
+			webSecurity: false,
 		},
 	}
 const winURL =
-	process.env.NODE_ENV === 'development'
-		? `http://localhost:9080`
-		: `file://${__dirname}/index.html`
+	process.env.NODE_ENV === 'development' ?
+	`http://localhost:9080` :
+	`file://${__dirname}/index.html`
 
 function createWindow() {
 	/**
@@ -79,7 +91,7 @@ function createSplashScreen() {
 		frame: process.platform === 'darwin',
 		resizable: false,
 		webPreferences: {
-			nodeIntegration: true,
+			nodeIntegration: true
 		},
 	})
 

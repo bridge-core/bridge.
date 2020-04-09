@@ -57,6 +57,18 @@ export class TreeIterator {
 	}
 }
 
+export interface IError {
+	is_warning?: boolean
+	show?: boolean
+	message: string
+	fix?: {
+		type: 'snippet' | 'script'
+		name?: string
+		run?: string
+		text?: string
+	}
+}
+
 export default class JSONTree {
 	internal_key: string
 	data: string
@@ -77,7 +89,7 @@ export default class JSONTree {
 	propose_cache: any
 	propose_cache_uses: number
 	mark_color?: string
-	error?: any
+	error?: IError
 	is_active = true //Whether to output the tree to the final JSON file upon saving
 	uuid: string
 	meta: any

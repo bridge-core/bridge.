@@ -188,7 +188,12 @@
     },
 
 
-
+    {
+        "id": "entity_model",
+        "includes": "models/entity",
+        "file_viewer": "model",
+        "rp_definition": true
+    },
     {
         "id": "rp_animation",
         "includes": "animations/",

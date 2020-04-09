@@ -28,6 +28,7 @@
 							5 * !has_split_screen +
 							(1 + 1 * !has_split_screen) * !is_sidebar_open
 					"
+					ref="file_container"
 				>
 					<editor-shell-tab-system />
 					<editor-shell-content-manager />
@@ -132,6 +133,13 @@ export default {
 			})
 		})
 		EventBus.on('updateTabUI', this.updateSplitScreen)
+		EventBus.on('bridge:getFileContainerWidth', () => {
+			try {
+				return this.$refs.file_container.getBoundingClientRect().width
+			} catch {
+				return 0
+			}
+		})
 
 		//Disable middle-mouse scrolling
 		window.addEventListener('mousedown', event => {

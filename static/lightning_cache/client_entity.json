@@ -6,5 +6,6 @@
 
     { "key": "texture_references", "path": "minecraft:client_entity/description/textures" }, 
     { "key": "material_references", "path": "minecraft:client_entity/description/materials" }, 
-    { "key": "geometry_references", "path": "minecraft:client_entity/description/geometry" }
+    { "key": "geometry_references", "path": "minecraft:client_entity/description/geometry" }, 
+    { "key": "geometry_identifiers", "path": "minecraft:client_entity/description/geometry", "load_data": true }
 ]

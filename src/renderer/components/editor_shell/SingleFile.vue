@@ -11,6 +11,12 @@
 			<img class="image" :src="image" style="max-width: 100%;" />
 		</v-container>
 		<audio-player v-else-if="file_viewer === 'audio'" :src="audio" />
+		<model-editor
+			v-else-if="file_viewer === 'model'"
+			:file_path="file.file_path"
+			:available_height="available_height"
+			available_width="100%"
+		/>
 		<json-error-screen
 			v-else-if="file_viewer === 'json' && json_object == 'error'"
 		/>
@@ -67,6 +73,7 @@ import TextProvider from '../../scripts/autoCompletions/TextProvider'
 import DataUrl from 'dataurl'
 import AudioPlayer from './AudioPlayer'
 import FileType from '../../scripts/editor/FileType'
+import ModelEditor from './Model/Main'
 
 export default {
 	name: 'file-manager',
@@ -75,6 +82,7 @@ export default {
 		JsonErrorScreen,
 		TextAutoCompletions,
 		AudioPlayer,
+		ModelEditor,
 	},
 	props: {
 		file: Object,

@@ -36,6 +36,7 @@ interface CacheDefConfig {
 	define_multiple?: boolean
 	definitions?: CacheDefConfig[]
 	load?: string
+	load_data?: boolean
 	except?: string
 	as?: string
 	search?: {
@@ -167,7 +168,9 @@ export default class LightningCache {
 					if (Array.isArray(data)) {
 						cache[def.key] = data
 					} else if (typeof data === 'object') {
-						cache[def.key] = Object.keys(data)
+						cache[def.key] = def.load_data
+							? Object.values(data)
+							: Object.keys(data)
 					} else {
 						cache[def.key] = [data]
 					}

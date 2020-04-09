@@ -123,7 +123,7 @@ class ReactiveInput {
 
 class ReactiveDropdown {
 	[x: string]: any
-	type: 'autocomplete' | 'select' | 'loading'
+	type: 'autocomplete' | 'select' | 'loader'
 
 	constructor(
 		parent: SettingsWindow,
@@ -133,10 +133,11 @@ class ReactiveDropdown {
 		cb?: (a: string) => any
 	) {
 		if (options instanceof Promise) {
-			this.type = 'loading'
+			this.type = 'loader'
 			options.then(value => {
 				this.type = value.length > 5 ? 'autocomplete' : 'select'
 				this.options = value
+				parent.update()
 			})
 		} else {
 			this.type = options.length > 5 ? 'autocomplete' : 'select'
