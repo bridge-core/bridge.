@@ -239,7 +239,10 @@ export default {
 	methods: {
 		computed_object() {
 			if (this.first && !this.compiled) {
-				let tree = InternalJSON.Format.toTree(this.object)
+				let tree = InternalJSON.Format.toTree(
+					this.object,
+					this.current_file_path
+				)
 
 				TabSystem.setTabCompiled(true)
 				TabSystem.setCurrentContent(tree)

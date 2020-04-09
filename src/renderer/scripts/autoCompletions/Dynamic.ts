@@ -366,12 +366,16 @@ export const DYNAMIC = {
 		return NODE_CONTEXT.toJSON()
 	},
 	current_file_name() {
-		let arr = TabSystem.getSelected()
-			.file_path.split(/\/|\\/g)
-			.pop()
-			.split('.')
-		arr.pop()
-		return [arr.join('.')]
+		try {
+			let arr = TabSystem.getSelected()
+				.file_path.split(/\/|\\/g)
+				.pop()
+				.split('.')
+			arr.pop()
+			return [arr.join('.')]
+		} catch (e) {
+			return 'unknown'
+		}
 	},
 	loot_table_files() {
 		try {

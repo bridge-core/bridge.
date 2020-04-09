@@ -425,6 +425,19 @@ export default class JSONTree {
 		const { is_color } = META
 		if (is_color && this.data === '') this.edit('#1778D2')
 	}
+	loadMeta(file_path = TabSystem.getCurrentFilePath(), deep = false) {
+		if (PROVIDER === undefined) PROVIDER = new Provider('')
+
+		this.meta = Object.assign(
+			this.meta,
+			PROVIDER.getMeta(this.path, file_path, this)
+		)
+		console.log(this.meta)
+
+		if (deep) this.children.forEach(c => c.loadMeta(file_path, true))
+		this.updateUUID()
+	}
+
 	openNode(val = true) {
 		this.updateUUID()
 

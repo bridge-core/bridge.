@@ -62,8 +62,9 @@ export class Format {
 		return private_toJSON(tree, build_arrays, default_build_arrays)
 	}
 
-	static toTree(obj: any) {
+	static toTree(obj: any, file_path = '') {
 		let tree = new JSONTree('global').buildFromObject(obj)
+		tree.loadMeta(file_path, true)
 		setTimeout(() => ProblemIterator.findProblems(tree), 10)
 		return tree
 	}

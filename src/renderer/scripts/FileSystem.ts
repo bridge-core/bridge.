@@ -230,6 +230,7 @@ export default class FileSystem {
 		let tree
 		if (format_version === 1) {
 			tree = JSONTree.buildFromCache(data)
+			tree.loadMeta(file_path, true)
 			ProblemIterator.findProblems(tree, file_path)
 		}
 

@@ -194,11 +194,34 @@ class Provider {
 		)
 	}
 
+	getMeta(path: string, file_path?: string, context?: JSONTree) {
+		//Set validator if file_path !== undefined
+		if (file_path !== undefined) this.validator(file_path)
+		if (this.start_state === 'unknown') return {}
+
+		path = path.replace(
+			'global',
+			VersionMap.convert(
+				this.start_state,
+				Store.state.Settings.target_version
+			)
+		)
+
+		SET_CONTEXT(context, context === undefined ? undefined : context.parent)
+		let propose = this.walk(path.split('/'))
+		// console.log('[ADDING META]', path, propose, LIB)
+
+		return this.preparePropose(
+			propose,
+			context === undefined ? [] : Object.keys(context.toJSON(false))
+		).META
+	}
+
 	preparePropose(
 		propose: { object: any; value: string[] },
 		context: string[]
-	): { value: string[]; object: string[]; META?: any } {
-		if (propose.object === LIB) return { value: [], object: [] }
+	): { value: string[]; object: string[]; META: any } {
+		if (propose.object === LIB) return { value: [], object: [], META: {} }
 		let { object, value } = propose
 		this.META = {}
 
