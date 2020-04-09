@@ -262,6 +262,11 @@ class Provider {
 					)
 						return key.split('.').pop()
 				} else if (key.startsWith('@import.value')) {
+					if (Array.isArray(object[key])) {
+						value.push(...object[key])
+						return
+					}
+
 					let {
 						object: object_internal,
 						value: value_internal,
