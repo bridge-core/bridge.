@@ -432,7 +432,6 @@ export default class JSONTree {
 			this.meta,
 			PROVIDER.getMeta(this.path, file_path, this)
 		)
-		console.log(this.meta)
 
 		if (deep) this.children.forEach(c => c.loadMeta(file_path, true))
 		this.updateUUID()
