@@ -278,11 +278,15 @@
     },
     "summon": {
         "$function.general.entity_identifier": {
-            "$function.general.location": {
-                "$dynamic.cache.entity.events": {}
-            },
-            "named": { 
-                "$placeholder": "$function.general.location"
+            "$function.general.entity_identifier": {
+                "$function.general.entity_identifier": {
+                    "$function.general.location": {
+                        "$dynamic.cache.entity.events": {}
+                    },
+                    "named": { 
+                        "$placeholder": "$function.general.location"
+                    }
+                }
             }
         }
     },
