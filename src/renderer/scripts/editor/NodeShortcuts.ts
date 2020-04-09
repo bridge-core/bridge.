@@ -6,6 +6,7 @@ import { clipboard } from 'electron'
 import { JSONAction } from '../TabSystem/CommonHistory'
 import JSONTree from './JsonTree'
 import Store from '../../store/index'
+declare function requestIdleCallback(cb: () => void): number
 
 export default class NodeShortcuts {
 	private static transformKey(str: string, node: JSONTree): string {
@@ -29,6 +30,7 @@ export default class NodeShortcuts {
 	static classicPaste() {
 		let node = TabSystem.getCurrentNavObj()
 		if (node === undefined || node.data !== '') return
+		requestIdleCallback(() => node.loadMeta(undefined, true))
 
 		try {
 			node.buildFromObject(
@@ -57,6 +59,7 @@ export default class NodeShortcuts {
 	static paste() {
 		let node = TabSystem.getCurrentNavObj()
 		if (node === undefined || node.data !== '') return
+		requestIdleCallback(() => node.loadMeta(undefined, true))
 
 		try {
 			let obj = JSON.parse(clipboard.readText())
