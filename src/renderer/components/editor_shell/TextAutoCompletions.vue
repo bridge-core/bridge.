@@ -12,7 +12,7 @@
 				v-for="(e, i) in propose"
 				:class="selected === i ? 'selected' : ''"
 				:ref="selected === i ? 'selected' : null"
-				:key="e"
+				:key="e + i"
 				@click="insert(e)"
 			>
 				<v-list-item-title>{{ e }}</v-list-item-title>

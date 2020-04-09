@@ -30,7 +30,7 @@ export default class TextProvider {
 
 			EventBus.trigger(
 				'bridge:textProviderUpdate',
-				propose,
+				[...new Set(propose)],
 				[
 					{
 						line: line_number,
