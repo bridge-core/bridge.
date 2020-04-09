@@ -14,8 +14,8 @@ export interface IOldModelSchema {
 
 	[id: string]:
 		| {
-				texture_width?: number
-				texture_height?: number
+				texturewidth?: number
+				textureheight?: number
 				bones?: IBoneSchema[]
 		  }
 		| string
@@ -78,13 +78,13 @@ export function loadModels(
 		let convertedModels: IGeoSchema[] = []
 		for (let [identifier, data] of Object.entries(models)) {
 			if (typeof data === 'string') continue
-			const { bones, texture_width, texture_height } = data
+			const { bones, texturewidth, textureheight } = data
 
 			convertedModels.push({
 				description: {
 					identifier,
-					texture_height,
-					texture_width,
+					texture_width: texturewidth,
+					texture_height: textureheight,
 				},
 				bones,
 			})

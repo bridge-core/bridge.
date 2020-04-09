@@ -37,7 +37,7 @@ export async function loadTextures(identifiers: string[]) {
 
 	return data.reduce(
 		(unique, curr) =>
-			unique.find(({ file_path }) => curr.file_path)
+			unique.find(({ file_path }) => file_path === curr.file_path)
 				? unique
 				: unique.concat([curr]),
 		[]
