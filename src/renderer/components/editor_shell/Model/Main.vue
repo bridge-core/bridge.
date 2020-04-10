@@ -13,7 +13,7 @@
 					`
 					margin-top: 8px;
 					background-color: var(--v-menu-base); 
-					max-height: ${available_height - 260}px;
+					max-height: ${available_height - 160}px;
 					overflow-y: auto;
 				`
 				"
@@ -22,7 +22,7 @@
 				<v-card-title>Model Options</v-card-title>
 				<div v-for="(arr, id) in textures" :key="id">
 					<v-card-text v-if="arr.length > 1">
-						{{ id }}
+						Texture: {{ id }}
 						<v-select
 							v-model="selected[id]"
 							background-color="menu lighten-1"
