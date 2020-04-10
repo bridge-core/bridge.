@@ -39,23 +39,29 @@ export function createCube(
 				//Base offset of the current cube
 				(uvX +
 					//Horizontal offset for the current face
-					(Number(baseUVX > 0) + Number(baseUVX > 2)) * depth +
-					Number(baseUVX > 1) * width +
+					(Number(baseUVX > 0) + Number(baseUVX > 2)) *
+						Math.floor(depth) +
+					Number(baseUVX > 1) * Math.floor(width) +
 					//Face corner specific offsets
 					uv[0] *
 						(baseUVX === 0 || (baseUVY === 1 && baseUVX === 2)
-							? depth
-							: width)) /
+							? Math.floor(depth)
+							: Math.floor(width))) /
 					tW,
 				//Align uv to top left corner
 				1 -
 					//Base offset of the current cube
 					(uvY +
 						//Vertical offset for the current face
-						baseUVY * depth +
-						(baseUVY === 0 ? depth : height) -
+						baseUVY * Math.floor(depth) +
+						(baseUVY === 0
+							? Math.floor(depth)
+							: Math.floor(height)) -
 						//Face corner specific offsets
-						uv[1] * (baseUVY === 0 ? depth : height)) /
+						uv[1] *
+							(baseUVY === 0
+								? Math.floor(depth)
+								: Math.floor(height))) /
 						tH
 			)
 		}
