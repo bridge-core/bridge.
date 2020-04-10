@@ -7,7 +7,9 @@
 		/>
 
 		<v-container v-if="should_show_menu" class="canvas-overlay">
-			<v-icon @click="is_visible = !is_visible">mdi-settings</v-icon>
+			<v-icon @click="is_visible = !is_visible">{{
+				is_visible ? 'mdi-close' : 'mdi-settings'
+			}}</v-icon>
 			<v-card
 				:style="
 					`
