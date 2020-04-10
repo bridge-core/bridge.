@@ -27,7 +27,7 @@ export default async function startUp() {
 			)
 		},
 	})
-	discord_msg.send()
+	if (process.env.NODE_ENV !== 'development') discord_msg.send()
 
 	// Fetch the latest json/version data
 	let update_data = await fetchLatestJson()
