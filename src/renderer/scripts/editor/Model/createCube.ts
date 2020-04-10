@@ -93,21 +93,19 @@ export function createCube(
 			if (pivot && rotation) {
 				const [rX, rY, rZ] = rotation
 				let group = new Group()
-				group.position.set(...pivot)
+				group.position.set(-pivot[0], pivot[1], pivot[2])
 				mesh.position.set(
-					...(origin.map((o, i) => o - pivot[i]) as [
-						number,
-						number,
-						number
-					])
+					-origin[0] - width / 2 + pivot[0],
+					origin[1] - pivot[1],
+					origin[2] - pivot[2]
 				)
 				group.add(mesh)
 
 				group.name = `#cubePivot.${name}`
 				group.rotation.set(
 					MathUtils.degToRad(-rX),
-					MathUtils.degToRad(rY),
-					MathUtils.degToRad(-rZ)
+					MathUtils.degToRad(-rY),
+					MathUtils.degToRad(rZ)
 				)
 
 				return group
