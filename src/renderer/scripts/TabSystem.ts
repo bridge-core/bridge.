@@ -519,7 +519,12 @@ class TabSystem {
 		let win = new LoadingWindow('save-file').show()
 		PluginEnv.trigger('bridge:startedSaving', null)
 		let current = this.getSelected()
-		if (current === undefined || current.is_invalid || current.is_immutable)
+		if (
+			current === undefined ||
+			current.is_invalid ||
+			current.is_immutable ||
+			(!current.is_unsaved && fsMethod === 'basicSave')
+		)
 			return win.close()
 
 		if (current.file_version === undefined) current.file_version = 0
