@@ -116,7 +116,7 @@ import LightningCache from '../../../scripts/editor/LightningCache'
 import { JSONFileMasks } from '../../../scripts/editor/JSONFileMasks'
 import LoadingWindow from '../../../windows/LoadingWindow'
 import FileType from '../../../scripts/editor/FileType'
-import { setRP } from '../../../scripts/Utilities/FindRP'
+import { setRP, trySetRP } from '../../../scripts/Utilities/FindRP'
 import path from 'path'
 
 export default {
@@ -179,11 +179,12 @@ export default {
 			get() {
 				return this.$store.state.Explorer.project[this.explorer_type]
 			},
-			set(project) {
+			async set(project) {
 				this.$store.commit('setExplorerProject', {
 					store_key: this.explorer_type,
 					project,
 				})
+				await trySetRP()
 				if (project !== undefined) this.loadDirectory(project)
 				EventBus.trigger('updateTabUI')
 				// EventBus.on("updateSelectedTab");

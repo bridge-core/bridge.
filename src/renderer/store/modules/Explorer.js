@@ -7,7 +7,10 @@ const state = {
 }
 
 const mutations = {
-	setExplorerProject(state, { store_key, project }) {
+	setExplorerProject(state, {
+		store_key,
+		project
+	}) {
 		Vue.set(state.project, store_key, project)
 		//Set the pack_icon as an overlay
 		// if(store_key === "explorer") ipcRenderer.send("bridge:setOverlayIcon", project);
