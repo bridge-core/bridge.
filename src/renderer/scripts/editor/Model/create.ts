@@ -83,7 +83,7 @@ export async function createModelEditor(
 	identifiers.forEach((id, i) => {
 		allTextureData[id].forEach((texData, j) => {
 			texData.texture.data = loader.load(
-				join(CURRENT.RP_PATH, texData.texture.file_path)
+				texData.texture.file_path
 			)
 			texData.material = materials[i]
 

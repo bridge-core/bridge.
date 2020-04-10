@@ -38,7 +38,7 @@
 <script>
 import { createModelEditor } from '../../../scripts/editor/Model/create'
 import EventBus from '../../../scripts/EventBus'
-
+import { basename } from 'path'
 let editor
 export default {
 	name: 'ModelEditor',
@@ -127,7 +127,7 @@ export default {
 		},
 		convertArr(arr) {
 			return arr.map(entry => ({
-				text: entry.texture.name,
+				text: `${basename(entry.texture.file_path)} (${entry.texture.name})`,
 				value: entry,
 			}))
 		},

@@ -1,6 +1,10 @@
 import FetchDefinitions from '../FetchDefinitions'
 import { readJSON } from '../../Utilities/JsonFS'
 import { Texture, MeshLambertMaterial } from 'three'
+import { CURRENT } from '../../constants'
+import { join } from 'path'
+import { promises as fs, existsSync } from "fs"
+declare const __static: string;
 
 export interface ITextureData {
 	texture: {
@@ -14,10 +18,34 @@ export interface ITextureData {
 export async function loadAllTextures(identifiers: string[]) {
 	let res: { [id: string]: ITextureData[] } = {}
 	await Promise.all(
-		identifiers.map(async id => (res[id] = await loadTextures(id)))
+		identifiers.map(async id => {
+			res[id] = await loadTextures(id)
+			console.log(await guessTexture(id))
+			if(res[id].length === 0) res[id] = await guessTexture(id)
+		})
 	)
 
 	return res
+}
+
+
+const GUESS_DATA = () => [[CURRENT.RP_PATH, '.png'], [join(__static, "vanilla/RP"), '.png']]
+async function guessTexture(identifier: string) {
+	return (await Promise.all(GUESS_DATA().map(async ([base, ext]) => {
+		let try_folder = join(base, 'textures/entity', identifier.split(":").pop().split(".")[1])
+		try {
+				let entries = await fs.readdir(try_folder)
+				return entries.map(en => ({ texture: { file_path: join(try_folder, en + ext), name: 'Unknown' } }))
+		} catch(e) {
+			console.log(try_folder + ext, e)
+			return {
+				texture: {
+					name: 'Unknown',
+					file_path: try_folder + ext
+				}
+			}
+		}
+	}))).flat().filter(entry => entry !== undefined && existsSync(entry.texture.file_path))
 }
 
 export async function loadTextures(identifier: string) {
@@ -45,7 +73,7 @@ export async function loadTextures(identifier: string) {
 			data.push({
 				texture: {
 					name: key,
-					file_path: val.endsWith('.png') ? val : val + '.png',
+					file_path: join(CURRENT.RP_PATH, val.endsWith('.png') ? val : val + '.png'),
 				},
 			})
 	})
