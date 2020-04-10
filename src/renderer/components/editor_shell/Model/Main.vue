@@ -1,14 +1,6 @@
 <template>
-	<div
-		v-resize="onResize" 
-		class="canvas-container"
-		:style="`height: ${this.available_height}px; width: ${this.available_width}px;`"
-	>
-		<canvas
-			:height="available_height"
-			:width="available_width"
-			ref="canvas"
-		/>
+	<div v-resize="onResize" class="canvas-container">
+		<canvas ref="canvas" />
 
 		<v-container v-if="should_show_menu" class="canvas-overlay">
 			<v-icon @click="is_visible = !is_visible">{{
@@ -61,6 +53,11 @@ export default {
 		selected: {},
 	}),
 	mounted() {
+		this.$refs.canvas.height = this.available_height
+		this.$refs.canvas.width = EventBus.trigger(
+			'bridge:getFileContainerWidth'
+		)[0]
+
 		this.$nextTick(async () => {
 			editor = await createModelEditor(this.$refs.canvas, {
 				file_path: this.file_path,
@@ -150,6 +147,8 @@ canvas:focus {
 
 .canvas-container {
 	position: relative;
+	height: 100%;
+	width: 100%;
 }
 .canvas-container canvas,
 .canvas-overlay {
