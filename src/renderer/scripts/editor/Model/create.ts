@@ -10,11 +10,9 @@ import {
 	GridHelper,
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { join } from 'path'
 import { loadModels, IModelSchema } from './loadModel'
 import { readJSON } from '../../Utilities/JsonFS'
 import { loadAllTextures, ITextureData } from './loadTextures'
-import { CURRENT } from '../../constants'
 
 export interface IModelOptions {
 	fov?: number
@@ -82,9 +80,7 @@ export async function createModelEditor(
 	let allTextureData = await loadAllTextures(identifiers)
 	identifiers.forEach((id, i) => {
 		allTextureData[id].forEach((texData, j) => {
-			texData.texture.data = loader.load(
-				texData.texture.file_path
-			)
+			texData.texture.data = loader.load(texData.texture.file_path)
 			texData.material = materials[i]
 
 			if (j === 0) {
