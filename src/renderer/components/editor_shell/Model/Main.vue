@@ -61,6 +61,7 @@ export default {
 		this.$nextTick(async () => {
 			editor = await createModelEditor(this.$refs.canvas, {
 				file_path: this.file_path,
+				show_helpers: true,
 			})
 			this.textures = editor.textures
 			Object.entries(this.textures).forEach(

@@ -67,7 +67,7 @@ export async function createModelEditor(
 	scene.add(new AmbientLight(0xffffff)) // soft white light
 
 	if (show_helpers) {
-		scene.add(new AxesHelper(100))
+		scene.add(new AxesHelper(50))
 		scene.add(new GridHelper(20, 20))
 	}
 
