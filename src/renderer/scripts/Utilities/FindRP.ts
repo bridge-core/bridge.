@@ -37,15 +37,13 @@ export default async function findRP() {
 		return '/@NO-DEPENDENCY@/'
 	}
 
-	let rps: string[]
+	let rps: string[] = []
 	try {
 		rps = await fs.readdir(RP_BASE_PATH)
-	} catch {
-		rps = []
-	}
+	} catch {}
 
 	//Load resource packs from worlds
-	let map_packs
+	let map_packs: string[] = []
 	try {
 		map_packs = await fs.readdir(path.join(MOJANG_PATH, 'minecraftWorlds'))
 	} catch {}
