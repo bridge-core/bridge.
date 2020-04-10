@@ -15,7 +15,6 @@ import { loadModels, IModelSchema } from './loadModel'
 import { readJSON } from '../../Utilities/JsonFS'
 import { loadAllTextures, ITextureData } from './loadTextures'
 import { CURRENT } from '../../constants'
-import Store from '../../../store/index'
 
 export interface IModelOptions {
 	fov?: number
@@ -120,7 +119,7 @@ export async function createModelEditor(
 		 * @param height New window height
 		 */
 		resize(width: number, height: number) {
-			renderer.setSize(width, height, false)
+			renderer.setSize(width, height, true)
 			camera.aspect = width / height
 			camera.updateProjectionMatrix()
 			requestRendering()

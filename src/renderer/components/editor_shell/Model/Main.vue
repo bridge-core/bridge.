@@ -1,5 +1,9 @@
 <template>
-	<div v-resize="onResize" class="canvas-container">
+	<div
+		v-resize="onResize" 
+		class="canvas-container"
+		:style="`height: ${this.available_height}px; width: ${this.available_width}px;`"
+	>
 		<canvas
 			:height="available_height"
 			:width="available_width"
@@ -65,9 +69,8 @@ export default {
 			Object.entries(this.textures).forEach(
 				([id, data]) => (this.selected[id] = data[0])
 			)
-			console.log(this.selected)
-
 			this.onResize()
+
 			editor.startRendering()
 			this.$store.commit('removeLoadingWindow', { id: 'open-file' })
 
@@ -147,8 +150,6 @@ canvas:focus {
 
 .canvas-container {
 	position: relative;
-	height: 100%;
-	width: 100%;
 }
 .canvas-container canvas,
 .canvas-overlay {
