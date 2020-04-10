@@ -20,7 +20,6 @@ export async function loadAllTextures(identifiers: string[]) {
 	await Promise.all(
 		identifiers.map(async id => {
 			res[id] = await loadTextures(id)
-			console.log(await guessTexture(id))
 			if (res[id].length === 0) res[id] = await guessTexture(id)
 		})
 	)
