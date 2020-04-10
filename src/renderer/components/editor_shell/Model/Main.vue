@@ -6,22 +6,32 @@
 			ref="canvas"
 		/>
 
-		<v-container v-if="textures.length > 1" class="canvas-overlay">
-			<v-card>
-				<v-card-text>
-					<v-chip-group
-						v-model="selectedTexture"
-						active-class="primary--text"
-						mandatory
-					>
-						<v-chip
-							v-for="({ name, texture }, i) in textures"
-							:key="i"
-						>
-							{{ name }}
-						</v-chip>
-					</v-chip-group>
-				</v-card-text>
+		<v-container v-if="should_show_menu" class="canvas-overlay">
+			<v-icon @click="is_visible = !is_visible">mdi-settings</v-icon>
+			<v-card
+				:style="
+					`
+					margin-top: 8px;
+					background-color: var(--v-menu-base); 
+					max-height: ${available_height - 260}px;
+					overflow-y: auto;
+				`
+				"
+				v-if="is_visible"
+			>
+				<v-card-title>Model Options</v-card-title>
+				<div v-for="(arr, id) in textures" :key="id">
+					<v-card-text v-if="arr.length > 1">
+						{{ id }}
+						<v-select
+							v-model="selected[id]"
+							background-color="menu lighten-1"
+							solo
+							:items="convertArr(arr)"
+							@change="selectTexture"
+						/>
+					</v-card-text>
+				</div>
 			</v-card>
 		</v-container>
 	</div>
@@ -41,18 +51,27 @@ export default {
 	data: () => ({
 		available_width: 0,
 		textures: [],
-		selectedTexture: 0,
+		is_visible: false,
+		selected: {},
 	}),
-	async mounted() {
-		editor = await createModelEditor(this.$refs.canvas, {
-			file_path: this.file_path,
-		})
-		this.textures = editor.textures
-		this.onResize()
-		editor.startRendering()
-		this.$store.commit('removeLoadingWindow', { id: 'open-file' })
+	mounted() {
+		this.$nextTick(async () => {
+			editor = await createModelEditor(this.$refs.canvas, {
+				file_path: this.file_path,
+			})
+			this.textures = editor.textures
+			Object.entries(this.textures).forEach(
+				([id, data]) => (this.selected[id] = data[0])
+			)
+			console.log(this.selected)
 
-		EventBus.on('updateTabUI', this.onResize)
+			this.onResize()
+			editor.startRendering()
+			this.$store.commit('removeLoadingWindow', { id: 'open-file' })
+
+			EventBus.on('updateTabUI', this.onResize)
+			EventBus.on('bridge:themeChanged', this.updateBackground)
+		})
 	},
 
 	activated() {
@@ -65,8 +84,20 @@ export default {
 	destroyed() {
 		if (editor) editor.stopRendering()
 		EventBus.off('updateTabUI', this.onResize)
+		EventBus.off('bridge:themeChanged', this.updateBackground)
 	},
 
+	computed: {
+		should_show_menu() {
+			return (
+				Object.values(this.textures).filter(arr => arr.length > 1)
+					.length > 0
+			)
+		},
+		is_dark_mode() {
+			return this.$store.state.Appearance.is_dark_mode
+		},
+	},
 	methods: {
 		onResize() {
 			requestIdleCallback(() => {
@@ -78,10 +109,30 @@ export default {
 					editor.resize(this.available_width, this.available_height)
 			})
 		},
+		selectTexture(tex) {
+			editor.setTexture(tex)
+		},
+		updateBackground() {
+			setTimeout(() =>
+				editor.setBackground(
+					Number(
+						getComputedStyle(document.body)
+							.getPropertyValue('--v-background-base')
+							.replace('#', '0x')
+					)
+				)
+			)
+		},
+		convertArr(arr) {
+			return arr.map(entry => ({
+				text: entry.texture.name,
+				value: entry,
+			}))
+		},
 	},
 	watch: {
-		selectedTexture(to) {
-			editor.setTexture(this.textures[to].texture)
+		is_dark_mode() {
+			this.updateBackground()
 		},
 	},
 }
@@ -99,7 +150,9 @@ canvas:focus {
 }
 .canvas-container canvas,
 .canvas-overlay {
-	max-width: unset;
 	position: absolute;
+}
+.canvas-overlay {
+	max-width: 30%;
 }
 </style>

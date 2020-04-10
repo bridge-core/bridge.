@@ -1,4 +1,12 @@
-import { Scene, Material, Group, MathUtils, Vector3 } from 'three'
+import {
+	Scene,
+	Material,
+	Group,
+	MathUtils,
+	Vector3,
+	MeshLambertMaterial,
+	DoubleSide,
+} from 'three'
 import { createCube } from './createCube'
 import InformationWindow from '../../commonWindows/Information'
 import TabSystem from '../../TabSystem'
@@ -63,18 +71,13 @@ export interface ICubeSchema {
  */
 export function loadModels(
 	scene: Scene,
-	material: Material,
 	models: IModelSchema | IOldModelSchema
 ): {
 	models: Group[]
 	identifiers: string[]
+	materials: MeshLambertMaterial[]
 } {
 	if (lessThan(models.format_version ?? '1.2.0', '1.12.0')) {
-		new InformationWindow(
-			'WARNING',
-			'This model was saved in an old format version. Trying to display it anyway...'
-		)
-
 		let convertedModels: IGeoSchema[] = []
 		for (let [identifier, data] of Object.entries(models)) {
 			if (typeof data === 'string') continue
@@ -90,7 +93,7 @@ export function loadModels(
 			})
 		}
 
-		return loadModels(scene, material, {
+		return loadModels(scene, {
 			format_version: '1.12.0',
 			'minecraft:geometry': convertedModels,
 		})
@@ -99,25 +102,35 @@ export function loadModels(
 			'ERROR',
 			'Oops, bridge. currently cannot open this model!'
 		)
-		return { models: [], identifiers: [] }
+		return { models: [], identifiers: [], materials: [] }
 	}
 
 	let allModels: Group[] = []
 	let identifiers: string[] = []
+	let materials: MeshLambertMaterial[] = []
 
 	for (let modelData of (models as IModelSchema)['minecraft:geometry'] ??
 		[]) {
+		const material = new MeshLambertMaterial({
+			color: '#FF00FF',
+			side: DoubleSide,
+			alphaTest: 0.2,
+			transparent: true,
+		})
 		let { model } = loadModel(material, modelData)
+
 		identifiers.push(modelData.description.identifier)
+		materials.push(material)
+
 		model.position.add(new Vector3(100 * allModels.length, 0, 0))
 		scene.add(model)
 		allModels.push(model)
 	}
-	console.log(allModels, scene)
 
 	return {
 		models: allModels,
 		identifiers,
+		materials,
 	}
 }
 
@@ -173,14 +186,14 @@ export function loadModel(
 			const [rX, rY, rZ] = rotation
 			const [pX, pY, pZ] = pivot
 			const pivotGroup = new Group()
-			pivotGroup.position.set(...pivot)
-			currBone.position.set(-pX, -pY, -pZ)
+			pivotGroup.position.set(-pX, pY, pZ)
+			currBone.position.set(pX, -pY, -pZ)
 			pivotGroup.add(currBone)
-			pivotGroup.name = `pivot.${name}`
+			pivotGroup.name = `#pivot.${name}`
 			pivotGroup.rotation.set(
 				MathUtils.degToRad(-rX),
-				MathUtils.degToRad(rY),
-				MathUtils.degToRad(-rZ)
+				MathUtils.degToRad(-rY),
+				MathUtils.degToRad(rZ)
 			)
 
 			if (!parent) model.add(pivotGroup)
@@ -195,7 +208,7 @@ export function loadModel(
 	for (let [boneName, [parent, bone]] of boneMap)
 		if (parent) {
 			const parentGroup = boneMap.get(parent)?.[1]
-			if (parentGroup && parentGroup.name.startsWith('pivot.'))
+			if (parentGroup && parentGroup.name.startsWith('#pivot.'))
 				parentGroup.children[0].add(bone)
 			else if (parentGroup) parentGroup.add(bone)
 		}

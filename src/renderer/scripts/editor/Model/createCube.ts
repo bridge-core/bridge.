@@ -32,11 +32,7 @@ export function createCube(
 			pos: [oX, oY, oZ],
 			uv,
 		} of corners) {
-			positions.push(
-				(mirror ? 0 ** oX : oX) * width,
-				oY * height,
-				oZ * depth
-			)
+			positions.push((mirror ? -oX : oX) * width, oY * height, oZ * depth)
 			normals.push(...dir)
 
 			uvs.push(
@@ -107,7 +103,7 @@ export function createCube(
 				)
 				group.add(mesh)
 
-				group.name = `cubePivot.${name}`
+				group.name = `#cubePivot.${name}`
 				group.rotation.set(
 					MathUtils.degToRad(-rX),
 					MathUtils.degToRad(rY),
@@ -117,7 +113,7 @@ export function createCube(
 				return group
 			}
 
-			mesh.position.set(...origin)
+			mesh.position.set(-origin[0] - width / 2, origin[1], origin[2])
 
 			return mesh
 		},

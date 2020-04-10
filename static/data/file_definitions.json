@@ -195,6 +195,12 @@
         "rp_definition": true
     },
     {
+        "id": "entity_model",
+        "includes": "models/mobs.json",
+        "file_viewer": "model",
+        "rp_definition": true
+    },
+    {
         "id": "rp_animation",
         "includes": "animations/",
         "file_viewer": "json",

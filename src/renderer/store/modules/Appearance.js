@@ -1,7 +1,10 @@
 import Vue from 'vue'
-import { readJSONSync } from '../../scripts/Utilities/JsonFS'
+import {
+	readJSONSync
+} from '../../scripts/Utilities/JsonFS'
 import path from 'path'
 import ThemeManager from '../../scripts/editor/ThemeManager'
+import EventBus from '../../scripts/EventBus'
 const CM_NAME_MAP = readJSONSync(path.join(__static, 'data/cm_name_map.json'))
 
 const state = {
@@ -94,7 +97,11 @@ function applyTheme(theme, mode = 'dark') {
 		mode === 'dark' ? 'white' : 'black'
 	};}`
 	for (let key in theme) {
-		let { color, text_decoration, is_italic = false } = theme[key]
+		let {
+			color,
+			text_decoration,
+			is_italic = false
+		} = theme[key]
 
 		style += `.theme--${mode} span.cm-${CM_NAME_MAP[key] || key} {
             color: ${color || 'unset'};
@@ -112,7 +119,11 @@ const mutations = {
 	setDarkMode(state, val) {
 		state.is_dark_mode = val
 	},
-	setColorTheme(state, { light, dark, update_styles } = {}) {
+	setColorTheme(state, {
+		light,
+		dark,
+		update_styles
+	} = {}) {
 		if (!update_styles) return
 		if (ThemeManager.options.inherit_highlighter) {
 			Vue.set(
@@ -136,6 +147,8 @@ const mutations = {
 			applyTheme(state.color_theme.light, 'light') +
 			(state.options.css || '')
 		document.head.appendChild(STYLE_TAG)
+
+		EventBus.trigger("bridge:themeChanged")
 	},
 	setThemeOptions(state, opts) {
 		Vue.set(state, 'options', opts)

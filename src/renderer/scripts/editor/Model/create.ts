@@ -3,22 +3,19 @@ import {
 	PerspectiveCamera,
 	Scene,
 	Color,
-	MeshLambertMaterial,
 	TextureLoader,
 	NearestFilter,
 	AmbientLight,
-	DoubleSide,
 	AxesHelper,
 	GridHelper,
-	Texture,
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { join } from 'path'
 import { loadModels, IModelSchema } from './loadModel'
 import { readJSON } from '../../Utilities/JsonFS'
-import { loadTextures } from './loadTextures'
+import { loadAllTextures, ITextureData } from './loadTextures'
 import { CURRENT } from '../../constants'
-declare var __static: string
+import Store from '../../../store/index'
 
 export interface IModelOptions {
 	fov?: number
@@ -63,8 +60,14 @@ export async function createModelEditor(
 	const controls = new OrbitControls(camera, canvas)
 
 	const scene = new Scene()
-	scene.background = new Color(0xc9e2ff)
-	scene.add(new AmbientLight(/*0xa0a0a0*/ 0xd0d0d0)) // soft white light
+	scene.background = new Color(
+		Number(
+			getComputedStyle(document.body)
+				.getPropertyValue('--v-background-base')
+				.replace('#', '0x')
+		)
+	)
+	scene.add(new AmbientLight(0xffffff)) // soft white light
 
 	if (show_helpers) {
 		scene.add(new AxesHelper(100))
@@ -72,29 +75,28 @@ export async function createModelEditor(
 	}
 
 	const loader = new TextureLoader()
-	const material = new MeshLambertMaterial({
-		color: '#FF00FF',
-		side: DoubleSide,
-		alphaTest: 0.1,
-		transparent: true,
-	})
-	const { identifiers } = loadModels(
+
+	const { identifiers, materials } = loadModels(
 		scene,
-		material,
-		(await readJSON(file_path)) as IModelSchema
+		(await readJSON(file_path).catch(() => ({}))) as IModelSchema
 	)
-	let textures = await loadTextures(identifiers)
-	textures.forEach(
-		data =>
-			(data.texture = loader.load(join(CURRENT.RP_PATH, data.file_path)))
-	)
-	if (textures.length > 0) {
-		material.color = undefined
-		const texture = textures[0].texture
-		material.map = texture
-		texture.magFilter = NearestFilter
-		texture.minFilter = NearestFilter
-	}
+	let allTextureData = await loadAllTextures(identifiers)
+	identifiers.forEach((id, i) => {
+		allTextureData[id].forEach((texData, j) => {
+			texData.texture.data = loader.load(
+				join(CURRENT.RP_PATH, texData.texture.file_path)
+			)
+			texData.material = materials[i]
+
+			if (j === 0) {
+				texData.material.color = undefined
+				const texture = texData.texture.data
+				texData.material.map = texture
+				texture.magFilter = NearestFilter
+				texture.minFilter = NearestFilter
+			}
+		})
+	})
 
 	positionCamera(camera)
 
@@ -129,15 +131,19 @@ export async function createModelEditor(
 		stopRendering() {
 			controls.removeEventListener('change', requestRendering)
 		},
+		setBackground(color: number) {
+			scene.background = new Color(color)
+			requestRendering()
+		},
 
-		setTexture(tex: Texture) {
-			material.map = tex
-			tex.magFilter = NearestFilter
-			tex.minFilter = NearestFilter
+		setTexture({ texture: { data }, material }: ITextureData) {
+			material.map = data
+			data.magFilter = NearestFilter
+			data.minFilter = NearestFilter
 			requestRendering()
 		},
 		get textures() {
-			return textures
+			return allTextureData
 		},
 	}
 }
