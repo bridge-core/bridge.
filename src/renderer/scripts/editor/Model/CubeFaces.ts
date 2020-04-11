@@ -2,7 +2,7 @@
  * Store data to create a Minecraft model cube
  */
 export const CubeFaces = [
-	// Left
+	// Right
 	{
 		/**
 		 * Position of the texture for this specific cube
@@ -19,6 +19,7 @@ export const CubeFaces = [
 		 * -----------------------
 		 * 1 |   |xxx|xxx|xxx|xxx|
 		 */
+		name: 'west',
 		baseUV: [2, 1],
 		dir: [-1, 0, 0],
 		corners: [
@@ -29,8 +30,9 @@ export const CubeFaces = [
 		],
 	},
 
-	// Right
+	// Left
 	{
+		name: 'east',
 		baseUV: [0, 1],
 		dir: [1, 0, 0],
 		corners: [
@@ -43,6 +45,7 @@ export const CubeFaces = [
 
 	// Bottom
 	{
+		name: 'down',
 		baseUV: [2, 0],
 		dir: [0, -1, 0],
 		corners: [
@@ -55,6 +58,7 @@ export const CubeFaces = [
 
 	// Top
 	{
+		name: 'up',
 		baseUV: [1, 0],
 		dir: [0, 1, 0],
 		corners: [
@@ -67,6 +71,7 @@ export const CubeFaces = [
 
 	//Front
 	{
+		name: 'north',
 		baseUV: [1, 1],
 		dir: [0, 0, -1],
 		corners: [
@@ -79,6 +84,7 @@ export const CubeFaces = [
 
 	//Back
 	{
+		name: 'south',
 		baseUV: [3, 1],
 		dir: [0, 0, 1],
 		corners: [

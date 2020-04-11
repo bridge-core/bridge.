@@ -57,10 +57,22 @@ export interface IBoneSchema {
 export interface ICubeSchema {
 	origin?: [number, number, number]
 	size?: [number, number, number]
-	uv?: [number, number]
+	uv?: [number, number] | IUVObj
 	rotation?: [number, number, number]
 	pivot?: [number, number, number]
 	mirror?: boolean
+}
+export interface IUVObj {
+	north: IUVConfig
+	south: IUVConfig
+	east: IUVConfig
+	west: IUVConfig
+	up: IUVConfig
+	down: IUVConfig
+}
+export interface IUVConfig {
+	uv: [number, number]
+	uv_size: [number, number]
 }
 
 /**
@@ -178,7 +190,7 @@ export function loadModel(
 					cMirror === undefined && cRotation === undefined //Only cubes without rotation inherit mirror arg from bone
 						? mirror ?? false
 						: cMirror ?? false
-				).createMesh(material, origin, cPivot, cRotation)
+				).createMesh(material, origin, cPivot ?? pivot, cRotation)
 			)
 		}
 
