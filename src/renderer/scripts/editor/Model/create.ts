@@ -125,6 +125,12 @@ export async function createModelEditor(
 		},
 		stopRendering() {
 			controls.removeEventListener('change', requestRendering)
+
+			for (let id in allTextureData) {
+				allTextureData[id].forEach(({ texture: { data } }) =>
+					data.dispose()
+				)
+			}
 		},
 		setBackground(color: number) {
 			scene.background = new Color(color)
