@@ -8,7 +8,6 @@ import FileType from '../scripts/editor/FileType'
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import LoadingWindow from './LoadingWindow'
-import EventBus from '../scripts/EventBus'
 import { FileExplorer } from '../scripts/Sidebar/FileExplorer'
 
 const EXPAND_OPTIONS = ['.json', '.mcfunction', '.js']
@@ -43,7 +42,7 @@ export default class CreateFileHereWindow {
 			is_disabled: file_name === '',
 			action: () => {
 				this.close()
-				this.createFile(file_name, folder_path)
+				this.createFile(this.input, folder_path)
 			},
 		}
 		const INPUT = {
@@ -56,7 +55,7 @@ export default class CreateFileHereWindow {
 				enter: () => {
 					if (this.input === '') return
 					this.close()
-					this.createFile(file_name, folder_path)
+					this.createFile(this.input, folder_path)
 				},
 				default: (val: string) => {
 					if (val === '') {
