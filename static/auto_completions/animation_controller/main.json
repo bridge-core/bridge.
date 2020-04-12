@@ -27,10 +27,10 @@
                     },
                     
                     "on_entry": {
-                        "$dynamic.list.next_index": "('@s ' + $dynamic.entity.all_events)"
+                        "$dynamic.list.next_index": "('@s ' + $dynamic.entity.all_events) and ('/function ' + $dynamic.function_files)"
                     },
                     "on_exit": {
-                        "$dynamic.list.next_index": "('@s ' + $dynamic.entity.all_events)"
+                        "$dynamic.list.next_index": "('@s ' + $dynamic.entity.all_events) and ('/function ' + $dynamic.function_files)"
                     }                    
                 },
                 "$placeholder": "$animation_controller.main.animation_controllers.$placeholder.states.default"
