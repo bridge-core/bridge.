@@ -8,6 +8,7 @@
             "format_version": {},
             "animation_controllers": {
                 "controller.animation.blank": {
+                    "initial_state": "default",
                     "states": {
                         "default": {
                             "on_entry": [],
