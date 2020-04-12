@@ -106,6 +106,17 @@ export default class AboutWindow extends TabWindow {
 						link: 'https://github.com/ENDERZOMBI102',
 					},
 				]),
+				
+				{
+					type: 'divider',
+				},
+				new Creator('Contributor', 'Pascal', [
+					{
+						color: 'black',
+						text: 'mdi-github-circle',
+						link: 'https://github.com/pascal541',
+					},
+				]),
 				{
 					type: 'divider',
 				},
