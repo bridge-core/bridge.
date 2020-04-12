@@ -30,14 +30,13 @@ export default class NodeShortcuts {
 	static classicPaste() {
 		let node = TabSystem.getCurrentNavObj()
 		if (node === undefined || node.data !== '') return
-		requestIdleCallback(() => node.loadMeta(undefined, true))
 
 		try {
 			node.buildFromObject(
 				JSON.parse(clipboard.readText()),
 				undefined,
 				true
-			)
+			).loadMeta(undefined, true)
 			TabSystem.setCurrentUnsaved()
 			return true
 		} catch (e) {
@@ -47,7 +46,7 @@ export default class NodeShortcuts {
 					JSON.parse('{' + clipboard.readText() + '}'),
 					undefined,
 					true
-				)
+				).loadMeta(undefined, true)
 				TabSystem.setCurrentUnsaved()
 				return true
 			} catch (e) {
@@ -59,14 +58,13 @@ export default class NodeShortcuts {
 	static paste() {
 		let node = TabSystem.getCurrentNavObj()
 		if (node === undefined || node.data !== '') return
-		requestIdleCallback(() => node.loadMeta(undefined, true))
 
 		try {
 			let obj = JSON.parse(clipboard.readText())
 			let res: any = {}
 			for (let key in obj) res[this.transformKey(key, node)] = obj[key]
 
-			node.buildFromObject(res, undefined, true)
+			node.buildFromObject(res, undefined, true).loadMeta(undefined, true)
 			TabSystem.setCurrentUnsaved()
 			return true
 		} catch (e) {
@@ -77,7 +75,10 @@ export default class NodeShortcuts {
 				for (let key in obj)
 					res[this.transformKey(key, node)] = obj[key]
 
-				node.buildFromObject(res, undefined, true)
+				node.buildFromObject(res, undefined, true).loadMeta(
+					undefined,
+					true
+				)
 				TabSystem.setCurrentUnsaved()
 				return true
 			} catch (e) {
