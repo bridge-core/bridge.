@@ -1,6 +1,6 @@
 {
   "name": "bridge",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
   "license": "GNU",
@@ -73,6 +73,7 @@
     "js-yaml": "^3.13.1",
     "mime": "^2.4.4",
     "mkdirp": "^0.5.5",
+    "molang": "^0.2.0",
     "mousetrap": "^1.6.5",
     "safe-eval": "^0.4.1",
     "three": "^0.115.0",

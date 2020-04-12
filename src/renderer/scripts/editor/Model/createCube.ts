@@ -114,6 +114,7 @@ export function createCube(
 				let group = new Group()
 
 				if (pivot === undefined)
+					//Rotate around center of cube without pivot
 					pivot = [width / 2, height / 2, depth / 2]
 				group.position.set(-pivot[0], pivot[1], pivot[2])
 				mesh.position.set(
@@ -124,7 +125,6 @@ export function createCube(
 				group.add(mesh)
 
 				const [rX, rY, rZ] = rotation
-				console.log(rotation)
 				group.name = `#cubePivot.${name}`
 				group.rotation.set(
 					MathUtils.degToRad(-rX),

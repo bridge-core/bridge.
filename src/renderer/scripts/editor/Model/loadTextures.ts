@@ -30,6 +30,8 @@ export async function loadAllTextures(identifiers: string[]) {
 const GUESS_DATA = () => [
 	[CURRENT.RP_PATH, '.png'],
 	[join(__static, 'vanilla/RP'), '.png'],
+	// [CURRENT.RP_PATH, '.tga'],
+	// [join(__static, 'vanilla/RP'), '.tga'],
 ]
 async function guessTexture(identifier: string) {
 	return (
@@ -63,7 +65,7 @@ async function guessTexture(identifier: string) {
 							}
 						})
 					)
-				} catch (e) {
+				} catch {
 					return {
 						texture: {
 							name: 'Unknown',
