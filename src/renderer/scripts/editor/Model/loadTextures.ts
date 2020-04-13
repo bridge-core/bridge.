@@ -6,17 +6,18 @@ import { join } from 'path'
 import { promises as fs, existsSync } from 'fs'
 declare const __static: string
 
-export interface ITextureData {
+export interface IEntityContext {
 	texture: {
 		name: string
 		file_path: string
 		data?: Texture
 	}
+	animations?: { [name: string]: string }
 	material?: MeshLambertMaterial
 }
 
 export async function loadAllTextures(identifiers: string[]) {
-	let res: { [id: string]: ITextureData[] } = {}
+	let res: { [id: string]: IEntityContext[] } = {}
 	await Promise.all(
 		identifiers.map(async id => {
 			res[id] = await loadTextures(id)
@@ -101,7 +102,7 @@ export async function loadTextures(identifier: string) {
 	)
 
 	//Change data format
-	let data: ITextureData[] = []
+	let data: IEntityContext[] = []
 	textures.forEach(texObj => {
 		for (let [key, val] of Object.entries(texObj ?? {}))
 			data.push({
@@ -116,7 +117,7 @@ export async function loadTextures(identifier: string) {
 	})
 
 	return data.reduce(
-		(unique: ITextureData[], curr) =>
+		(unique: IEntityContext[], curr) =>
 			unique.find(
 				({ texture: { file_path } }) =>
 					file_path === curr.texture.file_path
