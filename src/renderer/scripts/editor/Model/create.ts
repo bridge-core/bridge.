@@ -13,11 +13,12 @@ import { TGALoader } from 'three/examples/jsm/loaders/TGALoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { loadModels, IModelSchema } from './loadModel'
 import { readJSON } from '../../Utilities/JsonFS'
-import { loadAllTextures, ITextureData } from './loadTextures'
+import { loadAllTextures, IEntityContext } from './loadTextures'
 import { extname, join } from 'path'
 import { createAnimation } from '../Animation/create'
 import { CURRENT } from '../../constants'
 import { IAnimations } from '../Animation/Format'
+
 
 export interface IModelOptions {
 	fov?: number
@@ -155,7 +156,7 @@ export async function createModelEditor(
 			requestRendering()
 		},
 
-		setTexture({ texture: { data }, material }: ITextureData) {
+		setTexture({ texture: { data }, material }: IEntityContext) {
 			material.map = data
 			data.magFilter = NearestFilter
 			data.minFilter = NearestFilter
