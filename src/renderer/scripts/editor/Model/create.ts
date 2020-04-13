@@ -9,10 +9,15 @@ import {
 	AxesHelper,
 	GridHelper,
 } from 'three'
+import { TGALoader } from 'three/examples/jsm/loaders/TGALoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { loadModels, IModelSchema } from './loadModel'
 import { readJSON } from '../../Utilities/JsonFS'
 import { loadAllTextures, ITextureData } from './loadTextures'
+import { extname, join } from 'path'
+import { createAnimation } from '../Animation/create'
+import { CURRENT } from '../../constants'
+import { IAnimations } from '../Animation/Format'
 
 export interface IModelOptions {
 	fov?: number
@@ -72,15 +77,19 @@ export async function createModelEditor(
 	}
 
 	const loader = new TextureLoader()
+	const tgaLoader = new TGALoader()
 
-	const { identifiers, materials } = loadModels(
+	const { identifiers, materials, boneMaps } = loadModels(
 		scene,
 		(await readJSON(file_path).catch(() => ({}))) as IModelSchema
 	)
 	let allTextureData = await loadAllTextures(identifiers)
 	identifiers.forEach((id, i) => {
 		allTextureData[id].forEach((texData, j) => {
-			texData.texture.data = loader.load(texData.texture.file_path)
+			if (extname(texData.texture.file_path) === '.tga')
+				//@ts-ignore - Types for the tgaLoader are wrong
+				texData.texture.data = tgaLoader.load(texData.texture.file_path)
+			else texData.texture.data = loader.load(texData.texture.file_path)
 			texData.material = materials[i]
 
 			if (j === 0) {
@@ -92,6 +101,12 @@ export async function createModelEditor(
 			}
 		})
 	})
+	const anim = createAnimation(
+		((await readJSON(
+			join(CURRENT.RP_PATH, 'animations/pesky_dragon.animation.json')
+		)) as IAnimations).animations['animation.pesky_dragon.sleeping'],
+		boneMaps[0]
+	)
 
 	positionCamera(camera)
 
@@ -107,6 +122,8 @@ export async function createModelEditor(
 			requestAnimationFrame(renderLoop)
 		}
 	}
+
+	anim.play(requestRendering)
 
 	return {
 		/**
@@ -125,6 +142,7 @@ export async function createModelEditor(
 		},
 		stopRendering() {
 			controls.removeEventListener('change', requestRendering)
+			anim.pause()
 
 			for (let id in allTextureData) {
 				allTextureData[id].forEach(({ texture: { data } }) =>

@@ -112,6 +112,7 @@ export function createCube(
 
 			if (rotation) {
 				let group = new Group()
+				group.rotation.order = 'ZYX'
 
 				if (pivot === undefined)
 					//Rotate around center of cube without pivot

@@ -9,7 +9,6 @@ import {
 } from 'three'
 import { createCube } from './createCube'
 import InformationWindow from '../../commonWindows/Information'
-import TabSystem from '../../TabSystem'
 import { lessThan } from '../../Utilities/VersionUtils'
 
 export interface IImageProps {
@@ -86,6 +85,7 @@ export function loadModels(
 	models: IModelSchema | IOldModelSchema
 ): {
 	models: Group[]
+	boneMaps: Map<string, [string | undefined, Group]>[]
 	identifiers: string[]
 	materials: MeshLambertMaterial[]
 } {
@@ -114,12 +114,13 @@ export function loadModels(
 			'ERROR',
 			'Oops, bridge. currently cannot open this model!'
 		)
-		return { models: [], identifiers: [], materials: [] }
+		return { models: [], identifiers: [], materials: [], boneMaps: [] }
 	}
 
 	let allModels: Group[] = []
 	let identifiers: string[] = []
 	let materials: MeshLambertMaterial[] = []
+	let boneMaps = []
 
 	for (let modelData of (models as IModelSchema)['minecraft:geometry'] ??
 		[]) {
@@ -129,10 +130,11 @@ export function loadModels(
 			alphaTest: 0.2,
 			transparent: true,
 		})
-		let { model } = loadModel(material, modelData)
+		let { model, boneMap } = loadModel(material, modelData)
 
 		identifiers.push(modelData.description.identifier)
 		materials.push(material)
+		boneMaps.push(boneMap)
 
 		model.position.add(new Vector3(100 * allModels.length, 0, 0))
 		scene.add(model)
@@ -141,6 +143,7 @@ export function loadModels(
 
 	return {
 		models: allModels,
+		boneMaps,
 		identifiers,
 		materials,
 	}
@@ -194,26 +197,30 @@ export function loadModel(
 			)
 		}
 
-		if (pivot && rotation) {
-			const [rX, rY, rZ] = rotation
+		const pivotGroup = new Group()
+		pivotGroup.rotation.order = 'ZYX'
+		if (pivot) {
 			const [pX, pY, pZ] = pivot
-			const pivotGroup = new Group()
 			pivotGroup.position.set(-pX, pY, pZ)
 			currBone.position.set(pX, -pY, -pZ)
 			pivotGroup.add(currBone)
 			pivotGroup.name = `#pivot.${name}`
+		} else {
+			pivotGroup.position.set(0, 0, 0)
+		}
+
+		if (rotation) {
+			const [rX, rY, rZ] = rotation
+
 			pivotGroup.rotation.set(
 				MathUtils.degToRad(-rX),
 				MathUtils.degToRad(-rY),
 				MathUtils.degToRad(rZ)
 			)
-
-			if (!parent) model.add(pivotGroup)
-			if (name) boneMap.set(name, [parent, pivotGroup])
-		} else {
-			if (!parent) model.add(currBone)
-			if (name) boneMap.set(name, [parent, currBone])
 		}
+
+		if (!parent) model.add(pivotGroup)
+		if (name) boneMap.set(name, [parent, pivotGroup])
 	}
 
 	//Set bone parents
@@ -227,5 +234,6 @@ export function loadModel(
 
 	return {
 		model,
+		boneMap,
 	}
 }
