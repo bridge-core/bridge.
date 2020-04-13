@@ -105,25 +105,29 @@ export function createCube(
 			material: Material,
 			origin: [number, number, number],
 			pivot?: [number, number, number],
-			rotation?: [number, number, number]
+			rotation?: [number, number, number],
+			inflate = 0
 		) {
+			const calculatedWidth = inflate + width
 			let geo = createGeometry()
 			let mesh = new Mesh(geo, material)
 
-			if (rotation) {
-				let group = new Group()
-				group.rotation.order = 'ZYX'
+			let group = new Group()
+			group.rotation.order = 'ZYX'
 
-				if (pivot === undefined)
-					//Rotate around center of cube without pivot
-					pivot = [width / 2, height / 2, depth / 2]
+			if (pivot === undefined)
+				//Rotate around center of cube without pivot
+				pivot = [calculatedWidth / 2, height / 2, depth / 2]
+
+			group.add(mesh)
+
+			if (rotation) {
 				group.position.set(-pivot[0], pivot[1], pivot[2])
 				mesh.position.set(
-					-origin[0] - width / 2 + pivot[0],
-					origin[1] - pivot[1],
-					origin[2] - pivot[2]
+					-origin[0] - calculatedWidth / 2 + pivot[0],
+					origin[1] - pivot[1] - inflate,
+					origin[2] - pivot[2] - inflate
 				)
-				group.add(mesh)
 
 				const [rX, rY, rZ] = rotation
 				group.name = `#cubePivot.${name}`
@@ -132,13 +136,22 @@ export function createCube(
 					MathUtils.degToRad(-rY),
 					MathUtils.degToRad(rZ)
 				)
-
-				return group
+			} else {
+				group.position.set(
+					-origin[0] - calculatedWidth / 2,
+					origin[1] - inflate,
+					origin[2] - inflate
+				)
 			}
 
-			mesh.position.set(-origin[0] - width / 2, origin[1], origin[2])
+			if (inflate)
+				group.scale.set(
+					1 + inflate / (width / 2),
+					1 + inflate / (height / 2),
+					1 + inflate / (depth / 2)
+				)
 
-			return mesh
+			return group
 		},
 	}
 }

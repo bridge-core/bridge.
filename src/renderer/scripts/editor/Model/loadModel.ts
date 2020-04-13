@@ -47,6 +47,7 @@ export interface IGeoSchema {
 export interface IBoneSchema {
 	name?: string
 	parent?: string
+	inflate?: number
 	pivot?: [number, number, number]
 	rotation?: [number, number, number]
 	mirror?: boolean
@@ -59,6 +60,7 @@ export interface ICubeSchema {
 	uv?: [number, number] | IUVObj
 	rotation?: [number, number, number]
 	pivot?: [number, number, number]
+	inflate?: number
 	mirror?: boolean
 }
 export interface IUVObj {
@@ -169,7 +171,15 @@ export function loadModel(
 	model.name = identifier
 	let boneMap = new Map<string, [string | undefined, Group]>()
 
-	for (let { name, parent, cubes = [], pivot, rotation, mirror } of bones) {
+	for (let {
+		name,
+		parent,
+		cubes = [],
+		pivot,
+		rotation,
+		mirror,
+		inflate,
+	} of bones) {
 		let currBone = new Group()
 		currBone.name = name ?? ''
 
@@ -181,6 +191,7 @@ export function loadModel(
 				rotation: cRotation,
 				pivot: cPivot,
 				mirror: cMirror,
+				inflate: cInflate,
 			} = cubes[i]
 
 			currBone.add(
@@ -193,7 +204,13 @@ export function loadModel(
 					cMirror === undefined && cRotation === undefined //Only cubes without rotation inherit mirror arg from bone
 						? mirror ?? false
 						: cMirror ?? false
-				).createMesh(material, origin, cPivot ?? pivot, cRotation)
+				).createMesh(
+					material,
+					origin,
+					cPivot ?? pivot,
+					cRotation,
+					cInflate ?? inflate
+				)
 			)
 		}
 
