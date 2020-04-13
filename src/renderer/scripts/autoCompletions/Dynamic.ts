@@ -101,7 +101,7 @@ export const DYNAMIC = {
 	},
 	entity: {
 		cached_families() {
-			return LightningCache.getCompiledSync().entity.families
+			return LightningCache.getCompiledSync()?.entity?.families || []
 		},
 		component_groups() {
 			try {
@@ -166,7 +166,7 @@ export const DYNAMIC = {
 			})
 		},
 		feature_references() {
-			return LightningCache.getCompiledSync().feature.identifiers
+			return LightningCache.getCompiledSync()?.feature?.identifiers || []
 		},
 	},
 	animation_controller: {
