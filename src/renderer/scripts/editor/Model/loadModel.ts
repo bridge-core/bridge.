@@ -9,7 +9,6 @@ import {
 } from 'three'
 import { createCube } from './createCube'
 import InformationWindow from '../../commonWindows/Information'
-import TabSystem from '../../TabSystem'
 import { lessThan } from '../../Utilities/VersionUtils'
 
 export interface IImageProps {
@@ -48,6 +47,7 @@ export interface IGeoSchema {
 export interface IBoneSchema {
 	name?: string
 	parent?: string
+	inflate?: number
 	pivot?: [number, number, number]
 	rotation?: [number, number, number]
 	mirror?: boolean
@@ -60,6 +60,7 @@ export interface ICubeSchema {
 	uv?: [number, number] | IUVObj
 	rotation?: [number, number, number]
 	pivot?: [number, number, number]
+	inflate?: number
 	mirror?: boolean
 }
 export interface IUVObj {
@@ -86,6 +87,7 @@ export function loadModels(
 	models: IModelSchema | IOldModelSchema
 ): {
 	models: Group[]
+	boneMaps: Map<string, [string | undefined, Group]>[]
 	identifiers: string[]
 	materials: MeshLambertMaterial[]
 } {
@@ -114,12 +116,13 @@ export function loadModels(
 			'ERROR',
 			'Oops, bridge. currently cannot open this model!'
 		)
-		return { models: [], identifiers: [], materials: [] }
+		return { models: [], identifiers: [], materials: [], boneMaps: [] }
 	}
 
 	let allModels: Group[] = []
 	let identifiers: string[] = []
 	let materials: MeshLambertMaterial[] = []
+	let boneMaps = []
 
 	for (let modelData of (models as IModelSchema)['minecraft:geometry'] ??
 		[]) {
@@ -129,10 +132,11 @@ export function loadModels(
 			alphaTest: 0.2,
 			transparent: true,
 		})
-		let { model } = loadModel(material, modelData)
+		let { model, boneMap } = loadModel(material, modelData)
 
 		identifiers.push(modelData.description.identifier)
 		materials.push(material)
+		boneMaps.push(boneMap)
 
 		model.position.add(new Vector3(100 * allModels.length, 0, 0))
 		scene.add(model)
@@ -141,6 +145,7 @@ export function loadModels(
 
 	return {
 		models: allModels,
+		boneMaps,
 		identifiers,
 		materials,
 	}
@@ -166,7 +171,15 @@ export function loadModel(
 	model.name = identifier
 	let boneMap = new Map<string, [string | undefined, Group]>()
 
-	for (let { name, parent, cubes = [], pivot, rotation, mirror } of bones) {
+	for (let {
+		name,
+		parent,
+		cubes = [],
+		pivot,
+		rotation,
+		mirror,
+		inflate,
+	} of bones) {
 		let currBone = new Group()
 		currBone.name = name ?? ''
 
@@ -178,6 +191,7 @@ export function loadModel(
 				rotation: cRotation,
 				pivot: cPivot,
 				mirror: cMirror,
+				inflate: cInflate,
 			} = cubes[i]
 
 			currBone.add(
@@ -190,30 +204,40 @@ export function loadModel(
 					cMirror === undefined && cRotation === undefined //Only cubes without rotation inherit mirror arg from bone
 						? mirror ?? false
 						: cMirror ?? false
-				).createMesh(material, origin, cPivot ?? pivot, cRotation)
+				).createMesh(
+					material,
+					origin,
+					cPivot ?? pivot,
+					cRotation,
+					cInflate ?? inflate
+				)
 			)
 		}
 
-		if (pivot && rotation) {
-			const [rX, rY, rZ] = rotation
+		const pivotGroup = new Group()
+		pivotGroup.rotation.order = 'ZYX'
+		if (pivot) {
 			const [pX, pY, pZ] = pivot
-			const pivotGroup = new Group()
 			pivotGroup.position.set(-pX, pY, pZ)
 			currBone.position.set(pX, -pY, -pZ)
 			pivotGroup.add(currBone)
 			pivotGroup.name = `#pivot.${name}`
+		} else {
+			pivotGroup.position.set(0, 0, 0)
+		}
+
+		if (rotation) {
+			const [rX, rY, rZ] = rotation
+
 			pivotGroup.rotation.set(
 				MathUtils.degToRad(-rX),
 				MathUtils.degToRad(-rY),
 				MathUtils.degToRad(rZ)
 			)
-
-			if (!parent) model.add(pivotGroup)
-			if (name) boneMap.set(name, [parent, pivotGroup])
-		} else {
-			if (!parent) model.add(currBone)
-			if (name) boneMap.set(name, [parent, currBone])
 		}
+
+		if (!parent) model.add(pivotGroup)
+		if (name) boneMap.set(name, [parent, pivotGroup])
 	}
 
 	//Set bone parents
@@ -227,5 +251,6 @@ export function loadModel(
 
 	return {
 		model,
+		boneMap,
 	}
 }
