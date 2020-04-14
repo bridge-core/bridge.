@@ -173,21 +173,25 @@ export const DYNAMIC = {
 	},
 	animation_controller: {
 		current_states() {
-			let current = TabSystem.getCurrentNavObj()
-			if (
-				current === undefined ||
-				Object.keys(current.toJSON()).length > 0
-			)
-				return []
-			if (current.parent?.get('states'))
-				return Object.keys(current.parent?.get('states').toJSON())
+			try {
+				let current = TabSystem.getCurrentNavObj()
+				if (
+					current === undefined ||
+					Object.keys(current.toJSON()).length > 0
+				)
+					return []
+				if (current.parent?.get('states'))
+					return Object.keys(current.parent?.get('states').toJSON())
 
-			while (current !== undefined && current.key !== 'states') {
-				current = current.parent
+				while (current !== undefined && current.key !== 'states') {
+					current = current.parent
+				}
+				if (current && current.key === 'states')
+					return Object.keys(current.toJSON())
+				return []
+			} catch {
+				return []
 			}
-			if (current && current.key === 'states')
-				return Object.keys(current.toJSON())
-			return []
 		},
 	},
 	client_entity: {
@@ -228,7 +232,6 @@ export const DYNAMIC = {
 					).texture_data
 				)
 			} catch (e) {
-				console.log(e)
 				return []
 			}
 		},
