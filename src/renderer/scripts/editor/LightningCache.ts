@@ -133,6 +133,8 @@ export default class LightningCache {
 		defs: CacheDef,
 		content: JSONTree
 	) {
+		if (content === undefined) return
+
 		let except
 		//LOAD DIFFERENT DEF OPTIONS
 		if (!Array.isArray(defs)) {
