@@ -128,10 +128,7 @@ class TabSystem {
 		if (projects[this.project] === undefined) projects[this.project] = []
 
 		for (let i = 0; i < projects[this.project].length; i++) {
-			if (
-				projects[this.project][i].file_path ===
-				tab.file_path.replace(/\//g, '\\')
-			) {
+			if (projects[this.project][i].file_path === tab.file_path) {
 				Store.commit('removeLoadingWindow', { id: 'open-file' })
 				return this.select(i)
 			}
