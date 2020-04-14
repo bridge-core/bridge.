@@ -108,7 +108,7 @@ export function createCube(
 			rotation?: [number, number, number],
 			inflate = 0
 		) {
-			const calculatedWidth = inflate + width
+			const calculatedWidth = inflate * 2 + width
 			let geo = createGeometry()
 			let mesh = new Mesh(geo, material)
 
@@ -124,7 +124,7 @@ export function createCube(
 			if (rotation) {
 				group.position.set(-pivot[0], pivot[1], pivot[2])
 				mesh.position.set(
-					-origin[0] - calculatedWidth / 2 + pivot[0],
+					-origin[0] - calculatedWidth / 2 + pivot[0] + inflate,
 					origin[1] - pivot[1] - inflate,
 					origin[2] - pivot[2] - inflate
 				)
@@ -138,7 +138,7 @@ export function createCube(
 				)
 			} else {
 				group.position.set(
-					-origin[0] - calculatedWidth / 2,
+					-origin[0] - calculatedWidth / 2 + inflate,
 					origin[1] - inflate,
 					origin[2] - inflate
 				)
