@@ -98,6 +98,15 @@ export function createAnimation(
 						scale,
 					].map(mod => parseBoneModifier(mod, currTime))
 
+					if (positionMod)
+						bone.position.set(
+							...(positionMod.map(
+								(val, i) =>
+									(i === 0 ? -1 : 1) * val +
+									bone.userData.defaultPosition[i]
+							) as [number, number, number])
+						)
+
 					if (rotationMod)
 						bone.rotation.set(
 							...(rotationMod
@@ -107,14 +116,6 @@ export function createAnimation(
 										bone.userData.defaultRotation[i] +
 										(i === 2 ? val : -val)
 								) as [number, number, number])
-						)
-
-					if (positionMod)
-						bone.position.set(
-							...(positionMod.map(
-								(val, i) =>
-									bone.userData.defaultPosition[i] + val
-							) as [number, number, number])
 						)
 
 					if (scaleMod) bone.scale.set(...scaleMod)
