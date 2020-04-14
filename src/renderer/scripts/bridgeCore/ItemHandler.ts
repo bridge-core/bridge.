@@ -1,10 +1,12 @@
 import { JSONFileMasks, JSONMask } from '../editor/JSONFileMasks'
 import { CURRENT } from '../constants'
-import path from 'path'
+import path, { join } from 'path'
 import { set } from '../Utilities/useAttr'
 import WeaponDamage from './item/WeaponDamage'
 import ItemEquippedSensor from './item/ItemEquippedSensor'
 import { OnSaveData } from './main'
+import { promises as fs } from 'fs'
+declare const __static: string
 
 export type ItemComponentData = Partial<
 	OnSaveData & {
@@ -60,6 +62,16 @@ export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
 		CURRENT.PROJECT_PATH,
 		`animation_controllers/bridge/custom_item_behavior.json`
 	)
+
+	//Make sure player file exists
+	try {
+		await fs.stat(player_file_path)
+	} catch {
+		await fs.copyFile(
+			join(__static, 'vanilla/BP/entities/player.json'),
+			player_file_path
+		)
+	}
 
 	//DATA
 	let item = data['minecraft:item']
