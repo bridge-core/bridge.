@@ -18,6 +18,7 @@ import { BridgeCore } from './bridgeCore/main'
 import { uuid } from './Utilities/useAttr'
 import CloseUnsavedTab from '../windows/CloseUnsavedTab'
 import { useCache } from './Project/NoCacheConfig'
+import { getFolderDiff } from './files/DiffPaths'
 
 export interface Tab {
 	file_name: string
@@ -30,6 +31,7 @@ export interface Tab {
 	is_unsaved: boolean
 	history: History
 	file_version: number
+	folders: string[]
 
 	is_immutable?: boolean
 	is_compiled?: boolean
@@ -126,16 +128,32 @@ class TabSystem {
 		}
 
 		if (projects[this.project] === undefined) projects[this.project] = []
+		const file_name = path.basename(tab.file_path)
+		const folders: string[] = []
 
 		for (let i = 0; i < projects[this.project].length; i++) {
-			if (projects[this.project][i].file_path === tab.file_path) {
+			const {
+				file_path,
+				file_name: curr_file_name,
+				folders: curr_folders,
+			} = projects[this.project][i]
+			if (file_path === tab.file_path) {
 				Store.commit('removeLoadingWindow', { id: 'open-file' })
 				return this.select(i)
+			} else if (curr_file_name === file_name) {
+				const [folder_1, folder_2] = getFolderDiff(
+					file_path,
+					tab.file_path
+				)
+				if (!curr_folders.includes(folder_1))
+					curr_folders.push(folder_1)
+				if (!folders.includes(folder_2)) folders.push(folder_2)
 			}
 		}
 
 		projects[this.project].unshift({
-			file_name: path.basename(tab.file_path),
+			file_name,
+			folders,
 			...tab,
 			uuid: `${this.project}-${uuid()}`,
 			file_navigation: 'global',
@@ -180,6 +198,22 @@ class TabSystem {
 
 	//Closing tab
 	internalCloseId(id: number, project = this.project) {
+		//Remove same folder display
+		const { file_path, file_name } = this.projects[this.project][id]
+		for (let i = 0; i < this.projects[this.project].length; i++) {
+			if (id === i) continue
+			const {
+				file_path: curr_file_path,
+				file_name: curr_file_name,
+				folders: curr_folders,
+			} = this.projects[this.project][i]
+
+			if (curr_file_name === file_name) {
+				const [folder_1] = getFolderDiff(curr_file_path, file_path)
+				curr_folders.splice(curr_folders.indexOf(folder_1), 1)
+			}
+		}
+
 		this.projects[project].splice(id, 1)
 		if (id <= this.selected && this.selected >= 0) {
 			this.select(this.selected === 0 ? 0 : this.selected - 1)
