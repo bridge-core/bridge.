@@ -26,7 +26,10 @@
 			<template v-for="(menu, key, i) in menu_details">
 				<app-menu :key="`app-menu-${key}`" :menu="menu"></app-menu>
 				<v-divider
-					v-if="i + 1 < Object.keys(menu_details).length"
+					v-if="
+						i + 1 < Object.keys(menu_details).length &&
+							(!menu.if || menu.if())
+					"
 					:key="`divider-${key}`"
 					vertical
 				/>

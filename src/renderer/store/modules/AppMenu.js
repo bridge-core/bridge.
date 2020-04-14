@@ -1,6 +1,9 @@
 import KeyManager from '../../scripts/AppMenu/KeyManager'
 import Vue from 'vue'
-import { ipcRenderer, shell } from 'electron'
+import {
+	ipcRenderer,
+	shell
+} from 'electron'
 import SettingsWindow from '../../windows/Settings'
 import CreateFileWindow from '../../windows/CreateFile'
 import TabSystem from '../../scripts/TabSystem'
@@ -12,15 +15,16 @@ import ExtensionBrowser from '../../windows/Extensions/Browser'
 import Store from '../index'
 import InformationWindow from '../../scripts/commonWindows/Information'
 import GoToFileWindow from '../../windows/GoToFileWindow'
-import { getMenu } from '../../scripts/Presets'
+import {
+	getMenu
+} from '../../scripts/Presets'
 import PresetWindow from '../../windows/PresetWindow'
 
 const state = {
 	file: {
 		trusted: true,
 		display_name: 'File',
-		elements: [
-			{
+		elements: [{
 				title: 'New File',
 				shortcut: 'Ctrl + N',
 				action: () => {
@@ -70,8 +74,7 @@ const state = {
 			{
 				type: 'submenu',
 				title: 'Preferences',
-				elements: [
-					{
+				elements: [{
 						title: 'Settings',
 						action: () => {
 							new SettingsWindow()
@@ -88,12 +91,10 @@ const state = {
 	edit: {
 		trusted: true,
 		display_name: 'Edit',
-		elements: [
-			{
+		elements: [{
 				type: 'submenu',
 				title: 'Selection',
-				elements: [
-					{
+				elements: [{
 						title: 'Unselect',
 						shortcut: 'Escape',
 						action: () => TabSystem.setCurrentFileNav('global'),
@@ -124,8 +125,7 @@ const state = {
 			{
 				type: 'submenu',
 				title: 'JSON Nodes',
-				elements: [
-					{
+				elements: [{
 						title: 'Toggle Open',
 						shortcut: 'Ctrl + Enter',
 						action: () => TabSystem.toggleCurrentNode(),
@@ -253,8 +253,7 @@ const state = {
 	tools: {
 		trusted: true,
 		display_name: 'Tools',
-		elements: [
-			{
+		elements: [{
 				title: 'Go to File',
 				shortcut: 'Ctrl + Shift + O',
 				action: () => GoToFileWindow.show(),
@@ -274,8 +273,7 @@ const state = {
 	help: {
 		trusted: true,
 		display_name: 'Help',
-		elements: [
-			{
+		elements: [{
 				title: 'About',
 				action: () => new AboutWindow(),
 			},
@@ -301,6 +299,16 @@ const state = {
 					),
 			},
 		],
+	},
+	developer: {
+		if: () => Store.state.Settings.is_dev_mode,
+		trusted: true,
+		display_name: 'Development',
+		elements: [{
+			title: 'Toggle Dev Tools',
+			shortcut: 'Ctrl + Shift + I',
+			action: () => ipcRenderer.send("toggleDevTools")
+		}, ],
 	},
 }
 

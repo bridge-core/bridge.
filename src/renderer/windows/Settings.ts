@@ -563,8 +563,13 @@ export default class SettingsWindow extends TabWindow {
 				},
 				new ReactiveSwitch(this, 'is_dev_mode', {
 					color: 'error',
-					text: 'Error Pop-Up',
+					text: 'Dev Mode',
 					key: `settings.dev.tab.${Math.random()}`,
+				}),
+				new ReactiveSwitch(this, 'has_error_pop_ups', {
+					color: 'error',
+					text: 'Error Pop-Up',
+					key: `settings.error_pop_ups.tab.${Math.random()}`,
 				}),
 			],
 		})

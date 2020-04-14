@@ -1,5 +1,6 @@
 <template>
 	<v-menu
+		v-if="!menu.if || menu.if()"
 		v-model="shown"
 		:offset-y="!is_submenu"
 		:offset-x="is_submenu"
