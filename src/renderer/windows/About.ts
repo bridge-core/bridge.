@@ -77,7 +77,7 @@ export default class AboutWindow extends TabWindow {
 					},
 					{
 						color: 'black',
-						text: 'mdi-github-circle',
+						text: 'mdi-github',
 						link: 'https://github.com/solvedDev',
 					},
 				]),
@@ -92,7 +92,7 @@ export default class AboutWindow extends TabWindow {
 					},
 					{
 						color: 'black',
-						text: 'mdi-github-circle',
+						text: 'mdi-github',
 						link: 'https://github.com/montudor',
 					},
 				]),
@@ -102,18 +102,18 @@ export default class AboutWindow extends TabWindow {
 				new Creator('Developer', 'Enderzombi102', [
 					{
 						color: 'black',
-						text: 'mdi-github-circle',
+						text: 'mdi-github',
 						link: 'https://github.com/ENDERZOMBI102',
 					},
 				]),
-				
+
 				{
 					type: 'divider',
 				},
 				new Creator('Contributor', 'Pascal', [
 					{
 						color: 'black',
-						text: 'mdi-github-circle',
+						text: 'mdi-github',
 						link: 'https://github.com/pascal541',
 					},
 				]),
@@ -138,7 +138,7 @@ export default class AboutWindow extends TabWindow {
 					},
 					{
 						color: 'black',
-						text: 'mdi-github-circle',
+						text: 'mdi-github',
 						link: 'https://github.com/BrandonDyer64',
 					},
 				]),
@@ -148,7 +148,7 @@ export default class AboutWindow extends TabWindow {
 				new Creator('Contributor', 'CodeHZ', [
 					{
 						color: 'black',
-						text: 'mdi-github-circle',
+						text: 'mdi-github',
 						link: 'https://github.com/codehz',
 					},
 				]),
@@ -163,7 +163,7 @@ export default class AboutWindow extends TabWindow {
 					},
 					{
 						color: 'black',
-						text: 'mdi-github-circle',
+						text: 'mdi-github',
 						link: 'https://github.com/destruc7i0n',
 					},
 				]),

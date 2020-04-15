@@ -23,17 +23,24 @@ export interface IAppMenuElement {
  * Adds new entry to the app menu
  * @param config
  */
-export function createAppMenu(config: IAppMenu): IDisposable {
+export function createAppMenu(config: IAppMenu, addMenu = true) {
 	let appMenuUUID = uuid()
-	Vue.set(AppMenu, appMenuUUID, config)
+	let disposables: IDisposable[] = []
 
-	//Configure keyBindings
-	let disposables = registerKeyBindings(config.elements ?? [])
+	if (addMenu) {
+		Vue.set(AppMenu, appMenuUUID, config)
+		//Configure keyBindings
+		disposables = registerKeyBindings(config.elements ?? [])
+	}
 
 	return {
 		dispose: () => {
 			Vue.delete(AppMenu, appMenuUUID)
 			disposables.forEach(disposable => disposable.dispose())
+		},
+		add: () => {
+			Vue.set(AppMenu, appMenuUUID, config)
+			disposables = registerKeyBindings(config.elements ?? [])
 		},
 	}
 }

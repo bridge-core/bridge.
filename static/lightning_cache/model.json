@@ -1,0 +1,4 @@
+[
+    { "key": "identifiers", "path": "global", "filter": [ "format_version", "minecraft:geometry" ] },
+    { "key": "identifiers", "iterate": "minecraft:geometry", "path": "description/identifier" }
+]

@@ -30,15 +30,24 @@ function toUnifiedObj(obj: any) {
 }
 
 interface CacheDefConfig {
-	key: string
-	path?: string
-	hook?: string
-	define_multiple?: boolean
-	definitions?: CacheDefConfig[]
-	load?: string
-	load_data?: boolean
-	except?: string
-	as?: string
+	as?: string //The file type to save the cache data under
+
+	define_multiple?: boolean //Whether this CacheDef contains a definitions array
+	definitions?: CacheDefConfig[] //Define multiple CacheDefs
+
+	load?: string //Load a different CacheDef...
+	except?: string //...except the definiton with this key
+
+	key: string //Cache key
+	path?: string //Path to data to store
+	filter?: string[] //Exclude these values
+	load_data?: boolean //Store data from an object instead of the keys
+
+	iterate?: string //An array to iterate over
+
+	hook?: string //Cache hook
+
+	// Search for data
 	search?: {
 		key: string
 		locations: string[]
@@ -163,56 +172,89 @@ export default class LightningCache {
 		if (this.global_cache[type][cache_key] === undefined)
 			this.global_cache[type][cache_key] = {}
 		let cache = this.global_cache[type][cache_key]
-		;(defs as CacheDefConfig[]).forEach(def => {
-			if (def.path !== undefined) {
-				try {
-					let data = content.get(def.path).toJSON()
-					if (Array.isArray(data)) {
-						cache[def.key] = data
-					} else if (typeof data === 'object') {
-						cache[def.key] = def.load_data
-							? Object.values(data)
-							: Object.keys(data)
-					} else {
-						cache[def.key] = [data]
-					}
-				} catch (e) {
-					cache[def.key] = []
-				}
-			} else if (def.search !== undefined) {
-				let res: string[] = []
-				def.search.locations.forEach(l => {
-					let n = content.get(l)
-					if (n === undefined) return
+		;(defs as CacheDefConfig[]).forEach(
+			({ iterate, path, key, search, hook, load_data, filter }) => {
+				if (iterate !== undefined) {
+					;(content.get(iterate)?.children ?? []).forEach(c =>
+						this.storeInCahe(cache, c, path, key, filter, load_data)
+					)
+				} else if (path !== undefined) {
+					this.storeInCahe(
+						cache,
+						content,
+						path,
+						key,
+						filter,
+						load_data
+					)
+				} else if (search !== undefined) {
+					let res: string[] = []
+					search.locations.forEach(l => {
+						let n = content.get(l)
+						if (n === undefined) return
 
-					n.forEach(c => {
-						if (c.key === def.search.key) {
-							if (def.search.data !== undefined)
-								c = c.get(def.search.data)
+						n.forEach(c => {
+							if (c.key === search.key) {
+								if (search.data !== undefined)
+									c = c.get(search.data)
 
-							let data = c.toJSON()
-							if (Array.isArray(data)) {
-								res.push(...data)
-							} else if (typeof data === 'object') {
-								res.push(...Object.keys(data))
-							} else {
-								res.push(data)
+								let data = c.toJSON()
+								if (Array.isArray(data)) {
+									res.push(...data)
+								} else if (typeof data === 'object') {
+									res.push(...Object.keys(data))
+								} else {
+									res.push(data)
+								}
 							}
-						}
+						})
 					})
-				})
-				cache[def.key] = res
-			} else if (def.hook !== undefined) {
-				cache[def.key] =
-					EventBus.trigger(
-						`bridge:onCacheHook[${def.hook}]`
-					).flat() || []
-			} else {
-				console.warn('Unknown cache definition: ', def)
+					cache[key] = res
+				} else if (hook !== undefined) {
+					cache[key] =
+						EventBus.trigger(
+							`bridge:onCacheHook[${hook}]`
+						).flat() || []
+				} else {
+					console.warn('Unknown cache definition!')
+				}
 			}
-		})
+		)
 
 		if (except) cache[except] = []
+	}
+
+	static storeInCahe(
+		cache: { [cache_key: string]: string[] },
+		content: JSONTree,
+		path: string,
+		key: string,
+		filter: string[],
+		load_data: boolean
+	) {
+		try {
+			let data
+			if (path !== 'global') data = content.get(path).toJSON()
+			else data = content.toJSON()
+
+			if (Array.isArray(data)) {
+				cache[key] = data.filter(d => filter && !filter.includes(d))
+			} else if (typeof data === 'object') {
+				cache[key] = load_data
+					? <string[]>(
+							Object.values(data).filter(
+								d => filter && !filter.includes(<string>d)
+							)
+					  )
+					: Object.keys(data).filter(
+							d => filter && !filter.includes(d)
+					  )
+			} else {
+				cache[key] = [data].filter(d => filter && !filter.includes(d))
+			}
+		} catch (e) {
+			cache[key] = []
+		}
 	}
 
 	static async load(file_path?: string): Promise<LightningCacheData> {

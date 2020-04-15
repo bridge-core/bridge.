@@ -17,6 +17,7 @@ import ThemeManager from '../scripts/editor/ThemeManager'
 import ProjectConfig from '../scripts/Project/Config'
 import { uuid } from '../scripts/Utilities/useAttr'
 import FontList from 'font-list'
+import { DEV_MENU } from '../scripts/AppMenu/setupDefaults'
 
 class ReactiveListEntry {
 	type = 'card'
@@ -89,7 +90,12 @@ class ReactiveSwitch {
 	[x: string]: any
 	type = 'switch'
 
-	constructor(parent: SettingsWindow, watch_key: string, def: any) {
+	constructor(
+		parent: SettingsWindow,
+		watch_key: string,
+		def: any,
+		onChange?: (state: boolean) => void
+	) {
 		this.input = parent.data[watch_key]
 		for (let key in def) {
 			this[key] = def[key]
@@ -99,6 +105,7 @@ class ReactiveSwitch {
 			this.input = val
 			parent.data[watch_key] = val
 			parent.save()
+			if (onChange) onChange(val)
 		}
 	}
 }
@@ -566,11 +573,18 @@ export default class SettingsWindow extends TabWindow {
 				{
 					text: '\n',
 				},
-				new ReactiveSwitch(this, 'is_dev_mode', {
-					color: 'error',
-					text: 'Dev Mode',
-					key: `settings.dev.tab.${Math.random()}`,
-				}),
+				new ReactiveSwitch(
+					this,
+					'is_dev_mode',
+					{
+						text: 'Dev Mode',
+						key: `settings.dev.tab.${Math.random()}`,
+					},
+					val => {
+						if (val) DEV_MENU.add()
+						else DEV_MENU.dispose()
+					}
+				),
 				new ReactiveSwitch(this, 'has_error_pop_ups', {
 					color: 'error',
 					text: 'Error Pop-Up',
