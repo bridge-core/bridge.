@@ -51,6 +51,7 @@
         "id": "entity",
         "includes": "entities/",
         "file_viewer": "json",
+        "player": "entity",
 
         "documentation": {
             "base": "Entities",
@@ -192,12 +193,14 @@
         "id": "entity_model",
         "includes": "models/entity",
         "file_viewer": "model",
+        "player": "model",
         "rp_definition": true
     },
     {
         "id": "entity_model",
         "includes": "models/mobs.json",
         "file_viewer": "model",
+        "player": "model",
         "rp_definition": true
     },
     {
@@ -242,6 +245,7 @@
         "id": "client_entity",
         "includes": "entity/",
         "file_viewer": "json",
+        "player": "client_entity",
         "rp_definition": true,
         
         "documentation": {
@@ -286,6 +290,7 @@
         "id": "particle",
         "includes": "particles/",
         "file_viewer": "json",
+        "player": "particle",
         "rp_definition": true,
         
         "start_state": "particle/main",

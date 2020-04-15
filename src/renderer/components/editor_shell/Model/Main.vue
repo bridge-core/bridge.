@@ -4,7 +4,7 @@
 
 		<v-container v-if="should_show_menu" class="canvas-overlay">
 			<v-icon @click="is_visible = !is_visible">{{
-				is_visible ? 'mdi-close' : 'mdi-settings'
+				is_visible ? 'mdi-close' : 'mdi-cog'
 			}}</v-icon>
 			<v-card
 				:style="
@@ -128,7 +128,9 @@ export default {
 		},
 		convertArr(arr) {
 			return arr.map(entry => ({
-				text: `${basename(entry.texture.file_path)} (${entry.texture.name})`,
+				text: `${basename(entry.texture.file_path)} (${
+					entry.texture.name
+				})`,
 				value: entry,
 			}))
 		},

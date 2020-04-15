@@ -57,13 +57,13 @@
 		<v-container>
 			<v-divider />
 
-			<span v-if="selected_nodes_total > 0"
-				>Selected Nodes: {{ selected_nodes_total }}</span
-			>
-			<span v-else
-				>Start searching for JSON nodes by opening a file and typing
-				into the "Search" field.</span
-			>
+			<span v-if="selected_nodes_total > 0">
+				Selected Nodes: {{ selected_nodes_total }}
+			</span>
+			<span v-else>
+				Start searching for JSON nodes by opening a file and typing into
+				the "Search" field.
+			</span>
 
 			<ul>
 				<li v-for="n in selected_nodes" :key="n.uuid">

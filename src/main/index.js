@@ -12,7 +12,6 @@ import {
 import {
 	join
 } from 'path'
-import MENU from './menuBuilder'
 import fs from 'fs'
 import {
 	DATA_PATH
@@ -79,8 +78,7 @@ function createWindow() {
 		}
 	})
 
-	if (MENU === null) mainWindow.removeMenu()
-	else mainWindow.setMenu(Menu.buildFromTemplate(MENU))
+	mainWindow.removeMenu()
 }
 
 function createSplashScreen() {

@@ -3,13 +3,16 @@ import UpdateWindow from '../../windows/NewUpdateWindow'
 import Notification from '../Notification'
 import DiscordWindow from '../../windows/Discord'
 import { shell } from 'electron'
-import fetchLatestJson from './FetchLatestJson'
-import { CONNECTION } from './ConnectionStatus'
+import fetchLatestJson from '../Utilities/FetchLatestJson'
+import { CONNECTION } from '../Utilities/ConnectionStatus'
+import { setupDefaultMenus } from '../AppMenu/setupDefaults'
 
 export default async function startUp() {
 	SETTINGS.setup()
 	// Start listening for online and offline events
 	CONNECTION.startListening()
+
+	setupDefaultMenus()
 
 	let discord_msg = new Notification({
 		display_icon: 'mdi-discord',

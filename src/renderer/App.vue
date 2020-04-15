@@ -6,7 +6,7 @@
 			fontFamily: $store.state.Settings.ui_font_family || 'Roboto',
 		}"
 	>
-		<app-toolbar />
+		<Toolbar />
 		<sidebar-navigation />
 
 		<v-content :style="`padding-bottom: ${footer_visible ? 44 : 22}px;`">
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import AppToolbar from '@/components/AppToolbar'
+import Toolbar from '@/components/Toolbar/Main'
 import SidebarNavigation from '@/components/sidebar/Navigation'
 import SidebarMain from '@/components/sidebar/Main'
 import EditorShellTabSystem from '@/components/editor_shell/TabSystem'
@@ -80,7 +80,7 @@ import FooterMain from '@/components/footer/Main'
 import ContextMenuMain from '@/components/context_menu/Main'
 
 import { shell } from 'electron'
-import startUp from './scripts/Utilities/startUp'
+import startUp from './scripts/AppCycle/startUp'
 import EventBus from './scripts/EventBus'
 import Vue from 'vue'
 import TabSystem from './scripts/TabSystem'
@@ -89,7 +89,7 @@ import './scripts/UserActions/DropFile'
 export default {
 	name: 'bridge',
 	components: {
-		AppToolbar,
+		Toolbar,
 		SidebarNavigation,
 		SidebarMain,
 		EditorShellTabSystem,

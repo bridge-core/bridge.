@@ -323,11 +323,9 @@ export default class Bridge {
 
 		this.Menu = {
 			register: menu_input => {
-				Runtime.Menus.add(this.plugin_id, {
-					...menu_input,
-					trusted: false,
-				})
-				Store.commit('addToAppMenu', Runtime.Menus.get(this.plugin_id))
+				throw new Error(
+					'Using Bridge.Menu.register(...) is deprecated.'
+				)
 			},
 		}
 
