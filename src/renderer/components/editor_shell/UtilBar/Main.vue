@@ -1,33 +1,36 @@
 <template>
-	<v-container class="utility-bar">
-		<v-btn color="primary" @click="PlayState.isVisible = true">
-			<v-icon small>mdi-nintendo-game-boy</v-icon>
-			Play!
-		</v-btn>
-		<PlayScreen />
+	<span v-if="isShowing">
+		<v-container class="utility-bar">
+			<PlayButton :filePath="filePath" />
 
-		<v-text-field
-			class="right-util"
-			style="max-width: 200px;"
-			hide-details
-			solo
-			prepend-inner-icon="mdi-magnify"
-		/>
-	</v-container>
+			<v-text-field
+				class="right-util"
+				style="max-width: 200px;"
+				hide-details
+				solo
+				prepend-inner-icon="mdi-magnify"
+			/>
+		</v-container>
+		<v-divider style="padding-top: 8px;" />
+	</span>
 </template>
 
 <script>
-import { PlayState } from '../../../scripts/Play/state'
-import PlayScreen from '../../Play/Main'
+import PlayButton from '../../Play/PlayButton'
 
 export default {
 	name: 'UtilBar',
 	components: {
-		PlayScreen,
+		PlayButton,
 	},
-	data: () => ({
-		PlayState,
-	}),
+	props: {
+		filePath: String,
+	},
+	computed: {
+		isShowing() {
+			return !this.$store.state.Settings.hide_file_toolbar
+		},
+	},
 }
 </script>
 

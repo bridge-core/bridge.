@@ -1,7 +1,10 @@
+import { TPlayerType } from '../Play/state'
+
 export interface FileDefinition {
 	id?: string
 	includes?: string
-	file_viewer?: 'json' | 'text'
+	file_viewer?: 'json' | 'text' | 'model'
+	player?: TPlayerType
 	rp_definition?: boolean
 
 	build_array_exceptions?: string[]

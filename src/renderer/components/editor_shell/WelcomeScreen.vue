@@ -24,7 +24,7 @@
 					<span>Easy project management</span>
 				</li>
 				<li>
-					<v-icon small>mdi-json</v-icon>
+					<v-icon small>mdi-code-json</v-icon>
 					<span>Custom addon syntax</span>
 				</li>
 				<li>

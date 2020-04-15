@@ -1,8 +1,9 @@
 import Vue from 'vue'
 
+export type TPlayerType = 'entity' | 'client_entity' | 'particle' | 'model'
 export interface IPlayState {
 	isVisible: boolean
-	player: 'entity' | 'client_entity' | 'particle' | 'model'
+	player: TPlayerType
 }
 
 export const CanvasPlayers = ['client_entity', 'particle', 'model']

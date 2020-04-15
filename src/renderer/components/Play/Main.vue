@@ -3,7 +3,7 @@
 		<v-card color="background">
 			<PlayToolbar />
 
-			<canvas v-if="isCanvasPlayer" :ref="canvas" />
+			<canvas v-if="isCanvasPlayer" ref="canvas" />
 			<span v-else-if="PlayState.player === 'entity'">
 				Entity Simulator... Yay!
 			</span>

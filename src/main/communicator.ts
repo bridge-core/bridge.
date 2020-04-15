@@ -59,3 +59,7 @@ ipcMain.handle('bridge:downloadFile', async (event, file_url, file_path) => {
 		directory: path.dirname(file_path),
 	})
 })
+
+ipcMain.on('bridge:reloadWindow', () => {
+	BrowserWindow.getFocusedWindow().reload()
+})

@@ -1,7 +1,7 @@
 <template>
 	<span>
-		<UtilBar v-if="first" />
-		<v-divider v-if="first && !is_immutable" style="padding-top: 8px;" />
+		<UtilBar v-if="first" :filePath="current_file_path" />
+
 		<div v-if="open" :style="element_style">
 			<span
 				v-if="
