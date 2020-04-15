@@ -1,4 +1,4 @@
 /**
  * Current bridge. app version
  */
-export default 'v1.4.3'
+export default 'v1.4.4'
