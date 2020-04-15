@@ -87,10 +87,7 @@ export default {
 	data() {
 		return {
 			is_maximized: false,
-			icon_path: DataUrl.convert({
-				data: fs.readFileSync(path.join(__static, '/icon.png')),
-				mimetype: `image/png`,
-			}),
+			icon_path: path.join(__static, '/icon.png'),
 		}
 	},
 	computed: {

@@ -1,5 +1,7 @@
 <template>
 	<span>
+		<UtilBar v-if="first" />
+		<v-divider v-if="first && !is_immutable" style="padding-top: 8px;" />
 		<div v-if="open" :style="element_style">
 			<span
 				v-if="
@@ -124,6 +126,7 @@ import JSONTree from '../../../scripts/editor/JsonTree'
 import FileType from '../../../scripts/editor/FileType'
 import draggable from 'vuedraggable'
 import { MoveAction } from '../../../scripts/TabSystem/CommonHistory'
+import UtilBar from '../UtilBar/Main'
 
 export default {
 	name: 'json-editor-main',
@@ -133,6 +136,7 @@ export default {
 		JsonInput,
 		PredictingInput,
 		draggable,
+		UtilBar,
 	},
 	props: {
 		is_active: Boolean,

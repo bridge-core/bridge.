@@ -61,7 +61,7 @@
     }
   },
   "dependencies": {
-    "@mdi/font": "^3.9.97",
+    "@mdi/font": "^5.0.45",
     "@ts-stack/markdown": "^1.0.0",
     "comment-json": "^1.1.3",
     "dataurl": "^0.1.0",
