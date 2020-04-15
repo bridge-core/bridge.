@@ -20,7 +20,9 @@ export default class AnimationCheck extends CommonProblem {
 				c.animation !== undefined &&
 				c.animation_controller !== undefined
 			) {
-				this.ids = c.animation.ids.concat(c.animation_controller.ids)
+				this.ids =
+					c.animation.ids?.concat(c.animation_controller.ids ?? []) ??
+					[]
 			} else if (
 				c.animation !== undefined ||
 				c.animation_controller !== undefined

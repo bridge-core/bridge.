@@ -214,7 +214,9 @@ export default class JSONTree {
 				return this
 
 			if (key === '#;bridge_node_skip;#' && this.children.length > 0) {
-				return this.children.find(c => c.children.length > 0).get(i_arr)
+				return this.children
+					.find(c => c.children.length > 0)
+					?.get(i_arr)
 			}
 
 			for (let c of this.children) {

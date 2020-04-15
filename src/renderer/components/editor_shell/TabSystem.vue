@@ -40,6 +40,10 @@
 				>{{ getIcon(file.file_path) }}</v-icon
 			>
 
+			<span v-if="file.folders.length > 0">
+				{{ file.folders[file.folders.length - 1] }}
+				/
+			</span>
 			<v-tooltip
 				color="tooltip"
 				:open-delay="600"

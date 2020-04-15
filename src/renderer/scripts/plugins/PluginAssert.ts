@@ -18,7 +18,8 @@ export default class Assert {
 	 */
 	static throw(plugin: string, err?: Error, message = err.message) {
 		// console.log(err.name, err.message, err.stack);
-		if (Store.state.Settings.is_dev_mode) new AssertWindow(plugin, message)
+		if (Store.state.Settings.has_error_pop_ups)
+			new AssertWindow(plugin, message)
 		else if (err) console.error(err)
 	}
 }
