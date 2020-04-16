@@ -8,8 +8,17 @@ import { promises as fs } from 'fs'
 import path from 'path'
 import { FileExplorer } from '../Sidebar/FileExplorer'
 import CreateFileHereWindow from '../../windows/CreateFileHere'
+import { shell } from 'electron'
 
 export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
+	{
+		title: 'Reveal in File Explorer',
+		icon: 'mdi-folder-search',
+		action: () => shell.showItemInFolder(file_path),
+	},
+	{
+		type: 'divider',
+	},
 	{
 		title: 'Delete',
 		icon: 'mdi-delete',

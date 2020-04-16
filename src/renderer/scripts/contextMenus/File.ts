@@ -17,6 +17,7 @@ import FileInspector from '../../windows/FileInspector'
 import { readJSON } from '../Utilities/JsonFS'
 import Manifest from '../files/Manifest'
 import { writeJSON } from 'fs-extra'
+import { shell } from 'electron'
 
 export const FILE_CONTEXT_MENU = async (
 	file_path: string,
@@ -31,6 +32,11 @@ export const FILE_CONTEXT_MENU = async (
 				TabSystem.split_screen_active = true
 				FileSystem.open(file_path)
 			},
+		},
+		{
+			title: 'Reveal in File Explorer',
+			icon: 'mdi-folder-search',
+			action: () => shell.showItemInFolder(file_path),
 		},
 		{ type: 'divider' },
 		{
