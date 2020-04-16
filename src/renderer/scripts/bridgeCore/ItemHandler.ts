@@ -1,6 +1,6 @@
 import { JSONFileMasks, JSONMask } from '../editor/JSONFileMasks'
 import { CURRENT } from '../constants'
-import path, { join } from 'path'
+import path, { join, dirname } from 'path'
 import { set } from '../Utilities/useAttr'
 import WeaponDamage from './item/WeaponDamage'
 import ItemEquippedSensor from './item/ItemEquippedSensor'
@@ -67,6 +67,7 @@ export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
 	try {
 		await fs.stat(player_file_path)
 	} catch {
+		await fs.mkdir(dirname(player_file_path), { recursive: true })
 		await fs.copyFile(
 			join(__static, 'vanilla/BP/entities/player.json'),
 			player_file_path
