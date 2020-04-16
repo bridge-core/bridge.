@@ -194,14 +194,18 @@
         "includes": "models/entity",
         "file_viewer": "model",
         "player": "model",
-        "rp_definition": true
+        "rp_definition": true,
+
+        "lightning_cache": "model"
     },
     {
         "id": "entity_model",
         "includes": "models/mobs.json",
         "file_viewer": "model",
         "player": "model",
-        "rp_definition": true
+        "rp_definition": true,
+
+        "lightning_cache": "model"
     },
     {
         "id": "rp_animation",

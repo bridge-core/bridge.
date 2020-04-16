@@ -4,6 +4,7 @@ import { RP_BASE_PATH, BASE_PATH, MOJANG_PATH } from '../constants'
 import { readJSON } from './JsonFS'
 import path from 'path'
 import Store from '../../store/index'
+import { FileExplorerStorage, FileExplorer } from '../Sidebar/FileExplorer'
 
 let last_selected: string
 let last_result: string
@@ -110,5 +111,10 @@ export async function trySetRP() {
 		store_key: 'resource_pack',
 		project: resp,
 	})
+	FileExplorerStorage.set(
+		'resource_pack',
+		resp,
+		new FileExplorer(undefined, resp, path.join(RP_BASE_PATH, resp)).open()
+	)
 	return true
 }

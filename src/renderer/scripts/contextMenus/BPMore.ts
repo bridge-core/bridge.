@@ -43,7 +43,7 @@ export default [
 		action: async () => {
 			let win = new LoadingWindow()
 			await refreshCache(false)
-			await refreshCache(true)
+			await refreshCache(true, false)
 			win.close()
 		},
 	},

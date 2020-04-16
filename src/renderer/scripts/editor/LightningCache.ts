@@ -229,8 +229,8 @@ export default class LightningCache {
 		content: JSONTree,
 		path: string,
 		key: string,
-		filter: string[],
-		load_data: boolean
+		filter?: string[],
+		load_data?: boolean
 	) {
 		try {
 			let data
@@ -238,19 +238,19 @@ export default class LightningCache {
 			else data = content.toJSON()
 
 			if (Array.isArray(data)) {
-				cache[key] = data.filter(d => filter && !filter.includes(d))
+				cache[key] = data.filter(d => !filter || !filter.includes(d))
 			} else if (typeof data === 'object') {
 				cache[key] = load_data
 					? <string[]>(
 							Object.values(data).filter(
-								d => filter && !filter.includes(<string>d)
+								d => !filter || !filter.includes(<string>d)
 							)
 					  )
 					: Object.keys(data).filter(
-							d => filter && !filter.includes(d)
+							d => !filter || !filter.includes(d)
 					  )
 			} else {
-				cache[key] = [data].filter(d => filter && !filter.includes(d))
+				cache[key] = [data].filter(d => !filter || !filter.includes(d))
 			}
 		} catch (e) {
 			cache[key] = []

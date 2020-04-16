@@ -19,13 +19,7 @@ export interface IImageProps {
 export interface IOldModelSchema {
 	format_version?: '1.8.0' | '1.10.0'
 
-	[id: string]:
-		| {
-				texturewidth?: number
-				textureheight?: number
-				bones?: IBoneSchema[]
-		  }
-		| string
+	[id: string]: IOldGeoSchema | string
 }
 
 export interface IModelSchema {
@@ -39,6 +33,11 @@ export interface IGeoDescriptionSchema {
 	texture_height?: number
 }
 
+export interface IOldGeoSchema {
+	texturewidth?: number
+	textureheight?: number
+	bones?: IBoneSchema[]
+}
 export interface IGeoSchema {
 	description?: IGeoDescriptionSchema
 	bones?: IBoneSchema[]
