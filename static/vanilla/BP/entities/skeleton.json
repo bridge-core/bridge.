@@ -87,6 +87,8 @@
       "minecraft:experience_reward": {
         "on_death": "query.last_hit_by_player ? 5 + (query.equipment_count * Math.Random(1,3)) : 0"
       },
+      "minecraft:equip_item": {
+      },
       "minecraft:collision_box": {
         "width": 0.6,
         "height": 1.9
@@ -186,40 +188,46 @@
       "minecraft:shareables": {
         "items": [
           {
-            "item": "minecraft:diamond_sword",
+            "item": "minecraft:netherite_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 0
           },
           {
-            "item": "minecraft:iron_sword",
+            "item": "minecraft:diamond_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 1
           },
           {
-            "item": "minecraft:golden_sword",
+            "item": "minecraft:iron_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 2
           },
           {
-            "item": "minecraft:stone_sword",
+            "item": "minecraft:golden_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 3
           },
           {
-            "item": "minecraft:wooden_sword",
+            "item": "minecraft:stone_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 4
           },
           {
-            "item": "minecraft:bow",
+            "item": "minecraft:wooden_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 5
+          },
+          {
+            "item": "minecraft:bow",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
           },
           {
             "item": "minecraft:diamond_helmet",
@@ -395,6 +403,9 @@
       "minecraft:behavior.flee_sun": {
         "priority": 2,
         "speed_multiplier": 1
+      },
+      "minecraft:behavior.equip_item": {
+        "priority": 3
       },
       "minecraft:behavior.avoid_mob_type": {
         "priority": 4,

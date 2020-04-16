@@ -429,38 +429,45 @@
             {
               "item": "minecraft:bread",
               "want_amount": 3,
-              "surplus_amount": 6
+              "surplus_amount": 6,
+              "stored_in_inventory": true
             },
             {
               "item": "minecraft:carrot",
               "want_amount": 60,
-              "surplus_amount": 24
+              "surplus_amount": 24,
+              "stored_in_inventory": true
             },
             {
               "item": "minecraft:potato",
               "want_amount": 60,
-              "surplus_amount": 24
+              "surplus_amount": 24,
+              "stored_in_inventory": true
             },
             {
               "item": "minecraft:beetroot",
               "want_amount": 60,
-              "surplus_amount": 24
+              "surplus_amount": 24,
+              "stored_in_inventory": true
             },
             {
               "item": "minecraft:wheat_seeds",
               "want_amount": 64,
-              "surplus_amount": 64
+              "surplus_amount": 64,
+              "stored_in_inventory": true
             },
             {
               "item": "minecraft:beetroot_seeds",
               "want_amount": 64,
-              "surplus_amount": 64
+              "surplus_amount": 64,
+              "stored_in_inventory": true
             },
             {
               "item": "minecraft:wheat",
               "want_amount": 45,
               "surplus_amount": 18,
-              "craft_into": "minecraft:bread"
+              "craft_into": "minecraft:bread",
+              "stored_in_inventory": true
             }
           ]
         },
@@ -559,38 +566,45 @@
             {
               "item": "minecraft:bread",
               "want_amount": 3,
-              "surplus_amount": 6
+              "surplus_amount": 6,
+              "stored_in_inventory": true
             },
             {
               "item": "minecraft:carrot",
               "want_amount": 60,
-              "surplus_amount": 24
+              "surplus_amount": 24,
+              "stored_in_inventory": true
             },
             {
-              "item":"minecraft:potato",
+              "item": "minecraft:potato",
               "want_amount": 60,
-              "surplus_amount": 24
+              "surplus_amount": 24,
+              "stored_in_inventory": true
             },
             {
               "item": "minecraft:beetroot",
               "want_amount": 60,
-              "surplus_amount": 24
+              "surplus_amount": 24,
+              "stored_in_inventory": true
             },
             {
               "item": "minecraft:wheat_seeds",
               "want_amount": 64,
-              "surplus_amount": 64
+              "surplus_amount": 64,
+              "stored_in_inventory": true
             },
             {
               "item": "minecraft:beetroot_seeds",
               "want_amount": 64,
-              "surplus_amount": 64
+              "surplus_amount": 64,
+              "stored_in_inventory": true
             },
             {
-              "item":"minecraft:wheat",
+              "item": "minecraft:wheat",
               "want_amount": 45,
               "surplus_amount": 18,
-              "craft_into": "minecraft:bread"
+              "craft_into": "minecraft:bread",
+              "stored_in_inventory": true
             }
           ]
         }
@@ -602,22 +616,26 @@
             {
               "item": "minecraft:bread",
               "want_amount": 3,
-              "surplus_amount": 6
+              "surplus_amount": 6,
+              "stored_in_inventory": true
             },
             {
               "item": "minecraft:carrot",
               "want_amount": 12,
-              "surplus_amount": 24
+              "surplus_amount": 24,
+              "stored_in_inventory": true
             },
             {
-              "item":"minecraft:potato",
+              "item": "minecraft:potato",
               "want_amount": 12,
-              "surplus_amount": 24
+              "surplus_amount": 24,
+              "stored_in_inventory": true
             },
             {
-              "item":"minecraft:beetroot",
+              "item": "minecraft:beetroot",
               "want_amount": 12,
-              "surplus_amount": 24
+              "surplus_amount": 24,
+              "stored_in_inventory": true
             }
           ]
         }
@@ -1475,7 +1493,8 @@
         "priority": 4,
         "max_dist": 3,
         "goal_radius": 2,
-        "speed_multiplier": 0.5
+        "speed_multiplier": 0.5,
+        "can_pickup_to_hand_or_equipment": false
       },
       "minecraft:behavior.move_indoors": {
         "priority": 6,

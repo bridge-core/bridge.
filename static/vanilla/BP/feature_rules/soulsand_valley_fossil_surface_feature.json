@@ -1,0 +1,38 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "minecraft:soulsand_valley_fossil_surface_feature",
+      "places_feature": "minecraft:nether_fossil_feature"
+    },
+    "conditions": {
+      "placement_pass": "surface_pass",
+      "minecraft:biome_filter": [
+        {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "soulsand_valley"
+        }
+      ]
+    },
+    "distribution": {
+      "iterations": 1,
+      "scatter_chance": {
+        "numerator": 2,
+        "denominator": 6
+      },
+      "x": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      },
+      "y": {
+        "distribution": "uniform",
+        "extent": [ 0, 124 ]
+      },
+      "z": {
+        "distribution": "uniform",
+        "extent": [ 0, 16 ]
+      }
+    }
+  }
+}

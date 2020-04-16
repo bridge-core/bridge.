@@ -40,7 +40,12 @@
         },
         "calm_event": "$entity.general.event_definition",
         "duration": "$general.number",
-        "duration_delta": "$general.number"
+        "duration_delta": "$general.number",
+        "angry_sound": "$general.sound",
+        "sound_interval": {
+            "range_min": "$general.number",
+            "range_max": "$general.number"
+        }
     },
     "minecraft:area_attack" : {
         "damage_range": "$general.number",
@@ -65,6 +70,10 @@
     },
     "minecraft:balloonable": {
         "mass": "$general.decimal"
+    },
+    "minecraft:barter": {
+        "barter_table": "$dynamic.loot_table_files",
+        "cooldown_after_being_attacked": "$general.number"
     },
     "minecraft:block_sensor": {
         "sensor_radius": "$general.number",
@@ -168,7 +177,12 @@
         "celebration_targets": "$entity.filters",
         "broadcast": "$general.boolean",
         "duration": "$general.number",
-        "radius": "$general.number"
+        "radius": "$general.number",
+        "celebrate_sound": "$general.sound",
+        "sound_interval": {
+            "range_min": "$general.number",
+            "range_max": "$general.number"
+        }
     },
 
     "minecraft:collision_box": {
@@ -431,6 +445,8 @@
                 },
                 "swing": "$general.boolean",
                 "transform_to_item": "$general.item_identifier",
+                "barter": "$general.boolean",
+                "admire": "$general.boolean",
                 "use_item": "$general.boolean"
             }
         }
@@ -472,6 +488,9 @@
     "minecraft:knockback_resistance": {
         "value": "$general.decimal",
         "max": "$general.decimal"
+    },
+    "minecraft:lava_movement": {
+        "value": "$general.decimal"
     },
     "minecraft:leashable": {
         "soft_distance": "$general.decimal",
@@ -554,8 +573,10 @@
         "can_open_doors": "$general.boolean",
         "can_pass_doors": "$general.boolean",
         "can_path_over_water": "$general.boolean",
+        "can_path_over_lava": "$general.boolean",
+        "can_path_from_air": "$general.boolean",
         "can_sink": "$general.boolean",
-        "can_path_from_air": "$general.boolean"
+        "can_walk_in_lava": "$general.boolean"
     },
     "minecraft:navigation.float": "$entity.components.minecraft:navigation&dot;climb",
     "minecraft:navigation.fly": "$entity.components.minecraft:navigation&dot;climb",
@@ -792,7 +813,8 @@
                 "craft_into": "$general.item_identifier",
                 "want_amount": "$general.number",
                 "surplus_amount": "$general.number",
-                "admire": "$general.boolean"
+                "admire": "$general.boolean",
+                "stored_in_inventory": "$general.boolean"
             }
         }
     },

@@ -28,8 +28,7 @@
         "minecraft:biome_filter": { 
           "all_of": [
             {"test": "has_biome_tag", "operator":"==", "value": "nether"},
-            {"test": "has_biome_tag", "operator":"!=", "value": "crimson_forest"},
-            {"test": "has_biome_tag", "operator":"!=", "value": "warped_forest"}
+            {"test": "has_biome_tag", "operator":"==", "value": "spawn_ghast"}
           ]
         }
       }

@@ -57,6 +57,17 @@
 				}
 			}
 		},
+		"animation.piglin.admire" : {
+			"loop" : true,
+			"bones": {
+				"leftarm" : {
+					"rotation" : [ 310.0, 15.0, 0.0 ]
+				},
+				"head" : {
+					"rotation" : [ 30.0, 0.0, 0.0 ]
+				}
+			}
+		},
 		"animation.piglin.celebrate_hunt": {
 			"loop": true,
 			"bones": {

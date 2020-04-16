@@ -6,7 +6,7 @@
           "num_to_select": 5,
           "trades": [
             {
-              "max_uses": 16,
+              "max_uses": 5,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -20,7 +20,7 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 5,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -34,7 +34,7 @@
               ]
             },
             {
-              "max_uses": 8,
+              "max_uses": 5,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -48,7 +48,7 @@
               ]
             },
             {
-              "max_uses": 8,
+              "max_uses": 5,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -62,7 +62,7 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 12,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -76,7 +76,7 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 8,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -90,7 +90,7 @@
               ]
             },
             {
-              "max_uses": 8,
+              "max_uses": 4,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -104,7 +104,7 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 12,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -132,7 +132,7 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 12,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -175,7 +175,7 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 12,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -202,7 +202,7 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 8,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -226,7 +226,7 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 12,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -253,13 +253,14 @@
               "max_uses": 8,
               "wants": [
                 {
-                  "item": "minecraft:emerald"
+                  "item": "minecraft:emerald",
+                  "quantity": 3
                 }
               ],
               "gives": [
                 {
                   "item": "minecraft:coral_block",
-                  "quantity": 3,
+                  "quantity": 1,
                   "functions": [
                     {
                       "function": "random_block_state",
@@ -274,7 +275,7 @@
               ]
             },
             {
-              "max_uses": 8,
+              "max_uses": 12,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -288,7 +289,7 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 12,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -309,7 +310,7 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 5,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -324,7 +325,22 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 8,
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:sand:0",
+                  "quantity": 8
+                }
+              ]
+            },
+            {
+              "max_uses": 6,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -334,21 +350,6 @@
               "gives": [
                 {
                   "item": "minecraft:sand:1",
-                  "quantity": 4
-                }
-              ]
-            },
-            {
-              "max_uses": 16,
-              "wants": [
-                {
-                  "item": "minecraft:emerald",
-                  "quantity": 1
-                }
-              ],
-              "gives": [
-                {
-                  "item": "minecraft:red_sandstone",
                   "quantity": 4
                 }
               ]
@@ -387,7 +388,7 @@
               ]
             },
             {
-              "max_uses": 8,
+              "max_uses": 6,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -401,7 +402,7 @@
               ]
             },
             {
-              "max_uses": 8,
+              "max_uses": 6,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -415,7 +416,7 @@
               ]
             },
             {
-              "max_uses": 16,
+              "max_uses": 8,
               "wants": [
                 {
                   "item": "minecraft:emerald",
@@ -429,7 +430,7 @@
               ]
             },
             {
-              "max_uses": 8,
+              "max_uses": 6,
               "wants": [
                 {
                   "item": "minecraft:emerald",

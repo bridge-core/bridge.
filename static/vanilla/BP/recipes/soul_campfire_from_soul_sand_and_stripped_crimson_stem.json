@@ -1,0 +1,31 @@
+{
+    "format_version": "1.16",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "minecraft:soul_campfire_from_soul_sand_and_stripped_crimson_stem"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            " A ",
+            "ABA",
+            "CCC"
+        ],
+        "key": {
+            "A": {
+                "item": "stick"
+            },
+            "B": {
+                "item": "soul_sand"
+            },
+            "C": {
+                "item": "stripped_crimson_stem"
+            }
+        },
+        "result": {
+            "item": "soul_campfire",
+            "count": 1
+        }
+    }
+}

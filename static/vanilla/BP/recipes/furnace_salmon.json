@@ -5,8 +5,8 @@
     "identifier": "minecraft:furnace_salmon"
     },
 
-    
-    "tags": ["furnace", "smoker", "campfire"],
+
+    "tags": ["furnace", "smoker", "campfire", "soul_campfire"],
     "input": "minecraft:salmon",
     "output": "minecraft:cooked_salmon"
   }

@@ -1,0 +1,12 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:aggregate_feature": {
+    "description": {
+      "identifier": "minecraft:fancy_oak_tree_with_beehive_feature"
+    },
+    "features": [
+      "minecraft:fancy_oak_tree_feature",
+      "minecraft:beehive_search_feature"
+    ]
+  }
+}

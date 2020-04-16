@@ -23,6 +23,8 @@
         "value": 20,
         "max": 20
       },
+      "minecraft:equip_item": {
+      },
       "minecraft:collision_box": {
         "width": 0.72,
         "height": 2.01
@@ -55,274 +57,328 @@
       "minecraft:shareables": {
         "items": [
           {
-            "item": "minecraft:diamond_sword",
+            "item": "minecraft:netherite_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 0
+          },
+          {
+            "item": "minecraft:diamond_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 1
           },
           {
             "item": "minecraft:iron_sword",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 1
+            "priority": 2
           },
           {
             "item": "minecraft:golden_sword",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 2
+            "priority": 3
           },
           {
             "item": "minecraft:stone_sword",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 3
+            "priority": 4
           },
           {
             "item": "minecraft:wooden_sword",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 4
+            "priority": 5
           },
           {
             "item": "minecraft:wooden_shovel",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:stone_shovel",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:golden_shovel",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:iron_shovel",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:diamond_shovel",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
+          },
+          {
+            "item": "minecraft:netherite_shovel",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
           },
           {
             "item": "minecraft:wooden_pickaxe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:stone_pickaxe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:golden_pickaxe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:iron_pickaxe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:diamond_pickaxe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
+          },
+          {
+            "item": "minecraft:netherite_pickaxe",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
           },
           {
             "item": "minecraft:wooden_axe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:stone_axe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:golden_axe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:iron_axe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:diamond_axe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
+          },
+          {
+            "item": "minecraft:netherite_axe",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
           },
           {
             "item": "minecraft:wooden_hoe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:stone_hoe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:golden_hoe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:iron_hoe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
           },
           {
             "item": "minecraft:diamond_hoe",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 5
+            "priority": 6
+          },
+          {
+            "item": "minecraft:netherite_hoe",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
+          },
+          {
+            "item": "minecraft:netherite_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
           },
           {
             "item": "minecraft:diamond_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 0
+            "priority": 1
           },
           {
             "item": "minecraft:chainmail_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 1
+            "priority": 2
           },
           {
             "item": "minecraft:iron_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 2
+            "priority": 3
           },
           {
             "item": "minecraft:golden_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 3
+            "priority": 4
           },
           {
             "item": "minecraft:leather_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 4
+            "priority": 5
+          },
+          {
+            "item": "minecraft:netherite_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
           },
           {
             "item": "minecraft:diamond_chestplate",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 0
+            "priority": 1
           },
           {
             "item": "minecraft:chainmail_chestplate",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 1
+            "priority": 2
           },
           {
             "item": "minecraft:iron_chestplate",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 2
+            "priority": 3
           },
           {
             "item": "minecraft:golden_chestplate",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 3
+            "priority": 4
           },
           {
             "item": "minecraft:leather_chestplate",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 4
+            "priority": 5
+          },
+          {
+            "item": "minecraft:netherite_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 0
           },
           {
             "item": "minecraft:diamond_leggings",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 0
+            "priority": 1
           },
           {
             "item": "minecraft:chainmail_leggings",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 1
+            "priority": 2
           },
           {
             "item": "minecraft:iron_leggings",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 2
+            "priority": 3
           },
           {
             "item": "minecraft:golden_leggings",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 3
+            "priority": 4
           },
           {
             "item": "minecraft:leather_leggings",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 4
+            "priority": 5
           },
           {
-            "item": "minecraft:diamond_boots",
+            "item": "minecraft:netherite_boots",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 0
           },
           {
-            "item": "minecraft:chainmail_boots",
+            "item": "minecraft:diamond_boots",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 1
           },
           {
-            "item": "minecraft:iron_boots",
+            "item": "minecraft:chainmail_boots",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 2
           },
           {
-            "item": "minecraft:golden_boots",
+            "item": "minecraft:iron_boots",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 3
           },
           {
-            "item": "minecraft:leather_boots",
+            "item": "minecraft:golden_boots",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 4
+          },
+          {
+            "item": "minecraft:leather_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
           }
         ]
       },
@@ -393,6 +449,9 @@
           }
         ],
         "must_see": true
+      },
+      "minecraft:behavior.equip_item": {
+        "priority": 3
       },
       "minecraft:behavior.melee_attack": {
         "priority": 4,

@@ -49,7 +49,10 @@
         ]
       },
 
-      "nether": {}
+      "nether": {},
+      "spawn_magma_cubes": {},
+      "spawn_zombified_piglin": {},
+      "spawn_ghast": {}
     }
   }
 }

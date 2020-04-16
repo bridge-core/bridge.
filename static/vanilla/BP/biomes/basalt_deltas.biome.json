@@ -1,0 +1,48 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "basalt_deltas"
+    },
+    "components": {
+      "minecraft:climate": {
+        "downfall": 0.0,
+        "snow_accumulation": [ 0.0, 0.125 ],
+        "temperature": 2.0,
+        "white_ash": 2.0
+      },
+      "minecraft:surface_parameters": {
+        "sea_floor_depth": 1,
+        "sea_floor_material": "minecraft:basalt_block",
+        "foundation_material": "minecraft:basalt_block",
+        "mid_material": "minecraft:basalt_block",
+        "top_material": "minecraft:basalt_block",
+        "sea_material": "minecraft:lava"
+      },
+      "minecraft:surface_material_adjustments": {
+        "adjustments": [
+          {
+            "materials": {
+              "top_material": "minecraft:blackstone",
+              "mid_material": "minecraft:blackstone"
+            },
+            "noise_frequency_scale": 0.1,
+            "noise_range": [ -1.0, 0.0 ]
+          }
+        ]
+      },
+      "minecraft:nether_generation_rules": {
+        "target_temperature": 0.0,
+        "target_humidity": 0.0,
+        "target_altitude": 0.5,
+        "target_weirdness": 0.0,
+        "weight": 0.25
+      },
+
+      "nether": {},
+      "basalt_deltas": {},
+      "spawn_many_magma_cubes": {},
+      "spawn_ghast": {}
+    }
+  }
+}

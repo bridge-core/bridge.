@@ -9,12 +9,14 @@
       "placement_pass": "surface_pass",
       "minecraft:biome_filter": [
         {
-          "test": "has_biome_tag", "operator": "==", "value": "crimson_forest"
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "crimson_forest"
         }
       ]
     },    
     "distribution": {
-      "iterations": "Math.Random(10, 20)",
+      "iterations": 10,
       "x": {
         "distribution": "uniform",
         "extent": [ 0, 16 ]

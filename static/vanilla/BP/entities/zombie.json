@@ -123,6 +123,8 @@
       "minecraft:type_family": {
         "family": [ "zombie", "undead", "monster", "mob" ]
       },
+      "minecraft:equip_item": {
+      },
       "minecraft:collision_box": {
         "width": 0.6,
         "height": 1.9
@@ -171,34 +173,40 @@
       "minecraft:shareables": {
         "items": [
           {
-            "item": "minecraft:diamond_sword",
+            "item": "minecraft:netherite_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 0
           },
           {
-            "item": "minecraft:iron_sword",
+            "item": "minecraft:diamond_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 1
           },
           {
-            "item": "minecraft:golden_sword",
+            "item": "minecraft:iron_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 2
           },
           {
-            "item": "minecraft:stone_sword",
+            "item": "minecraft:golden_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 3
           },
           {
-            "item": "minecraft:wooden_sword",
+            "item": "minecraft:stone_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 4
+          },
+          {
+            "item": "minecraft:wooden_sword",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
           },
           {
             "item": "minecraft:diamond_helmet",
@@ -356,6 +364,9 @@
      },
 
       // Zombie Behaviors
+      "minecraft:behavior.equip_item": {
+        "priority": 2
+      },
       "minecraft:behavior.melee_attack": {
         "priority": 3
       },

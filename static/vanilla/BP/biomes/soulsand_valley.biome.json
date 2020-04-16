@@ -28,6 +28,14 @@
             },
             "noise_frequency_scale": 0.04125,
             "noise_range": [ -1.0, -0.1 ]
+          },
+          {
+            "materials": {
+              "top_material": "minecraft:gravel"
+            },
+            "height_range": [ "variable.sea_level - 3", "variable.sea_level + 2" ],
+            "noise_frequency_scale": 0.4125,
+            "noise_range": [ -1.0, 0.5 ]
           }
         ]
       },
@@ -40,7 +48,8 @@
       },
 
       "nether": {},
-      "soulsand_valley": {}
+      "soulsand_valley": {},
+      "spawn_ghast": {}
     }
   }
 }

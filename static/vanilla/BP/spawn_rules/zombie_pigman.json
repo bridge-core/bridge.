@@ -38,18 +38,8 @@
             },
             {
               "test": "has_biome_tag",
-              "operator": "!=",
-              "value": "crimson_forest"
-            },
-            {
-              "test": "has_biome_tag",
-              "operator": "!=",
-              "value": "warped_forest"
-            },
-            {
-              "test": "has_biome_tag",
-              "operator": "!=",
-              "value": "soulsand_valley"
+              "operator": "==",
+              "value": "spawn_zombified_piglin"
             }
           ]
         }

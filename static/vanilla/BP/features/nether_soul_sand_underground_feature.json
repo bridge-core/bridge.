@@ -1,0 +1,17 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:ore_feature": {
+    "description": {
+      "identifier": "minecraft:nether_soul_sand_underground_feature"
+    },
+    "count": 12,
+    "places_block": "minecraft:soul_sand",
+    "may_replace": [
+      {
+        "name": "minecraft:netherrack",
+        "states": {
+        }
+      }
+    ]
+  }
+}

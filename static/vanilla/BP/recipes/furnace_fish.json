@@ -5,7 +5,7 @@
     "identifier": "minecraft:furnace_fish"
     },
     
-    "tags": ["furnace", "smoker", "campfire"],
+    "tags": ["furnace", "smoker", "campfire", "soul_campfire"],
     "input": "minecraft:fish",
     "output": "minecraft:cooked_fish"
   }

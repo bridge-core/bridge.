@@ -47,7 +47,7 @@
 					"animations" : [ "crossbow_charge" ],
 					"transitions" : [
 						{
-							"default" : "variable.attack_state == 0"
+							"default" : "variable.attack_state == 0  ||  query.is_admiring"
 						},
 						{
 							"ranged_hold" : "variable.attack_state == 1"
@@ -57,13 +57,13 @@
 				"default" : {
 					"transitions" : [
 						{
-							"ranged_hold" : "query.variant == 0 && variable.attack_state == 1"
+							"ranged_hold" : "query.variant == 0 && variable.attack_state == 1 && !query.is_admiring"
 						},
 						{
-							"ranged_charge" : "query.variant == 0 && variable.attack_state == 2"
+							"ranged_charge" : "query.variant == 0 && variable.attack_state == 2 && !query.is_admiring"
 						},
 						{
-							"melee_attack": "variable.has_target && query.variant == 1 && variable.attack_time >= 0.0"
+							"melee_attack": "variable.has_target && query.variant == 1 && variable.attack_time >= 0.0 && !query.is_admiring"
 						}
 					]
 				},
@@ -71,7 +71,7 @@
 					"animations" : [ "crossbow_hold" ],
 					"transitions" : [
 						{
-							"default" : "variable.attack_state == 0"
+							"default" : "variable.attack_state == 0  ||  query.is_admiring"
 						},
 						{
 							"ranged_charge" : "variable.attack_state == 2"
@@ -82,9 +82,25 @@
 					"animations": ["melee_attack"],
 					"transitions" : [
 						{
-							"default" : "!variable.has_target || variable.attack_time < 0.0"
+							"default" : "!variable.has_target || variable.attack_time < 0.0 ||  query.is_admiring"
 						}
 					]
+				}
+			}
+		},
+		"controller.animation.piglin.admire" : {
+			"initial_state" : "default",
+			"states" : {
+				"default" : {
+					"transitions": [{
+						"admiring": "query.is_admiring"
+					}]
+				},
+				"admiring": {
+					"animations": ["admire"],
+					"transitions": [{
+						"default": "!query.is_admiring"
+					}]
 				}
 			}
 		}

@@ -31,6 +31,19 @@
             "fill_container": {
                 "loot_table": "$dynamic.loot_table_files"
             },
+            "random_aux_val": {
+                "values": {
+                    "min": "$general.number",
+                    "max": "$general.number"
+                }
+            },
+            "random_block_state": {
+                "block_state": [ "color" ],
+                "values": {
+                    "min": "$general.number",
+                    "max": "$general.number"
+                }
+            },
             "looting_enchant": {
                 "count": {
                     "min": "$general.number",
@@ -83,7 +96,9 @@
                 "enchants": {
                     "$dynamic.list.next_index": {
                         "id": "$general.enchantment_name",
-                        "level": "$general.number"
+                        "level": {
+                            "$dynamic.list.index_pair": "$general.number"
+                        }
                     }
                 }
             }

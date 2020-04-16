@@ -1,6 +1,6 @@
 {
     "@meta": {
-        "expand_path_exceptions": [ ]
+        "expand_path_exceptions": [ "minecraft:equip_item" ]
     },
     "minecraft:npc": {
         "npc_data": {
@@ -28,6 +28,7 @@
         }
     },
 
+    "minecraft:equip_items": {},
     "minecraft:spawn_entity": {
         "entities": {
             "$dynamic.list.next_index": {
@@ -46,6 +47,9 @@
         }
     },
 
+    "minecraft:behavior.equip_items": {
+        "priority": "$general.number"
+    },
     "minecraft:behavior.eat_block": {
         "priority": "$general.number",
         "success_chance": {
@@ -60,5 +64,18 @@
             }
         },
         "on_eat": "$entity.general.event_definition"
+    },
+    "minecraft:behavior.rise_to_liquid_level": {
+        "priority": "$general.number",
+        "liquid_y_offset": "$general.decimal",
+        "rise_delta": "$general.decimal",
+        "sink_delta": "$general.decimal"
+    },
+    "minecraft:behavior.move_to_lava": {
+        "priority": "$general.number",
+        "search_range": "$general.number",
+        "search_height": "$general.number",
+        "goal_radius": "$general.number",
+        "search_count": "$general.number"
     }
 }

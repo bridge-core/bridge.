@@ -5,8 +5,8 @@
     "identifier": "minecraft:furnace_potato"
     },
 
-    
-    "tags": ["furnace", "smoker", "campfire"],
+
+    "tags": ["furnace", "smoker", "campfire", "soul_campfire"],
     "input": "minecraft:potato",
     "output": "minecraft:baked_potato"
   }

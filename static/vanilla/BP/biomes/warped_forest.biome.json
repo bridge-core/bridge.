@@ -41,7 +41,8 @@
 
       "nether": {},
       "netherwart_forest": {},
-      "warped_forest": {}
+      "warped_forest": {},
+      "spawn_endermen": {}
     }
   }
 }

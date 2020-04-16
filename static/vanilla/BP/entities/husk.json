@@ -118,6 +118,8 @@
         "suffocate_time": 0,
         "breathes_water": true
       },
+      "minecraft:equip_item": {
+      },
       "minecraft:collision_box": {
         "width": 0.6,
         "height": 1.9
@@ -360,6 +362,9 @@
          }
        },
       // Zombie_husk Behaviors
+      "minecraft:behavior.equip_item": {
+        "priority": 2
+      },
       "minecraft:behavior.melee_attack": {
         "priority": 3
       },

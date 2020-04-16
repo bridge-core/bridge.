@@ -5,7 +5,7 @@
       "identifier": "minecraft:optional_beehive_feature"
     },
     "iterations": 1,
-    "scatter_chance": "query.has_biome_tag('bee_habitat') ? (query.has_biome_tag('flower_forest') ? 10.0 : (query.has_biome_tag('plains') ? 20.0 : 0.0)) : 0.0",
+    "scatter_chance": "query.has_biome_tag('bee_habitat') ? (query.has_biome_tag('plains') || query.has_biome_tag('sunflower_plains') ? 5.0 : (query.has_biome_tag('flower_forest') ? 3.0 : (query.has_biome_tag('birch_forest') || query.has_biome_tag('birch_forest_hills') || query.has_biome_tag('birch_forest_mutated') || query.has_biome_tag('forest') || query.has_biome_tag('forest_mutated') ? 0.035 : 0.0))) : 0.0",
     "x": 0,
     "z": 0,
     "y": 0,

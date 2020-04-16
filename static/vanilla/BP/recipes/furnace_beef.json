@@ -6,7 +6,7 @@
     },
 
     
-    "tags": ["furnace", "smoker", "campfire"],
+    "tags": ["furnace", "smoker", "campfire", "soul_campfire"],
     "input": "minecraft:beef",
     "output": "minecraft:cooked_beef"
   }

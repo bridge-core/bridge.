@@ -1,4 +1,12 @@
 {
+    "minecraft:behavior.admire_item": {
+        "priority": "$general.number",
+        "admire_item_sound": "$general.sound",
+        "sound_interval": {
+          "range_min": "$general.number",
+          "range_max": "$general.number"
+        }
+    },
     "minecraft:behavior.avoid_block": {
         "priority": "$general.number",
         "tick_interval": "$general.number",
@@ -22,7 +30,15 @@
         "probability_per_strength": "$general.decimal",
         "sprint_speed_multiplier": "$general.decimal",
         "walk_speed_multiplier": "$general.decimal",
-        "on_escape_event": "$entity.general.event_definition"
+        "on_escape_event": "$entity.general.event_definition",
+        "avoid_mob_sound": "$general.sound",
+        "sound_interval": {
+            "range_min": "$general.number",
+            "range_max": "$general.number"
+        }
+    },
+    "minecraft:behavior.barter": {
+        "priority": "$general.number"
     },
     "minecraft:behavior.beg": {
         "priority": "$general.number",
@@ -83,6 +99,10 @@
         "goal_radius": "$general.number",
         "angle_change": "$general.number",
         "speed_multiplier": "$general.decimal"
+    },
+    "minecraft:behavior.controlled_by_player": {
+        "priority": "$general.number",
+        "mount_speed_multiplier": "$general.decimal"
     },
 
     "minecraft:behavior.defend_trusted_target": {
@@ -509,7 +529,8 @@
         "speed_multiplier": "$general.decimal",
         "track_target": "$general.boolean",
         "pickup_based_on_chance": "$general.boolean",
-        "can_pickup_any_item": "$general.boolean"
+        "can_pickup_any_item": "$general.boolean",
+        "cooldown_after_being_attacked": "$general.number"
     },
     "minecraft:behavior.play": {
         "priority": "$general.number",
@@ -826,7 +847,12 @@
             "$dynamic.list.next_index": "$general.item_identifier"
         },
         "speed_multiplier": "$general.decimal",
-        "within_radius": "$general.number"
+        "within_radius": "$general.number",
+        "tempt_sound": "$general.sound",
+        "sound_interval": {
+            "range_min": "$general.number",
+            "range_max": "$general.number"
+        }
     },
     "minecraft:behavior.trade_interest": {
         "priority": "$general.number",

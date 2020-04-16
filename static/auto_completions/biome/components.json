@@ -12,7 +12,8 @@
         "temperature": "$general.decimal",
         "red_spores": "$general.decimal",
         "blue_spores": "$general.decimal",
-        "ash": "$general.decimal"
+        "ash": "$general.decimal",
+        "white_ash": "$general.decimal"
     },
     "minecraft:nether_generation_rules": {
         "target_temperature": "$general.decimal",
@@ -31,6 +32,7 @@
     "minecraft:surface_parameters": {
         "sea_floor_depth": "$general.number",
         "sea_floor_material": "$general.block_identifier",
+        "sea_material": "$general.block_identifier",
         "floor_depth": "$general.number",
         "floor_material": "$general.block_identifier",
         "foundation_material": "$general.block_identifier",

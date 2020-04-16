@@ -5,8 +5,8 @@
     "identifier": "minecraft:furnace_rabbit"
     },
 
-    
-    "tags": ["furnace", "smoker", "campfire"],
+
+    "tags": ["furnace", "smoker", "campfire", "soul_campfire"],
     "input": "minecraft:rabbit",
     "output": "minecraft:cooked_rabbit"
   }
