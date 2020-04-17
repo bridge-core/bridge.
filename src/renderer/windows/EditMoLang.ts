@@ -23,7 +23,7 @@ export default class EditMoLangWindow extends ContentWindow {
 					input: moLang.replace(/\; /g, ';\n'),
 					file_path: '@/molang/fake',
 					options: {
-						lineNumbers: true,
+						lineNumbers: false,
 						line: true,
 						autoCloseBrackets: true,
 						styleActiveLine: true,
