@@ -16,6 +16,7 @@
                 display: inline-block;
                 border-bottom: 2px solid var(--v-background-darken2);
                 background: var(--v-background-darken1);
+				max-width: unset;
             `
 			"
 			@click.native="selected_tab = i"
@@ -37,8 +38,7 @@
 				v-if="getIcon(file.file_path)"
 				:color="isSelected(i) ? 'primary' : undefined"
 				small
-				>{{ getIcon(file.file_path) }}</v-icon
-			>
+			>{{ getIcon(file.file_path) }}</v-icon>
 
 			<span v-if="file.folders.length > 0">
 				{{ file.folders[file.folders.length - 1] }}
@@ -57,8 +57,7 @@
 						:style="
 							`font-style: ${unsaved[i] ? 'italic' : 'none'};`
 						"
-						>{{ getFileName(file.file_name) }}</span
-					>
+					>{{ getFileName(file.file_name) }}</span>
 				</template>
 				<span>{{ file.file_name }}</span>
 			</v-tooltip>
