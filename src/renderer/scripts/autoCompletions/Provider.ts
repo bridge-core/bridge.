@@ -209,7 +209,7 @@ class Provider {
 
 		SET_CONTEXT(context, context === undefined ? undefined : context.parent)
 		let propose = this.walk(path.split('/'))
-		// console.log('[ADDING META]', path, propose, LIB)
+		// console.log('[ADDING META]', path, propose, propose === LIB)
 
 		return this.preparePropose(
 			propose,
@@ -354,7 +354,7 @@ class Provider {
 	}
 
 	omegaExpression(expression: string) {
-		// console.log(expression, Omega.eval(expression));
+		// console.log(expression, Omega.eval(expression))
 		return Omega.eval(expression)
 	}
 

@@ -174,14 +174,16 @@ export const DYNAMIC = {
 	animation_controller: {
 		current_states() {
 			try {
-				let current = TabSystem.getCurrentNavObj()
-				if (
-					current === undefined ||
-					Object.keys(current.toJSON()).length > 0
-				)
-					return []
-				if (current.parent?.get('states'))
-					return Object.keys(current.parent?.get('states').toJSON())
+				let current = NODE_CONTEXT ?? TabSystem.getCurrentNavObj()
+				if (current === undefined) return []
+
+				if (current.parent?.get('states') ?? current.get('states'))
+					return Object.keys(
+						(
+							current.parent?.get('states') ??
+							current.get('states')
+						).toJSON()
+					)
 
 				while (current !== undefined && current.key !== 'states') {
 					current = current.parent
@@ -189,7 +191,7 @@ export const DYNAMIC = {
 				if (current && current.key === 'states')
 					return Object.keys(current.toJSON())
 				return []
-			} catch {
+			} catch (e) {
 				return []
 			}
 		},

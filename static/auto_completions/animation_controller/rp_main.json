@@ -28,7 +28,7 @@
                     "animations": {
                         "$dynamic.list.next_index": {
                             "$dynamic.cache.client_entity.animation_references": {
-                                "@meta": { "is_molang": true },
+                                "@meta": { "is_molang": true, "is_value": true },
                                 "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
                             }
                         }
@@ -36,7 +36,7 @@
                     "transitions": {
                         "$dynamic.list.next_index": {
                             "$dynamic.animation_controller.current_states": {
-                                "@meta": { "is_molang": true },
+                                "@meta": { "is_molang": true, "is_value": true },
                                 "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
                             }
                         }

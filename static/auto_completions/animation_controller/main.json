@@ -10,7 +10,8 @@
                             "$dynamic.cache.animation_references": {
                                 "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)",
                                 "@meta": {
-                                    "is_molang": true
+                                    "is_molang": true, 
+                                    "is_value": true
                                 }
                             },
                             "@import.value.query": "$dynamic.cache.animation_references"
@@ -21,7 +22,8 @@
                             "$dynamic.animation_controller.current_states": {
                                 "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)",
                                 "@meta": {
-                                    "is_molang": true
+                                    "is_molang": true, 
+                                    "is_value": true
                                 }
                             }
                         }

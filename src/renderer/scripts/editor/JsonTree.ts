@@ -11,6 +11,8 @@ import { JSONAction } from '../TabSystem/CommonHistory'
 import FileType from './FileType'
 import uuidv4 from 'uuid/v4'
 import Store from '../../store/index'
+import Vue from 'vue'
+
 let PROVIDER: Provider
 
 function getType(data: any) {
@@ -113,7 +115,7 @@ export default class JSONTree {
 		this.mark_color = undefined
 		this.error = undefined
 		this.uuid = uuidv4()
-		this.meta = {}
+		this.meta = Vue.observable({})
 	}
 	get is_array() {
 		let d = FileType.getData()
