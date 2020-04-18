@@ -19,12 +19,13 @@ export async function createClientEntity(filePath: string) {
 					id,
 					false
 				)
-				console.log(modelFile)
 
-				return [
-					name,
-					getModelId(await readJSON(modelFile), id),
-				] as const
+				if (modelFile !== undefined)
+					return [
+						name,
+						getModelId(await readJSON(modelFile), id),
+					] as const
+				return [name, undefined] as const
 			})
 		)
 	)

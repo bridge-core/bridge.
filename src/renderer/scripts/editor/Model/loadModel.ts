@@ -10,6 +10,7 @@ import {
 import { createCube } from './createCube'
 import InformationWindow from '../../commonWindows/Information'
 import { lessThan } from '../../Utilities/VersionUtils'
+import { toNewModelFormat } from '../../Play/Model/convertFormat'
 
 export interface IImageProps {
 	width: number
@@ -91,25 +92,7 @@ export function loadModels(
 	materials: MeshLambertMaterial[]
 } {
 	if (lessThan(models.format_version ?? '1.2.0', '1.12.0')) {
-		let convertedModels: IGeoSchema[] = []
-		for (let [identifier, data] of Object.entries(models)) {
-			if (typeof data === 'string') continue
-			const { bones, texturewidth, textureheight } = data
-
-			convertedModels.push({
-				description: {
-					identifier,
-					texture_width: texturewidth,
-					texture_height: textureheight,
-				},
-				bones,
-			})
-		}
-
-		return loadModels(scene, {
-			format_version: '1.12.0',
-			'minecraft:geometry': convertedModels,
-		})
+		return loadModels(scene, toNewModelFormat(models))
 	} else if (models['minecraft:geometry'] === undefined) {
 		new InformationWindow(
 			'ERROR',

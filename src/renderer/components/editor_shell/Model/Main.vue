@@ -2,10 +2,13 @@
 	<div v-resize="onResize" class="canvas-container">
 		<canvas ref="canvas" />
 
-		<v-container v-if="should_show_menu" class="canvas-overlay">
-			<v-icon @click="is_visible = !is_visible">{{
+		<v-container class="canvas-overlay">
+			<PlayButton :filePath="file_path" style="margin-right: 8px" />
+			<v-icon v-if="should_show_menu" @click="is_visible = !is_visible">
+				{{
 				is_visible ? 'mdi-close' : 'mdi-cog'
-			}}</v-icon>
+				}}
+			</v-icon>
 			<v-card
 				:style="
 					`
@@ -36,12 +39,17 @@
 </template>
 
 <script>
+import PlayButton from '../../Play/PlayButton'
 import { createModelEditor } from '../../../scripts/editor/Model/create'
 import EventBus from '../../../scripts/EventBus'
 import { basename } from 'path'
 let editor
+
 export default {
 	name: 'ModelEditor',
+	components: {
+		PlayButton,
+	},
 	props: {
 		available_height: Number,
 		file_path: String,
