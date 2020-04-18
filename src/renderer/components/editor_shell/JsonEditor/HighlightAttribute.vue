@@ -1,11 +1,7 @@
 <template>
 	<span :class="class_name" :style="as_block ? 'display: block;' : ''" @click.stop="attrClick">
 		<highlight-text v-if="use_advanced_parsing">{{ text }}</highlight-text>
-		<span v-else @click.stop="event => $emit('click', event)">
-			{{
-			text
-			}}
-		</span>
+		<span v-else v-html="text" @click.stop="event => $emit('click', event)" />
 
 		<v-tooltip v-if="meta.is_molang && text !== '' && !is_immutable" color="primary" right>
 			<template v-slot:activator="{ on }">
@@ -61,8 +57,9 @@ export default {
 			return this.data[0] === '#' && this.data.length === 7
 		},
 		text() {
-			if (this.data != undefined) return (this.data + '').trim()
-			return this.data
+			if (this.data === undefined) return this.data
+
+			return (this.data + '').replace(/ /g, '&nbsp;')
 		},
 		class_name() {
 			if (

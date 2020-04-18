@@ -2,10 +2,10 @@
 	<span class="hl-wrapper">
 		<span
 			v-for="(string, i) in text_as_array"
+			v-html="string"
 			:key="`${text}.${i}`"
 			:class="style_class(string)"
-			>{{ string }}</span
-		>
+		/>
 	</span>
 </template>
 
