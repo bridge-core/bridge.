@@ -1,19 +1,13 @@
 <template>
-	<span
-		:class="class_name"
-		:style="as_block ? 'display: block;' : ''"
-		@click.stop="attrClick"
-	>
+	<span :class="class_name" :style="as_block ? 'display: block;' : ''" @click.stop="attrClick">
 		<highlight-text v-if="use_advanced_parsing">{{ text }}</highlight-text>
-		<span v-else @click.stop="event => $emit('click', event)">{{
+		<span v-else @click.stop="event => $emit('click', event)">
+			{{
 			text
-		}}</span>
+			}}
+		</span>
 
-		<v-tooltip
-			v-if="meta.is_molang && text !== '' && !is_immutable"
-			color="primary"
-			right
-		>
+		<v-tooltip v-if="meta.is_molang && text !== '' && !is_immutable" color="primary" right>
 			<template v-slot:activator="{ on }">
 				<v-btn
 					v-on="on"
@@ -24,18 +18,14 @@
 					icon
 					@click="editMoLang"
 				>
-					<v-icon small>mdi-pencil</v-icon>
+					<v-icon style="position: relative; bottom: 2px;" small>mdi-pencil</v-icon>
 				</v-btn>
 			</template>
 
 			<span>Edit</span>
 		</v-tooltip>
 
-		<color-picker
-			v-if="is_color"
-			:node_context="node_context"
-			:is_immutable="is_immutable"
-		/>
+		<color-picker v-if="is_color" :node_context="node_context" :is_immutable="is_immutable" />
 	</span>
 </template>
 
