@@ -129,10 +129,10 @@ export class JSONAction extends Action {
 		if (this.type === 'add') this.context.add(this.data)
 		else if (this.type === 'remove') this.context.removeNode(this.data)
 		else if (this.type === 'edit-key') {
-			this.context.key = this.data
+			this.context.editKey(this.data)
 			TabSystem.setCurrentFileNav('global')
 		} else if (this.type === 'edit-data') {
-			this.context.data = this.data
+			this.context.edit(this.data)
 			TabSystem.setCurrentFileNav('global')
 		}
 		this.context.updateUUID()

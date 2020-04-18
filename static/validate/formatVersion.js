@@ -1,6 +1,6 @@
 const ERROR = {
     show: true,
-    message: `Invalid ${FileType} format version`
+    message: `Invalid ${fileType} format version`
 }
 const DATA = {
     client_entity: ["1.8.0", "1.10.0"],
@@ -12,6 +12,6 @@ const DATA = {
 }
 
 Node.error = undefined
-if (DATA[FileType] && !DATA[FileType].includes(Node.data)) {
+if (DATA[fileType] && !DATA[fileType].includes(Node.data)) {
     Node.error = ERROR
 }

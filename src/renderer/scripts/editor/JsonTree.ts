@@ -24,9 +24,13 @@ function getType(data: any) {
 	return typeof data
 }
 
-function prepareRun(code: string) {
+function prepareRun(code: string, filePath: string) {
 	try {
-		return function(Node: JSONTree, FileType: string) {
+		return function(Node: JSONTree) {
+			const fileType = FileType.get(filePath)
+			const getCompletionData = (fileNav: string, context = Node) =>
+				PROVIDER.get(fileNav, filePath, context)
+
 			return eval(code)
 		}
 	} catch (err) {
@@ -34,11 +38,11 @@ function prepareRun(code: string) {
 	}
 }
 function run(code: string, node: JSONTree, filePath: string) {
-	return prepareRun(code)(node, FileType.get(filePath))
+	return prepareRun(code, filePath)(node)
 }
 
 let VALIDATION_CACHE: {
-	[fileName: string]: (node: JSONTree, fileType: string) => void
+	[fileName: string]: (node: JSONTree) => void
 } = {}
 async function runValidationFile(
 	fileName: string,
@@ -46,15 +50,16 @@ async function runValidationFile(
 	filePath: string
 ) {
 	if (VALIDATION_CACHE[fileName] !== undefined)
-		return VALIDATION_CACHE[fileName](node, FileType.get(filePath))
+		return VALIDATION_CACHE[fileName](node)
 
 	let func = prepareRun(
 		(await fs.readFile(join(__static, 'validate', fileName))).toString(
 			'utf-8'
-		)
+		),
+		filePath
 	)
 	VALIDATION_CACHE[fileName] = func
-	return func(node, FileType.get(filePath))
+	return func(node)
 }
 EventBus.on('bridge:changedProject', () => (VALIDATION_CACHE = {}))
 
