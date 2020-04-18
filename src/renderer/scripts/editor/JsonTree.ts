@@ -12,7 +12,6 @@ import FileType from './FileType'
 import uuidv4 from 'uuid/v4'
 import Store from '../../store/index'
 import Vue from 'vue'
-import safeEval from 'safe-eval'
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import EventBus from '../EventBus'
@@ -25,26 +24,37 @@ function getType(data: any) {
 	return typeof data
 }
 
-function run(code: string, node: JSONTree, filePath: string) {
+function prepareRun(code: string) {
 	try {
-		return (function(Node, FileType) {
+		return function(Node: JSONTree, FileType: string) {
 			return eval(code)
-		})(node, FileType.get(filePath))
+		}
 	} catch (err) {
 		throw err
 	}
 }
+function run(code: string, node: JSONTree, filePath: string) {
+	return prepareRun(code)(node, FileType.get(filePath))
+}
 
-let VALIDATION_CACHE: { [fileName: string]: string } = {}
-async function requestValidationFile(fileName: string) {
+let VALIDATION_CACHE: {
+	[fileName: string]: (node: JSONTree, fileType: string) => void
+} = {}
+async function runValidationFile(
+	fileName: string,
+	node: JSONTree,
+	filePath: string
+) {
 	if (VALIDATION_CACHE[fileName] !== undefined)
-		return VALIDATION_CACHE[fileName]
+		return VALIDATION_CACHE[fileName](node, FileType.get(filePath))
 
-	let str = (
-		await fs.readFile(join(__static, 'validate', fileName))
-	).toString('utf-8')
-	VALIDATION_CACHE[fileName] = str
-	return str
+	let func = prepareRun(
+		(await fs.readFile(join(__static, 'validate', fileName))).toString(
+			'utf-8'
+		)
+	)
+	VALIDATION_CACHE[fileName] = func
+	return func(node, FileType.get(filePath))
 }
 EventBus.on('bridge:changedProject', () => (VALIDATION_CACHE = {}))
 
@@ -479,9 +489,7 @@ export default class JSONTree {
 
 		//Test how and whether validation is defined
 		if (typeof validate === 'string')
-			return requestValidationFile(validate).then(str =>
-				run(str, this, file_path)
-			)
+			return runValidationFile(validate, this, file_path)
 		if (validate === undefined || validate.confirm === undefined) return
 
 		const { confirm, then, always } = validate //Grab confirm & then
