@@ -1,14 +1,96 @@
 {
-    "number": [ "0", "1", "2", "3", "4", "5" ],
-    "number0_15": [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" ],
-    "decimal": [ "0.0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9" ],
-    "degree": [ "45", "90", "135", "180", "225", "270", "335", "360" ],
+    "number": {
+        "@meta": {
+            "is_value": true,
+            "validate": {
+                "confirm": "Node.data === '' || Number.isNaN(Number(Node.data))",
+                "then": {
+                    "show": true,
+                    "message": "Invalid data type: Expected number"
+                }
+            }
+        },
+        "@import.value": ["0", "1", "2", "3", "4", "5"]
+    },
+    "number0_15": {
+        "@meta": {
+            "is_value": true,
+            "validate": {
+                "confirm": "let x = Number(Node.data); Node.data === '' || Number.isNaN(x) || x < 0 || x > 15",
+                "then": {
+                    "show": true,
+                    "message": "Invalid data type: Expected number between 0 and 15"
+                }
+            }
+        },
+        "@import.value": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"]
+    },
+    "decimal": {
+        "@meta": {
+            "is_value": true,
+            "validate": {
+                "confirm": "Node.data === '' || Number.isNaN(Number(Node.data))",
+                "then": {
+                    "show": true,
+                    "message": "Invalid data type: Expected number"
+                }
+            }
+        },
+        "@import.value": ["0.0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9"]
+    },
+    "degree": {
+        "@meta": {
+            "is_value": true,
+            "validate": {
+                "confirm": "Node.data === '' || Number.isNaN(Node.data)",
+                "then": {
+                    "show": true,
+                    "message": "Invalid data type: Expected number"
+                }
+            }
+        },
+        "@import.value": ["45", "90", "135", "180", "225", "270", "335", "360"]
+    },
 
-    "boolean": [ "true", "false" ],
-    "number_boolean": [ "0", "1" ],
-    
-    "format_version": [ "1.8.0", "1.9.0", "1.10.0", "1.11.0", "1.12.0", "1.13.0", "1.14.0", "1.16.0" ],
-    "translatable_text": { "@meta": { "is_value": true } },
+    "boolean": {
+        "@meta": {
+            "is_value": true,
+            "validate": {
+                "confirm": "Node.data !== 'true' && Node.data !== 'false'",
+                "then": {
+                    "show": true,
+                    "message": "Invalid data type: Expected boolean"
+                }
+            }
+        },
+        "@import.value": ["true", "false"]
+    },
+    "number_boolean": {
+        "@meta": {
+            "is_value": true,
+            "validate": {
+                "confirm": "Node.data !== '0' && Node.data !== '1'",
+                "then": {
+                    "show": true,
+                    "message": "Invalid data type: Expected number (0 or 1)"
+                }
+            }
+        },
+        "@import.value": ["0", "1"]
+    },
+
+    "format_version": {
+        "@meta": {
+            "is_value": true,
+            "validate": "formatVersion.js"
+        },
+        "@import.value": ["1.8.0", "1.9.0", "1.10.0", "1.11.0", "1.12.0", "1.13.0", "1.14.0", "1.16.0"]
+    },
+    "translatable_text": {
+        "@meta": {
+            "is_value": true
+        }
+    },
     "file_identifier": "($dynamic.setting.project_prefix + $dynamic.current_file_name)",
     "inventory_type": [
         "minecart_chest", "horse", "minecart_hopper", "container"
@@ -16,14 +98,14 @@
     "damage_type": [
         "override", "contact", "none", "lava", "entity_attack", "fire_tick", "projectile", "suffocation", "fall", "fatal", "starve", "fire", "drowning", "block_explosion", "entity_explosion", "void", "suicide", "magic", "wither", "charging", "anvil", "thorns", "falling_block", "piston", "magma", "fireworks", "temperature", "all"
     ],
-    "potion_number_id": [ 
+    "potion_number_id": [
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "34", "35", "36", "37", "38", "39", "40", "41"
     ],
     "hourly_clock_time": [
         "0", "1000", "2000", "3000", "4000", "5000", "6000", "7000", "8000", "9000", "10000", "11000", "12000", "13000", "14000", "15000", "16000", "17000", "18000", "19000", "20000", "21000", "22000", "23000", "24000"
     ],
-    "poi_type": [ "bed" ],
-    "slot_type": [ 
+    "poi_type": ["bed"],
+    "slot_type": [
         "slot.armor", "slot.armor.chest", "slot.armor.feet", "slot.armor.head", "slot.armor.legs", "slot.chest", "slot.enderchest", "slot.hotbar", "slot.inventory", "slot.saddle", "slot.weapon.mainhand", "slot.weapon.offhand"
     ],
     "ability": [
@@ -39,18 +121,24 @@
         "buriedtreasure", "endcity", "fortress", "mansion", "mineshaft", "monument", "pillageroutpost", "ruins", "shipwreck", "stronghold", "temple", "village"
     ],
     "particle_name": [
-        "mobspellambient", "villagerangry", "blockbreak", "blockdust", "bubble", "evaporation", "crit", "dragonbreath", "driplava", "dripwater", "reddust", "spell", "mobappearance", "enchantingtable", "endrod",  "mobspell", "largeexplode", "hugeexplosion", "fallingdust", "fireworksspark", "waterwake", "flame", "villagerhappy", "heart", "mobspellinstantaneous", "iconcrack", "slime", "snowballpoof", "largesmoke", "lava", "mobflame", "townaura", "nautilus", "note", "explode", "portal", "rainsplash", "smoke", "watersplash", "ink", "terrain", "totem", "trackingemitter", "witchspell"
+        "mobspellambient", "villagerangry", "blockbreak", "blockdust", "bubble", "evaporation", "crit", "dragonbreath", "driplava", "dripwater", "reddust", "spell", "mobappearance", "enchantingtable", "endrod", "mobspell", "largeexplode", "hugeexplosion", "fallingdust", "fireworksspark", "waterwake", "flame", "villagerhappy", "heart", "mobspellinstantaneous", "iconcrack", "slime", "snowballpoof", "largesmoke", "lava", "mobflame", "townaura", "nautilus", "note", "explode", "portal", "rainsplash", "smoke", "watersplash", "ink", "terrain", "totem", "trackingemitter", "witchspell"
     ],
     "entity_identifier": {
-        "@meta": { "definitions": [ "entity" ] },
+        "@meta": {
+            "definitions": ["entity"]
+        },
         "@import.value.entity": "$dynamic.cache.entity.identifiers and $vanilla.entity_identifier"
     },
     "block_identifier": {
-        "@meta": { "definitions": [ "block" ] },
+        "@meta": {
+            "definitions": ["block"]
+        },
         "@import.value.block": "$dynamic.cache.block.identifiers and $vanilla.block_identifier"
     },
     "item_identifier": {
-        "@meta": { "definitions": [ "item" ] },
+        "@meta": {
+            "definitions": ["item"]
+        },
         "@import.value.item": "$dynamic.cache.item.identifiers and $vanilla.item_identifier"
     },
     "effect_name": [
@@ -62,15 +150,19 @@
     "gamerule": [
         "alwaysday", "commandblockoutput", "commandblocksenabled", "dodaylightcycle", "doentitydrops", "dofiretick", "doimmediaterespawn", "domobloot", "domobspawning", "dotiledrops", "doweathercycle", "drowningdamage", "falldamage", "firedamage", "functioncommandlimit", "keepinventory", "maxcommandchainlength", "mobgriefing", "naturalregeneration", "pvp", "randomtickspeed", "sendcommandfeedback", "showcoordinates", "showdeathmessages", "tntexplodes"
     ],
-    "game_difficulty": [ "easy", "hard", "normal", "peaceful" ],
-    "gamemode": [ "adventure", "creative", "default", "survival" ],
+    "game_difficulty": ["easy", "hard", "normal", "peaceful"],
+    "gamemode": ["adventure", "creative", "default", "survival"],
     "biome_tag": [
         "monster", "animal", "ocean", "nether", "the_end", "mooshroom_island", "plains", "desert", "jungle", "taiga", "extreme_hills", "savanna", "frozen", "cold", "lukewarm", "warm", "river", "swamp", "beach", "flower_forest", "forest", "birch", "dark_oak", "hills", "mutated", "edge", "lakes", "plateau", "deep", "mesa", "ice_plains", "ice", "mountain", "shore", "stone", "roofed", "mega"
     ],
     "biome_name": [
         "ice", "forest", "extreme_hills", "beach", "jungle", "desert", "flat", "the_nether", "mesa", "plain", "mushroom_island", "ocean", "river", "savanna", "stone_beach", "swamp", "taiga", "the_end"
     ],
-    "sound": { "@meta": { "is_value": true } },
+    "sound": {
+        "@meta": {
+            "is_value": true
+        }
+    },
     "minecraft_color": [
         "dark_red", "red", "gold", "yellow", "dark_green", "green", "aqua", "dark_aqua", "dark_blue", "blue", "light_purple", "dark_purple", "white", "gray", "dark_gray", "black"
     ],

@@ -12,6 +12,11 @@ import FileType from './FileType'
 import uuidv4 from 'uuid/v4'
 import Store from '../../store/index'
 import Vue from 'vue'
+import safeEval from 'safe-eval'
+import { promises as fs } from 'fs'
+import { join } from 'path'
+import EventBus from '../EventBus'
+declare const __static: string
 
 let PROVIDER: Provider
 
@@ -19,6 +24,29 @@ function getType(data: any) {
 	if (Array.isArray(data)) return 'array'
 	return typeof data
 }
+
+function run(code: string, node: JSONTree, filePath: string) {
+	try {
+		return (function(Node, FileType) {
+			return eval(code)
+		})(node, FileType.get(filePath))
+	} catch (err) {
+		throw err
+	}
+}
+
+let VALIDATION_CACHE: { [fileName: string]: string } = {}
+async function requestValidationFile(fileName: string) {
+	if (VALIDATION_CACHE[fileName] !== undefined)
+		return VALIDATION_CACHE[fileName]
+
+	let str = (
+		await fs.readFile(join(__static, 'validate', fileName))
+	).toString('utf-8')
+	VALIDATION_CACHE[fileName] = str
+	return str
+}
+EventBus.on('bridge:changedProject', () => (VALIDATION_CACHE = {}))
 
 export class TreeIterator {
 	stack: Stack<{ node: JSONTree; step: number }>
@@ -69,6 +97,11 @@ export interface IError {
 		run?: string
 		text?: string
 	}
+}
+export interface IValidate {
+	confirm: string
+	then: string | IError
+	always: string
 }
 
 export default class JSONTree {
@@ -326,7 +359,7 @@ export default class JSONTree {
 			)
 
 		this.data = new_data
-		this.updateUUID()
+		this.loadMeta()
 	}
 	/**
 	 * @param {String} new_key
@@ -435,19 +468,36 @@ export default class JSONTree {
 			return this.propose_cache
 		}
 	}
-	addMeta(META: { [x: string]: any } = {}) {
+	addMeta(
+		META: { [x: string]: any } = {},
+		file_path = TabSystem.getCurrentFilePath()
+	) {
 		this.meta = Object.assign(this.meta, META)
 
-		const { is_color } = META
+		const { is_color, validate } = META
 		if (is_color && this.data === '') this.edit('#1778D2')
+
+		//Test how and whether validation is defined
+		if (typeof validate === 'string')
+			return requestValidationFile(validate).then(str =>
+				run(str, this, file_path)
+			)
+		if (validate === undefined || validate.confirm === undefined) return
+
+		const { confirm, then, always } = validate //Grab confirm & then
+		//Run validation
+		if (always === undefined) run(always, this, file_path)
+		this.error = undefined
+
+		if (run(confirm, this, file_path)) {
+			if (typeof then === 'string') run(then, this, file_path)
+			else if (then !== undefined) this.error = then
+		}
 	}
 	loadMeta(file_path = TabSystem.getCurrentFilePath(), deep = false) {
 		if (PROVIDER === undefined) PROVIDER = new Provider('')
 
-		this.meta = Object.assign(
-			this.meta,
-			PROVIDER.getMeta(this.path, file_path, this)
-		)
+		this.addMeta(PROVIDER.getMeta(this.path, file_path, this))
 
 		if (deep) this.children.forEach(c => c.loadMeta(file_path, true))
 		this.updateUUID()
