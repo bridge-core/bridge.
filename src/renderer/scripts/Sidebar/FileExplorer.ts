@@ -10,6 +10,7 @@ import TabSystem from '../TabSystem'
 import { BridgeCore } from '../bridgeCore/main'
 import InformationWindow from '../commonWindows/Information'
 import uuid from 'uuid/v4'
+import FileSystem from '../FileSystem'
 declare function requestIdleCallback(cb: () => void): number
 
 export class FileExplorerStorage {
@@ -217,7 +218,7 @@ export class FileExplorer {
 		}
 		this.parent.updateUUID()
 	}
-	async duplicate(new_name: string) {
+	async duplicate(new_name: string, open = true) {
 		if (this.parent.find(new_name) !== undefined)
 			return new InformationWindow(
 				'Error',
@@ -226,7 +227,7 @@ export class FileExplorer {
 		let new_path = path.join(path.dirname(this.absolute_path), new_name)
 
 		await Promise.all([
-			OmegaCache.duplicate(this.absolute_path, new_path),
+			OmegaCache.duplicate(this.absolute_path, new_path).catch(() => {}),
 			LightningCache.duplicate(this.absolute_path, new_path),
 			JSONFileMasks.duplicate(this.absolute_path, new_path),
 			fs.copyFile(this.absolute_path, new_path),
@@ -240,6 +241,8 @@ export class FileExplorer {
 				false
 			)
 		)
+		if (open)
+			FileSystem.open(path.join(this.parent.absolute_path, new_name))
 		this.parent.updateUUID()
 	}
 	rename(val: string) {
