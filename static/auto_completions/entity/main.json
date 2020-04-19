@@ -2,7 +2,7 @@
     "format_version": "$general.format_version",
     "minecraft:entity": {
         "@meta": {
-            "expand_path_exceptions": [ "do_not_upgrade" ]
+            "expand_path_exceptions": ["do_not_upgrade"]
         },
         "do_not_upgrade": {},
         "description": {
@@ -33,7 +33,7 @@
         "components": "$entity.general.components",
         "events": {
             "$asObject": "$entity.general.built_in_event",
-            
+
             "$placeholder": {
                 "sequence": {
                     "$dynamic.list.next_index": {
@@ -49,7 +49,7 @@
                 },
                 "add": {
                     "component_groups": {
-                        "$dynamic.list.next_index": "$dynamic.entity.component_groups"
+                        "$dynamic.list.next_index": "$entity.general.component_group_name"
                     },
                     "$dynamic_template.spell_effects": {
                         "$if": "$dynamic.bridge_core.is_active",
@@ -60,14 +60,18 @@
                         "$if": "$dynamic.bridge_core.is_active",
 
                         "$default": {
-                            "name": { "@meta": { "is_value": true } },
+                            "name": {
+                                "@meta": {
+                                    "is_value": true
+                                }
+                            },
                             "components": "$entity.main.minecraft:entity.components"
                         }
                     }
                 },
                 "remove": {
                     "component_groups": {
-                        "$dynamic.list.next_index": "$dynamic.entity.component_groups"
+                        "$dynamic.list.next_index": "$entity.general.component_group_name"
                     },
                     "$dynamic_template.spell_effects": {
                         "$if": "$dynamic.bridge_core.is_active",
@@ -80,7 +84,11 @@
 
                     "$default": {
                         "commands": {
-                            "$dynamic.list.next_index": { "@meta": { "is_value": true } }
+                            "$dynamic.list.next_index": {
+                                "@meta": {
+                                    "is_value": true
+                                }
+                            }
                         }
                     }
                 }

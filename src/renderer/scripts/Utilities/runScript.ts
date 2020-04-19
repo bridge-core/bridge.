@@ -21,7 +21,9 @@ export const ENV = (
 	filePath = TabSystem.getCurrentFilePath()
 ) => ({
 	Node,
-	FileType: FileType.get(filePath),
+	get FileType() {
+		return FileType.get(filePath || TabSystem.getCurrentFilePath())
+	},
 	Tab: {
 		setUnsaved: () => TabSystem.setCurrentUnsaved(),
 	},

@@ -1,6 +1,5 @@
 {
-    "bridge:find_one": [
-        {
+    "bridge:find_one": [{
             "is_warning": true,
             "search": "minecraft:behavior.send_event",
             "error_message": "minecraft:behavior.send_event is known to crash Minecraft"
@@ -17,8 +16,7 @@
         "second": "minecraft:spawn_entity",
         "error_message": "Entities being ridden cannot use minecraft:spawn_entity"
     },
-    "bridge:first_needs_second": [
-        {
+    "bridge:first_needs_second": [{
             "first": "minecraft:addrider",
             "second": "minecraft:rideable",
             "error_message": "minecraft:addrider requires minecraft:rideable",
@@ -34,9 +32,8 @@
             "error_message": "minecraft:behavior.open_door requires the mob to be able to path through doors"
         }
     ],
-    "bridge:needs_both": [
-        {
-            "first": [ "minecraft:trade_table", "minecraft:economy_trade_table" ],
+    "bridge:needs_both": [{
+            "first": ["minecraft:trade_table", "minecraft:economy_trade_table"],
             "second": "minecraft:behavior.trade_with_player",
             "error_message": "$failure_name missing"
         },
@@ -51,8 +48,7 @@
             "error_message": "$failure_name missing"
         }
     ],
-    "bridge:needs_three_if_both": [
-        {
+    "bridge:needs_three_if_both": [{
             "first": "minecraft:shooter",
             "second": "minecraft:behavior.ranged_attack",
             "third": "minecraft:behavior.nearest_attackable_target",
@@ -66,7 +62,7 @@
         {
             "first": "minecraft:can_power_jump",
             "second": "minecraft:horse.jump_strength",
-            "third": [ "minecraft:jump.dynamic", "minecraft:jump.static" ],
+            "third": ["minecraft:jump.dynamic", "minecraft:jump.static"],
             "error_message": "$failure_name missing",
             "fix": {
                 "type": "script",
@@ -75,14 +71,6 @@
             }
         }
     ],
-    "bridge:entity_group_check": {
-        "error_message": "Unknown component group",
-        "fix": {
-            "type": "script",
-            "run": "globalNode.get('minecraft:entity/component_groups').buildFromObject({ [node.data]: {} }); Unsaved();",
-            "display_text": "Add component group"
-        }
-    },
     "bridge:animation_check": {
         "fix": {
             "type": "script",

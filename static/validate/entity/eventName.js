@@ -22,22 +22,22 @@ const clearListeners = () => {
     if (EventsNode) EventsNode.on.change.delete(Node)
 }
 const validateEvent = () => {
-    if (!EventsNode) EventsNode = GlobalNode.get('minecraft:entity/events')
+    if (!EventsNode) EventsNode = GlobalNode.get('#;bridge_node_skip;#/events')
     if (!TargetNode) TargetNode = Node.parent.get('target')
 
     LightningCache.then(cache => {
-        let all_events = (cache.entity || {}).events || []
-        let local_events = []
+        let allEvents = (cache.entity || {}).events || []
+        let localEvents = []
 
         if (EventsNode)
-            local_events = Object.keys(EventsNode.toJSON())
+            localEvents = Object.keys(EventsNode.toJSON())
 
 
         const target = (TargetNode || {
             data: 'self'
         }).data
 
-        if ((target === 'self' && local_events.includes(Node.data)) || all_events.includes(Node.data)) {
+        if ((target === 'self' && localEvents.includes(Node.data)) || allEvents.includes(Node.data)) {
             if (target !== 'self') clearListeners()
             Node.error = undefined
         } else {
