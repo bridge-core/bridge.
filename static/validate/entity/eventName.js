@@ -1,12 +1,9 @@
 const {
     Node,
+    GlobalNode,
     LightningCache
 } = Bridge
 
-let GlobalNode = Node
-while (GlobalNode.parent) {
-    GlobalNode = GlobalNode.parent
-}
 let EventsNode
 let TargetNode
 

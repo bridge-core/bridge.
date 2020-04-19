@@ -21,6 +21,15 @@ export const ENV = (
 	filePath = TabSystem.getCurrentFilePath()
 ) => ({
 	Node,
+	get GlobalNode() {
+		let currentNode = Node
+
+		while (currentNode.parent) {
+			currentNode = currentNode.parent
+		}
+
+		return currentNode
+	},
 	get FileType() {
 		return FileType.get(filePath || TabSystem.getCurrentFilePath())
 	},

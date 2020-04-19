@@ -36,20 +36,20 @@
                 "@meta": {
                     "validate": "entity/eventName.js"
                 },
-                "@import.value": "$dynamic.entity.events"
+                "@import.value.local_events": "$dynamic.entity.events"
             },
             "$default": {
                 "@meta": {
                     "validate": "entity/eventName.js"
                 },
-                "@import.value": "$dynamic.cache.entity.events"
+                "@import.value.all_events_1": "$dynamic.cache.entity.events"
             },
 
             "self": {
                 "@meta": {
                     "validate": "entity/eventName.js"
                 },
-                "@import.value": "$dynamic.entity.events"
+                "@import.value.all_events_2": "$dynamic.entity.events"
             }
         },
         "target": "$entity.general.filter_targets"

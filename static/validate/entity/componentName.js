@@ -1,13 +1,10 @@
 const {
     Node,
+    GlobalNode,
     LightningCache,
     Tab
 } = Bridge
 
-let GlobalNode = Node
-while (GlobalNode.parent) {
-    GlobalNode = GlobalNode.parent
-}
 let ComponentGroupsNode
 
 const validateGroup = () => {
