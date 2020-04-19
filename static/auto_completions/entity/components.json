@@ -82,7 +82,7 @@
                 "block_list": {
                     "$dynamic.list.next_index": "$general.block_identifier"
                 },
-                "on_block_broken": "$dynamic.entity.events"
+                "on_block_broken": "$entity.general.event_string"
             }
         }
     },
@@ -257,7 +257,7 @@
         "relative_range": "$general.boolean",
         "require_all": "$general.boolean",
         "event_filters": "$entity.filters",
-        "event": "$dynamic.entity.events"
+        "event": "$entity.general.event_string"
     },
     "minecraft:equipment": {
         "table": "$dynamic.loot_table_files",
@@ -566,6 +566,7 @@
     },
 
     "minecraft:navigation.climb": {
+        "is_amphibious": "$general.boolean",
         "avoid_portals": "$general.boolean",
         "avoid_sun": "$general.boolean",
         "avoid_water": "$general.boolean",
@@ -836,7 +837,7 @@
             "min_wait_time": "$general.number",
             "max_wait_time": "$general.number",
             "spawn_entity": "$general.entity_identifier",
-            "spawn_event": "$dynamic.entity.events",
+            "spawn_event": "$entity.general.event_string",
             "spawn_item": "$general.item_identifier",
             "spawn_method": [ "born" ],
             "spawn_sound": "$general.sound",
@@ -911,6 +912,7 @@
         "random_interval": "$general.boolean",
         "time": {
             "@import.value.decimal": "$general.decimal",
+            "@meta": { "validate": null },
             "$dynamic.list.index_pair": "$general.decimal"
         },
         "random_time_choices": {

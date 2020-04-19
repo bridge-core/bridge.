@@ -1,6 +1,7 @@
 {
     "format_version": "$general.format_version",
     "animations": {
+        "@meta": { "validate": "validateIDs.js" },
         "$placeholder": {
             "anim_time_update": {
                 "@meta": { "is_molang": true, "is_value": true },

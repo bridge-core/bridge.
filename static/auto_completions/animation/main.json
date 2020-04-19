@@ -1,6 +1,7 @@
 {
     "format_version": "$general.format_version",
     "animations": {
+        "@meta": { "validate": "validateIDs.js" },
         "$placeholder": {
             "animation_length": "$general.number",
             "loop": "$general.boolean",

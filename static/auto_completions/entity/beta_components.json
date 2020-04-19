@@ -37,7 +37,7 @@
                 "min_wait_time": "$general.number",
                 "max_wait_time": "$general.number",
                 "spawn_entity": "$general.entity_identifier",
-                "spawn_event": "$dynamic.entity.events",
+                "spawn_event": "$entity.general.event_string",
                 "spawn_item": "$general.item_identifier",
                 "spawn_method": [ "born" ],
                 "spawn_sound": "$general.sound",

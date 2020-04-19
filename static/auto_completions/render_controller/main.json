@@ -1,6 +1,7 @@
 {
     "format_version": "$general.format_version",
     "render_controllers": {
+        "@meta": { "validate": "validateIDs.js" },
         "$placeholder": {
             "rebuild_animation_matrices": "$general.boolean",
             "light_color_multiplier": "$general.decimal",

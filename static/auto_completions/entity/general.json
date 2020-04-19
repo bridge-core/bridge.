@@ -10,6 +10,10 @@
         "ambient": "$general.number_boolean",
         "display_on_screen_animation": "$general.boolean"
     },
+    "event_string": {
+        "@meta": { "validate": "entity/eventName.js" },
+        "@import.value": "$dynamic.entity.events"
+    },
     "event_definition": {
         "$dynamic.list.next_index": "$entity.general.internal_event_definition",
         "$load": "$entity.general.internal_event_definition"
@@ -19,10 +23,19 @@
         "$dynamic_template.event": {
             "$key": "$dynamic.siblings.target",
 
-            "$fallback": "$dynamic.entity.events",
-            "$default": "$dynamic.cache.entity.events",
+            "$fallback": {
+                "@meta": { "validate": "entity/eventName.js" },
+                "@import.value": "$dynamic.entity.events"
+            },
+            "$default": {
+                "@meta": { "validate": "entity/eventName.js" },
+                "@import.value": "$dynamic.cache.entity.events"
+            },
     
-            "self": "$dynamic.entity.events"
+            "self": {
+                "@meta": { "validate": "entity/eventName.js" },
+                "@import.value": "$dynamic.entity.events"
+            }
         },
         "target": "$entity.general.filter_targets"
     },
@@ -56,7 +69,10 @@
         "clock_time", "distance_to_nearest_player", "hourly_clock_time", "has_ability", "has_biome_tag", "has_container_open", "has_component", "has_damage", "has_equipment", "has_mob_effect", "has_tag", "has_target", "has_trade_supply", "in_caravan", "in_clouds", "in_lava", "in_water", "in_water_or_rain", "inactivity_timer", "is_altitude", "is_avoiding_mobs", "is_biome", "is_block", "is_brightness", "is_climbing", "is_color", "is_daytime", "is_difficulty", "is_family", "is_game_rule", "is_humid", "is_immobile", "is_in_village", "is_leashed", "is_leashed_to", "is_moving", "is_owner", "is_persistent", "is_riding", "is_skin_id", "is_sneaking", "is_snow_covered", "is_target", "is_temperature_type", "is_temperature_value", "is_underground", "is_underwater", "is_variant", "is_visible", "moon_intensity", "moon_phase", "on_ground", "on_ladder", "random_chance", "rider_count", "trusts", "weather", "weather_at_position"
     ],
     "filters_beta": [ ],
-    "filter_targets": [ "other", "parent", "player", "self", "target", "baby", "block" ],
+    "filter_targets": {
+        "@meta": { "validate": "entity/filterTarget.js" },
+        "@import.value": [ "other", "parent", "player", "self", "target", "baby", "block" ]
+    },
     "filter_operators": [ "==", "!=", "<", "<=", "<>", "=", ">", ">=", "equals", "not" ],
     "family": {
         "@meta": { "is_value": true, "definitions": [ "entity" ] },

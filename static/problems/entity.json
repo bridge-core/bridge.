@@ -75,9 +75,6 @@
             }
         }
     ],
-    "bridge:event_check": {
-        "error_message": "Unknown event"
-    },
     "bridge:entity_group_check": {
         "error_message": "Unknown component group",
         "fix": {

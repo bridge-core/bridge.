@@ -3,7 +3,7 @@
         "@meta": {
             "is_value": true,
             "validate": {
-                "confirm": "Node.data === '' || Number.isNaN(Number(Node.data))",
+                "confirm": "Bridge.Node.data === '' || Number.isNaN(Number(Bridge.Node.data))",
                 "then": {
                     "show": true,
                     "message": "Invalid data type: Expected number"
@@ -16,7 +16,7 @@
         "@meta": {
             "is_value": true,
             "validate": {
-                "confirm": "let x = Number(Node.data); Node.data === '' || Number.isNaN(x) || x < 0 || x > 15",
+                "confirm": "let x = Number(Bridge.Node.data); Bridge.Node.data === '' || Number.isNaN(x) || x < 0 || x > 15",
                 "then": {
                     "show": true,
                     "message": "Invalid data type: Expected number between 0 and 15"
@@ -29,7 +29,7 @@
         "@meta": {
             "is_value": true,
             "validate": {
-                "confirm": "Node.data === '' || Number.isNaN(Number(Node.data))",
+                "confirm": "Bridge.Node.data === '' || Number.isNaN(Number(Bridge.Node.data))",
                 "then": {
                     "show": true,
                     "message": "Invalid data type: Expected number"
@@ -42,7 +42,7 @@
         "@meta": {
             "is_value": true,
             "validate": {
-                "confirm": "Node.data === '' || Number.isNaN(Node.data)",
+                "confirm": "Bridge.Node.data === '' || Number.isNaN(Bridge.Node.data)",
                 "then": {
                     "show": true,
                     "message": "Invalid data type: Expected number"
@@ -56,7 +56,7 @@
         "@meta": {
             "is_value": true,
             "validate": {
-                "confirm": "Node.data !== 'true' && Node.data !== 'false'",
+                "confirm": "Bridge.Node.data !== 'true' && Bridge.Node.data !== 'false'",
                 "then": {
                     "show": true,
                     "message": "Invalid data type: Expected boolean"
@@ -69,7 +69,7 @@
         "@meta": {
             "is_value": true,
             "validate": {
-                "confirm": "Node.data !== '0' && Node.data !== '1'",
+                "confirm": "Bridge.Node.data !== '0' && Bridge.Node.data !== '1'",
                 "then": {
                     "show": true,
                     "message": "Invalid data type: Expected number (0 or 1)"

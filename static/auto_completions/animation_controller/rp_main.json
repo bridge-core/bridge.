@@ -1,6 +1,7 @@
 {
     "format_version": "$general.format_version",
     "animation_controllers": {
+        "@meta": { "validate": "validateIDs.js" },
         "$placeholder": {
             "initial_state": "$dynamic.animation_controller.current_states",
             "states": {

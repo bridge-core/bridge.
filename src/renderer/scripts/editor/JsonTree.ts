@@ -15,7 +15,9 @@ import Vue from 'vue'
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import EventBus from '../EventBus'
+import { prepareRun, run, ENV } from '../Utilities/runScript'
 declare const __static: string
+declare const requestIdleCallback: (func: () => void) => void
 
 let PROVIDER: Provider
 
@@ -24,25 +26,8 @@ function getType(data: any) {
 	return typeof data
 }
 
-function prepareRun(code: string, filePath: string) {
-	try {
-		return function(Node: JSONTree) {
-			const fileType = FileType.get(filePath)
-			const getCompletionData = (fileNav: string, context = Node) =>
-				PROVIDER.get(fileNav, filePath, context)
-
-			return eval(code)
-		}
-	} catch (err) {
-		throw err
-	}
-}
-function run(code: string, node: JSONTree, filePath: string) {
-	return prepareRun(code, filePath)(node)
-}
-
 let VALIDATION_CACHE: {
-	[fileName: string]: (node: JSONTree) => void
+	[fileName: string]: (Bridge: unknown) => void
 } = {}
 async function runValidationFile(
 	fileName: string,
@@ -50,16 +35,15 @@ async function runValidationFile(
 	filePath: string
 ) {
 	if (VALIDATION_CACHE[fileName] !== undefined)
-		return VALIDATION_CACHE[fileName](node)
+		return VALIDATION_CACHE[fileName](ENV(node, filePath))
 
 	let func = prepareRun(
 		(await fs.readFile(join(__static, 'validate', fileName))).toString(
 			'utf-8'
-		),
-		filePath
+		)
 	)
 	VALIDATION_CACHE[fileName] = func
-	return func(node)
+	return func(ENV(node, filePath))
 }
 EventBus.on('bridge:changedProject', () => (VALIDATION_CACHE = {}))
 
@@ -143,6 +127,10 @@ export default class JSONTree {
 	is_active = true //Whether to output the tree to the final JSON file upon saving
 	uuid: string
 	meta: any
+	on = {
+		change: new Map<JSONTree, () => void>(),
+		destroy: new Map<JSONTree, () => void>(),
+	}
 
 	constructor(
 		key = '',
@@ -236,6 +224,8 @@ export default class JSONTree {
 
 	updateUUID() {
 		this.uuid = uuidv4()
+
+		requestIdleCallback(() => this.on.change.forEach(func => func()))
 	}
 	forEach(cb: (n?: JSONTree) => any) {
 		if (typeof cb !== 'function') return
@@ -385,7 +375,13 @@ export default class JSONTree {
 				new JSONAction('edit-key', this, this.key)
 			)
 
-		this.key = new_key
+		if (this === TabSystem.getCurrentNavObj()) {
+			this.key = new_key
+			TabSystem.setCurrentFileNav(this.path)
+		} else {
+			this.key = new_key
+		}
+
 		this.updateUUID()
 	}
 	/**
@@ -398,6 +394,8 @@ export default class JSONTree {
 		let c = key !== undefined ? this.children : this.parent.children
 		for (let i = 0; i < c.length; i++) {
 			if (c[i].parsed_key == (key || this.parsed_key)) {
+				c[i].on.destroy.forEach(func => func())
+
 				//HISTORY
 				if (!update_history) return c.splice(i, 1)
 				TabSystem.getHistory().add(
@@ -420,6 +418,8 @@ export default class JSONTree {
 
 		for (let i = 0; i < this.children.length; i++) {
 			if (node.parsed_key == this.children[i].parsed_key) {
+				this.children[i].on.destroy.forEach(func => func())
+
 				//HISTORY
 				if (!update_history) return this.children.splice(i, 1)
 				TabSystem.getHistory().add(
@@ -495,15 +495,15 @@ export default class JSONTree {
 		//Test how and whether validation is defined
 		if (typeof validate === 'string')
 			return runValidationFile(validate, this, file_path)
-		if (validate === undefined || validate.confirm === undefined) return
+		if (!validate || !validate.confirm) return
 
 		const { confirm, then, always } = validate //Grab confirm & then
 		//Run validation
-		if (always === undefined) run(always, this, file_path)
+		if (always === undefined) run(always, ENV(this, file_path))
 		this.error = undefined
 
-		if (run(confirm, this, file_path)) {
-			if (typeof then === 'string') run(then, this, file_path)
+		if (run(confirm, ENV(this, file_path))) {
+			if (typeof then === 'string') run(then, ENV(this, file_path))
 			else if (then !== undefined) this.error = then
 		}
 	}

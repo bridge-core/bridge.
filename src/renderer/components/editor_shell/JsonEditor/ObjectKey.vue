@@ -49,8 +49,7 @@
 								error.is_warning ? 'warning-line' : 'error-line'
 							}`
 						"
-						>{{ node_context.key }}</highlight-text
-					>
+					>{{ node_context.key }}</highlight-text>
 				</span>
 			</template>
 
@@ -66,8 +65,7 @@
 				)};`
 			"
 			class="object"
-			>{{ node_context.key }}</highlight-text
-		>
+		>{{ node_context.key }}</highlight-text>
 
 		<!-- DATA DISPLAY -->
 		<span
@@ -104,8 +102,7 @@
 			"
 			color="error"
 			small
-			>mdi-alert-circle</v-icon
-		>
+		>mdi-alert-circle</v-icon>
 
 		<!-- ERROR FIX -->
 		<v-tooltip
@@ -123,7 +120,7 @@
 				<v-btn
 					v-on="on"
 					color="amber darken-1"
-					@click="error.fix.function(node_context)"
+					@click="fixError"
 					style="margin: 0; height: 20px; width: 20px;"
 					text
 					small
@@ -140,8 +137,7 @@
 			v-if="show_comment && comment != ''"
 			class="comment"
 			:style="color_theme.comment"
-			>//{{ comment }}</span
-		>
+		>//{{ comment }}</span>
 	</summary>
 </template>
 
@@ -150,6 +146,7 @@ import Main from './Main'
 import HighlightText from './HighlightText'
 import HighlightAttribute from './HighlightAttribute'
 import TabSystem from '../../../scripts/TabSystem'
+import { run, ENV } from '../../../scripts/Utilities/runScript'
 
 export default {
 	name: 'object-key',
@@ -205,6 +202,11 @@ export default {
 		},
 	},
 	methods: {
+		fixError() {
+			if (typeof this.error.fix.run === 'string')
+				run(this.error.fix.run, ENV(this.node_context))
+			else this.error.fix.run()
+		},
 		is_selected() {
 			return TabSystem.getCurrentNavigation() === this.object_key
 			//return this.$store.getters.current_internal_file_path() == this.object_key;
