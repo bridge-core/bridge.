@@ -186,7 +186,7 @@ class Provider {
 
 		SET_CONTEXT(context, context === undefined ? undefined : context.parent)
 		let propose = this.walk(path.split('/'))
-		// console.log("[PROPOSING]", path, propose, LIB);
+		// console.log('[PROPOSING]', path, propose, LIB)
 
 		return this.preparePropose(
 			propose,
@@ -219,20 +219,27 @@ class Provider {
 
 	preparePropose(
 		propose: { object: any; value: string[] },
-		context: string[]
+		context: string[],
+		finalPrep = true
 	): { value: string[]; object: string[]; META: any } {
 		if (propose.object === LIB) return { value: [], object: [], META: {} }
 		let { object, value } = propose
-		this.META = {}
+		if (finalPrep) this.META = {}
 
 		if (object.$load !== undefined) {
 			let {
 				object: object_internal,
 				value: value_internal,
-			} = this.omegaExpression(object.$load)
+				META,
+			} = this.preparePropose(
+				this.omegaExpression(object.$load),
+				context,
+				false
+			)
 
 			object = detachObj(object, object_internal)
 			value = value.concat(value_internal)
+			this.META = detachObj(this.META, META)
 		}
 		if (object.$dynamic_template !== undefined) {
 			let t = this.compileTemplate(object.$dynamic_template)
@@ -242,7 +249,9 @@ class Provider {
 		}
 
 		return {
-			object: this.parseObjectCompletions(object, value, context),
+			object: finalPrep
+				? this.parseObjectCompletions(object, value, context)
+				: object,
 			value: value.filter(e => typeof e === 'string' && e !== ''),
 			META: this.META,
 		}
@@ -252,7 +261,7 @@ class Provider {
 		object: any,
 		value: string[],
 		context: string[] = []
-	) {
+	): string[] {
 		return Object.keys(object)
 			.map(key => {
 				if (key.startsWith('$dynamic_template.')) {
@@ -292,6 +301,7 @@ class Provider {
 						object: object_internal,
 						value: value_internal,
 					} = this.omegaExpression(key)
+
 					return Object.keys(object_internal).concat(
 						...value_internal
 					)
@@ -333,11 +343,12 @@ class Provider {
 		let key = path_arr.shift()
 		if (current[key] === undefined) {
 			let res = ComponentProvider.process(this, key, path_arr, current)
+
 			if (res !== undefined) {
 				return res
 			} else if (current !== LIB) {
 				for (let k of Object.keys(current)) {
-					if (k[0] === '$') {
+					if (k[0] === '$' && !REMOVE_LIST.includes(k)) {
 						for (let i = 0; i < path_arr.length + 1; i++)
 							CONTEXT_UP()
 						let { object, value } = this.omegaExpression(k)

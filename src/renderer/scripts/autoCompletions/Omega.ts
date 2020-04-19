@@ -58,7 +58,10 @@ export class Omega {
 
 			i++
 		}
-		return res
+		return res as {
+			object: any
+			value: string[]
+		}
 	}
 
 	static combine(
