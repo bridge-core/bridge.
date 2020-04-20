@@ -146,14 +146,102 @@
         }
     },
 
-    "minecraft:behavior.dragonlanding": {  "priority": "$general.number" },
-    "minecraft:behavior.dragonflaming": {  "priority": "$general.number" },
-    "minecraft:behavior.dragonscanning": {  "priority": "$general.number" },
-    "minecraft:behavior.dragontakeoff": {  "priority": "$general.number" },
-    "minecraft:behavior.dragonchargeplayer": {  "priority": "$general.number" },
-    "minecraft:behavior.dragonstrafeplayer": {  "priority": "$general.number" },
-    "minecraft:behavior.dragonholdingpattern": {  "priority": "$general.number" },
-    "minecraft:behavior.dragondeath": {  "priority": "$general.number" },
+    "minecraft:behavior.dragonlanding": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.dragonlanding\" can only be used by the ender dragon"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.dragonflaming": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.dragonflaming\" can only be used by the ender dragon"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.dragonscanning": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.dragonscanning\" can only be used by the ender dragon"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.dragontakeoff": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.dragontakeoff\" can only be used by the ender dragon"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.dragonchargeplayer": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.dragonchargeplayer\" can only be used by the ender dragon"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.dragonstrafeplayer": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.dragonstrafeplayer\" can only be used by the ender dragon"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.dragonholdingpattern": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.dragonholdingpattern\" can only be used by the ender dragon"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.dragondeath": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.dragondeath\" can only be used by the ender dragon"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
 
     "minecraft:behavior.drop_item_for": {
         "priority": "$general.number",
@@ -181,8 +269,30 @@
         "priority": "$general.number",
         "delay_before_eating": "$general.number"
     },
-    "minecraft:behavior.enderman_leave_block": {  "priority": "$general.number" },
-    "minecraft:behavior.enderman_take_block": {  "priority": "$general.number" },
+    "minecraft:behavior.enderman_leave_block": {  
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:enderman')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.enderman_leave_block\" can only be used by endermen"
+                }
+            }
+        },
+        "priority": "$general.number" 
+    },
+    "minecraft:behavior.enderman_take_block": {  
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:enderman')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.enderman_take_block\" can only be used by endermen"
+                }
+            }
+        },
+        "priority": "$general.number" 
+    },
     "minecraft:behavior.explore_outskirts": {
         "priority": "$general.number",
         "explore_dist": "$general.number",
@@ -269,6 +379,15 @@
         "priority": "$general.number"
     },
     "minecraft:behavior.harvest_farm_block": {
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:villager') || !Bridge.File.usesEntity('minecraft:villager_v2')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.harvest_farm_block\" can only be used by villagers"
+                }
+            }
+        },
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal"
     },   
@@ -341,6 +460,15 @@
     "minecraft:behavior.look_at_target": "$entity.behavior.minecraft:behavior&dot;look_at_entity",
     "minecraft:behavior.look_at_trading_player": "$entity.behavior.minecraft:behavior&dot;look_at_entity",
     "minecraft:behavior.make_love": {
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:villager') || !Bridge.File.usesEntity('minecraft:villager_v2')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.make_love\" can only be used by villagers"
+                }
+            }
+        },
         "priority": "$general.number"
     },
     "minecraft:behavior.melee_attack": {
@@ -383,10 +511,28 @@
         "track_target": "$general.boolean"
     },
     "minecraft:behavior.move_indoors": {
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:villager') || !Bridge.File.usesEntity('minecraft:villager_v2')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.move_indoors\" can only be used by villagers"
+                }
+            }
+        },
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal"
     },
     "minecraft:behavior.move_through_village": {
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:villager') || !Bridge.File.usesEntity('minecraft:villager_v2')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.move_through_village\" can only be used by villagers"
+                }
+            }
+        },
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal",
         "only_at_night": "$general.boolean"
@@ -533,6 +679,15 @@
         "cooldown_after_being_attacked": "$general.number"
     },
     "minecraft:behavior.play": {
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:villager') || !Bridge.File.usesEntity('minecraft:villager_v2')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.play\" can only be used by villagers"
+                }
+            }
+        },
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal"
     },
@@ -621,6 +776,15 @@
         "target_in_sight_time": "$general.decimal"
     },
     "minecraft:behavior.receive_love": {
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:villager') || !Bridge.File.usesEntity('minecraft:villager_v2')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.receive_love\" can only be used by villagers"
+                }
+            }
+        },
         "priority": "$general.number"
     },
     "minecraft:behavior.restrict_sun": {
@@ -671,12 +835,43 @@
         "entity_types": "$entity.general.entity_types"
     },
     "minecraft:behavior.skeleton_horse_trap": {
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:horse') || !Bridge.File.usesEntity('minecraft:donkey') || !Bridge.File.usesEntity('minecraft:mule') || !Bridge.File.usesEntity('minecraft:skeleton_horse')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.skeleton_horse_trap\" can only be used by horse like entites"
+                }
+            }
+        },
+        "priority": "$general.number",
         "within_radius": "$general.number",
-        "duration": "$general.number",
+        "duration": "$general.number"
+    },
+    "minecraft:behavior.silverfish_wake_up_friends": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:silverfish')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.silverfish_wake_up_friends\" can only be used by silverfish"
+                }
+            }
+        },
         "priority": "$general.number"
     },
-    "minecraft:behavior.silverfish_wake_up_friends": { "priority": "$general.number" },
-    "minecraft:behavior.silverfish_merge_with_stone": { "priority": "$general.number" },
+    "minecraft:behavior.silverfish_merge_with_stone": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:silverfish')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.silverfish_merge_with_stone\" can only be used by silverfish"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
     "minecraft:behavior.sleep": {
         "priority": "$general.number",
         "goal_radius": "$general.number",
@@ -722,11 +917,66 @@
         "prepare_time": "$general.number",
         "sound": "$general.sound"
     },
-    "minecraft:behavior.squid_move_away_from_ground": { "priority": "$general.number" },
-    "minecraft:behavior.squid_flee": { "priority": "$general.number" },
-    "minecraft:behavior.squid_idle": { "priority": "$general.number" },
-    "minecraft:behavior.squid_dive": { "priority": "$general.number" },
-    "minecraft:behavior.squid_out_of_water": { "priority": "$general.number" },
+    "minecraft:behavior.squid_move_away_from_ground": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:squid')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.squid_move_away_from_ground\" can only be used by squids"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.squid_flee": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:squid')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.squid_flee\" can only be used by squids"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.squid_idle": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:squid')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.squid_idle\" can only be used by squids"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.squid_dive": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:squid')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.squid_dive\" can only be used by squids"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
+    "minecraft:behavior.squid_out_of_water": { 
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:squid')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.squid_out_of_water\" can only be used by squids"
+                }
+            }
+        },
+        "priority": "$general.number"
+    },
     "minecraft:behavior.stalk_and_pounce_on_target": {
         "priority": "$general.number",
         "stalk_speed": "$general.decimal",
@@ -836,8 +1086,17 @@
             "$dynamic.list.index_pair": "$general.number"
         }
     },
-    "minecraft:behavior.take_flower":{
-      "priority": "$general.number"
+    "minecraft:behavior.take_flower": {
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:villager') || !Bridge.File.usesEntity('minecraft:villager_v2')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.take_flower\" can only be used by villagers"
+                }
+            }
+        },
+        "priority": "$general.number"
     },
     "minecraft:behavior.tempt": {
         "priority": "$general.number",
@@ -873,6 +1132,15 @@
         "priority": "$general.number"
     },
     "minecraft:behavior.wither_random_attack_pos_goal": {
+        "@meta": {
+            "validate": {
+                "confirm": "!Bridge.File.usesEntity('minecraft:wither')",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:behavior.wither_random_attack_pos_goal\" can only be used by the wither"
+                }
+            }
+        },
         "priority": "$general.number"
     },
     "minecraft:behavior.wither_target_highest_damage": {

@@ -33,6 +33,23 @@ export const ENV = (
 	get FileType() {
 		return FileType.get(filePath || TabSystem.getCurrentFilePath())
 	},
+	File: {
+		usesEntity(identifier: string) {
+			let globalNode = Node
+
+			while (globalNode.parent) {
+				globalNode = globalNode.parent
+			}
+
+			return (
+				globalNode.get('#;bridge_node_skip;#/description/identifier')
+					?.data === identifier ||
+				globalNode.get(
+					'#;bridge_node_skip;#/description/runtime_identifier'
+				)?.data === identifier
+			)
+		},
+	},
 	Tab: {
 		setUnsaved: () => TabSystem.setCurrentUnsaved(),
 	},

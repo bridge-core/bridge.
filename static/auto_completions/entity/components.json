@@ -615,10 +615,10 @@
     "minecraft:on_death": {
         "@meta": {
             "validate": {
-                "confirm": "(Bridge.GlobalNode.get('#;bridge_node_skip;#/description/identifier') || {}).data !== 'minecraft:ender_dragon'",
+                "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
                 "then": {
                     "show": true,
-                    "message": "\"minecraft:on_death\" can only be used on the ender dragon"
+                    "message": "\"minecraft:on_death\" can only be used by the ender dragon"
                 }
             }
         },
@@ -631,10 +631,10 @@
     "minecraft:on_start_landing": {
         "@meta": {
             "validate": {
-                "confirm": "(Bridge.GlobalNode.get('#;bridge_node_skip;#/description/identifier') || {}).data !== 'minecraft:ender_dragon'",
+                "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
                 "then": {
                     "show": true,
-                    "message": "\"minecraft:on_start_landing\" can only be used on the ender dragon"
+                    "message": "\"minecraft:on_start_landing\" can only be used by the ender dragon"
                 }
             }
         },
@@ -643,10 +643,10 @@
     "minecraft:on_start_takeoff": {
         "@meta": {
             "validate": {
-                "confirm": "(Bridge.GlobalNode.get('#;bridge_node_skip;#/description/identifier') || {}).data !== 'minecraft:ender_dragon'",
+                "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
                 "then": {
                     "show": true,
-                    "message": "\"minecraft:on_start_takeoff\" can only be used on the ender dragon"
+                    "message": "\"minecraft:on_start_takeoff\" can only be used by the ender dragon"
                 }
             }
         },
