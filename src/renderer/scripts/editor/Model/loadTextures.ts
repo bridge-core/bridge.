@@ -38,16 +38,17 @@ async function guessTexture(identifier: string) {
 	return (
 		await Promise.all(
 			GUESS_DATA().map(async ([base, ext]) => {
-				try {
-					let try_folder = join(
-						base,
-						'textures/entity',
-						identifier
-							.split(':')
-							.pop()
-							.split('.')[1]
-					)
+				let try_folder = join(
+					base,
+					'textures/entity',
+					identifier
+						.split(':')
+						.pop()
+						.split('.')
+						.pop()
+				)
 
+				try {
 					let entries = await fs.readdir(try_folder)
 					return await Promise.all(
 						entries.map(async en => {
