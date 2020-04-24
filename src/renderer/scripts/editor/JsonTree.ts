@@ -492,6 +492,10 @@ export default class JSONTree {
 		const { is_color, validate } = META
 		if (is_color && this.data === '') this.edit('#1778D2')
 
+		/**
+		 * ERROR DETECTION
+		 */
+		if (!Store.state.Settings.run_error_detection) return
 		//Test how and whether validation is defined
 		if (typeof validate === 'string')
 			return runValidationFile(validate, this, file_path)

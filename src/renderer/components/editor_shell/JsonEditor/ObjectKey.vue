@@ -26,6 +26,7 @@
 		<!-- KEY DISPLAY ERROR -->
 		<v-tooltip
 			v-if="
+				$store.state.Settings.run_error_detection && 
 				error &&
 					error.show &&
 					!node_context.meta.ignore_error &&
@@ -95,6 +96,7 @@
 		<!-- ERROR PARENT CIRCLE -->
 		<v-icon
 			v-if="
+				$store.state.Settings.run_error_detection && 
 				$store.state.Settings.error_icon_indicator &&
 					child_contains_error &&
 					!node_context.open &&
@@ -107,6 +109,7 @@
 		<!-- ERROR FIX -->
 		<v-tooltip
 			v-if="
+				$store.state.Settings.run_error_detection && 
 				$store.state.Settings.error_auto_fix &&
 					error &&
 					error.fix &&
