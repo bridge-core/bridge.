@@ -32,7 +32,7 @@ function setup() {
 			default_project: '',
 			target_version: '',
 			snippet_scope: 'Default',
-			when_error: 'On File Change',
+			run_error_detection: true,
 			error_icon_indicator: true,
 			error_auto_fix: true,
 			focus_json_inputs: true,
@@ -50,6 +50,8 @@ function setup() {
 	if (DATA.id === undefined) save({ id: uuid() })
 	if (DATA.text_auto_completions === undefined)
 		save({ text_auto_completions: true })
+	if (DATA.run_error_detection === undefined)
+		save({ run_error_detection: true })
 }
 function save(settings: { [s: string]: any }) {
 	if (DATA) DATA = Object.assign(DATA, settings)

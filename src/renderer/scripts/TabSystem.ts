@@ -9,7 +9,6 @@ import PluginEnv from './plugins/PluginEnv'
 import JSONTree from './editor/JsonTree'
 import LoadingWindow from '../windows/LoadingWindow'
 import { History } from './TabSystem/CommonHistory'
-import ProblemIterator from './editor/problems/Problems'
 import path from 'path'
 import FileType from './editor/FileType'
 import OmegaCache, { FormatVersion } from './editor/OmegaCache'
@@ -498,10 +497,7 @@ class TabSystem {
 	async getSaveContent(current: any, update_cache = true) {
 		let ext = path.extname(current.file_path)
 		let format_version: FormatVersion = 0
-		if (current.content instanceof JSONTree) {
-			ProblemIterator.findProblems(current.content)
-			format_version = 1
-		}
+		if (current.content instanceof JSONTree) format_version = 1
 		if (current.file_uuid === undefined) current.file_uuid = uuid()
 
 		//bridgeCore needs to be triggered before caches are saved

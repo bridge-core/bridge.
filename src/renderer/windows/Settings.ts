@@ -10,7 +10,6 @@ import EventBus from '../scripts/EventBus'
 import fs from 'fs'
 import AddSnippetWindow from './AddSnippet'
 import Snippets from './Snippets'
-import ProblemIterator from '../scripts/editor/problems/Problems'
 import { ipcRenderer, remote } from 'electron'
 import ConfirmWindow from '../scripts/commonWindows/Confirm'
 import ThemeManager from '../scripts/editor/ThemeManager'
@@ -295,18 +294,13 @@ export default class SettingsWindow extends TabWindow {
 
 				{
 					color: 'grey',
-					text: '\nError Detection',
+					text: '\nFile Validation',
 				},
-				new ReactiveDropdown(
-					this,
-					'when_error',
-					['On Save', 'On File Change', 'Never'],
-					{
-						text: 'Choose when to search for errors...',
-						key: `settings.editor.tab.when_error.${Math.random()}`,
-					},
-					() => ProblemIterator.repeatLast()
-				),
+				new ReactiveSwitch(this, 'run_error_detection', {
+					color: 'primary',
+					text: 'Error Detection',
+					key: `settings.editor.tab.error_icon_indicator.${Math.random()}`,
+				}),
 				new ReactiveSwitch(this, 'error_icon_indicator', {
 					color: 'primary',
 					text: 'Error Icon Indicator',

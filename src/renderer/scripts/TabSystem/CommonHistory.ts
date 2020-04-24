@@ -1,5 +1,3 @@
-import Store from '../../store/index'
-import ProblemIterator from '../editor/problems/Problems'
 import TabSystem from '../TabSystem'
 import JSONTree from '../editor/JsonTree'
 
@@ -16,19 +14,11 @@ export class History {
 		this.redo_arr = []
 	}
 
-	updateError() {
-		if (Store.state.Settings.when_error === 'On File Change') {
-			setTimeout(() => ProblemIterator.repeatLast(), 10)
-		}
-	}
-
 	/**
 	 * Adds an action to the undo queue
 	 * @param {Action} action Action to add to the undo queue
 	 */
 	add(action: Action) {
-		this.updateError()
-
 		if (this.undo_arr.length === 0) return this.undo_arr.unshift(action)
 		this.undo_arr[0].push(this.undo_arr, action)
 	}
@@ -45,7 +35,6 @@ export class History {
 		TabSystem.setCurrentFileNav('global')
 		TabSystem.setCurrentUnsaved()
 
-		this.updateError()
 		return true
 	}
 	/**
@@ -60,7 +49,6 @@ export class History {
 		TabSystem.setCurrentFileNav('global')
 		TabSystem.setCurrentUnsaved()
 
-		this.updateError()
 		return true
 	}
 

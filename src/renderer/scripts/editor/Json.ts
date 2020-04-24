@@ -1,6 +1,5 @@
 import saveEval from 'safe-eval'
 import JSONTree from './JsonTree'
-import ProblemIterator from './problems/Problems'
 
 function private_toJSON(
 	tree: JSONTree,
@@ -65,7 +64,6 @@ export class Format {
 	static toTree(obj: any, file_path = '') {
 		let tree = new JSONTree('global').buildFromObject(obj)
 		tree.loadMeta(file_path, true)
-		setTimeout(() => ProblemIterator.findProblems(tree), 10)
 		return tree
 	}
 }

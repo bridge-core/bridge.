@@ -5,7 +5,6 @@ import Vue from '../main'
 import TabSystem from './TabSystem'
 import { ipcRenderer } from 'electron'
 import JSONTree from './editor/JsonTree'
-import ProblemIterator from './editor/problems/Problems'
 import PluginEnv from './plugins/PluginEnv'
 import path from 'path'
 import OmegaCache from './editor/OmegaCache'
@@ -231,7 +230,6 @@ export default class FileSystem {
 		if (format_version === 1) {
 			tree = JSONTree.buildFromCache(data)
 			tree.loadMeta(file_path, true)
-			ProblemIterator.findProblems(tree, file_path)
 		}
 
 		TabSystem.add({
