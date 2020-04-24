@@ -140,7 +140,7 @@ export const EditMenu: IAppMenu = {
 				ctrlKey: true,
 			},
 			onClick: () => {
-				if (!TabSystem.getHistory().undo()) EventBus.trigger('cmUndo')
+				if (!TabSystem.getHistory()?.undo()) EventBus.trigger('cmUndo')
 			},
 		},
 		{
@@ -151,7 +151,7 @@ export const EditMenu: IAppMenu = {
 				ctrlKey: true,
 			},
 			onClick: () => {
-				if (!TabSystem.getHistory().redo()) EventBus.trigger('cmRedo')
+				if (!TabSystem.getHistory()?.redo()) EventBus.trigger('cmRedo')
 			},
 		},
 

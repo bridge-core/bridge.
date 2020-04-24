@@ -332,7 +332,7 @@ class TabSystem {
 		return (s.content as JSONTree).get(nav)
 	}
 	getHistory() {
-		return this.getSelected().history
+		return this.getSelected()?.history
 	}
 	setCurrentNavContent(val: string) {
 		let nav = this.getCurrentNavigation()
