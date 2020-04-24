@@ -618,6 +618,7 @@
                 "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
                 "then": {
                     "show": true,
+                    "is_warning": true,
                     "message": "\"minecraft:on_death\" can only be used by the ender dragon"
                 }
             }
@@ -634,6 +635,7 @@
                 "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
                 "then": {
                     "show": true,
+                    "is_warning": true,
                     "message": "\"minecraft:on_start_landing\" can only be used by the ender dragon"
                 }
             }
@@ -646,6 +648,7 @@
                 "confirm": "!Bridge.File.usesEntity('minecraft:ender_dragon')",
                 "then": {
                     "show": true,
+                    "is_warning": true,
                     "message": "\"minecraft:on_start_takeoff\" can only be used by the ender dragon"
                 }
             }
