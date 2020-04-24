@@ -1,6 +1,6 @@
 import FetchDefinitions from '../FetchDefinitions'
 import { readJSON } from '../../Utilities/JsonFS'
-import { Texture, MeshLambertMaterial } from 'three'
+import { Texture, Material } from 'three'
 import { CURRENT } from '../../constants'
 import { join } from 'path'
 import { promises as fs, existsSync } from 'fs'
@@ -38,16 +38,16 @@ async function guessTexture(identifier: string) {
 	return (
 		await Promise.all(
 			GUESS_DATA().map(async ([base, ext]) => {
-				let try_folder = join(
-					base,
-					'textures/entity',
-					identifier
-						.split(':')
-						.pop()
-						.split('.')[1]
-				)
-
 				try {
+					let try_folder = join(
+						base,
+						'textures/entity',
+						identifier
+							.split(':')
+							.pop()
+							.split('.')[1]
+					)
+
 					let entries = await fs.readdir(try_folder)
 					return await Promise.all(
 						entries.map(async en => {
