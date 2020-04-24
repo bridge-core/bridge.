@@ -1,5 +1,8 @@
 import { IAppMenu } from '../create'
 import { ipcRenderer } from 'electron'
+import { promises as fs } from 'fs'
+import { join } from 'path'
+declare const __static: string
 
 export const DevMenu: IAppMenu = {
 	displayName: 'Development',

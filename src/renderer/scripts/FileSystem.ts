@@ -14,10 +14,6 @@ import { readJSON } from './Utilities/JsonFS'
 import { stripFileVersion } from './Utilities/FileVersioning'
 import { useCache } from './Project/NoCacheConfig'
 
-ipcRenderer.on('openFile', (event, path) => {
-	FileSystem.open(path)
-})
-
 export default class FileSystem {
 	static get Cache() {
 		throw new Error('Calling FileSystem.Cache is deprecated!')

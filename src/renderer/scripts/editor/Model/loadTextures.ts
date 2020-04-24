@@ -13,7 +13,7 @@ export interface IEntityContext {
 		data?: Texture
 	}
 	animations?: { [name: string]: string }
-	material?: Material
+	materials?: Material[]
 }
 
 export async function loadAllTextures(identifiers: string[]) {

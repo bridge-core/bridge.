@@ -1,19 +1,41 @@
-import { ipcMain, app, BrowserWindow, shell } from 'electron'
+import {
+	ipcMain,
+	app,
+	BrowserWindow,
+	shell,
+	FileFilter,
+	OpenDialogOptions,
+} from 'electron'
 import { dialog } from 'electron'
 import fs from 'fs'
 import { DefaultDir } from '../shared/DefaultDir'
 import { download } from 'electron-dl'
 import path from 'path'
 
-ipcMain.on('openFileDialog', async (event, args) => {
-	let { filePaths, canceled } = await dialog.showOpenDialog({
-		title: 'Select a File',
-		properties: ['openFile', 'multiSelections'],
-	})
+ipcMain.handle(
+	'openFileDialog',
+	async (
+		event,
+		{
+			filters,
+			properties,
+		}: {
+			properties?: OpenDialogOptions['properties']
+			filters?: FileFilter[]
+		} = {}
+	) => {
+		let { filePaths, canceled } = await dialog.showOpenDialog({
+			title: 'Select a File',
+			properties: <OpenDialogOptions['properties']>(
+				['openFile'].concat(properties ?? [])
+			),
+			filters,
+		})
 
-	if (!canceled)
-		filePaths.forEach(path => event.sender.send('openFile', path))
-})
+		if (canceled) return []
+		return filePaths
+	}
+)
 
 ipcMain.on('saveAsFileDialog', async (event, { path, content }) => {
 	let { filePath, canceled } = await dialog.showSaveDialog({

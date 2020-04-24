@@ -6,12 +6,13 @@ import {
 	Vector3,
 	MeshLambertMaterial,
 	DoubleSide,
+	FrontSide,
 } from 'three'
 import { createCube } from './createCube'
 import InformationWindow from '../../commonWindows/Information'
 import { lessThan } from '../../Utilities/VersionUtils'
 import { toNewModelFormat } from '../../Play/Model/convertFormat'
-import { createPolyMesh } from './createMesh'
+import { createPolyMesh } from './createPolyMesh'
 
 export interface IImageProps {
 	width: number
@@ -103,7 +104,7 @@ export function loadModels(
 	models: Group[]
 	boneMaps: Map<string, [string | undefined, Group]>[]
 	identifiers: string[]
-	materials: Material[]
+	materials: Material[][]
 } {
 	if (lessThan(models.format_version ?? '1.2.0', '1.12.0')) {
 		return loadModels(scene, toNewModelFormat(models))
@@ -117,7 +118,7 @@ export function loadModels(
 
 	let allModels: Group[] = []
 	let identifiers: string[] = []
-	let materials: Material[] = []
+	let materials: Material[][] = []
 	let boneMaps = []
 
 	for (let modelData of (models as IModelSchema)['minecraft:geometry'] ??
@@ -128,10 +129,13 @@ export function loadModels(
 			alphaTest: 0.2,
 			transparent: true,
 		})
-		let { model, boneMap } = loadModel(material, modelData)
+		let { model, boneMap, materials: modelMaterials } = loadModel(
+			material,
+			modelData
+		)
 
 		identifiers.push(modelData.description.identifier)
-		materials.push(material)
+		materials.push([material, ...modelMaterials])
 		boneMaps.push(boneMap)
 
 		model.position.add(new Vector3(100 * allModels.length, 0, 0))
@@ -166,6 +170,7 @@ export function loadModel(
 	let model = new Group()
 	model.name = identifier
 	let boneMap = new Map<string, [string | undefined, Group]>()
+	const materials: Material[] = []
 
 	for (let {
 		name,
@@ -181,14 +186,19 @@ export function loadModel(
 		currBone.name = name ?? ''
 
 		if (poly_mesh) {
-			console.log('TRY LOADING POLY MESH')
+			const polyMaterial = new MeshLambertMaterial({
+				color: 0xff00ff,
+				side: FrontSide,
+				alphaTest: 0.2,
+				transparent: true,
+			})
+			materials.push(polyMaterial)
 			currBone.add(
 				createPolyMesh(poly_mesh, {
 					texture_height,
 					texture_width,
-				}).createMesh(material, pivot, rotation, inflate)
+				}).createMesh(polyMaterial, pivot, rotation, inflate)
 			)
-			console.log(poly_mesh, currBone)
 		}
 
 		for (let i = 0; i < cubes.length; i++) {
@@ -228,11 +238,12 @@ export function loadModel(
 			const [pX, pY, pZ] = pivot
 			pivotGroup.position.set(-pX, pY, pZ)
 			currBone.position.set(pX, -pY, -pZ)
-			pivotGroup.add(currBone)
-			pivotGroup.name = `#pivot.${name}`
 		} else {
 			pivotGroup.position.set(0, 0, 0)
 		}
+
+		pivotGroup.add(currBone)
+		pivotGroup.name = `#pivot.${name}`
 
 		if (rotation) {
 			const [rX, rY, rZ] = rotation
@@ -260,5 +271,6 @@ export function loadModel(
 	return {
 		model,
 		boneMap,
+		materials,
 	}
 }

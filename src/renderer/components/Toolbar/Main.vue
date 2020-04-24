@@ -28,8 +28,8 @@
 		</v-toolbar-items>
 
 		<v-spacer />
-		<span v-if="ProjectState.currentProject" style="font-size: 12px;">
-			- {{ ProjectState.currentProject.name }} -
+		<span v-if="projectName" style="font-size: 12px;">
+			{{ projectName.split(/\\|\//g).pop() }}
 		</span>
 		<v-spacer />
 
@@ -90,6 +90,11 @@ export default {
 			},
 		],
 	}),
+	computed: {
+		projectName() {
+			return this.$store.state.Explorer.project.explorer
+		},
+	},
 }
 </script>
 

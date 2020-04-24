@@ -70,6 +70,7 @@
     "electron-dl": "^3.0.0",
     "font-list": "^1.2.8",
     "fs-extra": "^8.1.0",
+    "image-size": "^0.8.3",
     "js-yaml": "^3.13.1",
     "mime": "^2.4.4",
     "mkdirp": "^0.5.5",

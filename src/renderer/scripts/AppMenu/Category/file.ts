@@ -6,6 +6,9 @@ import { ipcRenderer } from 'electron'
 import TabSystem from '../../TabSystem'
 import SettingsWindow from '../../../windows/Settings'
 import ExtensionBrowser from '../../../windows/Extensions/Browser'
+import ImportObjWindow from '../../../windows/ImportObj'
+import LoadingWindow from '../../../windows/LoadingWindow'
+import FileSystem from '../../FileSystem'
 
 export const FileMenu: IAppMenu = {
 	displayName: 'File',
@@ -29,13 +32,35 @@ export const FileMenu: IAppMenu = {
 			},
 		},
 		{
-			displayName: 'Open File',
-			displayIcon: 'mdi-file-upload-outline',
-			keyBinding: {
-				key: 'o',
-				ctrlKey: true,
-			},
-			onClick: () => ipcRenderer.send('openFileDialog'),
+			displayName: 'Import',
+			displayIcon: 'mdi-import',
+			elements: [
+				{
+					displayName: 'Open File',
+					displayIcon: 'mdi-file-upload-outline',
+					keyBinding: {
+						key: 'o',
+						ctrlKey: true,
+					},
+					onClick: async () => {
+						const lw = new LoadingWindow()
+						;(
+							await ipcRenderer.invoke('openFileDialog', {
+								properties: ['multiSelections'],
+							})
+						).forEach((filePath: string) =>
+							FileSystem.open(filePath)
+						)
+
+						lw.close()
+					},
+				},
+				{
+					displayName: 'Import OBJ Model',
+					displayIcon: 'mdi-video-3d',
+					onClick: () => new ImportObjWindow(),
+				},
+			],
 		},
 		{
 			displayName: 'Save File',

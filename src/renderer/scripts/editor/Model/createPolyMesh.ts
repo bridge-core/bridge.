@@ -45,7 +45,7 @@ export function createPolyMesh(
 		if (face.length === 3) {
 			indices.push(i, i + 1, i + 2)
 		} else {
-			indices.push(i, i + 1, i + 2, i + 2, i, i + 3)
+			indices.push(i + 2, i + 1, i, i + 2, i, i + 3)
 		}
 
 		i += face.length
@@ -76,17 +76,17 @@ export function createPolyMesh(
 			inflate = 0
 		) {
 			// const calculatedWidth = inflate * 2 + width
-			let geo = createGeometry()
-			let mesh = new Mesh(geo, material)
+			let mesh = new Mesh(createGeometry(), material)
+			return mesh
 
-			let group = new Group()
-			group.rotation.order = 'ZYX'
+			// let group = new Group()
+			// group.rotation.order = 'ZYX'
 
 			// if (pivot === undefined)
 			// 	//Rotate around center of cube without pivot
 			// 	pivot = [calculatedWidth / 2, height / 2, depth / 2]
 
-			group.add(mesh)
+			// group.add(mesh)
 
 			// if (rotation) {
 			// 	group.position.set(-pivot[0], pivot[1], pivot[2])
@@ -118,7 +118,7 @@ export function createPolyMesh(
 			// 		1 + inflate / (depth / 2)
 			// 	)
 
-			return group
+			// return group
 		},
 	}
 }

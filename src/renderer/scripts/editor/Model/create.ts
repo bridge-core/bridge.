@@ -8,6 +8,7 @@ import {
 	AmbientLight,
 	AxesHelper,
 	GridHelper,
+	MeshLambertMaterial,
 } from 'three'
 import { TGALoader } from 'three/examples/jsm/loaders/TGALoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
@@ -90,14 +91,19 @@ export async function createModelEditor(
 				//@ts-ignore - Types for the tgaLoader are wrong
 				texData.texture.data = tgaLoader.load(texData.texture.file_path)
 			else texData.texture.data = loader.load(texData.texture.file_path)
-			texData.material = materials[i]
+			texData.materials = materials[i]
 
 			if (j === 0) {
-				texData.material.color = undefined
 				const texture = texData.texture.data
-				texData.material.map = texture
-				texture.magFilter = NearestFilter
-				texture.minFilter = NearestFilter
+
+				texData.materials.forEach(mat => {
+					if (mat instanceof MeshLambertMaterial) {
+						mat.color = undefined
+						mat.map = texture
+						texture.magFilter = NearestFilter
+						texture.minFilter = NearestFilter
+					}
+				})
 			}
 		})
 	})
@@ -155,8 +161,11 @@ export async function createModelEditor(
 			requestRendering()
 		},
 
-		setTexture({ texture: { data }, material }: IEntityContext) {
-			material.map = data
+		setTexture({ texture: { data }, materials }: IEntityContext) {
+			materials.forEach(mat => {
+				if (mat instanceof MeshLambertMaterial) mat.map = data
+			})
+
 			data.magFilter = NearestFilter
 			data.minFilter = NearestFilter
 			requestRendering()
