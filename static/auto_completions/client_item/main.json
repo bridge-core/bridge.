@@ -11,7 +11,7 @@
                 "@meta": { "is_value": true },
                 "@import.value.item_texture": "$dynamic.rp.item_textures"
             },
-            "minecraft:use_animation": [ "eat", "drink" ],
+            "minecraft:use_animation": [ "bow", "eat", "drink", "crossbow", "camera" ],
             "minecraft:hover_text_color": "$general.minecraft_color",
 
             "minecraft:render_offsets": [ "apple", "tools" ]
