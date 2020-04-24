@@ -11,6 +11,7 @@ import { createCube } from './createCube'
 import InformationWindow from '../../commonWindows/Information'
 import { lessThan } from '../../Utilities/VersionUtils'
 import { toNewModelFormat } from '../../Play/Model/convertFormat'
+import { createPolyMesh } from './createMesh'
 
 export interface IImageProps {
 	width: number
@@ -52,8 +53,21 @@ export interface IBoneSchema {
 	rotation?: [number, number, number]
 	mirror?: boolean
 	cubes?: ICubeSchema[]
+	poly_mesh: IPolyMesh
 }
 
+export type TVector = [number, number, number]
+export interface IPolyMesh {
+	normalized_uvs?: boolean
+	positions?: TVector[]
+	normals?: TVector[]
+	uvs?: [number, number][]
+	polys?:
+		| [TVector, TVector, TVector][]
+		| [TVector, TVector, TVector, TVector][]
+		| 'tri_list'
+		| 'quad_list'
+}
 export interface ICubeSchema {
 	origin?: [number, number, number]
 	size?: [number, number, number]
@@ -89,7 +103,7 @@ export function loadModels(
 	models: Group[]
 	boneMaps: Map<string, [string | undefined, Group]>[]
 	identifiers: string[]
-	materials: MeshLambertMaterial[]
+	materials: Material[]
 } {
 	if (lessThan(models.format_version ?? '1.2.0', '1.12.0')) {
 		return loadModels(scene, toNewModelFormat(models))
@@ -103,13 +117,13 @@ export function loadModels(
 
 	let allModels: Group[] = []
 	let identifiers: string[] = []
-	let materials: MeshLambertMaterial[] = []
+	let materials: Material[] = []
 	let boneMaps = []
 
 	for (let modelData of (models as IModelSchema)['minecraft:geometry'] ??
 		[]) {
 		const material = new MeshLambertMaterial({
-			color: '#FF00FF',
+			color: 0xff00ff,
 			side: DoubleSide,
 			alphaTest: 0.2,
 			transparent: true,
@@ -161,9 +175,21 @@ export function loadModel(
 		rotation,
 		mirror,
 		inflate,
+		poly_mesh,
 	} of bones) {
 		let currBone = new Group()
 		currBone.name = name ?? ''
+
+		if (poly_mesh) {
+			console.log('TRY LOADING POLY MESH')
+			currBone.add(
+				createPolyMesh(poly_mesh, {
+					texture_height,
+					texture_width,
+				}).createMesh(material, pivot, rotation, inflate)
+			)
+			console.log(poly_mesh, currBone)
+		}
 
 		for (let i = 0; i < cubes.length; i++) {
 			const {

@@ -101,12 +101,12 @@ export async function createModelEditor(
 			}
 		})
 	})
-	const anim = createAnimation(
-		((await readJSON(
-			join(CURRENT.RP_PATH, 'animations/pesky_dragon.animation.json')
-		)) as IAnimations).animations['animation.pesky_dragon.sleeping'],
-		boneMaps[0]
-	)
+	// const anim = createAnimation(
+	// 	((await readJSON(
+	// 		join(CURRENT.RP_PATH, 'animations/pesky_dragon.animation.json')
+	// 	)) as IAnimations).animations['animation.pesky_dragon.sleeping'],
+	// 	boneMaps[0]
+	// )
 
 	positionCamera(camera)
 
@@ -123,7 +123,7 @@ export async function createModelEditor(
 		}
 	}
 
-	anim.play(requestRendering)
+	// anim.play(requestRendering)
 
 	return {
 		/**
@@ -142,7 +142,7 @@ export async function createModelEditor(
 		},
 		stopRendering() {
 			controls.removeEventListener('change', requestRendering)
-			anim.pause()
+			// anim.pause()
 
 			for (let id in allTextureData) {
 				allTextureData[id].forEach(({ texture: { data } }) =>
