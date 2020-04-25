@@ -125,7 +125,10 @@
                 "then": {
                     "show": true,
                     "is_warning": true,
-                    "message": "Only works with \"track_target\": \"true\""
+                    "message": "Only works with \"track_target\": \"true\"",
+                    "fix": {
+                        "run": "Bridge.Node.error = undefined; Bridge.Node.buildFromObject({ track_target: true }, undefined, true);"
+                    }
                 }
             }
         },
