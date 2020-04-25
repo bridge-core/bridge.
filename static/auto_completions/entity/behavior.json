@@ -119,6 +119,16 @@
         "entity_types": "$entity.general.entity_types"
     },
     "minecraft:behavior.delayed_attack": {
+        "@meta": {
+            "validate": {
+                "confirm": "Bridge.Node.toJSON().track_target !== true",
+                "then": {
+                    "show": true,
+                    "is_warning": true,
+                    "message": "Only works with \"track_target\": \"true\""
+                }
+            }
+        },
         "priority": "$general.number",
         "speed_multiplier": "$general.decimal",
         "attack_once": "$general.boolean",
