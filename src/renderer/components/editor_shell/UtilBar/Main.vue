@@ -1,5 +1,6 @@
 <template>
-	<span v-if="isShowing">
+	<!-- Disabled until we ship "bridge. Play!" and JSON search -->
+	<span v-if="false && isShowing">
 		<v-container class="utility-bar">
 			<PlayButton :filePath="filePath" />
 

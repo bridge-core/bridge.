@@ -3,7 +3,8 @@
 		<canvas ref="canvas" />
 
 		<v-container class="canvas-overlay">
-			<PlayButton :filePath="file_path" style="margin-right: 8px" />
+			<!-- Disabled until we ship "bridge. Play!" -->
+			<!-- <PlayButton :filePath="file_path" style="margin-right: 8px" /> -->
 			<v-icon v-if="should_show_menu" @click="is_visible = !is_visible">
 				{{
 				is_visible ? 'mdi-close' : 'mdi-cog'
