@@ -149,7 +149,8 @@ import Main from './Main'
 import HighlightText from './HighlightText'
 import HighlightAttribute from './HighlightAttribute'
 import TabSystem from '../../../scripts/TabSystem'
-import { run, ENV } from '../../../scripts/Utilities/runScript'
+import { run } from '../../../scripts/editor/ScriptRunner/run'
+import { ENV } from '../../../scripts/editor/ScriptRunner/Validation/ENV'
 
 export default {
 	name: 'object-key',

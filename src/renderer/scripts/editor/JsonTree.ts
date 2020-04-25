@@ -12,40 +12,18 @@ import FileType from './FileType'
 import uuidv4 from 'uuid/v4'
 import Store from '../../store/index'
 import Vue from 'vue'
-import { promises as fs } from 'fs'
-import { join } from 'path'
-import EventBus from '../EventBus'
-import { prepareRun, run, ENV } from '../Utilities/runScript'
-declare const __static: string
+import { run } from './ScriptRunner/run'
+import { ENV } from './ScriptRunner/Validation/ENV'
+import { runValidationFile } from './ScriptRunner/Validation/runFile'
+
 declare const requestIdleCallback: (func: () => void) => void
 
 let PROVIDER: Provider
 
-function getType(data: any) {
+function getType(data: unknown) {
 	if (Array.isArray(data)) return 'array'
 	return typeof data
 }
-
-let VALIDATION_CACHE: {
-	[fileName: string]: (Bridge: unknown) => void
-} = {}
-async function runValidationFile(
-	fileName: string,
-	node: JSONTree,
-	filePath: string
-) {
-	if (VALIDATION_CACHE[fileName] !== undefined)
-		return VALIDATION_CACHE[fileName](ENV(node, filePath))
-
-	let func = prepareRun(
-		(await fs.readFile(join(__static, 'validate', fileName))).toString(
-			'utf-8'
-		)
-	)
-	VALIDATION_CACHE[fileName] = func
-	return func(ENV(node, filePath))
-}
-EventBus.on('bridge:changedProject', () => (VALIDATION_CACHE = {}))
 
 export class TreeIterator {
 	stack: Stack<{ node: JSONTree; step: number }>
@@ -519,6 +497,16 @@ export default class JSONTree {
 		if (deep) this.children.forEach(c => c.loadMeta(file_path, true))
 		this.updateUUID()
 	}
+	/**
+	 * Can be used by plugins to hook into how a node is saved to disk.
+	 * Overwriting this method is more efficient than looping over all nodes inside the plugin itself
+	 */
+	identity() {
+		// const { compile } = this.meta
+		// if (compile) {
+		// }
+		return this
+	}
 
 	openNode(val = true) {
 		this.updateUUID()
@@ -649,13 +637,6 @@ export default class JSONTree {
 		}
 
 		if (first) this.updateUUID()
-		return this
-	}
-	/**
-	 * Can be used by plugins to hook into how a node is saved to disk.
-	 * Overwriting this method is more efficient than looping over all nodes inside the plugin itself
-	 */
-	identity() {
 		return this
 	}
 	//Tree -> JSON
