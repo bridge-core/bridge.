@@ -13,7 +13,7 @@ export interface IKeyBinding {
 }
 
 export function setupKeyBindings() {
-	document.addEventListener('keyup', event => {
+	document.addEventListener('keypress', event => {
 		const { key, ctrlKey, altKey, metaKey } = event
 		if (IGNORE_KEYS.includes(key)) return
 
