@@ -28,6 +28,17 @@
         }
     },
 
+    "minecraft:buoyant": {
+        "apply_gravity": "$general.boolean",
+        "base_buoyancy": "$general.decimal",
+        "big_wave_probability": "$general.decimal",
+        "big_wave_speed": "$general.number",
+        "drag_down_on_buoyancy_removed": "$general.decimal",
+        "liquid_blocks": {
+            "$dynamic.list.next_index": "$general.block_identifier"
+        },
+        "simulate_waves": "$general.boolean"
+    },
     "minecraft:equip_items": {},
     "minecraft:spawn_entity": {
         "entities": {
@@ -71,11 +82,5 @@
         "rise_delta": "$general.decimal",
         "sink_delta": "$general.decimal"
     },
-    "minecraft:behavior.move_to_lava": {
-        "priority": "$general.number",
-        "search_range": "$general.number",
-        "search_height": "$general.number",
-        "goal_radius": "$general.number",
-        "search_count": "$general.number"
-    }
+    "minecraft:behavior.move_to_lava": "$entity.behavior.minecraft:behavior&dot;move_to_water"
 }

@@ -255,7 +255,11 @@
         "new_screen": "$general.boolean",
         "hero_demand_discount": "$general.number",
         "persist_trades": "$general.boolean",
-        "convert_trades_economy": "$general.boolean"
+        "convert_trades_economy": "$general.boolean",
+        "cured_discount": { "$dynamic.list.index_pair": "$general.number" },
+        "max_cured_discount": { "$dynamic.list.index_pair": "$general.number" },
+        "nearby_cured_discount": "$general.number",
+        "show_trade_screen": "$general.boolean"
     },
     "minecraft:environment_sensor": {
         "triggers": "$entity.general.event_definition"
@@ -266,6 +270,7 @@
         "maximum_count": "$general.number",
         "relative_range": "$general.boolean",
         "require_all": "$general.boolean",
+        "relative_range": "$general.boolean",
         "event_filters": "$entity.filters",
         "event": "$entity.general.event_string"
     },
@@ -877,14 +882,20 @@
     "minecraft:shareables": {
         "all_items": "$general.boolean",
         "all_items_max_amount": "$general.number",
+        "all_items_surplus_amount": "$general.number",
+        "all_items_want_amount": "$general.number",
         "items": {
             "$dynamic.list.next_index": {
                 "priority": "$general.number",
                 "item": "$general.item_identifier",
                 "craft_into": "$general.item_identifier",
+                "max_amount": "$general.number",
                 "want_amount": "$general.number",
                 "surplus_amount": "$general.number",
+                "pickup_limit": "$general.number",
                 "admire": "$general.boolean",
+                "barter": "$general.boolean",
+                "consume_item":"$general.boolean",
                 "stored_in_inventory": "$general.boolean"
             }
         }
@@ -1008,9 +1019,7 @@
         "block_type": "$general.block_identifier",
         "spawn_filter": "$entity.filters",
         "spawn_offset": {
-            "x": "$general.number",
-            "y": "$general.number",
-            "z": "$general.number"
+            "$dynamic.list.index_triple": "$general.number"
         }
     },
     "minecraft:transformation": {

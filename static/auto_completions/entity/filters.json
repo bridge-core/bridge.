@@ -35,6 +35,7 @@
         "is_daytime": "$general.boolean",
         "is_game_rule": "$general.boolean",
         "is_underwater": "$general.boolean",
+        "in_nether": "$general.boolean",
         "in_water": "$general.boolean",
         "in_water_or_rain": "$general.boolean",
         "is_humid": "$general.boolean",
@@ -61,7 +62,9 @@
         "has_trade_supply": "$general.boolean",
         "trusts": "$general.boolean",
         "has_container_open": "$general.boolean",
+        "has_ranged_weapon": "$general.boolean",
         "has_target": "$general.boolean",
+        "surface_mob": "$general.boolean",
 
         "has_equipment": "$general.item_identifier and $general.block_identifier",
         "$dynamic_template.has_component": {
@@ -98,6 +101,7 @@
         "rider_count": "$general.number",
         "inactivity_timer": "$general.number",
         "random_chance": "$general.number",
+        "light_level": "$general.number0_15",
         
         "has_tag": { "@meta": { "is_value": true } }
     }

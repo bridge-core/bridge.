@@ -143,11 +143,6 @@
         "description": {
             "identifier": "$general.file_identifier"
         },
-        "can_be_submerged": {
-            "@import.value": "$general.boolean",
-            "max_depth": "$general.number"
-        },
-        "base_block": "$feature.general.block_reference",
         "base_cluster": {
             "may_replace": {
                 "$general.list.next_index": "$feature.general.block_reference"
@@ -236,6 +231,11 @@
         },
 
         "trunk": {
+            "can_be_submerged": {
+                "@import.value": "$general.boolean",
+                "max_depth": "$general.number"
+            },
+            "base_block": "$feature.general.block_reference",
             "trunk_height": {
                 "range_min": "$general.number",
                 "range_max": "$general.number"

@@ -19,6 +19,18 @@
                 "b": "$molang.general.boolean and ('query.' + $molang.general.query)",
                 "a": "$molang.general.boolean and ('query.' + $molang.general.query)"
             },
+            "is_hurt_color": {
+                "r": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "g": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "b": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "a": "$molang.general.boolean and ('query.' + $molang.general.query)"
+            },
+            "on_fire_color": {
+                "r": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "g": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "b": "$molang.general.boolean and ('query.' + $molang.general.query)",
+                "a": "$molang.general.boolean and ('query.' + $molang.general.query)"
+            },
             "uv_anim": {
                 "offset": {
                     "$dynamic.list.index_pair": {

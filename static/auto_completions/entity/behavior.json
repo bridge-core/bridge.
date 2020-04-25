@@ -453,6 +453,7 @@
     },
     "minecraft:behavior.leap_at_target": {
         "priority": "$general.number",
+        "set_persistent": "$general.boolean",
         "target_dist": "$general.decimal",
         "must_be_on_ground": "$general.boolean",
         "yd": "$general.decimal"
@@ -615,6 +616,7 @@
     },
     "minecraft:behavior.nearest_attackable_target": {
         "priority": "$general.number",
+        "set_persistent": "$general.boolean",
         "attack_interval": "$general.number",
         "entity_types": "$entity.general.entity_types",
         "must_reach": "$general.boolean",
@@ -628,6 +630,7 @@
     },
     "minecraft:behavior.nearest_prioritized_attackable_target": {
         "priority": "$general.number",
+        "set_persistent": "$general.boolean",
         "attack_interval": "$general.number",
         "reselect_targets": "$general.boolean",
         "target_search_height": "$general.number",
@@ -668,6 +671,7 @@
     "minecraft:behavior.panic": {
         "priority": "$general.number",
         "force": "$general.boolean",
+        "damage_sources": "$general.damage_type"
         "ignore_mob_damage": "$general.boolean",
         "prefer_water": "$general.boolean",
         "speed_multiplier": "$general.decimal"
@@ -690,6 +694,7 @@
         "track_target": "$general.boolean",
         "pickup_based_on_chance": "$general.boolean",
         "can_pickup_any_item": "$general.boolean",
+        "can_pickup_to_hand_or_equipment": "$general.boolean",
         "cooldown_after_being_attacked": "$general.number"
     },
     "minecraft:behavior.play": {
@@ -904,7 +909,10 @@
         "jump_chance_percentage": "$general.decimal",
         "speed_multiplier": "$general.decimal"
     },
-    "minecraft:behavior.slime_attack": { "priority": "$general.number" },
+    "minecraft:behavior.slime_attack": {
+        "priority": "$general.number",
+        "set_persistent": "$general.boolean"
+    },
     "minecraft:behavior.slime_random_direction": { 
         "priority": "$general.number",
         "add_random_time_range": "$general.number",
@@ -1003,6 +1011,7 @@
     },
     "minecraft:behavior.stalk_and_pounce_on_target": {
         "priority": "$general.number",
+        "set_persistent": "$general.boolean",
         "stalk_speed": "$general.decimal",
         "max_stalk_dist": "$general.number",
         "leap_height": "$general.decimal",
