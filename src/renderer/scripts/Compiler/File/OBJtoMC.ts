@@ -30,15 +30,17 @@ export async function OBJtoMC(
 			case 'v':
 				positions.push(
 					data
+						.trim()
 						.split(' ')
 						.map(
-							(str, i) => (i === 0 ? -5 : 5) * Number(str)
+							(str, i) => (i === 0 ? -0.05 : 0.05) * Number(str)
 						) as TVector
 				)
 				break
 			case 'vn':
 				normals.push(
 					data
+						.trim()
 						.split(' ')
 						.map(
 							(str, i) => (i === 0 ? -1 : 1) * Number(str)
@@ -47,26 +49,30 @@ export async function OBJtoMC(
 				break
 			case 'vt':
 				const uv = data
+					.trim()
 					.split(' ')
 					.map((str, i) => Number(str)) as TVector
 				uvs.push([uv[0], uv[1]])
 				break
 			case 'f':
-				const face = data.split(' ').map(index => {
-					const v = Number(index.split('/')[0])
-					const vt =
-						index.includes('/') && !index.includes('//')
-							? Number(index.split('/')[1])
-							: Number(index.split('/')[0])
-					const vn = index.includes('//')
-						? Number(index.split('//')[1])
-						: Number(
-								index.split('/').length === 3
-									? index.split('/')[2]
-									: index.split('/')[0]
-						  )
-					return [v - 1, vn - 1, vt - 1] as const
-				})
+				const face = data
+					.trim()
+					.split(' ')
+					.map(index => {
+						const v = Number(index.split('/')[0])
+						const vt =
+							index.includes('/') && !index.includes('//')
+								? Number(index.split('/')[1])
+								: Number(index.split('/')[0])
+						const vn = index.includes('//')
+							? Number(index.split('//')[1])
+							: Number(
+									index.split('/').length === 3
+										? index.split('/')[2]
+										: index.split('/')[0]
+							  )
+						return [v - 1, vn - 1, vt - 1] as const
+					})
 				//Minecraft currently doesn't support triangular shapes
 				if (face.length === 3) face.push(face[0])
 				polys.push(face as [TVector, TVector, TVector])
@@ -75,7 +81,7 @@ export async function OBJtoMC(
 			// TODO: SUPPORT FOR MULTIPLE BONES
 			// case 'o':
 			// 	bones.push({
-			// 		name: data,
+			// 		name: data.trim(),
 			// 		poly_mesh: {
 			// 			normalized_uvs: true,
 			// 			positions,
