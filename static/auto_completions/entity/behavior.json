@@ -671,7 +671,7 @@
     "minecraft:behavior.panic": {
         "priority": "$general.number",
         "force": "$general.boolean",
-        "damage_sources": "$general.damage_type"
+        "damage_sources": "$general.damage_type",
         "ignore_mob_damage": "$general.boolean",
         "prefer_water": "$general.boolean",
         "speed_multiplier": "$general.decimal"
