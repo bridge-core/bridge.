@@ -1,8 +1,13 @@
 export function prepareRun(code: string) {
+	if (code === undefined) return () => {}
 	try {
-		return function(Bridge: unknown) {
-			this.Bridge = Bridge
-			return eval(code)
+		return function(b: unknown) {
+			this.Bridge = b
+			return eval(
+				code
+					.replace(/Bridge\./g, 'this.Bridge.')
+					.replace(/=( )*Bridge/g, '= this.Bridge')
+			)
 		}
 	} catch (err) {
 		throw err
