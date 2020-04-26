@@ -1,6 +1,3 @@
-/**
- * Simple input window. Rendered by components/windowFactory
- */
 import Store from '../store/index'
 import uuid from 'uuid/v4'
 import { WindowDefinition } from '../scripts/commonWindows/ContentTypes'
