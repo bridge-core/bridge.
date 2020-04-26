@@ -6,7 +6,8 @@ const sizeOf = promisify(require('image-size'))
 export async function OBJtoMC(
 	filePath: string,
 	texturePath: string,
-	modelID: string
+	modelID: string,
+	scale: number
 ): Promise<IModelSchema> {
 	type TVector = [number, number, number]
 
@@ -33,7 +34,7 @@ export async function OBJtoMC(
 						.trim()
 						.split(' ')
 						.map(
-							(str, i) => (i === 0 ? -0.05 : 0.05) * Number(str)
+							(str, i) => (i === 0 ? -scale : scale) * Number(str)
 						) as TVector
 				)
 				break

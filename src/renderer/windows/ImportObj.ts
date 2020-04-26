@@ -23,6 +23,7 @@ export default class ImportObjWindow extends ContentWindow {
 		let objPath: string = undefined
 		let texturePath: string = undefined
 		let geoID: string = 'unknown'
+		let scale: number = 1
 
 		const importOBJ = async () => {
 			if (
@@ -46,7 +47,8 @@ export default class ImportObjWindow extends ContentWindow {
 			const model = await OBJtoMC(
 				objPath,
 				texturePath,
-				`geometry.${geoID}`
+				`geometry.${geoID}`,
+				scale
 			)
 
 			await fs.mkdir(join(CURRENT.RP_PATH, 'models/entity'), {
@@ -159,6 +161,22 @@ export default class ImportObjWindow extends ContentWindow {
 							geoID = val
 						}
 					},
+				},
+			},
+
+			{
+				text: '\n\n\n',
+			},
+			{
+				type: 'slider',
+				text: 'Model Scale',
+				min: 0.1,
+				max: 10,
+				step: 0.1,
+				color: 'primary',
+				input: scale,
+				action: (val: number) => {
+					scale = val
 				},
 			},
 		]

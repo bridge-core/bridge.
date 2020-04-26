@@ -12,8 +12,9 @@ export interface IKeyBinding {
 	metaKey?: boolean
 }
 
+let lastTimeStamp = 0
 export function setupKeyBindings() {
-	document.addEventListener('keyup', event => {
+	document.addEventListener('keydown', event => {
 		const { key, ctrlKey, altKey, metaKey } = event
 		if (IGNORE_KEYS.includes(key)) return
 
@@ -27,8 +28,10 @@ export function setupKeyBindings() {
 			})
 		)
 
-		if (action) {
+		if (action && lastTimeStamp + 500 < Date.now()) {
+			lastTimeStamp = Date.now()
 			event.preventDefault()
+			event.stopImmediatePropagation()
 			action()
 		}
 	})
