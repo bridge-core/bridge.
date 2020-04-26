@@ -25,7 +25,16 @@
       "minecraft:village_created": {
         "minecraft:behavior.defend_village_target": {
           "priority": 1,
-          "must_reach": true
+          "must_reach": true,
+          "attack_chance": 0.05,
+          "entity_types": {
+            "filters": {
+              "any_of": [
+                { "test": "is_family", "subject": "other", "value": "mob" },
+                { "test": "is_family", "subject": "other", "value": "player" }
+              ] 
+            }
+          }
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
