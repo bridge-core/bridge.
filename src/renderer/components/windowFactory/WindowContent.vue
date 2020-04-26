@@ -11,31 +11,19 @@
 			fontSize: $store.state.Settings.ui_font_size || '14px',
 			fontFamily: $store.state.Settings.ui_font_family || 'Roboto',
 		}"
-		>{{ content.text }}</pre
-	>
-	<div
-		v-else-if="content.type == 'html-text'"
-		v-html="`${content.text}`"
-	></div>
-	<v-subheader v-else-if="content.type == 'header'" :color="content.color">{{
+	>{{ content.text }}</pre>
+	<div v-else-if="content.type == 'html-text'" v-html="`${content.text}`"></div>
+	<v-subheader v-else-if="content.type == 'header'" :color="content.color">
+		{{
 		content.text
-	}}</v-subheader>
-	<h3 v-else-if="content.type == 'big-header'" :class="pre_color">
-		{{ content.text }}
-	</h3>
-	<v-img
-		v-else-if="content.type == 'img'"
-		:src="content.src"
-		:height="content.height"
-	>
+		}}
+	</v-subheader>
+	<h3 v-else-if="content.type == 'big-header'" :class="pre_color">{{ content.text }}</h3>
+	<v-img v-else-if="content.type == 'img'" :src="content.src" :height="content.height">
 		<v-container v-if="content.content !== undefined" fill-height fluid>
 			<v-layout fill-height>
 				<v-flex xs12 align-end flexbox>
-					<window-content
-						v-for="c in content.content"
-						:content="c"
-						:key="key(c)"
-					/>
+					<window-content v-for="c in content.content" :content="c" :key="key(c)" />
 				</v-flex>
 			</v-layout>
 		</v-container>
@@ -71,9 +59,11 @@
 		style="margin-right: 4px;"
 		small
 	>
-		<v-icon class="click-action" v-if="content.icon" left>{{
+		<v-icon class="click-action" v-if="content.icon" left>
+			{{
 			content.icon
-		}}</v-icon>
+			}}
+		</v-icon>
 		{{ content.text }}
 	</v-chip>
 	<!-- HORIZONTAL GROUPS -->
@@ -101,27 +91,15 @@
 		:elevation="content.elevation"
 	>
 		<v-card-title v-if="content.above_content">
-			<window-content
-				v-for="a_c in content.above_content"
-				:key="key(a_c)"
-				:content="a_c"
-			/>
+			<window-content v-for="a_c in content.above_content" :key="key(a_c)" :content="a_c" />
 		</v-card-title>
 
 		<v-card-text v-if="content.content">
-			<window-content
-				v-for="c in content.content"
-				:key="key(c)"
-				:content="c"
-			/>
+			<window-content v-for="c in content.content" :key="key(c)" :content="c" />
 		</v-card-text>
 
 		<v-card-actions v-if="content.below_content">
-			<window-content
-				v-for="b_c in content.below_content"
-				:key="key(b_c)"
-				:content="b_c"
-			/>
+			<window-content v-for="b_c in content.below_content" :key="key(b_c)" :content="b_c" />
 		</v-card-actions>
 	</v-card>
 	<!-- LOADER -->
@@ -130,9 +108,9 @@
 		:color="content.color"
 		indeterminate
 	/>
-	<v-layout justify-center v-else-if="content.type == 'loader'"
-		><v-progress-circular indeterminate :color="content.color"
-	/></v-layout>
+	<v-layout justify-center v-else-if="content.type == 'loader'">
+		<v-progress-circular indeterminate :color="content.color" />
+	</v-layout>
 
 	<!-- BUTTONS -->
 	<v-btn
@@ -145,12 +123,7 @@
 		:disabled="content.is_disabled"
 		:loading="content.is_loading"
 	>
-		<v-icon
-			v-if="content.icon"
-			class="click-action"
-			:color="content.text_color"
-			>{{ content.icon }}</v-icon
-		>
+		<v-icon v-if="content.icon" class="click-action" :color="content.text_color">{{ content.icon }}</v-icon>
 		<span :class="text_color">{{ content.text }}</span>
 	</v-btn>
 	<v-btn
@@ -164,9 +137,11 @@
 		:disabled="content.is_disabled"
 		:icon="content.only_icon"
 	>
-		<v-icon :small="content.small" class="click-action">{{
+		<v-icon :small="content.small" class="click-action">
+			{{
 			content.text
-		}}</v-icon>
+			}}
+		</v-icon>
 	</v-btn>
 	<v-icon
 		v-else-if="content.type == 'icon' && !content.tooltip"
@@ -174,9 +149,7 @@
 		:color="content.color"
 		:class="content.action != undefined ? 'click-action' : ''"
 		:small="content.small"
-	>
-		{{ content.text }}
-	</v-icon>
+	>{{ content.text }}</v-icon>
 	<v-tooltip
 		v-else-if="content.type === 'icon'"
 		right
@@ -190,9 +163,7 @@
 				:color="content.color"
 				:class="content.action != undefined ? 'click-action' : ''"
 				:small="content.small"
-			>
-				{{ content.text }}
-			</v-icon>
+			>{{ content.text }}</v-icon>
 		</template>
 
 		<span>{{ content.tooltip }}</span>
@@ -289,32 +260,26 @@
 	/>
 	<v-container style="width: 90%;" v-else-if="content.type == 'slider'">
 		<v-slider
-			@change="action"
+			@change="action.default"
 			:label="content.text"
 			:max="content.max"
 			:min="content.min"
+			:step="content.step"
+			:value="content.input"
 			thumb-label
 			:color="content.color"
 			:thumb-size="24"
 		/>
 	</v-container>
 	<span v-else-if="content.type === 'codemirror'">
-		<codemirror
-			v-model="cm_content"
-			:options="codemirror_options"
-			ref="input"
-		/>
-		<text-auto-completions
-			v-if="$store.state.Settings.text_auto_completions"
-		/>
+		<codemirror v-model="cm_content" :options="codemirror_options" ref="input" />
+		<text-auto-completions v-if="$store.state.Settings.text_auto_completions" />
 	</span>
 
 	<!-- ERROR -->
 	<div v-else>
 		<br />
-		<strong class="error--text"
-			>Invalid UI type: "{{ content.type }}"</strong
-		>
+		<strong class="error--text">Invalid UI type: "{{ content.type }}"</strong>
 	</div>
 </template>
 
