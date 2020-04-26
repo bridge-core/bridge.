@@ -149,7 +149,8 @@ import Main from './Main'
 import HighlightText from './HighlightText'
 import HighlightAttribute from './HighlightAttribute'
 import TabSystem from '../../../scripts/TabSystem'
-import { run, ENV } from '../../../scripts/Utilities/runScript'
+import { run, runFunction } from '../../../scripts/editor/ScriptRunner/run'
+import { ENV } from '../../../scripts/editor/ScriptRunner/Validation/ENV'
 
 export default {
 	name: 'object-key',
@@ -208,7 +209,7 @@ export default {
 		fixError() {
 			if (typeof this.error.fix.run === 'string')
 				run(this.error.fix.run, ENV(this.node_context))
-			else this.error.fix.run()
+			else runFunction(this.error.fix.run, ENV(this.node_context))
 		},
 		is_selected() {
 			return TabSystem.getCurrentNavigation() === this.object_key
