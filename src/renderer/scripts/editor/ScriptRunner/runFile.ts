@@ -1,5 +1,5 @@
 import JSONTree from '../JsonTree'
-import { prepareRun } from './run'
+import { prepareRun, runFunction } from './run'
 import { join } from 'path'
 import { promises as fs } from 'fs'
 import EventBus from '../../EventBus'
@@ -21,7 +21,7 @@ export function createFileRunner(
 		filePath: string
 	) {
 		if (CACHE[fileName] !== undefined)
-			return CACHE[fileName](ENV(node, filePath))
+			return runFunction(CACHE[fileName], ENV(node, filePath))
 
 		let func = prepareRun(
 			(await fs.readFile(join(__static, directory, fileName))).toString(
@@ -29,6 +29,6 @@ export function createFileRunner(
 			)
 		)
 		CACHE[fileName] = func
-		return func(ENV(node, filePath))
+		return runFunction(func, ENV(node, filePath))
 	}
 }

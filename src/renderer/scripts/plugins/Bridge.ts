@@ -15,7 +15,6 @@ import OmegaCache from '../editor/OmegaCache'
 import FileType from '../editor/FileType'
 import PluginLoader from './PluginLoader'
 import path from 'path'
-import { download } from 'electron-dl'
 
 export default class Bridge {
 	plugin_id: number
