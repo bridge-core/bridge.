@@ -226,11 +226,11 @@ export default class SettingsWindow extends TabWindow {
 					color: 'grey',
 					text: '\nGeneral',
 				},
-				new ReactiveSwitch(this, 'hide_file_toolbar', {
-					color: 'primary',
-					text: 'Hide File Toolbar',
-					key: `settings.editor.tab.hide_file_toolbar.${Math.random()}`,
-				}),
+				// new ReactiveSwitch(this, 'hide_file_toolbar', {
+				// 	color: 'primary',
+				// 	text: 'Hide File Toolbar',
+				// 	key: `settings.editor.tab.hide_file_toolbar.${Math.random()}`,
+				// }),
 				new ReactiveSwitch(this, 'is_alternative_append_with_copy', {
 					color: 'primary',
 					text: 'Alternative Paste: Append "_copy"',
