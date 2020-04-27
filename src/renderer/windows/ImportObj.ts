@@ -5,7 +5,7 @@ import { uuid } from '../scripts/Utilities/useAttr'
 import { OBJtoMC } from '../scripts/Compiler/File/OBJtoMC'
 import { promises as fs } from 'fs'
 import { CURRENT } from '../scripts/constants'
-import { trySetRP } from '../scripts/Utilities/FindRP'
+import { trySetRP, NEGATIVE_RESPONSES } from '../scripts/Utilities/FindRP'
 import InformationWindow from '../scripts/commonWindows/Information'
 import { join } from 'path'
 
@@ -37,12 +37,18 @@ export default class ImportObjWindow extends ContentWindow {
 			const lw = new LoadingWindow()
 
 			let rpSet = true
-			if (!CURRENT.RP_PATH) rpSet = await trySetRP()
-			if (!rpSet)
+			if (
+				!CURRENT.RESOURCE_PACK ||
+				NEGATIVE_RESPONSES.includes(CURRENT.RESOURCE_PACK)
+			)
+				rpSet = await trySetRP()
+			if (!rpSet) {
+				lw.close()
 				return new InformationWindow(
 					'ERROR',
 					'You do not have a resource pack to add the model to.'
 				)
+			}
 
 			const model = await OBJtoMC(
 				objPath,

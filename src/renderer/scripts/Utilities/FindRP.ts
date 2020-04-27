@@ -16,6 +16,10 @@ export const NEGATIVE_RESPONSES = [
 ]
 
 export function setRP(val: string) {
+	Store.commit('setExplorerProject', {
+		store_key: 'resource_pack',
+		project: val,
+	})
 	last_result = val
 }
 
