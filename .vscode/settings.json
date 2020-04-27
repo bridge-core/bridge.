@@ -1,5 +1,15 @@
 {
     "files.exclude": {
         "node_modules": true
+    },
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "[json]": {
+        "editor.formatOnType": false,
+        "editor.formatOnSave": false
+    },
+    "[jsonc]": {
+        "editor.formatOnType": false,
+        "editor.formatOnSave": false
     }
 }
