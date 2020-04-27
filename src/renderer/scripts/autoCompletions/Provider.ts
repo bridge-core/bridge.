@@ -195,26 +195,7 @@ class Provider {
 	}
 
 	getMeta(path: string, file_path?: string, context?: JSONTree) {
-		//Set validator if file_path !== undefined
-		if (file_path !== undefined) this.validator(file_path)
-		if (this.start_state === 'unknown') return {}
-
-		path = path.replace(
-			'global',
-			VersionMap.convert(
-				this.start_state,
-				Store.state.Settings.target_version
-			)
-		)
-
-		SET_CONTEXT(context, context === undefined ? undefined : context.parent)
-		let propose = this.walk(path.split('/'))
-		// console.log('[ADDING META]', path, propose, propose === LIB)
-
-		return this.preparePropose(
-			propose,
-			context === undefined ? [] : Object.keys(context.toJSON(false))
-		).META
+		return this.get(path, file_path, context).META
 	}
 
 	preparePropose(
@@ -252,7 +233,9 @@ class Provider {
 			object: finalPrep
 				? this.parseObjectCompletions(object, value, context)
 				: object,
-			value: value.filter(e => typeof e === 'string' && e !== ''),
+			value: value.filter(
+				e => typeof e === 'string' && e !== '' && e !== '@wildcard'
+			),
 			META: this.META,
 		}
 	}
@@ -298,7 +281,7 @@ class Provider {
 					)
 					return
 				} else if (key.startsWith('@value.')) {
-					if (asObject) return [key.split('.').pop()]
+					if (asObject) return key.split('.').pop()
 					value.push(key.split('.').pop())
 					return
 				} else if (key === '$asObject') {
@@ -320,6 +303,8 @@ class Provider {
 				} else if (key === '@meta') {
 					this.META = detachObj(this.META, object['@meta'])
 					return
+				} else if (key === '@wildcard') {
+					return
 				}
 				return key
 			})
@@ -328,7 +313,10 @@ class Provider {
 
 				if (element[0] !== undefined)
 					return propose.concat(
-						element.filter((e: string) => !context.includes(e))
+						element.filter(
+							(e: string) =>
+								!context.includes(e) && e !== '@wildcard'
+						)
 					)
 				return propose
 			}, [])
@@ -370,7 +358,11 @@ class Provider {
 						for (let i = 0; i < path_arr.length + 1; i++)
 							CONTEXT_DOWN()
 
-						if (value.includes(key) || object[key] !== undefined)
+						if (
+							value.includes(key) ||
+							object[key] !== undefined ||
+							value.includes('@wildcard')
+						)
 							return this.walk(path_arr, current[k])
 					}
 				}
