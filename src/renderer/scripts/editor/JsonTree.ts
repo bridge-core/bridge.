@@ -650,7 +650,6 @@ export default class JSONTree {
 			data: this.data,
 			key: this.key,
 			type: this.type,
-			meta: this.meta,
 			is_active: this.is_active === true ? undefined : false,
 			children: this.children.map(c => c.buildForCache()),
 		}
