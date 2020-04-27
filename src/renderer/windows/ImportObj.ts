@@ -128,7 +128,7 @@ export default class ImportObjWindow extends ContentWindow {
 						filters: [
 							{
 								name: 'Texture',
-								extensions: ['png', 'jpeg'],
+								extensions: ['png', 'jpeg', 'jpg'],
 							},
 						],
 					})
