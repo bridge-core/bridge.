@@ -13,7 +13,7 @@
     "component_group_name": {
         "@meta": {
             "is_value": true,
-            "validate": "entity/componentName.js"
+            "validate": "entity/groupName.js"
         },
         "@import.value": "$dynamic.entity.component_groups"
     },
