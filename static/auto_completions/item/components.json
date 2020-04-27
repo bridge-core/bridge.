@@ -15,11 +15,11 @@
             "$dynamic.list.next_index": "$item.general.effect_definition"
         },
         "using_converts_to": "$general.item_identifier",
-        "on_use_action": [ "chorus_teleport", "suspicious_stew_effect", "none" ],
+        "on_use_action": ["chorus_teleport", "suspicious_stew_effect", "none"],
         "on_use_range": {
             "$dynamic.list.index_triple": "$general.number"
         },
-        "cooldown_type": [ "chorusfruit", "none" ],
+        "cooldown_type": ["chorusfruit", "none"],
         "cooldown_time": "$general.number"
     },
     "minecraft:seed": {
@@ -38,13 +38,28 @@
 
         "$default": {
             "on_equip": {
-                "$dynamic.list.next_index": { "@meta": { "is_value": true }, "@import.value": "$dynamic.cache.entity.events" }
+                "$dynamic.list.next_index": {
+                    "@meta": {
+                        "is_value": true
+                    },
+                    "@import.value": "$dynamic.cache.entity.events"
+                }
             },
             "on_unequip": {
-                "$dynamic.list.next_index": { "@meta": { "is_value": true }, "@import.value": "$dynamic.cache.entity.events" }
+                "$dynamic.list.next_index": {
+                    "@meta": {
+                        "is_value": true
+                    },
+                    "@import.value": "$dynamic.cache.entity.events"
+                }
             },
             "execute_commands": {
-                "$dynamic.list.next_index": { "@meta": { "is_value": true } }
+                "$dynamic.list.next_index": {
+                    "@meta": {
+                        "is_value": true
+                    },
+                    "@import.value": "('/function ' + $dynamic.function_files)"
+                }
             },
 
             "$dynamic_template.is_equipped": {

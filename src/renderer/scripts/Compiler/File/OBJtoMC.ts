@@ -7,7 +7,7 @@ export async function OBJtoMC(
 	filePath: string,
 	texturePath: string,
 	modelID: string,
-	scale: number
+	scale = 1
 ): Promise<IModelSchema> {
 	type TVector = [number, number, number]
 
