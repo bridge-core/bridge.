@@ -34,14 +34,20 @@
                 }
             },
             "particle_effects": {
-                "$general.decimal": {
+                "$general.decimal": {},
+                "@meta": { "validate": null },
+                "$placeholder": {
                     "$dynamic.list.next_index": {
                         "effect": "$dynamic.cache.client_entity.particle_references",
-                        "locator": { "@meta": { "is_value": true } }
+                        "locator": {
+                            "@meta": {
+                                "is_value": true
+                            }
+                        }
                     }
                 }
             },
-            "sound_effects" : {
+            "sound_effects": {
                 "$dynamic.list.next_index": {
                     "$placeholder": "$dynamic.cache.client_entity.sound_references"
                 }

@@ -260,7 +260,8 @@ class Provider {
 	parseObjectCompletions(
 		object: any,
 		value: string[],
-		context: string[] = []
+		context: string[] = [],
+		asObject = false
 	): string[] {
 		return Object.keys(object)
 			.map(key => {
@@ -272,6 +273,7 @@ class Provider {
 						return key.split('.').pop()
 				} else if (key.startsWith('@import.value')) {
 					if (Array.isArray(object[key])) {
+						if (asObject) return object[key]
 						value.push(...object[key])
 						return
 					}
@@ -280,31 +282,44 @@ class Provider {
 						object: object_internal,
 						value: value_internal,
 					} = this.omegaExpression(object[key])
+
+					if (asObject)
+						return value_internal.concat(
+							this.parseObjectCompletions(
+								object_internal,
+								value,
+								undefined,
+								true
+							)
+						)
 					value.push(...value_internal)
 					value.push(
 						...this.parseObjectCompletions(object_internal, value)
 					)
 					return
 				} else if (key.startsWith('@value.')) {
+					if (asObject) return [key.split('.').pop()]
 					value.push(key.split('.').pop())
-					return
-				} else if (key === '@meta') {
-					this.META = detachObj(this.META, object['@meta'])
 					return
 				} else if (key === '$asObject') {
 					return Omega.walk(object.$asObject)
-				}
-				if (REMOVE_LIST.includes(key)) return undefined
-
-				if (key[0] === '$') {
+				} else if (REMOVE_LIST.includes(key)) {
+					return
+				} else if (key[0] === '$') {
 					let {
 						object: object_internal,
 						value: value_internal,
 					} = this.omegaExpression(key)
 
-					return Object.keys(object_internal).concat(
-						...value_internal
-					)
+					return this.parseObjectCompletions(
+						object_internal,
+						value,
+						context,
+						true
+					).concat(...value_internal)
+				} else if (key === '@meta') {
+					this.META = detachObj(this.META, object['@meta'])
+					return
 				}
 				return key
 			})

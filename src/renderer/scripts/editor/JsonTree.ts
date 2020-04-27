@@ -669,7 +669,7 @@ export default class JSONTree {
 		this.type =
 			c.type ||
 			(c.data === '' ? 'object' : typeof Json.toCorrectType(c.data))
-		this.meta = c.meta || {}
+		this.meta = {}
 		this.is_active = c.is_active !== undefined ? c.is_active : true
 
 		if (c.children)
