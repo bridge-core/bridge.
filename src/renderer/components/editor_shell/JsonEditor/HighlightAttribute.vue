@@ -97,7 +97,7 @@ export default {
 	},
 	methods: {
 		editMoLang() {
-			new EditMoLangWindow(this.text, this.node_context)
+			new EditMoLangWindow(this.node_context.data, this.node_context)
 		},
 		attrClick(event) {
 			if (
