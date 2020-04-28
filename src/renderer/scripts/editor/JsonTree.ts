@@ -147,7 +147,8 @@ export default class JSONTree {
 	}
 	get only_numerical_children() {
 		for (let c of this.children) {
-			if (Number.isNaN(Number(c.internal_key))) return false
+			let n = Number(c.internal_key)
+			if (Number.isNaN(n) || Math.round(n) !== n) return false
 		}
 		return true
 	}
