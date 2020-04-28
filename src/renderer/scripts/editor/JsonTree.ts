@@ -652,7 +652,7 @@ export default class JSONTree {
 	}
 	buildFromCache(c: any) {
 		//Load attributes which cannot be set with constructor
-		this.comment = c.comment
+		this.comment = c.comment ?? ''
 		this.meta = {}
 		this.is_active = c.is_active !== undefined ? c.is_active : true
 
@@ -660,10 +660,10 @@ export default class JSONTree {
 			this.children = c.children.map((child: any) =>
 				new JSONTree(
 					child.key,
-					child.data,
+					child.data ?? '',
 					this,
 					undefined,
-					child.open
+					child.open ?? false
 				).buildFromCache(child)
 			)
 		return this
