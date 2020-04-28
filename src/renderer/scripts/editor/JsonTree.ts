@@ -645,13 +645,16 @@ export default class JSONTree {
 	}
 	buildForCache(): any {
 		return {
-			open: this.open,
-			comment: this.comment,
-			data: this.data,
+			open: this.open ? true : undefined,
+			comment: this.comment ? this.comment : undefined,
+			data: this.data ? this.data : undefined,
 			key: this.key,
 			type: this.type,
 			is_active: this.is_active === true ? undefined : false,
-			children: this.children.map(c => c.buildForCache()),
+			children:
+				this.children.length > 0
+					? this.children.map(c => c.buildForCache())
+					: undefined,
 		}
 	}
 	static buildFromCache(c: any) {
