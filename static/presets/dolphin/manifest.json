@@ -1,0 +1,24 @@
+{
+	"display_name": "Dolphin",
+	"description": "Creates a new dolphin entity.",
+	"icon": "mdi-fish",
+	"bp_map": {
+		"entity.json": "entities/",
+		"loot_table.json": "loot_tables/entities/",
+		"spawn_rule.json": "spawn_rules/"
+	},
+	"rp_map": {
+		"client_entity.json": "entity/",
+		"geometry.json": "models/entity/",
+		"animation.json": "animations/",
+		"particles.json": "particles/{{IDENTIFIER}}_move.json",
+		"render_controllers.json": "render_controllers/",
+		"animation_controllers.json": "animation_controllers/"
+	},
+	"expand_rp_files": {
+		"en_US.lang": "texts/en_US.lang"
+	},
+	"copy_rp_files": {
+		"texture.png": "textures/entity/"
+	}
+}

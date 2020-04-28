@@ -23,7 +23,13 @@
             },
             "scripts": {
                 "animate": {
-                    "$dynamic.list.next_index": "$dynamic.entity.animation_references"
+                    "$dynamic.list.next_index": {
+                        "$dynamic.entity.animation_references": {
+                            "@meta": { "is_molang": true, "is_value": true },
+                            "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                        },
+                        "@import.value.refs": "$dynamic.entity.animation_references"
+                    }
                 }
             }
         },
@@ -87,7 +93,8 @@
                             "$dynamic.list.next_index": {
                                 "@meta": {
                                     "is_value": true
-                                }
+                                },
+                                "@import.value.command": "('/function ' + $dynamic.function_files)"
                             }
                         }
                     }

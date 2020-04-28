@@ -6,7 +6,7 @@ function private_toJSON(
 	build_arrays?: boolean,
 	default_build_arrays = false
 ) {
-	if (tree.type !== 'array' && tree.type !== 'object') {
+	if (tree.data !== '' && tree.children.length === 0) {
 		return toCorrectType(tree.data)
 	} else {
 		if (build_arrays && tree.is_array) {

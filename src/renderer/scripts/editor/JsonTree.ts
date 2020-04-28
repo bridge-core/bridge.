@@ -20,11 +20,6 @@ declare const requestIdleCallback: (func: () => void) => void
 
 let PROVIDER: Provider
 
-function getType(data: unknown) {
-	if (Array.isArray(data)) return 'array'
-	return typeof data
-}
-
 export class TreeIterator {
 	stack: Stack<{ node: JSONTree; step: number }>
 
@@ -86,16 +81,6 @@ export default class JSONTree {
 	data: string
 	children: JSONTree[]
 	open: boolean
-	type:
-		| 'string'
-		| 'number'
-		| 'bigint'
-		| 'boolean'
-		| 'symbol'
-		| 'undefined'
-		| 'object'
-		| 'function'
-		| 'array'
 	parent?: JSONTree
 	comment: string
 	propose_cache: any
@@ -121,7 +106,6 @@ export default class JSONTree {
 		this.data = data + ''
 		this.children = children
 		this.open = open
-		this.type = 'object'
 		this.parent = parent
 		this.comment = ''
 		this.propose_cache = {}
@@ -131,15 +115,22 @@ export default class JSONTree {
 		this.uuid = uuidv4()
 		this.meta = Vue.observable({})
 	}
+
+	get type() {
+		throw new Error('JSONTree.type is deprecated!')
+	}
+	set type(val) {
+		throw new Error('JSONTree.type is deprecated!')
+	}
 	get is_array() {
-		let d = FileType.getData()
+		let { build_array_exceptions } = FileType.getData() ?? {}
+
 		// INCLUDE BUILD ARRAY EXCEPTIONS IF ABLE TO ACCESS DATA
-		if (d !== undefined) {
+		if (build_array_exceptions !== undefined) {
 			return (
+				!build_array_exceptions.includes(this.internal_key) &&
 				this.children.length > 0 &&
-				this.only_numerical_children &&
-				(d.build_array_exceptions === undefined ||
-					!d.build_array_exceptions.includes(this.internal_key))
+				this.only_numerical_children
 			)
 		}
 
@@ -147,7 +138,8 @@ export default class JSONTree {
 	}
 	get only_numerical_children() {
 		for (let c of this.children) {
-			if (Number.isNaN(Number(c.internal_key))) return false
+			let n = Number(c.internal_key)
+			if (Number.isNaN(n) || Math.round(n) !== n) return false
 		}
 		return true
 	}
@@ -308,8 +300,6 @@ export default class JSONTree {
 			for (let c of this.children) {
 				if (c.parsed_key == child.parsed_key) return c
 			}
-			if (!Number.isNaN(Number(child.key)) && this.children.length === 0)
-				this.type = 'array'
 		} else if (
 			!Number.isNaN(Number(child.key)) ||
 			this.find(child) !== -1
@@ -334,8 +324,6 @@ export default class JSONTree {
 	 * @param {String} new_data
 	 */
 	edit(new_data: string, update_history = false) {
-		if (this.type === 'object' || this.type === 'array')
-			this.type = 'string'
 		if (update_history)
 			TabSystem.getHistory().add(
 				new JSONAction('edit-data', this, this.data)
@@ -415,7 +403,6 @@ export default class JSONTree {
 			this.children,
 			this.open
 		)
-		clone.type = this.type
 		return clone
 	}
 	deepClone() {
@@ -426,7 +413,6 @@ export default class JSONTree {
 			this.children.map(c => c.deepClone()),
 			this.open
 		)
-		clone.type = this.type
 		return clone
 	}
 
@@ -492,7 +478,7 @@ export default class JSONTree {
 	loadMeta(file_path = TabSystem.getCurrentFilePath(), deep = false) {
 		if (PROVIDER === undefined) PROVIDER = new Provider('')
 
-		this.addMeta(PROVIDER.getMeta(this.path, file_path, this))
+		this.addMeta(PROVIDER.getMeta(this.path, file_path, this), file_path)
 
 		if (deep) this.children.forEach(c => c.loadMeta(file_path, true))
 		this.updateUUID()
@@ -615,7 +601,6 @@ export default class JSONTree {
 		open_nodes = false
 	) {
 		if (data instanceof JSONTree) return data
-		this.type = getType(data)
 
 		if (first || open_nodes) this.open = true
 
@@ -645,13 +630,15 @@ export default class JSONTree {
 	}
 	buildForCache(): any {
 		return {
-			open: this.open,
-			comment: this.comment,
-			data: this.data,
+			open: this.open ? true : undefined,
+			comment: this.comment ? this.comment : undefined,
+			data: this.data ? this.data : undefined,
 			key: this.key,
-			type: this.type,
 			is_active: this.is_active === true ? undefined : false,
-			children: this.children.map(c => c.buildForCache()),
+			children:
+				this.children.length > 0
+					? this.children.map(c => c.buildForCache())
+					: undefined,
 		}
 	}
 	static buildFromCache(c: any) {
@@ -665,21 +652,18 @@ export default class JSONTree {
 	}
 	buildFromCache(c: any) {
 		//Load attributes which cannot be set with constructor
-		this.comment = c.comment
-		this.type =
-			c.type ||
-			(c.data === '' ? 'object' : typeof Json.toCorrectType(c.data))
-		this.meta = c.meta || {}
+		this.comment = c.comment ?? ''
+		this.meta = {}
 		this.is_active = c.is_active !== undefined ? c.is_active : true
 
 		if (c.children)
 			this.children = c.children.map((child: any) =>
 				new JSONTree(
 					child.key,
-					child.data,
+					child.data ?? '',
 					this,
 					undefined,
-					child.open
+					child.open ?? false
 				).buildFromCache(child)
 			)
 		return this

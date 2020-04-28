@@ -1,6 +1,6 @@
 {
-    "location": [ "~", "^", "0" ],
-    "target_selector": [ "@a", "@e", "@p", "@r", "@s" ],
+    "location": [ "~", "^", "0", "@wildcard" ],
+    "target_selector": [ "@a", "@e", "@p", "@r", "@s", "@wildcard" ],
     "fill_option": [ "outline", "hollow", "destroy", "keep" ],
     "structure_name": [ "buriedtreasure", "endcity", "fortress", "mansion", "mineshaft", "monument", "pillageroutpost", "ruins", "shipwreck", "stronghold", "temple", "village" ],
     "scoreboard_operation": [ "%=", "*=", "+=", "-=", "/=", "<", "=", ">", "<>" ],

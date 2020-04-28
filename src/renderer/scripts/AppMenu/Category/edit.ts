@@ -89,7 +89,7 @@ export const EditMenu: IAppMenu = {
 					onClick: () => TabSystem.moveCurrentDown(),
 				},
 				{
-					displayName: 'Select Up',
+					displayName: 'Move Up',
 					displayIcon: 'mdi-chevron-up',
 					keyBinding: {
 						key: 'd',

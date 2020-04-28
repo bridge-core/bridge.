@@ -72,7 +72,7 @@
             "$default": "asValue($entity.general.components)",
 
             "Stable": "('minecraft:effect.' + $general.effect_name) and asValue($entity.general.components)",
-            "Beta": "('minecraft:effect.' + $general.effect_name) and asValue($entity.main.beta_components)"
+            "Beta": "('minecraft:effect.' + $general.effect_name) and asValue($entity.general.beta_components)"
         },
         "has_ability": "$general.ability",
         "is_family": "$entity.general.family",

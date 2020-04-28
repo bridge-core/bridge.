@@ -18,7 +18,7 @@ export const ENV = (
 		return currentNode
 	},
 	get FileType() {
-		return FileType.get(filePath || TabSystem.getCurrentFilePath())
+		return FileType.get(filePath)
 	},
 	File: {
 		usesEntity(identifier: string) {

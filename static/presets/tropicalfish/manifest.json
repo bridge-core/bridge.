@@ -2,7 +2,7 @@
 {
 	"display_name": "Tropical Fish",
 	"description": "Creates a new Tropical Fish entity.",
-	"icon": "mdi-fish",
+	"icon": "mdi-fishbowl",
 	"bp_map": {
 		"entity.json": "entities/",
 		"loot_table.json": "loot_tables/entities/{{IDENTIFIER}}.json",

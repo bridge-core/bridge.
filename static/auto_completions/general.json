@@ -1,7 +1,6 @@
 {
     "number": {
         "@meta": {
-            "is_value": true,
             "validate": {
                 "confirm": "Bridge.Node.data === '' || Number.isNaN(Number(Bridge.Node.data))",
                 "then": {
@@ -10,11 +9,10 @@
                 }
             }
         },
-        "@import.value": ["0", "1", "2", "3", "4", "5"]
+        "@import.value": ["0", "1", "2", "3", "4", "5", "@wildcard"]
     },
     "number0_15": {
         "@meta": {
-            "is_value": true,
             "validate": {
                 "confirm": "let x = Number(Bridge.Node.data); Bridge.Node.data === '' || Number.isNaN(x) || x < 0 || x > 15",
                 "then": {
@@ -27,7 +25,6 @@
     },
     "decimal": {
         "@meta": {
-            "is_value": true,
             "validate": {
                 "confirm": "Bridge.Node.data === '' || Number.isNaN(Number(Bridge.Node.data))",
                 "then": {
@@ -36,11 +33,10 @@
                 }
             }
         },
-        "@import.value": ["0.0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9"]
+        "@import.value": ["0.0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "@wildcard"]
     },
     "degree": {
         "@meta": {
-            "is_value": true,
             "validate": {
                 "confirm": "Bridge.Node.data === '' || Number.isNaN(Bridge.Node.data)",
                 "then": {
@@ -54,7 +50,6 @@
 
     "boolean": {
         "@meta": {
-            "is_value": true,
             "validate": {
                 "confirm": "Bridge.Node.data !== 'true' && Bridge.Node.data !== 'false'",
                 "then": {
@@ -67,7 +62,6 @@
     },
     "number_boolean": {
         "@meta": {
-            "is_value": true,
             "validate": {
                 "confirm": "Bridge.Node.data !== '0' && Bridge.Node.data !== '1'",
                 "then": {
@@ -81,7 +75,6 @@
 
     "format_version": {
         "@meta": {
-            "is_value": true,
             "validate": "formatVersion.js"
         },
         "@import.value": ["1.8.0", "1.9.0", "1.10.0", "1.11.0", "1.12.0", "1.13.0", "1.14.0", "1.16.0"]
