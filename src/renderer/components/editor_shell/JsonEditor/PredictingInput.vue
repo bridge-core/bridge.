@@ -109,7 +109,6 @@ export default {
 				let node = new JSONTree(this.value + '')
 				current.add(node, true)
 				current.openNode()
-				current.type = 'object'
 
 				if (
 					!current.meta.expand_path_exceptions ||
@@ -127,7 +126,6 @@ export default {
 					new JSONAction('edit-data', current, current.data)
 				)
 				current.edit(this.value)
-				current.type = typeof this.value
 				this.navigationBack()
 
 				if (
