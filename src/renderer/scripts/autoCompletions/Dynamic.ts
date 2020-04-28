@@ -12,6 +12,7 @@ import { readJSONSync } from '../Utilities/JsonFS'
 import ProjectConfig from '../Project/Config'
 import ComponentRegistry from '../plugins/CustomComponents'
 import JSONTree from '../editor/JsonTree'
+import { proposeCustomCommands } from '../plugins/CustomCommands'
 
 let PARENT_CONTEXT: JSONTree
 let NODE_CONTEXT: JSONTree
@@ -71,6 +72,9 @@ export const DYNAMIC = {
 	plugins: {
 		custom_components() {
 			return ComponentRegistry.propose()
+		},
+		custom_commands() {
+			return proposeCustomCommands()
 		},
 	},
 	list: {

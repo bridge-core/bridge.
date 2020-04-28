@@ -4,7 +4,7 @@
  *
  * Unloading is still handled by store/modules/Plugins.js
  */
-import { BASE_PATH } from '../constants'
+import { BASE_PATH, CURRENT } from '../constants'
 import path from 'path'
 import { promises as fs, createReadStream, Dirent } from 'fs'
 import { readJSON } from '../Utilities/JsonFS'
@@ -16,10 +16,11 @@ import { UI_DATA, BridgeCore } from '../bridgeCore/main'
 import ThemeManager from '../editor/ThemeManager'
 import unzipper from 'unzipper'
 import safeEval from 'safe-eval'
-import ComponentRegistry, { BridgeComponent } from './CustomComponents'
+import ComponentRegistry from './CustomComponents'
 import InformationWindow from '../commonWindows/Information'
 import Provider from '../autoCompletions/Provider'
 import { addLoadLocation, resetLoadLocations } from '../Presets'
+import { loadCustomCommands, CommandRegistry } from './CustomCommands'
 
 let PLUGIN_FOLDERS: string[]
 let PLUGIN_DATA: any[] = []
@@ -40,6 +41,7 @@ export default class PluginLoader {
 	}
 
 	static reset() {
+		CommandRegistry.clear()
 		ComponentRegistry.reset()
 		resetLoadLocations()
 	}
@@ -80,6 +82,12 @@ export default class PluginLoader {
 		await ThemeManager.loadTheme()
 		//UPDATE COMPONENT REFERENCES
 		await ComponentRegistry.registerUpdates()
+		//LOAD CUSTOM COMMANDS
+		try {
+			await loadCustomCommands(
+				path.join(CURRENT.PROJECT_PATH, 'commands')
+			)
+		} catch {}
 
 		//INIT LEGACY PLUGIN DATA FOR UI
 		Store.commit('finishedPluginLoading', PLUGIN_DATA)

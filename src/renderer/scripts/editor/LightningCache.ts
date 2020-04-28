@@ -110,6 +110,28 @@ export default class LightningCache {
 			await writeJSON(this.l_cache_path, this.global_cache, true)
 	}
 
+	//Can be used by text files to store data
+	static async setPlainData(
+		filePath: string,
+		data: { [key: string]: string[] }
+	) {
+		let cache_key = OmegaCache.toCachePath(filePath, false)
+		let file_type = FileType.get(filePath)
+		if (this.global_cache === undefined) {
+			try {
+				this.global_cache = await readJSON(this.l_cache_path)
+			} catch (e) {
+				this.global_cache = {}
+			}
+		}
+		if (this.global_cache[file_type] === undefined)
+			this.global_cache[file_type] = {}
+
+		this.global_cache[file_type][cache_key] = data
+		this.compiled_cache = undefined
+		await writeJSON(this.l_cache_path, this.global_cache, true)
+	}
+
 	//Manually triggers a hook update for a specific identifier
 	static async triggerHook(
 		file_path: string,

@@ -469,7 +469,8 @@ class TabSystem {
 		file_uuid?: string
 	) {
 		if (raw === c) return raw
-		else if (typeof c === 'string') return c
+		else if (typeof c === 'string')
+			return await BridgeCore.beforeTextSave(c, this.getCurrentFilePath())
 		else if (c instanceof JSONTree)
 			return JSON.stringify(
 				toJSON

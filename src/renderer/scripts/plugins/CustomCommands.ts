@@ -1,0 +1,79 @@
+import { promises as fs } from 'fs'
+import { join } from 'path'
+import { run } from '../editor/ScriptRunner/run'
+import { detachMerge } from '../Utilities/mergeUtils'
+import FetchDefinitions from '../editor/FetchDefinitions'
+import { BridgeCore } from '../bridgeCore/main'
+import OmegaCache from '../editor/OmegaCache'
+
+export const CommandRegistry = new Map<string, BridgeCommand>()
+export interface BridgeCommandClass {
+	command_name: string
+	new (): BridgeCommand
+}
+export abstract class BridgeCommand {
+	static command_name = 'bridge:demo_command'
+
+	abstract onApply(data: unknown[]): string | string[]
+	onPropose() {}
+}
+
+export async function loadCustomCommands(folderPath: string) {
+	const data = await fs.readdir(folderPath, { withFileTypes: true })
+	const update_files: string[] = []
+
+	await Promise.all(
+		data.map(async dirent => {
+			if (dirent.isDirectory())
+				return await loadCustomCommands(join(folderPath, dirent.name))
+
+			const file = (
+				await fs.readFile(join(folderPath, dirent.name))
+			).toString('utf-8')
+
+			run(file, {
+				register: async (Command: BridgeCommandClass) => {
+					CommandRegistry.set(Command.command_name, new Command())
+
+					//Update files with custom command
+					update_files.push(
+						...(await FetchDefinitions.fetchSingle(
+							'function',
+							['custom_commands'],
+							Command.command_name
+						))
+					)
+				},
+			})
+		})
+	)
+
+	await Promise.all(
+		update_files.map(async file => {
+			try {
+				const { cache_content, file_version } = await OmegaCache.load(
+					file
+				)
+				await fs.writeFile(
+					file,
+					await BridgeCore.beforeTextSave(
+						`#bridge-file-version: #${file_version}\n${cache_content}`,
+						file
+					)
+				)
+			} catch {}
+		})
+	)
+}
+
+export function proposeCustomCommands() {
+	let res = {}
+
+	CommandRegistry.forEach(command => {
+		let propose_data = command.onPropose()
+		if (typeof propose_data !== 'object') return
+		res = detachMerge(res, propose_data)
+	})
+
+	return res
+}
