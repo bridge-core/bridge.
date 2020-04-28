@@ -3,12 +3,7 @@
 		<UtilBar v-if="first" :filePath="current_file_path" />
 
 		<div v-if="open" :style="element_style">
-			<span
-				v-if="
-					render_object.type == 'object' ||
-						render_object.type == 'array'
-				"
-			>
+			<span v-if="render_object.children.length > 0">
 				<draggable
 					v-model="render_object.children"
 					v-bind="{ group: 'key', disabled: disabled_dragging }"
