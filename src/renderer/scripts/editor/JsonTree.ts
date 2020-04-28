@@ -132,14 +132,14 @@ export default class JSONTree {
 		this.meta = Vue.observable({})
 	}
 	get is_array() {
-		let d = FileType.getData()
+		let { build_array_exceptions } = FileType.getData() ?? {}
+
 		// INCLUDE BUILD ARRAY EXCEPTIONS IF ABLE TO ACCESS DATA
-		if (d !== undefined) {
+		if (build_array_exceptions !== undefined) {
 			return (
+				!build_array_exceptions.includes(this.internal_key) &&
 				this.children.length > 0 &&
-				this.only_numerical_children &&
-				(d.build_array_exceptions === undefined ||
-					!d.build_array_exceptions.includes(this.internal_key))
+				this.only_numerical_children
 			)
 		}
 
@@ -492,7 +492,7 @@ export default class JSONTree {
 	loadMeta(file_path = TabSystem.getCurrentFilePath(), deep = false) {
 		if (PROVIDER === undefined) PROVIDER = new Provider('')
 
-		this.addMeta(PROVIDER.getMeta(this.path, file_path, this))
+		this.addMeta(PROVIDER.getMeta(this.path, file_path, this), file_path)
 
 		if (deep) this.children.forEach(c => c.loadMeta(file_path, true))
 		this.updateUUID()
