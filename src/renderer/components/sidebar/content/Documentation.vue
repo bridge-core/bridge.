@@ -43,6 +43,28 @@
 				/>
 			</template>
 		</v-container>
+
+		<v-subheader style="/*margin-top: 32px;*/">bridge.</v-subheader>
+		<v-container :style="`max-height: ${sidebar_height}px;`">
+			<template v-for="([name, link], i) in bridge_docs">
+				<v-btn
+					:key="`btn.${i}`"
+					@click.stop="openLink(link)"
+					class="font-weight-light"
+					block
+					text
+				>
+					<span>{{ name }}</span>
+					<v-spacer />
+					<v-icon>mdi-chevron-right</v-icon>
+				</v-btn>
+
+				<v-divider
+					v-if="i + 1 < bridge_docs.length"
+					:key="`divider.${i}`"
+				/>
+			</template>
+		</v-container>
 	</v-container>
 </template>
 
@@ -62,6 +84,16 @@ export default {
 	data() {
 		return {
 			sidebar_height: window.innerHeight - 140,
+			bridge_docs: [
+				[
+					'Custom Commands',
+					'https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_commands.md',
+				],
+				[
+					'Custom Components',
+					'https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_components.md',
+				],
+			],
 		}
 	},
 	computed: {
@@ -82,6 +114,9 @@ export default {
 
 		openDoc(doc) {
 			shell.openExternal(`${DOC_URL}${encodeURI(doc)}`)
+		},
+		openLink(l) {
+			shell.openExternal(l)
 		},
 		getAction(doc) {
 			if (doc === 'TAGS') new TagDocumentation()
