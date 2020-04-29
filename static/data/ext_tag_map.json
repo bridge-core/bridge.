@@ -26,6 +26,9 @@
         "icon": "mdi-package-variant",
         "color": "warning"
     },
+    "Command": {
+        "icon": "mdi-console-line"
+    },
     "Presets": {
         "icon": "mdi-text-box-multiple-outline",
         "color": "purple"

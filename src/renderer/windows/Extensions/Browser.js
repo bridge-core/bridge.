@@ -1,10 +1,14 @@
 import ContentWindow from '../../scripts/commonWindows/Content'
-import Session, { getInfoMap } from './Common'
+import Session, {
+	getInfoMap
+} from './Common'
 import PluginCard from './PluginCard'
 import Category from './Category'
 import ListView from './ListView'
 import Title from './Title'
-import { shell } from 'electron'
+import {
+	shell
+} from 'electron'
 
 export default class Browser extends ContentWindow {
 	constructor() {
@@ -12,36 +16,59 @@ export default class Browser extends ContentWindow {
 			new Category('Verified', () => {
 				new ListView('Verified')
 			}),
-			{ type: 'divider' },
+			{
+				type: 'divider'
+			},
 			new Category('Utility', () => {
 				new ListView('Utility')
 			}),
-			{ type: 'divider' },
+			{
+				type: 'divider'
+			},
 			new Category('Component', () => {
 				new ListView('Component')
 			}),
-			{ type: 'divider' },
+			{
+				type: 'divider'
+			},
+			new Category('Command', () => {
+				new ListView('Command')
+			}),
+			{
+				type: 'divider'
+			},
 			new Category('Snippet', () => {
 				new ListView('Snippet')
 			}),
-			{ type: 'divider' },
+			{
+				type: 'divider'
+			},
 			new Category('Presets', () => {
 				new ListView('Presets')
 			}),
-			{ type: 'divider' },
+			{
+				type: 'divider'
+			},
 			new Category('Theme', () => {
 				new ListView('Theme')
 			}),
-			{ type: 'divider' },
+			{
+				type: 'divider'
+			},
 			new Category('View All', () => {
 				new ListView()
 			}),
-			{ type: 'divider' },
-			{ text: '\n\n' },
+			{
+				type: 'divider'
+			},
+			{
+				text: '\n\n'
+			},
 			...Title('Curated'),
 		]
-		const APPEND_CONTENT = [
-			{ text: '\n' },
+		const APPEND_CONTENT = [{
+				text: '\n'
+			},
 			...Title('Submissions'),
 			{
 				text: `Share your plugins with all bridge. users by adding them to the "bridge-plugins" repository.\n\n`,
@@ -49,8 +76,7 @@ export default class Browser extends ContentWindow {
 			{
 				type: 'card',
 				elevation: 0,
-				below_content: [
-					{
+				below_content: [{
 						type: 'space',
 					},
 					{
@@ -65,11 +91,12 @@ export default class Browser extends ContentWindow {
 					},
 				],
 			},
-			{ text: '\n' },
+			{
+				text: '\n'
+			},
 		]
 
-		super(
-			{
+		super({
 				display_name: 'Extensions',
 				options: {
 					is_maximizable: false,
@@ -91,15 +118,21 @@ export default class Browser extends ContentWindow {
 
 		this.plugin_map = getInfoMap()
 		Session.open().then(data => {
-			this.content = [{ text: '\n' }, ...DEFAULT_CONTENT].concat(
+			this.content = [{
+				text: '\n'
+			}, ...DEFAULT_CONTENT].concat(
 				data
-					.filter(({ tags }) => tags && tags.includes('Curated'))
-					.map(plugin => [
-						new PluginCard(this, plugin, false),
-						{ text: '\n' },
-					])
-					.concat(APPEND_CONTENT)
-					.flat(Infinity)
+				.filter(({
+					tags
+				}) => tags && tags.includes('Curated'))
+				.map(plugin => [
+					new PluginCard(this, plugin, false),
+					{
+						text: '\n'
+					},
+				])
+				.concat(APPEND_CONTENT)
+				.flat(Infinity)
 			)
 
 			this.update()
