@@ -125,10 +125,11 @@
 				<div
 					:style="
 						`
-                    margin-left: ${has_sidebar ? 60 : 0}px;
-                    padding-left: ${has_no_padding ? 0 : 8}px;
-                    overflow-y: hidden;
-                `
+						height: ${is_fullscreen ? maxHeight : height}px;
+                    	margin-left: ${has_sidebar ? 60 : 0}px;
+                    	padding-left: ${has_no_padding ? 0 : 8}px;
+                    	overflow-y: hidden;
+                	`
 					"
 				>
 					<window-content

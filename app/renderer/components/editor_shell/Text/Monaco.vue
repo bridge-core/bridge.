@@ -91,6 +91,8 @@ export default {
 		this.monacoEditor.getModel().onDidChangeContent(() => {
 			this.$emit('input', this.monacoEditor.getModel().getValue())
 		})
+
+		setTimeout(this.onResize, 100)
 	},
 	methods: {
 		onResize() {

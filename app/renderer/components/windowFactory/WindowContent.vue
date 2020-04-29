@@ -298,7 +298,7 @@
 			:thumb-size="24"
 		/>
 	</v-container>
-	<span v-else-if="content.type === 'codemirror'">
+	<!-- <span v-else-if="content.type === 'codemirror'">
 		<codemirror
 			v-model="cm_content"
 			:options="codemirror_options"
@@ -307,7 +307,11 @@
 		<text-auto-completions
 			v-if="$store.state.Settings.text_auto_completions"
 		/>
-	</span>
+	</span> -->
+	<TextEditor
+		v-else-if="content.type === 'codemirror'"
+		v-model="cm_content"
+	/>
 
 	<!-- ERROR -->
 	<div v-else>
@@ -325,11 +329,13 @@ import deepmerge from 'deepmerge'
 import EventBus from '../../src/EventBus'
 import TextProvider from '../../src/autoCompletions/TextProvider'
 import uuidv4 from 'uuid/v4'
+import TextEditor from '../editor_shell/Text/Monaco'
 
 export default {
 	name: 'window-content',
 	components: {
 		TextAutoCompletions,
+		TextEditor,
 	},
 	props: {
 		content: Object,
