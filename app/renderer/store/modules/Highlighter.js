@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import FileType from '../../scripts/editor/FileType'
-import ProjectConfig from '../../scripts/Project/Config'
+import FileType from '../../src/editor/FileType'
+import ProjectConfig from '../../src/Project/Config'
 
 function getHighlighterDef() {
 	return FileType.getHighlighter().define

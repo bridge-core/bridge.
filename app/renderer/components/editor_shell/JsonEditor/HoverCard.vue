@@ -65,14 +65,14 @@
 </template>
 
 <script>
-import TabSystem from '../../../scripts/TabSystem'
-import FileSystem from '../../../scripts/FileSystem'
+import TabSystem from '../../../src/TabSystem'
+import FileSystem from '../../../src/FileSystem'
 import { clipboard, shell } from 'electron'
-import { JSONAction } from '../../../scripts/TabSystem/CommonHistory'
-import EventBus from '../../../scripts/EventBus'
-import NodeShortcuts from '../../../scripts/editor/NodeShortcuts'
-import JumpToDefintion from '../../../scripts/editor/JumpToDef'
-import { openDocumentation } from '../../../scripts/editor/Documentation'
+import { JSONAction } from '../../../src/TabSystem/CommonHistory'
+import EventBus from '../../../src/EventBus'
+import NodeShortcuts from '../../../src/editor/NodeShortcuts'
+import JumpToDefintion from '../../../src/editor/JumpToDef'
+import { openDocumentation } from '../../../src/editor/Documentation'
 
 export default {
 	name: 'json-editor-hover-card',

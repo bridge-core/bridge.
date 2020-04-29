@@ -57,10 +57,10 @@
 import WindowAction from './WindowAction'
 import MenuActivator from './Menu/Activator'
 import MenuButton from './Menu/Button'
-import { AppMenu } from '../../scripts/AppMenu/store'
+import { AppMenu } from '../../src/AppMenu/store'
 import { remote } from 'electron'
 import { join } from 'path'
-import { ProjectState } from '../../scripts/Project/state'
+import { ProjectState } from '../../src/Project/state'
 
 export default {
 	name: 'Toolbar',

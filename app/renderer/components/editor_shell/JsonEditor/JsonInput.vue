@@ -38,11 +38,11 @@
 </template>
 
 <script>
-import TabSystem from '../../../scripts/TabSystem'
-import JSONTree from '../../../scripts/editor/JsonTree'
-import EventBus from '../../../scripts/EventBus'
-import PluginEnv from '../../../scripts/plugins/PluginEnv'
-import { JSONAction } from '../../../scripts/TabSystem/CommonHistory'
+import TabSystem from '../../../src/TabSystem'
+import JSONTree from '../../../src/editor/JsonTree'
+import EventBus from '../../../src/EventBus'
+import PluginEnv from '../../../src/plugins/PluginEnv'
+import { JSONAction } from '../../../src/TabSystem/CommonHistory'
 
 export default {
 	name: 'json-input',

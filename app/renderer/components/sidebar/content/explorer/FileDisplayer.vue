@@ -92,20 +92,20 @@
 import { promises as fs } from 'fs'
 import path from 'path'
 import draggable from 'vuedraggable'
-import FileSystem from '../../../../scripts/FileSystem'
+import FileSystem from '../../../../src/FileSystem'
 import LoadingWindow from '../../../../windows/LoadingWindow'
-import OmegaCache from '../../../../scripts/editor/OmegaCache'
-import LightningCache from '../../../../scripts/editor/LightningCache'
-import { JSONFileMasks } from '../../../../scripts/editor/JSONFileMasks'
+import OmegaCache from '../../../../src/editor/OmegaCache'
+import LightningCache from '../../../../src/editor/LightningCache'
+import { JSONFileMasks } from '../../../../src/editor/JSONFileMasks'
 import {
 	FileExplorer,
 	FileExplorerStorage,
-} from '../../../../scripts/Sidebar/FileExplorer'
-import EventBus from '../../../../scripts/EventBus'
-import InformationWindow from '../../../../scripts/commonWindows/Information'
-import { FILE_CONTEXT_MENU } from '../../../../scripts/contextMenus/File'
-import { FOLDER_CONTEXT_MENU } from '../../../../scripts/contextMenus/Folder'
-import FileType from '../../../../scripts/editor/FileType'
+} from '../../../../src/Sidebar/FileExplorer'
+import EventBus from '../../../../src/EventBus'
+import InformationWindow from '../../../../src/commonWindows/Information'
+import { FILE_CONTEXT_MENU } from '../../../../src/contextMenus/File'
+import { FOLDER_CONTEXT_MENU } from '../../../../src/contextMenus/Folder'
+import FileType from '../../../../src/editor/FileType'
 
 export default {
 	name: 'file-displayer',

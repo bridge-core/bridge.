@@ -44,8 +44,8 @@ import ContentNotImplemented from './content/NotImplemented'
 import ContentFileSearch from './content/FileSearch'
 import ContentVanillaAssets from './content/VanillaAssets'
 
-import { BASE_PATH, RP_BASE_PATH } from '../../scripts/constants'
-import findRP from '../../scripts/Utilities/FindRP'
+import { BASE_PATH, RP_BASE_PATH } from '../../src/constants'
+import findRP from '../../src/Utilities/FindRP'
 
 export default {
 	name: 'sidebar-content',

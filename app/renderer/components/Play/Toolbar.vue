@@ -36,8 +36,8 @@
 
 <script>
 import { join } from 'path'
-import { PlayState } from '../../scripts/Play/state'
-import TabSystem from '../../scripts/TabSystem'
+import { PlayState } from '../../src/Play/state'
+import TabSystem from '../../src/TabSystem'
 import { remote } from 'electron'
 
 export default {

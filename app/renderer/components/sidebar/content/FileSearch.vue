@@ -75,10 +75,10 @@
 </template>
 
 <script>
-import TabSystem from '../../../scripts/TabSystem'
-import JSONTree from '../../../scripts/editor/JsonTree'
-import InformationWindow from '../../../scripts/commonWindows/Information'
-import EventBus from '../../../scripts/EventBus'
+import TabSystem from '../../../src/TabSystem'
+import JSONTree from '../../../src/editor/JsonTree'
+import InformationWindow from '../../../src/commonWindows/Information'
+import EventBus from '../../../src/EventBus'
 import NodePreview from '../../common/NodePreview'
 
 export default {

@@ -1,4 +1,4 @@
-import ContentWindow from '../scripts/commonWindows/Content'
+import ContentWindow from '../src/commonWindows/Content'
 
 export default class ColorPicker extends ContentWindow {
 	color_val: string

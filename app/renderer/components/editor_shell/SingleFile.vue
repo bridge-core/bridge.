@@ -60,19 +60,19 @@ import 'codemirror/addon/comment/comment.js'
 import 'codemirror/keymap/sublime.js'
 
 //Files
-import loadAllTextHighlighters from '../../scripts/editor/CMLanguage'
+import loadAllTextHighlighters from '../../src/editor/CMLanguage'
 
 import JsonEditorMain from './JsonEditor/Main'
 import JsonErrorScreen from './JsonErrorScreen'
 
 import cJSON from 'comment-json'
-import TabSystem from '../../scripts/TabSystem'
-import Runtime from '../../scripts/plugins/Runtime'
-import EventBus from '../../scripts/EventBus'
-import TextProvider from '../../scripts/autoCompletions/TextProvider'
+import TabSystem from '../../src/TabSystem'
+import Runtime from '../../src/plugins/Runtime'
+import EventBus from '../../src/EventBus'
+import TextProvider from '../../src/autoCompletions/TextProvider'
 import DataUrl from 'dataurl'
 import AudioPlayer from './AudioPlayer'
-import FileType from '../../scripts/editor/FileType'
+import FileType from '../../src/editor/FileType'
 import ModelEditor from './Model/Main'
 
 export default {

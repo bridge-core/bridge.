@@ -1,13 +1,13 @@
 import fs from 'fs'
-import ContentWindow from '../scripts/commonWindows/Content'
-import { BASE_PATH, RP_BASE_PATH } from '../scripts/constants'
+import ContentWindow from '../src/commonWindows/Content'
+import { BASE_PATH, RP_BASE_PATH } from '../src/constants'
 import Vue from '../main'
 import LoadingWindow from './LoadingWindow'
-import Manifest from '../scripts/files/Manifest'
+import Manifest from '../src/files/Manifest'
 import uuidv4 from 'uuid/v4'
-import CreateFiles from '../scripts/Project/CreateFiles'
+import CreateFiles from '../src/Project/CreateFiles'
 import path from 'path'
-import EventBus from '../scripts/EventBus'
+import EventBus from '../src/EventBus'
 
 export default class CreateProjectWindow extends ContentWindow {
 	constructor(create_bp = true, cb) {

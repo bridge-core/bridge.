@@ -27,8 +27,8 @@
 <script>
 import FileManager from './SingleFile'
 import WelcomeScreen from './WelcomeScreen'
-import TabSystem from '../../scripts/TabSystem'
-import EventBus from '../../scripts/EventBus'
+import TabSystem from '../../src/TabSystem'
+import EventBus from '../../src/EventBus'
 
 export default {
 	name: 'editor-shell-content-manager',

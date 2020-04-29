@@ -1,11 +1,11 @@
-import { WEB_APP_PLUGINS, CURRENT } from '../../scripts/constants'
-import { readJSONSync } from '../../scripts/Utilities/JsonFS'
+import { WEB_APP_PLUGINS, CURRENT } from '../../src/constants'
+import { readJSONSync } from '../../src/Utilities/JsonFS'
 import { promises as fs } from 'fs'
 import path from 'path'
-import Notification from '../../scripts/Notification'
-import PluginLoader from '../../scripts/plugins/PluginLoader'
+import Notification from '../../src/Notification'
+import PluginLoader from '../../src/plugins/PluginLoader'
 import LoadingWindow from '../LoadingWindow'
-import EventBus from '../../scripts/EventBus'
+import EventBus from '../../src/EventBus'
 
 export const EXT_TAG_MAP = readJSONSync(
 	path.join(__static, 'data/ext_tag_map.json')

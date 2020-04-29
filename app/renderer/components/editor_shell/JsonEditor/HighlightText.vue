@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import EventBus from '../../../scripts/EventBus'
+import EventBus from '../../../src/EventBus'
 
 export default {
 	name: 'highlight-text',

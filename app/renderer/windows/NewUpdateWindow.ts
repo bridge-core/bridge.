@@ -1,8 +1,8 @@
-import { newVersionRes } from '../scripts/Utilities/FetchLatestJson'
+import { newVersionRes } from '../src/Utilities/FetchLatestJson'
 import { Marked } from '@ts-stack/markdown'
-import { WEB_APP_DATA } from '../scripts/constants'
-import ContentWindow from '../scripts/commonWindows/Content'
-import updateApp from '../scripts/Utilities/updateApp'
+import { WEB_APP_DATA } from '../src/constants'
+import ContentWindow from '../src/commonWindows/Content'
+import updateApp from '../src/Utilities/updateApp'
 
 export default class UpdateWindow extends ContentWindow {
 	content: any

@@ -1,4 +1,4 @@
-import ContentWindow from '../../scripts/commonWindows/Content'
+import ContentWindow from '../../src/commonWindows/Content'
 import Session, { getInfoMap } from './Common'
 import PluginCard from './PluginCard'
 import Title from './Title'

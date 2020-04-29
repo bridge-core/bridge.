@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import TextProvider from '../../scripts/autoCompletions/TextProvider'
-import EventBus from '../../scripts/EventBus'
+import TextProvider from '../../src/autoCompletions/TextProvider'
+import EventBus from '../../src/EventBus'
 let last_sel_object = null
 
 export default {

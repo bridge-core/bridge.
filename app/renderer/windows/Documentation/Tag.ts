@@ -1,5 +1,5 @@
-import ContentWindow from '../../scripts/commonWindows/Content'
-import { loadTags, resetTagCache } from '../../scripts/documentation/TagLoader'
+import ContentWindow from '../../src/commonWindows/Content'
+import { loadTags, resetTagCache } from '../../src/documentation/TagLoader'
 import CommonCard from '../common/Card'
 
 const PAGE_SIZE = 30

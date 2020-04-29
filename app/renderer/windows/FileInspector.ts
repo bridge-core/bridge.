@@ -1,11 +1,11 @@
-import CommonWindow from '../scripts/commonWindows/Content'
-import LightningCache from '../scripts/editor/LightningCache'
-import FetchDefinitions from '../scripts/editor/FetchDefinitions'
-import FileType from '../scripts/editor/FileType'
+import CommonWindow from '../src/commonWindows/Content'
+import LightningCache from '../src/editor/LightningCache'
+import FetchDefinitions from '../src/editor/FetchDefinitions'
+import FileType from '../src/editor/FileType'
 import path from 'path'
-import { CURRENT } from '../scripts/constants'
-import FileSystem from '../scripts/FileSystem'
-import OmegaCache from '../scripts/editor/OmegaCache'
+import { CURRENT } from '../src/constants'
+import FileSystem from '../src/FileSystem'
+import OmegaCache from '../src/editor/OmegaCache'
 
 function findID(arr: [string, string[]][]) {
 	for (const [cache_key, [id]] of arr) {

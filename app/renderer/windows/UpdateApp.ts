@@ -1,6 +1,6 @@
 import { shell } from 'electron'
-import { WEB_APP_DATA } from '../scripts/constants'
-import ContentWindow from '../scripts/commonWindows/Content'
+import { WEB_APP_DATA } from '../src/constants'
+import ContentWindow from '../src/commonWindows/Content'
 
 export default class UpdateWindow extends ContentWindow {
 	content: any

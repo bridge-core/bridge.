@@ -1,7 +1,7 @@
 import fs from 'fs'
-import ContentWindow from '../scripts/commonWindows/Content'
-import { RP_BASE_PATH } from '../scripts/constants'
-import PackLinker from '../scripts/Utilities/LinkPacks'
+import ContentWindow from '../src/commonWindows/Content'
+import { RP_BASE_PATH } from '../src/constants'
+import PackLinker from '../src/Utilities/LinkPacks'
 
 export default class LinkRPWindow extends ContentWindow {
 	private selected_rp: string

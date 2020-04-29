@@ -6,9 +6,7 @@
 			<!-- Disabled until we ship "bridge. Play!" -->
 			<!-- <PlayButton :filePath="file_path" style="margin-right: 8px" /> -->
 			<v-icon v-if="should_show_menu" @click="is_visible = !is_visible">
-				{{
-				is_visible ? 'mdi-close' : 'mdi-cog'
-				}}
+				{{ is_visible ? 'mdi-close' : 'mdi-cog' }}
 			</v-icon>
 			<v-card
 				:style="
@@ -41,8 +39,8 @@
 
 <script>
 import PlayButton from '../../Play/PlayButton'
-import { createModelEditor } from '../../../scripts/editor/Model/create'
-import EventBus from '../../../scripts/EventBus'
+import { createModelEditor } from '../../../src/editor/Model/create'
+import EventBus from '../../../src/EventBus'
 import { basename } from 'path'
 let editor
 

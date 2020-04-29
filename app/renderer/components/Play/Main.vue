@@ -4,14 +4,16 @@
 			<PlayToolbar />
 
 			<canvas v-if="isCanvasPlayer" ref="canvas" />
-			<span v-else-if="PlayState.player === 'entity'">Entity Simulator... Yay!</span>
+			<span v-else-if="PlayState.player === 'entity'"
+				>Entity Simulator... Yay!</span
+			>
 		</v-card>
 	</v-dialog>
 </template>
 
 <script>
-import { PlayState, CanvasPlayers } from '../../scripts/Play/state'
-import { createClientEntity } from '../../scripts/Play/ClientEntity/create'
+import { PlayState, CanvasPlayers } from '../../src/Play/state'
+import { createClientEntity } from '../../src/Play/ClientEntity/create'
 import PlayToolbar from './Toolbar'
 
 export default {

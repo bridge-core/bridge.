@@ -1,12 +1,12 @@
-import CommonWindow from '../scripts/commonWindows/Content'
-import { CURRENT } from '../scripts/constants'
-import { JSONFileMasks } from '../scripts/editor/JSONFileMasks'
-import OmegaCache from '../scripts/editor/OmegaCache'
-import JSONTree from '../scripts/editor/JsonTree'
-import TabSystem from '../scripts/TabSystem'
+import CommonWindow from '../src/commonWindows/Content'
+import { CURRENT } from '../src/constants'
+import { JSONFileMasks } from '../src/editor/JSONFileMasks'
+import OmegaCache from '../src/editor/OmegaCache'
+import JSONTree from '../src/editor/JsonTree'
+import TabSystem from '../src/TabSystem'
 import path from 'path'
-import { uuid } from '../scripts/Utilities/useAttr'
-import { readJSON } from '../scripts/Utilities/JsonFS'
+import { uuid } from '../src/Utilities/useAttr'
+import { readJSON } from '../src/Utilities/JsonFS'
 
 class ReactiveListEntry {
 	constructor(key, channel, mask, parent) {

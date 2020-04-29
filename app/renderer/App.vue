@@ -80,11 +80,11 @@ import FooterMain from '@/components/footer/Main'
 import ContextMenuMain from '@/components/context_menu/Main'
 
 import { shell } from 'electron'
-import startUp from './scripts/AppCycle/startUp'
-import EventBus from './scripts/EventBus'
+import startUp from './src/AppCycle/startUp'
+import EventBus from './src/EventBus'
 import Vue from 'vue'
-import TabSystem from './scripts/TabSystem'
-import './scripts/UserActions/DropFile'
+import TabSystem from './src/TabSystem'
+import './src/UserActions/DropFile'
 
 export default {
 	name: 'bridge',

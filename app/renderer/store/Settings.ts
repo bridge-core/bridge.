@@ -1,4 +1,4 @@
-import BridgeStore from '../scripts/Utilities/BridgeStore'
+import BridgeStore from '../src/Utilities/BridgeStore'
 import VueStore from './index'
 import path from 'path'
 import uuid from 'uuid/v4'

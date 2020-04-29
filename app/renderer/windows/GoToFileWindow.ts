@@ -1,10 +1,7 @@
-import ContentWindow from '../scripts/commonWindows/Content'
-import {
-	FileExplorerStorage,
-	FileExplorer,
-} from '../scripts/Sidebar/FileExplorer'
-import { CURRENT, BP_BASE_PATH, RP_BASE_PATH } from '../scripts/constants'
-import FileSystem from '../scripts/FileSystem'
+import ContentWindow from '../src/commonWindows/Content'
+import { FileExplorerStorage, FileExplorer } from '../src/Sidebar/FileExplorer'
+import { CURRENT, BP_BASE_PATH, RP_BASE_PATH } from '../src/constants'
+import FileSystem from '../src/FileSystem'
 import path from 'path'
 
 function loadFiles(): { text: string; value: string }[] {

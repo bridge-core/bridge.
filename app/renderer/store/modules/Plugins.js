@@ -1,12 +1,12 @@
-import Bridge from '../../scripts/plugins/PluginEnv'
+import Bridge from '../../src/plugins/PluginEnv'
 import Store from '../index'
 import Vue from 'vue'
-import Provider from '../../scripts/autoCompletions/Provider'
-import FileType from '../../scripts/editor/FileType'
-import EventBus from '../../scripts/EventBus'
+import Provider from '../../src/autoCompletions/Provider'
+import FileType from '../../src/editor/FileType'
+import EventBus from '../../src/EventBus'
 import { PluginSnippets } from '../../windows/Snippets'
-import ThemeManager from '../../scripts/editor/ThemeManager'
-import PluginLoader from '../../scripts/plugins/PluginLoader'
+import ThemeManager from '../../src/editor/ThemeManager'
+import PluginLoader from '../../src/plugins/PluginLoader'
 
 const state = {
 	installed_plugins: [],

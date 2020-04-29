@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import TabSystem from '../../../scripts/TabSystem'
-import { JSONAction } from '../../../scripts/TabSystem/CommonHistory'
+import TabSystem from '../../../src/TabSystem'
+import { JSONAction } from '../../../src/TabSystem/CommonHistory'
 import ColorPicker from '../../../windows/ColorPicker'
 
 export default {

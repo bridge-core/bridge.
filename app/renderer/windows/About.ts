@@ -1,6 +1,6 @@
-import TabWindow from '../scripts/commonWindows/TabWindow'
+import TabWindow from '../src/commonWindows/TabWindow'
 import { shell } from 'electron'
-import { APP_VERSION } from '../scripts/constants'
+import { APP_VERSION } from '../src/constants'
 
 interface CreatorLinkConfig {
 	type?: 'icon-button'

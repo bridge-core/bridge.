@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { getStrKeyCode } from '../../../scripts/editor/KeyBindings/main'
+import { getStrKeyCode } from '../../../src/editor/KeyBindings/main'
 
 export default {
 	name: 'MenuList',

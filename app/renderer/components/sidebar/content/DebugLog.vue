@@ -140,7 +140,7 @@
 import {
 	processedDebugLog,
 	parseAffectedFiles,
-} from '../../../scripts/Sidebar/DebugLog'
+} from '../../../src/Sidebar/DebugLog'
 import LogListView from '../../../windows/DebugLog/ListView'
 import { tag } from '../../../windows/DebugLog/Common'
 import SearchDebugLogInput from '../../../windows/DebugLog/SearchInput'

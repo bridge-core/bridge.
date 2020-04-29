@@ -10,7 +10,7 @@
 
 <script>
 import FooterElement from './FooterElement'
-import EventBus from '../../scripts/EventBus'
+import EventBus from '../../src/EventBus'
 
 export default {
 	name: 'footer-main',

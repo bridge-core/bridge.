@@ -5,7 +5,7 @@ import Session, {
 	RELOAD_NOTIFICATION,
 	isInstalled,
 } from './Common'
-import { greaterThan } from '../../scripts/Utilities/VersionUtils'
+import { greaterThan } from '../../src/Utilities/VersionUtils'
 
 class DownloadButton {
 	type = 'button'

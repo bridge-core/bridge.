@@ -1,8 +1,8 @@
-import ContentWindow from '../scripts/commonWindows/Content'
+import ContentWindow from '../src/commonWindows/Content'
 import uuidv4 from 'uuid/v4'
-import TabSystem from '../scripts/TabSystem'
-import { JSONAction } from '../scripts/TabSystem/CommonHistory'
-import JSONTree from '../scripts/editor/JsonTree'
+import TabSystem from '../src/TabSystem'
+import { JSONAction } from '../src/TabSystem/CommonHistory'
+import JSONTree from '../src/editor/JsonTree'
 
 export default class EditMoLangWindow extends ContentWindow {
 	private input: string

@@ -5,8 +5,8 @@ describe('FileCompiler', () => {
 		const {
 			'minecraft:geometry': [{ description, bones }],
 		} = await OBJtoMC(
-			'./app/renderer/scripts/Compiler/File/__tests__/test.obj',
-			'./app/renderer/scripts/Compiler/File/__tests__/test.png',
+			'./app/renderer/src/Compiler/File/__tests__/test.obj',
+			'./app/renderer/src/Compiler/File/__tests__/test.png',
 			'unknown',
 			1
 		)

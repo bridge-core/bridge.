@@ -1,11 +1,12 @@
 import Store from '../index'
-import Bridge from '../../scripts/plugins/PluginEnv'
-import detachObj from '../../scripts/Utilities/mergeUtils'
+import Bridge from '../../src/plugins/PluginEnv'
+import detachObj from '../../src/Utilities/mergeUtils'
 import Vue from 'vue'
 
 const state = {
 	menu_state: 1,
-	items: [{
+	items: [
+		{
 			title: 'Explorer',
 			icon: 'mdi-folder',
 			menu_type: 'explorer',
@@ -71,10 +72,13 @@ const mutations = {
 
 		if (i == state.plugin_items.length)
 			state.plugin_items.push(
-				detachObj({}, {
-					...new_sidebar,
-					is_plugin: true,
-				})
+				detachObj(
+					{},
+					{
+						...new_sidebar,
+						is_plugin: true,
+					}
+				)
 			)
 
 		Store.commit('sortPluginSidebars')

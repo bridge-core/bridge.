@@ -1,22 +1,22 @@
-import TabWindow from '../scripts/commonWindows/TabWindow'
+import TabWindow from '../src/commonWindows/TabWindow'
 import Store from '../store/index'
 import SETTINGS from '../store/Settings'
 import {
 	MINECRAFT_VERSIONS,
 	BASE_PATH,
 	LOCAL_STATE_PATH,
-} from '../scripts/constants'
-import EventBus from '../scripts/EventBus'
+} from '../src/constants'
+import EventBus from '../src/EventBus'
 import fs from 'fs'
 import AddSnippetWindow from './AddSnippet'
 import Snippets from './Snippets'
 import { ipcRenderer, remote } from 'electron'
-import ConfirmWindow from '../scripts/commonWindows/Confirm'
-import ThemeManager from '../scripts/editor/ThemeManager'
-import ProjectConfig from '../scripts/Project/Config'
-import { uuid } from '../scripts/Utilities/useAttr'
+import ConfirmWindow from '../src/commonWindows/Confirm'
+import ThemeManager from '../src/editor/ThemeManager'
+import ProjectConfig from '../src/Project/Config'
+import { uuid } from '../src/Utilities/useAttr'
 import FontList from 'font-list'
-import { DEV_MENU } from '../scripts/AppMenu/setupDefaults'
+import { DEV_MENU } from '../src/AppMenu/setupDefaults'
 
 class ReactiveListEntry {
 	type = 'card'

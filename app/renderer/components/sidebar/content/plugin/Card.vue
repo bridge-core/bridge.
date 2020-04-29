@@ -78,11 +78,11 @@
 </template>
 
 <script>
-import PluginLoader from '../../../../scripts/plugins/PluginLoader'
+import PluginLoader from '../../../../src/plugins/PluginLoader'
 import { shell } from 'electron'
-import { readJSON, writeJSON } from '../../../../scripts/Utilities/JsonFS'
+import { readJSON, writeJSON } from '../../../../src/Utilities/JsonFS'
 import path from 'path'
-import { CURRENT } from '../../../../scripts/constants'
+import { CURRENT } from '../../../../src/constants'
 import LoadingWindow from '../../../../windows/LoadingWindow'
 import { RELOAD_NOTIFICATION } from '../../../../windows/Extensions/Common'
 

@@ -1,7 +1,7 @@
-import TabWindow from '../scripts/commonWindows/TabWindow'
-import { loadPresets, buildPreset } from '../scripts/Presets'
+import TabWindow from '../src/commonWindows/TabWindow'
+import { loadPresets, buildPreset } from '../src/Presets'
 import LoadingWindow from './LoadingWindow'
-import { uuid } from '../scripts/Utilities/useAttr'
+import { uuid } from '../src/Utilities/useAttr'
 
 export default class PresetWindow extends TabWindow {
 	private action_button = {

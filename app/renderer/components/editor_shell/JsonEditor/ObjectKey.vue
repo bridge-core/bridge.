@@ -26,8 +26,8 @@
 		<!-- KEY DISPLAY ERROR -->
 		<v-tooltip
 			v-if="
-				$store.state.Settings.run_error_detection && 
-				error &&
+				$store.state.Settings.run_error_detection &&
+					error &&
 					error.show &&
 					!node_context.meta.ignore_error &&
 					!is_immutable
@@ -50,7 +50,8 @@
 								error.is_warning ? 'warning-line' : 'error-line'
 							}`
 						"
-					>{{ node_context.key }}</highlight-text>
+						>{{ node_context.key }}</highlight-text
+					>
 				</span>
 			</template>
 
@@ -66,7 +67,8 @@
 				)};`
 			"
 			class="object"
-		>{{ node_context.key }}</highlight-text>
+			>{{ node_context.key }}</highlight-text
+		>
 
 		<!-- DATA DISPLAY -->
 		<span
@@ -96,21 +98,22 @@
 		<!-- ERROR PARENT CIRCLE -->
 		<v-icon
 			v-if="
-				$store.state.Settings.run_error_detection && 
-				$store.state.Settings.error_icon_indicator &&
+				$store.state.Settings.run_error_detection &&
+					$store.state.Settings.error_icon_indicator &&
 					child_contains_error &&
 					!node_context.open &&
 					!is_immutable
 			"
 			color="error"
 			small
-		>mdi-alert-circle</v-icon>
+			>mdi-alert-circle</v-icon
+		>
 
 		<!-- ERROR FIX -->
 		<v-tooltip
 			v-if="
-				$store.state.Settings.run_error_detection && 
-				$store.state.Settings.error_auto_fix &&
+				$store.state.Settings.run_error_detection &&
+					$store.state.Settings.error_auto_fix &&
 					error &&
 					error.fix &&
 					!node_context.meta.ignore_error &&
@@ -140,7 +143,8 @@
 			v-if="show_comment && comment != ''"
 			class="comment"
 			:style="color_theme.comment"
-		>//{{ comment }}</span>
+			>//{{ comment }}</span
+		>
 	</summary>
 </template>
 
@@ -148,9 +152,9 @@
 import Main from './Main'
 import HighlightText from './HighlightText'
 import HighlightAttribute from './HighlightAttribute'
-import TabSystem from '../../../scripts/TabSystem'
-import { run, runFunction } from '../../../scripts/editor/ScriptRunner/run'
-import { ENV } from '../../../scripts/editor/ScriptRunner/Validation/ENV'
+import TabSystem from '../../../src/TabSystem'
+import { run, runFunction } from '../../../src/editor/ScriptRunner/run'
+import { ENV } from '../../../src/editor/ScriptRunner/Validation/ENV'
 
 export default {
 	name: 'object-key',

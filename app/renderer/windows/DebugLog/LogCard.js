@@ -1,5 +1,5 @@
 import ListView from './ListView'
-import { parseAffectedFiles } from '../../scripts/Sidebar/DebugLog'
+import { parseAffectedFiles } from '../../src/Sidebar/DebugLog'
 import { tag } from './Common'
 
 export default class LogCard {

@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { DOC_LIST, DOC_URL, CURRENT } from '../../../scripts/constants'
+import { DOC_LIST, DOC_URL, CURRENT } from '../../../src/constants'
 import { shell } from 'electron'
 import TagDocumentation from '../../../windows/Documentation/Tag.ts'
 

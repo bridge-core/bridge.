@@ -35,7 +35,7 @@ import FileDisplayer from './explorer/FileDisplayer.vue'
 import { join } from 'path'
 import fs from 'fs'
 import DataUrl from 'dataurl'
-import FileSystem from '../../../scripts/FileSystem'
+import FileSystem from '../../../src/FileSystem'
 import LoadingWindow from '../../../windows/LoadingWindow'
 
 export default {

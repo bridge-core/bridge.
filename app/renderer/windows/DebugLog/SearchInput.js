@@ -1,4 +1,4 @@
-import InputWindow from '../../scripts/commonWindows/Input'
+import InputWindow from '../../src/commonWindows/Input'
 import SearchListView from './SearchListView'
 
 export default class SearchDebugLogInput extends InputWindow {
