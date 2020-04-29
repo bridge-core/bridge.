@@ -14,7 +14,7 @@
     "pack": "npm run pack:main && npm run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
-    "style": "prettier --write --parser typescript \"src/**/*.ts\" && prettier --write \"src/**/*.js\" && prettier --write --parser vue \"src/**/*.vue\"",
+    "style": "prettier --write --parser typescript \"app/**/*.ts\" && prettier --write \"app/**/*.js\" && prettier --write --parser vue \"app/**/*.vue\"",
     "test": "jest"
   },
   "build": {
