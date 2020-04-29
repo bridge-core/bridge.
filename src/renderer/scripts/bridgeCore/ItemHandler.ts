@@ -88,7 +88,11 @@ export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
 	A_C_MASK.reset(file_uuid)
 	A_C_MASK.set(file_uuid, {
 		format_version: '1.10.0',
-		animation_controllers: {},
+		animation_controllers: {
+			'controller.animation.bridge_custom_item_behavior': {
+				states: { default: {} },
+			},
+		},
 	})
 
 	//READ COMPONENTS
