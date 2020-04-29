@@ -1,5 +1,5 @@
 <template>
-	<v-container>
+	<v-container :style="`max-height: ${sidebar_height}px;`">
 		<!-- <v-subheader>Project "{{ project }}"</v-subheader>
         <v-container :style="`max-height: ${sidebar_height}px;`">
             <template v-for="(doc, i) in project_docs">
@@ -23,7 +23,7 @@
         </v-container> -->
 
 		<v-subheader style="/*margin-top: 32px;*/">Minecraft</v-subheader>
-		<v-container :style="`max-height: ${sidebar_height}px;`">
+		<v-container>
 			<template v-for="(doc, i) in doc_list">
 				<v-btn
 					:key="`btn.${i}`"
@@ -45,7 +45,7 @@
 		</v-container>
 
 		<v-subheader style="/*margin-top: 32px;*/">bridge.</v-subheader>
-		<v-container :style="`max-height: ${sidebar_height}px;`">
+		<v-container>
 			<template v-for="([name, link], i) in bridge_docs">
 				<v-btn
 					:key="`btn.${i}`"
