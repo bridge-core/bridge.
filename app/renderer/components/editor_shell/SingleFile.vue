@@ -1,10 +1,11 @@
 <template>
-	<span
+	<div
 		:style="{
 			position: 'relative',
 			top: '-7px',
 			fontSize: $store.state.Settings.file_font_size || '14px',
 			fontFamily: $store.state.Settings.file_font_family || 'Roboto',
+			height: `${available_height}px`,
 		}"
 	>
 		<v-container v-if="file_viewer === 'image'">
@@ -31,7 +32,7 @@
 			:is_immutable="file.is_immutable"
 			:is_active="is_active"
 		/>
-		<span v-else>
+		<!-- <span v-else>
 			<codemirror
 				v-model="content_as_string"
 				:options="cm_options"
@@ -40,8 +41,9 @@
 			<text-auto-completions
 				v-if="$store.state.Settings.text_auto_completions"
 			/>
-		</span>
-	</span>
+		</span>-->
+		<TextEditor v-else v-model="content_as_string" />
+	</div>
 </template>
 
 <script>
@@ -74,6 +76,7 @@ import DataUrl from 'dataurl'
 import AudioPlayer from './AudioPlayer'
 import FileType from '../../src/editor/FileType'
 import ModelEditor from './Model/Main'
+import TextEditor from './Text/Monaco'
 
 export default {
 	name: 'file-manager',
@@ -83,6 +86,7 @@ export default {
 		TextAutoCompletions,
 		AudioPlayer,
 		ModelEditor,
+		TextEditor,
 	},
 	props: {
 		file: Object,
@@ -177,6 +181,7 @@ export default {
 		},
 		content_as_string: {
 			get() {
+				this.$store.commit('removeLoadingWindow', { id: 'open-file' })
 				if (typeof this.content === 'string') return this.content
 				return JSON.stringify(this.content, null, '\t')
 			},
