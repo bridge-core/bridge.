@@ -19,4 +19,18 @@ export default [
 		highlighter: 'map_area',
 		// file_creator: "map_area"
 	},
+	{
+		id: 'custom_component',
+		includes: 'components/',
+		file_viewer: 'text',
+
+		file_creator: 'custom_component',
+	},
+	{
+		id: 'custom_command',
+		includes: 'commands/',
+		file_viewer: 'text',
+
+		file_creator: 'custom_command',
+	},
 ]
