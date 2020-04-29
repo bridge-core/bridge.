@@ -7,6 +7,7 @@ import { BridgeCore } from '../bridgeCore/main'
 import OmegaCache from '../editor/OmegaCache'
 
 export const CommandRegistry = new Map<string, BridgeCommand>()
+const UpdateFiles = new Set<string>()
 export interface BridgeCommandClass {
 	command_name: string
 	new (): BridgeCommand
@@ -20,7 +21,7 @@ export abstract class BridgeCommand {
 
 export async function loadCustomCommands(folderPath: string) {
 	const data = await fs.readdir(folderPath, { withFileTypes: true })
-	const update_files: string[] = []
+	const proms: Promise<unknown>[] = []
 
 	await Promise.all(
 		data.map(async dirent => {
@@ -36,20 +37,25 @@ export async function loadCustomCommands(folderPath: string) {
 					CommandRegistry.set(Command.command_name, new Command())
 
 					//Update files with custom command
-					update_files.push(
-						...(await FetchDefinitions.fetchSingle(
-							'function',
-							['custom_commands'],
-							Command.command_name
-						))
+					const fileRefs = FetchDefinitions.fetchSingle(
+						'function',
+						['custom_commands'],
+						Command.command_name
+					).then(fileRefs =>
+						fileRefs.forEach(filePath => UpdateFiles.add(filePath))
 					)
+					proms.push(fileRefs)
 				},
 			})
 		})
 	)
 
+	await Promise.all(proms)
+}
+
+export async function updateCommandFiles() {
 	await Promise.all(
-		update_files.map(async file => {
+		Array.from(UpdateFiles).map(async file => {
 			try {
 				const { cache_content, file_version } = await OmegaCache.load(
 					file
@@ -64,6 +70,7 @@ export async function loadCustomCommands(folderPath: string) {
 			} catch {}
 		})
 	)
+	UpdateFiles.clear()
 }
 
 export function proposeCustomCommands() {

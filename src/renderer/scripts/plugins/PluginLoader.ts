@@ -20,7 +20,11 @@ import ComponentRegistry from './CustomComponents'
 import InformationWindow from '../commonWindows/Information'
 import Provider from '../autoCompletions/Provider'
 import { addLoadLocation, resetLoadLocations } from '../Presets'
-import { loadCustomCommands, CommandRegistry } from './CustomCommands'
+import {
+	loadCustomCommands,
+	CommandRegistry,
+	updateCommandFiles,
+} from './CustomCommands'
 
 let PLUGIN_FOLDERS: string[]
 let PLUGIN_DATA: any[] = []
@@ -80,14 +84,19 @@ export default class PluginLoader {
 			)
 		)
 		await ThemeManager.loadTheme()
+		//LOAD CUSTOM COMPONENENTS IN PROJECT
+		this.loadComponents(CURRENT.PROJECT_PATH)
 		//UPDATE COMPONENT REFERENCES
 		await ComponentRegistry.registerUpdates()
-		//LOAD CUSTOM COMMANDS
+
+		//LOAD CUSTOM COMMANDS IN PROJECT
 		try {
 			await loadCustomCommands(
 				path.join(CURRENT.PROJECT_PATH, 'commands')
 			)
 		} catch {}
+		//UPDATE COMMAND REFERENCES
+		updateCommandFiles()
 
 		//INIT LEGACY PLUGIN DATA FOR UI
 		Store.commit('finishedPluginLoading', PLUGIN_DATA)
@@ -169,6 +178,7 @@ export default class PluginLoader {
 					this.loadComponents(plugin_path),
 					this.loadAutoCompletions(plugin_path),
 					this.loadThemeCSS(plugin_path),
+					loadCustomCommands(path.join(plugin_path, 'commands')),
 				]).catch(e => {})
 				addLoadLocation(path.join(plugin_path, 'presets'))
 			}
