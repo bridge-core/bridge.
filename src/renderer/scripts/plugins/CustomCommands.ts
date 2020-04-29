@@ -62,10 +62,10 @@ export async function updateCommandFiles() {
 				)
 				await fs.writeFile(
 					file,
-					await BridgeCore.beforeTextSave(
-						`#bridge-file-version: #${file_version}\n${cache_content}`,
+					`#bridge-file-version: #${file_version}\n${await BridgeCore.beforeTextSave(
+						cache_content,
 						file
-					)
+					)}`
 				)
 			} catch {}
 		})
