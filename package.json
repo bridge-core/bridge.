@@ -28,7 +28,8 @@
       "dist/electron/**/*"
     ],
     "dmg": {
-      "contents": [{
+      "contents": [
+        {
           "x": 410,
           "y": 150,
           "type": "link",
@@ -46,13 +47,15 @@
     },
     "win": {
       "icon": "build/icons/icon.ico",
-      "target": [{
-        "target": "nsis-web",
-        "arch": [
-          "x64",
-          "ia32"
-        ]
-      }]
+      "target": [
+        {
+          "target": "nsis-web",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
     },
     "linux": {
       "icon": "build/icons"
@@ -115,12 +118,12 @@
     "@types/codemirror": "0.0.79",
     "@types/comment-json": "^1.1.1",
     "@types/fs-extra": "^8.1.0",
+    "@types/jest": "^25.2.1",
     "@types/mkdirp": "^0.5.2",
     "@types/mousetrap": "^1.6.3",
     "@types/node": "^12.12.34",
     "@types/unzipper": "^0.10.3",
     "@types/uuid": "^3.4.8",
-    "@types/jest": "^25.2.1",
     "ajv": "^6.12.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.1.0",
@@ -141,6 +144,8 @@
     "html-webpack-plugin": "^3.2.0",
     "jest": "^25.4.0",
     "mini-css-extract-plugin": "0.4.0",
+    "monaco-editor": "^0.20.0",
+    "monaco-editor-webpack-plugin": "^1.9.0",
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
     "node-sass": "^4.13.1",
