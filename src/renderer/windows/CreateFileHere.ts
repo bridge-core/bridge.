@@ -27,7 +27,6 @@ export default class CreateFileHereWindow {
 			'.' +
 			(FileType.getFileCreator(`${folder_path}/${file_name}`)
 				?.extension ?? 'json')
-		console.log(FileType.getFileCreator(`${folder_path}/${file_name}`))
 
 		this.id = uuid()
 		this.input = file_name || ''
@@ -139,9 +138,10 @@ export default class CreateFileHereWindow {
 
 	async createFile(file_name: string, folder_path: string) {
 		let lw = new LoadingWindow()
-		console.log(join(folder_path, file_name + this.expand_text))
+
 		await fs.writeFile(join(folder_path, file_name + this.expand_text), '')
 		this.file_explorer.refresh()
+
 		lw.close()
 	}
 

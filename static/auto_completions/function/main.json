@@ -437,5 +437,6 @@
             "L": "$function.general.target_selector",
             "$function.general.target_selector": {}
         }
-    }
+    },
+    "$load": "$dynamic.plugins.custom_commands"
 }

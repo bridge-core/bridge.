@@ -17,6 +17,8 @@ import MapAreaHandler from './MapAreaHandler'
 import trash from 'trash'
 import { CURRENT } from '../constants'
 import { use } from '../Utilities/useAttr'
+import { parseFunction } from './functions/parse'
+import { CommandRegistry } from '../plugins/CustomCommands'
 
 export interface OnSaveData {
 	file_path: string
@@ -36,24 +38,32 @@ export const UI_DATA = {
 	id: 'bridge.core',
 }
 
+export type TTextSaveHandler = (
+	str: string,
+	filePath: string
+) => string | Promise<string>
 export class BridgeCore {
-	static is_active = false
-	static save_registry: { [t: string]: (data: OnSaveData) => any } = {}
+	private static _isActive = false
+	static saveRegistry: { [t: string]: (data: OnSaveData) => any } = {}
+	static textSaveRegistry = new Map<string, TTextSaveHandler>()
 
 	static isActive() {
-		return this.is_active
+		return this._isActive
 	}
 	static activate() {
-		this.is_active = true
+		this._isActive = true
 	}
 	static deactivate() {
-		this.is_active = false
+		this._isActive = false
 	}
 	static setSaveHandler(
-		file_type: string,
-		handler: (data: OnSaveData) => any
+		fileType: string,
+		handler: (data: unknown) => unknown
 	) {
-		this.save_registry[file_type] = handler
+		this.saveRegistry[fileType] = handler
+	}
+	static setTextSaveHandler(fileType: string, handler: TTextSaveHandler) {
+		this.textSaveRegistry.set(fileType, handler)
 	}
 
 	static async onDelete(file_path: string) {
@@ -151,10 +161,10 @@ export class BridgeCore {
 		}
 
 		//Do not use custom syntax with deactivated bridgeCore
-		if (!this.is_active) return data
+		if (!this._isActive) return data
 
-		if (typeof this.save_registry[file_type] === 'function')
-			await this.save_registry[file_type]({
+		if (typeof this.saveRegistry[file_type] === 'function')
+			await this.saveRegistry[file_type]({
 				file_path,
 				file_name,
 				file_uuid,
@@ -176,8 +186,18 @@ export class BridgeCore {
 		return data
 	}
 
+	static async beforeTextSave(str: string, filePath: string) {
+		if (!this._isActive) return str
+
+		let fileType = FileType.get(filePath)
+
+		return (
+			(await this.textSaveRegistry.get(fileType)?.(str, filePath)) ?? str
+		)
+	}
+
 	static get FILE_DEFS() {
-		if (!this.is_active) return []
+		if (!this._isActive) return []
 		return CORE_FILES
 	}
 }
@@ -187,3 +207,4 @@ BridgeCore.setSaveHandler('entity', EntityHandler)
 BridgeCore.setSaveHandler('item', ItemHandler)
 BridgeCore.setSaveHandler('entity_tag', TagHandler)
 BridgeCore.setSaveHandler('bridge_map_area', MapAreaHandler)
+BridgeCore.setTextSaveHandler('function', parseFunction)

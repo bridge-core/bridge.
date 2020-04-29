@@ -35,7 +35,7 @@ function getType(data: any) {
 	return typeof data
 }
 
-function toCorrectType(val: any) {
+export function toCorrectType(val: any) {
 	if (val === '') return ''
 	if (val == 'true' || val == 'false') return val == 'true'
 	if (!Number.isNaN(Number(val)) && typeof val != 'boolean')

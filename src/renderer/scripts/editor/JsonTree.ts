@@ -15,6 +15,7 @@ import Vue from 'vue'
 import { run } from './ScriptRunner/run'
 import { ENV } from './ScriptRunner/Validation/ENV'
 import { runValidationFile } from './ScriptRunner/Validation/runFile'
+import { canBeMinified, getCacheData } from './JSONTree/cacheUtils'
 
 declare const requestIdleCallback: (func: () => void) => void
 
@@ -598,11 +599,12 @@ export default class JSONTree {
 		data: any,
 		first = true,
 		update_history = false,
-		open_nodes = false
+		open_nodes = false,
+		open_first = true
 	) {
 		if (data instanceof JSONTree) return data
 
-		if (first || open_nodes) this.open = true
+		if ((open_first && first) || open_nodes) this.open = true
 
 		if (typeof data == 'object') {
 			for (let key in data) {
@@ -628,16 +630,28 @@ export default class JSONTree {
 	toJSON(build_arrays = true) {
 		return Json.Format.toJSON(this, build_arrays)
 	}
+
 	buildForCache(): any {
+		const is_array = this.is_array
+		if (canBeMinified(this))
+			return {
+				...getCacheData(this),
+				is_minified: true,
+				children: !is_array ? this.toJSON() : undefined,
+				array: is_array ? this.toJSON() : undefined,
+			}
+
 		return {
-			open: this.open ? true : undefined,
-			comment: this.comment ? this.comment : undefined,
-			data: this.data ? this.data : undefined,
-			key: this.key,
-			is_active: this.is_active === true ? undefined : false,
+			...getCacheData(this),
 			children:
-				this.children.length > 0
+				this.children.length > 0 && !is_array
 					? this.children.map(c => c.buildForCache())
+					: undefined,
+			array:
+				this.children.length > 0 && is_array
+					? this.children.map(c =>
+							c.data ? c.data : c.buildForCache()
+					  )
 					: undefined,
 		}
 	}
@@ -656,7 +670,15 @@ export default class JSONTree {
 		this.meta = {}
 		this.is_active = c.is_active !== undefined ? c.is_active : true
 
-		if (c.children)
+		if (c.is_minified)
+			this.buildFromObject(
+				c.children ?? c.array,
+				true,
+				false,
+				false,
+				false
+			)
+		else if (Array.isArray(c.children))
 			this.children = c.children.map((child: any) =>
 				new JSONTree(
 					child.key,
@@ -665,6 +687,24 @@ export default class JSONTree {
 					undefined,
 					child.open ?? false
 				).buildFromCache(child)
+			)
+		else if (Array.isArray(c.array))
+			this.children = c.array.map((child: any, index: number) =>
+				typeof child === 'object'
+					? new JSONTree(
+							`${index}`,
+							child.data ?? '',
+							this,
+							undefined,
+							child.open ?? false
+					  ).buildFromCache(child)
+					: new JSONTree(
+							`${index}`,
+							child,
+							this,
+							undefined,
+							child.open ?? false
+					  )
 			)
 		return this
 	}

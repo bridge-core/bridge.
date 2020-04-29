@@ -1,0 +1,11 @@
+{
+    "icon": "mdi-console-line",
+    "title": "Command",
+    "extension": "js",
+    "path": "commands/",
+    "is_custom_syntax": true,
+    
+    "templates": {
+        "Blank Command": "Bridge.register(class Command {\n\tstatic command_name = 'example'\n\tonApply() {}\n\tonPropose() {}\n})"
+    }
+}
