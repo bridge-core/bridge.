@@ -6,6 +6,7 @@ import FetchDefinitions from '../editor/FetchDefinitions'
 import { BridgeCore } from '../bridgeCore/main'
 import OmegaCache from '../editor/OmegaCache'
 
+export const CommandNames: string[] = []
 export const CommandRegistry = new Map<string, BridgeCommand>()
 const UpdateFiles = new Set<string>()
 export interface BridgeCommandClass {
@@ -34,6 +35,7 @@ export async function loadCustomCommands(folderPath: string) {
 
 			run(file, {
 				register: async (Command: BridgeCommandClass) => {
+					CommandNames.push(Command.command_name)
 					CommandRegistry.set(Command.command_name, new Command())
 
 					//Update files with custom command

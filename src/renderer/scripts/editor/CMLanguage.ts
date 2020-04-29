@@ -5,11 +5,17 @@ import CodeMirror from 'codemirror'
 import 'codemirror/addon/mode/simple.js'
 import FileType from './FileType'
 import eRE, { escapeRegExpStr } from '../Utilities/EscapeRegExp'
+import { CommandNames } from '../plugins/CustomCommands'
 
 export default function loadAllTextHighlighters() {
 	FileType.getTextHighlighters().forEach(({ set, define }) => {
 		const { extension, line_comment, string_character } = set
 		const { titles, atoms, symbols, operators, keywords } = define
+		const commIndex = keywords.indexOf('@custom_commands')
+		if (commIndex !== -1) {
+			keywords.splice(commIndex, 1)
+			keywords.push(...CommandNames)
+		}
 		let start = []
 
 		start.push({
