@@ -6,7 +6,7 @@ bridge. allows you to define new commands that can be used in mcfunction files. 
 
 JavaScript files placed inside of this folder have access to the `Bridge` object. Available methods:
 
--   `Bridge.register` and it is used to register a custom component. This method expects a JavaScript class with a static property `command_name` and the two instance methods `onApply(command_args)` & `onPropose()`.
+-   `Bridge.register`: registers a custom command. This method expects a JavaScript class with a static property `command_name` and the two instance methods `onApply(command_args)` & `onPropose()`.
 
 ### `onApply(command_args)`
 
