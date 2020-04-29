@@ -75,7 +75,8 @@ export async function OBJtoMC(
 						return [v - 1, vn - 1, vt - 1] as const
 					})
 				//Minecraft currently doesn't support triangular shapes
-				if (face.length === 3) face.push(face[0])
+				while (face.length <= 3) face.push(face[0])
+				while (face.length > 4) face.pop()
 				polys.push(face as [TVector, TVector, TVector])
 
 				break
