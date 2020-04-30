@@ -7,7 +7,7 @@ import EventBus from '../../src/EventBus'
 import {
 	PluginSnippets
 } from '../../windows/Snippets'
-import ThemeManager from '../../src/editor/ThemeManager'
+import ThemeManager from '../../src/editor/Themes/ThemeManager'
 import PluginLoader from '../../src/plugins/PluginLoader'
 
 const state = {

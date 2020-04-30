@@ -1,5 +1,5 @@
 import { editor as Editor } from 'monaco-editor'
-import { IThemeColors } from '../ThemeManager'
+import { IThemeColors } from './ThemeManager'
 import { keyword } from 'color-convert'
 import * as cssKeywords from 'color-name'
 

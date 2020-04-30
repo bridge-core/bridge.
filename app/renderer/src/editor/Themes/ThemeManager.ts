@@ -1,11 +1,11 @@
-import { readJSONSync } from '../Utilities/JsonFS'
+import { readJSONSync } from '../../Utilities/JsonFS'
 import path from 'path'
-import EventBus from '../EventBus'
-import ProjectConfig from '../Project/Config'
-import Store from '../../store/index'
+import EventBus from '../../EventBus'
+import ProjectConfig from '../../Project/Config'
+import Store from '../../../store/index'
 import fs from 'fs'
 import deepmerge from 'deepmerge'
-import { defineMonacoTheme } from './Themes/Monaco'
+import { defineMonacoTheme } from './Monaco'
 
 declare var __static: string
 

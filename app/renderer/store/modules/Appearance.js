@@ -3,7 +3,7 @@ import {
 	readJSONSync
 } from '../../src/Utilities/JsonFS'
 import path from 'path'
-import ThemeManager from '../../src/editor/ThemeManager'
+import ThemeManager from '../../src/editor/Themes/ThemeManager'
 import EventBus from '../../src/EventBus'
 const CM_NAME_MAP = readJSONSync(path.join(__static, 'data/cm_name_map.json'))
 
