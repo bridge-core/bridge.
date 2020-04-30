@@ -465,6 +465,7 @@ export default class SettingsWindow extends TabWindow {
 				{
 					type: 'button',
 					text: 'Reset Font',
+					color: 'default_button',
 					action: () => {
 						this.data.ui_font_family = undefined
 						this.data.ui_font_size = undefined
@@ -506,6 +507,7 @@ export default class SettingsWindow extends TabWindow {
 				{
 					type: 'button',
 					text: 'Reset Font',
+					color: 'default_button',
 					action: () => {
 						this.data.file_font_family = undefined
 						this.data.file_font_size = undefined
