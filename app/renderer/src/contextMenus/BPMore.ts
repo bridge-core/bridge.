@@ -8,10 +8,10 @@ import trash from 'trash'
 import { remote } from 'electron'
 import ConfirmWindow from '../commonWindows/Confirm'
 import EventBus from '../EventBus'
-import Notification from '../Notification'
 import { promises as fs } from 'fs'
 import { refreshCache } from '../Project/RefreshCache'
 import { zip } from 'zip-a-folder'
+import { createNotification } from '../../components/Footer/create'
 
 export default [
 	{
@@ -101,20 +101,20 @@ export default [
 							lw.close()
 
 							//Notify user the packaging is complete
-							const ready_push = new Notification({
-								display_icon: 'mdi-package-variant-closed',
-								display_name: 'Package ready!',
+							const readyPush = createNotification({
+								icon: 'mdi-package-variant-closed',
+								message: 'Package ready!',
 								color: 'info',
-								action: () => {
-									ready_push.remove()
+								onClick: () => {
+									readyPush.dispose()
 									remote.shell.showItemInFolder(
 										join(
 											MOJANG_PATH,
-											`${project_name}.mcaddon`
+											`${project_name}.mcpack`
 										)
 									)
 								},
-							}).send()
+							})
 						}
 					)
 				},

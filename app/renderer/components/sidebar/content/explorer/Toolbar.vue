@@ -129,13 +129,13 @@ import InputWindow from '../../../../src/commonWindows/Input'
 import ProjectConfig from '../../../../src/Project/Config'
 import { MOJANG_PATH } from '../../../../../shared/Paths'
 import { CURRENT } from '../../../../src/constants'
-import Notification from '../../../../src/Notification'
 import { promises as fs } from 'fs'
 import trash from 'trash'
 import InformationWindow from '../../../../src/commonWindows/Information'
 import ConfirmWindow from '../../../../src/commonWindows/Confirm'
 import EventBus from '../../../../src/EventBus'
 import BPMore from '../../../../src/contextMenus/BPMore'
+import { createNotification } from '../../../Footer/create'
 
 export default {
 	name: 'explorer-toolbar',
@@ -166,17 +166,17 @@ export default {
 			)
 			lw.close()
 
-			const ready_push = new Notification({
-				display_icon: 'mdi-package-variant-closed',
-				display_name: 'Package ready!',
+			const readyPush = createNotification({
+				icon: 'mdi-package-variant-closed',
+				message: 'Package ready!',
 				color: 'info',
-				action: () => {
-					ready_push.remove()
+				onClick: () => {
+					readyPush.dispose()
 					remote.shell.showItemInFolder(
 						join(MOJANG_PATH, `${this.selected}.mcpack`)
 					)
 				},
-			}).send()
+			})
 		},
 		openInExplorer() {
 			remote.shell.showItemInFolder(join(this.base_path, this.selected))

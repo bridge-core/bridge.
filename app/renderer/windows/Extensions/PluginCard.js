@@ -2,10 +2,10 @@ import ListView from './ListView'
 import Session, {
 	tag,
 	download,
-	RELOAD_NOTIFICATION,
-	isInstalled,
 } from './Common'
-import { greaterThan } from '../../src/Utilities/VersionUtils'
+import {
+	greaterThan
+} from '../../src/Utilities/VersionUtils'
 
 class DownloadButton {
 	type = 'button'
@@ -47,14 +47,24 @@ class DownloadButton {
 
 export default class PluginCard {
 	constructor(
-		parent,
-		{ author, name, version, description, tags, link, id },
+		parent, {
+			author,
+			name,
+			version,
+			description,
+			tags,
+			link,
+			id
+		},
 		close_parent = true
 	) {
 		this.type = 'card'
-		this.above_content = [{ text: `${name}` }]
-		this.content = [
-			{ type: 'divider' },
+		this.above_content = [{
+			text: `${name}`
+		}]
+		this.content = [{
+				type: 'divider'
+			},
 			{
 				type: 'container',
 				display: 'inline-block',
@@ -76,21 +86,26 @@ export default class PluginCard {
 					if (b.icon) return 1
 				}),
 			},
-			{ text: `\n${description}\n\n` },
-			{ type: 'divider' },
+			{
+				text: `\n${description}\n\n`
+			},
+			{
+				type: 'divider'
+			},
 		]
 
-		this.below_content = [
-			{ type: 'space' },
+		this.below_content = [{
+				type: 'space'
+			},
 			new DownloadButton(
 				this,
 				async () => {
-					await download(link)
-					Session.setSessionInstalled(id, version)
-				},
-				link === undefined,
-				parent.plugin_map[id] !== undefined,
-				greaterThan(version, parent.plugin_map[id] || version)
+						await download(link)
+						Session.setSessionInstalled(id, version)
+					},
+					link === undefined,
+					parent.plugin_map[id] !== undefined,
+					greaterThan(version, parent.plugin_map[id] || version)
 			),
 		]
 

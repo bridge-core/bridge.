@@ -1,15 +1,44 @@
-import { WEB_APP_PLUGINS, CURRENT } from '../../src/constants'
-import { readJSONSync } from '../../src/Utilities/JsonFS'
-import { promises as fs } from 'fs'
+import {
+	WEB_APP_PLUGINS,
+	CURRENT
+} from '../../src/constants'
+import {
+	readJSONSync
+} from '../../src/Utilities/JsonFS'
+import {
+	promises as fs
+} from 'fs'
 import path from 'path'
-import Notification from '../../src/Notification'
 import PluginLoader from '../../src/plugins/PluginLoader'
 import LoadingWindow from '../LoadingWindow'
 import EventBus from '../../src/EventBus'
+import {
+	createNotification
+} from '../../components/Footer/create'
 
 export const EXT_TAG_MAP = readJSONSync(
 	path.join(__static, 'data/ext_tag_map.json')
 )
+/**
+ * @type {import('../../src/Types/disposable').IDisposable}
+ */
+export let RELOAD_NOTIFICATION;
+export const createReloadPush = () => {
+	if (RELOAD_NOTIFICATION !== undefined) return
+
+	RELOAD_NOTIFICATION = createNotification({
+		icon: 'mdi-refresh',
+		message: 'Reload Plugins!',
+		onClick: async () => {
+			RELOAD_NOTIFICATION.dispose()
+			RELOAD_NOTIFICATION = undefined
+
+			let lw = new LoadingWindow().show()
+			await PluginLoader.loadPlugins(CURRENT.PROJECT)
+			lw.close()
+		},
+	})
+}
 
 export function tag(tag_name, index) {
 	return EXT_TAG_MAP[tag_name] || EXT_TAG_MAP[`${index}`] || {}
@@ -29,26 +58,19 @@ export async function download(url) {
 				),
 				new Buffer(data)
 			)
-			RELOAD_NOTIFICATION.send()
+			createReloadPush()
 		})
 		.catch(console.error)
 }
-export const RELOAD_NOTIFICATION = new Notification({
-	display_name: 'Reload Plugins',
-	color: 'primary',
-	display_icon: 'mdi-refresh',
-	action: async () => {
-		RELOAD_NOTIFICATION.remove()
-		let lw = new LoadingWindow().show()
-		await PluginLoader.loadPlugins(CURRENT.PROJECT)
-		lw.close()
-	},
-})
+
 
 export function getInfoMap() {
 	let res = {}
 
-	for (let { id, version } of PluginLoader.getInstalledPlugins()) {
+	for (let {
+			id,
+			version
+		} of PluginLoader.getInstalledPlugins()) {
 		res[id] = version
 	}
 
@@ -57,7 +79,7 @@ export function getInfoMap() {
 
 EventBus.on('bridge:pluginsLoaded', () => {
 	Session.session_installed = {}
-	RELOAD_NOTIFICATION.remove()
+	if (RELOAD_NOTIFICATION) RELOAD_NOTIFICATION.dispose()
 })
 export default class Session {
 	static data
@@ -68,7 +90,12 @@ export default class Session {
 		this.data = await fetch(WEB_APP_PLUGINS + '/plugins.json')
 			.then(raw => raw.json())
 			.then(data =>
-				data.map(({ author, version, tags, ...other }) => ({
+				data.map(({
+					author,
+					version,
+					tags,
+					...other
+				}) => ({
 					author,
 					version,
 					tags: [`v${version}`, author].concat(tags || []),

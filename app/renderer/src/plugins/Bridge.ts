@@ -359,15 +359,19 @@ export default class Bridge {
 
 		this.Footer = {
 			register(footer_element) {
-				if (footer_element.id === undefined)
-					throw new Error('No footer id defined.')
-				Store.commit('addPluginFooter', footer_element)
+				throw new Error(
+					'Using Bridge.Footer.register(...) is deprecated.'
+				)
 			},
 			update(footer_element) {
-				Store.commit('updatePluginFooter', footer_element)
+				throw new Error(
+					'Using Bridge.Footer.update(...) is deprecated.'
+				)
 			},
 			remove(id) {
-				Store.commit('removePluginFooter', id)
+				throw new Error(
+					'Using Bridge.Footer.remove(...) is deprecated.'
+				)
 			},
 		}
 

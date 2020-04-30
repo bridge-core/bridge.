@@ -84,7 +84,7 @@ import { readJSON, writeJSON } from '../../../../src/Utilities/JsonFS'
 import path from 'path'
 import { CURRENT } from '../../../../src/constants'
 import LoadingWindow from '../../../../windows/LoadingWindow'
-import { RELOAD_NOTIFICATION } from '../../../../windows/Extensions/Common'
+import { createReloadPush } from '../../../../windows/Extensions/Common'
 
 export default {
 	name: 'plugin-card',
@@ -121,7 +121,7 @@ export default {
 			plugins.splice(plugins.indexOf(this.plugin.id), 1)
 			this.unloaded_plugins = plugins
 			await writeJSON(file_path, plugins)
-			RELOAD_NOTIFICATION.send()
+			createReloadPush()
 			lw.close()
 		},
 		async deactivate() {
@@ -137,7 +137,7 @@ export default {
 
 			this.unloaded_plugins = plugins.concat([this.plugin.id])
 			await writeJSON(file_path, plugins.concat([this.plugin.id]))
-			RELOAD_NOTIFICATION.send()
+			createReloadPush()
 			lw.close()
 		},
 	},

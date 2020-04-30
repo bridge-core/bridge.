@@ -136,17 +136,17 @@ export default {
 			)
 			lw.close()
 
-			const ready_push = new Notification({
-				display_icon: 'mdi-package-variant-closed',
-				display_name: 'Package ready!',
+			const readyPush = createNotification({
+				icon: 'mdi-package-variant-closed',
+				message: 'Package ready!',
 				color: 'info',
-				action: () => {
-					ready_push.remove()
+				onClick: () => {
+					readyPush.dispose()
 					remote.shell.showItemInFolder(
 						join(MOJANG_PATH, `${this.selected}.mcpack`)
 					)
 				},
-			}).send()
+			})
 		},
 		openInExplorer() {
 			remote.shell.showItemInFolder(join(this.base_path, this.selected))
