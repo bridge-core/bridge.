@@ -33,7 +33,7 @@ export function defineMonacoTheme(
 }
 
 function transformToken(token: string) {
-	if (token === 'definition') return 'identifier'
+	// if (token === 'definition') return 'identifier'
 	if (token === 'property') return 'type.identifier'
 	return token
 }
