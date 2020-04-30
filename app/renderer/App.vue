@@ -76,7 +76,7 @@ import EditorShellTabSystem from '@/components/editor_shell/TabSystem'
 import JsonEditorHoverCard from '@/components/editor_shell/JsonEditor/HoverCard'
 import EditorShellContentManager from '@/components/editor_shell/TabContentManager'
 import WindowFactoryMain from '@/components/windowFactory/Main'
-import FooterMain from '@/components/footer/Main'
+import FooterMain from '@/components/Footer/Main'
 import ContextMenuMain from '@/components/context_menu/Main'
 
 import { shell } from 'electron'
