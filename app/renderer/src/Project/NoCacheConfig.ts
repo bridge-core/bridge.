@@ -9,6 +9,7 @@ export async function getNoCacheFiles() {
 			.toString('utf-8')
 			.split('\n')
 			.map(fileType => fileType.trim())
+			.concat(['unknown'])
 	} catch {
 		return []
 	}
