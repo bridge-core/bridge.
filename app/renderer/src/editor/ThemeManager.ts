@@ -4,13 +4,35 @@ import EventBus from '../EventBus'
 import ProjectConfig from '../Project/Config'
 import Store from '../../store/index'
 import fs from 'fs'
+import deepmerge from 'deepmerge'
+import { defineMonacoTheme } from './Themes/Monaco'
 
 declare var __static: string
 
+export interface ITheme {
+	name: string
+	options: IThemeOptions
+	definition: {
+		dark: IThemeColors
+		light: IThemeColors
+	}
+}
+
 export interface IThemeOptions {
-	no_logo_display: boolean
-	inherit_highlighter: boolean
-	css: string
+	no_logo_display?: boolean
+	inherit_highlighter?: boolean
+	css?: string
+}
+export interface IThemeColors {
+	highlighter: IThemeHighlighter
+	[c: string]: string | IThemeHighlighter
+}
+export interface IThemeHighlighter {
+	[id: string]: {
+		color: string
+		text_decoration: string
+		is_italic: string
+	}
 }
 
 function getDefaultThemes() {
@@ -73,10 +95,10 @@ export default class ThemeManager {
 
 	static applyTheme(id: string) {
 		this.current_theme = id
+		const theme = this.themes[id] || this.plugin_themes[id] || {}
 
 		//Load theme options
-		this.options =
-			(this.themes[id] || this.plugin_themes[id] || {}).options || {}
+		this.options = theme.options || {}
 		this.options.css = this.css.get(this.options.css)
 		Store.commit('setThemeOptions', this.options)
 
@@ -86,9 +108,25 @@ export default class ThemeManager {
 				update_styles: false,
 				...this.themes['bridge.default.theme'],
 			})
+
+		const {
+			options: { inherit_highlighter } = {},
+			definition: { dark, light },
+		}: ITheme = deepmerge(this.themes['bridge.default.theme'], theme)
+
+		if (!inherit_highlighter) {
+			if (theme.definition.dark.highlighter)
+				dark.highlighter = theme.definition.dark.highlighter
+			if (theme.definition.light.highlighter)
+				light.highlighter = theme.definition.light.highlighter
+		}
+
+		defineMonacoTheme('bridge-dark', 'vs-dark', dark ?? { highlighter: {} })
+		defineMonacoTheme('bridge-light', 'vs', light ?? { highlighter: {} })
+
 		EventBus.trigger('bridge:applyTheme', {
 			update_styles: true,
-			...(this.themes[id] || this.plugin_themes[id]),
+			...theme,
 		})
 	}
 

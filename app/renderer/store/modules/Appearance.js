@@ -1,5 +1,7 @@
 import Vue from 'vue'
-import { readJSONSync } from '../../src/Utilities/JsonFS'
+import {
+	readJSONSync
+} from '../../src/Utilities/JsonFS'
 import path from 'path'
 import ThemeManager from '../../src/editor/ThemeManager'
 import EventBus from '../../src/EventBus'
@@ -95,7 +97,11 @@ function applyTheme(theme, mode = 'dark') {
 		mode === 'dark' ? 'white' : 'black'
 	};}`
 	for (let key in theme) {
-		let { color, text_decoration, is_italic = false } = theme[key]
+		let {
+			color,
+			text_decoration,
+			is_italic = false
+		} = theme[key]
 
 		style += `.theme--${mode} span.cm-${CM_NAME_MAP[key] || key} {
             color: ${color || 'unset'};
@@ -113,7 +119,11 @@ const mutations = {
 	setDarkMode(state, val) {
 		state.is_dark_mode = val
 	},
-	setColorTheme(state, { light, dark, update_styles } = {}) {
+	setColorTheme(state, {
+		light,
+		dark,
+		update_styles
+	} = {}) {
 		if (!update_styles) return
 		if (ThemeManager.options.inherit_highlighter) {
 			Vue.set(

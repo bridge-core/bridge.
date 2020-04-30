@@ -37,7 +37,7 @@
                 "keyword": { "color": "#5A5CAD" },
                 "definition": { "text_decoration": "underline" },
                 "atom": { "color": "#6C8CD5" },
-                "number": { "color": "#164" },
+                "number": { "color": "#116644" },
                 "string": { "color": "red" },
                 "variable": { "color": "black" },
                 "variable_strong": { "color": "black" },

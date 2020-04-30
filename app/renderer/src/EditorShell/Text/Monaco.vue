@@ -1,9 +1,14 @@
 <template>
-	<div ref="monacoContainer" style="height:100%; width: 100%;" v-resize="onResize" />
+	<div
+		ref="monacoContainer"
+		style="height:100%; width: 100%;"
+		v-resize="onResize"
+	/>
 </template>
 
 <script>
 import * as monaco from 'monaco-editor'
+
 export default {
 	name: 'Monaco',
 	props: {
@@ -17,11 +22,15 @@ export default {
 	},
 	computed: {
 		language() {
-			if (this.extension === '.js') return 'javascript'
-			if (this.extension === '.ts') return 'typescript'
-			if (this.extension === '.mcfunction') return 'mcfunction'
-			if (this.extension === '.lang') return 'lang'
+			if (this.extension === 'js') return 'javascript'
+			if (this.extension === 'ts') return 'typescript'
+			if (this.extension === 'mcfunction') return 'mcfunction'
+			if (this.extension === 'molang') return 'molang'
+			if (this.extension === 'lang') return 'lang'
 			return 'plaintext'
+		},
+		isDarkMode() {
+			return this.$store.state.Appearance.is_dark_mode
 		},
 	},
 	mounted() {
@@ -46,22 +55,7 @@ export default {
 				],
 			},
 		})
-		// // Define a new theme that contains only rules that match this language
-		// monaco.editor.defineTheme('bridge-theme-light', {
-		// 	base: 'vs-dark',
-		// 	inherit: false,
-		// 	rules: [
-		// 		{ token: 'custom-info', foreground: '5A5CAD' },
-		// 		{
-		// 			token: 'custom-error',
-		// 			foreground: '5A5CAD',
-		// 			fontStyle: 'bold',
-		// 		},
-		// 		{ token: 'custom-notice', foreground: '6C8CD5' },
-		// 		{ token: 'custom-date', foreground: '008800' },
-		// 		{ token: 'custom-string', foreground: 'FF0000' },
-		// 	],
-		// })
+
 		// Register a completion item provider for the new language
 		monaco.languages.registerCompletionItemProvider('bridge-json', {
 			provideCompletionItems: (model, position) => {
@@ -88,7 +82,7 @@ export default {
 			},
 		})
 		this.monacoEditor = monaco.editor.create(this.$refs.monacoContainer, {
-			theme: 'vs-dark',
+			theme: this.isDarkMode ? 'bridge-dark' : 'bridge-light',
 			value: this.value,
 			language: this.language,
 			roundedSelection: false,
@@ -103,6 +97,11 @@ export default {
 	methods: {
 		onResize() {
 			if (this.monacoEditor) this.monacoEditor.layout()
+		},
+	},
+	watch: {
+		isDarkMode(val) {
+			monaco.editor.setTheme(val ? 'bridge-dark' : 'bridge-light')
 		},
 	},
 }
