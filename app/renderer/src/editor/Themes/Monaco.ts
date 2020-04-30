@@ -13,6 +13,17 @@ export function defineMonacoTheme(
 		inherit: true,
 		colors: {
 			'editor.background': convertColor(<string>def.background),
+			'editor.lineHighlightBorder': convertColor(<string>def.tooltip),
+
+			'input.background': convertColor(<string>def.sidebar_navigation),
+			'input.border': convertColor(<string>def.menu),
+			'inputOption.activeBorder': convertColor(<string>def.primary),
+			focusBorder: convertColor(<string>def.primary),
+			'list.focusBackground': convertColor(<string>def.menu),
+			'list.hoverBackground': convertColor(
+				<string>def.sidebar_navigation
+			),
+			contrastBorder: convertColor(<string>def.primary),
 		},
 		rules: [
 			//@ts-ignore Token is not required
