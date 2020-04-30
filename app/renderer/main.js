@@ -19,6 +19,7 @@ const vuetify = new Vuetify({
 			dark: {
 				primary: '#1778D2',
 				secondary: '#1778D2',
+				accent: '#1778D2',
 
 				background: '#121212',
 				sidebar_navigation: '#1F1F1F',
@@ -31,6 +32,7 @@ const vuetify = new Vuetify({
 			light: {
 				primary: '#1778D2',
 				secondary: '#1778D2',
+				accent: '#1778D2',
 
 				background: '#fafafa',
 				sidebar_navigation: '#FFFFFF',
