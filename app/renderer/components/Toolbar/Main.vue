@@ -57,10 +57,9 @@
 import WindowAction from './WindowAction'
 import MenuActivator from './Menu/Activator'
 import MenuButton from './Menu/Button'
-import { AppMenu } from '../../src/AppMenu/store'
+import { AppMenu } from './store'
 import { remote } from 'electron'
 import { join } from 'path'
-import { ProjectState } from '../../src/Project/state'
 
 export default {
 	name: 'Toolbar',
@@ -71,7 +70,6 @@ export default {
 	},
 	data: () => ({
 		AppMenu,
-		ProjectState,
 
 		imgSrc: join(__static, 'icon.png'),
 		windowActions: [

@@ -1,14 +1,14 @@
 import { IAppMenu } from '../create'
 import CreateFileWindow from '../../../windows/CreateFile'
-import InformationWindow from '../../commonWindows/Information'
+import InformationWindow from '../../../src/commonWindows/Information'
 import Store from '../../../store/index'
 import { ipcRenderer } from 'electron'
-import TabSystem from '../../TabSystem'
+import TabSystem from '../../../src/TabSystem'
 import SettingsWindow from '../../../windows/Settings'
 import ExtensionBrowser from '../../../windows/Extensions/Browser'
 import ImportObjWindow from '../../../windows/ImportObj'
 import LoadingWindow from '../../../windows/LoadingWindow'
-import FileSystem from '../../FileSystem'
+import FileSystem from '../../../src/FileSystem'
 
 export const FileMenu: IAppMenu = {
 	displayName: 'File',

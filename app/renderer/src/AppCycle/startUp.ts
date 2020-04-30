@@ -5,7 +5,7 @@ import DiscordWindow from '../../windows/Discord'
 import { shell } from 'electron'
 import fetchLatestJson from '../Utilities/FetchLatestJson'
 import { CONNECTION } from '../Utilities/ConnectionStatus'
-import { setupDefaultMenus } from '../AppMenu/setupDefaults'
+import { setupDefaultMenus } from '../../components/Toolbar/setupDefaults'
 
 export default async function startUp() {
 	SETTINGS.setup()

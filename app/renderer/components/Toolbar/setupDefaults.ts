@@ -4,9 +4,9 @@ import { FileMenu } from './Category/file'
 import { HelpMenu } from './Category/help'
 import { ToolMenu } from './Category/tools'
 import { EditMenu } from './Category/edit'
-import { setupKeyBindings } from '../editor/KeyBindings/main'
+import { setupKeyBindings } from '../../src/editor/KeyBindings/main'
 import Store from '../../store/index'
-import { IDisposable } from '../Types/disposable'
+import { IDisposable } from '../../src/Types/disposable'
 
 let CATEGORIES = [FileMenu, EditMenu, ToolMenu, HelpMenu]
 let DISPOSABLES: IDisposable[] = []

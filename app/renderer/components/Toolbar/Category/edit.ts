@@ -1,7 +1,7 @@
 import { IAppMenu } from '../create'
-import TabSystem from '../../TabSystem'
-import EventBus from '../../EventBus'
-import NodeShortcuts from '../../editor/NodeShortcuts'
+import TabSystem from '../../../src/TabSystem'
+import EventBus from '../../../src/EventBus'
+import NodeShortcuts from '../../../src/editor/NodeShortcuts'
 
 export const EditMenu: IAppMenu = {
 	displayName: 'Edit',

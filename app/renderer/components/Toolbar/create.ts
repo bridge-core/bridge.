@@ -1,8 +1,8 @@
 import { AppMenu } from './store'
 import uuid from 'uuid/v4'
 import Vue from 'vue'
-import { IDisposable } from '../Types/disposable'
-import { addKeyBinding, IKeyBinding } from '../editor/KeyBindings/main'
+import { IDisposable } from '../../src/Types/disposable'
+import { addKeyBinding, IKeyBinding } from '../../src/editor/KeyBindings/main'
 
 export interface IAppMenu {
 	displayName: string
