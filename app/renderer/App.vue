@@ -54,8 +54,8 @@
 
 <script>
 import Toolbar from '@/components/Toolbar/Main'
-import SidebarNavigation from '@/components/sidebar/Navigation'
-import SidebarMain from '@/components/sidebar/Main'
+import SidebarNavigation from '@/components/Sidebar/Navigation'
+import SidebarMain from '@/components/Sidebar/Main'
 import EditorShellTabSystem from '@/components/editor_shell/TabSystem'
 import JsonEditorHoverCard from '@/components/editor_shell/JsonEditor/HoverCard'
 import EditorShellContentManager from '@/components/editor_shell/TabContentManager'
@@ -130,7 +130,6 @@ export default {
 			if (event.button === 1) event.preventDefault()
 		})
 	},
-	mounted() {},
 	computed: {
 		is_sidebar_open() {
 			return this.$store.state.SidebarMenu.menu_state > 0

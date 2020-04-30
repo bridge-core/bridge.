@@ -6,7 +6,6 @@ import { clipboard } from 'electron'
 import { JSONAction } from '../TabSystem/CommonHistory'
 import JSONTree from './JsonTree'
 import Store from '../../store/index'
-declare function requestIdleCallback(cb: () => void): number
 
 export default class NodeShortcuts {
 	private static transformKey(str: string, node: JSONTree): string {
