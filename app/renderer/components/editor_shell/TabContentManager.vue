@@ -79,13 +79,10 @@ export default {
 		//     return this.$store.state.TabSystem.getSelectedIndex(this.split_screen)_tab;
 		// },
 		base_height() {
-			return 98 + 22 * this.footer_visible
+			return 108
 		},
 		selected_project() {
 			return this.$store.state.Explorer.project.explorer
-		},
-		footer_visible() {
-			return this.$store.state.Footer.elements.length > 0
 		},
 	},
 	watch: {

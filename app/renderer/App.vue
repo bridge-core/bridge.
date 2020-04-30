@@ -135,9 +135,6 @@ export default {
 		is_sidebar_open() {
 			return this.$store.state.SidebarMenu.menu_state > 0
 		},
-		footer_visible() {
-			return this.$store.state.Footer.elements.length > 0
-		},
 		is_dark_mode() {
 			return this.$store.state.Appearance.is_dark_mode
 		},

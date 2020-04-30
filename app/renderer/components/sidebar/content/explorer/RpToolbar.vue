@@ -107,10 +107,10 @@ import PackLinker from '../../../../src/Utilities/LinkPacks'
 import { CURRENT } from '../../../../src/constants'
 import { MOJANG_PATH } from '../../../../../shared/Paths'
 import { join } from 'path'
-import Notification from '../../../../src/Notification'
 import ConfirmWindow from '../../../../src/commonWindows/Confirm'
 import trash from 'trash'
 import EventBus from '../../../../src/EventBus'
+import { createNotification } from '../../../Footer/create'
 
 export default {
 	name: 'explorer-rp-toolbar',

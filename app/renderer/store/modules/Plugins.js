@@ -4,7 +4,9 @@ import Vue from 'vue'
 import Provider from '../../src/autoCompletions/Provider'
 import FileType from '../../src/editor/FileType'
 import EventBus from '../../src/EventBus'
-import { PluginSnippets } from '../../windows/Snippets'
+import {
+	PluginSnippets
+} from '../../windows/Snippets'
 import ThemeManager from '../../src/editor/ThemeManager'
 import PluginLoader from '../../src/plugins/PluginLoader'
 
@@ -15,7 +17,11 @@ const state = {
 }
 
 const mutations = {
-	loadPlugin(state, { code, path, blocked }) {
+	loadPlugin(state, {
+		code,
+		path,
+		blocked
+	}) {
 		Bridge.Interpreter.execute(code, path, undefined, undefined, blocked)
 
 		//CONSOLE INFO
@@ -24,13 +30,8 @@ const mutations = {
 		// console.groupEnd();
 	},
 	unloadPlugins(state) {
-		if (Bridge.getMenus())
-			Bridge.getMenus().forEach(menu =>
-				Store.commit('removeFromAppMenu', menu)
-			)
 		Store.commit('resetPluginSidebars')
 		Store.commit('resetPluginHighlights')
-		Store.commit('resetPluginFooters')
 		Store.commit('resetPluginWindows')
 		Bridge.hl.unregisterAll()
 		Provider.removePluginFileDefs()
