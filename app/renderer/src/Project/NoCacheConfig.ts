@@ -8,13 +8,14 @@ export async function getNoCacheFiles() {
 		return (await fs.readFile(path.join(CURRENT.PROJECT_PATH, '.no-cache')))
 			.toString('utf-8')
 			.split('\n')
+			.map(fileType => fileType.trim())
 	} catch {
 		return []
 	}
 }
 
-export async function useCache(file_path: string) {
-	if (file_path === path.join(CURRENT.PROJECT_PATH, '.no-cache')) return false
+export async function useCache(filePath: string) {
+	if (filePath === path.join(CURRENT.PROJECT_PATH, '.no-cache')) return false
 
-	return !(await getNoCacheFiles()).includes(FileType.get(file_path))
+	return !(await getNoCacheFiles()).includes(FileType.get(filePath))
 }
