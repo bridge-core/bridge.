@@ -18,6 +18,7 @@
             "primary": "#DD7230",
             "secondary": "#DD7230",
             "warning": "#DD7230",
+            "accent": "white",
             "background": "#402b36",
             "sidebar_navigation": "#2E1F27",
             "expanded_sidebar": "#2E1F27",
@@ -42,6 +43,7 @@
             "primary": "#DD7230",
             "secondary": "#DD7230",
             "warning": "#DD7230",
+            "accent": "white",
             "toolbar": "#DD7230"
         }
     }

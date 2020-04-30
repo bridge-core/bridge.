@@ -2,7 +2,7 @@
 	<v-btn small text class="toolbar-btn" @click="$emit('click', $event)">
 		<v-icon
 			v-if="displayIcon"
-			color="primary"
+			color="accent"
 			style="margin-right: 6px; font-style: normal;"
 		>
 			{{ displayIcon }}

@@ -1,5 +1,5 @@
 {
-    "name": "Blue",
+    "name": "Soft Blue",
     "id": "bridge.blue.theme",
     "options": {
         "no_logo_display": true
@@ -25,6 +25,7 @@
             },
             "primary": "#587291",
             "secondary": "#587291",
+            "accent": "white",
             "toolbar": "#587291",
             "tooltip": "#587291"
         },
@@ -48,6 +49,7 @@
             },
             "primary": "#587291",
             "secondary": "#587291",
+            "accent": "white",
             "toolbar": "#587291",
             "tooltip": "#587291"
         }
