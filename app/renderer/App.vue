@@ -7,12 +7,12 @@
 		}"
 	>
 		<Toolbar />
-		<sidebar-navigation />
+		<SidebarNavigation />
 
 		<v-content :style="`padding-bottom: 32px;`">
 			<v-row style="height: 100%;" no-gutters>
-				<v-col v-if="is_sidebar_open" cols="2">
-					<sidebar-main />
+				<v-col v-if="isSidebarOpen" cols="2">
+					<SidebarMain />
 				</v-col>
 				<v-col
 					@click="setSplitScreen(false)"
@@ -26,7 +26,7 @@
 					:cols="
 						5 +
 							5 * !has_split_screen +
-							(1 + 1 * !has_split_screen) * !is_sidebar_open
+							(1 + 1 * !has_split_screen) * !isSidebarOpen
 					"
 					ref="file_container"
 				>
@@ -36,7 +36,7 @@
 				<v-col
 					@click="setSplitScreen(true)"
 					v-if="has_split_screen"
-					:cols="5 + 1 * !is_sidebar_open"
+					:cols="5 + 1 * !isSidebarOpen"
 				>
 					<editor-shell-tab-system :split_screen="true" />
 					<editor-shell-content-manager :split_screen="true" />
@@ -69,6 +69,7 @@ import EventBus from './src/EventBus'
 import Vue from 'vue'
 import TabSystem from './src/TabSystem'
 import './src/UserActions/DropFile'
+import { SidebarState } from './components/Sidebar/state'
 
 export default {
 	name: 'bridge',
@@ -131,8 +132,8 @@ export default {
 		})
 	},
 	computed: {
-		is_sidebar_open() {
-			return this.$store.state.SidebarMenu.menu_state > 0
+		isSidebarOpen() {
+			return SidebarState.currentState !== null
 		},
 		is_dark_mode() {
 			return this.$store.state.Appearance.is_dark_mode

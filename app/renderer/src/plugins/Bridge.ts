@@ -330,30 +330,32 @@ export default class Bridge {
 
 		this.Sidebar = {
 			register(sidebar_input) {
-				if (Array.isArray(sidebar_input)) {
-					Runtime.Sidebar.add(...sidebar_input)
-					sidebar_input.forEach(input =>
-						Store.commit('addPluginSidebar', input)
-					)
-				} else {
-					Runtime.Sidebar.add(sidebar_input)
-					Store.commit('addPluginSidebar', sidebar_input)
-				}
+				throw new Error(
+					'Using Bridge.Sidebar.register(...) is deprecated.'
+				)
 			},
 			update(sidebar) {
-				Store.commit('updatePluginSidebar', sidebar)
+				throw new Error(
+					'Using Bridge.Sidebar.update(...) is deprecated.'
+				)
 			},
 			remove(id) {
-				Store.commit('removePluginSidebar', id)
+				throw new Error(
+					'Using Bridge.Sidebar.remove(...) is deprecated.'
+				)
 			},
 			open(id) {
-				Store.commit('openPluginSidebar', id)
+				throw new Error('Using Bridge.Sidebar.open(...) is deprecated.')
 			},
 			openDefault() {
-				Store.commit('setSidebarMenu', 1)
+				throw new Error(
+					'Using Bridge.Sidebar.openDefault(...) is deprecated.'
+				)
 			},
 			close() {
-				Store.commit('setSidebarMenu', 0)
+				throw new Error(
+					'Using Bridge.Sidebar.close(...) is deprecated.'
+				)
 			},
 		}
 
