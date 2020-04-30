@@ -3,9 +3,7 @@
 		v-if="
 			first && file_explorer.children === 0 && !file_explorer.is_loading
 		"
-	>
-		This directory has no content.
-	</p>
+	>This directory has no content.</p>
 	<v-progress-linear v-else-if="file_explorer.is_loading" indeterminate />
 	<div :style="element_style" :class="element_class" v-else>
 		<draggable
@@ -18,12 +16,7 @@
 		>
 			<template v-for="file in file_explorer.children">
 				<!--LOADING-->
-				<v-skeleton-loader
-					v-if="file.is_loading"
-					:key="file.absolute_path"
-					height="21"
-					type="text"
-				/>
+				<v-skeleton-loader v-if="file.is_loading" :key="file.absolute_path" height="21" type="text" />
 				<!--FOLDER-->
 				<details
 					v-else-if="file.is_folder"
@@ -48,9 +41,9 @@
 						<v-icon class="open" small>mdi-folder-open</v-icon>
 						<v-icon class="closed" small>
 							{{
-								file.absolute_path.includes('cache')
-									? 'mdi-folder-lock'
-									: 'mdi-folder'
+							file.absolute_path.includes('cache')
+							? 'mdi-folder-lock'
+							: 'mdi-folder'
 							}}
 						</v-icon>
 						<span class="folder">{{ file.name }}</span>
@@ -103,8 +96,8 @@ import {
 } from '../../../../src/Sidebar/FileExplorer'
 import EventBus from '../../../../src/EventBus'
 import InformationWindow from '../../../../src/commonWindows/Information'
-import { FILE_CONTEXT_MENU } from '../../../../src/contextMenus/File'
-import { FOLDER_CONTEXT_MENU } from '../../../../src/contextMenus/Folder'
+import { FILE_CONTEXT_MENU } from '../../../../src/ContextMenu/File'
+import { FOLDER_CONTEXT_MENU } from '../../../../src/ContextMenu/Folder'
 import FileType from '../../../../src/editor/FileType'
 
 export default {

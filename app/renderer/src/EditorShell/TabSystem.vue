@@ -38,8 +38,7 @@
 				v-if="getIcon(file.file_path)"
 				:color="isSelected(i) ? 'primary' : undefined"
 				small
-				>{{ getIcon(file.file_path) }}</v-icon
-			>
+			>{{ getIcon(file.file_path) }}</v-icon>
 
 			<span v-if="file.folders.length > 0">
 				{{ file.folders[file.folders.length - 1] }}
@@ -58,8 +57,7 @@
 						:style="
 							`font-style: ${unsaved[i] ? 'italic' : 'none'};`
 						"
-						>{{ getFileName(file.file_name) }}</span
-					>
+					>{{ getFileName(file.file_name) }}</span>
 				</template>
 				<span>{{ file.file_name }}</span>
 			</v-tooltip>
@@ -77,7 +75,7 @@ import EventBus from '../../src/EventBus'
 import FileType from '../../src/editor/FileType'
 import { shell } from 'electron'
 import { DOC_URL } from '../../src/constants'
-import { getTabContextMenu } from '../../src/contextMenus/Tab'
+import { getTabContextMenu } from '../../src/ContextMenu/Tab'
 
 export default {
 	name: 'editor-shell-tab-system',

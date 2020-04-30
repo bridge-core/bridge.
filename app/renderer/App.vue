@@ -33,11 +33,7 @@
 					<editor-shell-tab-system />
 					<editor-shell-content-manager />
 				</v-col>
-				<v-col
-					@click="setSplitScreen(true)"
-					v-if="has_split_screen"
-					:cols="5 + 1 * !isSidebarOpen"
-				>
+				<v-col @click="setSplitScreen(true)" v-if="has_split_screen" :cols="5 + 1 * !isSidebarOpen">
 					<editor-shell-tab-system :split_screen="true" />
 					<editor-shell-content-manager :split_screen="true" />
 				</v-col>
@@ -53,15 +49,15 @@
 </template>
 
 <script>
-import Toolbar from '@/components/Toolbar/Main'
-import SidebarNavigation from '@/components/Sidebar/Navigation'
-import SidebarMain from '@/components/Sidebar/Main'
-import EditorShellTabSystem from '@/components/editor_shell/TabSystem'
-import JsonEditorHoverCard from '@/components/editor_shell/JsonEditor/HoverCard'
-import EditorShellContentManager from '@/components/editor_shell/TabContentManager'
-import WindowFactoryMain from '@/components/windowFactory/Main'
-import Footer from '@/components/Footer/Main'
-import ContextMenuMain from '@/components/context_menu/Main'
+import Toolbar from './src/Toolbar/Main'
+import SidebarNavigation from './src/Sidebar/Navigation'
+import SidebarMain from './src/Sidebar/Main'
+import EditorShellTabSystem from './src/EditorShell/TabSystem'
+import JsonEditorHoverCard from './src/EditorShell/JsonEditor/HoverCard'
+import EditorShellContentManager from './src/EditorShell/TabContentManager'
+import WindowFactoryMain from './src/windowFactory/Main'
+import Footer from './src/Footer/Main'
+import ContextMenuMain from './src/ContextMenu/Main'
 
 import { shell } from 'electron'
 import startUp from './src/AppCycle/startUp'
@@ -69,7 +65,7 @@ import EventBus from './src/EventBus'
 import Vue from 'vue'
 import TabSystem from './src/TabSystem'
 import './src/UserActions/DropFile'
-import { SidebarState } from './components/Sidebar/state'
+import { SidebarState } from './src/Sidebar/state'
 
 export default {
 	name: 'bridge',

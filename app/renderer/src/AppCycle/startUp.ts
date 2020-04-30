@@ -2,10 +2,10 @@ import SETTINGS from '../../store/Settings'
 import UpdateWindow from '../../windows/NewUpdateWindow'
 import DiscordWindow from '../../windows/Discord'
 import { shell } from 'electron'
-import fetchLatestJson from '../Utilities/FetchLatestJson'
-import { CONNECTION } from '../Utilities/ConnectionStatus'
-import { setupDefaultMenus } from '../../components/Toolbar/setupDefaults'
-import { createNotification } from '../../components/Footer/create'
+import fetchLatestJson from '../../src/Utilities/FetchLatestJson'
+import { CONNECTION } from '../../src/Utilities/ConnectionStatus'
+import { setupDefaultMenus } from '../Toolbar/setupDefaults'
+import { createNotification } from '../Footer/create'
 
 export default async function startUp() {
 	SETTINGS.setup()

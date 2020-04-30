@@ -18,9 +18,7 @@
 			:available_height="available_height"
 			available_width="100%"
 		/>
-		<json-error-screen
-			v-else-if="file_viewer === 'json' && json_object == 'error'"
-		/>
+		<json-error-screen v-else-if="file_viewer === 'json' && json_object == 'error'" />
 		<json-editor-main
 			v-else-if="file_viewer === 'json'"
 			:compiled="file.is_compiled"
@@ -32,16 +30,11 @@
 			:is_immutable="file.is_immutable"
 			:is_active="is_active"
 		/>
-		<TextEditor v-else v-model="content_as_string" />
+		<TextEditor v-else v-model="content_as_string" :extension="extension" />
 	</div>
 </template>
 
 <script>
-import TextAutoCompletions from './TextAutoCompletions'
-
-//Files
-import loadAllTextHighlighters from '../../src/editor/CMLanguage'
-
 import JsonEditorMain from './JsonEditor/Main'
 import JsonErrorScreen from './JsonErrorScreen'
 
@@ -61,7 +54,6 @@ export default {
 	components: {
 		JsonEditorMain,
 		JsonErrorScreen,
-		TextAutoCompletions,
 		AudioPlayer,
 		ModelEditor,
 		TextEditor,
@@ -72,9 +64,6 @@ export default {
 		tab_id: Number,
 		uuid: String,
 		is_active: Boolean,
-	},
-	created() {
-		loadAllTextHighlighters()
 	},
 	data() {
 		return {

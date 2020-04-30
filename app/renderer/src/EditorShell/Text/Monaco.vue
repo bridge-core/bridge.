@@ -1,9 +1,5 @@
 <template>
-	<div
-		ref="monacoContainer"
-		style="height:100%; width: 100%;"
-		v-resize="onResize"
-	/>
+	<div ref="monacoContainer" style="height:100%; width: 100%;" v-resize="onResize" />
 </template>
 
 <script>
@@ -12,11 +8,21 @@ export default {
 	name: 'Monaco',
 	props: {
 		value: String,
+		extension: String,
 	},
 	data() {
 		return {
 			monacoEditor: null,
 		}
+	},
+	computed: {
+		language() {
+			if (this.extension === '.js') return 'javascript'
+			if (this.extension === '.ts') return 'typescript'
+			if (this.extension === '.mcfunction') return 'mcfunction'
+			if (this.extension === '.lang') return 'lang'
+			return 'plaintext'
+		},
 	},
 	mounted() {
 		// Register a new language
@@ -84,7 +90,7 @@ export default {
 		this.monacoEditor = monaco.editor.create(this.$refs.monacoContainer, {
 			theme: 'vs-dark',
 			value: this.value,
-			language: 'javascript',
+			language: this.language,
 			roundedSelection: false,
 			autoIndent: 'full',
 		})

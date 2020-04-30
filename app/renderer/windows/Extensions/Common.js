@@ -14,7 +14,7 @@ import LoadingWindow from '../LoadingWindow'
 import EventBus from '../../src/EventBus'
 import {
 	createNotification
-} from '../../components/Footer/create'
+} from '../../src/Footer/create'
 
 export const EXT_TAG_MAP = readJSONSync(
 	path.join(__static, 'data/ext_tag_map.json')

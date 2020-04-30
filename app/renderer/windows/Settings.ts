@@ -16,7 +16,7 @@ import ThemeManager from '../src/editor/ThemeManager'
 import ProjectConfig from '../src/Project/Config'
 import { uuid } from '../src/Utilities/useAttr'
 import FontList from 'font-list'
-import { DEV_MENU } from '../components/Toolbar/setupDefaults'
+import { DEV_MENU } from '../src/Toolbar/setupDefaults'
 
 class ReactiveListEntry {
 	type = 'card'

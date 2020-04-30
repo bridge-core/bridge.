@@ -11,31 +11,15 @@
 			fontSize: $store.state.Settings.ui_font_size || '14px',
 			fontFamily: $store.state.Settings.ui_font_family || 'Roboto',
 		}"
-		>{{ content.text }}</pre
-	>
-	<div
-		v-else-if="content.type == 'html-text'"
-		v-html="`${content.text}`"
-	></div>
-	<v-subheader v-else-if="content.type == 'header'" :color="content.color">
-		{{ content.text }}
-	</v-subheader>
-	<h3 v-else-if="content.type == 'big-header'" :class="pre_color">
-		{{ content.text }}
-	</h3>
-	<v-img
-		v-else-if="content.type == 'img'"
-		:src="content.src"
-		:height="content.height"
-	>
+	>{{ content.text }}</pre>
+	<div v-else-if="content.type == 'html-text'" v-html="`${content.text}`"></div>
+	<v-subheader v-else-if="content.type == 'header'" :color="content.color">{{ content.text }}</v-subheader>
+	<h3 v-else-if="content.type == 'big-header'" :class="pre_color">{{ content.text }}</h3>
+	<v-img v-else-if="content.type == 'img'" :src="content.src" :height="content.height">
 		<v-container v-if="content.content !== undefined" fill-height fluid>
 			<v-layout fill-height>
 				<v-flex xs12 align-end flexbox>
-					<window-content
-						v-for="c in content.content"
-						:content="c"
-						:key="key(c)"
-					/>
+					<window-content v-for="c in content.content" :content="c" :key="key(c)" />
 				</v-flex>
 			</v-layout>
 		</v-container>
@@ -71,9 +55,7 @@
 		style="margin-right: 4px;"
 		small
 	>
-		<v-icon class="click-action" v-if="content.icon" left>
-			{{ content.icon }}
-		</v-icon>
+		<v-icon class="click-action" v-if="content.icon" left>{{ content.icon }}</v-icon>
 		{{ content.text }}
 	</v-chip>
 	<!-- HORIZONTAL GROUPS -->
@@ -101,27 +83,15 @@
 		:elevation="content.elevation"
 	>
 		<v-card-title v-if="content.above_content">
-			<window-content
-				v-for="a_c in content.above_content"
-				:key="key(a_c)"
-				:content="a_c"
-			/>
+			<window-content v-for="a_c in content.above_content" :key="key(a_c)" :content="a_c" />
 		</v-card-title>
 
 		<v-card-text v-if="content.content">
-			<window-content
-				v-for="c in content.content"
-				:key="key(c)"
-				:content="c"
-			/>
+			<window-content v-for="c in content.content" :key="key(c)" :content="c" />
 		</v-card-text>
 
 		<v-card-actions v-if="content.below_content">
-			<window-content
-				v-for="b_c in content.below_content"
-				:key="key(b_c)"
-				:content="b_c"
-			/>
+			<window-content v-for="b_c in content.below_content" :key="key(b_c)" :content="b_c" />
 		</v-card-actions>
 	</v-card>
 	<!-- LOADER -->
@@ -145,12 +115,7 @@
 		:disabled="content.is_disabled"
 		:loading="content.is_loading"
 	>
-		<v-icon
-			v-if="content.icon"
-			class="click-action"
-			:color="content.text_color"
-			>{{ content.icon }}</v-icon
-		>
+		<v-icon v-if="content.icon" class="click-action" :color="content.text_color">{{ content.icon }}</v-icon>
 		<span :class="text_color">{{ content.text }}</span>
 	</v-btn>
 	<v-btn
@@ -164,9 +129,7 @@
 		:disabled="content.is_disabled"
 		:icon="content.only_icon"
 	>
-		<v-icon :small="content.small" class="click-action">
-			{{ content.text }}
-		</v-icon>
+		<v-icon :small="content.small" class="click-action">{{ content.text }}</v-icon>
 	</v-btn>
 	<v-icon
 		v-else-if="content.type == 'icon' && !content.tooltip"
@@ -174,8 +137,7 @@
 		:color="content.color"
 		:class="content.action != undefined ? 'click-action' : ''"
 		:small="content.small"
-		>{{ content.text }}</v-icon
-	>
+	>{{ content.text }}</v-icon>
 	<v-tooltip
 		v-else-if="content.type === 'icon'"
 		right
@@ -189,8 +151,7 @@
 				:color="content.color"
 				:class="content.action != undefined ? 'click-action' : ''"
 				:small="content.small"
-				>{{ content.text }}</v-icon
-			>
+			>{{ content.text }}</v-icon>
 		</template>
 
 		<span>{{ content.tooltip }}</span>
@@ -303,24 +264,19 @@
 	<!-- ERROR -->
 	<div v-else>
 		<br />
-		<strong class="error--text"
-			>Invalid UI type: "{{ content.type }}"</strong
-		>
+		<strong class="error--text">Invalid UI type: "{{ content.type }}"</strong>
 	</div>
 </template>
 
 <script>
-import TextAutoCompletions from '../editor_shell/TextAutoCompletions'
-import deepmerge from 'deepmerge'
 import EventBus from '../../src/EventBus'
 import TextProvider from '../../src/autoCompletions/TextProvider'
 import uuidv4 from 'uuid/v4'
-import TextEditor from '../editor_shell/Text/Monaco'
+import TextEditor from '../EditorShell/Text/Monaco'
 
 export default {
 	name: 'window-content',
 	components: {
-		TextAutoCompletions,
 		TextEditor,
 	},
 	props: {

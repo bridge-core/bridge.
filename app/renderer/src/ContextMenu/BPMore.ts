@@ -11,7 +11,7 @@ import EventBus from '../EventBus'
 import { promises as fs } from 'fs'
 import { refreshCache } from '../Project/RefreshCache'
 import { zip } from 'zip-a-folder'
-import { createNotification } from '../../components/Footer/create'
+import { createNotification } from '../Footer/create'
 
 export default [
 	{

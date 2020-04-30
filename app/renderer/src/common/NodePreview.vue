@@ -5,9 +5,7 @@
 		style="display: block; overflow-x: auto; white-space: nowrap; width: 100%"
 	>
 		<!-- KEY DISPLAY -->
-		<highlight-text>
-			{{ node_context.key }}
-		</highlight-text>
+		<highlight-text>{{ node_context.key }}</highlight-text>
 
 		<!-- DATA DISPLAY -->
 		<span v-if="node_context.data !== ''">
@@ -24,8 +22,8 @@
 </template>
 
 <script>
-import HighlightText from '../editor_shell/JsonEditor/HighlightText'
-import HighlightAttribute from '../editor_shell/JsonEditor/HighlightAttribute'
+import HighlightText from '../EditorShell/JsonEditor/HighlightText'
+import HighlightAttribute from '../EditorShell/JsonEditor/HighlightAttribute'
 
 export default {
 	name: 'node-preview',
