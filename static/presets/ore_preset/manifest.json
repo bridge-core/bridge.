@@ -1,4 +1,3 @@
-//bridge-file-version: #0
 {
 	"display_name": "Ore",
 	"description": "Creates a new ore block with natural generation.",
