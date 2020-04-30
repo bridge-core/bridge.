@@ -7,7 +7,7 @@
 		:position-y="y + 32"
 		ref="menu"
 	>
-		<v-list color="menu" class="text-auto-completion-list " dense>
+		<v-list color="menu" class="text-auto-completion-list" dense>
 			<v-list-item
 				v-for="(e, i) in propose"
 				:class="selected === i ? 'selected' : ''"
@@ -52,11 +52,6 @@ export default {
 		EventBus.off('bridge:textCompletionsEnter', this.textCompletionsEnter)
 		EventBus.off('bridge:textCompletionsOpen', this.isOpen)
 		EventBus.off('bridge:closeTextCompletions', this.close)
-	},
-	computed: {
-		is_sidebar_closed() {
-			return this.$store.state.SidebarMenu.menu_state === 0
-		},
 	},
 	methods: {
 		close() {

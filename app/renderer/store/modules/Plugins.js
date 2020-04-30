@@ -30,7 +30,6 @@ const mutations = {
 		// console.groupEnd();
 	},
 	unloadPlugins(state) {
-		Store.commit('resetPluginSidebars')
 		Store.commit('resetPluginHighlights')
 		Store.commit('resetPluginWindows')
 		Bridge.hl.unregisterAll()

@@ -133,9 +133,6 @@ export default {
 		is_dark_mode() {
 			return this.$store.state.Appearance.is_dark_mode
 		},
-		is_sidebar_open() {
-			return this.$store.state.SidebarMenu.menu_state > 0
-		},
 	},
 	methods: {
 		closeTab(i) {
