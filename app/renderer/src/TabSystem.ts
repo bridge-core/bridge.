@@ -558,18 +558,33 @@ class TabSystem {
 		if (current.file_version === undefined) current.file_version = 0
 		else current.file_version++
 
-		let comment_char = FileType.getCommentChar(current.file_path)
-		FileSystem[fsMethod](
-			current.file_path,
-			`${comment_char}bridge-file-version: #${
-				current.file_version
-			}\n${await this.getSaveContent(
-				current,
-				update_cache && (await useCache(current.file_path))
-			)}`,
-			false,
-			false
-		)
+		//Load .no-cache file
+		const shouldBeCached = await useCache(current.file_path)
+		console.log(shouldBeCached)
+		if (!shouldBeCached) {
+			FileSystem[fsMethod](
+				current.file_path,
+				await this.getSaveContent(
+					current,
+					update_cache && shouldBeCached
+				),
+				false,
+				false
+			)
+		} else {
+			let comment_char = FileType.getCommentChar(current.file_path)
+			FileSystem[fsMethod](
+				current.file_path,
+				`${comment_char}bridge-file-version: #${
+					current.file_version
+				}\n${await this.getSaveContent(
+					current,
+					update_cache && shouldBeCached
+				)}`,
+				false,
+				false
+			)
+		}
 
 		this.setCurrentSaved()
 		win.close()
