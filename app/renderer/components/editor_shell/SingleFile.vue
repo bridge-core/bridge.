@@ -32,34 +32,12 @@
 			:is_immutable="file.is_immutable"
 			:is_active="is_active"
 		/>
-		<!-- <span v-else>
-			<codemirror
-				v-model="content_as_string"
-				:options="cm_options"
-				ref="cm"
-			/>
-			<text-auto-completions
-				v-if="$store.state.Settings.text_auto_completions"
-			/>
-		</span>-->
 		<TextEditor v-else v-model="content_as_string" />
 	</div>
 </template>
 
 <script>
-import CodeMirror from 'codemirror'
 import TextAutoCompletions from './TextAutoCompletions'
-//Language
-import 'codemirror/mode/javascript/javascript.js'
-import 'codemirror/mode/xml/xml.js'
-
-//Style
-import 'codemirror/lib/codemirror.css'
-
-//Other
-import 'codemirror/addon/edit/closebrackets.js'
-import 'codemirror/addon/comment/comment.js'
-import 'codemirror/keymap/sublime.js'
 
 //Files
 import loadAllTextHighlighters from '../../src/editor/CMLanguage'
@@ -97,27 +75,6 @@ export default {
 	},
 	created() {
 		loadAllTextHighlighters()
-	},
-	mounted() {
-		if (!this.codemirror) return
-
-		this.codemirror.setSize('100%', this.available_height)
-		this.codemirror.on('cursorActivity', this.shouldUpdateSuggestions)
-		EventBus.on('setCMSelection', this.setCMSelection)
-		EventBus.on('setCMTextSelection', this.setCMTextSelection)
-		EventBus.on('getCMSelection', this.getCMSelection)
-		EventBus.on('cmUndo', this.cmUndo)
-		EventBus.on('cmUndo', this.cmRedo)
-		EventBus.on('bridge:cmFocus', this.cmFocus)
-	},
-	destroyed() {
-		if (!this.codemirror) return
-		EventBus.off('setCMSelection', this.setCMSelection)
-		EventBus.off('setCMTextSelection', this.setCMTextSelection)
-		EventBus.off('getCMSelection', this.getCMSelection)
-		EventBus.off('cmUndo', this.cmUndo)
-		EventBus.off('cmUndo', this.cmRedo)
-		EventBus.off('bridge:cmFocus', this.cmFocus)
 	},
 	data() {
 		return {
@@ -206,127 +163,8 @@ export default {
 			}
 			return this.content
 		},
-
-		cm_options() {
-			this.$store.commit('removeLoadingWindow', { id: 'open-file' })
-			return {
-				lineNumbers: true,
-				line: true,
-				autoCloseBrackets: true,
-				autofocus: true,
-				keyMap: 'sublime',
-				theme: 'monokai',
-				mode: this.alias[this.extension] || this.extension,
-				styleActiveLine: true,
-				showCursorWhenSelecting: true,
-				lineWrapping: this.$store.state.Settings.line_wraps,
-				indentWithTabs: true,
-				extraKeys: {
-					'Alt-Up': 'addCursorToPrevLine',
-					'Alt-Down': 'addCursorToNextLine',
-					'Ctrl-Space': this.shouldUpdateSuggestions,
-					Up: () => {
-						EventBus.trigger(
-							'bridge:textCompletionsOpen',
-							is_open => {
-								if (is_open)
-									EventBus.trigger('bridge:textCompletionsUp')
-								else {
-									let pos = {
-										line:
-											this.codemirror.doc.getCursor()
-												.line - 1,
-										ch: this.codemirror.doc.getCursor().ch,
-									}
-									this.setCMTextSelection(pos)
-								}
-							}
-						)
-					},
-					Down: () => {
-						EventBus.trigger(
-							'bridge:textCompletionsOpen',
-							is_open => {
-								if (is_open)
-									EventBus.trigger(
-										'bridge:textCompletionsDown'
-									)
-								else {
-									let pos = {
-										line:
-											this.codemirror.doc.getCursor()
-												.line + 1,
-										ch: this.codemirror.doc.getCursor().ch,
-									}
-									this.setCMTextSelection(pos)
-								}
-							}
-						)
-					},
-					Tab: () => {
-						EventBus.trigger(
-							'bridge:textCompletionsOpen',
-							is_open => {
-								if (is_open)
-									EventBus.trigger(
-										'bridge:textCompletionsEnter'
-									)
-								else return this.setCMSelection('\t')
-							}
-						)
-					},
-					Esc: () => EventBus.trigger('bridge:closeTextCompletions'),
-					'Shift-Ctrl-C': () => {
-						let line_number = this.codemirror.doc.getCursor().line
-						let text = this.codemirror.doc.getLine(line_number)
-						let pos = {
-							line: this.codemirror.doc.getCursor().line,
-							ch: text.length,
-						}
-						this.setCMTextSelection(pos)
-						this.setCMSelection(`\n${text}`)
-					},
-				},
-			}
-		},
-		codemirror() {
-			if (this.$refs.cm == undefined) return
-			return this.$refs.cm.codemirror
-		},
 	},
 	methods: {
-		setCMTextSelection(sel_obj_1, sel_obj_2) {
-			if (!this.is_active) return
-			this.codemirror.setSelection(sel_obj_1, sel_obj_2)
-		},
-		setCMSelection(str) {
-			if (!this.is_active) return
-			this.codemirror.replaceSelection(str)
-		},
-		getCMSelection(cb) {
-			if (!this.is_active) return
-			cb(this.codemirror.getSelection())
-		},
-		cmUndo() {
-			if (!this.is_active) return
-			this.codemirror.execCommand('undo')
-		},
-		cmRedo() {
-			if (!this.is_active) return
-			this.codemirror.execCommand('redo')
-		},
-		cmFocus() {
-			if (!this.is_active) return
-			this.codemirror.focus()
-		},
-		shouldUpdateSuggestions(event) {
-			if (!this.is_active) return
-			TextProvider.compile(
-				event.doc,
-				this.file.file_path,
-				this.codemirror.cursorCoords(true)
-			)
-		},
 		getEncoded(type, ext, data) {
 			return DataUrl.convert({
 				data,
@@ -335,10 +173,6 @@ export default {
 		},
 	},
 	watch: {
-		available_height() {
-			if (!this.codemirror) return
-			this.codemirror.setSize('100%', this.available_height)
-		},
 		content_as_string() {
 			if (this.file_viewer === 'text') TabSystem.setCurrentUnsaved()
 		},

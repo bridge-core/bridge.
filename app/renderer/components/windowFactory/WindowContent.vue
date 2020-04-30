@@ -298,20 +298,7 @@
 			:thumb-size="24"
 		/>
 	</v-container>
-	<!-- <span v-else-if="content.type === 'codemirror'">
-		<codemirror
-			v-model="cm_content"
-			:options="codemirror_options"
-			ref="input"
-		/>
-		<text-auto-completions
-			v-if="$store.state.Settings.text_auto_completions"
-		/>
-	</span> -->
-	<TextEditor
-		v-else-if="content.type === 'codemirror'"
-		v-model="cm_content"
-	/>
+	<TextEditor v-else-if="content.type === 'monaco'" v-model="cm_content" />
 
 	<!-- ERROR -->
 	<div v-else>
@@ -323,7 +310,6 @@
 </template>
 
 <script>
-import CodeMirror from 'codemirror'
 import TextAutoCompletions from '../editor_shell/TextAutoCompletions'
 import deepmerge from 'deepmerge'
 import EventBus from '../../src/EventBus'
@@ -344,26 +330,6 @@ export default {
 		if (this.content && this.content.focus && this.$refs.input) {
 			this.$refs.input.focus()
 		}
-
-		if (!this.codemirror) return
-		this.$refs.input.$el.childNodes[1].style.height =
-			this.content.height + 'px'
-		this.codemirror.on('cursorActivity', this.shouldUpdateSuggestions)
-		EventBus.on('setCMSelection', this.setCMSelection)
-		EventBus.on('setCMTextSelection', this.setCMTextSelection)
-		EventBus.on('getCMSelection', this.getCMSelection)
-		EventBus.on('cmUndo', this.cmUndo)
-		EventBus.on('cmUndo', this.cmRedo)
-		EventBus.on('bridge:cmFocus', this.cmFocus)
-	},
-	destroyed() {
-		if (!this.codemirror) return
-		EventBus.off('setCMSelection', this.setCMSelection)
-		EventBus.off('setCMTextSelection', this.setCMTextSelection)
-		EventBus.off('getCMSelection', this.getCMSelection)
-		EventBus.off('cmUndo', this.cmUndo)
-		EventBus.off('cmUndo', this.cmRedo)
-		EventBus.off('bridge:cmFocus', this.cmFocus)
 	},
 	data() {
 		return {
@@ -417,85 +383,6 @@ export default {
 			}
 			return `${this.content.text_color}--text`
 		},
-
-		codemirror() {
-			if (
-				this.$refs.input == undefined ||
-				this.content.type !== 'codemirror'
-			)
-				return
-			return this.$refs.input.codemirror
-		},
-		codemirror_options() {
-			return deepmerge(
-				{
-					lineWrapping: this.$store.state.Settings.line_wraps,
-					theme: this.$store.state.Appearance.is_dark_mode
-						? 'monokai'
-						: 'xq-light',
-					extraKeys: {
-						'Ctrl-Space': this.shouldUpdateSuggestions,
-						Up: () => {
-							EventBus.trigger(
-								'bridge:textCompletionsOpen',
-								is_open => {
-									if (is_open)
-										EventBus.trigger(
-											'bridge:textCompletionsUp'
-										)
-									else {
-										let pos = {
-											line:
-												this.codemirror.doc.getCursor()
-													.line - 1,
-											ch: this.codemirror.doc.getCursor()
-												.ch,
-										}
-										this.setCMTextSelection(pos)
-									}
-								}
-							)
-						},
-						Down: () => {
-							EventBus.trigger(
-								'bridge:textCompletionsOpen',
-								is_open => {
-									if (is_open)
-										EventBus.trigger(
-											'bridge:textCompletionsDown'
-										)
-									else {
-										let pos = {
-											line:
-												this.codemirror.doc.getCursor()
-													.line + 1,
-											ch: this.codemirror.doc.getCursor()
-												.ch,
-										}
-										this.setCMTextSelection(pos)
-									}
-								}
-							)
-						},
-						Tab: () => {
-							EventBus.trigger(
-								'bridge:textCompletionsOpen',
-								is_open => {
-									if (is_open)
-										EventBus.trigger(
-											'bridge:textCompletionsEnter'
-										)
-									else return this.setCMSelection('\t')
-								}
-							)
-						},
-						Esc: () =>
-							EventBus.trigger('bridge:closeTextCompletions'),
-					},
-				},
-				this.content.options || {}
-			)
-		},
 	},
 	methods: {
 		makeFunction(action) {
@@ -505,32 +392,6 @@ export default {
 		key(c) {
 			return (
 				(typeof c === 'function' ? c().key : (c || {}).key) || uuidv4()
-			)
-		},
-
-		setCMTextSelection(sel_obj_1, sel_obj_2) {
-			this.codemirror.setSelection(sel_obj_1, sel_obj_2)
-		},
-		setCMSelection(str) {
-			this.codemirror.replaceSelection(str)
-		},
-		getCMSelection(cb) {
-			cb(this.codemirror.getSelection())
-		},
-		cmUndo() {
-			this.codemirror.execCommand('undo')
-		},
-		cmRedo() {
-			this.codemirror.execCommand('redo')
-		},
-		cmFocus() {
-			this.codemirror.focus()
-		},
-		shouldUpdateSuggestions(event) {
-			TextProvider.compile(
-				event.doc,
-				this.content.file_path,
-				this.codemirror.cursorCoords(true)
 			)
 		},
 	},

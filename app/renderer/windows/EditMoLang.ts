@@ -18,7 +18,7 @@ export default class EditMoLangWindow extends ContentWindow {
 			},
 			content: [
 				{
-					type: 'codemirror',
+					type: 'monaco',
 					key: uuidv4(),
 					input: moLang.replace(/\; /g, ';\n'),
 					file_path: '@/molang/fake',
