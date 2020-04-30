@@ -2,10 +2,10 @@
     "icon": "mdi-package-variant",
     "title": "Component",
     "extension": "js",
-    "path": "component/",
+    "path": "components/",
     "is_custom_syntax": true,
     
     "templates": {
-        "Blank Command": "Bridge.register(class Component {\n\tstatic component_name = 'bridge:example'\n\tonApply() {}\n\tonPropose() {}\n})"
+        "Blank Component": "Bridge.register(class Component {\n\tstatic component_name = 'bridge:example'\n\tonApply() {}\n\tonPropose() {}\n})"
     }
 }
