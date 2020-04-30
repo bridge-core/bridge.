@@ -9,7 +9,7 @@
 		<Toolbar />
 		<sidebar-navigation />
 
-		<v-content :style="`padding-bottom: ${footer_visible ? 44 : 22}px;`">
+		<v-content :style="`padding-bottom: 32px;`">
 			<v-row style="height: 100%;" no-gutters>
 				<v-col v-if="is_sidebar_open" cols="2">
 					<sidebar-main />
@@ -44,27 +44,11 @@
 			</v-row>
 		</v-content>
 
-		<v-footer
-			color="footer"
-			:class="footer_visible ? 'big' : ''"
-			fixed
-			padless
-			app
-		>
-			<footer-main></footer-main>
-			<v-spacer></v-spacer>
-			<v-divider v-if="footer_visible" vertical></v-divider>
-			<span style="padding: 0 1em; white-space: nowrap;">
-				created by
-				<a class="grey--text text--lighten-1" @click="openTwitter"
-					>solvedDev</a
-				>
-			</span>
-		</v-footer>
-
 		<window-factory-main />
 		<context-menu-main />
 		<json-editor-hover-card />
+
+		<Footer />
 	</v-app>
 </template>
 
@@ -76,7 +60,7 @@ import EditorShellTabSystem from '@/components/editor_shell/TabSystem'
 import JsonEditorHoverCard from '@/components/editor_shell/JsonEditor/HoverCard'
 import EditorShellContentManager from '@/components/editor_shell/TabContentManager'
 import WindowFactoryMain from '@/components/windowFactory/Main'
-import FooterMain from '@/components/Footer/Main'
+import Footer from '@/components/Footer/Main'
 import ContextMenuMain from '@/components/context_menu/Main'
 
 import { shell } from 'electron'
@@ -95,7 +79,7 @@ export default {
 		EditorShellTabSystem,
 		EditorShellContentManager,
 		WindowFactoryMain,
-		FooterMain,
+		Footer,
 		ContextMenuMain,
 		JsonEditorHoverCard,
 	},
@@ -262,13 +246,5 @@ v-application--wrap > main.v-content {
 <style scoped>
 .no-padding {
 	padding: 0;
-}
-.v-footer {
-	transition: all ease-in-out 200ms;
-	height: 22px !important;
-	min-height: 12px;
-}
-.v-footer.big {
-	height: 44px !important;
 }
 </style>

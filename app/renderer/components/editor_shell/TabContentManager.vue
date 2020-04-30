@@ -7,7 +7,7 @@
 			<file-manager
 				v-if="selected_tab == i"
 				:file="file"
-				:available_height="available_height"
+				:available_height="available_height - 10"
 				:tab_id="i"
 				:is_active="
 					$store.state.TabSystem.split_screen_active
@@ -19,7 +19,7 @@
 		</span>
 	</div>
 	<welcome-screen
-		:available_height="available_height + 52"
+		:available_height="available_height + 42"
 		v-else
 	></welcome-screen>
 </template>

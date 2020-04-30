@@ -57,7 +57,7 @@
 import WindowAction from './WindowAction'
 import MenuActivator from './Menu/Activator'
 import MenuButton from './Menu/Button'
-import { AppMenu } from './store'
+import { AppMenu } from './state'
 import { remote } from 'electron'
 import { join } from 'path'
 

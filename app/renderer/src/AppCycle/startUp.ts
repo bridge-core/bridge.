@@ -6,6 +6,7 @@ import { shell } from 'electron'
 import fetchLatestJson from '../Utilities/FetchLatestJson'
 import { CONNECTION } from '../Utilities/ConnectionStatus'
 import { setupDefaultMenus } from '../../components/Toolbar/setupDefaults'
+import { createNotification } from '../../components/Footer/create'
 
 export default async function startUp() {
 	SETTINGS.setup()
@@ -13,36 +14,37 @@ export default async function startUp() {
 	CONNECTION.startListening()
 
 	setupDefaultMenus()
-
-	let discord_msg = new Notification({
-		display_icon: 'mdi-discord',
-		display_name: 'Discord Server',
-		color: '#7289DA',
-		text_color: 'white',
-		action: () => {
-			new DiscordWindow(
-				() => {
-					shell.openExternal('https://discord.gg/jj2PmqU')
-				},
-				() => {
-					discord_msg.remove()
-				}
-			)
-		},
-	})
-	if (process.env.NODE_ENV !== 'development') discord_msg.send()
+	if (process.env.NODE_ENV !== 'development') {
+		let discord_msg = createNotification({
+			icon: 'mdi-discord',
+			message: 'Discord Server',
+			color: '#7289DA',
+			textColor: 'white',
+			onClick: () => {
+				new DiscordWindow(
+					() => {
+						shell.openExternal('https://discord.gg/jj2PmqU')
+					},
+					() => {
+						discord_msg.dispose()
+					}
+				)
+			},
+		})
+	}
 
 	// Fetch the latest json/version data
 	let update_data = await fetchLatestJson()
 
-	let update_msg = new Notification({
-		display_icon: 'mdi-update',
-		display_name: 'Update Available',
-		text_color: 'white',
-		action: () => {
-			new UpdateWindow(update_data)
-		},
-	})
-	// If there's an update, notify the user
-	if (update_data.update_available) update_msg.send()
+	if (!update_data.update_available) {
+		// If there's an update, notify the user
+		createNotification({
+			icon: 'mdi-update',
+			message: 'Update Available',
+			textColor: 'white',
+			onClick: () => {
+				new UpdateWindow(update_data)
+			},
+		})
+	}
 }

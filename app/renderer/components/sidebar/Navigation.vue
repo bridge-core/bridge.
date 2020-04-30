@@ -1,6 +1,6 @@
 <template>
 	<v-navigation-drawer
-		:style="`max-height: ${nav_height}px;`"
+		:style="`max-height: ${nav_height - 56}px;`"
 		fixed
 		mini-variant-width="60"
 		mini-variant
@@ -10,7 +10,7 @@
 	>
 		<v-list
 			color="sidebar_navigation"
-			:style="`height: 100%; max-height: ${nav_height}px;`"
+			:style="`height: 100%; max-height: ${nav_height - 56}px;`"
 		>
 			<sidebar-element
 				v-for="(item, i) in menu_items"

@@ -1,50 +1,73 @@
 <template>
-	<span class="footer-container">
-		<footer-element
-			v-for="(el, i) in footer_elements"
-			:element="el"
-			:key="`footer-element-${i}`"
-		/>
-	</span>
+	<v-footer color="footer" fixed padless app height="32px">
+		<span class="footer-container">
+			<!-- prettier-ignore-attribute v-for -->
+			<Notification
+				v-for="({
+					onClick,
+					icon,
+					message,
+					color,
+					textColor,
+					expiration,
+				}, key) in NotificationStore"
+				:key="key"
+				style="margin-right: 4px;"
+				:icon="icon"
+				:message="message"
+				:color="color"
+				:textColor="textColor"
+				:expiration="expiration"
+				@click="onClick"
+			/>
+		</span>
+
+		<v-spacer></v-spacer>
+		<v-divider vertical></v-divider>
+		<span
+			style="padding: 0 12px; white-space: nowrap; font-size: 12px; width: 94px;"
+		>
+			<a class="grey--text text--lighten-1" @click="openGitHub"
+				>bridge. {{ APP_VERSION }}</a
+			>
+		</span>
+	</v-footer>
 </template>
 
 <script>
-import FooterElement from './FooterElement'
-import EventBus from '../../src/EventBus'
+import Notification from './Notification'
+import { shell } from 'electron'
+import { NotificationStore } from './state'
+import { APP_VERSION } from '../../src/constants'
 
 export default {
-	name: 'footer-main',
+	name: 'Footer',
 	components: {
-		FooterElement,
+		Notification,
 	},
-	computed: {
-		footer_elements() {
-			return this.$store.state.Footer.elements
-		},
-	},
-	watch: {
-		footer_elements(to) {
-			if (to.length === 0) EventBus.trigger('footerResize', false)
-			else EventBus.trigger('footerResize', true)
+	data: () => ({
+		NotificationStore,
+		APP_VERSION,
+	}),
+	methods: {
+		openGitHub() {
+			shell.openExternal('https://github.com/bridge-core/bridge./')
 		},
 	},
 }
 </script>
 
 <style scoped>
-span {
-	cursor: default;
+*::-webkit-scrollbar {
+	width: 4px;
+	height: 4px;
 }
 .footer-container {
-	padding: 2px 12px 4px 12px;
-	margin: 0 4px;
+	padding: 4px 12px 2px 12px;
 	overflow-x: auto;
 	overflow-y: hidden;
 	height: 100%;
+	width: calc(100% - 95px);
 	white-space: nowrap;
-}
-.footer-container::-webkit-scrollbar {
-	width: 3px;
-	height: 3px;
 }
 </style>

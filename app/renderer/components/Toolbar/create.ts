@@ -1,4 +1,4 @@
-import { AppMenu } from './store'
+import { AppMenu } from './state'
 import uuid from 'uuid/v4'
 import Vue from 'vue'
 import { IDisposable } from '../../src/Types/disposable'
