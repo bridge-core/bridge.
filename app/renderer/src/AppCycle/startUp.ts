@@ -4,8 +4,9 @@ import DiscordWindow from '../../windows/Discord'
 import { shell } from 'electron'
 import fetchLatestJson from '../../src/Utilities/FetchLatestJson'
 import { CONNECTION } from '../../src/Utilities/ConnectionStatus'
-import { setupDefaultMenus } from '../Toolbar/setupDefaults'
-import { createNotification } from '../Footer/create'
+import { setupDefaultMenus } from '../UI/Toolbar/setupDefaults'
+import { createNotification } from '../UI/Footer/create'
+import './DropFile'
 
 export default async function startUp() {
 	SETTINGS.setup()

@@ -1,5 +1,5 @@
 import fs from 'fs'
-import ContentWindow from '../src/commonWindows/Content'
+import ContentWindow from '../src/UI/Windows/Common/Content'
 import { BASE_PATH, RP_BASE_PATH } from '../src/constants'
 import Vue from '../main'
 import LoadingWindow from './LoadingWindow'

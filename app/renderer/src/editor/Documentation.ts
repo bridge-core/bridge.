@@ -7,7 +7,7 @@ declare var __static: string
 import { shell } from 'electron'
 import path from 'path'
 import { readJSON } from '../Utilities/JsonFS'
-import ContentWindow from '../commonWindows/Content'
+import ContentWindow from '../UI/Windows/Common/Content'
 import FileType from './FileType'
 import { DOC_URL } from '../constants'
 

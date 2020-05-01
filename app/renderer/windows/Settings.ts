@@ -1,4 +1,4 @@
-import TabWindow from '../src/commonWindows/TabWindow'
+import TabWindow from '../src/UI/Windows/Common/TabWindow'
 import Store from '../store/index'
 import SETTINGS from '../store/Settings'
 import {
@@ -11,12 +11,12 @@ import fs from 'fs'
 import AddSnippetWindow from './AddSnippet'
 import Snippets from './Snippets'
 import { ipcRenderer, remote } from 'electron'
-import ConfirmWindow from '../src/commonWindows/Confirm'
+import ConfirmWindow from '../src/UI/Windows/Common/Confirm'
 import ThemeManager from '../src/editor/Themes/ThemeManager'
 import ProjectConfig from '../src/Project/Config'
 import { uuid } from '../src/Utilities/useAttr'
 import FontList from 'font-list'
-import { DEV_MENU } from '../src/Toolbar/setupDefaults'
+import { DEV_MENU } from '../src/UI/Toolbar/setupDefaults'
 
 class ReactiveListEntry {
 	type = 'card'

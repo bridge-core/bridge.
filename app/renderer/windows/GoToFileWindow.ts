@@ -1,5 +1,8 @@
-import ContentWindow from '../src/commonWindows/Content'
-import { FileExplorerStorage, FileExplorer } from '../src/Sidebar/FileExplorer'
+import ContentWindow from '../src/UI/Windows/Common/Content'
+import {
+	FileExplorerStorage,
+	FileExplorer,
+} from '../src/UI/Sidebar/FileExplorer'
 import { CURRENT, BP_BASE_PATH, RP_BASE_PATH } from '../src/constants'
 import FileSystem from '../src/FileSystem'
 import path from 'path'

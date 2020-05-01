@@ -1,10 +1,10 @@
-import ContentWindow from '../src/commonWindows/Content'
+import ContentWindow from '../src/UI/Windows/Common/Content'
 import FileType from '../src/editor/FileType'
 import TabSystem from '../src/TabSystem'
 import JSONTree from '../src/editor/JsonTree'
 import Store from '../store/index'
 import EventBus from '../src/EventBus'
-import InformationWindow from '../src/commonWindows/Information'
+import InformationWindow from '../src/UI/Windows/Common/Information'
 
 let SNIPPETS: any
 

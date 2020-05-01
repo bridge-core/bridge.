@@ -1,5 +1,5 @@
 import { BASE_PATH, RP_BASE_PATH } from '../constants'
-import InformationWindow from '../commonWindows/Information'
+import InformationWindow from '../UI/Windows/Common/Information'
 import LoadingWindow from '../../windows/LoadingWindow'
 import findRP, { setRP } from './FindRP'
 import EventBus from '../EventBus'

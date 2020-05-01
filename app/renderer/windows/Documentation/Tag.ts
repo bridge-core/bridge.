@@ -1,4 +1,4 @@
-import ContentWindow from '../../src/commonWindows/Content'
+import ContentWindow from '../../src/UI/Windows/Common/Content'
 import { loadTags, resetTagCache } from '../../src/documentation/TagLoader'
 import CommonCard from '../common/Card'
 

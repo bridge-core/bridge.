@@ -1,4 +1,4 @@
-import { TPlayerType } from '../Play/state'
+import { TPlayerType } from '../UI/Play/state'
 
 export interface FileDefinition {
 	id?: string

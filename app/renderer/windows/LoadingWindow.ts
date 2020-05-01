@@ -1,4 +1,4 @@
-import ContentWindow from '../src/commonWindows/Content'
+import ContentWindow from '../src/UI/Windows/Common/Content'
 import Store from '../store/index'
 import uuidv4 from 'uuid/v4'
 

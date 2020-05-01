@@ -1,6 +1,6 @@
 import FetchDefinitions from '../editor/FetchDefinitions'
 import { JSONFileMasks, JSONMask } from '../editor/JSONFileMasks'
-import InformationWindow from '../commonWindows/Information'
+import InformationWindow from '../UI/Windows/Common/Information'
 import EventBus from '../EventBus'
 import { use } from '../Utilities/useAttr'
 import { detachMerge, PUSH_ONCE } from '../Utilities/mergeUtils'

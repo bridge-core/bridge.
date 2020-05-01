@@ -1,4 +1,4 @@
-import ContentWindow from '../src/commonWindows/Content'
+import ContentWindow from '../src/UI/Windows/Common/Content'
 import uuidv4 from 'uuid/v4'
 import TabSystem from '../src/TabSystem'
 import { JSONAction } from '../src/TabSystem/CommonHistory'

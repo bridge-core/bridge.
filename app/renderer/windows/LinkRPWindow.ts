@@ -1,5 +1,5 @@
 import fs from 'fs'
-import ContentWindow from '../src/commonWindows/Content'
+import ContentWindow from '../src/UI/Windows/Common/Content'
 import { RP_BASE_PATH } from '../src/constants'
 import PackLinker from '../src/Utilities/LinkPacks'
 

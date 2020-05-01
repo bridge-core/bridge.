@@ -1,4 +1,4 @@
-import CommonWindow from '../src/commonWindows/Content'
+import CommonWindow from '../src/UI/Windows/Common/Content'
 import LightningCache from '../src/editor/LightningCache'
 import FetchDefinitions from '../src/editor/FetchDefinitions'
 import FileType from '../src/editor/FileType'

@@ -9,9 +9,9 @@ import {
 	FrontSide,
 } from 'three'
 import { createCube } from './createCube'
-import InformationWindow from '../../commonWindows/Information'
+import InformationWindow from '../../UI/Windows/Common/Information'
 import { lessThan } from '../../Utilities/VersionUtils'
-import { toNewModelFormat } from '../../Play/Model/convertFormat'
+import { toNewModelFormat } from '../../UI/Play/Model/convertFormat'
 import { createPolyMesh } from './createPolyMesh'
 
 export interface IImageProps {

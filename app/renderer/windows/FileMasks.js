@@ -1,4 +1,4 @@
-import CommonWindow from '../src/commonWindows/Content'
+import CommonWindow from '../src/UI/Windows/Common/Content'
 import { CURRENT } from '../src/constants'
 import { JSONFileMasks } from '../src/editor/JSONFileMasks'
 import OmegaCache from '../src/editor/OmegaCache'

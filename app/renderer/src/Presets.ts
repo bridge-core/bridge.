@@ -4,7 +4,7 @@ import { readJSON, writeJSON } from './Utilities/JsonFS'
 import ProjectConfig from './Project/Config'
 import { CURRENT } from './constants'
 import { detachMerge } from './Utilities/mergeUtils'
-import InformationWindow from './commonWindows/Information'
+import InformationWindow from './UI/Windows/Common/Information'
 import { trySetRP } from './Utilities/FindRP'
 import EventBus from './EventBus'
 declare var __static: string

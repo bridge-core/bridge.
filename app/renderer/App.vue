@@ -49,23 +49,22 @@
 </template>
 
 <script>
-import Toolbar from './src/Toolbar/Main'
-import SidebarNavigation from './src/Sidebar/Navigation'
-import SidebarMain from './src/Sidebar/Main'
-import EditorShellTabSystem from './src/EditorShell/TabSystem'
-import JsonEditorHoverCard from './src/EditorShell/JsonEditor/HoverCard'
-import EditorShellContentManager from './src/EditorShell/TabContentManager'
-import WindowFactoryMain from './src/windowFactory/Main'
-import Footer from './src/Footer/Main'
-import ContextMenuMain from './src/ContextMenu/Main'
+import Toolbar from './src/UI/Toolbar/Main'
+import SidebarNavigation from './src/UI/Sidebar/Navigation'
+import SidebarMain from './src/UI/Sidebar/Main'
+import EditorShellTabSystem from './src/UI/Editor/TabSystem'
+import JsonEditorHoverCard from './src/UI/Editor/JsonEditor/HoverCard'
+import EditorShellContentManager from './src/UI/Editor/TabContentManager'
+import WindowFactoryMain from './src/UI/Windows/Renderer/Main'
+import Footer from './src/UI/Footer/Main'
+import ContextMenuMain from './src/UI/ContextMenu/Main'
 
 import { shell } from 'electron'
 import startUp from './src/AppCycle/startUp'
 import EventBus from './src/EventBus'
 import Vue from 'vue'
 import TabSystem from './src/TabSystem'
-import './src/UserActions/DropFile'
-import { SidebarState } from './src/Sidebar/state'
+import { SidebarState } from './src/UI/Sidebar/state'
 
 export default {
 	name: 'bridge',

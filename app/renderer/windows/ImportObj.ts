@@ -1,12 +1,12 @@
 import { ipcRenderer } from 'electron'
-import ContentWindow from '../src/commonWindows/Content'
+import ContentWindow from '../src/UI/Windows/Common/Content'
 import LoadingWindow from './LoadingWindow'
 import { uuid } from '../src/Utilities/useAttr'
 import { OBJtoMC } from '../src/Compiler/File/OBJtoMC'
 import { promises as fs } from 'fs'
 import { CURRENT } from '../src/constants'
 import { trySetRP, NEGATIVE_RESPONSES } from '../src/Utilities/FindRP'
-import InformationWindow from '../src/commonWindows/Information'
+import InformationWindow from '../src/UI/Windows/Common/Information'
 import { join } from 'path'
 
 const INPUT_KEY = uuid()

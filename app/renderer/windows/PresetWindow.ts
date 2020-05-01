@@ -1,4 +1,4 @@
-import TabWindow from '../src/commonWindows/TabWindow'
+import TabWindow from '../src/UI/Windows/Common/TabWindow'
 import { loadPresets, buildPreset } from '../src/Presets'
 import LoadingWindow from './LoadingWindow'
 import { uuid } from '../src/Utilities/useAttr'

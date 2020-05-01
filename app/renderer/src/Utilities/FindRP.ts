@@ -4,7 +4,7 @@ import { RP_BASE_PATH, BASE_PATH, MOJANG_PATH } from '../constants'
 import { readJSON } from './JsonFS'
 import path from 'path'
 import Store from '../../store/index'
-import { FileExplorerStorage, FileExplorer } from '../Sidebar/FileExplorer'
+import { FileExplorerStorage, FileExplorer } from '../UI/Sidebar/FileExplorer'
 
 let last_selected: string
 let last_result: string

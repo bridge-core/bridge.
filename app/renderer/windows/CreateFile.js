@@ -1,5 +1,5 @@
 import FileSystem from '../src/FileSystem'
-import ContentWindow from '../src/commonWindows/Content'
+import ContentWindow from '../src/UI/Windows/Common/Content'
 import Store from '../store/index'
 import FileType from '../src/editor/FileType'
 import safeEval from 'safe-eval'

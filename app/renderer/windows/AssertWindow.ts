@@ -1,4 +1,4 @@
-import ContentWindow from '../src/commonWindows/Content'
+import ContentWindow from '../src/UI/Windows/Common/Content'
 
 export default class AssertWindow extends ContentWindow {
 	constructor(plugin_id: string, assert_msg: string) {

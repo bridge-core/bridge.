@@ -1,11 +1,11 @@
 import Store from '../store/index'
 import uuid from 'uuid/v4'
-import { WindowDefinition } from '../src/commonWindows/ContentTypes'
+import { WindowDefinition } from '../src/UI/Windows/Common/ContentTypes'
 import FileType from '../src/editor/FileType'
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import LoadingWindow from './LoadingWindow'
-import { FileExplorer } from '../src/Sidebar/FileExplorer'
+import { FileExplorer } from '../src/UI/Sidebar/FileExplorer'
 
 const EXPAND_OPTIONS = ['.json', '.mcfunction', '.js']
 

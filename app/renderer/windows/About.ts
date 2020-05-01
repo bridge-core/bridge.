@@ -1,4 +1,4 @@
-import TabWindow from '../src/commonWindows/TabWindow'
+import TabWindow from '../src/UI/Windows/Common/TabWindow'
 import { shell } from 'electron'
 import { APP_VERSION } from '../src/constants'
 

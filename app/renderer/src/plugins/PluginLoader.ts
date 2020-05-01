@@ -17,7 +17,7 @@ import ThemeManager from '../editor/Themes/ThemeManager'
 import unzipper from 'unzipper'
 import safeEval from 'safe-eval'
 import ComponentRegistry from './CustomComponents'
-import InformationWindow from '../commonWindows/Information'
+import InformationWindow from '../UI/Windows/Common/Information'
 import Provider from '../autoCompletions/Provider'
 import { addLoadLocation, resetLoadLocations } from '../Presets'
 import {

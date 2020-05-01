@@ -1,4 +1,4 @@
-import ContentWindow from '../../src/commonWindows/Content'
+import ContentWindow from '../../src/UI/Windows/Common/Content'
 import Session, { getInfoMap } from './Common'
 import PluginCard from './PluginCard'
 import Category from './Category'
