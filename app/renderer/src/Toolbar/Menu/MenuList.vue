@@ -15,13 +15,10 @@
 			open-on-hover
 			offset-x
 			tile
+			z-index="11"
 		>
 			<template v-if="!isHidden" v-slot:activator="{ on }">
-				<v-list-item
-					dense
-					v-on="!onClick && elements.length > 0 && on"
-					@click="clickHandler(onClick)"
-				>
+				<v-list-item dense v-on="!onClick && elements.length > 0 && on" @click="clickHandler(onClick)">
 					<v-list-item-icon v-if="displayIcon">
 						<v-icon color="primary" small>{{ displayIcon }}</v-icon>
 					</v-list-item-icon>
@@ -32,12 +29,12 @@
 
 					<v-list-item-action>
 						<v-list-item-action-text>
-							<span v-if="keyBinding">{{
+							<span v-if="keyBinding">
+								{{
 								getStrKeyCode(keyBinding)
-							}}</span>
-							<v-icon v-if="elements && elements.length > 0" small
-								>mdi-chevron-right</v-icon
-							>
+								}}
+							</span>
+							<v-icon v-if="elements && elements.length > 0" small>mdi-chevron-right</v-icon>
 						</v-list-item-action-text>
 					</v-list-item-action>
 				</v-list-item>

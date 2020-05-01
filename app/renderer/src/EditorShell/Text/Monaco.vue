@@ -1,9 +1,5 @@
 <template>
-	<div
-		ref="monacoContainer"
-		style="height:100%; width: 100%;"
-		v-resize="onResize"
-	/>
+	<div ref="monacoContainer" style="height:100%; width: 100%;" v-resize="onResize" />
 </template>
 
 <script>
@@ -106,3 +102,12 @@ export default {
 	},
 }
 </script>
+
+<style>
+.monaco-action-bar {
+	background: var(--v-menu-base) !important;
+}
+.action-item.focused > a {
+	background: var(--v-primary-base) !important;
+}
+</style>

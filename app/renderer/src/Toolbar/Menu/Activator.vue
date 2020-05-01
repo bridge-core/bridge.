@@ -1,11 +1,7 @@
 <template>
-	<v-menu v-model="isVisible" min-width="260px" offset-y tile>
+	<v-menu v-model="isVisible" min-width="260px" offset-y tile z-index="11">
 		<template v-slot:activator="{ on }">
-			<MenuButton
-				v-on="on"
-				:displayIcon="displayIcon"
-				:displayName="displayName"
-			/>
+			<MenuButton v-on="on" :displayIcon="displayIcon" :displayName="displayName" />
 		</template>
 
 		<MenuList :elements="elements" />

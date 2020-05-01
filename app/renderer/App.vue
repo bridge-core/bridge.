@@ -33,11 +33,7 @@
 					<editor-shell-tab-system />
 					<editor-shell-content-manager />
 				</v-col>
-				<v-col
-					@click="setSplitScreen(true)"
-					v-if="has_split_screen"
-					:cols="5 + 1 * !isSidebarOpen"
-				>
+				<v-col @click="setSplitScreen(true)" v-if="has_split_screen" :cols="5 + 1 * !isSidebarOpen">
 					<editor-shell-tab-system :split_screen="true" />
 					<editor-shell-content-manager :split_screen="true" />
 				</v-col>
@@ -189,8 +185,8 @@ html {
 body {
 	overflow: unset;
 }
-textarea {
-	outline: none;
+* {
+	outline-color: var(--v-primary-base);
 }
 
 /* SCROLLBAR */
