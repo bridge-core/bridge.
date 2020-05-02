@@ -309,7 +309,7 @@ export default class FileType {
 		)
 	}
 
-	static transformTextSeparators(file_path: string, text: string) {
+	static transformTextSeparators(text: string, file_path?: string) {
 		try {
 			let { text_separators } = this.getData(file_path)
 			text_separators.forEach(

@@ -172,6 +172,9 @@ class Provider {
 		}
 		return (this.start_state = 'unknown')
 	}
+	setStartState(startState: string) {
+		this.start_state = startState
+	}
 
 	get(path: string, file_path?: string, context?: JSONTree) {
 		//Set validator if file_path !== undefined
@@ -360,10 +363,11 @@ class Provider {
 						let { object, value } = this.omegaExpression(k)
 						for (let i = 0; i < path_arr.length + 1; i++)
 							CONTEXT_DOWN()
+						object = this.parseObjectCompletions(object, value)
 
 						if (
 							value.includes(key) ||
-							object[key] !== undefined ||
+							object.includes(key) ||
 							value.includes('@wildcard')
 						)
 							return this.walk(path_arr, current[k])
