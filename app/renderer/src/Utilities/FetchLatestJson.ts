@@ -1,7 +1,5 @@
 import * as VERSION_UTILS from './VersionUtils'
-import { WEB_APP_DATA, APP_VERSION } from '../constants'
-import { isUndefined } from 'util'
-import { platform } from 'os'
+import { APP_VERSION } from '../constants'
 
 // new improved data!
 export interface newVersionRes {
@@ -10,8 +8,7 @@ export interface newVersionRes {
 	update_available?: boolean
 	downloads?: number
 	latest_version_name?: string
-	urls?: Array<string>
-	download_available?: boolean
+	url?: string
 }
 // this ask the github's RESTful api for the bridge.'s latest release data
 export default async function fetchLatestJson() {
@@ -31,35 +28,21 @@ export default async function fetchLatestJson() {
 			res.latest_version = data.tag_name
 			res.description = String(data.body)
 			res.downloads = 0
-			res.urls = Array<string>()
+			res.url = String()
 			res.latest_version_name = data.name
 			res.update_available = VERSION_UTILS.lessThan(
 				APP_VERSION,
 				data.tag_name
 			)
-			// find the correct file extension
-			let extension: String;
-			switch (platform()) {
-				case 'darwin': {
-					extension = '.dmg';
-					break;
-				}
-				case 'win32': {
-					extension = '.exe';
-					break;
-				}
-				case 'linux': {
-					extension = '.AppImage';
-					break;
-				}
-				default: {break;}
-			}
+
 			// Count the downloads + push the download url to the interface + check if the user's platform download is present
 			for (let asset of data.assets) {
-				if ( asset.name.endsWith(extension) ) res.download_available = true;
 				res.downloads += Number(asset.download_count)
-				res.urls.push(String(asset.browser_download_url))
+				if (asset.name.includes('.asar')) {
+					res.url = asset.browser_download_url
+				}
 			}
+			console.log('Latest version download url: ' + res.url)
 		})
 		.catch(e => {
 			// Failed to fetch > cannot update
