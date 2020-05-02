@@ -23,9 +23,9 @@ export const ENV = (disposables: IDisposable[], language: string) => {
 		registerCompletionProvider(
 			provider: () => languages.ProviderResult<languages.CompletionList>
 		) {
-			console.log(disposables)
 			disposables.push(
 				languages.registerCompletionItemProvider(language, {
+					triggerCharacters: ['.'],
 					provideCompletionItems: provider,
 				})
 			)

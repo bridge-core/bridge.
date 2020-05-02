@@ -29,8 +29,8 @@ export const DevMenu: IAppMenu = {
 			},
 			onClick: () => {
 				trigger('bridge:scriptRunner.resetCaches')
-				EventBus.trigger('bridge:refreshExplorer')
 				Provider.loadAssets()
+				EventBus.trigger('bridge:refreshExplorer')
 			},
 		},
 		{
