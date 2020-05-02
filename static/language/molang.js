@@ -1,10 +1,3 @@
-const c = expr => {
-    const {
-        object,
-        value
-    } = Bridge.AutoCompletions.get(expr)
-    return object.concat(value)
-}
 const o = expr => {
     const {
         object,

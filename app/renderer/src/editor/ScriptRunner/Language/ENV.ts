@@ -2,6 +2,7 @@ import { languages } from 'monaco-editor'
 import Provider from '../../../autoCompletions/Provider'
 import { IDisposable } from '../../../Types/disposable'
 import TextProvider from '../../../autoCompletions/TextProvider'
+import ProjectConfig from '../../../Project/Config'
 const PROVIDER = new Provider()
 
 export const ENV = (disposables: IDisposable[], language: string) => {
@@ -19,6 +20,11 @@ export const ENV = (disposables: IDisposable[], language: string) => {
 			},
 			get(path: string) {
 				return PROVIDER.get(path)
+			},
+		},
+		Project: {
+			getPrefix() {
+				return ProjectConfig.getPrefixSync()
 			},
 		},
 		registerTokens(tokens: languages.IMonarchLanguage) {

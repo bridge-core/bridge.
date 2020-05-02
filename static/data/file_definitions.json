@@ -114,7 +114,7 @@
         "id": "lang",
         "includes": "texts/",
         "file_viewer": "text",
-        "highlighter": "lang",
+        "language": "lang",
         "file_creator": "lang",
         "comment_character": "##"
     },
@@ -270,7 +270,6 @@
         "id": "client_lang",
         "includes": "texts/",
         "file_viewer": "text",
-        "highlighter": "lang",
         "file_creator": "lang",
         "comment_character": "##",
         "rp_definition": true
