@@ -1,4 +1,10 @@
-const o = expr => Object.keys(Bridge.AutoCompletions.eval(expr).object)
+const o = expr => {
+    const {
+        object,
+        value
+    } = Bridge.AutoCompletions.eval(expr)
+    return Object.keys(object).concat(value)
+}
 
 Bridge.registerTokens({
     brackets: [
@@ -6,21 +12,36 @@ Bridge.registerTokens({
         ['[', ']', 'delimiter.square'],
         ['{', '}', 'delimiter.curly'],
     ],
-    // defaultToken: 'keyword',
+    keywords: [
+        ...o('$dynamic.plugins.custom_commands').map(command => command.replace(/ /g, '')),
+        ...o('$function.main'),
+    ],
+    selectors: o('$function.general.target_selector'),
     tokenizer: {
         root: [
             [/#.*/, 'comment'],
             [/".*"|'.*'/, 'string'],
-            [/true|false/, 'boolean'],
-            [/ [0-9]+(\.[0-9]+)?/, 'number'],
+            [/\=|\,|\!|%=|\*=|\+=|-=|\/=|<|=|>|<>/, 'definition'],
+            [/true|false/, 'number'],
+            [/-?([0-9]+(\.[0-9]+)?)|(\~|\^-?([0-9]+(\.[0-9]+)?)?)/, 'number'],
+
             [
-                new RegExp(
-                    [
-                        ...o('$dynamic.plugins.custom_commands'),
-                        ...o('$function.main'),
-                    ].join('|')
-                ),
-                'keyword',
+                /[a-z_$][\w$]*/,
+                {
+                    cases: {
+                        '@keywords': 'keyword',
+                        '@default': 'identifier'
+                    }
+                },
+            ],
+            [
+                /.[a|p|r|e|s]/,
+                {
+                    cases: {
+                        '@selectors': 'type.identifier',
+                        '@default': 'identifier'
+                    }
+                },
             ],
         ],
     },
