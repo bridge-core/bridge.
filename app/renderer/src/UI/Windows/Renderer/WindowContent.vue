@@ -259,7 +259,11 @@
 			:thumb-size="24"
 		/>
 	</v-container>
-	<TextEditor v-else-if="content.type === 'monaco'" v-model="cm_content" />
+	<TextEditor
+		v-else-if="content.type === 'monaco'"
+		v-model="cm_content"
+		:fileLanguage="content.language"
+	/>
 
 	<!-- ERROR -->
 	<div v-else>

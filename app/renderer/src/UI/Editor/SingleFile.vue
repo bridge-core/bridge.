@@ -30,7 +30,12 @@
 			:is_immutable="file.is_immutable"
 			:is_active="is_active"
 		/>
-		<TextEditor v-else v-model="content_as_string" :extension="extension" />
+		<TextEditor
+			v-else
+			v-model="content_as_string"
+			:extension="extension"
+			:fileLanguage="fileLanguage"
+		/>
 	</div>
 </template>
 
@@ -84,6 +89,9 @@ export default {
 				return 'image'
 			else if (this.extension === 'ogg') return 'audio'
 			return 'text'
+		},
+		fileLanguage() {
+			return FileType.getData(this.file.file_path).language
 		},
 		extension() {
 			if (this.file)

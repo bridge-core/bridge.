@@ -56,7 +56,10 @@ class Provider {
 			)
 		)
 		this.loadAsset('file_definitions', 'data/').then(
-			(def: FileDefinition[]) => (FILE_DEFS = def)
+			(def: FileDefinition[]) => {
+				FILE_DEFS = def
+				FileType.registerMonacoLanguages()
+			}
 		)
 	}
 	static loadAsset(name: string, path = 'auto_completions/'): any {

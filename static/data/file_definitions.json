@@ -86,7 +86,7 @@
         "comment_character": "#",
 
         "start_state": "function/main",
-        "highlighter": "function",
+        "language": "mcfunction",
         "file_creator": "function"
     },
     {
@@ -134,7 +134,7 @@
 
         "documentation": "MoLang",
         "start_state": "molang/main",
-        "highlighter": "molang"
+        "language": "molang"
     },
     {
         "id": "recipe",

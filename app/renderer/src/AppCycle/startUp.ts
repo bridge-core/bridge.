@@ -34,17 +34,17 @@ export default async function startUp() {
 	}
 
 	// Fetch the latest json/version data
-	let update_data = await fetchLatestJson()
-
-	if (update_data.update_available) {
-		// If there's an update, notify the user
-		createNotification({
-			icon: 'mdi-update',
-			message: 'Update Available',
-			textColor: 'white',
-			onClick: () => {
-				new UpdateWindow(update_data)
-			},
-		})
-	}
+	fetchLatestJson().then(updateData => {
+		if (updateData.update_available) {
+			// If there's an update, notify the user
+			createNotification({
+				icon: 'mdi-update',
+				message: 'Update Available',
+				textColor: 'white',
+				onClick: () => {
+					new UpdateWindow(updateData)
+				},
+			})
+		}
+	})
 }

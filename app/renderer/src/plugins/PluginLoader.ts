@@ -1,5 +1,5 @@
 /**
- * Powerful bridge. PluginLoader
+ * bridge. PluginLoader
  * Loads v1 & v2 plugins
  *
  * Unloading is still handled by store/modules/Plugins.js
@@ -25,6 +25,7 @@ import {
 	CommandRegistry,
 	updateCommandFiles,
 } from './CustomCommands'
+import FileType from '../editor/FileType'
 
 let PLUGIN_FOLDERS: string[]
 let PLUGIN_DATA: any[] = []
@@ -95,6 +96,8 @@ export default class PluginLoader {
 				path.join(CURRENT.PROJECT_PATH, 'commands')
 			)
 		} catch {}
+		//Update mcfunction Language service
+		FileType.updateLanguage('mcfunction')
 		//UPDATE COMMAND REFERENCES
 		updateCommandFiles()
 

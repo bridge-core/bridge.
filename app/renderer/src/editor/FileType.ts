@@ -7,7 +7,7 @@ declare var __static: string
 
 import TabSystem from '../TabSystem'
 import Provider, { LIB_LOADED } from '../autoCompletions/Provider'
-import fs from 'fs'
+import fs, { promises as fsp } from 'fs'
 import { join } from 'path'
 import { readJSON, readJSONSync } from '../Utilities/JsonFS'
 import { escapeRegExpStr as eRE } from '../Utilities/EscapeRegExp'
@@ -18,6 +18,7 @@ import {
 	FileCreator,
 } from './FileDefinition'
 import { CacheDef } from './LightningCache'
+import { runLanguageFile } from './ScriptRunner/Language/runFile'
 
 let HIGHLIGHTER_CACHE: any = {}
 let FILE_CREATOR_CACHE: any[] = []
@@ -215,29 +216,24 @@ export default class FileType {
 	}
 
 	/**
-	 * Load all text syntax highlighters to register them on CodeMirror
-	 * @returns {object[]} text syntax highlighters
+	 * Load all text languages to register them
 	 */
-	static getTextHighlighters() {
+	static async registerMonacoLanguages() {
 		let defs = this.getAllData()
-		defs = defs.filter(({ highlighter: hl }) => {
-			try {
-				if (typeof hl === 'object') return hl
-				if (HIGHLIGHTER_CACHE[hl] === undefined)
-					HIGHLIGHTER_CACHE[hl] = JSON.parse(
-						fs
-							.readFileSync(
-								join(__static, 'highlighter', `${hl}.json`)
-							)
-							.toString()
-					)
-				return HIGHLIGHTER_CACHE[hl].set.is_text_highlighter
-			} catch (e) {
-				return false
-			}
-		})
-
-		return defs.map(def => this.getHighlighter(def))
+		return await Promise.all(
+			defs
+				.filter(
+					({ file_viewer }) =>
+						file_viewer === 'text' || file_viewer === undefined
+				)
+				.map(async ({ language }) => {
+					if (language)
+						return await runLanguageFile(`${language}.js`, language)
+				})
+		)
+	}
+	static async updateLanguage(language: string) {
+		return await runLanguageFile(`${language}.js`, language)
 	}
 
 	static DefaultBuildArrays(file_path: string) {

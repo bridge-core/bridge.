@@ -1,5 +1,9 @@
 <template>
-	<div ref="monacoContainer" style="height:100%; width: 100%;" v-resize="onResize" />
+	<div
+		ref="monacoContainer"
+		style="height:100%; width: 100%;"
+		v-resize="onResize"
+	/>
 </template>
 
 <script>
@@ -10,6 +14,7 @@ export default {
 	props: {
 		value: String,
 		extension: String,
+		fileLanguage: String,
 	},
 	data() {
 		return {
@@ -18,6 +23,8 @@ export default {
 	},
 	computed: {
 		language() {
+			console.log(this.extension, this.fileLanguage)
+			if (this.fileLanguage) return this.fileLanguage
 			if (this.extension === 'js') return 'javascript'
 			if (this.extension === 'ts') return 'typescript'
 			if (this.extension === 'mcfunction') return 'mcfunction'
@@ -51,6 +58,10 @@ export default {
 				],
 			},
 		})
+		monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+			target: monaco.languages.typescript.ScriptTarget.ESNext,
+			allowNonTsExtensions: true,
+		})
 
 		// Register a completion item provider for the new language
 		monaco.languages.registerCompletionItemProvider('bridge-json', {
@@ -77,6 +88,7 @@ export default {
 				return { suggestions }
 			},
 		})
+
 		this.monacoEditor = monaco.editor.create(this.$refs.monacoContainer, {
 			theme: this.isDarkMode ? 'bridge-dark' : 'bridge-light',
 			value: this.value,
