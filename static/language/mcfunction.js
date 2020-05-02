@@ -35,7 +35,7 @@ Bridge.registerTokens({
                 },
             ],
             [
-                /.[a|p|r|e|s]/,
+                /@[a|p|r|e|s]/,
                 {
                     cases: {
                         '@selectors': 'type.identifier',
