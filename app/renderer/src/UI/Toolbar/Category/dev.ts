@@ -2,7 +2,8 @@ import { IAppMenu } from '../create'
 import { ipcRenderer } from 'electron'
 import Provider from '../../../autoCompletions/Provider'
 import { trigger } from '../../../AppCycle/EventSystem'
-import EventBus from '../../../EventBus'
+import PluginLoader from '../../../plugins/PluginLoader'
+import Store from '../../../../store/index'
 
 export const DevMenu: IAppMenu = {
 	displayName: 'Development',
@@ -30,7 +31,7 @@ export const DevMenu: IAppMenu = {
 			onClick: () => {
 				trigger('bridge:scriptRunner.resetCaches')
 				Provider.loadAssets()
-				EventBus.trigger('bridge:refreshExplorer')
+				PluginLoader.loadPlugins(Store.state.Explorer.project.explorer)
 			},
 		},
 		{
