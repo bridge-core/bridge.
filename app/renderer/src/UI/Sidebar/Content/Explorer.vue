@@ -176,13 +176,14 @@ export default {
 				return this.$store.state.Explorer.project[this.explorer_type]
 			},
 			async set(project) {
+				if (project === undefined) return
 				this.$store.commit('setExplorerProject', {
 					store_key: this.explorer_type,
 					project,
 				})
-				if (this.explorer_type === 'explorer-toolbar') await trySetRP()
+				if (this.explorer_type === 'explorer') await trySetRP()
 
-				if (project !== undefined) this.loadDirectory(project)
+				this.loadDirectory(project)
 				EventBus.trigger('updateTabUI')
 				// EventBus.on("updateSelectedTab");
 			},

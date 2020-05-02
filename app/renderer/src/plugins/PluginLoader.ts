@@ -96,10 +96,11 @@ export default class PluginLoader {
 				path.join(CURRENT.PROJECT_PATH, 'commands')
 			)
 		} catch {}
-		//Update mcfunction Language service
-		FileType.updateLanguage('mcfunction')
 		//UPDATE COMMAND REFERENCES
 		updateCommandFiles()
+
+		//Update Monaco Language services
+		await FileType.registerMonacoLanguages()
 
 		//INIT LEGACY PLUGIN DATA FOR UI
 		Store.commit('finishedPluginLoading', PLUGIN_DATA)

@@ -1,8 +1,9 @@
 import { languages } from 'monaco-editor'
 import Provider from '../../../autoCompletions/Provider'
+import { IDisposable } from '../../../Types/disposable'
 const PROVIDER = new Provider()
 
-export const ENV = (language: string) => {
+export const ENV = (disposables: IDisposable[], language: string) => {
 	languages.register({ id: language })
 
 	return {
@@ -10,16 +11,25 @@ export const ENV = (language: string) => {
 			eval(path: string) {
 				return PROVIDER.omegaExpression(path)
 			},
+			get(path: string) {
+				return PROVIDER.get(path)
+			},
 		},
 		registerTokens(tokens: languages.IMonarchLanguage) {
-			languages.setMonarchTokensProvider(language, tokens)
+			disposables.push(
+				languages.setMonarchTokensProvider(language, tokens)
+			)
 		},
 		registerCompletionProvider(
 			provider: () => languages.ProviderResult<languages.CompletionList>
 		) {
-			languages.registerCompletionItemProvider(language, {
-				provideCompletionItems: provider,
-			})
+			console.log(disposables)
+			disposables.push(
+				languages.registerCompletionItemProvider(language, {
+					provideCompletionItems: provider,
+				})
+			)
+			// disposables.pop().dispose()
 		},
 	}
 }

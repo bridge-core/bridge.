@@ -23,7 +23,6 @@ export default {
 	},
 	computed: {
 		language() {
-			console.log(this.extension, this.fileLanguage)
 			if (this.fileLanguage) return this.fileLanguage
 			if (this.extension === 'js') return 'javascript'
 			if (this.extension === 'ts') return 'typescript'

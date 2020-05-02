@@ -35,6 +35,7 @@ class Provider {
 
 	static loadAssets() {
 		let total = 0
+		LIB = { dynamic: DYNAMIC }
 
 		this.loadAsset('files').then((files: string[]) =>
 			files.forEach(f =>
@@ -58,7 +59,6 @@ class Provider {
 		this.loadAsset('file_definitions', 'data/').then(
 			(def: FileDefinition[]) => {
 				FILE_DEFS = def
-				FileType.registerMonacoLanguages()
 			}
 		)
 	}

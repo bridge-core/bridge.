@@ -1,8 +1,8 @@
-import JSONTree from '../JsonTree'
 import { prepareRun, runFunction } from './run'
 import { join } from 'path'
 import { promises as fs } from 'fs'
-import EventBus from '../../EventBus'
+import { on } from '../../AppCycle/EventSystem'
+import { IDisposable } from '../../Types/disposable'
 
 declare const __static: string
 
@@ -14,14 +14,29 @@ export function createFileRunner(
 	directory: string,
 	ENV: (...args: unknown[]) => unknown
 ): TFileRunner {
+	//May not be changed to keep reference inside of ENV working
+	const disposables: IDisposable[] = []
+	let hadProjectSelectTrigger = false
 	let CACHE: {
 		[fileName: string]: (Bridge: unknown) => void
 	} = {}
-	EventBus.on('bridge:changedProject', () => (CACHE = {}))
+
+	const reset = () => {
+		// bridge:changedProject triggers upon loading the initial project...
+		// ...but we don't want to reset the FileRunner this case
+		if (!hadProjectSelectTrigger) return (hadProjectSelectTrigger = true)
+
+		disposables.forEach(dis => dis.dispose())
+		disposables.splice(0, disposables.length)
+		CACHE = {}
+	}
+
+	on('bridge:changedProject', reset)
+	on('bridge:scriptRunner.resetCaches', reset)
 
 	return async function runFile(fileName: string, ...args: unknown[]) {
 		if (CACHE[fileName] !== undefined)
-			return runFunction(CACHE[fileName], ENV(...args))
+			return runFunction(CACHE[fileName], ENV(disposables, ...args))
 
 		let func = prepareRun(
 			(await fs.readFile(join(__static, directory, fileName))).toString(
@@ -29,6 +44,6 @@ export function createFileRunner(
 			)
 		)
 		CACHE[fileName] = func
-		return runFunction(func, ENV(...args))
+		return runFunction(func, ENV(disposables, ...args))
 	}
 }
