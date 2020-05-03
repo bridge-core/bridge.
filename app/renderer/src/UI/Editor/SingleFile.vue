@@ -18,7 +18,9 @@
 			:available_height="available_height"
 			available_width="100%"
 		/>
-		<json-error-screen v-else-if="file_viewer === 'json' && json_object == 'error'" />
+		<json-error-screen
+			v-else-if="file_viewer === 'json' && json_object == 'error'"
+		/>
 		<json-editor-main
 			v-else-if="file_viewer === 'json'"
 			:compiled="file.is_compiled"
@@ -35,6 +37,7 @@
 			v-model="content_as_string"
 			:extension="extension"
 			:fileLanguage="fileLanguage"
+			:filePath="file.file_path"
 		/>
 	</div>
 </template>
