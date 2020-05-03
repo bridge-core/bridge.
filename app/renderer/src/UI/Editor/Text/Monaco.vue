@@ -55,9 +55,7 @@ export default {
 			model: currentModel,
 		})
 
-		console.log(currentModel)
 		currentModel.onDidChangeContent(() => {
-			console.log('TESTS')
 			this.$emit('input', currentModel.getValue())
 		})
 
