@@ -18,6 +18,7 @@ import { uuid } from './Utilities/useAttr'
 import CloseUnsavedTab from '../windows/CloseUnsavedTab'
 import { useCache } from './Project/NoCacheConfig'
 import { getFolderDiff } from './files/DiffPaths'
+import { editor, Uri } from 'monaco-editor'
 
 export interface Tab {
 	file_name: string
@@ -213,7 +214,10 @@ class TabSystem {
 			}
 		}
 
-		this.projects[project].splice(id, 1)
+		const [removed] = this.projects[project].splice(id, 1)
+		//Dispose monaco model
+		editor.getModel(Uri.parse(`file:///${removed.file_path}`))?.dispose()
+		//Update selected tab
 		if (id <= this.selected && this.selected >= 0) {
 			this.select(this.selected === 0 ? 0 : this.selected - 1)
 		}
