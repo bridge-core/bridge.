@@ -468,11 +468,11 @@ export default class JSONTree {
 
 		const { confirm, then, always } = validate //Grab confirm & then
 		//Run validation
-		if (always === undefined) run(always, ENV(this, file_path))
+		if (always === undefined) run(always, ENV([], this, file_path))
 		this.error = undefined
 
-		if (run(confirm, ENV(this, file_path))) {
-			if (typeof then === 'string') run(then, ENV(this, file_path))
+		if (run(confirm, ENV([], this, file_path))) {
+			if (typeof then === 'string') run(then, ENV([], this, file_path))
 			else if (then !== undefined) this.error = then
 		}
 	}
