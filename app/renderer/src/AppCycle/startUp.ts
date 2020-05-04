@@ -36,10 +36,7 @@ export default async function startUp() {
 	// Fetch the latest json/version data
 	let update_data = await fetchLatestJson()
 
-	if (
-		update_data.update_available ||
-		process.env.NODE_ENV === 'development'
-	) {
+	if (true || update_data.update_available) {
 		// If there's an update, notify the user
 		createNotification({
 			icon: 'mdi-update',
