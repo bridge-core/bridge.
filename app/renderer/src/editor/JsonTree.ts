@@ -481,7 +481,6 @@ export default class JSONTree {
 			let script = validate[0]
 
 			while (script && !this.detectErrors(script, filePath)) {
-				console.log(script && !this.detectErrors(script, filePath))
 				script = validate[++i]
 			}
 			return script !== undefined
