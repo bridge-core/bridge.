@@ -1,9 +1,5 @@
 <template>
-	<div
-		ref="monacoContainer"
-		style="height:100%; width: 100%;"
-		v-resize="onResize"
-	/>
+	<div ref="monacoContainer" style="height:100%; width: 100%;" v-resize="onResize" />
 </template>
 
 <script>
@@ -14,7 +10,7 @@ export default {
 	props: {
 		value: String,
 		extension: String,
-		fileLanguage: String,
+		language: String,
 		filePath: String,
 	},
 	data() {
@@ -23,15 +19,6 @@ export default {
 		}
 	},
 	computed: {
-		language() {
-			if (this.fileLanguage) return this.fileLanguage
-			if (this.extension === 'js') return 'javascript'
-			if (this.extension === 'ts') return 'typescript'
-			if (this.extension === 'mcfunction') return 'mcfunction'
-			if (this.extension === 'molang') return 'molang'
-			if (this.extension === 'lang') return 'lang'
-			return 'plaintext'
-		},
 		isDarkMode() {
 			return this.$store.state.Appearance.is_dark_mode
 		},
@@ -40,6 +27,7 @@ export default {
 		monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
 			target: monaco.languages.typescript.ScriptTarget.ESNext,
 			allowNonTsExtensions: true,
+			noLib: true,
 		})
 
 		const URI = monaco.Uri.parse(`file:///${this.filePath}`)
@@ -49,7 +37,6 @@ export default {
 		this.monacoEditor = monaco.editor.create(this.$refs.monacoContainer, {
 			theme: this.isDarkMode ? 'bridge-dark' : 'bridge-light',
 			value: this.value,
-			language: this.language,
 			roundedSelection: false,
 			autoIndent: 'full',
 			model: currentModel,

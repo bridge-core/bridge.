@@ -6,7 +6,7 @@ import ProjectConfig from '../../../Project/Config'
 const PROVIDER = new Provider()
 
 export const ENV = (disposables: IDisposable[], language: string) => {
-	languages.register({ id: language })
+	languages.register({ id: language, extensions: [language] })
 
 	return {
 		AutoCompletions: {

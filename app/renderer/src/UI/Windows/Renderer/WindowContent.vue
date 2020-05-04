@@ -262,7 +262,7 @@
 	<TextEditor
 		v-else-if="content.type === 'monaco'"
 		v-model="cm_content"
-		:fileLanguage="content.language"
+		:language="content.language"
 	/>
 
 	<!-- ERROR -->

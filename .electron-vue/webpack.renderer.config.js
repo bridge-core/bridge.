@@ -126,7 +126,7 @@ let rendererConfig = {
 	plugins: [
 		new VueLoaderPlugin(),
 		new MonacoWebpackPlugin({
-			languages: ['javascript'],
+			languages: ['javascript', 'typescript'],
 		}),
 		new MiniCssExtractPlugin({
 			filename: 'styles.css',
@@ -140,8 +140,7 @@ let rendererConfig = {
 				removeComments: true,
 			},
 			nodeModules: process.env.NODE_ENV !== 'production' ?
-				path.resolve(__dirname, '../node_modules') :
-				false,
+				path.resolve(__dirname, '../node_modules') : false,
 		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),

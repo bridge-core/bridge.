@@ -86,7 +86,7 @@
         "comment_character": "#",
 
         "start_state": "function/main",
-        "language": "mcfunction",
+        "language": "mcfunction.js",
         "file_creator": "function"
     },
     {
@@ -114,7 +114,7 @@
         "id": "lang",
         "includes": "texts/",
         "file_viewer": "text",
-        "language": "lang",
+        "language": "lang.js",
         "file_creator": "lang",
         "comment_character": "##"
     },
@@ -134,7 +134,7 @@
 
         "documentation": "MoLang",
         "start_state": "molang/main",
-        "language": "molang"
+        "language": "molang.js"
     },
     {
         "id": "recipe",

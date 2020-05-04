@@ -8,7 +8,7 @@ declare var __static: string
 import TabSystem from '../TabSystem'
 import Provider, { LIB_LOADED } from '../autoCompletions/Provider'
 import fs, { promises as fsp } from 'fs'
-import { join } from 'path'
+import { join, basename, extname } from 'path'
 import { readJSON, readJSONSync } from '../Utilities/JsonFS'
 import { escapeRegExpStr as eRE } from '../Utilities/EscapeRegExp'
 import {
@@ -156,8 +156,11 @@ export default class FileType {
 		}
 		return FILE_CREATOR_CACHE
 	}
-	static getFileCreator(file_path: string): FileCreator {
-		const { file_creator } = this.getData(file_path) ?? {}
+	static getFileCreator(
+		file_path: string,
+		loadData?: FileDefinition
+	): FileCreator {
+		const { file_creator } = loadData ?? this.getData(file_path) ?? {}
 
 		if (typeof file_creator === 'string') {
 			return readJSONSync(
@@ -174,7 +177,7 @@ export default class FileType {
 	 * @returns {string} file creator icon of the provided file_path
 	 */
 	static getFileIcon(file_path: string) {
-		const data = this.getData(file_path) || {}
+		const data = this.getData(file_path) ?? {}
 
 		if (data.file_creator !== undefined) {
 			if (typeof data.file_creator === 'string')
@@ -226,9 +229,15 @@ export default class FileType {
 					({ file_viewer }) =>
 						file_viewer === 'text' || file_viewer === undefined
 				)
-				.map(async ({ language }) => {
-					if (language)
-						return await runLanguageFile(`${language}.js`, language)
+				.map(async ({ language, ...other }) => {
+					if (!language) return
+					let { extension } =
+						this.getFileCreator(undefined, other) ?? {}
+
+					await runLanguageFile(
+						language,
+						extension ?? basename(language, extname(language))
+					)
 				})
 		)
 	}

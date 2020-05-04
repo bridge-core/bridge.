@@ -1,20 +1,27 @@
-export function prepareRun(code: string) {
+export type TExecutionContext = 'file' | 'inline'
+export function prepareRun(
+	code: string,
+	executionContext: TExecutionContext = 'inline'
+) {
 	if (code === undefined) return () => {}
 	try {
-		return function(b: unknown) {
-			this.Bridge = b
-			return eval(
-				code
-					.replace(/Bridge\./g, 'this.Bridge.')
-					.replace(/=( )*Bridge/g, '= this.Bridge')
-			)
-		}
+		return eval(
+			`(function runScript(Bridge) {${
+				executionContext === 'inline' && !code.includes('return ')
+					? 'return'
+					: ''
+			} ${code} })`
+		)
 	} catch (err) {
 		throw err
 	}
 }
-export const run = (code: string, env: unknown) => {
-	return prepareRun(code).call({}, env)
+export const run = (
+	code: string,
+	env: unknown,
+	executionContext: TExecutionContext = 'inline'
+) => {
+	return prepareRun(code, executionContext).call({}, env)
 }
 
 export const runFunction = (
