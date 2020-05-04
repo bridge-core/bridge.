@@ -450,31 +450,14 @@ export default class JSONTree {
 	}
 	addMeta(
 		META: { [x: string]: any } = {},
-		file_path = TabSystem.getCurrentFilePath()
+		filePath = TabSystem.getCurrentFilePath()
 	) {
 		this.meta = Object.assign(this.meta, META)
 
 		const { is_color, validate } = META
 		if (is_color && this.data === '') this.edit('#1778D2')
 
-		/**
-		 * ERROR DETECTION
-		 */
-		if (!Store.state.Settings.run_error_detection) return
-		//Test how and whether validation is defined
-		if (typeof validate === 'string')
-			return runValidationFile(validate, this, file_path)
-		if (!validate || !validate.confirm) return
-
-		const { confirm, then, always } = validate //Grab confirm & then
-		//Run validation
-		if (always === undefined) run(always, ENV([], this, file_path))
-		this.error = undefined
-
-		if (run(confirm, ENV([], this, file_path))) {
-			if (typeof then === 'string') run(then, ENV([], this, file_path))
-			else if (then !== undefined) this.error = then
-		}
+		if (validate) this.detectErrors(validate, filePath)
 	}
 	loadMeta(file_path = TabSystem.getCurrentFilePath(), deep = false) {
 		if (PROVIDER === undefined) PROVIDER = new Provider('')
@@ -483,6 +466,40 @@ export default class JSONTree {
 
 		if (deep) this.children.forEach(c => c.loadMeta(file_path, true))
 		this.updateUUID()
+	}
+	/**
+	 * ERROR DETECTION
+	 * @returns Whether an error was detected
+	 */
+	detectErrors(validate: any, filePath: string): unknown {
+		if (!Store.state.Settings.run_error_detection) return false
+		//Test how and whether validation is defined
+		if (typeof validate === 'string') {
+			return runValidationFile(validate, this, filePath)
+		} else if (Array.isArray(validate)) {
+			let i = 0
+			let script = validate[0]
+
+			while (script && !this.detectErrors(script, filePath)) {
+				console.log(script && !this.detectErrors(script, filePath))
+				script = validate[++i]
+			}
+			return script !== undefined
+		}
+
+		if (!validate.confirm) return false
+
+		const { confirm, then, always } = validate //Grab confirm & then
+		//Run validation
+		if (always === undefined) run(always, ENV([], this, filePath))
+		this.error = undefined
+
+		if (run(confirm, ENV([], this, filePath))) {
+			if (typeof then === 'string') run(then, ENV([], this, filePath))
+			else if (then !== undefined) this.error = then
+			return true
+		}
+		return false
 	}
 	/**
 	 * Can be used by plugins to hook into how a node is saved to disk.

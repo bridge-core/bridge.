@@ -84,7 +84,27 @@
             "is_value": true
         }
     },
-    "file_identifier": "($dynamic.setting.project_prefix + $dynamic.current_file_name)",
+    "file_identifier": {
+        "@meta": {
+            "validate": [
+                {
+                    "confirm": "Bridge.Node.data && Bridge.Node.data.includes(' ')",
+                    "then": {
+                        "show": true,
+                        "message": "Identifiers must not contain spaces"
+                    }
+                },
+                {
+                    "confirm": "Bridge.Node.data && Bridge.Node.data.toLowerCase() !== Bridge.Node.data",
+                    "then": {
+                        "show": true,
+                        "message": "Identifiers must not contain uppercase letters"
+                    }
+                }
+            ]
+        },
+        "@import.value.file_identifier": "($dynamic.setting.project_prefix + $dynamic.current_file_name)"
+    },
     "inventory_type": [
         "minecart_chest", "horse", "minecart_hopper", "container"
     ],
