@@ -44,6 +44,10 @@
                 "meta": { "color": "yellow" },
                 "comment": { "color": "#0080FF" }
             },
+            "monaco": {
+                "editor.lineHighlightBorder": "#e0e0e0",
+                "editorWidget.border":  "#e0e0e0"
+            },
             "primary": "#1778D2",
             "secondary": "#1778D2",
             "accent": "#1778D2",

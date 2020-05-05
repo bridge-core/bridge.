@@ -11,38 +11,51 @@ export function defineMonacoTheme(
 	Editor.defineTheme(name, {
 		base,
 		inherit: true,
-		colors: {
-			'editor.background': convertColor(<string>def.background),
-			'editor.lineHighlightBorder': convertColor(<string>def.tooltip),
-			'editorWidget.background': convertColor(<string>def.background),
-			'editorWidget.border': convertColor(<string>def.sidebar_navigation),
-			'pickerGroup.background': convertColor(<string>def.background),
-			'pickerGroup.border': convertColor(<string>def.sidebar_navigation),
-			'badge.background': convertColor(<string>def.background),
+		colors: Object.assign(
+			{
+				'editor.background': convertColor(<string>def.background),
+				'editor.lineHighlightBorder': convertColor(<string>def.tooltip),
+				'editorWidget.background': convertColor(<string>def.background),
+				'editorWidget.border': convertColor(
+					<string>def.sidebar_navigation
+				),
+				'pickerGroup.background': convertColor(<string>def.background),
+				'pickerGroup.border': convertColor(
+					<string>def.sidebar_navigation
+				),
+				'badge.background': convertColor(<string>def.background),
 
-			'input.background': convertColor(<string>def.sidebar_navigation),
-			'input.border': convertColor(<string>def.menu),
-			'inputOption.activeBorder': convertColor(<string>def.primary),
-			focusBorder: convertColor(<string>def.primary),
-			'list.focusBackground': convertColor(<string>def.menu),
-			'list.hoverBackground': convertColor(
-				<string>def.sidebar_navigation
-			),
-			contrastBorder: convertColor(<string>def.sidebar_navigation),
+				'input.background': convertColor(
+					<string>def.sidebar_navigation
+				),
+				'input.border': convertColor(<string>def.menu),
+				'inputOption.activeBorder': convertColor(<string>def.primary),
+				focusBorder: convertColor(<string>def.primary),
+				'list.focusBackground': convertColor(<string>def.menu),
+				'list.hoverBackground': convertColor(
+					<string>def.sidebar_navigation
+				),
+				contrastBorder: convertColor(<string>def.sidebar_navigation),
 
-			'peekViewTitle.background': convertColor(<string>def.background),
-			'peekView.border': convertColor(<string>def.primary),
-			'peekViewResult.background': convertColor(
-				<string>def.sidebar_navigation
-			),
-			'peekViewResult.selectionBackground': convertColor(
-				<string>def.menu
-			),
-			'peekViewEditor.background': convertColor(<string>def.background),
-			'peekViewEditor.matchHighlightBackground': convertColor(
-				<string>def.menu
-			),
-		},
+				'peekViewTitle.background': convertColor(
+					<string>def.background
+				),
+				'peekView.border': convertColor(<string>def.primary),
+				'peekViewResult.background': convertColor(
+					<string>def.sidebar_navigation
+				),
+				'peekViewResult.selectionBackground': convertColor(
+					<string>def.menu
+				),
+				'peekViewEditor.background': convertColor(
+					<string>def.background
+				),
+				'peekViewEditor.matchHighlightBackground': convertColor(
+					<string>def.menu
+				),
+			},
+			def.monaco ?? {}
+		),
 		rules: [
 			//@ts-ignore Token is not required
 			{

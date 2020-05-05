@@ -18,6 +18,7 @@ export default {
 			default: false,
 			type: Boolean,
 		},
+		readonly: Boolean,
 	},
 	data() {
 		return {
@@ -59,17 +60,18 @@ export default {
 			fontSize: this.fontSize,
 			fontFamily: this.fontFamily,
 			model: currentModel,
+			readOnly: this.readonly,
 		})
 		//TODO: Open parts of the custom component in a new JSON editor tab
-		if (this.fileType === 'custom_component')
-			this.disposables.push(
-				this.monacoEditor.addAction({
-					id: 'edit-as-json',
-					label: 'Edit as JSON',
-					contextMenuGroupId: '1_modification',
-					run: () => {},
-				})
-			)
+		// if (this.fileType === 'custom_component')
+		// 	this.disposables.push(
+		// 		this.monacoEditor.addAction({
+		// 			id: 'edit-as-json',
+		// 			label: 'Edit as JSON',
+		// 			contextMenuGroupId: '1_modification',
+		// 			run: () => {},
+		// 		})
+		// 	)
 
 		currentModel.onDidChangeContent(() => {
 			this.$emit('input', currentModel.getValue())
@@ -85,7 +87,6 @@ export default {
 	},
 	methods: {
 		onResize() {
-			console.log('resize')
 			if (this.monacoEditor) this.monacoEditor.layout()
 		},
 	},
