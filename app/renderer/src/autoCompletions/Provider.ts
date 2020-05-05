@@ -8,13 +8,13 @@ import Store from '../../store/index'
 import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from './Dynamic'
 import { detachMerge as detachObj } from '../Utilities/mergeUtils'
 import ComponentProvider from './Components'
-import Assert from '../plugins/PluginAssert'
 import FileType from '../editor/FileType'
 import { Omega } from './Omega'
 import { BridgeCore } from '../bridgeCore/main'
 import EventBus from '../EventBus'
 import { FileDefinition } from '../editor/FileDefinition'
 import JSONTree from '../editor/JsonTree'
+import InformationWindow from '../UI/Windows/Common/Information'
 
 declare var __static: string
 
@@ -103,11 +103,9 @@ class Provider {
 		} else if (native || created) {
 			current[key] = deepmerge(current[key], store)
 		} else if (!native && arr_path.length > 0) {
-			return Assert.throw(
+			return new InformationWindow(
 				'Auto-Completions',
-				new Error(
-					'Unable to register auto-completions to already exisiting path.'
-				)
+				'Unable to register auto-completions to already exisiting path.'
 			)
 		}
 	}

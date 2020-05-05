@@ -8,7 +8,6 @@ import fse from 'fs-extra'
 import path from 'path'
 import mkdirp from 'mkdirp'
 import FileType from './FileType'
-import PluginEnv from '../plugins/PluginEnv'
 import { readJSON } from '../Utilities/JsonFS'
 import JSONTree from './JsonTree'
 import { uuid } from '../Utilities/useAttr'
@@ -163,10 +162,8 @@ export default class OmegaCache {
 					this.toCachePath(file_path),
 					JSON.stringify(
 						{
-							...PluginEnv.trigger('bridge:cacheFile', {
-								file_path,
-								file_type: FileType.get(file_path),
-							}),
+							file_path,
+							file_type: FileType.get(file_path),
 							...data,
 						},
 						null,

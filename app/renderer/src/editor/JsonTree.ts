@@ -5,7 +5,6 @@
 import Stack from '../Utilities/Stack'
 import Json from './Json'
 import Provider from '../autoCompletions/Provider'
-import PluginEnv from '../plugins/PluginEnv'
 import TabSystem from '../TabSystem'
 import { JSONAction } from '../TabSystem/CommonHistory'
 import FileType from './FileType'
@@ -16,6 +15,7 @@ import { run } from './ScriptRunner/run'
 import { ENV } from './ScriptRunner/Validation/ENV'
 import { runValidationFile } from './ScriptRunner/Validation/runFile'
 import { canBeMinified, getCacheData } from './JSONTree/cacheUtils'
+import { trigger } from '../AppCycle/EventSystem'
 
 declare const requestIdleCallback: (func: () => void) => void
 
@@ -313,7 +313,7 @@ export default class JSONTree {
 		this.updateUUID()
 
 		//PLUGIN HOOK
-		PluginEnv.trigger('bridge:addedNode', {
+		trigger('bridge:addedNode', {
 			node: child,
 		})
 		//HISTORY

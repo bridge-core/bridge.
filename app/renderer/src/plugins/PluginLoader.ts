@@ -9,7 +9,6 @@ import path from 'path'
 import { promises as fs, createReadStream, Dirent } from 'fs'
 import { readJSON } from '../Utilities/JsonFS'
 import Store from '../../store/index'
-import Bridge from './PluginEnv'
 import EventBus from '../EventBus'
 import { PluginSnippets } from '../../windows/Snippets'
 import { UI_DATA, BridgeCore } from '../bridgeCore/main'
@@ -56,7 +55,21 @@ export default class PluginLoader {
 		//INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
 		Store.commit('unloadPlugins')
 
-		let unloaded_plugins = await Bridge.Interpreter.init(project)
+		const uninstalledPath = path.join(
+			CURRENT.PROJECT_PATH,
+			project,
+			'bridge/uninstalled_plugins.json'
+		)
+		let unloaded_plugins: string[]
+		try {
+			unloaded_plugins = JSON.parse(
+				(await fs.readFile(uninstalledPath)).toString()
+			)
+		} catch (e) {
+			fs.writeFile(uninstalledPath, '[]')
+			unloaded_plugins = []
+		}
+
 		this.unloaded_plugins = unloaded_plugins
 		//Activate/Deactivate BridgeCore
 		if (!unloaded_plugins.includes('bridge.core')) BridgeCore.activate()
