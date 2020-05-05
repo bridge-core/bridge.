@@ -4,6 +4,7 @@
 
 <script>
 import * as monaco from 'monaco-editor'
+import FileType from '../../../editor/FileType'
 
 export default {
 	name: 'Monaco',
@@ -16,11 +17,15 @@ export default {
 	data() {
 		return {
 			monacoEditor: null,
+			disposables: [],
 		}
 	},
 	computed: {
 		isDarkMode() {
 			return this.$store.state.Appearance.is_dark_mode
+		},
+		fileType() {
+			return FileType.get(this.filePath)
 		},
 	},
 	mounted() {
@@ -41,12 +46,25 @@ export default {
 			autoIndent: 'full',
 			model: currentModel,
 		})
+		//TODO: Open parts of the custom component in a new JSON editor tab
+		if (this.fileType === 'custom_component')
+			this.disposables.push(
+				this.monacoEditor.addAction({
+					id: 'edit-as-json',
+					label: 'Edit as JSON',
+					contextMenuGroupId: '1_modification',
+					run: () => {},
+				})
+			)
 
 		currentModel.onDidChangeContent(() => {
 			this.$emit('input', currentModel.getValue())
 		})
 
 		setTimeout(this.onResize, 100)
+	},
+	destroyed() {
+		this.disposables.forEach(dis => dis.dispose())
 	},
 	methods: {
 		onResize() {
