@@ -2,20 +2,34 @@ import FileSystem from '../src/FileSystem'
 import ContentWindow from '../src/UI/Windows/Common/Content'
 import Store from '../store/index'
 import FileType from '../src/editor/FileType'
-import safeEval from 'safe-eval'
-import { RP_BASE_PATH, BASE_PATH } from '../src/constants'
+import {
+	run
+} from '../src/editor/ScriptRunner/run'
+
+import {
+	RP_BASE_PATH,
+	BASE_PATH
+} from '../src/constants'
 import uuidv4 from 'uuid/v4'
-import { walkSync } from '../src/autoCompletions/Dynamic'
-import { join } from 'path'
-import { promises as fs } from 'fs'
+import {
+	walkSync
+} from '../src/autoCompletions/Dynamic'
+import {
+	join
+} from 'path'
+import {
+	promises as fs
+} from 'fs'
 
 class FileContent {
 	constructor(
 		name,
 		ext = 'json',
 		parent,
-		expand_path = '',
-		{ add_location, ...add_content } = {},
+		expand_path = '', {
+			add_location,
+			...add_content
+		} = {},
 		use_rp_path,
 		is_custom_syntax = false,
 		is_experimental = false
@@ -30,8 +44,7 @@ class FileContent {
 			type: 'horizontal',
 			center: true,
 			key: uuidv4(),
-			content: [
-				{
+			content: [{
 					type: 'input',
 					text: 'Name',
 					input: this.curr_input,
@@ -91,8 +104,7 @@ class FileContent {
 			}
 		}
 
-		this.content = [
-			{
+		this.content = [{
 				text: '\n',
 			},
 			{
@@ -100,26 +112,18 @@ class FileContent {
 				display: 'inline-block',
 				height: '32px',
 				content: [
-					is_experimental
-						? [
-								{
-									type: 'icon',
-									text: 'mdi-test-tube',
-									color: 'purple',
-									tooltip: 'Experimental Gameplay',
-								},
-						  ]
-						: [],
-					is_custom_syntax
-						? [
-								{
-									type: 'icon',
-									text: 'mdi-code-braces',
-									color: 'purple',
-									tooltip: 'Custom Syntax',
-								},
-						  ]
-						: [],
+					is_experimental ? [{
+						type: 'icon',
+						text: 'mdi-test-tube',
+						color: 'purple',
+						tooltip: 'Experimental Gameplay',
+					}, ] : [],
+					is_custom_syntax ? [{
+						type: 'icon',
+						text: 'mdi-code-braces',
+						color: 'purple',
+						tooltip: 'Custom Syntax',
+					}, ] : [],
 					{
 						type: 'big-header',
 						text: name,
@@ -138,17 +142,16 @@ class FileContent {
 
 		if (add_location === undefined) add_location = []
 		if (add_content !== undefined && Object.keys(add_content).length !== 0)
-			this.add(
-				{
+			this.add({
 					...add_content,
 					action: parameter => {
 						if (
 							add_content.action !== undefined &&
 							add_content.action.type === 'change_path'
 						) {
-							this.expand_path = safeEval(add_content.action.to, {
+							this.expand_path = run(add_content.action.to, {
 								parameter,
-							})
+							}, "inline")
 							this.path_info.text = this.getPath(
 								undefined,
 								undefined
@@ -159,7 +162,7 @@ class FileContent {
 						} else if (add_content.action !== undefined) {
 							throw new Error(
 								'Unknown add_content.action type: ' +
-									add_content.action.type
+								add_content.action.type
 							)
 						}
 					},
@@ -202,11 +205,19 @@ export default class CreateFileWindow extends ContentWindow {
 			Store.state.Explorer.project.resource_pack === undefined
 		)
 			FILE_DATA = FileType.getFileCreators()
-				.filter(f => (show_rp ? f.rp_definition : !f.rp_definition))
-				.sort(({ title: t1 }, { title: t2 }) => t1.localeCompare(t2))
+			.filter(f => (show_rp ? f.rp_definition : !f.rp_definition))
+			.sort(({
+				title: t1
+			}, {
+				title: t2
+			}) => t1.localeCompare(t2))
 		else
 			FILE_DATA = FileType.getFileCreators().sort(
-				({ title: t1 }, { title: t2 }) => t1.localeCompare(t2)
+				({
+					title: t1
+				}, {
+					title: t2
+				}) => t1.localeCompare(t2)
 			)
 
 		super({
@@ -215,7 +226,11 @@ export default class CreateFileWindow extends ContentWindow {
 				is_visible: false,
 				is_persistent: false,
 			},
-			sidebar: FILE_DATA.map(({ icon, title, rp_definition }, index) => {
+			sidebar: FILE_DATA.map(({
+				icon,
+				title,
+				rp_definition
+			}, index) => {
 				return {
 					icon,
 					title,
@@ -237,8 +252,7 @@ export default class CreateFileWindow extends ContentWindow {
 			)
 			this.close()
 		}
-		this.actions = [
-			{
+		this.actions = [{
 				type: 'space',
 			},
 			{
@@ -261,19 +275,22 @@ export default class CreateFileWindow extends ContentWindow {
 				is_custom_syntax,
 				is_experimental,
 			}) =>
-				new FileContent(
-					title,
-					extension,
-					this,
-					path,
-					add_content,
-					rp_definition,
-					is_custom_syntax,
-					is_experimental
-				)
+			new FileContent(
+				title,
+				extension,
+				this,
+				path,
+				add_content,
+				rp_definition,
+				is_custom_syntax,
+				is_experimental
+			)
 		)
 		//Templates
-		this.templates = FILE_DATA.map(({ templates, rp_definition }) => {
+		this.templates = FILE_DATA.map(({
+			templates,
+			rp_definition
+		}) => {
 			return {
 				...templates,
 				rp_definition,
@@ -294,11 +311,9 @@ export default class CreateFileWindow extends ContentWindow {
 		this.win_def.sidebar[id].opacity = 1
 		this.win_def.sidebar[id].is_selected = true
 		this.win_def.options.is_visible = true
-		this.win_def.content = this.contents[id].get() || [
-			{
-				text: 'Nothing to show yet',
-			},
-		]
+		this.win_def.content = this.contents[id].get() || [{
+			text: 'Nothing to show yet',
+		}, ]
 
 		if (this.templates[id] && !this.win_def.content.added_select)
 			await this.compileTemplate(this.templates[id])
@@ -306,7 +321,11 @@ export default class CreateFileWindow extends ContentWindow {
 	}
 
 	async compileTemplate(templ) {
-		const { $default_pack, rp_definition, ...templates } = templ
+		const {
+			$default_pack,
+			rp_definition,
+			...templates
+		} = templ
 		if ($default_pack !== undefined) {
 			let arr
 			let p = join(__static, 'vanilla', $default_pack.path)
@@ -323,33 +342,29 @@ export default class CreateFileWindow extends ContentWindow {
 		this.win_def.content.added_select = true
 		if (options.length === 1) return
 
-		this.win_def.content.push(
-			{
-				type: 'header',
-				text: 'Templates',
+		this.win_def.content.push({
+			type: 'header',
+			text: 'Templates',
+		}, {
+			type: 'divider',
+		}, {
+			type: options.length <= 6 ? 'select' : 'autocomplete',
+			is_box: true,
+			options,
+			text: 'Select template',
+			action: async val => {
+				if (templates[val] === undefined) this.chosen_template = ''
+				else if (typeof templates[val] === 'function')
+					this.chosen_template = await templates[val]()
+				else if (typeof templates[val] === 'string')
+					this.chosen_template = templates[val]
+				else
+					this.chosen_template = JSON.stringify(
+						templates[val],
+						null,
+						'\t'
+					)
 			},
-			{
-				type: 'divider',
-			},
-			{
-				type: options.length <= 6 ? 'select' : 'autocomplete',
-				is_box: true,
-				options,
-				text: 'Select template',
-				action: async val => {
-					if (templates[val] === undefined) this.chosen_template = ''
-					else if (typeof templates[val] === 'function')
-						this.chosen_template = await templates[val]()
-					else if (typeof templates[val] === 'string')
-						this.chosen_template = templates[val]
-					else
-						this.chosen_template = JSON.stringify(
-							templates[val],
-							null,
-							'\t'
-						)
-				},
-			}
-		)
+		})
 	}
 }

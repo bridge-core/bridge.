@@ -1,110 +1,10 @@
-import saveEval from 'safe-eval'
-import fs from 'fs'
 import { promises as fsp } from 'fs'
 import Runtime from './Runtime'
-import BlockedBridge from './BlockedBridge'
-import Bridge from './Bridge'
 import { trigger, readonlyTrigger } from './EventTriggers'
 import PluginAssert from './PluginAssert'
-import cJSON from 'comment-json'
-import deepmerge from 'deepmerge'
 import mkdirp from 'mkdirp'
 import { join } from 'path'
-
-class Environment {
-	__file_path__: string
-	__bridge_import_depth__: number
-	Bridge: BlockedBridge | Bridge
-	console: { log(): void; warn(): void; error(): void; dir(): void }
-	JSON: { parse(str: string): any; stringify(data: any): string }
-	LIB: { deepmerge(...args: any[]): any }
-	use: (path: any) => any
-	provide: (data: any) => { as(id: any): void }
-	fetch: (input: any, init: any) => Promise<any>
-
-	constructor(
-		file_path: string,
-		depth = 1000,
-		is_module?: boolean,
-		blocked?: boolean
-	) {
-		//Internal
-		this.__file_path__ = file_path
-		this.__bridge_import_depth__ = depth
-
-		//Official
-		if (blocked) {
-			this.Bridge = new BlockedBridge(is_module, file_path)
-			this.console = { log() {}, warn() {}, error() {}, dir() {} }
-			this.JSON = {
-				parse() {},
-				stringify() {
-					return ''
-				},
-			}
-			this.LIB = { deepmerge() {} }
-		} else {
-			this.Bridge = new Bridge(is_module, file_path)
-			this.console = {
-				log: console.log,
-				warn: console.warn,
-				error: console.error,
-				dir: console.dir,
-			}
-			this.JSON = {
-				parse: text => cJSON.parse(text, undefined, true),
-				stringify: JSON.stringify,
-			}
-			this.LIB = {
-				deepmerge,
-			}
-			// this.document = window.document;
-		}
-
-		this.use = path => {
-			if (this.__bridge_import_depth__ <= 0) {
-				throw new Error(
-					"Recursion depth too deep. Flatten your project structure and make sure that you haven't created an import loop."
-				)
-			}
-
-			if (Runtime.Modules.exists(path)) {
-				return Runtime.Modules.get(path)
-			} else {
-				let raw_file = fs.readFileSync(
-					`${Runtime.Paths.bridge()}plugins/${path}`
-				)
-				if (raw_file != undefined)
-					new Interpreter().execute(
-						raw_file.toString(),
-						path,
-						this.__bridge_import_depth__ - 1,
-						true,
-						blocked
-					)
-				return Runtime.Modules.get(path)
-			}
-		}
-		this.provide = data => {
-			Runtime.Modules.add(this.__file_path__, data)
-			return {
-				as(id) {
-					Runtime.Modules.add(id, data)
-				},
-			}
-		}
-
-		this.fetch = (input, init) => {
-			if (blocked) {
-				return new Promise((resolve, reject) =>
-					reject('Plugin execution blocked!')
-				)
-			}
-
-			return window.fetch(input, init)
-		}
-	}
-}
+import { run } from '../editor/ScriptRunner/run'
 
 class Interpreter {
 	constructor() {}
@@ -124,18 +24,9 @@ class Interpreter {
 	 * @param {*} is_module
 	 * @param {Boolean} blocked Whether the environment should run inside blocked mode
 	 */
-	execute(
-		code: string,
-		file_path: string,
-		depth: number,
-		is_module = false,
-		blocked = false
-	) {
+	execute(code: string, file_path: string) {
 		try {
-			return saveEval(
-				this.wrap(code, file_path),
-				new Environment(file_path, depth, is_module, blocked)
-			)
+			return run(this.wrap(code, file_path), {}, 'file')
 		} catch (err) {
 			PluginAssert.throw(file_path, err)
 

@@ -80,7 +80,6 @@
     "mkdirp": "^0.5.5",
     "molang": "^0.2.0",
     "mousetrap": "^1.6.5",
-    "safe-eval": "^0.4.1",
     "three": "^0.115.0",
     "trash": "^5.2.0",
     "typescript": "^3.8.3",

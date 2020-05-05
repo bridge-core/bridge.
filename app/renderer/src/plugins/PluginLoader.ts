@@ -15,7 +15,6 @@ import { PluginSnippets } from '../../windows/Snippets'
 import { UI_DATA, BridgeCore } from '../bridgeCore/main'
 import ThemeManager from '../editor/Themes/ThemeManager'
 import unzipper from 'unzipper'
-import safeEval from 'safe-eval'
 import ComponentRegistry from './CustomComponents'
 import InformationWindow from '../UI/Windows/Common/Information'
 import Provider from '../autoCompletions/Provider'
@@ -122,13 +121,10 @@ export default class PluginLoader {
 		if ((await fs.lstat(plugin_path)).isFile()) {
 			if (path.extname(plugin_path) === '.js') {
 				//LEGACY PLUGINS
-				Store.commit('loadPlugin', {
-					code: (await fs.readFile(plugin_path)).toString(),
-					path: plugin_path,
-					blocked: unloaded_plugins.includes(
-						path.basename(plugin_path, '.js')
-					),
-				})
+				new InformationWindow(
+					'ERROR',
+					`Legacy plugins are no longer supported: "${plugin_folder}"`
+				)
 			} else if (path.extname(plugin_path) === '.zip') {
 				//Load archived plugins
 				let unzip_path = path.join(
@@ -204,11 +200,11 @@ export default class PluginLoader {
 		)
 		data.forEach((d, i) => {
 			if (api_version === 1) {
-				Bridge.Interpreter.execute(
-					d.toString(),
-					path.join(plugin_path, 'scripts', scripts[i]),
-					undefined,
-					true
+				new InformationWindow(
+					'ERROR',
+					`API version 1 is no longer supported inside "${path.basename(
+						plugin_path
+					)}"`
 				)
 			} else if (api_version === 2 || api_version === undefined) {
 			} else {
