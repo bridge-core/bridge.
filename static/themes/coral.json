@@ -25,6 +25,7 @@
             },
             "primary": "#EF6F6C",
             "secondary": "#EF6F6C",
+            "accent": "white",
             "toolbar": "#EF6F6C",
             "tooltip": "#EF6F6C"
         },
@@ -48,6 +49,7 @@
             },
             "primary": "#EF6F6C",
             "secondary": "#EF6F6C",
+            "accent": "white",
             "toolbar": "#EF6F6C",
             "tooltip": "#EF6F6C"
         }

@@ -1,0 +1,18 @@
+{
+	"display_name": "Ore",
+	"description": "Creates a new ore block with natural generation.",
+	"icon": "mdi-diamond-stone",
+	"bp_map": {
+		"block.json": "blocks/{{IDENTIFIER}}.json",
+		"feature.json": "features/{{IDENTIFIER}}_feature.json",
+		"feature_rule.json": "feature_rules/overworld_underground_{{IDENTIFIER}}_feature.json"
+	},
+	"expand_rp_files": {
+		"terrain_texture.json": "textures/terrain_texture.json",
+		"client_block.json": "blocks.json",
+		"en_US.lang": "texts/en_US.lang"
+	},
+	"copy_rp_files": {
+		"texture.png": "textures/blocks/{{IDENTIFIER}}.png"
+	}
+}

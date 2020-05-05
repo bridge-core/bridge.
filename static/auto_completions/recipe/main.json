@@ -46,7 +46,8 @@
         "ingredients": {
             "$dynamic.list.next_index": {
                 "item": "$recipe.general.item_block_identifier",
-                "data": "$general.number"
+                "data": "$general.number",
+                "count": "$general.number"
             }
         },
         "result": {

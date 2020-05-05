@@ -26,6 +26,7 @@ jobs:
                   files: |
                       build/nsis-web/*.exe
                       build/nsis-web/*.nsis.7z
+                      build/win-unpacked/resources/app.asar
                       build/*.snap
                       build/*.AppImage
                       build/*.dmg
