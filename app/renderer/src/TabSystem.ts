@@ -564,7 +564,6 @@ class TabSystem {
 
 		//Load .no-cache file
 		const shouldBeCached = await useCache(current.file_path)
-		console.log(shouldBeCached)
 		if (!shouldBeCached) {
 			FileSystem[fsMethod](
 				current.file_path,

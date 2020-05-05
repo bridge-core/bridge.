@@ -67,7 +67,6 @@ export async function registerCustomCommand(
 }
 
 export async function updateCommandFiles() {
-	console.log(Array.from(UpdateFiles))
 	await Promise.all(
 		Array.from(UpdateFiles).map(async file => {
 			try {
