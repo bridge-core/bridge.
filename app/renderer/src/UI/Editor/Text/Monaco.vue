@@ -1,5 +1,9 @@
 <template>
-	<div ref="monacoContainer" style="height:100%; width: 100%;" v-resize="onResize" />
+	<div
+		ref="monacoContainer"
+		style="height:100%; width: 100%;"
+		v-resize="onResize"
+	/>
 </template>
 
 <script>
@@ -13,11 +17,16 @@ export default {
 		extension: String,
 		language: String,
 		filePath: String,
+		disposeOnUnmount: {
+			default: false,
+			type: Boolean,
+		},
 	},
 	data() {
 		return {
 			monacoEditor: null,
 			disposables: [],
+			URI: null,
 		}
 	},
 	computed: {
@@ -35,10 +44,10 @@ export default {
 			noLib: true,
 		})
 
-		const URI = monaco.Uri.parse(`file:///${this.filePath}`)
+		this.URI = monaco.Uri.parse(`file:///${this.filePath}`)
 		const currentModel =
-			monaco.editor.getModel(URI) ||
-			monaco.editor.createModel(this.value, this.language, URI)
+			monaco.editor.getModel(this.URI) ||
+			monaco.editor.createModel(this.value, this.language, this.URI)
 		this.monacoEditor = monaco.editor.create(this.$refs.monacoContainer, {
 			theme: this.isDarkMode ? 'bridge-dark' : 'bridge-light',
 			value: this.value,
@@ -65,6 +74,7 @@ export default {
 	},
 	destroyed() {
 		this.disposables.forEach(dis => dis.dispose())
+		if (this.disposeOnUnmount) monaco.editor.getModel(this.URI).dispose()
 	},
 	methods: {
 		onResize() {
