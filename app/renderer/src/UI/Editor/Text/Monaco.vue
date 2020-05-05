@@ -1,14 +1,11 @@
 <template>
-	<div
-		ref="monacoContainer"
-		style="height:100%; width: 100%;"
-		v-resize="onResize"
-	/>
+	<div ref="monacoContainer" style="height:100%; width: 100%;" />
 </template>
 
 <script>
 import * as monaco from 'monaco-editor'
 import FileType from '../../../editor/FileType'
+import { on } from '../../../AppCycle/EventSystem'
 
 export default {
 	name: 'Monaco',
@@ -36,6 +33,12 @@ export default {
 		fileType() {
 			return FileType.get(this.filePath)
 		},
+		fontSize() {
+			return this.$store.state.Settings.file_font_size || '14px'
+		},
+		fontFamily() {
+			return this.$store.state.Settings.file_font_family || '14px'
+		},
 	},
 	mounted() {
 		monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
@@ -53,6 +56,8 @@ export default {
 			value: this.value,
 			roundedSelection: false,
 			autoIndent: 'full',
+			fontSize: this.fontSize,
+			fontFamily: this.fontFamily,
 			model: currentModel,
 		})
 		//TODO: Open parts of the custom component in a new JSON editor tab
@@ -70,6 +75,8 @@ export default {
 			this.$emit('input', currentModel.getValue())
 		})
 
+		this.disposables.push(on('bridge:onResize', this.onResize))
+
 		setTimeout(this.onResize, 100)
 	},
 	destroyed() {
@@ -84,6 +91,16 @@ export default {
 	watch: {
 		isDarkMode(val) {
 			monaco.editor.setTheme(val ? 'bridge-dark' : 'bridge-light')
+		},
+		fontSize(val) {
+			this.monacoEditor.updateOptions({
+				fontSize: this.fontSize,
+			})
+		},
+		fontFamily(val) {
+			this.monacoEditor.updateOptions({
+				fontFamily: this.fontFamily,
+			})
 		},
 	},
 }
