@@ -48,7 +48,7 @@ export default {
 			noLib: true,
 		})
 
-		this.URI = monaco.Uri.parse(`file:///${this.filePath}`)
+		this.URI = monaco.Uri.file(this.filePath)
 		const currentModel =
 			monaco.editor.getModel(this.URI) ||
 			monaco.editor.createModel(this.value, this.language, this.URI)
