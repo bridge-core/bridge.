@@ -46,10 +46,8 @@
                 },
                 "animate": {
                     "$dynamic.list.next_index": {
-                        "$dynamic.client_entity.animation_references": {
-                            "@meta": { "is_molang": true },
-                            "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
-                        },
+                        "$dynamic.client_entity.animation_references": {},
+                        "$placeholder": "$molang.embedded",
                         "@import.value.animation": "$dynamic.client_entity.animation_references"
                     }
                 }

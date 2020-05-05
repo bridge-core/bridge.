@@ -46,6 +46,7 @@
 
     "molang/main",
     "molang/general",
+    "molang/embedded",
 
     "trade_table/main",
     "trade_table/general",

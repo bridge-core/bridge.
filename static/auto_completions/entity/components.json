@@ -298,20 +298,8 @@
         }
     },
     "minecraft:experience_reward": {
-        "on_bred": {
-            "@meta": {
-                "is_value": true,
-                "is_molang": true
-            },
-            "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
-        },
-        "on_death": {
-            "@meta": {
-                "is_value": true,
-                "is_molang": true
-            },
-            "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
-        }
+        "on_bred": "$molang.embedded",
+        "on_death": "$molang.embedded"
     },
     "minecraft:explode": {
         "fuse_length": {

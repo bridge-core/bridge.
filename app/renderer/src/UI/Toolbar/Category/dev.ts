@@ -5,6 +5,7 @@ import { trigger } from '../../../AppCycle/EventSystem'
 import PluginLoader from '../../../plugins/PluginLoader'
 import Store from '../../../../store/index'
 import ThemeManager from '../../../editor/Themes/ThemeManager'
+import LoadingWindow from '../../../../windows/LoadingWindow'
 
 export const DevMenu: IAppMenu = {
 	displayName: 'Development',
@@ -29,11 +30,17 @@ export const DevMenu: IAppMenu = {
 				shiftKey: true,
 				ctrlKey: true,
 			},
-			onClick: () => {
+			onClick: async () => {
+				const lw = new LoadingWindow()
+
 				trigger('bridge:scriptRunner.resetCaches')
 				Provider.loadAssets()
 				ThemeManager.reloadDefaultThemes()
-				PluginLoader.loadPlugins(Store.state.Explorer.project.explorer)
+				await PluginLoader.loadPlugins(
+					Store.state.Explorer.project.explorer
+				)
+
+				lw.close()
 			},
 		},
 		{

@@ -8,25 +8,14 @@
                 "default": {
                     "animations": {
                         "$dynamic.list.next_index": {
-                            "$dynamic.cache.animation_references": {
-                                "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                                "@meta": {
-                                    "is_molang": true,
-                                    "is_value": true
-                                }
-                            },
+                            "$dynamic.cache.animation_references": {},
+                            "$placeholder": "$molang.embedded",
                             "@import.value.query": "$dynamic.cache.animation_references"
                         }
                     },
                     "transitions": {
                         "$dynamic.list.next_index": {
-                            "$dynamic.animation_controller.current_states": {
-                                "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                                "@meta": {
-                                    "is_molang": true,
-                                    "is_value": true
-                                }
-                            }
+                            "$dynamic.animation_controller.current_states": "$molang.embedded"
                         }
                     },
 
