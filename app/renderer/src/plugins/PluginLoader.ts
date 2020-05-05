@@ -26,6 +26,7 @@ import {
 	updateCommandFiles,
 } from './CustomCommands'
 import FileType from '../editor/FileType'
+import { run } from '../editor/ScriptRunner/run'
 
 let PLUGIN_FOLDERS: string[]
 let PLUGIN_DATA: any[] = []
@@ -88,7 +89,7 @@ export default class PluginLoader {
 		//LOAD CUSTOM COMPONENENTS IN PROJECT
 		this.loadComponents(CURRENT.PROJECT_PATH)
 		//UPDATE COMPONENT REFERENCES
-		await ComponentRegistry.registerUpdates()
+		await ComponentRegistry.updateFiles()
 
 		//LOAD CUSTOM COMMANDS IN PROJECT
 		try {
@@ -270,42 +271,43 @@ export default class PluginLoader {
 		})
 	}
 
-	static async loadComponents(plugin_path: string) {
+	static async loadComponents(pluginPath: string) {
 		let components: string[] = await fs
-			.readdir(path.join(plugin_path, 'components'))
+			.readdir(path.join(pluginPath, 'components'))
 			.catch(e => [])
 
-		components = await Promise.all(
+		await Promise.all(
 			components.map(c =>
-				fs
-					.readFile(path.join(plugin_path, 'components', c))
-					.catch(e => undefined)
+				this.loadComponent(path.join(pluginPath, 'components', c))
 			)
 		)
-		await Promise.all(
-			components.map(async c => {
-				if (c === undefined) return
+	}
+	static async loadComponent(filePath: string, fileContent?: string) {
+		if (fileContent === undefined)
+			fileContent = (
+				await fs.readFile(filePath).catch(e => undefined)
+			)?.toString('utf-8')
+		if (fileContent === undefined) return
 
-				try {
-					await safeEval(c.toString(), {
-						Bridge: {
-							register: (c: any) => ComponentRegistry.register(c),
-							report: (info: string) =>
-								new InformationWindow(
-									'Information',
-									info,
-									false
-								),
-						},
-					})
-				} catch (e) {
-					new InformationWindow(
-						'ERROR',
-						`Error while loading custom component:\n${e.message}`
-					)
-				}
-			})
-		)
+		const promises: Promise<unknown>[] = []
+		try {
+			run(
+				fileContent,
+				{
+					register: (c: any) =>
+						promises.push(ComponentRegistry.register(c)),
+					report: (info: string) =>
+						new InformationWindow('Information', info, false),
+				},
+				'file'
+			)
+		} catch (e) {
+			new InformationWindow(
+				'ERROR',
+				`Error while loading custom component:\n${e.message}`
+			)
+		}
+		await Promise.all(promises)
 	}
 
 	static async loadAutoCompletions(plugin_path: string) {

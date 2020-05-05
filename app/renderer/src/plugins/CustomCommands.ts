@@ -22,40 +22,52 @@ export abstract class BridgeCommand {
 
 export async function loadCustomCommands(folderPath: string) {
 	const data = await fs.readdir(folderPath, { withFileTypes: true })
-	const proms: Promise<unknown>[] = []
 
 	await Promise.all(
 		data.map(async dirent => {
 			if (dirent.isDirectory())
 				return await loadCustomCommands(join(folderPath, dirent.name))
 
-			const file = (
-				await fs.readFile(join(folderPath, dirent.name))
-			).toString('utf-8')
-
-			run(file, {
-				register: async (Command: BridgeCommandClass) => {
-					CommandNames.push(Command.command_name)
-					CommandRegistry.set(Command.command_name, new Command())
-
-					//Update files with custom command
-					const fileRefs = FetchDefinitions.fetchSingle(
-						'function',
-						['custom_commands'],
-						Command.command_name
-					).then(fileRefs =>
-						fileRefs.forEach(filePath => UpdateFiles.add(filePath))
-					)
-					proms.push(fileRefs)
-				},
-			})
+			await registerCustomCommand(join(folderPath, dirent.name))
 		})
 	)
+}
 
-	await Promise.all(proms)
+export async function registerCustomCommand(
+	filePath: string,
+	fileContent?: string
+) {
+	if (fileContent === undefined)
+		fileContent = (await fs.readFile(filePath)).toString('utf-8')
+	if (fileContent === undefined) return
+
+	const promises: Promise<unknown>[] = []
+
+	run(
+		fileContent,
+		{
+			register: async (Command: BridgeCommandClass) => {
+				CommandNames.push(Command.command_name)
+				CommandRegistry.set(Command.command_name, new Command())
+
+				//Update files with custom command
+				const fileRefs = FetchDefinitions.fetchSingle(
+					'function',
+					['custom_commands'],
+					Command.command_name
+				).then(fileRefs =>
+					fileRefs.forEach(filePath => UpdateFiles.add(filePath))
+				)
+				promises.push(fileRefs)
+			},
+		},
+		'file'
+	)
+	await Promise.all(promises)
 }
 
 export async function updateCommandFiles() {
+	console.log(Array.from(UpdateFiles))
 	await Promise.all(
 		Array.from(UpdateFiles).map(async file => {
 			try {
