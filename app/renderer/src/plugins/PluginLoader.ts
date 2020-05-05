@@ -57,7 +57,6 @@ export default class PluginLoader {
 
 		const uninstalledPath = path.join(
 			CURRENT.PROJECT_PATH,
-			project,
 			'bridge/uninstalled_plugins.json'
 		)
 		let unloaded_plugins: string[]
