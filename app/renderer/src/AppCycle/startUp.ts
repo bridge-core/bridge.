@@ -7,6 +7,7 @@ import { CONNECTION } from '../../src/Utilities/ConnectionStatus'
 import { setupDefaultMenus } from '../UI/Toolbar/setupDefaults'
 import { createNotification } from '../UI/Footer/create'
 import './DropFile'
+import './ResizeWatcher'
 
 export default async function startUp() {
 	SETTINGS.setup()

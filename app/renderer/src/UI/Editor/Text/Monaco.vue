@@ -75,7 +75,7 @@ export default {
 			this.$emit('input', currentModel.getValue())
 		})
 
-		this.disposables.push(on('bridge:onResize', this.onResize))
+		this.disposables.push(on('bridge:onResize', () => this.onResize()))
 
 		setTimeout(this.onResize, 100)
 	},
@@ -85,6 +85,7 @@ export default {
 	},
 	methods: {
 		onResize() {
+			console.log('resize')
 			if (this.monacoEditor) this.monacoEditor.layout()
 		},
 	},
