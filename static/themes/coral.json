@@ -23,6 +23,9 @@
                     "color": "#465775"
                 }
             },
+            "monaco": {
+                "editor.lineHighlightBackground": "#242424"
+            },
             "primary": "#EF6F6C",
             "secondary": "#EF6F6C",
             "accent": "white",

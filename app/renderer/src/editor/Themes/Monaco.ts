@@ -14,7 +14,9 @@ export function defineMonacoTheme(
 		colors: Object.assign(
 			{
 				'editor.background': convertColor(<string>def.background),
-				'editor.lineHighlightBorder': convertColor(<string>def.tooltip),
+				'editor.lineHighlightBackground': convertColor(
+					<string>def.tooltip
+				),
 				'editorWidget.background': convertColor(<string>def.background),
 				'editorWidget.border': convertColor(
 					<string>def.sidebar_navigation
