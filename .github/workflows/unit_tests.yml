@@ -20,5 +20,4 @@ jobs:
             - name: npm install and test
               run: |
                   npm install
-                  tsc --noEmit
                   npm run test
