@@ -377,7 +377,7 @@ export default class LightningCache {
 		let res: any = {}
 
 		for (let key in cache) {
-			if (cache[key] !== null) res[key] = toUnifiedObj(cache[key])
+			if (cache[key]) res[key] = toUnifiedObj(cache[key])
 		}
 
 		this.compiled_cache = res
@@ -389,7 +389,7 @@ export default class LightningCache {
 		let res: any = {}
 
 		for (let key in cache) {
-			if (cache[key] !== null) res[key] = toUnifiedObj(cache[key])
+			if (cache[key]) res[key] = toUnifiedObj(cache[key])
 		}
 
 		this.compiled_cache = res
