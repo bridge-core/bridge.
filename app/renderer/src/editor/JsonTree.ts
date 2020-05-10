@@ -648,26 +648,18 @@ export default class JSONTree {
 	}
 
 	buildForCache(): any {
-		const is_array = this.is_array
 		if (canBeMinified(this))
 			return {
 				...getCacheData(this),
 				is_minified: true,
-				children: !is_array ? this.toJSON() : undefined,
-				array: is_array ? this.toJSON() : undefined,
+				children: this.toJSON(),
 			}
 
 		return {
 			...getCacheData(this),
 			children:
-				this.children.length > 0 && !is_array
+				this.children.length > 0
 					? this.children.map(c => c.buildForCache())
-					: undefined,
-			array:
-				this.children.length > 0 && is_array
-					? this.children.map(c =>
-							c.data ? c.data : c.buildForCache()
-					  )
 					: undefined,
 		}
 	}
