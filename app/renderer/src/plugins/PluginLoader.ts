@@ -64,7 +64,7 @@ export default class PluginLoader {
 			unloaded_plugins = JSON.parse(
 				(await fs.readFile(uninstalledPath)).toString()
 			)
-		} catch (e) {
+		} catch {
 			fs.writeFile(uninstalledPath, '[]')
 			unloaded_plugins = []
 		}

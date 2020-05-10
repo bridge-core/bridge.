@@ -618,6 +618,7 @@ export default class JSONTree {
 		open_nodes = false,
 		open_first = true
 	) {
+		if (!data) return
 		if (data instanceof JSONTree) return data
 
 		if ((open_first && first) || open_nodes) this.open = true
