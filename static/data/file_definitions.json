@@ -80,6 +80,12 @@
         "file_creator": "feature_rule"
     },
     {
+        "id": "function_tick",
+        "includes": "functions/tick.json",
+        "file_viewer": "json",
+        "start_state": "simple/tick"
+    },
+    {
         "id": "function",
         "includes": "functions/",
         "file_viewer": "text",

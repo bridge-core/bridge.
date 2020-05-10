@@ -26,7 +26,8 @@
     },
     "BP": {
         "folders": [
-            "texts"
+            "texts",
+            "functions"
         ],
         "files": {
             "pack_icon.png": "pack_icon.png",
@@ -37,7 +38,8 @@
                     "{description}": "$description",
                     "{name}": "$name"
                 }
-            }
+            },
+            "BP/tick.json": "functions/tick.json"
         }
     }
 }
