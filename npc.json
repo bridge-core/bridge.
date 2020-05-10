@@ -1,0 +1,10 @@
+{
+    "bridge:npc": {
+        "initial_branch": "default",
+        "branches": {
+            "default": {
+                
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@
 import * as monaco from 'monaco-editor'
 import FileType from '../../../editor/FileType'
 import { on } from '../../../AppCycle/EventSystem'
+import { uuid } from '../../../Utilities/useAttr'
 
 export default {
 	name: 'Monaco',
@@ -48,7 +49,9 @@ export default {
 			noLib: true,
 		})
 
-		this.URI = monaco.Uri.file(this.filePath)
+		if (this.filePath) this.URI = monaco.Uri.file(this.filePath)
+		else this.URI = monaco.Uri.parse(uuid())
+
 		const currentModel =
 			monaco.editor.getModel(this.URI) ||
 			monaco.editor.createModel(this.value, this.language, this.URI)

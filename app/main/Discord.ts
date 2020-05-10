@@ -1,4 +1,3 @@
-//@ts-ignore Type definitions for DRP not available
 import DRP from 'discord-rich-presence'
 import APP_VERSION from '../shared/app_version'
 
