@@ -5,7 +5,6 @@
 import Stack from '../Utilities/Stack'
 import Json from './Json'
 import Provider from '../autoCompletions/Provider'
-import PluginEnv from '../plugins/PluginEnv'
 import TabSystem from '../TabSystem'
 import { JSONAction } from '../TabSystem/CommonHistory'
 import FileType from './FileType'
@@ -16,6 +15,7 @@ import { run } from './ScriptRunner/run'
 import { ENV } from './ScriptRunner/Validation/ENV'
 import { runValidationFile } from './ScriptRunner/Validation/runFile'
 import { canBeMinified, getCacheData } from './JSONTree/cacheUtils'
+import { trigger } from '../AppCycle/EventSystem'
 
 declare const requestIdleCallback: (func: () => void) => void
 
@@ -313,7 +313,7 @@ export default class JSONTree {
 		this.updateUUID()
 
 		//PLUGIN HOOK
-		PluginEnv.trigger('bridge:addedNode', {
+		trigger('bridge:addedNode', {
 			node: child,
 		})
 		//HISTORY
@@ -618,6 +618,7 @@ export default class JSONTree {
 		open_nodes = false,
 		open_first = true
 	) {
+		if (!data) return
 		if (data instanceof JSONTree) return data
 
 		if ((open_first && first) || open_nodes) this.open = true
@@ -648,26 +649,18 @@ export default class JSONTree {
 	}
 
 	buildForCache(): any {
-		const is_array = this.is_array
 		if (canBeMinified(this))
 			return {
 				...getCacheData(this),
 				is_minified: true,
-				children: !is_array ? this.toJSON() : undefined,
-				array: is_array ? this.toJSON() : undefined,
+				children: this.toJSON(),
 			}
 
 		return {
 			...getCacheData(this),
 			children:
-				this.children.length > 0 && !is_array
+				this.children.length > 0
 					? this.children.map(c => c.buildForCache())
-					: undefined,
-			array:
-				this.children.length > 0 && is_array
-					? this.children.map(c =>
-							c.data ? c.data : c.buildForCache()
-					  )
 					: undefined,
 		}
 	}

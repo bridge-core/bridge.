@@ -1,4 +1,3 @@
-import Bridge from '../../src/plugins/PluginEnv'
 import Store from '../index'
 import Vue from 'vue'
 import Provider from '../../src/autoCompletions/Provider'
@@ -17,26 +16,12 @@ const state = {
 }
 
 const mutations = {
-	loadPlugin(state, {
-		code,
-		path,
-		blocked
-	}) {
-		Bridge.Interpreter.execute(code, path, undefined, undefined, blocked)
-
-		//CONSOLE INFO
-		// console.groupCollapsed(path.split(/\\|\//g).pop());
-		// console.log(code);
-		// console.groupEnd();
-	},
 	unloadPlugins(state) {
 		Store.commit('resetPluginHighlights')
 		Store.commit('resetPluginWindows')
-		Bridge.hl.unregisterAll()
 		Provider.removePluginFileDefs()
 		Provider.removePluginCompletions()
 		FileType.reset()
-		Bridge.reset()
 		PluginSnippets.removeAll()
 		ThemeManager.reset()
 		PluginLoader.reset()
@@ -48,7 +33,7 @@ const mutations = {
 		Vue.set(
 			state,
 			'installed_plugins',
-			addPlugins.concat(Bridge.getPlugins())
+			addPlugins
 		)
 	},
 

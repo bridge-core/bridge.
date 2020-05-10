@@ -19,6 +19,8 @@ import { CURRENT } from '../constants'
 import { use } from '../Utilities/useAttr'
 import { parseFunction } from './functions/parse'
 import { CommandRegistry } from '../plugins/CustomCommands'
+import { updateCustomComponent } from './update/components'
+import { updateCustomCommand } from './update/commands'
 
 export interface OnSaveData {
 	file_path: string
@@ -208,3 +210,5 @@ BridgeCore.setSaveHandler('item', ItemHandler)
 BridgeCore.setSaveHandler('entity_tag', TagHandler)
 BridgeCore.setSaveHandler('bridge_map_area', MapAreaHandler)
 BridgeCore.setTextSaveHandler('function', parseFunction)
+BridgeCore.setTextSaveHandler('custom_component', updateCustomComponent)
+BridgeCore.setTextSaveHandler('custom_command', updateCustomCommand)

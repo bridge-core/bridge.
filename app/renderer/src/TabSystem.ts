@@ -5,7 +5,6 @@ import Store from '../store/index'
 import EventBus from './EventBus'
 import { Format } from './editor/Json'
 import FileSystem from './FileSystem'
-import PluginEnv from './plugins/PluginEnv'
 import JSONTree from './editor/JsonTree'
 import LoadingWindow from '../windows/LoadingWindow'
 import { History } from './TabSystem/CommonHistory'
@@ -19,6 +18,7 @@ import CloseUnsavedTab from '../windows/CloseUnsavedTab'
 import { useCache } from './Project/NoCacheConfig'
 import { getFolderDiff } from './files/DiffPaths'
 import { editor, Uri } from 'monaco-editor'
+import { trigger } from './AppCycle/EventSystem'
 
 export interface Tab {
 	file_name: string
@@ -372,7 +372,7 @@ class TabSystem {
 			let sel = this.getSelected()
 
 			//PLUGIN TRIGGER
-			PluginEnv.trigger(
+			trigger(
 				'bridge:changedTab',
 				{
 					file_path: sel.file_path,
@@ -397,7 +397,7 @@ class TabSystem {
 		EventBus.trigger('updateFileNavigation', str_path)
 
 		try {
-			PluginEnv.trigger(
+			trigger(
 				'bridge:selectedNode',
 				{ node: this.getSelected().content.get(str_path) },
 				true
@@ -500,28 +500,13 @@ class TabSystem {
 
 	//SAVING
 	async getSaveContent(current: any, update_cache = true) {
-		let ext = path.extname(current.file_path)
 		let format_version: FormatVersion = 0
 		if (current.content instanceof JSONTree) format_version = 1
 		if (current.file_uuid === undefined) current.file_uuid = uuid()
 
 		//bridgeCore needs to be triggered before caches are saved
 		let data = await this.transformContent(
-			PluginEnv.trigger(
-				'bridge:saveFile',
-				{
-					...current,
-					file_path: current.file_path.replace(/\\/g, '/'),
-					content:
-						current.content instanceof JSONTree
-							? new JSONTree('global').buildFromObject(
-									current.content
-							  )
-							: current.content,
-					file_extension: ext,
-				},
-				true
-			).content,
+			current.content,
 			current.raw_content,
 			undefined,
 			current.file_uuid
@@ -549,7 +534,7 @@ class TabSystem {
 		update_cache = true
 	) {
 		let win = new LoadingWindow('save-file').show()
-		PluginEnv.trigger('bridge:startedSaving', null)
+		trigger('bridge:startedSaving')
 		let current = this.getSelected()
 		if (
 			current === undefined ||
@@ -564,7 +549,6 @@ class TabSystem {
 
 		//Load .no-cache file
 		const shouldBeCached = await useCache(current.file_path)
-		console.log(shouldBeCached)
 		if (!shouldBeCached) {
 			FileSystem[fsMethod](
 				current.file_path,

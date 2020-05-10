@@ -3,7 +3,7 @@ import { JSONFileMasks, JSONMask } from '../editor/JSONFileMasks'
 import InformationWindow from '../UI/Windows/Common/Information'
 import EventBus from '../EventBus'
 import { use } from '../Utilities/useAttr'
-import { detachMerge, PUSH_ONCE } from '../Utilities/mergeUtils'
+import { detachMerge } from '../Utilities/mergeUtils'
 import LightningCache from '../editor/LightningCache'
 import FileType from '../editor/FileType'
 
@@ -22,7 +22,7 @@ export class BridgeComponent {
 
 export default class ComponentRegistry {
 	static components: { [s: string]: BridgeComponent } = {}
-	static register_updates: string[] = []
+	static registerUpdates = new Set<string>()
 
 	static async register(Component: BridgeComponentClass) {
 		let name = Component.component_name
@@ -42,12 +42,12 @@ export default class ComponentRegistry {
 			name,
 			true
 		)
-		this.register_updates = PUSH_ONCE(this.register_updates, refs)
+		refs.forEach(ref => this.registerUpdates.add(ref))
 	}
-	static async registerUpdates() {
-		for (let f of this.register_updates) await JSONFileMasks.apply(f)
+	static async updateFiles() {
+		for (let f of this.registerUpdates) await JSONFileMasks.apply(f)
 
-		this.register_updates = []
+		this.registerUpdates.clear()
 	}
 	static async reset() {
 		this.components = {}

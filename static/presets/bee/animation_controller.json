@@ -1,0 +1,50 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.{{IDENTIFIER}}.drip": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "dripping": "query.is_powered"
+            }
+          ]
+        },
+        "dripping": {
+          "particle_effects": [
+            {
+              "effect": "nectar_dripping"
+            }
+          ],
+          "transitions": [
+            {
+              "default": "!query.is_powered"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.{{IDENTIFIER}}.sting": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [ "{{IDENTIFIER}}_sting" ]
+        }
+      }
+    },
+    "controller.animation.{{IDENTIFIER}}.root": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "flying",
+            "drip",
+            "{{IDENTIFIER}}_fly_bobbing",
+            "controller_{{IDENTIFIER}}_sting"
+          ]
+        }
+      }
+    }
+  }
+}

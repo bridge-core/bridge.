@@ -1,0 +1,37 @@
+//bridge-file-version: #0
+{
+	"format_version": "1.8.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}",
+			"materials": {
+				"default": "bat"
+			},
+			"textures": {
+				"default": "textures/entity/{{IDENTIFIER}}"
+			},
+			"geometry": {
+				"default": "geometry.{{IDENTIFIER}}"
+			},
+			"scripts": {
+				"scale": 0.35
+			},
+			"animations": {
+				"resting": "animation.{{IDENTIFIER}}.resting",
+				"flying": "animation.{{IDENTIFIER}}.flying"
+			},
+			"animation_controllers": [
+				{
+					"move": "controller.animation.{{IDENTIFIER}}.move"
+				}
+			],
+			"render_controllers": [
+				"controller.render.{{IDENTIFIER}}"
+			],
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
+		}
+	}
+}

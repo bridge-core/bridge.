@@ -6,13 +6,17 @@ import { getModelId } from '../Model/getModelId'
 export async function createClientEntity(filePath: string) {
 	let {
 		'minecraft:client_entity': {
-			description: { animations, textures, geometry } = {},
+			description: { animations, textures, geometry } = {
+				animations: {},
+				textures: {},
+				geometry: {},
+			},
 		} = {},
 	} = (await readJSON(filePath)) as IClientEntity
 
 	const geometryMap = new Map(
 		await Promise.all(
-			Object.entries(geometry ?? {}).map(async ([name, id]) => {
+			Object.entries(geometry).map(async ([name, id]) => {
 				let [modelFile] = await FetchDefinitions.fetchSingle(
 					'entity_model',
 					['identifiers'],

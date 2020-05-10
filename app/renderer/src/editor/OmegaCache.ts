@@ -8,7 +8,6 @@ import fse from 'fs-extra'
 import path from 'path'
 import mkdirp from 'mkdirp'
 import FileType from './FileType'
-import PluginEnv from '../plugins/PluginEnv'
 import { readJSON } from '../Utilities/JsonFS'
 import JSONTree from './JsonTree'
 import { uuid } from '../Utilities/useAttr'
@@ -163,10 +162,8 @@ export default class OmegaCache {
 					this.toCachePath(file_path),
 					JSON.stringify(
 						{
-							...PluginEnv.trigger('bridge:cacheFile', {
-								file_path,
-								file_type: FileType.get(file_path),
-							}),
+							file_path,
+							file_type: FileType.get(file_path),
 							...data,
 						},
 						null,
@@ -200,11 +197,17 @@ export default class OmegaCache {
 
 		try {
 			await fsp.mkdir(path.dirname(new_path), { recursive: true })
-			await fse.move(
+		} catch {}
+
+		try {
+			await fsp.copyFile(
 				this.toCachePath(old_path),
 				this.toCachePath(new_path)
 			)
-		} catch {}
+			this.clear(old_path)
+		} catch (e) {
+			console.error(e)
+		}
 	}
 	static async duplicate(what: string, as: string) {
 		if (!this.mayBeCached(as)) return

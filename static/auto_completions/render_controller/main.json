@@ -8,40 +8,42 @@
             "ignore_lighting" : "$general.boolean",
 
             "color": {
-                "r": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "g": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "b": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "a": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                "r": "$molang.embedded",
+                "g": "$molang.embedded",
+                "b": "$molang.embedded",
+                "a": "$molang.embedded"
             },
             "overlay_color": {
-                "r": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "g": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "b": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "a": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                "r": "$molang.embedded",
+                "g": "$molang.embedded",
+                "b": "$molang.embedded",
+                "a": "$molang.embedded"
             },
             "is_hurt_color": {
-                "r": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "g": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "b": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "a": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                "r": "$molang.embedded",
+                "g": "$molang.embedded",
+                "b": "$molang.embedded",
+                "a": "$molang.embedded"
             },
             "on_fire_color": {
-                "r": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "g": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "b": "$molang.general.boolean and ('query.' + $molang.general.query)",
-                "a": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                "r": "$molang.embedded",
+                "g": "$molang.embedded",
+                "b": "$molang.embedded",
+                "a": "$molang.embedded"
             },
             "uv_anim": {
                 "offset": {
                     "$dynamic.list.index_pair": {
-                        "@meta": { "is_molang": true },
-                        "@import.value.query": "$general.number and $molang.general.boolean and ('query.' + $molang.general.query)"
+                        "@import.value.numbers": "$general.number",
+                        "$load": "$molang.embedded",
+                        "@meta": { "validate": null }
                     }
                 },
                 "scale": {
                     "$dynamic.list.index_pair": {
-                        "@meta": { "is_molang": true },
-                        "@import.value.query": "$general.number and $molang.general.boolean and ('query.' + $molang.general.query)"
+                        "@import.value.numbers": "$general.number",
+                        "$load": "$molang.embedded",
+                        "@meta": { "validate": null }
                     }
                 }
             },
@@ -74,41 +76,31 @@
             },
 
             "geometry": {
-                "@meta": { "is_molang": true },
                 "@import.value.geometry_ref": "$render_controller.general.geometry_ref",
-                "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                "$load": "$molang.embedded"
             },
             "part_visibility": {
                 "$dynamic.list.next_index": {
-                    "*": {
-                        "@meta": { "is_molang": true },
-                        "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
-                    },
-                    "$placeholder": {
-                        "@meta": { "is_molang": true },
-                        "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
-                    }
+                    "*": "$molang.embedded",
+                    "$placeholder": "$molang.embedded"
                 }
             },
             "materials": {
                 "$dynamic.list.next_index": {
                     "*": {
-                        "@meta": { "is_molang": true },
                         "@import.value.material_ref": "$render_controller.general.material_ref",
-                        "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                        "$load": "$molang.embedded"
                     },
                     "$placeholder": {
-                        "@meta": { "is_molang": true },
                         "@import.value.material_ref": "$render_controller.general.material_ref",
-                        "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                        "$load": "$molang.embedded"
                     }
                 }
             },
             "textures": {
                 "$dynamic.list.next_index": {
-                    "@meta": { "is_molang": true },
                     "@import.value.texture_ref": "$render_controller.general.texture_ref",
-                    "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
+                    "$load": "$molang.embedded"
                 }
             }
         }

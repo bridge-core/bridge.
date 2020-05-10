@@ -41,7 +41,7 @@
 import TabSystem from '../../../TabSystem'
 import JSONTree from '../../../editor/JsonTree'
 import EventBus from '../../../EventBus'
-import PluginEnv from '../../../plugins/PluginEnv'
+import { trigger } from '../../../AppCycle/EventSystem'
 import { JSONAction } from '../../../TabSystem/CommonHistory'
 
 export default {
@@ -147,7 +147,7 @@ export default {
 					this.navigationBack()
 
 				//PLUGIN HOOK
-				PluginEnv.trigger('bridge:modifiedNode', {
+				trigger('bridge:modifiedNode', {
 					node: current,
 				})
 			} else if (this.type === 'edit') {
@@ -171,7 +171,7 @@ export default {
 				}
 
 				//PLUGIN HOOK
-				PluginEnv.trigger('bridge:modifiedNode', {
+				trigger('bridge:modifiedNode', {
 					node: current,
 				})
 			}
@@ -201,7 +201,7 @@ export default {
 
 			//PLUGIN HOOK
 			let propose = current.propose(this.file_navigation)
-			PluginEnv.trigger('bridge:beforePropose', {
+			trigger('bridge:beforePropose', {
 				propose,
 				node: current,
 			})

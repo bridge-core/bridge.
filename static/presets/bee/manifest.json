@@ -1,0 +1,27 @@
+//bridge-file-version: #0
+{
+	"display_name": "Bee",
+	"description": "Creates a new bee entity.",
+	"icon": "mdi-bee",
+	"bp_map": {
+		"entity.json": "entities/",
+		"loot_table.json": "loot_tables/entities/",
+		"spawn_rule.json": "spawn_rules/"
+	},
+	"rp_map": {
+		"client_entity.json": "entity/",
+		"geometry.json": "models/entity/",
+		"animation.json": "animations/",
+		"animation_controller.json": "animation_controllers/",
+		"render_controller.json": "render_controllers/"
+	},
+	"expand_rp_files": {
+		"en_US.lang": "texts/en_US.lang"
+	},
+	"copy_rp_files": {
+		"texture.png": "textures/entity/{{IDENTIFIER}}/",
+		"texture_angry.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_angry.png",
+		"texture_angry_nectar.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_angry_nectar.png",
+		"texture_nectar.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_nectar.png"
+	}
+}

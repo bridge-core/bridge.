@@ -1,8 +1,8 @@
 /**
  * Trigger and react to events
  */
-import { IDisposable } from '../../src/Types/disposable'
 import uuid from 'uuid/v4'
+import { IDisposable } from '../Types/disposable'
 
 interface IEventState {
 	[event: string]: {

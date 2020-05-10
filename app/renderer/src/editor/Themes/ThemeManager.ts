@@ -25,7 +25,15 @@ export interface IThemeOptions {
 }
 export interface IThemeColors {
 	highlighter: IThemeHighlighter
-	[c: string]: string | IThemeHighlighter
+	monaco?: {
+		[c: string]: string
+	}
+	[c: string]:
+		| string
+		| IThemeHighlighter
+		| {
+				[c: string]: string
+		  }
 }
 export interface IThemeHighlighter {
 	[id: string]: {
@@ -70,6 +78,10 @@ export default class ThemeManager {
 	static plugin_themes: any = {}
 	static current_theme: string
 	static options: IThemeOptions
+
+	static reloadDefaultThemes() {
+		this.themes = getDefaultThemes()
+	}
 
 	static get theme_names() {
 		let theme_names = []

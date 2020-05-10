@@ -1,0 +1,41 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}",
+      "materials": { "default": "bee" },
+      "textures": {
+        "default": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}",
+        "angry": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_angry",
+        "nectar": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_nectar",
+        "angry_nectar": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_angry_nectar"
+      },
+      "geometry": {
+        "default": "geometry.{{IDENTIFIER}}"
+      },
+      "animations": {
+        "flying": "animation.{{IDENTIFIER}}.flying",
+        "drip": "controller.animation.{{IDENTIFIER}}.drip",
+        "controller_{{IDENTIFIER}}_sting": "controller.animation.{{IDENTIFIER}}.sting",
+        "{{IDENTIFIER}}_sting": "animation.{{IDENTIFIER}}.sting",
+        "{{IDENTIFIER}}_no_stinger": "animation.{{IDENTIFIER}}.no_stinger",
+        "{{IDENTIFIER}}_fly_bobbing": "animation.{{IDENTIFIER}}.fly.bobbing",
+        "{{IDENTIFIER}}_root_controller": "controller.animation.{{IDENTIFIER}}.root"
+      },      
+      "particle_effects": {
+        "nectar_dripping": "minecraft:nectar_drip_particle"
+      },
+      "scripts": {
+        "animate": [
+          "{{IDENTIFIER}}_root_controller",
+          { "{{IDENTIFIER}}_no_stinger": "query.mark_variant == 1" }
+        ]
+      },
+      "render_controllers": [ "controller.render.{{IDENTIFIER}}" ],
+      "spawn_egg": {
+        "overlay_color": "#43241B",
+        "base_color": "#EDC343"
+      }
+    }
+  }
+}

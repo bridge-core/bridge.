@@ -1,11 +1,9 @@
 import { promises as fs } from 'fs'
-import mkdirp from 'mkdirp'
 import Store from '../store/index'
 import Vue from '../main'
 import TabSystem from './TabSystem'
 import { ipcRenderer } from 'electron'
 import JSONTree from './editor/JsonTree'
-import PluginEnv from './plugins/PluginEnv'
 import path from 'path'
 import OmegaCache from './editor/OmegaCache'
 import ConfirmWindow from './UI/Windows/Common/Confirm'
@@ -13,6 +11,7 @@ import InformationWindow from './UI/Windows/Common/Information'
 import { readJSON } from './Utilities/JsonFS'
 import { stripFileVersion } from './Utilities/FileVersioning'
 import { useCache } from './Project/NoCacheConfig'
+import { trigger } from './AppCycle/EventSystem'
 
 export default class FileSystem {
 	static get Cache() {
@@ -29,7 +28,7 @@ export default class FileSystem {
 
 		if (update) Vue.$root.$emit('refreshExplorer')
 		if (open) this.addAsTab(file_path, content, undefined, content)
-		PluginEnv.trigger('bridge:finishedSaving', file_path, true, false)
+		trigger('bridge:finishedSaving', file_path, true, false)
 	}
 	static async basicSave(
 		path: string,
@@ -46,7 +45,7 @@ export default class FileSystem {
 
 		if (update) Vue.$root.$emit('refreshExplorer')
 		if (open) this.addAsTab(path, content, 0, content)
-		PluginEnv.trigger('bridge:finishedSaving', path, true, false)
+		trigger('bridge:finishedSaving', path, true, false)
 	}
 	static basicSaveAs(
 		path: string,
