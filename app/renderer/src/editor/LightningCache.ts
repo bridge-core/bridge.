@@ -19,7 +19,7 @@ import EventBus from '../EventBus'
 function toUnifiedObj(obj: any) {
 	let tmp = []
 	for (let key in obj) {
-		tmp.push(obj[key])
+		if (obj[key]) tmp.push(obj[key])
 	}
 
 	if (tmp.length > 0)
