@@ -10,7 +10,6 @@
 | ```entity``` | BP/entities
 | ```feature``` | BP/features
 | ```feature_rule``` | BP/feature_rules
-| ```function_tick``` | BP/functions/tick.json
 | ```function``` | BP/functions
 | ```item``` | BP/items
 | ```lang_def``` | BP/texts/languages.json
@@ -21,6 +20,12 @@
 | ```spawn_rule``` | BP/spawn_rules
 | ```trade_table``` | BP/trading
 
+### Single Instance BP Files
+| File Type | Description 
+| --- | --- 
+| ```lang_def``` | RP/texts/languages.json
+| ```function_tick``` | BP/functions/tick.json
+
 ### RP
 | File Type | Description 
 | --- | --- 
@@ -30,22 +35,20 @@
 | ```rp_animation_controller``` | RP/animation_controllers
 | ```client_entity``` | RP/entity
 | ```client_item``` | RP/items
-| ```client_lang_def``` | RP/texts/languages.json
 | ```client_lang``` | RP/texts
 | ```particle``` | RP/particles
 | ```render_controller``` | RP/render_controllers
+
 ### Single Instance RP Files
 | File Type | Description 
 | --- | --- 
-| ```item_texture``` | RP/textures/item_texture.json
-| ```terrain_texture``` | RP/textures/terrain_texture.json
+| ```client_lang_def``` | RP/texts/languages.json
 | ```sound_definition``` | RP/sounds/sound_definitions.json
 | ```item_texture``` | RP/textures/item_texture.json
 | ```terrain_texture``` | RP/textures/terrain_texture.json
 | ```client_block``` | RP/blocks.json
 | ```client_biome``` | RP/biomes_client.json
 | ```client_sound``` | RP/sounds.json
-| ```sound_definition``` | RP/sounds/sound_definitions.json
 
 ### Other
 | File Type | Description 
