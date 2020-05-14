@@ -270,7 +270,6 @@
         "maximum_count": "$general.number",
         "relative_range": "$general.boolean",
         "require_all": "$general.boolean",
-        "relative_range": "$general.boolean",
         "event_filters": "$entity.filters",
         "event": "$entity.general.event_string"
     },

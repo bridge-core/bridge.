@@ -5,6 +5,11 @@ import { CURRENT } from '../constants'
 import path from 'path'
 import { readJSON, writeJSON, readJSONSync } from '../Utilities/JsonFS'
 import SETTINGS from '../../store/Settings'
+import { on } from '../AppCycle/EventSystem'
+
+on('bridge:changedProject', () => {
+	ProjectConfig.prefix_cache = undefined
+})
 
 export default class ProjectConfig {
 	static get config_path() {

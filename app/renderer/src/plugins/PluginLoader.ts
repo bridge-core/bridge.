@@ -65,7 +65,9 @@ export default class PluginLoader {
 				(await fs.readFile(uninstalledPath)).toString()
 			)
 		} catch {
-			fs.writeFile(uninstalledPath, '[]')
+			fs.mkdir(path.join(BASE_PATH, project, 'bridge/plugins'), {
+				recursive: true,
+			}).finally(() => fs.writeFile(uninstalledPath, '[]'))
 			unloaded_plugins = []
 		}
 
@@ -133,10 +135,15 @@ export default class PluginLoader {
 		if ((await fs.lstat(plugin_path)).isFile()) {
 			if (path.extname(plugin_path) === '.js') {
 				//LEGACY PLUGINS
-				new InformationWindow(
-					'ERROR',
-					`Legacy plugins are no longer supported: "${plugin_folder}"`
+				if (
+					!unloaded_plugins.includes(
+						path.basename(plugin_path, '.js')
+					)
 				)
+					new InformationWindow(
+						'ERROR',
+						`Legacy plugins are no longer supported: "${plugin_folder}"`
+					)
 			} else if (path.extname(plugin_path) === '.zip') {
 				//Load archived plugins
 				let unzip_path = path.join(

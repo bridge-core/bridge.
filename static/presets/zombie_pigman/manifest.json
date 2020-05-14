@@ -1,7 +1,6 @@
-//bridge-file-version: #2
 {
 	"display_name":"Zombie_Pigman",
-	"description": "Creates a new zombie_pigman entity.",
+	"description": "Creates a new zombie pigman entity.",
 	"icon": "mdi-human",
 	"bp_map": {
 		"entity.json": "entities/",
