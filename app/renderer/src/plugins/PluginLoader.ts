@@ -65,7 +65,9 @@ export default class PluginLoader {
 				(await fs.readFile(uninstalledPath)).toString()
 			)
 		} catch {
-			fs.writeFile(uninstalledPath, '[]')
+			fs.mkdir(path.dirname(uninstalledPath), {
+				recursive: true,
+			}).finally(() => fs.writeFile(uninstalledPath, '[]'))
 			unloaded_plugins = []
 		}
 
