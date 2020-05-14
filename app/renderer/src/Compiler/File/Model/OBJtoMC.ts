@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs'
-import { IBoneSchema, IModelSchema } from '../../editor/Model/loadModel'
+import { IBoneSchema, IModelSchema } from '../../../editor/Model/loadModel'
 import { promisify } from 'util'
 const sizeOf = promisify(require('image-size'))
 
