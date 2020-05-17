@@ -7,7 +7,7 @@
         "heightmap", "above_top_solid"
     ],
     "variable": [
-        "worldx", "worldz", "attackTime"
+        "worldx", "worldz", "attack_time"
     ],
     "math": [ "abs", "sin", "cos", "exp", "ln", "pow", "sqrt", "random", "ceil", "round", "trunc", "floor", "mod", "min", "max", "clamp", "lerp", "lerprotate" ],
     "operator": [ "+", "-", "*", "/", "!", "&&", "||", "<", "<=", ">=", ">", "==", "!=", "=" ]
