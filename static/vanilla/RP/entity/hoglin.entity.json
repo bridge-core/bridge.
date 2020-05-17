@@ -11,8 +11,8 @@
         "default": "geometry.hoglin"
       },
       "spawn_egg": {
-        "base_color": "#ffb300",
-        "overlay_color": "#959b9b"
+        "base_color": "#C66E55",
+        "overlay_color": "#5f6464"
       },
       "scripts": {
         "pre_animation": [
@@ -24,12 +24,14 @@
       "animations": {
         "walk": "animation.hoglin.walk",
         "look_at_target": "animation.hoglin.look_at_target",
-        "attack": "animation.hoglin.attack"
+        "attack": "animation.hoglin.attack",
+        "hoglin_baby_scaling": "animation.hoglin.baby_scaling"
       },
       "animation_controllers": [
         { "look_at_target": "controller.animation.hoglin.look_at_target" },
         { "walk": "controller.animation.hoglin.walk" },
-        { "attack": "controller.animation.hoglin.attack" }
+        { "attack": "controller.animation.hoglin.attack" },
+        { "hoglin_baby_scaling": "controller.animation.hoglin.baby_scaling"}
       ],
       "render_controllers": [ "controller.render.hoglin" ]
     }

@@ -40,7 +40,8 @@
         "width": 1,
         "height": 3
       },
-      "minecraft:fire_immune": true,
+      "minecraft:fire_immune": {
+      },
       "minecraft:loot": {
         "table": "loot_tables/entities/wither_boss.json"
       },

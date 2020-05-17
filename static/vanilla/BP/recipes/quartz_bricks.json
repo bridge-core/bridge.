@@ -11,7 +11,8 @@
     ],
     "key": {
       "#": {
-          "item": "minecraft:quartz_block"
+        "item": "minecraft:quartz_block",
+        "data": 0
       }
     },
     "result": {

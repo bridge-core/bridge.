@@ -236,7 +236,16 @@
     },
     "minecraft:despawn": {
         "remove_child_entities": "$general.boolean",
-        "filters": "$entity.filters"
+        "filters": "$entity.filters",
+        "despawn_from_distance": {
+            "max_distance": "$general.number",
+            "min_distance": "$general.number"
+        },
+        "despawn_from_chance": "$general.boolean",
+        "despawn_from_inactivity": "$general.boolean",
+        "despawn_from_simulation_edge": "$general.boolean",
+        "min_range_inactivity_timer": "$general.number",
+        "min_range_random_chance": "$general.number"
     },
     "minecraft:dweller": {
         "dwelling_type": ["village"],
@@ -436,6 +445,9 @@
     "minecraft:input_ground_controlled": {},
     "minecraft:insomnia": {
         "days_until_insomnia": "$general.number"
+    },
+    "minecraft:instant_despawn": {
+        "remove_child_entities": "$general.boolean"
     },
     "minecraft:interact": {
         "interactions": {
@@ -875,6 +887,7 @@
             "$dynamic.list.next_index": {
                 "priority": "$general.number",
                 "item": "$general.item_identifier",
+                "item_aux": "$general.number",
                 "craft_into": "$general.item_identifier",
                 "max_amount": "$general.number",
                 "want_amount": "$general.number",

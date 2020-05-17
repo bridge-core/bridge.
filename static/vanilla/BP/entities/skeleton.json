@@ -18,9 +18,10 @@
       },
       "minecraft:ranged_attack": {
         "minecraft:behavior.ranged_attack": {
-          "attack_interval_min": 1,
-          "attack_interval_max": 3,
-          "attack_radius": 15
+          "priority": 0,
+          "attack_interval_min": 1.0,
+          "attack_interval_max": 3.0,
+          "attack_radius": 15.0
         },
         "minecraft:shooter": {
           "def": "minecraft:arrow"
@@ -166,25 +167,8 @@
         ]
       },
       "minecraft:despawn": {
-         "filters": {
-           "any_of": [
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
-               ]
-             },
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
-                 { "test": "random_chance", "value": 800 },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
-               ]
-             }
-           ]
-         }
-       },
+        "despawn_from_distance": {}
+      },
       "minecraft:shareables": {
         "items": [
           {
@@ -230,13 +214,13 @@
             "priority": 6
           },
           {
-            "item": "minecraft:diamond_helmet",
+            "item": "minecraft:netherite_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 0
           },
           {
-            "item": "minecraft:chainmail_helmet",
+            "item": "minecraft:diamond_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 1
@@ -248,25 +232,51 @@
             "priority": 2
           },
           {
-            "item": "minecraft:golden_helmet",
+            "item": "minecraft:chainmail_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 3
           },
           {
-            "item": "minecraft:leather_helmet",
+            "item": "minecraft:golden_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 4
           },
           {
-            "item": "minecraft:diamond_chestplate",
+            "item": "minecraft:leather_helmet",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
+          },
+          {
+            "item": "minecraft:skull",
+            "want_amount": 1,
+            "item_aux": 0,
+            "surplus_amount": 1,
+            "priority": 6
+          },
+          {
+            "item": "minecraft:skull",
+            "want_amount": 1,
+            "item_aux": 1,
+            "surplus_amount": 1,
+            "priority": 6
+          },
+          {
+            "item": "minecraft:carved_pumpkin",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 6
+          },
+          {
+            "item": "minecraft:netherite_chestplate",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 0
           },
           {
-            "item": "minecraft:chainmail_chestplate",
+            "item": "minecraft:diamond_chestplate",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 1
@@ -278,25 +288,31 @@
             "priority": 2
           },
           {
-            "item": "minecraft:golden_chestplate",
+            "item": "minecraft:chainmail_chestplate",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 3
           },
           {
-            "item": "minecraft:leather_chestplate",
+            "item": "minecraft:golden_chestplate",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 4
           },
           {
-            "item": "minecraft:diamond_leggings",
+            "item": "minecraft:leather_chestplate",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
+          },
+          {
+            "item": "minecraft:netherite_leggings",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 0
           },
           {
-            "item": "minecraft:chainmail_leggings",
+            "item": "minecraft:diamond_leggings",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 1
@@ -308,25 +324,31 @@
             "priority": 2
           },
           {
-            "item": "minecraft:golden_leggings",
+            "item": "minecraft:chainmail_leggings",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 3
           },
           {
-            "item": "minecraft:leather_leggings",
+            "item": "minecraft:golden_leggings",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 4
           },
           {
-            "item": "minecraft:diamond_boots",
+            "item": "minecraft:leather_leggings",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
+          },
+          {
+            "item": "minecraft:netherite_boots",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 0
           },
           {
-            "item": "minecraft:chainmail_boots",
+            "item": "minecraft:diamond_boots",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 1
@@ -338,29 +360,37 @@
             "priority": 2
           },
           {
-            "item": "minecraft:golden_boots",
+            "item": "minecraft:chainmail_boots",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 3
           },
           {
-            "item": "minecraft:leather_boots",
+            "item": "minecraft:golden_boots",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 4
+          },
+          {
+            "item": "minecraft:leather_boots",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 5
           }
         ]
       },
       "minecraft:behavior.ranged_attack": {
-        "attack_interval_min": 1,
-        "attack_interval_max": 3,
-        "attack_radius": 15
+        "priority": 0,
+        "attack_interval_min": 1.0,
+        "attack_interval_max": 3.0,
+        "attack_radius": 15.0
       },
       "minecraft:behavior.hurt_by_target": {
         "priority": 1
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
+        "must_see": true,
         "reselect_targets": true,
         "entity_types": [
           {
@@ -397,8 +427,7 @@
             },
             "max_dist": 16
           }
-        ],
-        "must_see": true
+        ]
       },
       "minecraft:behavior.flee_sun": {
         "priority": 2,

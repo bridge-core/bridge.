@@ -11,14 +11,27 @@
 				"visible_bounds_offset": [0, 1.5, 0]
 			},
 			"bones": [
-				{
-					"name": "body",
-					"pivot": [0, 19, -3],
-					"cubes": [
-						{"origin": [-8, 11, -7], "size": [16, 14, 26], "inflate": 0.02, "uv": [1, 1]},
-						{"origin": [0, 22, -10], "size": [0, 10, 19], "inflate": 0.02, "uv": [90, 33]}
-					]
-				},
+        {
+          "name": "body",
+          "pivot": [ 0, 19, -3 ],
+          "cubes": [
+            {
+              "origin": [ -8, 11, -7 ],
+              "size": [ 16, 14, 26 ],
+              "inflate": 0.02,
+              "uv": [ 1, 1 ]
+            },
+            {
+              "origin": [ 0, 22, -10 ],
+              "size": [ 0, 10, 19 ],
+              "inflate": 0.02,
+              "uv": [ 90, 33 ]
+            }
+          ],
+          "locators": {
+            "lead": [ 0, 20, -5 ]
+          }
+        },
 				{
 					"name": "head",
 					"parent": "body",

@@ -12,7 +12,7 @@
 
         "minecraft:spawns_on_block_prevented_filter": [
           "minecraft:nether_wart_block",
-          "minecraft:shroomlight_block"
+          "minecraft:shroomlight"
         ],
 
         "minecraft:difficulty_filter": {
@@ -30,18 +30,9 @@
         },
 
         "minecraft:biome_filter": {
-          "all_of": [
-            {
-              "test": "has_biome_tag",
-              "operator": "==",
-              "value": "nether"
-            },
-            {
-              "test": "has_biome_tag",
-              "operator": "==",
-              "value": "spawn_zombified_piglin"
-            }
-          ]
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "spawn_zombified_piglin"
         }
       },
       {
@@ -50,7 +41,7 @@
 
         "minecraft:spawns_on_block_prevented_filter": [
           "minecraft:nether_wart_block",
-          "minecraft:shroomlight_block"
+          "minecraft:shroomlight"
         ],
 
         "minecraft:difficulty_filter": {
@@ -59,7 +50,7 @@
         },
 
         "minecraft:weight": {
-          "default": 50
+          "default": 1
         },
 
         "minecraft:herd": {
@@ -70,7 +61,7 @@
         "minecraft:biome_filter": {
           "test": "has_biome_tag",
           "operator": "==",
-          "value": "crimson_forest"
+          "value": "spawn_few_zombified_piglins"
         }
       }
     ]

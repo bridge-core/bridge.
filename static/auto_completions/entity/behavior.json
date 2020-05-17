@@ -141,8 +141,7 @@
         "attack_duration": "$general.decimal",
         "hit_delay_pct": "$general.decimal",
         "track_target": "$general.boolean",
-        "sound_event": "$general.sound",
-        "hit_delay_pct": "$general.decimal"
+        "sound_event": "$general.sound"
     },
     "minecraft:behavior.door_interact": {
         "priority": "$general.number"

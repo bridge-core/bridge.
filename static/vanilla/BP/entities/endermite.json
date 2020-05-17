@@ -55,25 +55,8 @@
         "damage": 2
       },
       "minecraft:despawn": {
-         "filters": {
-           "any_of": [
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
-               ]
-             },
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
-                 { "test": "random_chance", "value": 800 },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
-               ]
-             }
-           ]
-         }
-       },
+        "despawn_from_distance": {}
+      },
       "minecraft:behavior.float": {
         "priority": 0
       },
@@ -85,7 +68,8 @@
 
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 5,
-        "within_radius": 16,
+        "must_see": true,
+        "within_radius": 16.0,
         "entity_types": [
           {
             "filters": {
@@ -104,8 +88,7 @@
             },
             "max_dist": 16
           }
-        ],
-        "must_see": true
+        ]
       },
       "minecraft:behavior.random_stroll": {
         "priority": 6,

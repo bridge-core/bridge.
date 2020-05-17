@@ -1,327 +1,253 @@
 {
-  "pools": [
-    {
-      "rolls": {
-        "min": 0.0,
-        "max": 1.0
-      },
-      "entries": [
+    "pools": [
         {
-          "type": "item",
-          "weight": 45,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.15,
-                "max": 0.45
-              }
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": 1
+                        }
+                    ],
+                    "name": "minecraft:lodestone_block"
+                }
+            ]
+        },
+        {
+            "rolls": {
+                "min": 1,
+                "max": 2
             },
-            {
-              "function": "minecraft:enchant_randomly"
-            }
-          ],
-          "name": "minecraft:netherite_shovel"
+            "entries": [
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 5,
+                                "max": 18
+                            }
+                        }
+                    ],
+                    "name": "minecraft:arrow",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 5,
+                                "max": 10
+                            }
+                        }
+                    ],
+                    "name": "minecraft:gilded_blackstone",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 3,
+                                "max": 8
+                            }
+                        }
+                    ],
+                    "name": "minecraft:crying_obsidian",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": 1
+                        }
+                    ],
+                    "name": "minecraft:gold_block",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 2,
+                                "max": 8
+                            }
+                        }
+                    ],
+                    "name": "minecraft:gold_ingot",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 2,
+                                "max": 8
+                            }
+                        }
+                    ],
+                    "name": "minecraft:iron_ingot",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": 1
+                        }
+                    ],
+                    "name": "minecraft:golden_sword",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": 1
+                        },
+                        {
+                            "function": "enchant_randomly"
+                        }
+                    ],
+                    "name": "minecraft:golden_chestplate",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": 1
+                        },
+                        {
+                            "function": "enchant_randomly"
+                        }
+                    ],
+                    "name": "minecraft:golden_helmet",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": 1
+                        },
+                        {
+                            "function": "enchant_randomly"
+                        }
+                    ],
+                    "name": "minecraft:golden_leggings",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": 1
+                        },
+                        {
+                            "function": "enchant_randomly"
+                        }
+                    ],
+                    "name": "minecraft:golden_boots",
+                    "weight": 1
+                }
+            ]
         },
         {
-          "type": "item",
-          "weight": 45,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.15,
-                "max": 0.85
-              }
+            "rolls": {
+                "min": 2,
+                "max": 4
             },
-            {
-              "function": "minecraft:enchant_randomly"
-            }
-          ],
-          "name": "minecraft:netherite_axe"
-        },
-        {
-          "type": "item",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ],
-          "name": "minecraft:ancient_debris"
+            "entries": [
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 6
+                            }
+                        }
+                    ],
+                    "name": "minecraft:string",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 3
+                            }
+                        }
+                    ],
+                    "name": "minecraft:leather",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 5,
+                                "max": 17
+                            }
+                        }
+                    ],
+                    "name": "minecraft:arrow",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 2,
+                                "max": 6
+                            }
+                        }
+                    ],
+                    "name": "minecraft:iron_nugget",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 2,
+                                "max": 6
+                            }
+                        }
+                    ],
+                    "name": "minecraft:gold_nugget",
+                    "weight": 1
+                }
+            ]
         }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 1.0,
-        "max": 2.0
-      },
-      "entries": [
-        {
-          "type": "item",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "minecraft:set_damage",
-              "damage": {
-                "min": 0.05,
-                "max": 0.15
-              }
-            },
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "min": 20.0,
-                "max": 25.0
-              },
-              "treasure": true
-            }
-          ],
-          "name": "minecraft:crossbow"
-        },
-        {
-          "type": "item",
-          "weight": 25,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 2.0,
-                "max": 8.0
-              }
-            }
-          ],
-          "name": "minecraft:gold_ingot"
-        },
-        {
-          "type": "item",
-          "weight": 25,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ],
-          "name": "minecraft:gold_block"
-        },
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ],
-          "name": "minecraft:saddle"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 2.0,
-        "max": 3.0
-      },
-      "entries": [
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 5.0
-              }
-            }
-          ],
-          "name": "minecraft:crying_obsidian"
-        },
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 3.0,
-                "max": 20.0
-              }
-            }
-          ],
-          "name": "minecraft:spectral_arrow"
-        },
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ],
-          "name": "minecraft:golden_sword"
-        },
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ],
-          "name": "minecraft:golden_chestplate"
-        },
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ],
-          "name": "minecraft:golden_helmet"
-        },
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ],
-          "name": "minecraft:golden_leggings"
-        },
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            },
-            {
-              "function": "minecraft:enchant_randomly"
-            }
-          ],
-          "name": "minecraft:golden_boots"
-        },
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 2.0,
-                "max": 6.0
-              }
-            }
-          ],
-          "name": "minecraft:iron_nugget"
-        },
-        {
-          "type": "item",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 2.0,
-                "max": 6.0
-              }
-            }
-          ],
-          "name": "minecraft:gold_nugget"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 3.0,
-        "max": 4.0
-      },
-      "entries": [
-        {
-          "type": "item",
-          "weight": 25,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 6.0
-              }
-            }
-          ],
-          "name": "minecraft:basalt"
-        },
-        {
-          "type": "item",
-          "weight": 25,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 6.0
-              }
-            }
-          ],
-          "name": "minecraft:polished_basalt"
-        },
-        {
-          "type": "item",
-          "weight": 25,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 6.0
-              }
-            }
-          ],
-          "name": "minecraft:string"
-        },
-        {
-          "type": "item",
-          "weight": 20,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0
-              }
-            }
-          ],
-          "name": "minecraft:leather"
-        },
-        {
-          "type": "item",
-          "weight": 35,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 2.0,
-                "max": 7.0
-              }
-            }
-          ],
-          "name": "minecraft:arrow"
-        },
-        {
-          "type": "item",
-          "weight": 20,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 3.0,
-                "max": 8.0
-              }
-            }
-          ],
-          "name": "minecraft:string"
-        }
-      ]
-    }
-  ]
+    ]
 }

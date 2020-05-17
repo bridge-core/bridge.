@@ -213,13 +213,13 @@
             "priority": 0
           },
           {
-            "item": "minecraft:chainmail_helmet",
+            "item": "minecraft:iron_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 1
           },
           {
-            "item": "minecraft:iron_helmet",
+            "item": "minecraft:chainmail_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 2
@@ -243,13 +243,13 @@
             "priority": 0
           },
           {
-            "item": "minecraft:chainmail_chestplate",
+            "item": "minecraft:iron_chestplate",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 1
           },
           {
-            "item": "minecraft:iron_chestplate",
+            "item": "minecraft:chainmail_chestplate",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 2
@@ -273,13 +273,13 @@
             "priority": 0
           },
           {
-            "item": "minecraft:chainmail_leggings",
+            "item": "minecraft:iron_leggings",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 1
           },
           {
-            "item": "minecraft:iron_leggings",
+            "item": "minecraft:chainmail_leggings",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 2
@@ -303,13 +303,13 @@
             "priority": 0
           },
           {
-            "item": "minecraft:chainmail_boots",
+            "item": "minecraft:iron_boots",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 1
           },
           {
-            "item": "minecraft:iron_boots",
+            "item": "minecraft:chainmail_boots",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 2
@@ -342,25 +342,8 @@
         ]
       },
       "minecraft:despawn": {
-         "filters": {
-           "any_of": [
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
-               ]
-             },
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
-                 { "test": "random_chance", "value": 800 },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
-               ]
-             }
-           ]
-         }
-       },
+        "despawn_from_distance": {}
+      },
       // Zombie_husk Behaviors
       "minecraft:behavior.equip_item": {
         "priority": 2
@@ -405,8 +388,9 @@
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
-        "within_radius": 25,
+        "must_see": true,
         "reselect_targets": true,
+        "within_radius": 25.0,
         "entity_types": [
           {
             "filters": {
@@ -437,8 +421,7 @@
             },
             "max_dist": 35
           }
-        ],
-        "must_see": true
+        ]
       },
       "minecraft:physics": {
       },

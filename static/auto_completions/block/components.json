@@ -2,7 +2,7 @@
     "minecraft:destroy_time": "$general.decimal",
     "minecraft:block_light_emission": "$general.decimal",
     "minecraft:block_light_absorption": "$general.decimal",
-    "minecraft:map_color": { "@meta": { "is_value": true } },
+    "minecraft:map_color": { "@meta": { "is_value": true, "is_color": true } },
     "minecraft:flammable": {
         "burn_odds": "$general.decimal",
         "flame_odds": "$general.decimal"
