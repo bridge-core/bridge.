@@ -169,11 +169,8 @@ export default class LightningCache {
 		let except
 		//LOAD DIFFERENT DEF OPTIONS
 		if (!Array.isArray(defs)) {
-			if (defs.as !== undefined) {
-				type = defs.as
-				defs = defs.definitions
-			} else if (defs.load !== undefined) {
-				type = defs.load
+			if (defs.load !== undefined) {
+				type = defs.as ?? defs.load
 				except = defs.except
 				defs =
 					(await FileType.getLightningCacheDefs(
@@ -186,6 +183,9 @@ export default class LightningCache {
 						"Deeply nesting cache definitions isn't supported yet!"
 					)
 				}
+			} else if (defs.as !== undefined) {
+				type = defs.as
+				defs = defs.definitions
 			}
 		}
 
