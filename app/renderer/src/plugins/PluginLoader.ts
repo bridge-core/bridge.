@@ -99,19 +99,18 @@ export default class PluginLoader {
 			)
 		)
 		await ThemeManager.loadTheme()
-		//LOAD CUSTOM COMPONENENTS IN PROJECT
-		this.loadComponents(CURRENT.PROJECT_PATH)
-		//UPDATE COMPONENT REFERENCES
-		await ComponentRegistry.updateFiles()
 
-		//LOAD CUSTOM COMMANDS IN PROJECT
-		try {
-			await loadCustomCommands(
+		await Promise.all([
+			//LOAD CUSTOM COMPONENENTS IN PROJECT
+			this.loadComponents(CURRENT.PROJECT_PATH).then(() =>
+				ComponentRegistry.updateFiles()
+			),
+
+			//LOAD CUSTOM COMMANDS IN PROJECT
+			loadCustomCommands(
 				path.join(CURRENT.PROJECT_PATH, 'commands')
-			)
-		} catch {}
-		//UPDATE COMMAND REFERENCES
-		updateCommandFiles()
+			).then(() => updateCommandFiles()),
+		])
 
 		//Update Monaco Language services
 		await FileType.registerMonacoLanguages()
