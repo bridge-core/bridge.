@@ -21,16 +21,20 @@ export abstract class BridgeCommand {
 }
 
 export async function loadCustomCommands(folderPath: string) {
-	const data = await fs.readdir(folderPath, { withFileTypes: true })
+	try {
+		const data = await fs.readdir(folderPath, { withFileTypes: true })
 
-	await Promise.all(
-		data.map(async dirent => {
-			if (dirent.isDirectory())
-				return await loadCustomCommands(join(folderPath, dirent.name))
+		await Promise.all(
+			data.map(async dirent => {
+				if (dirent.isDirectory())
+					return await loadCustomCommands(
+						join(folderPath, dirent.name)
+					)
 
-			await registerCustomCommand(join(folderPath, dirent.name))
-		})
-	)
+				await registerCustomCommand(join(folderPath, dirent.name))
+			})
+		)
+	} catch {}
 }
 
 export async function registerCustomCommand(

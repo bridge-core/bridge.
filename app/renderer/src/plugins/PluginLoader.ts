@@ -199,7 +199,7 @@ export default class PluginLoader {
 					this.loadAutoCompletions(plugin_path),
 					this.loadThemeCSS(plugin_path),
 					loadCustomCommands(path.join(plugin_path, 'commands')),
-				]).catch(e => {})
+				]).catch(console.error)
 				addLoadLocation(path.join(plugin_path, 'presets'))
 			}
 			PLUGIN_DATA.push(manifest)
