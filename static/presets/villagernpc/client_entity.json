@@ -1,0 +1,45 @@
+//bridge-file-version: #0
+{
+	"format_version": "1.8.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}",
+			"materials": {
+				"default": "villager"
+			},
+			"textures": {
+				"default": "textures/entity/{{IDENTIFIER}}"
+			},
+			"geometry": {
+				"default": "geometry.{{IDENTIFIER}}"
+			},
+			"scripts": {
+				"scale": 1
+			},
+			"animations": {
+				"general": "animation.{{IDENTIFIER}}.general",
+				"look_at_target": "animation.common.look_at_target",
+				"raise_arms": "animation.{{IDENTIFIER}}.raise_arms",
+				"move": "animation.{{IDENTIFIER}}.move"
+			},
+			"animation_controllers": [
+				{
+					"general": "controller.animation.{{IDENTIFIER}}.general"
+				},
+				{
+					"raise_arms": "controller.animation.{{IDENTIFIER}}_v2.raise_arms"
+				},
+				{
+					"move": "controller.animation.{{IDENTIFIER}}.move"
+				}
+			],
+			"render_controllers": [
+				"controller.render.{{IDENTIFIER}}"
+			],
+			"spawn_egg": {
+				"base_color": "#53443E",
+				"overlay_color": "#2E6854"
+			}
+		}
+	}
+}
