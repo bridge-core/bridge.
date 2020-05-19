@@ -26,10 +26,10 @@
         { "flame": "controller.animation.{{IDENTIFIER}}.flame" }
       ],
       "render_controllers": [ "controller.render.{{IDENTIFIER}}" ],
-      "spawn_egg": {
-        "texture": "spawn_egg",
-        "texture_index": 21
-      }
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
     }
   }
 }
