@@ -1,19 +1,22 @@
-import { CommandRegistry } from '../../plugins/CustomCommands'
-import { toCorrectType } from '../../editor/Json'
+import {
+	CommandRegistry,
+	parseCommandArguments,
+	UsedSelectors,
+} from '../../plugins/CustomCommands'
 import LightningCache from '../../editor/LightningCache'
 
 export async function parseFunction(str: string, filePath: string) {
-	const commands: string[] = []
+	const commands = new Set<string>()
 	const lines = str.split('\n').map(l => {
 		for (let [commandName, command] of CommandRegistry) {
-			if (l.startsWith(`${commandName}`)) {
-				commands.push(commandName)
+			if (l[0] === '#') continue
 
-				const [_, ...args] = l.split(' ')
+			if (l.startsWith(`${commandName}`)) {
+				commands.add(commandName)
+
+				const [_, ...args] = splitCommand(l)
 				const applyData = command.onApply(
-					args
-						.filter(arg => arg !== '')
-						.map(arg => toCorrectType(arg))
+					parseCommandArguments(args.filter(arg => arg !== ''))
 				)
 				return Array.isArray(applyData)
 					? applyData.join('\n')
@@ -21,9 +24,38 @@ export async function parseFunction(str: string, filePath: string) {
 			}
 		}
 
-		return l
+		const [command, ...args] = splitCommand(l)
+
+		return `${command} ${parseCommandArguments(
+			args.filter(arg => arg !== ''),
+			false
+		).join(' ')}`
 	})
 
-	await LightningCache.setPlainData(filePath, { custom_commands: commands })
+	await LightningCache.setPlainData(filePath, {
+		custom_commands: Array.from(commands).concat(Array.from(UsedSelectors)),
+	})
+	UsedSelectors.clear()
 	return lines.join('\n')
+}
+
+export function splitCommand(command: string) {
+	let i = 0
+	let lastSplit = 0
+	let squareBracket = 0
+	let res: string[] = []
+
+	while (i < command.length) {
+		const char = command[i++]
+		if (char === '[') squareBracket++
+		else if (char === ']') squareBracket--
+		else if (char === ' ' && squareBracket === 0) {
+			res.push(command.substring(lastSplit, i - 1))
+			lastSplit = i
+		}
+	}
+
+	res.push(command.substring(lastSplit, command.length))
+
+	return res
 }

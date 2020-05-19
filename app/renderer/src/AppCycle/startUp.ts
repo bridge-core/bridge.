@@ -8,6 +8,7 @@ import { setupDefaultMenus } from '../UI/Toolbar/setupDefaults'
 import { createNotification } from '../UI/Footer/create'
 import './DropFile'
 import './ResizeWatcher'
+import './Errors'
 
 export default async function startUp() {
 	SETTINGS.setup()

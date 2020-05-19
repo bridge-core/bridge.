@@ -32,10 +32,10 @@
         ]
       },
       "render_controllers": [ "controller.render.{{IDENTIFIER}}" ],
-      "spawn_egg": {
-        "overlay_color": "#43241B",
-        "base_color": "#EDC343"
-      }
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
     }
   }
 }

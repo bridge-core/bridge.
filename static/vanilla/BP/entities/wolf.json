@@ -121,6 +121,7 @@
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 4,
           "reselect_targets": true,
+          "must_see": true,
           "entity_types": [
             {
               "filters": {
@@ -169,8 +170,7 @@
               },
               "max_dist": 16
             }
-          ],
-          "must_see": true
+          ]
         },
         "minecraft:on_target_acquired": {
           "event": "minecraft:become_angry",
@@ -219,13 +219,13 @@
         },
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 5,
+          "must_see": true,
           "entity_types": [
             {
               "filters": { "test" :  "is_family", "subject" : "other", "value" :  "skeleton"},
               "max_dist": 16
             }
-          ],
-          "must_see": true
+          ]
         },
 
         "minecraft:sittable": {
@@ -371,25 +371,8 @@
         ]
       },
       "minecraft:despawn": {
-         "filters": {
-           "any_of": [
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
-               ]
-             },
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
-                 { "test": "random_chance", "value": 800 },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
-               ]
-             }
-           ]
-         }
-       },
+        "despawn_from_distance": {}
+      },
       "minecraft:behavior.float": {
         "priority": 0
       },

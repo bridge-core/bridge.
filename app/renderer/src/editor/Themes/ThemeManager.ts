@@ -123,13 +123,16 @@ export default class ThemeManager {
 
 		const {
 			options: { inherit_highlighter } = {},
-			definition: { dark, light },
+			definition: { dark, light } = {
+				dark: { highlighter: {} },
+				light: { highlighter: {} },
+			},
 		}: ITheme = deepmerge(this.themes['bridge.default.theme'], theme)
 
 		if (!inherit_highlighter) {
-			if (theme.definition.dark.highlighter)
+			if (theme.definition?.dark?.highlighter)
 				dark.highlighter = theme.definition.dark.highlighter
-			if (theme.definition.light.highlighter)
+			if (theme.definition?.light?.highlighter)
 				light.highlighter = theme.definition.light.highlighter
 		}
 
@@ -145,7 +148,7 @@ export default class ThemeManager {
 	static async loadTheme() {
 		try {
 			this.applyTheme(await ProjectConfig.theme)
-		} catch (err) {
+		} catch {
 			this.applyTheme('bridge.default.theme')
 		}
 	}

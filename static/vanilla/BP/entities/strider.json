@@ -108,11 +108,7 @@
         },
         "minecraft:scale": {
           "value": 0.5
-        },
-        "minecraft:collision_box": {
-          "width": 0.85,
-          "height": 0.85
-        },
+        },        
         "minecraft:ageable": {
           "duration": 1200,
           "feed_items": [ "warped_fungus" ],
@@ -233,45 +229,7 @@
         "max_distance": 10.0
       },
       "minecraft:despawn": {
-        "filters": {
-          "any_of": [
-            {
-              "all_of": [
-                {
-                  "test": "is_persistent",
-                  "value": false
-                },
-                {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 54
-                }
-              ]
-            },
-            {
-              "all_of": [
-                {
-                  "test": "is_persistent",
-                  "value": false
-                },
-                {
-                  "test": "inactivity_timer",
-                  "subject": "self",
-                  "value": 30
-                },
-                {
-                  "test": "random_chance",
-                  "value": 800
-                },
-                {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 32
-                }
-              ]
-            }
-          ]
-        }
+        "despawn_from_distance": {}
       },
       "minecraft:movement": {
         "value": 0.16
@@ -293,7 +251,8 @@
         "value": 15,
         "max": 15
       },
-      "minecraft:fire_immune": true,
+      "minecraft:fire_immune": {
+      },
       "minecraft:nameable": {
       },
       "minecraft:physics": {

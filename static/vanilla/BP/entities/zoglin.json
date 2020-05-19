@@ -126,7 +126,8 @@
       },
       "minecraft:can_climb": {
       },
-      "minecraft:fire_immune": true,
+      "minecraft:fire_immune": {
+      },
       "minecraft:leashable": {
         "soft_distance": 4.0,
         "hard_distance": 6.0,

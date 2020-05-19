@@ -15,7 +15,8 @@
       }
     },
     "result": {
-      "item": "minecraft:polished_blackstone"
+      "item": "minecraft:polished_blackstone",
+      "count": 4
     }
   }
 }

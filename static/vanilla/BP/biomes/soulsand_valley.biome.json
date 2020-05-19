@@ -13,10 +13,10 @@
       },
       "minecraft:surface_parameters": {
         "sea_floor_depth": 1,
-        "sea_floor_material": "minecraft:soul_soil_block",
+        "sea_floor_material": "minecraft:soul_soil",
         "foundation_material": "minecraft:netherrack",
-        "mid_material": "minecraft:soul_soil_block",
-        "top_material": "minecraft:soul_soil_block",
+        "mid_material": "minecraft:soul_soil",
+        "top_material": "minecraft:soul_soil",
         "sea_material": "minecraft:lava"
       },
       "minecraft:surface_material_adjustments": {
@@ -49,7 +49,8 @@
 
       "nether": {},
       "soulsand_valley": {},
-      "spawn_ghast": {}
+      "spawn_ghast": {},
+      "spawn_endermen" : {}
     }
   }
 }

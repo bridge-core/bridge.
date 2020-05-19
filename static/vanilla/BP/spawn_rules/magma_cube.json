@@ -12,7 +12,7 @@
 
         "minecraft:spawns_on_block_prevented_filter": [
           "minecraft:nether_wart_block",
-          "minecraft:shroomlight_block"
+          "minecraft:shroomlight"
         ],
 
         "minecraft:difficulty_filter": {
@@ -30,18 +30,9 @@
         },
 
         "minecraft:biome_filter": {
-          "all_of": [
-            {
-              "test": "has_biome_tag",
-              "operator": "==",
-              "value": "nether"
-            },
-            {
-              "test": "has_biome_tag",
-              "operator": "==",
-              "value": "spawn_magma_cubes"
-            }
-          ]
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "spawn_magma_cubes"
         }
       },
       {
@@ -50,7 +41,7 @@
 
         "minecraft:spawns_on_block_prevented_filter": [
           "minecraft:nether_wart_block",
-          "minecraft:shroomlight_block"
+          "minecraft:shroomlight"
         ],
 
         "minecraft:difficulty_filter": {

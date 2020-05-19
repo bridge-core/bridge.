@@ -3,6 +3,10 @@
     "definitions": [
         {
             "load": "entity"
+        },
+        {
+            "load": "entity",
+            "as": "entity_tag"
         }
     ]
 }

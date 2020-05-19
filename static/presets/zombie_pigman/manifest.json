@@ -1,5 +1,5 @@
 {
-	"display_name":"Zombie_Pigman",
+	"display_name":"Zombie Pigman",
 	"description": "Creates a new zombie pigman entity.",
 	"icon": "mdi-human",
 	"bp_map": {

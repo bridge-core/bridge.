@@ -6,14 +6,8 @@
     },
     "block_sounds": {
         "normal": {
-            "volume": {
-                "@import.value.decimal": "$general.decimal",
-                "$dynamic.list.index_pair": "$general.decimal"
-            },
-            "pitch": {
-                "@import.value.decimal": "$general.decimal",
-                "$dynamic.list.index_pair": "$general.decimal"
-            },
+            "volume": "$simple.general.number_range",
+            "pitch": "$simple.general.number_range",
 
             "events": {
                 "default": "$simple.general.sound_object",
@@ -29,14 +23,8 @@
     },
     "entity_sounds": {
         "defaults": {
-            "volume": {
-                "@import.value.decimal": "$general.decimal",
-                "$dynamic.list.index_pair": "$general.decimal"
-            },
-            "pitch": {
-                "@import.value.decimal": "$general.decimal",
-                "$dynamic.list.index_pair": "$general.decimal"
-            },
+            "volume": "$simple.general.number_range",
+            "pitch": "$simple.general.number_range",
 
             "events": {
                 "$placeholder": "$simple.general.sound_object",
@@ -69,14 +57,8 @@
     "interactive_sounds": {
         "block_sounds": {
             "normal": {
-                "volume": {
-                    "@import.value.decimal": "$general.decimal",
-                    "$dynamic.list.index_pair": "$general.decimal"
-                },
-                "pitch": {
-                    "@import.value.decimal": "$general.decimal",
-                    "$dynamic.list.index_pair": "$general.decimal"
-                },
+                "volume": "$simple.general.number_range",
+                "pitch": "$simple.general.number_range",
 
                 "events": {
                     "default": "$simple.general.sound_object",
@@ -90,14 +72,8 @@
         },
         "entity_sounds": {
             "defaults": {
-                "volume": {
-                    "@import.value.decimal": "$general.decimal",
-                    "$dynamic.list.index_pair": "$general.decimal"
-                },
-                "pitch": {
-                    "@import.value.decimal": "$general.decimal",
-                    "$dynamic.list.index_pair": "$general.decimal"
-                },
+                "volume": "$simple.general.number_range",
+                "pitch": "$simple.general.number_range",
 
                 "events": {
                     "$placeholder": "$simple.general.sound_object",

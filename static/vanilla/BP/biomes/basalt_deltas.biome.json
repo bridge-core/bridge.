@@ -13,10 +13,10 @@
       },
       "minecraft:surface_parameters": {
         "sea_floor_depth": 1,
-        "sea_floor_material": "minecraft:basalt_block",
-        "foundation_material": "minecraft:basalt_block",
-        "mid_material": "minecraft:basalt_block",
-        "top_material": "minecraft:basalt_block",
+        "sea_floor_material": "minecraft:basalt",
+        "foundation_material": "minecraft:basalt",
+        "mid_material": "minecraft:basalt",
+        "top_material": "minecraft:basalt",
         "sea_material": "minecraft:lava"
       },
       "minecraft:surface_material_adjustments": {

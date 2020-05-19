@@ -44,10 +44,11 @@
 					{"origin": [-5, 25, -2], "size": [1, 5, 4], "uv": [57, 22]}
 				]
 			},
-			{
-				"name": "hat",
-				"pivot": [0, 24, 0]
-			},
+      {
+        "name": "hat",
+        "parent": "head",
+        "pivot": [ 0, 24, 0 ]
+      },
 			{
 				"name": "rightarm",
 				"pivot": [-5, 22, 0],
