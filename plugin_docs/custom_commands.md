@@ -6,13 +6,15 @@ bridge. allows you to define new commands that can be used in mcfunction files. 
 
 JavaScript files placed inside of this folder have access to the `Bridge` object. Available methods:
 
--   `Bridge.register`: registers a custom command. This method expects a JavaScript class with a static property `command_name` and the two instance methods `onApply(command_args)` & `onPropose()`.
+-   `Bridge.register(command: ? extends BridgeCommand)`: Registers a custom command. This method expects a JavaScript class with a static property `command_name` and the two instance methods `onApply(command_args)` & `onPropose()`.
+- `Bridge.registerSelector(selectorId: string, parser: (selector: string, selectorArgs: string[]) =>[string, string[])`: Registers a custom selector parser
+- `Bridge.insertAutoCompletions(path: string, definition: JSONObject)`: Modifies the exisiting auto-completion library
 
-### `onApply(command_args)`
+### `onApply(command_args: string[]): string | string[]`
 
 `onApply(command_args)` receives all arguments a user calls the command with (`command_args`). The method must return a string or a string array.
 
-### `onPropose()`
+### `onPropose(): JSONObject`
 
 `onPropose()` must return an auto-completion object. It should only have one property (named your custom command name) which should replicate the structure of the command. [Read more about bridge.'s auto-completion JSON format.](https://github.com/solvedDev/bridge./blob/master/plugin_docs/auto_completions/main.md)
 
