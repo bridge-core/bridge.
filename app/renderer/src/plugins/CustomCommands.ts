@@ -5,10 +5,17 @@ import { detachMerge } from '../Utilities/mergeUtils'
 import FetchDefinitions from '../editor/FetchDefinitions'
 import { BridgeCore } from '../bridgeCore/main'
 import OmegaCache from '../editor/OmegaCache'
+import { toCorrectType } from '../editor/Json'
 
+type TSelectorTransform = (
+	selector: string,
+	selectorArg: string[]
+) => [string, string[]]
 export const CommandNames: string[] = []
 export const CommandRegistry = new Map<string, BridgeCommand>()
+export const SelectorRegistry = new Map<string, TSelectorTransform>()
 const UpdateFiles = new Set<string>()
+
 export interface BridgeCommandClass {
 	command_name: string
 	new (): BridgeCommand
@@ -50,7 +57,7 @@ export async function registerCustomCommand(
 	run(
 		fileContent,
 		{
-			register: async (Command: BridgeCommandClass) => {
+			register: (Command: BridgeCommandClass) => {
 				CommandNames.push(Command.command_name)
 				CommandRegistry.set(Command.command_name, new Command())
 
@@ -59,6 +66,23 @@ export async function registerCustomCommand(
 					'function',
 					['custom_commands'],
 					Command.command_name
+				).then(fileRefs =>
+					fileRefs.forEach(filePath => UpdateFiles.add(filePath))
+				)
+				promises.push(fileRefs)
+			},
+			registerSelector: (
+				selectorKey: string,
+				func: TSelectorTransform
+			) => {
+				if (typeof func !== 'function') return
+
+				SelectorRegistry.set(`selector@${selectorKey}`, func)
+
+				const fileRefs = FetchDefinitions.fetchSingle(
+					'function',
+					['custom_commands'],
+					`selector@${selectorKey}`
 				).then(fileRefs =>
 					fileRefs.forEach(filePath => UpdateFiles.add(filePath))
 				)
@@ -100,4 +124,46 @@ export function proposeCustomCommands() {
 	})
 
 	return res
+}
+
+export function parseCommandArguments(
+	args: string[],
+	transformType = true
+): string[] | unknown[] {
+	return args.map(arg => {
+		if (arg[0] === '@') return parseSelector(arg)
+		return transformType ? toCorrectType(arg) : arg
+	})
+}
+
+export const UsedSelectors = new Set<string>()
+export function parseSelector(rawSelector: string) {
+	let selector: string = ''
+	let selectorArgs: string[] = []
+
+	const splitIndex = rawSelector.indexOf('[')
+	if (splitIndex === -1) {
+		selector = rawSelector
+	} else {
+		selector = rawSelector.substring(0, splitIndex)
+		selectorArgs = rawSelector
+			.substring(splitIndex + 1, rawSelector.length - 1)
+			.split(',')
+			.map(arg => arg.trim())
+	}
+
+	for (let [selectorKey, parse] of SelectorRegistry) {
+		const parseResult = parse(selector, selectorArgs)
+		if (
+			!Array.isArray(parseResult) ||
+			parseResult.length !== 2 ||
+			!Array.isArray(parseResult[1])
+		)
+			continue
+		;[selector, selectorArgs] = parseResult
+		UsedSelectors.add(selectorKey)
+	}
+
+	if (selectorArgs.length === 0) return selector
+	return `${selector}[${selectorArgs.join(',')}]`
 }
