@@ -6,6 +6,7 @@ import FetchDefinitions from '../editor/FetchDefinitions'
 import { BridgeCore } from '../bridgeCore/main'
 import OmegaCache from '../editor/OmegaCache'
 import { toCorrectType } from '../editor/Json'
+import Provider from '../autoCompletions/Provider'
 
 type TSelectorTransform = (
 	selector: string,
@@ -70,6 +71,9 @@ export async function registerCustomCommand(
 					fileRefs.forEach(filePath => UpdateFiles.add(filePath))
 				)
 				promises.push(fileRefs)
+			},
+			insertAutoCompletions(path: string, definition: unknown) {
+				Provider.addPluginCompletion(path, definition)
 			},
 			registerSelector: (
 				selectorKey: string,

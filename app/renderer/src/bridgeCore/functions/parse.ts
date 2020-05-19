@@ -15,7 +15,6 @@ export async function parseFunction(str: string, filePath: string) {
 				commands.add(commandName)
 
 				const [_, ...args] = splitCommand(l)
-				console.log(_, args)
 				const applyData = command.onApply(
 					parseCommandArguments(args.filter(arg => arg !== ''))
 				)
