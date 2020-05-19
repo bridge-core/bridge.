@@ -62,6 +62,8 @@ export default class FileSystem {
 		else this.openDir(file_path, is_immutable)
 	}
 	static async openFile(file_path: string, is_immutable = false) {
+		if (TabSystem.isOpen(file_path, true)) return
+
 		let file: Buffer
 		try {
 			file = await fs.readFile(file_path)
