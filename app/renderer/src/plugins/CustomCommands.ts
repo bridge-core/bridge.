@@ -122,7 +122,7 @@ export function proposeCustomCommands() {
 	let res = {}
 
 	CommandRegistry.forEach(command => {
-		let propose_data = command.onPropose()
+		let propose_data = command.onPropose?.()
 		if (typeof propose_data !== 'object') return
 		res = detachMerge(res, propose_data)
 	})
