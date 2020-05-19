@@ -11,7 +11,7 @@ export default class UpdateWindow extends ContentWindow {
 		latest_version,
 		downloads,
 		latest_version_name,
-		url,
+		urls,
 	}: newVersionRes) {
 		// Check if there's an update name, if not, add a generic "update available"
 		if (!latest_version_name.includes('-'))
@@ -50,7 +50,7 @@ export default class UpdateWindow extends ContentWindow {
 						color: 'primary',
 						action: () => {
 							this.close()
-							updateApp(url)
+							updateApp(urls)
 						},
 					},
 				],
