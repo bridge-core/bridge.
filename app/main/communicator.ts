@@ -65,7 +65,7 @@ ipcMain.handle('bridge:closeApp', () => {
 	app.quit()
 })
 
-ipcMain.handle('bridge:installUpdate', async (event, url: string = null) => {
+ipcMain.handle('bridge:installUpdate', async (event, url: string) => {
 	const appPath = app.getAppPath()
 	await download(BrowserWindow.getFocusedWindow(), url, {
 		filename: 'app.asar',

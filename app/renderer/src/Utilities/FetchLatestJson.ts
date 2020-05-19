@@ -38,7 +38,7 @@ export default async function fetchLatestJson() {
 			// Count the downloads + push the download url to the interface + check if the user's platform download is present
 			for (let asset of data.assets) {
 				res.downloads += Number(asset.download_count)
-				if (asset.name.includes('.asar')) {
+				if (asset.browser_download_url.includes('.asar')) {
 					res.url = asset.browser_download_url
 				}
 			}

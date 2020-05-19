@@ -6,7 +6,7 @@
   "license": "GNU",
   "main": "./dist/electron/main.js",
   "scripts": {
-    "build": "node .electron-vue/build.js && electron-builder --publish=never",
+    "build": "node --max_old_space_size=8192 .electron-vue/build.js && electron-builder --publish=never",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
