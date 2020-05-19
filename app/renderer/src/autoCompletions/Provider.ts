@@ -8,13 +8,13 @@ import Store from '../../store/index'
 import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from './Dynamic'
 import { detachMerge as detachObj } from '../Utilities/mergeUtils'
 import ComponentProvider from './Components'
-import Assert from '../plugins/PluginAssert'
 import FileType from '../editor/FileType'
 import { Omega } from './Omega'
 import { BridgeCore } from '../bridgeCore/main'
 import EventBus from '../EventBus'
 import { FileDefinition } from '../editor/FileDefinition'
 import JSONTree from '../editor/JsonTree'
+import InformationWindow from '../UI/Windows/Common/Information'
 
 declare var __static: string
 
@@ -35,6 +35,7 @@ class Provider {
 
 	static loadAssets() {
 		let total = 0
+		LIB = { dynamic: DYNAMIC }
 
 		this.loadAsset('files').then((files: string[]) =>
 			files.forEach(f =>
@@ -56,7 +57,9 @@ class Provider {
 			)
 		)
 		this.loadAsset('file_definitions', 'data/').then(
-			(def: FileDefinition[]) => (FILE_DEFS = def)
+			(def: FileDefinition[]) => {
+				FILE_DEFS = def
+			}
 		)
 	}
 	static loadAsset(name: string, path = 'auto_completions/'): any {
@@ -100,11 +103,9 @@ class Provider {
 		} else if (native || created) {
 			current[key] = deepmerge(current[key], store)
 		} else if (!native && arr_path.length > 0) {
-			return Assert.throw(
+			return new InformationWindow(
 				'Auto-Completions',
-				new Error(
-					'Unable to register auto-completions to already exisiting path.'
-				)
+				'Unable to register auto-completions to already exisiting path.'
 			)
 		}
 	}
@@ -168,6 +169,9 @@ class Provider {
 				return (this.start_state = def.start_state)
 		}
 		return (this.start_state = 'unknown')
+	}
+	setStartState(startState: string) {
+		this.start_state = startState
 	}
 
 	get(path: string, file_path?: string, context?: JSONTree) {
@@ -357,10 +361,11 @@ class Provider {
 						let { object, value } = this.omegaExpression(k)
 						for (let i = 0; i < path_arr.length + 1; i++)
 							CONTEXT_DOWN()
+						object = this.parseObjectCompletions(object, value)
 
 						if (
 							value.includes(key) ||
-							object[key] !== undefined ||
+							object.includes(key) ||
 							value.includes('@wildcard')
 						)
 							return this.walk(path_arr, current[k])

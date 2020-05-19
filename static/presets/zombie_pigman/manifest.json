@@ -1,0 +1,23 @@
+{
+	"display_name":"Zombie Pigman",
+	"description": "Creates a new zombie pigman entity.",
+	"icon": "mdi-human",
+	"bp_map": {
+		"entity.json": "entities/",
+		"loot_table.json": "loot_tables/entities/",
+		"loot_table_gear.json": "loot_tables/entities/{{IDENTIFIER}}_gear.json",
+		"spawn_rule.json": "spawn_rules/"
+	},
+	"rp_map": {
+		"client_entity.json": "entity/",
+		"geometry.json": "models/entity/",
+		"geometry_baby.json": "models/entity/{{IDENTIFIER}}_baby.json",
+		"render_controller.json": "render_controllers/"
+	},
+	"expand_rp_files": {
+		"en_US.lang": "texts/en_US.lang"
+	},
+	"copy_rp_files": {
+		"texture.png": "textures/entity/"
+	}
+}

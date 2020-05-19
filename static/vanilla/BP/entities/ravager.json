@@ -92,11 +92,14 @@
         },
         "minecraft:behavior.delayed_attack": {
           "priority": 4,
-          "reach_multiplier": 1.5,
-          "attack_duration": 0.75,
-          "hit_delay_pct": 0.5,
+          "attack_once": false,
           "track_target": true,
-          "sound_event": "attack.strong"
+          "require_complete_path": false,
+          "random_stop_interval": 0,
+          "reach_multiplier": 1.5,
+          "speed_multiplier": 1.0,
+          "attack_duration": 0.75,
+          "hit_delay_pct": 0.5
         },
         "minecraft:behavior.random_stroll": {
           "priority": 6,
@@ -131,6 +134,9 @@
           }
         },
         "minecraft:behavior.nearest_attackable_target": {
+          "priority": 3,
+          "must_see": true,
+          "within_radius": 16.0,
           "entity_types": [
             {
               "filters": {
@@ -167,10 +173,7 @@
               },
               "max_dist": 16
             }
-          ],
-          "must_see": true,
-          "priority": 3,
-          "within_radius": 16
+          ]
         },
         "minecraft:behavior.mount_pathing": {
           "priority": 5,
@@ -288,25 +291,8 @@
         "is_pushable_by_piston": true
       },
       "minecraft:despawn": {
-         "filters": {
-           "any_of": [
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
-               ]
-             },
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
-                 { "test": "random_chance", "value": 800 },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
-               ]
-             }
-           ]
-         }
-       },
+        "despawn_from_distance": {}
+      },
       "minecraft:break_blocks": {
         "breakable_blocks": [
           "bamboo",

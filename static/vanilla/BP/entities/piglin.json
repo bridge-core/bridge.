@@ -450,45 +450,7 @@
         "private": true
       },
       "minecraft:despawn": {
-        "filters": {
-          "any_of": [
-            {
-              "all_of": [
-                {
-                  "test": "is_persistent",
-                  "value": false
-                },
-                {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 54
-                }
-              ]
-            },
-            {
-              "all_of": [
-                {
-                  "test": "is_persistent",
-                  "value": false
-                },
-                {
-                  "test": "inactivity_timer",
-                  "subject": "self",
-                  "value": 30
-                },
-                {
-                  "test": "random_chance",
-                  "value": 800
-                },
-                {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 32
-                }
-              ]
-            }
-          ]
-        }
+        "despawn_from_distance": {}
       },
       "minecraft:behavior.hurt_by_target": {
         "priority": 1
@@ -516,7 +478,7 @@
         "sprint_speed_modifier": 1.1,
         "target_selection_method": "nearest",
         "target_blocks": [
-          "minecraft:blue_fire",
+          "minecraft:soul_fire",
           "minecraft:soul_lantern",
           "minecraft:soul_torch"
         ]
@@ -531,7 +493,7 @@
         "cooldown_after_being_attacked": 20.0
       },
       "minecraft:behavior.avoid_mob_type": {
-        "priority": 0,
+        "priority": 6,
         "remove_target": true,
         "entity_types": [
           {
@@ -541,6 +503,18 @@
                   "test": "is_family",
                   "subject": "other",
                   "value": "zombie_pigman"
+                }
+              ]
+            },
+            "max_dist": 6
+          },
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zoglin"
                 }
               ]
             },
@@ -733,16 +707,36 @@
             "priority": 4
           },
           {
-            "item": "minecraft:chainmail_helmet",
+            "item": "minecraft:iron_helmet",
             "priority": 5
           },
           {
-            "item": "minecraft:iron_helmet",
+            "item": "minecraft:chainmail_helmet",
             "priority": 6
           },
           {
             "item": "minecraft:leather_helmet",
             "priority": 7
+          },
+          {
+            "item": "minecraft:skull",
+            "want_amount": 1,
+            "item_aux": 0,
+            "surplus_amount": 1,
+            "priority": 8
+          },
+          {
+            "item": "minecraft:skull",
+            "want_amount": 1,
+            "item_aux": 1,
+            "surplus_amount": 1,
+            "priority": 8
+          },
+          {
+            "item": "minecraft:carved_pumpkin",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 8
           },
           {
             "item": "minecraft:netherite_chestplate",
@@ -753,11 +747,11 @@
             "priority": 4
           },
           {
-            "item": "minecraft:chainmail_chestplate",
+            "item": "minecraft:iron_chestplate",
             "priority": 5
           },
           {
-            "item": "minecraft:iron_chestplate",
+            "item": "minecraft:chainmail_chestplate",
             "priority": 6
           },
           {
@@ -773,11 +767,11 @@
             "priority": 4
           },
           {
-            "item": "minecraft:chainmail_leggings",
+            "item": "minecraft:iron_leggings",
             "priority": 5
           },
           {
-            "item": "minecraft:iron_leggings",
+            "item": "minecraft:chainmail_leggings",
             "priority": 6
           },
           {
@@ -793,11 +787,11 @@
             "priority": 4
           },
           {
-            "item": "minecraft:chainmail_boots",
+            "item": "minecraft:iron_boots",
             "priority": 5
           },
           {
-            "item": "minecraft:iron_boots",
+            "item": "minecraft:chainmail_boots",
             "priority": 6
           },
           {

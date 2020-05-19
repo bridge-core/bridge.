@@ -25,7 +25,15 @@ export interface IThemeOptions {
 }
 export interface IThemeColors {
 	highlighter: IThemeHighlighter
-	[c: string]: string | IThemeHighlighter
+	monaco?: {
+		[c: string]: string
+	}
+	[c: string]:
+		| string
+		| IThemeHighlighter
+		| {
+				[c: string]: string
+		  }
 }
 export interface IThemeHighlighter {
 	[id: string]: {
@@ -71,6 +79,10 @@ export default class ThemeManager {
 	static current_theme: string
 	static options: IThemeOptions
 
+	static reloadDefaultThemes() {
+		this.themes = getDefaultThemes()
+	}
+
 	static get theme_names() {
 		let theme_names = []
 		for (let id in this.themes) {
@@ -111,13 +123,16 @@ export default class ThemeManager {
 
 		const {
 			options: { inherit_highlighter } = {},
-			definition: { dark, light },
+			definition: { dark, light } = {
+				dark: { highlighter: {} },
+				light: { highlighter: {} },
+			},
 		}: ITheme = deepmerge(this.themes['bridge.default.theme'], theme)
 
 		if (!inherit_highlighter) {
-			if (theme.definition.dark.highlighter)
+			if (theme.definition?.dark?.highlighter)
 				dark.highlighter = theme.definition.dark.highlighter
-			if (theme.definition.light.highlighter)
+			if (theme.definition?.light?.highlighter)
 				light.highlighter = theme.definition.light.highlighter
 		}
 
@@ -133,7 +148,7 @@ export default class ThemeManager {
 	static async loadTheme() {
 		try {
 			this.applyTheme(await ProjectConfig.theme)
-		} catch (err) {
+		} catch {
 			this.applyTheme('bridge.default.theme')
 		}
 	}

@@ -31,9 +31,9 @@
       "minecraft:ranged_attack": {
         "minecraft:behavior.ranged_attack": {
           "priority": 4,
-          "attack_interval_min": 1,
-          "attack_interval_max": 1,
-          "attack_radius": 8
+          "attack_interval_min": 1.0,
+          "attack_interval_max": 1.0,
+          "attack_radius": 8.0
         },
         "minecraft:shooter": {
           "def": "minecraft:arrow"
@@ -303,25 +303,8 @@
         "table": "loot_tables/entities/pillager_gear.json"
       },
       "minecraft:despawn": {
-         "filters": {
-           "any_of": [
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
-               ]
-             },
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
-                 { "test": "random_chance", "value": 800 },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
-               ]
-             }
-           ]
-         }
-       },
+        "despawn_from_distance": {}
+      },
       "minecraft:behavior.float": {
         "priority": 0
       },
@@ -339,8 +322,9 @@
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
-        "within_radius": 16.0,
+        "must_see": true,
         "reselect_targets": true,
+        "within_radius": 16.0,
         "entity_types": [
           {
             "filters": {
@@ -382,8 +366,7 @@
             },
             "max_dist": 16
           }
-        ],
-        "must_see": true
+        ]
       },
       "minecraft:behavior.equip_item": {
         "priority": 3

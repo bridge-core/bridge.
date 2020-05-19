@@ -1,0 +1,14 @@
+{
+	"format_version": "1.13.0",
+	"minecraft:recipe_brewing_container": {
+		"description": {
+			"identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}_recipe"
+		},
+		"tags": [
+			"brewing_stand"
+		],
+		"input": "minecraft:potion",
+		"reagent": "minecraft:apple",
+		"output": "{{PROJ_PREFIX}}:{{IDENTIFIER}}"
+	}
+}

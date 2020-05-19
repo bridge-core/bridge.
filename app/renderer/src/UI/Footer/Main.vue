@@ -25,7 +25,7 @@
 		<v-spacer></v-spacer>
 		<v-divider vertical></v-divider>
 		<span
-			style="padding: 0 12px; white-space: nowrap; font-size: 12px; width: 94px;"
+			style="padding: 0 12px; white-space: nowrap; font-size: 9px; width: 94px;"
 		>
 			<a class="grey--text text--lighten-1" @click="openGitHub"
 				>bridge. {{ APP_VERSION }}</a

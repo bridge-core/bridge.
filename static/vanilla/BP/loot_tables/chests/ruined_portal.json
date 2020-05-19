@@ -3,7 +3,7 @@
     {
       "rolls": {
         "min": 4,
-        "max": 6
+        "max": 8
       },
       "entries": [    
         {
@@ -55,7 +55,7 @@
         },
         {
           "type": "item",
-          "name": "minecraft:fire_charge",         
+          "name": "minecraft:fireball",         
           "weight": 40
         },
         {
@@ -65,7 +65,7 @@
         },
         {
           "type": "item",
-          "name": "minecraft:gold_nuggets",
+          "name": "minecraft:gold_nugget",
           "functions": [
             {
               "function": "set_count",
@@ -174,7 +174,7 @@
         },
         {
           "type": "item",
-          "name": "minecraft:golden_horse_armor",
+          "name": "minecraft:horsearmorgold",
           "weight": 5
         },
         {

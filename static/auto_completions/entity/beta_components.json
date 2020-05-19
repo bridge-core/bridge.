@@ -63,10 +63,7 @@
     },
     "minecraft:behavior.eat_block": {
         "priority": "$general.number",
-        "success_chance": {
-            "@meta": { "is_value": true, "is_molang": true },
-            "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
-        },
+        "success_chance": "$molang.embedded",
         "time_until_eat": "$general.number",
         "eat_and_replace_block_pairs": {
             "$dynamic.list.next_index": {

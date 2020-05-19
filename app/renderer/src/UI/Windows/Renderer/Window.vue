@@ -125,7 +125,7 @@
 				<div
 					:style="
 						`
-						height: ${is_fullscreen ? maxHeight : height}px;
+						height: ${is_fullscreen ? maxHeight - 30 : height - 30}px;
                     	margin-left: ${has_sidebar ? 60 : 0}px;
                     	padding-left: ${has_no_padding ? 0 : 8}px;
                 	`

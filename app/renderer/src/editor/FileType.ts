@@ -7,8 +7,8 @@ declare var __static: string
 
 import TabSystem from '../TabSystem'
 import Provider, { LIB_LOADED } from '../autoCompletions/Provider'
-import fs from 'fs'
-import { join } from 'path'
+import fs, { promises as fsp } from 'fs'
+import { join, basename, extname } from 'path'
 import { readJSON, readJSONSync } from '../Utilities/JsonFS'
 import { escapeRegExpStr as eRE } from '../Utilities/EscapeRegExp'
 import {
@@ -18,6 +18,7 @@ import {
 	FileCreator,
 } from './FileDefinition'
 import { CacheDef } from './LightningCache'
+import { runLanguageFile } from './ScriptRunner/Language/runFile'
 
 let HIGHLIGHTER_CACHE: any = {}
 let FILE_CREATOR_CACHE: any[] = []
@@ -155,8 +156,11 @@ export default class FileType {
 		}
 		return FILE_CREATOR_CACHE
 	}
-	static getFileCreator(file_path: string): FileCreator {
-		const { file_creator } = this.getData(file_path) ?? {}
+	static getFileCreator(
+		file_path: string,
+		loadData?: FileDefinition
+	): FileCreator {
+		const { file_creator } = loadData ?? this.getData(file_path) ?? {}
 
 		if (typeof file_creator === 'string') {
 			return readJSONSync(
@@ -173,7 +177,7 @@ export default class FileType {
 	 * @returns {string} file creator icon of the provided file_path
 	 */
 	static getFileIcon(file_path: string) {
-		const data = this.getData(file_path) || {}
+		const data = this.getData(file_path) ?? {}
 
 		if (data.file_creator !== undefined) {
 			if (typeof data.file_creator === 'string')
@@ -215,29 +219,30 @@ export default class FileType {
 	}
 
 	/**
-	 * Load all text syntax highlighters to register them on CodeMirror
-	 * @returns {object[]} text syntax highlighters
+	 * Load all text languages to register them
 	 */
-	static getTextHighlighters() {
+	static async registerMonacoLanguages() {
 		let defs = this.getAllData()
-		defs = defs.filter(({ highlighter: hl }) => {
-			try {
-				if (typeof hl === 'object') return hl
-				if (HIGHLIGHTER_CACHE[hl] === undefined)
-					HIGHLIGHTER_CACHE[hl] = JSON.parse(
-						fs
-							.readFileSync(
-								join(__static, 'highlighter', `${hl}.json`)
-							)
-							.toString()
-					)
-				return HIGHLIGHTER_CACHE[hl].set.is_text_highlighter
-			} catch (e) {
-				return false
-			}
-		})
+		return await Promise.all(
+			defs
+				.filter(
+					({ file_viewer }) =>
+						file_viewer === 'text' || file_viewer === undefined
+				)
+				.map(async ({ language, ...other }) => {
+					if (!language) return
+					let { extension } =
+						this.getFileCreator(undefined, other) ?? {}
 
-		return defs.map(def => this.getHighlighter(def))
+					await runLanguageFile(
+						language,
+						extension ?? basename(language, extname(language))
+					)
+				})
+		)
+	}
+	static async updateLanguage(language: string) {
+		return await runLanguageFile(`${language}.js`, language)
 	}
 
 	static DefaultBuildArrays(file_path: string) {
@@ -313,7 +318,7 @@ export default class FileType {
 		)
 	}
 
-	static transformTextSeparators(file_path: string, text: string) {
+	static transformTextSeparators(text: string, file_path?: string) {
 		try {
 			let { text_separators } = this.getData(file_path)
 			text_separators.forEach(

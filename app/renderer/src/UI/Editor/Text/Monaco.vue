@@ -1,94 +1,92 @@
 <template>
-	<div ref="monacoContainer" style="height:100%; width: 100%;" v-resize="onResize" />
+	<div ref="monacoContainer" style="height:100%; width: 100%;" />
 </template>
 
 <script>
 import * as monaco from 'monaco-editor'
+import FileType from '../../../editor/FileType'
+import { on } from '../../../AppCycle/EventSystem'
+import { uuid } from '../../../Utilities/useAttr'
 
 export default {
 	name: 'Monaco',
 	props: {
 		value: String,
 		extension: String,
+		language: String,
+		filePath: String,
+		disposeOnUnmount: {
+			default: false,
+			type: Boolean,
+		},
+		readonly: Boolean,
 	},
 	data() {
 		return {
 			monacoEditor: null,
+			disposables: [],
+			URI: null,
 		}
 	},
 	computed: {
-		language() {
-			if (this.extension === 'js') return 'javascript'
-			if (this.extension === 'ts') return 'typescript'
-			if (this.extension === 'mcfunction') return 'mcfunction'
-			if (this.extension === 'molang') return 'molang'
-			if (this.extension === 'lang') return 'lang'
-			return 'plaintext'
-		},
 		isDarkMode() {
 			return this.$store.state.Appearance.is_dark_mode
 		},
+		fileType() {
+			return FileType.get(this.filePath)
+		},
+		fontSize() {
+			return this.$store.state.Settings.file_font_size || '14px'
+		},
+		fontFamily() {
+			return this.$store.state.Settings.file_font_family || '14px'
+		},
 	},
 	mounted() {
-		// Register a new language
-		monaco.languages.register({ id: 'bridge-json' })
-		monaco.languages.setLanguageConfiguration('bridge-json', {
-			indentationRules: {
-				increaseIndentPattern: /{/,
-				decreaseIndentPattern: /}/,
-			},
-			autoClosingPairs: [{ open: '{', close: '}' }],
-		})
-		// Register a tokens provider for the language
-		monaco.languages.setMonarchTokensProvider('bridge-json', {
-			tokenizer: {
-				root: [
-					[/minecraft|bridge/, 'custom-error'],
-					[/component_groups|components|events/, 'custom-notice'],
-					[/format_version/, 'custom-info'],
-					[/[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/, 'custom-date'],
-					[/-\s*.+/, 'custom-string'],
-				],
-			},
+		monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+			target: monaco.languages.typescript.ScriptTarget.ESNext,
+			allowNonTsExtensions: true,
+			noLib: true,
 		})
 
-		// Register a completion item provider for the new language
-		monaco.languages.registerCompletionItemProvider('bridge-json', {
-			provideCompletionItems: (model, position) => {
-				let textUntilPosition = model.getValueInRange({
-					startLineNumber: 1,
-					startColumn: 1,
-					endLineNumber: position.lineNumber,
-					endColumn: position.column,
-				})
-				let match = textUntilPosition.match(
-					/(.|\n)*minecraft:entity\s*{\s+.*\s+components\s*{\s*/
-				)
-				if (!match) {
-					return { suggestions: [] }
-				}
-				let suggestions = [
-					{
-						label: 'minecraft:attack',
-						kind: monaco.languages.CompletionItemKind.Text,
-						insertText: 'minecraft:attack',
-					},
-				]
-				return { suggestions }
-			},
-		})
+		if (this.filePath) this.URI = monaco.Uri.file(this.filePath)
+		else this.URI = monaco.Uri.parse(uuid())
+
+		const currentModel =
+			monaco.editor.getModel(this.URI) ||
+			monaco.editor.createModel(this.value, this.language, this.URI)
 		this.monacoEditor = monaco.editor.create(this.$refs.monacoContainer, {
 			theme: this.isDarkMode ? 'bridge-dark' : 'bridge-light',
 			value: this.value,
-			language: this.language,
 			roundedSelection: false,
 			autoIndent: 'full',
+			fontSize: this.fontSize,
+			fontFamily: this.fontFamily,
+			model: currentModel,
+			readOnly: this.readonly,
 		})
-		this.monacoEditor.getModel().onDidChangeContent(() => {
-			this.$emit('input', this.monacoEditor.getModel().getValue())
+		//TODO: Open parts of the custom component in a new JSON editor tab
+		// if (this.fileType === 'custom_component')
+		// 	this.disposables.push(
+		// 		this.monacoEditor.addAction({
+		// 			id: 'edit-as-json',
+		// 			label: 'Edit as JSON',
+		// 			contextMenuGroupId: '1_modification',
+		// 			run: () => {},
+		// 		})
+		// 	)
+
+		currentModel.onDidChangeContent(() => {
+			this.$emit('input', currentModel.getValue())
 		})
 
+		this.disposables.push(on('bridge:onResize', () => this.onResize()))
+
 		setTimeout(this.onResize, 100)
+	},
+	destroyed() {
+		this.disposables.forEach(dis => dis.dispose())
+		if (this.disposeOnUnmount) monaco.editor.getModel(this.URI).dispose()
 	},
 	methods: {
 		onResize() {
@@ -98,6 +96,16 @@ export default {
 	watch: {
 		isDarkMode(val) {
 			monaco.editor.setTheme(val ? 'bridge-dark' : 'bridge-light')
+		},
+		fontSize(val) {
+			this.monacoEditor.updateOptions({
+				fontSize: this.fontSize,
+			})
+		},
+		fontFamily(val) {
+			this.monacoEditor.updateOptions({
+				fontFamily: this.fontFamily,
+			})
 		},
 	},
 }

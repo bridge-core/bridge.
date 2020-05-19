@@ -50,8 +50,10 @@
       },
 
       "nether": {},
+      "nether_wastes": {},
       "spawn_magma_cubes": {},
       "spawn_zombified_piglin": {},
+      "spawn_few_piglins": {},
       "spawn_ghast": {}
     }
   }

@@ -30,7 +30,7 @@
 			:is_immutable="file.is_immutable"
 			:is_active="is_active"
 		/>
-		<TextEditor v-else v-model="content_as_string" :extension="extension" />
+		<TextEditor v-else v-model="content_as_string" :extension="extension" :filePath="file.file_path" />
 	</div>
 </template>
 

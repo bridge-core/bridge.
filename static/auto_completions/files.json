@@ -27,6 +27,7 @@
     "feature_rule/main",
     "feature_rule/general",
     
+    "simple/tick",
     "function/main",
     "function/general",
 
@@ -46,6 +47,7 @@
 
     "molang/main",
     "molang/general",
+    "molang/embedded",
 
     "trade_table/main",
     "trade_table/general",

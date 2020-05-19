@@ -2,7 +2,7 @@
   "format_version": "1.16",
   "minecraft:recipe_shaped": {
     "description": {
-    "identifier": "minecraft:target_block"
+    "identifier": "minecraft:target"
     },
     "tags": [ "crafting_table" ],
     "pattern": [
@@ -19,7 +19,7 @@
       }
     },
     "result": {
-      "item": "minecraft:target_block"
+      "item": "minecraft:target"
     }
   }
 }

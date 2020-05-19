@@ -432,9 +432,9 @@ export const DYNAMIC = {
 	},
 	function_files() {
 		try {
-			return walkSync(path.join(CURRENT.PROJECT_PATH, 'functions')).map(
-				e => {
-					return e
+			return walkSync(path.join(CURRENT.PROJECT_PATH, 'functions'))
+				.map(e =>
+					e
 						.replace(
 							BASE_PATH.replace(/\//g, '\\') +
 								Store.state.Explorer.project.explorer +
@@ -443,8 +443,8 @@ export const DYNAMIC = {
 						)
 						.replace(/\\/g, '/')
 						.replace('.mcfunction', '')
-				}
-			)
+				)
+				.filter(e => !e.endsWith('.json'))
 		} catch (e) {
 			return []
 		}

@@ -44,13 +44,13 @@
 					"rotation" : [ 0.0, 0.0, "variable.tcos_right_side * 0.5" ]
 				},
 				"leftarm" : {
-					"rotation" : [ "variable.tcos_left_side", 0.0, 0.0 ]
+					"rotation" : [ "-variable.tcos_left_side", 0.0, 0.0 ]
 				},
 				"leftleg" : {
 					"rotation" : [ "variable.tcos_left_side * 1.4", 0.0, 0.0 ]
 				},
 				"rightarm" : {
-					"rotation" : [ "variable.tcos_right_side", 0.0, 0.0 ]
+					"rotation" : [ "-variable.tcos_right_side", 0.0, 0.0 ]
 				},
 				"rightleg" : {
 					"rotation" : [ "variable.tcos_right_side * 1.4", 0.0, 0.0 ]
@@ -61,7 +61,7 @@
 			"loop" : true,
 			"bones": {
 				"leftarm" : {
-					"rotation" : [ 310.0, 15.0, 0.0 ]
+					"rotation" : [ 320.0, 25.0, 0.0 ]
 				},
 				"head" : {
 					"rotation" : [ 30.0, 0.0, 0.0 ]

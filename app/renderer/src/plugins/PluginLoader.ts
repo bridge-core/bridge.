@@ -1,5 +1,5 @@
 /**
- * Powerful bridge. PluginLoader
+ * bridge. PluginLoader
  * Loads v1 & v2 plugins
  *
  * Unloading is still handled by store/modules/Plugins.js
@@ -9,13 +9,11 @@ import path from 'path'
 import { promises as fs, createReadStream, Dirent } from 'fs'
 import { readJSON } from '../Utilities/JsonFS'
 import Store from '../../store/index'
-import Bridge from './PluginEnv'
 import EventBus from '../EventBus'
 import { PluginSnippets } from '../../windows/Snippets'
 import { UI_DATA, BridgeCore } from '../bridgeCore/main'
 import ThemeManager from '../editor/Themes/ThemeManager'
 import unzipper from 'unzipper'
-import safeEval from 'safe-eval'
 import ComponentRegistry from './CustomComponents'
 import InformationWindow from '../UI/Windows/Common/Information'
 import Provider from '../autoCompletions/Provider'
@@ -25,6 +23,8 @@ import {
 	CommandRegistry,
 	updateCommandFiles,
 } from './CustomCommands'
+import FileType from '../editor/FileType'
+import { run } from '../editor/ScriptRunner/run'
 
 let PLUGIN_FOLDERS: string[]
 let PLUGIN_DATA: any[] = []
@@ -55,7 +55,22 @@ export default class PluginLoader {
 		//INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
 		Store.commit('unloadPlugins')
 
-		let unloaded_plugins = await Bridge.Interpreter.init(project)
+		const uninstalledPath = path.join(
+			CURRENT.PROJECT_PATH,
+			'bridge/uninstalled_plugins.json'
+		)
+		let unloaded_plugins: string[]
+		try {
+			unloaded_plugins = JSON.parse(
+				(await fs.readFile(uninstalledPath)).toString()
+			)
+		} catch {
+			fs.mkdir(path.join(BASE_PATH, project, 'bridge/plugins'), {
+				recursive: true,
+			}).finally(() => fs.writeFile(uninstalledPath, '[]'))
+			unloaded_plugins = []
+		}
+
 		this.unloaded_plugins = unloaded_plugins
 		//Activate/Deactivate BridgeCore
 		if (!unloaded_plugins.includes('bridge.core')) BridgeCore.activate()
@@ -84,19 +99,21 @@ export default class PluginLoader {
 			)
 		)
 		await ThemeManager.loadTheme()
-		//LOAD CUSTOM COMPONENENTS IN PROJECT
-		this.loadComponents(CURRENT.PROJECT_PATH)
-		//UPDATE COMPONENT REFERENCES
-		await ComponentRegistry.registerUpdates()
 
-		//LOAD CUSTOM COMMANDS IN PROJECT
-		try {
-			await loadCustomCommands(
+		await Promise.all([
+			//LOAD CUSTOM COMPONENENTS IN PROJECT
+			this.loadComponents(CURRENT.PROJECT_PATH).then(() =>
+				ComponentRegistry.updateFiles()
+			),
+
+			//LOAD CUSTOM COMMANDS IN PROJECT
+			loadCustomCommands(
 				path.join(CURRENT.PROJECT_PATH, 'commands')
-			)
-		} catch {}
-		//UPDATE COMMAND REFERENCES
-		updateCommandFiles()
+			).then(() => updateCommandFiles()),
+		])
+
+		//Update Monaco Language services
+		await FileType.registerMonacoLanguages()
 
 		//INIT LEGACY PLUGIN DATA FOR UI
 		Store.commit('finishedPluginLoading', PLUGIN_DATA)
@@ -117,13 +134,15 @@ export default class PluginLoader {
 		if ((await fs.lstat(plugin_path)).isFile()) {
 			if (path.extname(plugin_path) === '.js') {
 				//LEGACY PLUGINS
-				Store.commit('loadPlugin', {
-					code: (await fs.readFile(plugin_path)).toString(),
-					path: plugin_path,
-					blocked: unloaded_plugins.includes(
+				if (
+					!unloaded_plugins.includes(
 						path.basename(plugin_path, '.js')
-					),
-				})
+					)
+				)
+					new InformationWindow(
+						'ERROR',
+						`Legacy plugins are no longer supported: "${plugin_folder}"`
+					)
 			} else if (path.extname(plugin_path) === '.zip') {
 				//Load archived plugins
 				let unzip_path = path.join(
@@ -179,7 +198,7 @@ export default class PluginLoader {
 					this.loadAutoCompletions(plugin_path),
 					this.loadThemeCSS(plugin_path),
 					loadCustomCommands(path.join(plugin_path, 'commands')),
-				]).catch(e => {})
+				]).catch(console.error)
 				addLoadLocation(path.join(plugin_path, 'presets'))
 			}
 			PLUGIN_DATA.push(manifest)
@@ -199,11 +218,11 @@ export default class PluginLoader {
 		)
 		data.forEach((d, i) => {
 			if (api_version === 1) {
-				Bridge.Interpreter.execute(
-					d.toString(),
-					path.join(plugin_path, 'scripts', scripts[i]),
-					undefined,
-					true
+				new InformationWindow(
+					'ERROR',
+					`API version 1 is no longer supported inside "${path.basename(
+						plugin_path
+					)}"`
 				)
 			} else if (api_version === 2 || api_version === undefined) {
 			} else {
@@ -266,42 +285,43 @@ export default class PluginLoader {
 		})
 	}
 
-	static async loadComponents(plugin_path: string) {
+	static async loadComponents(pluginPath: string) {
 		let components: string[] = await fs
-			.readdir(path.join(plugin_path, 'components'))
+			.readdir(path.join(pluginPath, 'components'))
 			.catch(e => [])
 
-		components = await Promise.all(
+		await Promise.all(
 			components.map(c =>
-				fs
-					.readFile(path.join(plugin_path, 'components', c))
-					.catch(e => undefined)
+				this.loadComponent(path.join(pluginPath, 'components', c))
 			)
 		)
-		await Promise.all(
-			components.map(async c => {
-				if (c === undefined) return
+	}
+	static async loadComponent(filePath: string, fileContent?: string) {
+		if (fileContent === undefined)
+			fileContent = (
+				await fs.readFile(filePath).catch(e => undefined)
+			)?.toString('utf-8')
+		if (fileContent === undefined) return
 
-				try {
-					await safeEval(c.toString(), {
-						Bridge: {
-							register: (c: any) => ComponentRegistry.register(c),
-							report: (info: string) =>
-								new InformationWindow(
-									'Information',
-									info,
-									false
-								),
-						},
-					})
-				} catch (e) {
-					new InformationWindow(
-						'ERROR',
-						`Error while loading custom component:\n${e.message}`
-					)
-				}
-			})
-		)
+		const promises: Promise<unknown>[] = []
+		try {
+			run(
+				fileContent,
+				{
+					register: (c: any) =>
+						promises.push(ComponentRegistry.register(c)),
+					report: (info: string) =>
+						new InformationWindow('Information', info, false),
+				},
+				'file'
+			)
+		} catch (e) {
+			new InformationWindow(
+				'ERROR',
+				`Error while loading custom component:\n${e.message}`
+			)
+		}
+		await Promise.all(promises)
 	}
 
 	static async loadAutoCompletions(plugin_path: string) {

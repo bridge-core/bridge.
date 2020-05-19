@@ -164,17 +164,14 @@ export class FileExplorer {
 		if (this.is_loading) await this.loading_promise
 		if (!this.is_folder) {
 			await Promise.all([
-				OmegaCache.rename(
-					this.absolute_path,
-					path.join(absolute_path, this.name)
-				),
+				OmegaCache.rename(this.absolute_path, path.join(absolute_path)),
 				LightningCache.rename(
 					this.absolute_path,
-					path.join(absolute_path, this.name)
+					path.join(absolute_path)
 				),
 				JSONFileMasks.rename(
 					this.absolute_path,
-					path.join(absolute_path, this.name)
+					path.join(absolute_path)
 				),
 			])
 		}

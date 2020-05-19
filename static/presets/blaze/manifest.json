@@ -1,0 +1,23 @@
+{
+	"display_name": "Blaze",
+	"description": "Creates a new blaze entity.",
+	"icon": "mdi-fire",
+	"bp_map": {
+		"entity.json": "entities/",
+		"loot_table.json": "loot_tables/entities/",
+		"spawn_rule.json": "spawn_rules/"
+	},
+	"rp_map": {
+		"client_entity.json": "entity/",
+		"geometry.json": "models/entity/",
+		"animation.json": "animations/",
+		"animation_controller.json": "animation_controllers/",
+		"render_controller.json": "render_controllers/"
+	},
+	"expand_rp_files": {
+		"en_US.lang": "texts/en_US.lang"
+	},
+	"copy_rp_files": {
+		"texture.tga": "textures/entity/"
+	}
+}

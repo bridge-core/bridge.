@@ -2,6 +2,7 @@ import { SidebarState } from './state'
 import uuid from 'uuid/v4'
 import Vue from 'vue'
 import { IDisposable } from '../../Types/disposable'
+import { trigger } from '../../AppCycle/EventSystem'
 
 export interface ISidebar {
 	icon?: string
@@ -46,8 +47,14 @@ export function createSidebar(config: ISidebar): ISidebarInstance {
 			SidebarState.currentState = sidebarUUID
 		},
 		toggle() {
-			if (this.isSelected) SidebarState.currentState = null
-			else this.select()
+			if (this.isSelected) {
+				trigger('bridge:onSidebarVisibilityChange', false)
+				SidebarState.currentState = null
+			} else {
+				if (SidebarState.currentState === null)
+					trigger('bridge:onSidebarVisibilityChange', true)
+				this.select()
+			}
 		},
 	}
 

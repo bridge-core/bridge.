@@ -4,10 +4,7 @@
         "description": {
             "identifier": "$general.file_identifier",
             "item": {
-                "$general.item_identifier": { 
-                    "@meta": { "is_value": true, "is_molang": true },
-                    "@import.value.molang": "$molang.general.boolean and ('query.' + $molang.general.query)"
-                }
+                "$general.item_identifier": "$molang.embedded"
             },
             "materials": {
                 "$placeholder": {

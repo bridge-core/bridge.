@@ -12,7 +12,7 @@ const state = {
 	files: {
 		'.html': 'mdi-language-html5',
 		'.js': 'mdi-nodejs',
-		'.json': 'mdi-json',
+		'.json': 'mdi-code-json',
 		'.md': 'mdi-markdown',
 		'.pdf': 'mdi-file-pdf',
 		'.png': 'mdi-file-image',

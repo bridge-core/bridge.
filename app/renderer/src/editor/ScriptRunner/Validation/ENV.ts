@@ -2,8 +2,10 @@ import JSONTree from '../../JsonTree'
 import FileType from '../../FileType'
 import TabSystem from '../../../TabSystem'
 import LightningCache from '../../LightningCache'
+import { IDisposable } from '../../../Types/disposable'
 
 export const ENV = (
+	disposables: IDisposable[],
 	Node: JSONTree,
 	filePath = TabSystem.getCurrentFilePath()
 ) => ({

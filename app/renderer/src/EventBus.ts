@@ -2,6 +2,8 @@
  * Utility for triggering and reacting to events
  */
 
+import { trigger } from './AppCycle/EventSystem'
+
 interface eventStorage {
 	[x: string]: eventCB[]
 }
@@ -36,6 +38,8 @@ export default class EventBus {
 	}
 
 	static trigger(event: string, ...data: any[]) {
+		trigger(event, ...data)
+
 		let res = []
 		let off: eventCBObj[] = []
 		if (event in events) {

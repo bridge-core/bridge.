@@ -10,7 +10,7 @@
     "component_groups": {
       "minecraft:dolphin_adult": {
         "minecraft:experience_reward": {
-          "on_death": "query.last_hit_by_player ? Math.Random(1,4) : 0"
+          "on_death": "query.last_hit_by_player ? Math.Random(1,3) : 0"
         },
         "minecraft:loot": {
           "table": "loot_tables/entities/dolphin.json"
@@ -219,26 +219,27 @@
       },
       "minecraft:can_climb": {
       },
+      "minecraft:behavior.swim_with_entity": {
+        "priority": 4,
+        "success_rate": 0.1,
+        "chance_to_stop": 0.0333,
+        "state_check_interval": 0.5,
+        "catch_up_threshold": 12.0,
+        "match_direction_threshold": 2.0,
+        "catch_up_multiplier": 2.5,
+        "speed_multiplier": 1.5,
+        "search_range": 20.0,
+        "stop_distance": 5.0,
+
+        "entity_types": [
+          {
+            "filters": { "test": "is_family", "subject": "other", "value": "player" }
+          }
+        ]
+      },
       "minecraft:despawn": {
-         "filters": {
-           "any_of": [
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 54 }
-               ]
-             },
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
-                 { "test": "random_chance", "value": 800 },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
-               ]
-             }
-           ]
-         }
-       },
+        "despawn_from_distance": {}
+      },
       "minecraft:behavior.random_swim": {
         "priority": 5,
         "interval": 0,

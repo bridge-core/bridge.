@@ -13,6 +13,7 @@ export interface FileDefinition {
 	start_state?: string
 	lightning_cache?: string
 	highlighter?: string
+	language?: string
 	file_creator?: string | FileCreator
 	problems?: string[]
 	snippets?: string

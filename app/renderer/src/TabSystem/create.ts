@@ -1,7 +1,8 @@
 import { CommonTab } from './Tabs/Common'
+import Vue from 'vue'
 
 export class TabSystem {
-	private tabs: CommonTab<unknown>[] = []
+	private tabs: CommonTab<unknown>[] = Vue.observable([])
 	private selectedTab = 0
 
 	get currentTab() {
@@ -21,7 +22,9 @@ export class TabSystem {
 		this.tabs = []
 	}
 	select(index: number) {
+		this.currentTab.unselect()
 		this.selectedTab = index
+		this.currentTab.select()
 	}
 	find(tab: CommonTab<unknown>) {
 		return this.tabs.findIndex(t => t === tab)

@@ -1,0 +1,35 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}",
+      "min_engine_version": "1.8.0",
+      "materials": {
+        "body": "blaze_body",
+        "head": "blaze_head"
+      },
+      "textures": {
+        "default": "textures/entity/{{IDENTIFIER}}"
+      },
+      "geometry": {
+        "default": "geometry.{{IDENTIFIER}}"
+      },
+      "animations": {
+        "look_at_target": "animation.common.look_at_target",
+        "move": "animation.{{IDENTIFIER}}.move"
+      },
+      "particle_effects": {
+        "charged_flames": "minecraft:mobflame_emitter"
+      },
+      "animation_controllers": [
+        { "move": "controller.animation.{{IDENTIFIER}}.move" },
+        { "flame": "controller.animation.{{IDENTIFIER}}.flame" }
+      ],
+      "render_controllers": [ "controller.render.{{IDENTIFIER}}" ],
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
+    }
+  }
+}

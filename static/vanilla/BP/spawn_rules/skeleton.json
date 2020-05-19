@@ -15,7 +15,7 @@
 
         "minecraft:spawns_on_block_prevented_filter": [
           "minecraft:nether_wart_block",
-          "minecraft:shroomlight_block"
+          "minecraft:shroomlight"
         ],
 
         "minecraft:brightness_filter": {

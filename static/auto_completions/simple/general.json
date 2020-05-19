@@ -2,13 +2,20 @@
     "sound_object": {
         "@import.value.sound_def": "$dynamic.rp.sound_definition",
         "sound": "$dynamic.rp.sound_definition",
-        "volume": {
-            "@import.value.decimal": "$general.decimal",
-            "$dynamic.list.index_pair": "$general.decimal"
+        "volume": "$simple.general.number_range",
+        "pitch": "$simple.general.number_range"
+    },
+    "number_range": {
+        "@import.value.decimal": "$general.decimal",
+        "@meta": {
+            "validate": {
+                "confirm": "(Bridge.Node.children.length !== 2 || !Bridge.Node.is_array) && (Bridge.Node.data === '' || Number.isNaN(Number(Bridge.Node.data)))",
+                "then": {
+                    "show": true,
+                    "message": "Invalid data type: Expected number or number range"
+                }
+            }
         },
-        "pitch": {
-            "@import.value.decimal": "$general.decimal",
-            "$dynamic.list.index_pair": "$general.decimal"
-        }
+        "$dynamic.list.index_pair": "$general.decimal"
     }
 }

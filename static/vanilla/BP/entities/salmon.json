@@ -101,25 +101,11 @@
         "is_pushable_by_piston": true
       },
       "minecraft:despawn": {
-         "filters": {
-           "any_of": [
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 40 }
-               ]
-             },
-             {
-               "all_of": [
-                 { "test": "is_persistent", "value": false },
-                 { "test": "inactivity_timer", "subject": "self", "value": 30 },
-                 { "test": "random_chance", "value": 800 },
-                 { "test": "distance_to_nearest_player", "operator": ">", "value": 32 }
-               ]
-             }
-           ]
-         }
-       },
+        "despawn_from_distance": { 
+          "min_distance": 32,
+          "max_distance": 40
+        }
+      },
       "minecraft:behavior.avoid_mob_type": {
         "priority": 1,
         "entity_types": [
@@ -137,7 +123,9 @@
         ]
       },
       "minecraft:behavior.swim_idle": {
-        "priority": 5
+        "priority": 5,
+        "idle_time": 5.0,
+        "success_rate": 0.1
       },
 
       "minecraft:behavior.random_swim": { // Randomly selects points to go to, even in water
@@ -150,8 +138,10 @@
 
       "minecraft:behavior.swim_wander": {
         "priority": 4,
+        "interval": 0.0166,
+        "look_ahead": 5.0,
         "speed_multiplier": 0.014,
-        "interval": 60
+        "wander_time": 5.0
       },
       "minecraft:flocking": {
         "in_water": true,

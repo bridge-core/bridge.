@@ -3,10 +3,7 @@
     "animations": {
         "@meta": { "validate": "validateIDs.js" },
         "$placeholder": {
-            "anim_time_update": {
-                "@meta": { "is_molang": true, "is_value": true },
-                "@import.value.query": "$molang.general.boolean and ('query.' + $molang.general.query)"
-            },
+            "anim_time_update": "$molang.embedded",
             "animation_length": "$general.number",
             "blend_weight": "$general.decimal",
             "override_previous_animation": "$general.boolean",

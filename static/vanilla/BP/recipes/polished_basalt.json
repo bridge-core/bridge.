@@ -2,7 +2,7 @@
   "format_version": "1.16",
   "minecraft:recipe_shaped": {
     "description": {
-    "identifier": "minecraft:polished_basalt_block"
+    "identifier": "minecraft:polished_basalt"
     },
 
     
@@ -13,11 +13,12 @@
     ],
     "key": {
       "#": {
-          "item": "minecraft:basalt_block"
+          "item": "minecraft:basalt"
       }
     },
     "result": {
-      "item": "minecraft:polished_basalt_block"
+      "item": "minecraft:polished_basalt",
+      "count": 4
     }
   }
 }

@@ -212,8 +212,8 @@ export default {
 	methods: {
 		fixError() {
 			if (typeof this.error.fix.run === 'string')
-				run(this.error.fix.run, ENV(this.node_context))
-			else runFunction(this.error.fix.run, ENV(this.node_context))
+				run(this.error.fix.run, ENV([], this.node_context))
+			else runFunction(this.error.fix.run, ENV([], this.node_context))
 		},
 		is_selected() {
 			return TabSystem.getCurrentNavigation() === this.object_key

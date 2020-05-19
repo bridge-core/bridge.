@@ -1,5 +1,5 @@
-import saveEval from 'safe-eval'
 import JSONTree from './JsonTree'
+import { run } from './ScriptRunner/run'
 
 function private_toJSON(
 	tree: JSONTree,
@@ -46,7 +46,7 @@ export function toCorrectType(val: any) {
 
 function parse(string: string) {
 	try {
-		return saveEval(string)
+		return run(string, {}, 'inline')
 	} catch (e) {
 		console.error(e)
 	}

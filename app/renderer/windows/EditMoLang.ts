@@ -21,16 +21,7 @@ export default class EditMoLangWindow extends ContentWindow {
 					type: 'monaco',
 					key: uuidv4(),
 					input: moLang.replace(/\; /g, ';\n'),
-					file_path: '@/molang/fake',
-					options: {
-						lineNumbers: false,
-						line: true,
-						autoCloseBrackets: true,
-						styleActiveLine: true,
-						showCursorWhenSelecting: true,
-
-						mode: 'molang',
-					},
+					language: 'molang',
 					action: (val: string) => {
 						val = val
 							.split(/\n/g)
