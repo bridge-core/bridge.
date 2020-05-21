@@ -21,11 +21,11 @@ export function createErrorNotification(error: Error): IDisposable {
 	const message = error.message
 	let short: string
 	if (message.includes(': ')) short = message.split(': ').shift()
-	if (!short || short.length > 12)
-		short = message.length > 12 ? `${message.substr(0, 11)}...` : message
+	if (!short || short.length > 24)
+		short = message.length > 24 ? `${message.substr(0, 23)}...` : message
 
 	let notification = createNotification({
-		icon: 'mdi-exclamation',
+		icon: 'mdi-alert-circle-outline',
 		message: short,
 		color: 'error',
 		onClick: () => {
