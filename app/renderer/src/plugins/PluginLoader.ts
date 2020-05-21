@@ -25,6 +25,7 @@ import {
 } from './CustomCommands'
 import FileType from '../editor/FileType'
 import { run } from '../editor/ScriptRunner/run'
+import { createErrorNotification } from '../AppCycle/Errors'
 
 let PLUGIN_FOLDERS: string[]
 let PLUGIN_DATA: any[] = []
@@ -139,9 +140,10 @@ export default class PluginLoader {
 						path.basename(plugin_path, '.js')
 					)
 				)
-					new InformationWindow(
-						'ERROR',
-						`Legacy plugins are no longer supported: "${plugin_folder}"`
+					createErrorNotification(
+						new Error(
+							`LEGACY PLUGIN: Legacy plugins are no longer supported: "${plugin_folder}"`
+						)
 					)
 			} else if (path.extname(plugin_path) === '.zip') {
 				//Load archived plugins
@@ -218,11 +220,12 @@ export default class PluginLoader {
 		)
 		data.forEach((d, i) => {
 			if (api_version === 1) {
-				new InformationWindow(
-					'ERROR',
-					`API version 1 is no longer supported inside "${path.basename(
-						plugin_path
-					)}"`
+				createErrorNotification(
+					new Error(
+						`API VERSION 1: API version 1 is no longer supported inside "${path.basename(
+							plugin_path
+						)}"`
+					)
 				)
 			} else if (api_version === 2 || api_version === undefined) {
 			} else {
