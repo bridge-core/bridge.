@@ -10,6 +10,7 @@ export interface INotification {
 	textColor?: string
 
 	onClick?: () => void
+	onMiddleClick?: () => void
 }
 
 export interface ITimedNotification extends INotification {
@@ -24,9 +25,16 @@ export interface ITimedNotification extends INotification {
  */
 export function createNotification(config: INotification): IDisposable {
 	if (!config.onClick) config.onClick = () => {}
+	if (!config.onMiddleClick) config.onMiddleClick = () => {}
 
 	let notificationUUID = uuid()
-	Vue.set(NotificationStore, notificationUUID, config)
+	Vue.set(NotificationStore, notificationUUID, {
+		...config,
+		onMiddleClick: () => {
+			config.onMiddleClick()
+			Vue.delete(NotificationStore, notificationUUID)
+		},
+	})
 
 	return {
 		dispose: () => {

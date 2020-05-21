@@ -5,6 +5,7 @@
 			<Notification
 				v-for="({
 					onClick,
+					onMiddleClick,
 					icon,
 					message,
 					color,
@@ -19,17 +20,14 @@
 				:textColor="textColor"
 				:expiration="expiration"
 				@click="onClick"
+				@click.middle.native="onMiddleClick"
 			/>
 		</span>
 
 		<v-spacer></v-spacer>
 		<v-divider vertical></v-divider>
-		<span
-			style="padding: 0 12px; white-space: nowrap; font-size: 9px; width: 94px;"
-		>
-			<a class="grey--text text--lighten-1" @click="openGitHub"
-				>bridge. {{ APP_VERSION }}</a
-			>
+		<span style="padding: 0 12px; white-space: nowrap; font-size: 9px; width: 94px;">
+			<a class="grey--text text--lighten-1" @click="openGitHub">bridge. {{ APP_VERSION }}</a>
 		</span>
 	</v-footer>
 </template>
