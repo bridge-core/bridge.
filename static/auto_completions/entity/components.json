@@ -259,6 +259,15 @@
     },
 
     "minecraft:economy_trade_table": {
+        "@meta": {
+            "validate": {
+                "confirm": "Bridge.Node.parent.key === 'components'",
+                "then": {
+                    "show": true,
+                    "message": "\"minecraft:economy_trade_table\" must be placed inside of a component group"
+                }
+            }
+        },
         "display_name": "$general.translatable_text",
         "table": "$dynamic.trade_table_files",
         "new_screen": "$general.boolean",
