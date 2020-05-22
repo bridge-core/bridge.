@@ -67,11 +67,11 @@ ipcMain.handle('bridge:closeApp', () => {
 
 ipcMain.handle('bridge:installUpdate', async (event, url: string) => {
 	const appPath = app.getAppPath()
+	console.log(appPath)
 	await download(BrowserWindow.getFocusedWindow(), url, {
 		filename: 'app.asar',
-		directory: app.getAppPath(),
+		directory: app.getAppPath() + '/resources/',
 	})
-
 	app.relaunch()
 	app.quit()
 })
