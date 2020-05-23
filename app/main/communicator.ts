@@ -11,6 +11,7 @@ import fs from 'fs'
 import { DefaultDir } from '../shared/DefaultDir'
 import { download } from 'electron-dl'
 import path from 'path'
+import { log } from './BrowserConsole'
 
 ipcMain.handle(
 	'openFileDialog',
@@ -66,8 +67,9 @@ ipcMain.handle('bridge:closeApp', () => {
 })
 
 ipcMain.handle('bridge:installUpdate', async (event, url: string) => {
+	log('Starting download...')
 	const appPath = app.getAppPath()
-	console.log(appPath)
+	log(appPath)
 	await download(BrowserWindow.getFocusedWindow(), url, {
 		filename: 'app.asar',
 		directory: app.getAppPath() + '/resources/',
@@ -76,10 +78,10 @@ ipcMain.handle('bridge:installUpdate', async (event, url: string) => {
 	app.quit()
 })
 
-ipcMain.handle('bridge:downloadFile', async (event, file_url, file_path) => {
-	await download(BrowserWindow.getFocusedWindow(), file_url, {
-		filename: path.basename(file_path),
-		directory: path.dirname(file_path),
+ipcMain.handle('bridge:downloadFile', async (event, url, filePath) => {
+	await download(BrowserWindow.getFocusedWindow(), url, {
+		filename: path.basename(filePath),
+		directory: path.dirname(filePath),
 	})
 })
 
