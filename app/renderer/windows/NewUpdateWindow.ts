@@ -1,4 +1,4 @@
-import { newVersionRes } from '../src/Utilities/FetchLatestJson'
+import { INewVersionRes } from '../src/Utilities/fetchUpdate'
 import { Marked } from '@ts-stack/markdown'
 import { WEB_APP_DATA } from '../src/constants'
 import ContentWindow from '../src/UI/Windows/Common/Content'
@@ -12,7 +12,7 @@ export default class UpdateWindow extends ContentWindow {
 		downloads,
 		latest_version_name,
 		url,
-	}: newVersionRes) {
+	}: INewVersionRes) {
 		// Check if there's an update name, if not, add a generic "update available"
 		if (!latest_version_name.includes('-'))
 			latest_version_name = latest_version.concat(' - Update Available')

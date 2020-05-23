@@ -6,6 +6,7 @@ import PluginLoader from '../../../plugins/PluginLoader'
 import Store from '../../../../store/index'
 import ThemeManager from '../../../editor/Themes/ThemeManager'
 import LoadingWindow from '../../../../windows/LoadingWindow'
+import { runUpdateCheck } from '../../../Utilities/fetchUpdate'
 
 export const DevMenu: IAppMenu = {
 	displayName: 'Development',
@@ -54,6 +55,11 @@ export const DevMenu: IAppMenu = {
 			onClick: () => {
 				ipcRenderer.send('toggleDevTools')
 			},
+		},
+		{
+			displayName: 'Force Update Notification',
+			displayIcon: 'mdi-update',
+			onClick: () => runUpdateCheck(true),
 		},
 	],
 }

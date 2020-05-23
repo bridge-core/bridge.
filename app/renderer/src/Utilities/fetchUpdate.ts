@@ -1,8 +1,10 @@
 import * as VERSION_UTILS from './VersionUtils'
 import { APP_VERSION } from '../constants'
+import { createNotification } from '../UI/Footer/create'
+import UpdateWindow from '../../windows/NewUpdateWindow'
 
 // new improved data!
-export interface newVersionRes {
+export interface INewVersionRes {
 	description?: string
 	latest_version?: string
 	update_available?: boolean
@@ -11,8 +13,8 @@ export interface newVersionRes {
 	url?: string
 }
 // this ask the github's RESTful api for the bridge.'s latest release data
-export default async function fetchLatestJson() {
-	let res: newVersionRes = {}
+export async function fetchUpdate() {
+	let res: INewVersionRes = {}
 
 	await fetch(
 		'https://api.github.com/repos/bridge-core/bridge./releases/latest'
@@ -54,4 +56,21 @@ export default async function fetchLatestJson() {
 		})
 	// Return the interface's data
 	return res
+}
+
+export function runUpdateCheck(forceShow = false) {
+	// Fetch the latest json/version data
+	fetchUpdate().then(updateData => {
+		if (forceShow || updateData.update_available) {
+			// If there's an update, notify the user
+			createNotification({
+				icon: 'mdi-update',
+				message: 'Update Available',
+				textColor: 'white',
+				onClick: () => {
+					new UpdateWindow(updateData)
+				},
+			})
+		}
+	})
 }

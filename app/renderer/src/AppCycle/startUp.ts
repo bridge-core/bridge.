@@ -1,8 +1,7 @@
 import SETTINGS from '../../store/Settings'
-import UpdateWindow from '../../windows/NewUpdateWindow'
 import DiscordWindow from '../../windows/Discord'
 import { shell } from 'electron'
-import fetchLatestJson from '../../src/Utilities/FetchLatestJson'
+import { runUpdateCheck } from '../Utilities/fetchUpdate'
 import { CONNECTION } from '../../src/Utilities/ConnectionStatus'
 import { setupDefaultMenus } from '../UI/Toolbar/setupDefaults'
 import { createNotification } from '../UI/Footer/create'
@@ -35,18 +34,5 @@ export default async function startUp() {
 		})
 	}
 
-	// Fetch the latest json/version data
-	fetchLatestJson().then(updateData => {
-		if (updateData.update_available) {
-			// If there's an update, notify the user
-			createNotification({
-				icon: 'mdi-update',
-				message: 'Update Available',
-				textColor: 'white',
-				onClick: () => {
-					new UpdateWindow(updateData)
-				},
-			})
-		}
-	})
+	runUpdateCheck()
 }
