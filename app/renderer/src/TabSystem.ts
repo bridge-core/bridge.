@@ -216,7 +216,7 @@ class TabSystem {
 
 		const [removed] = this.projects[project].splice(id, 1)
 		//Dispose monaco model
-		editor.getModel(Uri.parse(`file:///${removed.file_path}`))?.dispose()
+		editor.getModel(Uri.file(removed.file_path))?.dispose()
 		//Update selected tab
 		if (id <= this.selected && this.selected >= 0) {
 			this.select(this.selected === 0 ? 0 : this.selected - 1)
