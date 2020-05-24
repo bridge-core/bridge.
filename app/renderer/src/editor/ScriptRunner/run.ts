@@ -6,7 +6,6 @@ export function prepareRun(
 	if (code === undefined) return () => {}
 	try {
 		return eval(
-			} ${code} })`
 			`(function runScript(Bridge) {
 				${
 					executionContext === 'inline' && !code.startsWith('return ')
