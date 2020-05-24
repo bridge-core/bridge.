@@ -2,6 +2,7 @@ import { createNotification } from '../UI/Footer/create'
 import { IDisposable } from '../Types/disposable'
 import InformationWindow from '../UI/Windows/Common/Information'
 import Store from '../../store/index'
+import { ipcRenderer } from 'electron'
 
 window.addEventListener('error', event => {
 	createErrorNotification(event.error)
@@ -12,6 +13,10 @@ window.onunhandledrejection = (event: PromiseRejectionEvent) => {
 	createErrorNotification(new Error(event.reason))
 	Store.commit('removeAllLoadingWindows')
 }
+
+ipcRenderer.on('bridge:consoleLog', (_, data) => console.log(data))
+ipcRenderer.on('bridge:consoleWarn', (_, data) => console.warn(data))
+ipcRenderer.on('bridge:consoleError', (_, data) => console.error(data))
 
 /**
  * Creates a new error notification
