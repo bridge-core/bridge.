@@ -1,36 +1,41 @@
-import { createSidebar } from './create'
+import { createSidebar, ISidebarInstance } from './create'
+
+let defaultSidebar: ISidebarInstance
+export function getDefaultSidebar() {
+	return defaultSidebar
+}
 
 export function setupSidebar() {
-	createSidebar({
+	defaultSidebar = createSidebar({
 		displayName: 'Behavior Pack',
 		icon: 'mdi-folder',
-		componentName: 'BehaviorPack',
+		component: 'BehaviorPack',
 	}).select()
 
 	createSidebar({
 		displayName: 'Resource Pack',
 		icon: 'mdi-file-image',
-		componentName: 'ResourcePack',
+		component: 'ResourcePack',
 	})
 
 	createSidebar({
 		displayName: 'Vanilla Packs',
 		icon: 'mdi-minecraft',
-		componentName: 'VanillaPacks',
+		component: 'VanillaPacks',
 	})
 	createSidebar({
 		displayName: 'Documentation',
 		icon: 'mdi-book-open-page-variant',
-		componentName: 'Documentation',
+		component: 'Documentation',
 	})
 	createSidebar({
 		displayName: 'Debug Log',
 		icon: 'mdi-console',
-		componentName: 'DebugLog',
+		component: 'DebugLog',
 	})
 	createSidebar({
 		displayName: 'Extensions',
 		icon: 'mdi-puzzle',
-		componentName: 'Extensions',
+		component: 'Extensions',
 	})
 }
