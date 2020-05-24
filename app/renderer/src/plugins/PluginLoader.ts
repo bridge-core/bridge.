@@ -29,6 +29,11 @@ import { createErrorNotification } from '../AppCycle/Errors'
 import { loadUIComponents } from './UI/load'
 import { createUIStore, TUIStore } from './UI/store'
 import { createSidebar } from '../UI/Sidebar/create'
+import { IDisposable } from '../Types/disposable'
+import {
+	clearAll as clearAllDisposables,
+	set as setDisposables,
+} from './Disposables'
 
 let PLUGIN_FOLDERS: string[]
 let PLUGIN_DATA: any[] = []
@@ -54,10 +59,15 @@ export default class PluginLoader {
 		resetLoadLocations()
 	}
 
-	static async loadPlugins(project: string) {
-		if (project === undefined) return
+	static async unloadPlugins() {
 		//INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
 		Store.commit('unloadPlugins')
+		clearAllDisposables()
+	}
+
+	static async loadPlugins(project: string) {
+		if (project === undefined) return
+		this.unloadPlugins()
 
 		const uninstalledPath = path.join(
 			CURRENT.PROJECT_PATH,
@@ -191,6 +201,8 @@ export default class PluginLoader {
 				return
 			}
 			const uiStore = createUIStore()
+			const disposables: IDisposable[] = []
+			disposables.push(uiStore)
 
 			//IF ACTIVE: LOAD PLUGIN
 			if (manifest.id && !unloaded_plugins.includes(manifest.id)) {
@@ -202,7 +214,8 @@ export default class PluginLoader {
 						this.loadScripts(
 							pluginPath,
 							manifest.api_version,
-							uiStore
+							uiStore,
+							disposables
 						)
 					),
 					this.loadSnippets(pluginPath),
@@ -215,13 +228,15 @@ export default class PluginLoader {
 				addLoadLocation(path.join(pluginPath, 'presets'))
 			}
 			PLUGIN_DATA.push(manifest)
+			setDisposables(manifest.id, disposables)
 		}
 	}
 
 	static async loadScripts(
 		pluginPath: string,
 		api_version: number,
-		uiStore: TUIStore
+		uiStore: TUIStore,
+		disposables: IDisposable[]
 	) {
 		let scripts: string[]
 		try {
@@ -247,7 +262,6 @@ export default class PluginLoader {
 					)
 				)
 			} else if (api_version === 2 || api_version === undefined) {
-				console.log(data)
 				data.forEach(script =>
 					run(
 						script,
@@ -263,11 +277,13 @@ export default class PluginLoader {
 								icon: string
 							}) {
 								console.log(component, icon)
-								createSidebar({
-									displayName,
-									icon,
-									componentName: component,
-								})
+								disposables.push(
+									createSidebar({
+										displayName,
+										icon,
+										componentName: component,
+									})
+								)
 							},
 						},
 						'file'
