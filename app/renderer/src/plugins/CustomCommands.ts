@@ -7,6 +7,7 @@ import { BridgeCore } from '../bridgeCore/main'
 import OmegaCache from '../editor/OmegaCache'
 import { toCorrectType } from '../editor/Json'
 import Provider from '../autoCompletions/Provider'
+import { CURRENT } from '../constants'
 
 type TSelectorTransform = (
 	selector: string,
@@ -92,6 +93,26 @@ export async function registerCustomCommand(
 				)
 				promises.push(fileRefs)
 			},
+			createFunction: (filePath: string, fileContent: string) => {
+				return fs.writeFile(
+					join(
+						CURRENT.PROJECT_PATH,
+						'functions',
+						filePath + '.mcfunction'
+					),
+					fileContent
+				)
+			},
+			readFunction: (filePath: string) =>
+				fs
+					.readFile(
+						join(
+							CURRENT.PROJECT_PATH,
+							'functions',
+							filePath + '.mcfunction'
+						)
+					)
+					.then(buffer => buffer.toString('utf-8')),
 		},
 		'file'
 	)
