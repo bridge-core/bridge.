@@ -24,11 +24,12 @@
 		<content-file-search v-else-if="componentName === 'file_search'" />
 		<content-vanilla-assets v-else-if="componentName === 'VanillaPacks'" />
 
-		<content-custom
+		<!-- <content-custom
 			v-else-if="sidebar.is_plugin"
 			:content="sidebar.content"
 			:toolbar="sidebar.toolbar"
-		/>
+		/>-->
+		<component v-else-if="typeof componentName === 'function'" :is="componentName" />
 		<content-not-implemented v-else />
 		<!-- </keep-alive> -->
 	</div>
@@ -51,7 +52,7 @@ export default {
 	name: 'SidebarContent',
 	props: {
 		sidebar: Object,
-		componentName: String,
+		componentName: String | Function,
 	},
 	components: {
 		ContentExplorer,
