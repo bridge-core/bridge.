@@ -3,10 +3,13 @@ import { join, extname, basename, relative, sep } from 'path'
 import { createErrorNotification } from '../../AppCycle/Errors'
 import { run } from '../../editor/ScriptRunner/run'
 import { TUIStore } from './store'
+import { IDisposable } from '../../Types/disposable'
+import { executeScript } from '../scripts/execute'
 
 export async function loadUIComponents(
 	pluginPath: string,
 	uiStore: TUIStore,
+	disposables: IDisposable[],
 	basePath = pluginPath
 ) {
 	let dirents: Dirent[] = []
@@ -20,12 +23,14 @@ export async function loadUIComponents(
 				return loadUIComponent(
 					join(pluginPath, dirent.name),
 					basePath,
-					uiStore
+					uiStore,
+					disposables
 				)
 			else
 				return loadUIComponents(
 					join(pluginPath, dirent.name),
 					uiStore,
+					disposables,
 					pluginPath
 				)
 		})
@@ -35,7 +40,8 @@ export async function loadUIComponents(
 export async function loadUIComponent(
 	componentPath: string,
 	basePath: string,
-	uiStore: TUIStore
+	uiStore: TUIStore,
+	disposables: IDisposable[]
 ) {
 	if (extname(componentPath) !== '.vue') {
 		createErrorNotification(
@@ -74,7 +80,7 @@ export async function loadUIComponent(
 
 		const component = {
 			name: basename(componentPath),
-			...run(script, { UI: uiStore.UI }, 'file'),
+			...executeScript(script, uiStore, disposables),
 			template,
 		}
 		resolve(component)

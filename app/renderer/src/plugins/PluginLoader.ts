@@ -34,6 +34,7 @@ import {
 	clearAll as clearAllDisposables,
 	set as setDisposables,
 } from './Disposables'
+import { executeScript } from './scripts/execute'
 
 let PLUGIN_FOLDERS: string[]
 let PLUGIN_DATA: any[] = []
@@ -209,7 +210,8 @@ export default class PluginLoader {
 				await Promise.all([
 					loadUIComponents(
 						path.join(pluginPath, 'ui'),
-						uiStore
+						uiStore,
+						disposables
 					).finally(() =>
 						this.loadScripts(
 							pluginPath,
@@ -263,34 +265,14 @@ export default class PluginLoader {
 				)
 			} else if (api_version === 2 || api_version === undefined) {
 				data.forEach(script =>
-					run(
-						script,
-						{
-							UI: uiStore.UI,
-							registerSidebar({
-								displayName,
-								component,
-								icon,
-							}: {
-								displayName: string
-								component: string
-								icon: string
-							}) {
-								console.log(component, icon)
-								disposables.push(
-									createSidebar({
-										displayName,
-										icon,
-										componentName: component,
-									})
-								)
-							},
-						},
-						'file'
-					)
+					executeScript(script, uiStore, disposables)
 				)
 			} else {
-				throw new Error('Undefined API Version: ' + api_version)
+				createErrorNotification(
+					new Error(
+						`UNDEFINED API VERSION: API version ${api_version} is not supported!`
+					)
+				)
 			}
 		})
 	}

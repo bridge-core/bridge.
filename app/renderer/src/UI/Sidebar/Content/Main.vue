@@ -2,14 +2,14 @@
 	<div>
 		<!-- <keep-alive> -->
 		<content-explorer
-			v-if="componentName === 'BehaviorPack'"
+			v-if="component === 'BehaviorPack'"
 			key="explorer"
 			explorer_type="explorer"
 			:base_path="BASE_PATH"
 			:load_plugins="true"
 		/>
 		<content-explorer
-			v-else-if="componentName === 'ResourcePack'"
+			v-else-if="component === 'ResourcePack'"
 			key="resource_pack"
 			explorer_type="resource_pack"
 			:base_path="RP_BASE_PATH"
@@ -17,19 +17,14 @@
 			:force_project_algorithm="findRP"
 			toolbar_component="explorer-rp-toolbar"
 		/>
-		<content-plugins v-else-if="componentName === 'Extensions'" />
-		<content-debug-log v-else-if="componentName === 'DebugLog'" />
-		<content-documentation v-else-if="componentName === 'Documentation'" />
+		<content-plugins v-else-if="component === 'Extensions'" />
+		<content-debug-log v-else-if="component === 'DebugLog'" />
+		<content-documentation v-else-if="component === 'Documentation'" />
 
-		<content-file-search v-else-if="componentName === 'file_search'" />
-		<content-vanilla-assets v-else-if="componentName === 'VanillaPacks'" />
+		<content-file-search v-else-if="component === 'file_search'" />
+		<content-vanilla-assets v-else-if="component === 'VanillaPacks'" />
 
-		<!-- <content-custom
-			v-else-if="sidebar.is_plugin"
-			:content="sidebar.content"
-			:toolbar="sidebar.toolbar"
-		/>-->
-		<component v-else-if="typeof componentName === 'function'" :is="componentName" />
+		<component v-else-if="typeof component === 'function'" :is="component" />
 		<content-not-implemented v-else />
 		<!-- </keep-alive> -->
 	</div>
@@ -51,8 +46,10 @@ import findRP from '../../../Utilities/FindRP'
 export default {
 	name: 'SidebarContent',
 	props: {
-		sidebar: Object,
-		componentName: String | Function,
+		component: String | Function,
+	},
+	mounted() {
+		console.log(this.component)
 	},
 	components: {
 		ContentExplorer,
