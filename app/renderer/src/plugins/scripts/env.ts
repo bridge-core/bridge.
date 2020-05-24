@@ -14,7 +14,6 @@ export function createEnv(uiStore: TUIStore, disposables: IDisposable[]) {
 			component: string
 			icon: string
 		}) {
-			console.log(component, icon)
 			disposables.push(
 				createSidebar({
 					displayName,

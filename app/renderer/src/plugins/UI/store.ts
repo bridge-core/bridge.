@@ -1,14 +1,10 @@
 import uuid from 'uuid/v4'
 import { basename, extname } from 'path'
 
-export const GLOBAL_UI = new Map<string, any>()
-
 export type TUIStore = ReturnType<typeof createUIStore>
 export function createUIStore() {
 	let UI: any = {}
 	let storeUUID = uuid()
-
-	GLOBAL_UI.set(storeUUID, UI)
 
 	return {
 		get UI() {
@@ -31,7 +27,6 @@ export function createUIStore() {
 		dispose() {
 			UI = null
 			storeUUID = null
-			GLOBAL_UI.delete(storeUUID)
 		},
 	}
 }
