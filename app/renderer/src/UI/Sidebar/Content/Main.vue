@@ -48,9 +48,6 @@ export default {
 	props: {
 		component: String | Function,
 	},
-	mounted() {
-		console.log(this.component)
-	},
 	components: {
 		ContentExplorer,
 		ContentPlugins,
