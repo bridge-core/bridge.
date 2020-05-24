@@ -1,24 +1,18 @@
-import { ipcMain } from 'electron'
+import { BrowserWindow } from 'electron'
 
-let COLLECTED_LOGS: {
-	type?: 'error' | 'warn' | 'default'
-	data: unknown
-}[] = []
-
-export function log(data: unknown) {
-	COLLECTED_LOGS.push({ data })
+export function log(data: unknown, browserWindow?: BrowserWindow) {
+	if (browserWindow) browserWindow.webContents.send('bridge:consoleLog', data)
+	else console.log(data)
 }
 
-export function warn(data: unknown) {
-	COLLECTED_LOGS.push({ type: 'warn', data })
+export function warn(data: unknown, browserWindow?: BrowserWindow) {
+	if (browserWindow)
+		browserWindow.webContents.send('bridge:consoleWarn', data)
+	else console.warn(data)
 }
 
-export function error(data: unknown) {
-	COLLECTED_LOGS.push({ type: 'error', data })
+export function error(data: unknown, browserWindow?: BrowserWindow) {
+	if (browserWindow)
+		browserWindow.webContents.send('bridge:consoleError', data)
+	else console.error(data)
 }
-
-ipcMain.handle('bridge:requestMainThreadLogs', () => {
-	const tmp = COLLECTED_LOGS
-	COLLECTED_LOGS = []
-	return tmp
-})

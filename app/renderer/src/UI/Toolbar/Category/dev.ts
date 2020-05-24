@@ -53,7 +53,7 @@ export const DevMenu: IAppMenu = {
 				ctrlKey: true,
 			},
 			onClick: () => {
-				ipcRenderer.send('toggleDevTools')
+				ipcRenderer.invoke('bridge:toggleDevTools')
 			},
 		},
 		{

@@ -1,28 +1,7 @@
-import {
-	app,
-	BrowserWindow,
-	ipcMain,
-	Menu
-} from 'electron'
-import './communicator'
-import './Discord'
-import {
-	BP_BASE_PATH
-} from '../shared/Paths'
-import {
-	join
-} from 'path'
-import fs from 'fs'
-import {
-	DATA_PATH
-} from '../shared/DefaultDir'
+import { app, BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
+import { setup } from './API'
 
-let SETTINGS = {}
-try {
-	SETTINGS = JSON.parse(
-		fs.readFileSync(join(DATA_PATH, 'settings')).toString()
-	)
-} catch (e) {}
+declare const __static: string
 
 //Set __static path to static files in production
 if (process.env.NODE_ENV !== 'development') {
@@ -31,13 +10,9 @@ if (process.env.NODE_ENV !== 'development') {
 		.replace(/\\/g, '\\\\')
 }
 
-if (SETTINGS.disable_hardware_acceleration) {
-	app.disableHardwareAcceleration()
-}
-
-let mainWindow,
-	loadingWindow,
-	windowOptions = {
+let mainWindow: BrowserWindow | null,
+	loadingWindow: BrowserWindow | null,
+	windowOptions: BrowserWindowConstructorOptions = {
 		height: 600,
 		useContentSize: true,
 		width: 1080,
@@ -50,10 +25,11 @@ let mainWindow,
 			webSecurity: false,
 		},
 	}
+
 const winURL =
-	process.env.NODE_ENV === 'development' ?
-	`http://localhost:9080` :
-	`file://${__dirname}/index.html`
+	process.env.NODE_ENV === 'development'
+		? `http://localhost:9080`
+		: `file://${__dirname}/index.html`
 
 function createWindow() {
 	/**
@@ -71,10 +47,17 @@ function createWindow() {
 	})
 
 	mainWindow.webContents.on('did-finish-load', () => {
-		if (loadingWindow) {
-			mainWindow.setPosition(...loadingWindow.getPosition())
+		if (loadingWindow && mainWindow) {
+			mainWindow.setPosition(
+				...(loadingWindow.getPosition() as [number, number])
+			)
 			loadingWindow.close()
 			mainWindow.show()
+
+			if (process.env.NODE_ENV === 'development')
+				mainWindow.webContents.toggleDevTools()
+
+			setup({ mainWindow })
 		}
 	})
 
@@ -87,20 +70,20 @@ function createSplashScreen() {
 		useContentSize: true,
 		width: 300,
 		frame: process.platform === 'darwin',
-		resizable: false,
+		resizable: true,
 		webPreferences: {
-			nodeIntegration: true
+			webSecurity: false,
+			nodeIntegration: true,
 		},
 	})
-
-	loadingWindow.loadURL(`file://${__static}/loading.html`)
+	loadingWindow.loadURL(`file://${global.__static ?? __static}/loading.html`)
 
 	loadingWindow.on('closed', () => {
 		loadingWindow = null
 	})
 
 	loadingWindow.webContents.on('did-finish-load', () => {
-		loadingWindow.show()
+		if (loadingWindow) loadingWindow.show()
 	})
 }
 
@@ -116,19 +99,5 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
 	if (mainWindow === null) {
 		createWindow()
-	}
-})
-
-ipcMain.on('toggleDevTools', () => {
-	mainWindow.toggleDevTools()
-})
-ipcMain.on('bridge:setOverlayIcon', (event, project) => {
-	try {
-		mainWindow.setOverlayIcon(
-			join(BP_BASE_PATH, project, '/pack_icon.png'),
-			project
-		)
-	} catch (e) {
-		mainWindow.setOverlayIcon(null, '')
 	}
 })

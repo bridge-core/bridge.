@@ -14,22 +14,9 @@ window.onunhandledrejection = (event: PromiseRejectionEvent) => {
 	Store.commit('removeAllLoadingWindows')
 }
 
-async function collectLogs() {
-	if (
-		!Store.state.Settings.is_dev_mode &&
-		process.env.NODE_ENV !== 'development'
-	)
-		return
-	;((await ipcRenderer.invoke('bridge:requestMainThreadLogs')) as {
-		type?: 'error' | 'warn' | 'default'
-		data: unknown
-	}[]).forEach(({ type, data }) => {
-		if (type === 'warn') console.warn(data)
-		else if (type === 'error') console.error(data)
-		else console.log(data)
-	})
-}
-setInterval(collectLogs, 2000)
+ipcRenderer.on('bridge:consoleLog', (_, data) => console.log(data))
+ipcRenderer.on('bridge:consoleWarn', (_, data) => console.warn(data))
+ipcRenderer.on('bridge:consoleError', (_, data) => console.error(data))
 
 /**
  * Creates a new error notification
