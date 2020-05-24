@@ -10,7 +10,9 @@
 		<v-card-title>{{ projectName }}</v-card-title>
 
 		<v-card-text>
-			<div class="my-4 subtitle-1">by {{ projectAuthor }} • v{{ projectVersion.join('.') }}</div>
+			<div
+				class="my-4 subtitle-1"
+			>by {{ projectAuthor }} • v{{ (projectVersion || [1, 0, 0]).join('.') }}</div>
 
 			<div>{{ projectDescription }}</div>
 		</v-card-text>
