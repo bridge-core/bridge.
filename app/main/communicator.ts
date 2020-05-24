@@ -76,6 +76,10 @@ ipcMain.handle('bridge:installUpdate', async (event, url: string) => {
 	app.relaunch()
 	app.quit()
 })
+ipcMain.handle('bridge:abortUpdate', async event => {
+	const appPath = app.getAppPath()
+	fs.renameSync(appPath + '.bak', appPath)
+})
 
 ipcMain.handle('bridge:downloadFile', async (event, file_url, file_path) => {
 	await download(BrowserWindow.getFocusedWindow(), file_url, {
