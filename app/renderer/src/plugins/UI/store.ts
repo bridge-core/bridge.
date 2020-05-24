@@ -8,7 +8,6 @@ export function createUIStore() {
 
 	return {
 		get UI() {
-			console.log(UI)
 			return UI
 		},
 		set(path: string[], component: () => Promise<unknown>) {
