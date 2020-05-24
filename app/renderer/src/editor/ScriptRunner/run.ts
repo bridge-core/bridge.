@@ -6,11 +6,14 @@ export function prepareRun(
 	if (code === undefined) return () => {}
 	try {
 		return eval(
-			`(function runScript(Bridge) {${
-				executionContext === 'inline' && !code.includes('return ')
-					? 'return'
-					: ''
 			} ${code} })`
+			`(function runScript(Bridge) {
+				${
+					executionContext === 'inline' && !code.startsWith('return ')
+						? 'return'
+						: ''
+				} ${code}
+			})`
 		)
 	} catch (err) {
 		throw err
