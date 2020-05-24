@@ -50,8 +50,12 @@ export async function loadUIComponent(
 
 	const promise = new Promise(async (resolve, reject) => {
 		const fileContent = (await fs.readFile(componentPath)).toString('utf-8')
-		const templates = fileContent.match(/<template>.*<\/template>/gs)
-		const scripts = fileContent.match(/<script>.*<\/script>/gs)
+		const templates = fileContent.match(/<template>.*<\/template>/gs) ?? [
+			'<template></template>',
+		]
+		const scripts = fileContent.match(/<script>.*<\/script>/gs) ?? [
+			'<script>return {}</script>',
+		]
 		if (templates.length > 1 || scripts.length > 1) {
 			createErrorNotification(
 				new Error(
