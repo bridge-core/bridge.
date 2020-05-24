@@ -17,4 +17,8 @@ export function error(data: unknown) {
 	COLLECTED_LOGS.push({ type: 'error', data })
 }
 
-ipcMain.handle('bridge:requestMainThreadLogs', () => COLLECTED_LOGS)
+ipcMain.handle('bridge:requestMainThreadLogs', () => {
+	const tmp = COLLECTED_LOGS
+	COLLECTED_LOGS = []
+	return tmp
+})
