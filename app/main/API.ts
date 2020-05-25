@@ -11,7 +11,8 @@ import fs from 'fs'
 import { DefaultDir } from '../shared/DefaultDir'
 import { download } from 'electron-dl'
 import path, { join } from 'path'
-import { log } from './BrowserConsole'
+import { log, error } from './BrowserConsole'
+import https from 'https'
 
 export interface ISetupConfig {
 	mainWindow: BrowserWindow
@@ -78,30 +79,18 @@ export function setup({ mainWindow }: ISetupConfig) {
 	ipcMain.handle('bridge:installUpdate', async (event, url: string) => {
 		log('Starting download...', mainWindow)
 		const appPath = app.getAppPath()
+		// const appPath =
+		'C:\\Users\\bened\\AppData\\Local\\Programs\\bridge\\resources\\app.asar'
 		log(appPath, mainWindow)
-		await download(mainWindow, url, {
-			filename: 'app.asar',
-			directory: join(appPath, 'resources'),
-		})
-		app.relaunch()
-		app.quit()
-	})
+		log(url, mainWindow)
 
-	ipcMain.handle('bridge:installUpdate', async (event, url: string) => {
-		log('Starting download...', mainWindow)
-		const appPath = app.getAppPath()
-		fs.renameSync(appPath, appPath + '.bak')
-		log(appPath, mainWindow)
 		await download(mainWindow, url, {
-			filename: 'app.asar',
-			directory: appPath,
+			filename: path.basename(appPath),
+			directory: path.dirname(appPath),
 		})
+
 		app.relaunch()
 		app.quit()
-	})
-	ipcMain.handle('bridge:abortUpdate', async event => {
-		const appPath = app.getAppPath()
-		fs.renameSync(appPath + '.bak', appPath)
 	})
 
 	ipcMain.handle('bridge:downloadFile', async (event, url, filePath) => {

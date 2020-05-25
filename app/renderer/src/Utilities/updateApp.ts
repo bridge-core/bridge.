@@ -8,5 +8,5 @@ export default async function updateApp(url: string) {
 	await ipcRenderer.invoke('bridge:installUpdate', url)
 	lw.close()
 	await ipcRenderer.invoke('bridge:abortUpdate')
-	throw new Error("there's been an error while updating, update cancelled")
+	throw new Error('ERROR: Failed to update!')
 }
