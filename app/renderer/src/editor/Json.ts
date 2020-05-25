@@ -46,7 +46,7 @@ export function toCorrectType(val: any) {
 
 function parse(string: string) {
 	try {
-		return run(string, {}, 'inline')
+		return run(string, {}, { executionContext: 'inline' })
 	} catch (e) {
 		console.error(e)
 	}

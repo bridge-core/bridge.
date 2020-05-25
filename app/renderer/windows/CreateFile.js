@@ -151,7 +151,9 @@ class FileContent {
 						) {
 							this.expand_path = run(add_content.action.to, {
 								parameter,
-							}, "inline")
+							}, {
+								executionContext: "inline"
+							})
 							this.path_info.text = this.getPath(
 								undefined,
 								undefined

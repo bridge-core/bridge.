@@ -62,7 +62,6 @@ export async function registerCustomCommand(
 			register: (Command: BridgeCommandClass) => {
 				CommandNames.push(Command.command_name)
 				CommandRegistry.set(Command.command_name, new Command())
-
 				//Update files with custom command
 				const fileRefs = FetchDefinitions.fetchSingle(
 					'function',
@@ -81,9 +80,7 @@ export async function registerCustomCommand(
 				func: TSelectorTransform
 			) => {
 				if (typeof func !== 'function') return
-
 				SelectorRegistry.set(`selector@${selectorKey}`, func)
-
 				const fileRefs = FetchDefinitions.fetchSingle(
 					'function',
 					['custom_commands'],
@@ -114,7 +111,9 @@ export async function registerCustomCommand(
 					)
 					.then(buffer => buffer.toString('utf-8')),
 		},
-		'file'
+		{
+			executionContext: 'file',
+		}
 	)
 	await Promise.all(promises)
 }

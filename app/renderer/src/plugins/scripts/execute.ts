@@ -3,10 +3,14 @@ import { createEnv } from './env'
 import { TUIStore } from '../UI/store'
 import { IDisposable } from '../../Types/disposable'
 
-export function executeScript(
+export async function executeScript(
 	code: string,
 	uiStore: TUIStore,
 	disposables: IDisposable[]
 ) {
-	return run(code, createEnv(uiStore, disposables), 'file')
+	return await run(code, createEnv(uiStore, disposables), {
+		executionContext: 'file',
+		envName: 'require',
+		async: true,
+	})
 }

@@ -1,7 +1,6 @@
 import { promises as fs, Dirent } from 'fs'
-import { join, extname, basename, relative, sep } from 'path'
+import { join, extname, basename, relative } from 'path'
 import { createErrorNotification } from '../../AppCycle/Errors'
-import { run } from '../../editor/ScriptRunner/run'
 import { TUIStore } from './store'
 import { IDisposable } from '../../Types/disposable'
 import { executeScript } from '../scripts/execute'
@@ -80,7 +79,7 @@ export async function loadUIComponent(
 
 		const component = {
 			name: basename(componentPath),
-			...executeScript(script, uiStore, disposables),
+			...(await (<any>executeScript(script, uiStore, disposables))),
 			template,
 		}
 		resolve(component)

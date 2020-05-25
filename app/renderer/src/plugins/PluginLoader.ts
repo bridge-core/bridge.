@@ -359,7 +359,9 @@ export default class PluginLoader {
 					report: (info: string) =>
 						new InformationWindow('Information', info, false),
 				},
-				'file'
+				{
+					executionContext: 'file',
+				}
 			)
 		} catch (e) {
 			new InformationWindow(

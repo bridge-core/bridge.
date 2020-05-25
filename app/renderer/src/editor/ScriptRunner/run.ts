@@ -1,12 +1,21 @@
 export type TExecutionContext = 'file' | 'inline'
+export interface IRunConfig {
+	executionContext?: TExecutionContext
+	envName?: string
+	async?: boolean
+}
 export function prepareRun(
 	code: string,
-	executionContext: TExecutionContext = 'inline'
-) {
+	{
+		executionContext = 'inline',
+		envName = 'Bridge',
+		async = false,
+	}: IRunConfig
+): (...args: unknown[]) => Promise<unknown> | unknown | void {
 	if (code === undefined) return () => {}
 	try {
 		return eval(
-			`(function runScript(Bridge) {
+			`(${async ? 'async ' : ''}function runScript(${envName}) {
 				${
 					executionContext === 'inline' && !code.startsWith('return ')
 						? 'return'
@@ -21,9 +30,18 @@ export function prepareRun(
 export const run = (
 	code: string,
 	env: unknown,
-	executionContext: TExecutionContext = 'inline'
-) => {
-	return prepareRun(code, executionContext).call({}, env)
+	{
+		executionContext = 'inline',
+		envName = 'Bridge',
+		async = false,
+	}: IRunConfig = {}
+): Promise<unknown> | unknown => {
+	return Array.isArray(env)
+		? prepareRun(code, { executionContext, envName, async }).call(
+				{},
+				...env
+		  )
+		: prepareRun(code, { executionContext, envName, async }).call({}, env)
 }
 
 export const runFunction = (

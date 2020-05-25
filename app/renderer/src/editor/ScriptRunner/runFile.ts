@@ -48,7 +48,9 @@ export function createFileRunner(
 			extname(fileName) === '.ts'
 				? transpile(fileContent, { target: 99, ...compilerOptions })
 				: fileContent,
-			'file'
+			{
+				executionContext: 'file',
+			}
 		)
 		CACHE[fileName] = func
 		return runFunction(func, ENV(disposables, ...args))
