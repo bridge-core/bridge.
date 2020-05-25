@@ -3,7 +3,7 @@
 		:style="{
 			background: $vuetify.theme.themes[theme_variant].background,
 			fontSize: $store.state.Settings.ui_font_size || '14px',
-			fontFamily: $store.state.Settings.ui_font_family || 'Roboto',
+			fontFamily: $store.state.Settings.ui_font_family || 'Roboto, sans-serif',
 		}"
 	>
 		<Toolbar />
