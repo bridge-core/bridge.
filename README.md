@@ -80,10 +80,10 @@ Additionally, "bridge." has a few more specific features which other editors do 
 ## Projects created with bridge.
 
 <div>
-  <a target="_blank" href="https://www.minecraft.net/en-us/pdp/?id=56952d12-3c9c-4597-886d-b62f77202e27">
+  <a target="_blank" rel="noopener" href="https://www.minecraft.net/en-us/pdp/?id=56952d12-3c9c-4597-886d-b62f77202e27">
     <img height="128" alt="Advanced Mining" src="https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-ee7b/8699bc96-814d-45ae-b803-2366fb1f378f/AdvancedMining_Thumbnail_0.jpg">
   </a>
-  <a target="_blank" href="https://www.minecraft.net/en-us/pdp/?id=366e895b-d090-4151-a83a-e86c6b339732">
+  <a target="_blank" rel="noopener" href="https://www.minecraft.net/en-us/pdp/?id=366e895b-d090-4151-a83a-e86c6b339732">
     <img height="128" alt="Minecraft Pac-Man" src="https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-ee7b/fe12965f-e13d-4791-9828-f3aa843bb4f1/PAC-MAN_Thumbnail_0.jpg">
   </a>
 </div>
