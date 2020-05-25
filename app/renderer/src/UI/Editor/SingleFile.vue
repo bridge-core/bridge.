@@ -4,7 +4,7 @@
 			position: 'relative',
 			top: '-7px',
 			fontSize: $store.state.Settings.file_font_size || '14px',
-			fontFamily: $store.state.Settings.file_font_family || 'Roboto',
+			fontFamily: $store.state.Settings.file_font_family || 'Roboto, sans-serif',
 			height: `${available_height}px`,
 		}"
 	>
