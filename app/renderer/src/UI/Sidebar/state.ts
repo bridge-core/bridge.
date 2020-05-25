@@ -16,3 +16,13 @@ export const SidebarState: ISidebarState = Vue.observable({
 	currentState: null,
 	sidebarElements: {},
 })
+
+export function selectSidebar(findId: string) {
+	Object.values(SidebarState.sidebarElements)
+		.find(({ id }) => id === findId)
+		?.select()
+}
+
+export function getSelected() {
+	return SidebarState.sidebarElements[SidebarState.currentState]
+}

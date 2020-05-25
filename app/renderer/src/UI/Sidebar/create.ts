@@ -6,6 +6,7 @@ import { trigger } from '../../AppCycle/EventSystem'
 import { getDefaultSidebar } from './setup'
 
 export interface ISidebar {
+	id?: string
 	icon?: string
 	displayName?: string
 	component?: string
@@ -58,6 +59,7 @@ export function createSidebar(config: ISidebar): ISidebarInstance {
 					trigger('bridge:onSidebarVisibilityChange', true)
 				this.select()
 			}
+			return this
 		},
 	}
 
