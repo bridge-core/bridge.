@@ -1,5 +1,5 @@
 <template>
-	<v-dialog v-model="isVisible">
+	<v-dialog v-model="isVisible.value">
 		<v-card color="background">
 			<v-card-title>Projects</v-card-title>
 
@@ -20,7 +20,7 @@
 			<!-- <v-card-actions>
 				<v-spacer />
 
-				<v-btn color="success" text @click="isVisible = false">Add project location</v-btn>
+				<v-btn color="success" text @click="isVisible.value = false">Add project location</v-btn>
 			</v-card-actions>-->
 		</v-card>
 	</v-dialog>
@@ -38,24 +38,9 @@ export default {
 	},
 
 	data: () => ({
+		isVisible,
 		LoadedProjects,
 	}),
-	computed: {
-		isVisible: {
-			get() {
-				return isVisible.value
-			},
-			set(val) {
-				isVisible.value = val
-			},
-		},
-	},
-
-	watch: {
-		isVisible(to) {
-			if (to) loadProjects()
-		},
-	},
 }
 </script>
 
