@@ -48,43 +48,47 @@ export default async function findRP() {
 	} catch {}
 
 	//Load resource packs from worlds
-	let map_packs: string[] = []
-	try {
-		map_packs = await fs.readdir(path.join(MOJANG_PATH, 'minecraftWorlds'))
-	} catch {}
-	map_packs = (
-		await Promise.all(
-			map_packs.map(async p => {
-				try {
-					return (
-						await fs.readdir(
-							path.join(
-								MOJANG_PATH,
-								'minecraftWorlds',
-								p,
-								'resource_packs'
-							),
-							{
-								withFileTypes: true,
-							}
-						)
-					)
-						.filter(dirent => dirent.isDirectory())
-						.map(dirent =>
-							path.join(
-								'../minecraftWorlds',
-								p,
-								'resource_packs',
-								dirent.name
+	if (Store.state.Settings.load_packs_from_worlds) {
+		let map_packs: string[] = []
+		try {
+			map_packs = await fs.readdir(
+				path.join(MOJANG_PATH, 'minecraftWorlds')
+			)
+		} catch {}
+		map_packs = (
+			await Promise.all(
+				map_packs.map(async p => {
+					try {
+						return (
+							await fs.readdir(
+								path.join(
+									MOJANG_PATH,
+									'minecraftWorlds',
+									p,
+									'resource_packs'
+								),
+								{
+									withFileTypes: true,
+								}
 							)
 						)
-				} catch {
-					return []
-				}
-			})
-		)
-	).flat()
-	rps.push(...map_packs)
+							.filter(dirent => dirent.isDirectory())
+							.map(dirent =>
+								path.join(
+									'../minecraftWorlds',
+									p,
+									'resource_packs',
+									dirent.name
+								)
+							)
+					} catch {
+						return []
+					}
+				})
+			)
+		).flat()
+		rps.push(...map_packs)
+	}
 
 	let rp_data = await Promise.all(
 		rps.map(rp =>

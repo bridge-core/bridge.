@@ -3,8 +3,12 @@ import { BP_BASE_PATH, MOJANG_PATH } from '../../constants'
 import { join } from 'path'
 import { LoadedProjects } from './state'
 import { readJSON } from '../../Utilities/JsonFS'
+import Store from '../../../store/index'
 
 export async function loadProjects() {
+	// Remove old data
+	LoadedProjects.splice(0, LoadedProjects.length)
+
 	const devBehaviorFolders = (
 		await fs.readdir(BP_BASE_PATH, {
 			withFileTypes: true,
@@ -13,7 +17,9 @@ export async function loadProjects() {
 		.filter(dirent => dirent.isDirectory())
 		.map(dirent => dirent.name)
 
-	const worldPacks = await loadWorldPacks()
+	const worldPacks = Store.state.Settings.load_packs_from_worlds
+		? await loadWorldPacks()
+		: []
 
 	LoadedProjects.push(
 		...(await Promise.all(
