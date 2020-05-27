@@ -39,6 +39,7 @@ export default {
 		projectDescription: String,
 		projectVersion: Array,
 		projectAuthor: String,
+		relativeProjectPath: String,
 	},
 	async created() {
 		try {
@@ -58,7 +59,7 @@ export default {
 	methods: {
 		selectProject() {
 			isVisible.value = false
-			EventBus.trigger('bridge:selectProject', this.projectName)
+			EventBus.trigger('bridge:selectProject', this.relativeProjectPath)
 		},
 	},
 }

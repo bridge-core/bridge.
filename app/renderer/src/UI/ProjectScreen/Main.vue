@@ -5,9 +5,10 @@
 
 			<v-card-text>
 				<ProjectCard
-					v-for="({ projectPath, version, name, description, author }, i) in LoadedProjects"
+					v-for="({ projectPath, version, name, description, author, relativeProjectPath }, i) in LoadedProjects"
 					:key="projectPath"
 					:style="`display: inline-block; margin-left: ${12 * (i % 4 !== 0)}px; margin-bottom: 12px; width: calc(25% - 9px);`"
+					:relativeProjectPath="relativeProjectPath"
 					:projectPath="projectPath"
 					:projectVersion="version"
 					:projectName="name"
@@ -16,11 +17,11 @@
 				/>
 			</v-card-text>
 
-			<v-card-actions>
+			<!-- <v-card-actions>
 				<v-spacer />
 
 				<v-btn color="success" text @click="isVisible.value = false">Add project location</v-btn>
-			</v-card-actions>
+			</v-card-actions>-->
 		</v-card>
 	</v-dialog>
 </template>
