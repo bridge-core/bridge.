@@ -4,11 +4,15 @@ import { SidebarModule } from './modules/sidebar'
 import { IModuleConfig } from './types'
 import { UIModule } from './modules/ui'
 import { NotificationModule } from './modules/footer'
+import { FSModule } from './modules/fs'
+import { ENVModule } from './modules/env'
 
 const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/ui', UIModule],
 	['@bridge/sidebar', SidebarModule],
 	['@bridge/notification', NotificationModule],
+	['@bridge/fs', FSModule],
+	['@bridge/env', ENVModule],
 ])
 
 export function createEnv(uiStore: TUIStore, disposables: IDisposable[]) {
