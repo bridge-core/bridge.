@@ -7,8 +7,10 @@ bridge. allows you to define new commands that can be used in mcfunction files. 
 JavaScript files placed inside of this folder have access to the `Bridge` object. Available methods:
 
 -   `Bridge.register(command: ? extends BridgeCommand)`: Registers a custom command. This method expects a JavaScript class with a static property `command_name` and the two instance methods `onApply(command_args)` & `onPropose()`.
-- `Bridge.registerSelector(selectorId: string, parser: (selector: string, selectorArgs: string[]) =>[string, string[])`: Registers a custom selector parser
-- `Bridge.insertAutoCompletions(path: string, definition: JSONObject)`: Modifies the exisiting auto-completion library
+-   `Bridge.registerSelector(selectorId: string, parser: (selector: string, selectorArgs: string[]) =>[string, string[])`: Registers a custom selector parser
+-   `Bridge.insertAutoCompletions(path: string, definition: JSONObject)`: Modifies the exisiting auto-completion library
+-   `Bridge.createFunction(path: string, fileContent: string)`: Creates a new function file
+-   `Bridge.readFunction(path: string): Promise<string>`: Reads a function file
 
 ### `onApply(command_args: string[]): string | string[]`
 
