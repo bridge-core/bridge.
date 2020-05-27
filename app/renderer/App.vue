@@ -3,7 +3,7 @@
 		:style="{
 			background: $vuetify.theme.themes[theme_variant].background,
 			fontSize: $store.state.Settings.ui_font_size || '14px',
-			fontFamily: $store.state.Settings.ui_font_family || 'Roboto',
+			fontFamily: $store.state.Settings.ui_font_family || 'Roboto, sans-serif',
 		}"
 	>
 		<Toolbar />
@@ -30,19 +30,20 @@
 					"
 					ref="file_container"
 				>
-					<editor-shell-tab-system />
-					<editor-shell-content-manager />
+					<EditorShellTabSystem />
+					<EditorShellContentManager />
 				</v-col>
 				<v-col @click="setSplitScreen(true)" v-if="has_split_screen" :cols="5 + 1 * !isSidebarOpen">
-					<editor-shell-tab-system :split_screen="true" />
-					<editor-shell-content-manager :split_screen="true" />
+					<EditorShellTabSystem :split_screen="true" />
+					<EditorShellContentManager :split_screen="true" />
 				</v-col>
 			</v-row>
 		</v-content>
 
-		<window-factory-main />
-		<context-menu-main />
-		<json-editor-hover-card />
+		<WindowFactoryMain />
+		<ContextMenuMain />
+		<JsonEditorHoverCard />
+		<CollectedWindows />
 
 		<Footer />
 	</v-app>
@@ -58,6 +59,7 @@ import EditorShellContentManager from './src/UI/Editor/TabContentManager'
 import WindowFactoryMain from './src/UI/Windows/Renderer/Main'
 import Footer from './src/UI/Footer/Main'
 import ContextMenuMain from './src/UI/ContextMenu/Main'
+import CollectedWindows from './src/UI/Windows/Collect'
 
 import { shell } from 'electron'
 import startUp from './src/AppCycle/startUp'
@@ -78,6 +80,7 @@ export default {
 		Footer,
 		ContextMenuMain,
 		JsonEditorHoverCard,
+		CollectedWindows,
 	},
 	async created() {
 		this.$vuetify.theme.dark = this.$store.state.Appearance.is_dark_mode

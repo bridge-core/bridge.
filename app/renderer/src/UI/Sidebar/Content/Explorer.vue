@@ -8,11 +8,7 @@
 					selected !== '/@NO-BP@/'
 			"
 		>
-			<component
-				:is="toolbar_component"
-				:selected="selected"
-				:base_path="base_path"
-			/>
+			<component :is="toolbar_component" :selected="selected" :base_path="base_path" />
 			<v-divider />
 		</span>
 
@@ -23,7 +19,7 @@
 				</v-avatar>
 			</span>
 
-			<v-select
+			<!-- <v-select
 				v-if="force_project_algorithm === undefined"
 				style="margin: 4px 0; margin-right: 4px; border-radius: 0; width: calc(100% - 48px);"
 				ref="project_select"
@@ -36,12 +32,19 @@
 				:disabled="items.length <= 1"
 				@input="choice => (selected = choice)"
 				hide-details
-			/>
+			/>-->
 			<v-subheader
-				v-else-if="selected"
+				v-if="selected"
 				style="width: calc(100% - 48px);"
-				>{{ selected.split(/\\|\//g).pop() }}</v-subheader
+				v-ripple="force_project_algorithm === undefined"
+				@click="openProjectScreen"
 			>
+				{{ selected.split(/\\|\//g).pop() }}
+				<template v-if="force_project_algorithm === undefined">
+					<v-spacer />
+					<v-icon small>mdi-menu-down</v-icon>
+				</template>
+			</v-subheader>
 		</v-layout>
 
 		<v-divider></v-divider>
@@ -58,10 +61,7 @@
 			:explorer_type="explorer_type"
 			class="file-displayer"
 		/>
-		<v-progress-linear
-			v-else-if="!loaded_file_defs || selected === undefined"
-			indeterminate
-		/>
+		<v-progress-linear v-else-if="!loaded_file_defs || selected === undefined" indeterminate />
 		<div v-else-if="selected === '/@NO-DEPENDENCY@/'" style="padding: 4px;">
 			<p style="word-break: break-word;">
 				It doesn't look like your current behavior pack has a
@@ -114,6 +114,7 @@ import LoadingWindow from '../../../../windows/LoadingWindow'
 import FileType from '../../../editor/FileType'
 import { setRP, trySetRP } from '../../../Utilities/FindRP'
 import path from 'path'
+import { isVisible as ProjectScreenVisible } from '../../ProjectScreen/state'
 
 export default {
 	name: 'content-explorer',
@@ -217,6 +218,10 @@ export default {
 		},
 	},
 	methods: {
+		openProjectScreen() {
+			if (this.force_project_algorithm === undefined)
+				ProjectScreenVisible.value = true
+		},
 		async refresh(force_val) {
 			if (this.force_project_algorithm) {
 				if (force_val) this.selected = force_val

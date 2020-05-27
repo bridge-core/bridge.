@@ -392,6 +392,11 @@ export default class SettingsWindow extends TabWindow {
 					text: 'Choose a default project...',
 					key: `settings.editor.tab.default_project.${Math.random()}`,
 				}),
+				new ReactiveSwitch(this, 'load_packs_from_worlds', {
+					color: 'primary',
+					text: 'Load packs from world files',
+					key: `settings.explorer.tab.load_packs_from_worlds.${Math.random()}`,
+				}),
 			],
 		})
 		this.addTab({

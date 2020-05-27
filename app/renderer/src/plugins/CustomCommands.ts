@@ -7,6 +7,7 @@ import { BridgeCore } from '../bridgeCore/main'
 import OmegaCache from '../editor/OmegaCache'
 import { toCorrectType } from '../editor/Json'
 import Provider from '../autoCompletions/Provider'
+import { CURRENT } from '../constants'
 
 type TSelectorTransform = (
 	selector: string,
@@ -61,7 +62,6 @@ export async function registerCustomCommand(
 			register: (Command: BridgeCommandClass) => {
 				CommandNames.push(Command.command_name)
 				CommandRegistry.set(Command.command_name, new Command())
-
 				//Update files with custom command
 				const fileRefs = FetchDefinitions.fetchSingle(
 					'function',
@@ -80,9 +80,7 @@ export async function registerCustomCommand(
 				func: TSelectorTransform
 			) => {
 				if (typeof func !== 'function') return
-
 				SelectorRegistry.set(`selector@${selectorKey}`, func)
-
 				const fileRefs = FetchDefinitions.fetchSingle(
 					'function',
 					['custom_commands'],
@@ -92,8 +90,30 @@ export async function registerCustomCommand(
 				)
 				promises.push(fileRefs)
 			},
+			createFunction: (filePath: string, fileContent: string) => {
+				return fs.writeFile(
+					join(
+						CURRENT.PROJECT_PATH,
+						'functions',
+						filePath + '.mcfunction'
+					),
+					fileContent
+				)
+			},
+			readFunction: (filePath: string) =>
+				fs
+					.readFile(
+						join(
+							CURRENT.PROJECT_PATH,
+							'functions',
+							filePath + '.mcfunction'
+						)
+					)
+					.then(buffer => buffer.toString('utf-8')),
 		},
-		'file'
+		{
+			executionContext: 'file',
+		}
 	)
 	await Promise.all(promises)
 }

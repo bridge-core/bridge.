@@ -1,4 +1,4 @@
-//bridge-file-version: #11
+//bridge-file-version: #12
 {
 	"format_version": "1.13.0",
 	"minecraft:entity": {
@@ -13,21 +13,21 @@
 			"good": {
 				"minecraft:economy_trade_table": {
 					"display_name": "Good {{IDENTIFIER}}",
-					"table": "trading/economy_trades/savageguy_good.json",
+					"table": "trading/economy_trades/{{IDENTIFIER}}_good.json",
 					"new_screen": true
 				}
 			},
 			"better": {
 				"minecraft:economy_trade_table": {
 					"display_name": "Better {{IDENTIFIER}}",
-					"table": "trading/economy_trades/savageguy_better.json",
+					"table": "trading/economy_trades/{{IDENTIFIER}}_better.json",
 					"new_screen": true
 				}
 			},
 			"best": {
 				"minecraft:economy_trade_table": {
 					"display_name": "Best {{IDENTIFIER}}",
-					"table": "trading/economy_trades/savageguy_best.json",
+					"table": "trading/economy_trades/{{IDENTIFIER}}_best.json",
 					"new_screen": true
 				}
 			},

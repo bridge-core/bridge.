@@ -36,6 +36,7 @@ function setup() {
 			error_icon_indicator: true,
 			error_auto_fix: true,
 			focus_json_inputs: true,
+			load_packs_from_worlds: true,
 			is_alternative_append_with_copy: true,
 			custom_snippets: [],
 		})
@@ -52,6 +53,8 @@ function setup() {
 		save({ text_auto_completions: true })
 	if (DATA.run_error_detection === undefined)
 		save({ run_error_detection: true })
+	if (DATA.load_packs_from_worlds === undefined)
+		save({ load_packs_from_worlds: true })
 }
 function save(settings: { [s: string]: any }) {
 	if (DATA) DATA = Object.assign(DATA, settings)

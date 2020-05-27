@@ -1,4 +1,4 @@
-//bridge-file-version: #2
+//bridge-file-version: #3
 {
 	"display_name": "VillagerNPC",
 	"description": "Creates a new Villager type NPC entity. This entity has 3 potential trade tables, and will cycle through them after a period of time. Custom Preset by BSavage81",
@@ -6,9 +6,9 @@
 	"bp_map": {
 		"entity.json": "entities/",
 		"loot_table.json": "loot_tables/entities/",
-		"trades_good.json": "trading/{{IDENTIFIER}}_good.json",
-		"trades_better.json": "trading/{{IDENTIFIER}}_better.json",
-		"trades_best.json": "trading/{{IDENTIFIER}}_best.json",
+		"trades_good.json": "trading/economy_trades/{{IDENTIFIER}}_good.json",
+		"trades_better.json": "trading/economy_trades/{{IDENTIFIER}}_better.json",
+		"trades_best.json": "trading/economy_trades/{{IDENTIFIER}}_best.json",
 		"spawn_rule.json": "spawn_rules/"
 	},
 	"rp_map": {

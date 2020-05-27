@@ -11,10 +11,7 @@
 		<h2>{{ currentSidebar.displayName }}</h2>
 		<v-divider />
 
-		<SidebarContent
-			:componentName="currentSidebar.componentName"
-			:sidebar="currentSidebar"
-		/>
+		<SidebarContent :component="currentSidebar.component" />
 	</v-list>
 </template>
 

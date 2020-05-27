@@ -17,7 +17,7 @@ import unzipper from 'unzipper'
 import ComponentRegistry from './CustomComponents'
 import InformationWindow from '../UI/Windows/Common/Information'
 import Provider from '../autoCompletions/Provider'
-import { addLoadLocation, resetLoadLocations } from '../Presets'
+import { addLoadLocation, resetLoadLocations, IManifest } from '../Presets'
 import {
 	loadCustomCommands,
 	CommandRegistry,
@@ -25,6 +25,16 @@ import {
 } from './CustomCommands'
 import FileType from '../editor/FileType'
 import { run } from '../editor/ScriptRunner/run'
+import { createErrorNotification } from '../AppCycle/Errors'
+import { loadUIComponents } from './UI/load'
+import { createUIStore, TUIStore } from './UI/store'
+import { createSidebar } from '../UI/Sidebar/create'
+import { IDisposable } from '../Types/disposable'
+import {
+	clearAll as clearAllDisposables,
+	set as setDisposables,
+} from './Disposables'
+import { executeScript } from './scripts/execute'
 
 let PLUGIN_FOLDERS: string[]
 let PLUGIN_DATA: any[] = []
@@ -50,10 +60,15 @@ export default class PluginLoader {
 		resetLoadLocations()
 	}
 
-	static async loadPlugins(project: string) {
-		if (project === undefined) return
+	static async unloadPlugins() {
 		//INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
 		Store.commit('unloadPlugins')
+		clearAllDisposables()
+	}
+
+	static async loadPlugins(project: string) {
+		if (project === undefined) return
+		this.unloadPlugins()
 
 		const uninstalledPath = path.join(
 			CURRENT.PROJECT_PATH,
@@ -125,25 +140,24 @@ export default class PluginLoader {
 		plugin_folder: string,
 		unloaded_plugins: string[]
 	) {
-		let plugin_path = path.join(
+		let pluginPath = path.join(
 			BASE_PATH,
 			project,
 			'bridge/plugins',
 			plugin_folder
 		)
-		if ((await fs.lstat(plugin_path)).isFile()) {
-			if (path.extname(plugin_path) === '.js') {
+		if ((await fs.lstat(pluginPath)).isFile()) {
+			if (path.extname(pluginPath) === '.js') {
 				//LEGACY PLUGINS
 				if (
-					!unloaded_plugins.includes(
-						path.basename(plugin_path, '.js')
-					)
+					!unloaded_plugins.includes(path.basename(pluginPath, '.js'))
 				)
-					new InformationWindow(
-						'ERROR',
-						`Legacy plugins are no longer supported: "${plugin_folder}"`
+					createErrorNotification(
+						new Error(
+							`LEGACY PLUGIN: Legacy plugins are no longer supported: "${plugin_folder}"`
+						)
 					)
-			} else if (path.extname(plugin_path) === '.zip') {
+			} else if (path.extname(pluginPath) === '.zip') {
 				//Load archived plugins
 				let unzip_path = path.join(
 					BASE_PATH,
@@ -151,7 +165,7 @@ export default class PluginLoader {
 					'bridge/plugins',
 					path.basename(plugin_folder, '.zip')
 				)
-				await createReadStream(plugin_path)
+				await createReadStream(pluginPath)
 					.pipe(unzipper.Extract({ path: unzip_path }))
 					.promise()
 
@@ -170,7 +184,7 @@ export default class PluginLoader {
 				}
 
 				await Promise.all([
-					fs.unlink(plugin_path),
+					fs.unlink(pluginPath),
 					this.loadPlugin(
 						project,
 						path.basename(plugin_folder, '.zip'),
@@ -179,66 +193,98 @@ export default class PluginLoader {
 				]).catch(e => {})
 			}
 		} else {
-			let manifest
+			let manifest: any
 			try {
 				manifest = await readJSON(
-					path.join(plugin_path, 'manifest.json')
+					path.join(pluginPath, 'manifest.json')
 				)
 			} catch (e) {
 				return
 			}
+			const uiStore = createUIStore()
+			const disposables: IDisposable[] = []
+			disposables.push(uiStore)
 
 			//IF ACTIVE: LOAD PLUGIN
 			if (manifest.id && !unloaded_plugins.includes(manifest.id)) {
 				await Promise.all([
-					this.loadScripts(plugin_path, manifest.api_version),
-					this.loadSnippets(plugin_path),
-					this.loadThemes(plugin_path),
-					this.loadComponents(plugin_path),
-					this.loadAutoCompletions(plugin_path),
-					this.loadThemeCSS(plugin_path),
-					loadCustomCommands(path.join(plugin_path, 'commands')),
+					loadUIComponents(
+						path.join(pluginPath, 'ui'),
+						uiStore,
+						disposables
+					).finally(() =>
+						this.loadScripts(
+							pluginPath,
+							manifest.api_version,
+							uiStore,
+							disposables
+						)
+					),
+					this.loadSnippets(pluginPath),
+					this.loadThemes(pluginPath),
+					this.loadComponents(pluginPath),
+					this.loadAutoCompletions(pluginPath),
+					this.loadThemeCSS(pluginPath),
+					loadCustomCommands(path.join(pluginPath, 'commands')),
 				]).catch(console.error)
-				addLoadLocation(path.join(plugin_path, 'presets'))
+				addLoadLocation(path.join(pluginPath, 'presets'))
 			}
 			PLUGIN_DATA.push(manifest)
+			setDisposables(manifest.id, disposables)
 		}
 	}
 
-	static async loadScripts(plugin_path: string, api_version: number) {
+	static async loadScripts(
+		pluginPath: string,
+		api_version: number,
+		uiStore: TUIStore,
+		disposables: IDisposable[]
+	) {
 		let scripts: string[]
 		try {
-			scripts = await fs.readdir(path.join(plugin_path, 'scripts'))
+			scripts = await fs.readdir(path.join(pluginPath, 'scripts'))
 		} catch (e) {
 			return
 		}
 
 		let data = await Promise.all(
-			scripts.map(s => fs.readFile(path.join(plugin_path, 'scripts', s)))
+			scripts.map(s =>
+				fs
+					.readFile(path.join(pluginPath, 'scripts', s))
+					.then(buffer => buffer.toString('utf-8'))
+			)
 		)
 		data.forEach((d, i) => {
 			if (api_version === 1) {
-				new InformationWindow(
-					'ERROR',
-					`API version 1 is no longer supported inside "${path.basename(
-						plugin_path
-					)}"`
+				createErrorNotification(
+					new Error(
+						`API VERSION 1: API version 1 is no longer supported inside "${path.basename(
+							pluginPath
+						)}"`
+					)
 				)
 			} else if (api_version === 2 || api_version === undefined) {
+				data.forEach(script =>
+					executeScript(script, uiStore, disposables)
+				)
 			} else {
-				throw new Error('Undefined API Version: ' + api_version)
+				createErrorNotification(
+					new Error(
+						`UNDEFINED API VERSION: API version ${api_version} is not supported!`
+					)
+				)
 			}
 		})
 	}
 
-	static async loadSnippets(plugin_path: string) {
+	static async loadSnippets(pluginPath: string) {
 		let snippets: string[] = await fs
-			.readdir(path.join(plugin_path, 'snippets'))
+			.readdir(path.join(pluginPath, 'snippets'))
 			.catch(e => [])
 
 		let loaded_snippets: any[] = await Promise.all(
 			snippets.map(s =>
-				readJSON(path.join(plugin_path, 'snippets', s)).catch(
+				readJSON(path.join(pluginPath, 'snippets', s)).catch(
 					e => undefined
 				)
 			)
@@ -248,14 +294,14 @@ export default class PluginLoader {
 		})
 	}
 
-	static async loadThemes(plugin_path: string) {
+	static async loadThemes(pluginPath: string) {
 		let themes: string[] = await fs
-			.readdir(path.join(plugin_path, 'themes'))
+			.readdir(path.join(pluginPath, 'themes'))
 			.catch(e => [])
 
 		let loaded_themes: any[] = await Promise.all(
 			themes.map(t =>
-				readJSON(path.join(plugin_path, 'themes', t)).catch(
+				readJSON(path.join(pluginPath, 'themes', t)).catch(
 					e => undefined
 				)
 			)
@@ -265,16 +311,16 @@ export default class PluginLoader {
 		})
 	}
 
-	static async loadThemeCSS(plugin_path: string) {
+	static async loadThemeCSS(pluginPath: string) {
 		let css_files = await fs
-			.readdir(path.join(plugin_path, 'css'), { withFileTypes: true })
+			.readdir(path.join(pluginPath, 'css'), { withFileTypes: true })
 			.catch(e => [] as Dirent[])
 
 		let css: string[] = await Promise.all(
 			css_files.map(css_file => {
 				if (css_file.isDirectory()) return
 				return fs
-					.readFile(path.join(plugin_path, 'css', css_file.name))
+					.readFile(path.join(pluginPath, 'css', css_file.name))
 					.catch(e => undefined)
 					.then(data => data.toString('utf-8'))
 			})
@@ -313,7 +359,9 @@ export default class PluginLoader {
 					report: (info: string) =>
 						new InformationWindow('Information', info, false),
 				},
-				'file'
+				{
+					executionContext: 'file',
+				}
 			)
 		} catch (e) {
 			new InformationWindow(
@@ -324,14 +372,14 @@ export default class PluginLoader {
 		await Promise.all(promises)
 	}
 
-	static async loadAutoCompletions(plugin_path: string) {
+	static async loadAutoCompletions(pluginPath: string) {
 		let auto_completions: string[] = await fs
-			.readdir(path.join(plugin_path, 'auto_completions'))
+			.readdir(path.join(pluginPath, 'auto_completions'))
 			.catch(e => [])
 
 		let formats: AutoCompletionFormat[] = await Promise.all(
 			auto_completions.map(a =>
-				readJSON(path.join(plugin_path, 'auto_completions', a)).catch(
+				readJSON(path.join(pluginPath, 'auto_completions', a)).catch(
 					e => undefined
 				)
 			)

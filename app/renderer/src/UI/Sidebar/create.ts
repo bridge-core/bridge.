@@ -3,11 +3,13 @@ import uuid from 'uuid/v4'
 import Vue from 'vue'
 import { IDisposable } from '../../Types/disposable'
 import { trigger } from '../../AppCycle/EventSystem'
+import { getDefaultSidebar } from './setup'
 
 export interface ISidebar {
+	id?: string
 	icon?: string
 	displayName?: string
-	componentName?: string
+	component?: string
 
 	onClick?: () => void
 }
@@ -17,7 +19,7 @@ export interface ISidebarInstance extends IDisposable, ISidebar {
 	readonly isSelected: boolean
 	readonly opacity: number
 
-	select: () => void
+	select: () => ISidebarInstance
 	toggle: () => void
 }
 
@@ -36,15 +38,17 @@ export function createSidebar(config: ISidebar): ISidebarInstance {
 		get isSelected() {
 			return SidebarState.currentState === sidebarUUID
 		},
-		get opacity() {
+		get opacity(): number {
 			return this.isSelected ? 1 : 0.25
 		},
-		dispose: () => {
+		dispose() {
+			if (this.isSelected) getDefaultSidebar().select()
 			Vue.delete(SidebarState.sidebarElements, sidebarUUID)
 		},
 
 		select() {
 			SidebarState.currentState = sidebarUUID
+			return this
 		},
 		toggle() {
 			if (this.isSelected) {
@@ -55,6 +59,7 @@ export function createSidebar(config: ISidebar): ISidebarInstance {
 					trigger('bridge:onSidebarVisibilityChange', true)
 				this.select()
 			}
+			return this
 		},
 	}
 
