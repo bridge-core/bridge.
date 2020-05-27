@@ -24,7 +24,13 @@
 		<content-file-search v-else-if="component === 'file_search'" />
 		<content-vanilla-assets v-else-if="component === 'VanillaPacks'" />
 
-		<component v-else-if="typeof component === 'function'" :is="component" />
+		<component
+			v-else-if="typeof component === 'function'"
+			:style="`height: ${this.availableHeight}px; overflow: hidden;`"
+			:is="component"
+			:availableHeight="availableHeight"
+		/>
+
 		<content-not-implemented v-else />
 		<!-- </keep-alive> -->
 	</div>
@@ -42,6 +48,7 @@ import ContentVanillaAssets from './VanillaAssets'
 
 import { BASE_PATH, RP_BASE_PATH } from '../../../constants'
 import findRP from '../../../Utilities/FindRP'
+import { on } from '../../../AppCycle/EventSystem'
 
 export default {
 	name: 'SidebarContent',
@@ -58,12 +65,23 @@ export default {
 		ContentNotImplemented,
 		ContentVanillaAssets,
 	},
+
+	mounted() {
+		on('bridge:onResize', this.onResize)
+	},
+
 	data() {
 		return {
 			BASE_PATH,
 			RP_BASE_PATH,
 			findRP,
+			availableHeight: window.innerHeight - 95,
 		}
+	},
+	methods: {
+		onResize() {
+			this.availableHeight = window.innerHeight - 95
+		},
 	},
 }
 </script>
