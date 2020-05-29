@@ -7,7 +7,6 @@ import { NotificationModule } from './modules/footer'
 import { FSModule } from './modules/fs'
 import { ENVModule } from './modules/env'
 import { UtilsModule } from './modules/utils'
-import { GitHubAPIModule } from './modules/githubApi'
 
 const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/ui', UIModule],
@@ -16,7 +15,6 @@ const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/fs', FSModule],
 	['@bridge/env', ENVModule],
 	['@bridge/utils', UtilsModule],
-	['@bridge/github-api', GitHubAPIModule],
 ])
 
 export function createEnv(uiStore: TUIStore, disposables: IDisposable[]) {
