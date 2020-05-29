@@ -8,7 +8,10 @@
 		:value="true"
 		app
 	>
-		<v-list color="sidebar_navigation" :style="`height: 100%; max-height: ${navHeight - 56}px;`">
+		<v-list
+			color="sidebar_navigation"
+			:style="`height: 100%; max-height: ${navHeight - 56}px;`"
+		>
 			<SidebarButton
 				v-for="(sidebar, uuid) in SidebarState.sidebarElements"
 				:key="`${SidebarState.currentState}.${uuid}`"
@@ -52,7 +55,12 @@ export default {
 		},
 		click(sidebar) {
 			// Arguments of event: prevSidebar, newSidebar
-			trigger('bridge:toggledSidebar', getSelected(), sidebar.toggle())
+			trigger(
+				'bridge:toggledSidebar',
+				getSelected(),
+				sidebar.toggle(),
+				true
+			)
 		},
 	},
 }

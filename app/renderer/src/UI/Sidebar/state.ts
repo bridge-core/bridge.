@@ -4,6 +4,7 @@
 
 import Vue from 'vue'
 import { ISidebarInstance } from './create'
+import { trigger } from '../../AppCycle/EventSystem'
 
 export interface ISidebarState {
 	currentState: string | null
@@ -18,9 +19,13 @@ export const SidebarState: ISidebarState = Vue.observable({
 })
 
 export function selectSidebar(findId: string) {
-	Object.values(SidebarState.sidebarElements)
-		.find(({ id }) => id === findId)
-		?.select()
+	const sidebar = Object.values(SidebarState.sidebarElements).find(
+		({ id }) => id === findId
+	)
+
+	if (sidebar && sidebar !== getSelected()) {
+		trigger('bridge:toggledSidebar', getSelected(), sidebar.select(), false)
+	}
 }
 
 export function getSelected() {
