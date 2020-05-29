@@ -19,7 +19,7 @@
 				:icon="sidebar.icon"
 				:opacity="sidebar.opacity"
 				:isSelected="sidebar.isSelected"
-				@click="click(sidebar)"
+				@click="sidebar.toggle()"
 			/>
 		</v-list>
 	</v-navigation-drawer>
@@ -52,15 +52,6 @@ export default {
 	methods: {
 		onResize() {
 			this.navHeight = window.innerHeight
-		},
-		click(sidebar) {
-			// Arguments of event: prevSidebar, newSidebar
-			trigger(
-				'bridge:toggledSidebar',
-				getSelected(),
-				sidebar.toggle(),
-				true
-			)
 		},
 	},
 }
