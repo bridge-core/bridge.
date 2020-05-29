@@ -29,7 +29,6 @@
 import SidebarButton from './Button'
 import { SidebarState, getSelected } from './state'
 import { setupSidebar } from './setup'
-import { trigger } from '../../AppCycle/EventSystem'
 
 export default {
 	name: 'SidebarNavigation',
