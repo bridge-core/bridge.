@@ -55,18 +55,3 @@ export namespace MinecraftManifest {
 		version: TVersion
 	}
 }
-
-//Anvil manifest
-export namespace AnvilManifest {
-	export interface IStructure {
-		format_version: 1
-		header: Partial<MinecraftManifest.IHeader>
-		modules: Partial<IModules>
-	}
-	export interface IModules {
-		BP: string
-		RP: string
-		ANVIL: string
-		WORLD: string
-	}
-}
