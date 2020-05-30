@@ -69,3 +69,9 @@ Bridge.registerCompletionProvider({
         }
     }
 })
+
+Bridge.registerConfiguration({
+    comments: {
+        lineComment: "#"
+    }
+})
