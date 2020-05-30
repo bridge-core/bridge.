@@ -9,6 +9,7 @@ const o = expr => {
 Bridge.registerTokens({
     tokenizer: {
         root: [
+            [/##.*/, 'comment'],
             [/=|\.|:/, 'definition'],
             [Bridge.Project.getPrefix(), "variable"]
         ],
