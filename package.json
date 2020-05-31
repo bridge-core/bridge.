@@ -63,7 +63,11 @@
       ]
     },
     "linux": {
-      "publish": ["github"],
+      "publish": [{
+        "provider": "github",
+        "owner": "bridge-core",
+        "releaseType": "release"
+      }],
       "icon": "build/icons"
     }
   },
