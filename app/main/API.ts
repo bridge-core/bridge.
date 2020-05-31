@@ -13,6 +13,7 @@ import { download } from 'electron-dl'
 import path, { join } from 'path'
 import { log, error } from './BrowserConsole'
 import https from 'https'
+const {autoUpdater} = require("electron-updater");
 
 export interface ISetupConfig {
 	mainWindow: BrowserWindow
@@ -78,17 +79,8 @@ export function setup({ mainWindow }: ISetupConfig) {
 
 	ipcMain.handle('bridge:installUpdate', async (event, url: string) => {
 		log('Starting download...', mainWindow)
-		const appPath = app.getAppPath()
-		// const appPath =
-		'C:\\Users\\bened\\AppData\\Local\\Programs\\bridge\\resources\\app.asar'
-		log(appPath, mainWindow)
-		log(url, mainWindow)
-
-		await download(mainWindow, url, {
-			filename: path.basename(appPath),
-			directory: path.dirname(appPath),
-		})
-
+		autoUpdater.checkForUpdatesAndNotify();
+		log('Download finished! restarting..')
 		app.relaunch()
 		app.quit()
 	})
