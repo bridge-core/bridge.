@@ -1,0 +1,45 @@
+{
+	"display_name": "Cat",
+	"description": "Creates a new cat entity.",
+	"icon": "mdi-cat",
+	"bp_map": {
+		"entity.json": "entities/",
+		"loot_table.json": "loot_tables/entities/",
+		"loot_table_gift.json": "loot_tables/entities/{{IDENTIFIER}}_gift",
+		"spawn_rule.json": "spawn_rules/"
+	},
+	"rp_map": {
+		"client_entity.json": "entity/",
+		"geometry.json": "models/entity/",
+		"animation.json": "animations/",
+		"animation_controller.json": "animation_controllers/",
+		"render_controller.json": "render_controllers/"
+	},
+	"expand_rp_files": {
+		"en_US.lang": "texts/en_US.lang"
+	},
+	"copy_rp_files": {
+		"texture_white.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_white.png",
+        "texture_tuxedo.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_tuxedo.png",
+        "texture_redtabby.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_redtabby.png",
+        "texture_siamese.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_siamesecat.png",
+        "texture_british.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_britishshorthair.png",
+        "texture_calico.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_calico.png",
+        "texture_persian.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_persian.png",
+        "texture_ragdoll.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_ragdoll.png",
+        "texture_tabby.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_tabby.png",
+        "texture_jellie.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_jellie.png", 
+        "texture_all_black.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_allblackcat.png",
+        "texture_white_tame.tga": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_white_tame.tga",
+        "texture_tuxedo_tame.tga": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_tuxedo_tame.tga",
+        "texture_redtabby_tame.tga": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_redtabby_tame.tga",
+        "texture_siamese_tame.tga": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_siamesecat_tame.tga",
+        "texture_british_tame.tga": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_britishshorthair_tame.tga",
+        "texture_calico_tame.tga": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_calico_tame.tga",
+        "texture_persian_tame.tga": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_persian_tame.tga",
+        "texture_ragdoll_tame.tga": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_ragdoll_tame.tga",
+        "texture_tabby_tame.tga": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_tabby_tame.tga",
+        "texture_all_black_tame.tga": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_allblackcat_tame.tga",
+        "texture_jellie_tame.tga":  "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_jellie_tame.tga"
+	}
+}
