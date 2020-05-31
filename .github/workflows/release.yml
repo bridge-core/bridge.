@@ -11,24 +11,15 @@ jobs:
                 platform: [windows-latest, ubuntu-latest, macos-latest]
         runs-on: ${{ matrix.platform }}
         steps:
-            - uses: actions/checkout@v1
+            - name: Checkout
+              uses: actions/checkout@v1
             - name: Setup Node.js
               uses: actions/setup-node@v1
               with:
                   node-version: 12
-            - name: npm install and build
+            - name: Build and release
               run: |
                   npm install
-                  npm run build
-            - name: Upload to release
-              uses: softprops/action-gh-release@v1
-              with:
-                  files: |
-                      build/nsis-web/*.exe
-                      build/nsis-web/*.nsis.7z
-                      build/win-unpacked/resources/app.asar
-                      build/*.snap
-                      build/*.AppImage
-                      build/*.dmg
+                  npm run release
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
