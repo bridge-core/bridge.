@@ -6,8 +6,8 @@
         "effect": "$general.effect_name",
         "duration": "$general.number",
         "amplifier": "$general.number",
-        "visible": "$general.number_boolean",
-        "ambient": "$general.number_boolean",
+        "visible": "$general.boolean",
+        "ambient": "$general.boolean",
         "display_on_screen_animation": "$general.boolean"
     },
     "component_group_name": {

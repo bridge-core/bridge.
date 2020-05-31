@@ -106,7 +106,7 @@
         "@import.value.file_identifier": "($dynamic.setting.project_prefix + $dynamic.current_file_name)"
     },
     "inventory_type": [
-        "minecart_chest", "horse", "minecart_hopper", "container"
+        "minecart_chest", "horse", "minecart_hopper", "container", "inventory", "hopper"
     ],
     "damage_type": [
         "override", "contact", "none", "lava", "entity_attack", "fire_tick", "projectile", "suffocation", "fall", "fatal", "starve", "fire", "drowning", "block_explosion", "entity_explosion", "void", "suicide", "magic", "wither", "charging", "anvil", "thorns", "falling_block", "piston", "magma", "fireworks", "temperature", "lightning", "all"
