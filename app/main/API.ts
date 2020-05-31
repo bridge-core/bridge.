@@ -12,8 +12,6 @@ import { DefaultDir } from '../shared/DefaultDir'
 import { download } from 'electron-dl'
 import path, { join } from 'path'
 import { log, error } from './BrowserConsole'
-import https from 'https'
-const {autoUpdater} = require("electron-updater");
 
 export interface ISetupConfig {
 	mainWindow: BrowserWindow
@@ -79,7 +77,7 @@ export function setup({ mainWindow }: ISetupConfig) {
 
 	ipcMain.handle('bridge:installUpdate', async (event, url: string) => {
 		log('Starting download...', mainWindow)
-		autoUpdater.checkForUpdatesAndNotify();
+		//TODO: Bring back previous update system for unsupported platforms
 		log('Download finished! restarting..')
 		app.relaunch()
 		app.quit()

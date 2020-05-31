@@ -1,4 +1,5 @@
 import { app, BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
+import { autoUpdater } from 'electron-updater'
 import { setup } from './API'
 
 declare const __static: string
@@ -57,6 +58,7 @@ function createWindow() {
 			if (process.env.NODE_ENV === 'development')
 				mainWindow.webContents.toggleDevTools()
 
+			autoUpdater.checkForUpdatesAndNotify()
 			setup({ mainWindow })
 		}
 	})
