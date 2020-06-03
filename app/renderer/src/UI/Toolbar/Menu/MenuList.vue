@@ -75,9 +75,6 @@ export default {
 	props: {
 		elements: Array,
 	},
-	mounted() {
-		console.log(this.elements)
-	},
 	data: () => ({
 		getStrKeyCode,
 	}),
