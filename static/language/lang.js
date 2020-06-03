@@ -9,6 +9,7 @@ const o = expr => {
 Bridge.registerTokens({
     tokenizer: {
         root: [
+            [/##.*/, 'comment'],
             [/=|\.|:/, 'definition'],
             [Bridge.Project.getPrefix(), "variable"]
         ],
@@ -63,5 +64,11 @@ Bridge.registerCompletionProvider({
                 insertText: val
             }))
         }
+    }
+})
+
+Bridge.registerConfiguration({
+    comments: {
+        lineComment: "##"
     }
 })

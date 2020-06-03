@@ -1,12 +1,13 @@
 {
   "name": "bridge",
-  "version": "1.7.0-pre5",
+  "version": "1.7.0-pre6",
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
   "license": "GNU",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node --max_old_space_size=8192 .electron-vue/build.js && electron-builder --publish=never",
+    "release": "node --max_old_space_size=8192 .electron-vue/build.js && electron-builder",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "dev": "node .electron-vue/dev-runner.js",
@@ -26,6 +27,11 @@
     "files": [
       "dist/electron/**/*"
     ],
+    "publish": [{
+      "provider": "github",
+      "owner": "bridge-core",
+      "releaseType": "release"
+    }],
     "dmg": {
       "contents": [
         {
@@ -57,6 +63,11 @@
       ]
     },
     "linux": {
+      "publish": [{
+        "provider": "github",
+        "owner": "bridge-core",
+        "releaseType": "release"
+      }],
       "icon": "build/icons"
     }
   },
@@ -71,6 +82,7 @@
     "deepmerge": "^4.2.2",
     "discord-rich-presence": "0.0.8",
     "electron-dl": "^3.0.0",
+    "electron-updater": "^4.3.1",
     "font-list": "^1.2.8",
     "fs-extra": "^8.1.0",
     "image-size": "^0.8.3",

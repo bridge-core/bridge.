@@ -14,7 +14,7 @@ export interface IAppMenuElement {
 	isHidden?: boolean
 	displayName: string
 	displayIcon?: string
-	elements?: IAppMenuElement[]
+	elements?: (() => IAppMenuElement[]) | IAppMenuElement[]
 	keyBinding?: IKeyBinding
 	onClick?: () => void
 }
@@ -51,7 +51,12 @@ function registerKeyBindings(elements: IAppMenuElement[]) {
 	elements.forEach(({ keyBinding, onClick, elements }) => {
 		if (keyBinding && onClick)
 			disposables.push(addKeyBinding(keyBinding, onClick))
-		else if (elements) disposables.push(...registerKeyBindings(elements))
+		else if (elements)
+			disposables.push(
+				...registerKeyBindings(
+					typeof elements === 'function' ? elements() : elements
+				)
+			)
 	})
 
 	return disposables

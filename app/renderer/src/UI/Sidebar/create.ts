@@ -1,4 +1,4 @@
-import { SidebarState } from './state'
+import { SidebarState, getSelected } from './state'
 import uuid from 'uuid/v4'
 import Vue from 'vue'
 import { IDisposable } from '../../Types/disposable'
@@ -47,13 +47,19 @@ export function createSidebar(config: ISidebar): ISidebarInstance {
 		},
 
 		select() {
+			const prevSelected = getSelected()
 			SidebarState.currentState = sidebarUUID
+
+			if (prevSelected !== this)
+				trigger('bridge:toggledSidebar', prevSelected, this)
 			return this
 		},
 		toggle() {
 			if (this.isSelected) {
 				trigger('bridge:onSidebarVisibilityChange', false)
 				SidebarState.currentState = null
+
+				trigger('bridge:toggledSidebar', this, null)
 			} else {
 				if (SidebarState.currentState === null)
 					trigger('bridge:onSidebarVisibilityChange', true)

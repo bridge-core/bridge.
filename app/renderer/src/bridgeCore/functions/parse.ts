@@ -23,9 +23,10 @@ export function parseCommands(commands: string) {
 		commands
 			.split('\n')
 			.map(l => {
-				for (let [commandName, command] of CommandRegistry) {
-					if (l[0] === '#') continue
+				if (l[0] === '#') return l
+				l = l.trim()
 
+				for (let [commandName, command] of CommandRegistry) {
 					if (l.startsWith(`${commandName}`)) {
 						usedCommands.add(commandName)
 

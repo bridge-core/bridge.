@@ -1,5 +1,5 @@
 import { run } from '../../editor/ScriptRunner/run'
-import { createEnv } from './env'
+import { createEnv } from './require'
 import { TUIStore } from '../UI/store'
 import { IDisposable } from '../../Types/disposable'
 

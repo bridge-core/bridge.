@@ -32,6 +32,11 @@ export const ENV = (disposables: IDisposable[], language: string) => {
 				languages.setMonarchTokensProvider(language, tokens)
 			)
 		},
+		registerConfiguration(config: languages.LanguageConfiguration) {
+			disposables.push(
+				languages.setLanguageConfiguration(language, config)
+			)
+		},
 		registerCompletionProvider(provider: languages.CompletionItemProvider) {
 			disposables.push(
 				languages.registerCompletionItemProvider(language, provider)

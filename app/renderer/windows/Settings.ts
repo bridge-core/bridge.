@@ -17,6 +17,9 @@ import ProjectConfig from '../src/Project/Config'
 import { uuid } from '../src/Utilities/useAttr'
 import FontList from 'font-list'
 import { DEV_MENU } from '../src/UI/Toolbar/setupDefaults'
+import { LoadedProjects } from '../src/UI/ProjectScreen/state'
+import { loadProjects } from '../src/UI/ProjectScreen/load'
+import { basename } from 'path'
 
 class ReactiveListEntry {
 	type = 'card'
@@ -175,16 +178,6 @@ export default class SettingsWindow extends TabWindow {
 			'bridge.core.settings_window.'
 		)
 		this.data = SETTINGS.load()
-		let PROJECTS: string[] = []
-		try {
-			PROJECTS = fs
-				.readdirSync(BASE_PATH, { withFileTypes: true })
-				.reduce(
-					(arr, dirent) =>
-						dirent.isDirectory() ? arr.concat([dirent.name]) : arr,
-					[]
-				)
-		} catch (e) {}
 
 		this.addTab({
 			sidebar_element: {
@@ -388,15 +381,30 @@ export default class SettingsWindow extends TabWindow {
 					color: 'grey',
 					text: '\n\nDefault Project',
 				},
-				new ReactiveDropdown(this, 'default_project', PROJECTS, {
-					text: 'Choose a default project...',
-					key: `settings.editor.tab.default_project.${Math.random()}`,
-				}),
-				new ReactiveSwitch(this, 'load_packs_from_worlds', {
-					color: 'primary',
-					text: 'Load packs from world files',
-					key: `settings.explorer.tab.load_packs_from_worlds.${Math.random()}`,
-				}),
+				new ReactiveDropdown(
+					this,
+					'default_project',
+					LoadedProjects.map(({ projectPath }) =>
+						basename(projectPath)
+					),
+					{
+						text: 'Choose a default project...',
+						key: `settings.editor.tab.default_project.${Math.random()}`,
+					}
+				),
+				new ReactiveSwitch(
+					this,
+					'load_packs_from_worlds',
+					{
+						color: 'primary',
+						text: 'Load packs from world files',
+						key: `settings.explorer.tab.load_packs_from_worlds.${Math.random()}`,
+					},
+					() => {
+						this.close()
+						loadProjects()
+					}
+				),
 			],
 		})
 		this.addTab({

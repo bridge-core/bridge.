@@ -1,0 +1,66 @@
+//bridge-file-version: #1
+{
+	"format_version": "1.8.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}",
+			"materials": {
+				"default": "cat"
+			},
+			"textures": {
+				"white": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_white",
+				"black": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_tuxedo",
+				"red": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_redtabby",
+				"siamese": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_siamesecat",
+				"british": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_britishshorthair",
+				"calico": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_calico",
+				"persian": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_persian",
+				"ragdoll": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_ragdoll",
+				"tabby": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_tabby",
+				"jellie": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_jellie",
+				"all_black": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_allblackcat",
+				"white_tame": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_white_tame",
+				"black_tame": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_tuxedo_tame",
+				"red_tame": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_redtabby_tame",
+				"siamese_tame": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_siamesecat_tame",
+				"british_tame": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_britishshorthair_tame",
+				"calico_tame": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_calico_tame",
+				"persian_tame": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_persian_tame",
+				"ragdoll_tame": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_ragdoll_tame",
+				"tabby_tame": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_tabby_tame",
+				"all_black_tame": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_allblackcat_tame",
+				"jellie_tame": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_jellie_tame"
+			},
+			"geometry": {
+				"default": "geometry.{{IDENTIFIER}}"
+			},
+			"animations": {
+				"sneak": "animation.{{IDENTIFIER}}.sneak",
+				"walk": "animation.{{IDENTIFIER}}.walk",
+				"sprint": "animation.{{IDENTIFIER}}.sprint",
+				"sit": "animation.{{IDENTIFIER}}.sit",
+				"look_at_target": "animation.common.look_at_target",
+				"baby_transform": "animation.{{IDENTIFIER}}.baby_transform",
+				"lie_down": "animation.{{IDENTIFIER}}.lie_down"
+			},
+			"animation_controllers": [
+				{
+					"look_at_target": "controller.animation.{{IDENTIFIER}}.look_at_target"
+				},
+				{
+					"move": "controller.animation.{{IDENTIFIER}}.move"
+				},
+				{
+					"baby": "controller.animation.{{IDENTIFIER}}.baby"
+				}
+			],
+			"render_controllers": [
+				"controller.render.{{IDENTIFIER}}"
+			],
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
+		}
+	}
+}

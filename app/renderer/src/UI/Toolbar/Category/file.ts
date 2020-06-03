@@ -9,6 +9,7 @@ import ExtensionBrowser from '../../../../windows/Extensions/Browser'
 import ImportObjWindow from '../../../../windows/ImportObj'
 import LoadingWindow from '../../../../windows/LoadingWindow'
 import FileSystem from '../../../FileSystem'
+import { ImportFileMap } from '../../../plugins/scripts/modules/importFiles'
 
 export const FileMenu: IAppMenu = {
 	displayName: 'File',
@@ -34,7 +35,7 @@ export const FileMenu: IAppMenu = {
 		{
 			displayName: 'Import',
 			displayIcon: 'mdi-import',
-			elements: [
+			elements: () => [
 				{
 					displayName: 'Open File',
 					displayIcon: 'mdi-file-upload-outline',
@@ -60,6 +61,7 @@ export const FileMenu: IAppMenu = {
 					displayIcon: 'mdi-video-3d',
 					onClick: () => new ImportObjWindow(),
 				},
+				...ImportFileMap.values(),
 			],
 		},
 		{

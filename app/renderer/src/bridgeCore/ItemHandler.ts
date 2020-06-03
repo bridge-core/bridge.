@@ -24,7 +24,7 @@ export function transformComponents({
 	A_C_MASK,
 	component_name,
 	component,
-	identifier,
+	identifier = 'bridge:unknown',
 	file_uuid,
 }: ItemComponentData) {
 	let item_id = identifier.split(':').pop()

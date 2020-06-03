@@ -8,7 +8,11 @@
 					selected !== '/@NO-BP@/'
 			"
 		>
-			<component :is="toolbar_component" :selected="selected" :base_path="base_path" />
+			<component
+				:is="toolbar_component"
+				:selected="selected"
+				:base_path="base_path"
+			/>
 			<v-divider />
 		</span>
 
@@ -19,20 +23,6 @@
 				</v-avatar>
 			</span>
 
-			<!-- <v-select
-				v-if="force_project_algorithm === undefined"
-				style="margin: 4px 0; margin-right: 4px; border-radius: 0; width: calc(100% - 48px);"
-				ref="project_select"
-				:items="project_items"
-				:value="selected"
-				:label="display_label"
-				background-color="expanded_sidebar"
-				solo
-				:loading="loading"
-				:disabled="items.length <= 1"
-				@input="choice => (selected = choice)"
-				hide-details
-			/>-->
 			<v-subheader
 				v-if="selected"
 				style="width: calc(100% - 48px);"
@@ -61,7 +51,10 @@
 			:explorer_type="explorer_type"
 			class="file-displayer"
 		/>
-		<v-progress-linear v-else-if="!loaded_file_defs || selected === undefined" indeterminate />
+		<v-progress-linear
+			v-else-if="!loaded_file_defs || selected === undefined"
+			indeterminate
+		/>
 		<div v-else-if="selected === '/@NO-DEPENDENCY@/'" style="padding: 4px;">
 			<p style="word-break: break-word;">
 				It doesn't look like your current behavior pack has a
@@ -87,7 +80,7 @@
 			</v-btn>
 		</div>
 
-		<v-divider></v-divider>
+		<v-divider />
 	</v-container>
 	<explorer-no-projects v-else />
 </template>
@@ -114,7 +107,11 @@ import LoadingWindow from '../../../../windows/LoadingWindow'
 import FileType from '../../../editor/FileType'
 import { setRP, trySetRP } from '../../../Utilities/FindRP'
 import path from 'path'
-import { isVisible as ProjectScreenVisible } from '../../ProjectScreen/state'
+import {
+	isVisible as ProjectScreenVisible,
+	LoadedProjects,
+} from '../../ProjectScreen/state'
+import { loadProjects } from '../../ProjectScreen/load'
 
 export default {
 	name: 'content-explorer',
@@ -229,7 +226,10 @@ export default {
 				this.loadDirectory(this.selected, true)
 			} else {
 				try {
-					this.items = await this.getCurrentPacks()
+					await loadProjects()
+					this.items = LoadedProjects.map(
+						({ relativeProjectPath }) => relativeProjectPath
+					)
 				} catch (e) {
 					this.items = []
 				}
@@ -296,7 +296,10 @@ export default {
 				this.selected = await this.force_project_algorithm()
 			} else {
 				try {
-					this.items = await this.getCurrentPacks()
+					await loadProjects()
+					this.items = LoadedProjects.map(
+						({ relativeProjectPath }) => relativeProjectPath
+					)
 				} catch (e) {
 					this.items = []
 				}
@@ -344,56 +347,6 @@ export default {
 					rp_name
 				)
 			})
-		},
-
-		async getCurrentPacks() {
-			let potential = await fs.readdir(BP_BASE_PATH, {
-				withFileTypes: true,
-			})
-
-			//load behavior packs from worlds
-			let map_packs = []
-			try {
-				map_packs = await fs.readdir(
-					path.join(MOJANG_PATH, 'minecraftWorlds')
-				)
-			} catch {}
-
-			map_packs = await Promise.all(
-				map_packs.map(async p => {
-					try {
-						return (
-							await fs.readdir(
-								path.join(
-									MOJANG_PATH,
-									'minecraftWorlds',
-									p,
-									'behavior_packs'
-								),
-								{
-									withFileTypes: true,
-								}
-							)
-						)
-							.filter(dirent => dirent.isDirectory())
-							.map(dirent =>
-								path.join(
-									'../minecraftWorlds',
-									p,
-									'behavior_packs',
-									dirent.name
-								)
-							)
-					} catch {
-						return []
-					}
-				})
-			)
-
-			return potential
-				.filter(dirent => dirent.isDirectory())
-				.map(dirent => dirent.name)
-				.concat(map_packs.flat())
 		},
 	},
 }

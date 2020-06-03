@@ -19,7 +19,7 @@ export class TabSystem {
 		this.tabs.splice(index, 1)
 	}
 	clear() {
-		this.tabs = []
+		this.tabs.splice(0, this.tabs.length)
 	}
 	select(index: number) {
 		this.currentTab.unselect()

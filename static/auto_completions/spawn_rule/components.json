@@ -4,6 +4,7 @@
     },
 
     "minecraft:spawns_on_surface": {},
+    "minecraft:spawns_underground": {},
     "minecraft:spawns_underwater": {},
     "minecraft:spawns_on_block_filter": {
         "$dynamic.list.next_index": "$general.block_identifier"
@@ -69,6 +70,12 @@
         "min": "$general.number",
         "max": "$general.number"
     },
+
+    "minecraft:height_filter":{
+        "min": "$general.number",
+        "max": "$general.number"
+    },
+
     "minecraft:permute_type": {
         "$dynamic.list.next_index": {
             "weight": "$general.number",

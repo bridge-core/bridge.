@@ -610,6 +610,7 @@
         "avoid_sun": "$general.boolean",
         "avoid_water": "$general.boolean",
         "avoid_damage_blocks": "$general.boolean",
+        "can_break_doors": "$general.boolean",
         "can_open_doors": "$general.boolean",
         "can_pass_doors": "$general.boolean",
         "can_path_over_water": "$general.boolean",

@@ -69,3 +69,22 @@ Bridge.registerCompletionProvider({
         }
     }
 })
+
+Bridge.registerConfiguration({
+    comments: {
+        lineComment: "#"
+    },
+    autoClosingPairs: [{
+            open: "[",
+            close: "]"
+        },
+        {
+            open: "{",
+            close: "}"
+        },
+        {
+            open: "\"",
+            close: "\""
+        }
+    ]
+})

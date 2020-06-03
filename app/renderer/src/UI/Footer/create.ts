@@ -8,6 +8,7 @@ export interface INotification {
 	message?: string
 	color?: string
 	textColor?: string
+	disposeOnMiddleClick?: boolean
 
 	onClick?: () => void
 	onMiddleClick?: () => void
@@ -32,7 +33,8 @@ export function createNotification(config: INotification): IDisposable {
 		...config,
 		onMiddleClick: () => {
 			config.onMiddleClick()
-			Vue.delete(NotificationStore, notificationUUID)
+			if (config.disposeOnMiddleClick)
+				Vue.delete(NotificationStore, notificationUUID)
 		},
 	})
 
