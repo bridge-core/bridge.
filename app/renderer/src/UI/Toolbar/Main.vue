@@ -21,7 +21,9 @@
 					:key="`activator.${key}`"
 					:displayName="displayName"
 					:displayIcon="displayIcon"
-					:elements="elements"
+					:elements="
+						typeof elements === 'function' ? elements() : elements
+					"
 				/>
 				<v-divider :key="`divider.${key}`" vertical />
 			</template>

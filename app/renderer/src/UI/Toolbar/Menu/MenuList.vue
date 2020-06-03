@@ -11,14 +11,24 @@
 				isHidden,
 			},
 			i) in elements"
-			:key="`menu.${i}`"
+			:key="`menu.${i}.${Math.random()}`"
 			open-on-hover
 			offset-x
 			tile
 			z-index="11"
 		>
 			<template v-if="!isHidden" v-slot:activator="{ on }">
-				<v-list-item dense v-on="!onClick && elements.length > 0 && on" @click="clickHandler(onClick)">
+				<v-list-item
+					dense
+					v-on="
+						!onClick &&
+						(typeof elements === 'function' ? elements() : elements)
+							.length > 0
+							? on
+							: undefined
+					"
+					@click="clickHandler(onClick)"
+				>
 					<v-list-item-icon v-if="displayIcon">
 						<v-icon color="primary" small>{{ displayIcon }}</v-icon>
 					</v-list-item-icon>
@@ -30,17 +40,29 @@
 					<v-list-item-action>
 						<v-list-item-action-text>
 							<span v-if="keyBinding">
-								{{
-								getStrKeyCode(keyBinding)
-								}}
+								{{ getStrKeyCode(keyBinding) }}
 							</span>
-							<v-icon v-if="elements && elements.length > 0" small>mdi-chevron-right</v-icon>
+							<v-icon
+								v-if="
+									elements &&
+										(typeof elements === 'function'
+											? elements()
+											: elements
+										).length > 0
+								"
+								small
+								>mdi-chevron-right</v-icon
+							>
 						</v-list-item-action-text>
 					</v-list-item-action>
 				</v-list-item>
 			</template>
 
-			<MenuList :elements="elements" />
+			<MenuList
+				:elements="
+					typeof elements === 'function' ? elements() : elements
+				"
+			/>
 		</v-menu>
 	</v-list>
 </template>
@@ -52,6 +74,9 @@ export default {
 	name: 'MenuList',
 	props: {
 		elements: Array,
+	},
+	mounted() {
+		console.log(this.elements)
 	},
 	data: () => ({
 		getStrKeyCode,
