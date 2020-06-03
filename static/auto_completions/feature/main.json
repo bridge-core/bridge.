@@ -51,7 +51,18 @@
             "@import.value.molang": "$molang.general.boolean and ('query.' + $molang.general.query)",
 
             "extent": {
-                "$dynamic.list.index_pair": "$general.number"
+                "$dynamic.list.index_pair": {
+                    "@import.value": "$general.number and ('query.' + $molang.general.query)",
+                    "@meta": {
+                        "validate": {
+                            "confirm": "Bridge.Node.data === '' || Bridge.Node.data === 'true' || Bridge.Node.data === 'false'",
+                            "then": {
+                                "show": true,
+                                "message": "Invalid data type: Expected number or MoLang"
+                            }
+                        } 
+                    }
+                }
             },
             "distribution": "$feature.general.distributions"
         },
