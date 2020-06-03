@@ -7,7 +7,13 @@ export default class LinkRPWindow extends ContentWindow {
 	private selected_rp: string
 
 	constructor(bp_name: string) {
-		const PROJECTS = fs.readdirSync(RP_BASE_PATH)
+		const PROJECTS = (
+			fs.readdirSync(RP_BASE_PATH, {
+				withFileTypes: true,
+			})
+		)
+			.filter(dirent => dirent.isDirectory())
+			.map(dirent => dirent.name)
 
 		super({
 			display_name: 'Link Project To Resource Pack',
