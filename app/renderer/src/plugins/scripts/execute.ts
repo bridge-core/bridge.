@@ -8,7 +8,7 @@ export async function executeScript(
 	uiStore: TUIStore,
 	disposables: IDisposable[]
 ) {
-	return await run(code, createEnv(uiStore, disposables), {
+	return await run(code, createEnv(disposables, uiStore), {
 		executionContext: 'file',
 		envName: 'require',
 		async: true,

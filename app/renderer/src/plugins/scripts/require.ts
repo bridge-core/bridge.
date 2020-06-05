@@ -20,10 +20,32 @@ const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/utils', UtilsModule],
 	['@bridge/file-importer', ImportFileModule],
 ])
+//For usage inside of custom commands, components etc.
+const LimitedModules = new Map<string, (config: IModuleConfig) => unknown>([
+	['@bridge/notification', NotificationModule],
+	['@bridge/fs', FSModule],
+	['@bridge/path', PathModule],
+	['@bridge/env', ENVModule],
+	['@bridge/utils', UtilsModule],
+])
 
-export function createEnv(uiStore: TUIStore, disposables: IDisposable[]) {
+function createGenericEnv(
+	disposables: IDisposable[] = [],
+	uiStore?: TUIStore,
+	modules = BuiltInModules
+) {
 	return async (importName: string) => {
-		const module = BuiltInModules.get(importName)
+		const module = modules.get(importName)
 		if (module) return module({ uiStore, disposables })
 	}
+}
+
+export function createEnv(disposables: IDisposable[] = [], uiStore?: TUIStore) {
+	return createGenericEnv(disposables, uiStore)
+}
+export function createLimitedEnv(
+	disposables: IDisposable[] = [],
+	uiStore?: TUIStore
+) {
+	return createGenericEnv(disposables, uiStore, LimitedModules)
 }

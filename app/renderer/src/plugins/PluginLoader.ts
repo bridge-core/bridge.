@@ -35,6 +35,7 @@ import {
 	set as setDisposables,
 } from './Disposables'
 import { executeScript } from './scripts/execute'
+import { createEnv, createLimitedEnv } from './scripts/require'
 
 let PLUGIN_FOLDERS: string[]
 let PLUGIN_DATA: any[] = []
@@ -350,25 +351,29 @@ export default class PluginLoader {
 		if (fileContent === undefined) return
 
 		const promises: Promise<unknown>[] = []
+
 		try {
 			run(
 				fileContent,
-				{
-					register: (c: any) =>
-						promises.push(ComponentRegistry.register(c)),
-					report: (info: string) =>
-						new InformationWindow('Information', info, false),
-				},
+				[
+					createLimitedEnv(),
+					{
+						register: (c: any) =>
+							promises.push(ComponentRegistry.register(c)),
+						report: (info: string) =>
+							new InformationWindow('Information', info, false),
+					},
+				],
 				{
 					executionContext: 'file',
+					envName: 'require, Bridge',
+					async: true,
 				}
 			)
-		} catch (e) {
-			new InformationWindow(
-				'ERROR',
-				`Error while loading custom component:\n${e.message}`
-			)
+		} catch (err) {
+			createErrorNotification(err)
 		}
+
 		await Promise.all(promises)
 	}
 
