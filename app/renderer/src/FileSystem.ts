@@ -62,7 +62,8 @@ export default class FileSystem {
 		else this.openDir(file_path, is_immutable)
 	}
 	static async openFile(file_path: string, is_immutable = false) {
-		if (TabSystem.isOpen(file_path, true)) return
+		if (TabSystem.isOpen(file_path, true))
+			return Store.commit('removeLoadingWindow', { id: 'open-file' })
 
 		let file: Buffer
 		try {
