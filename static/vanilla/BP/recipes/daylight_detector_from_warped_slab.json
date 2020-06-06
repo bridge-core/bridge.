@@ -26,6 +26,7 @@
         "result": {
             "item": "daylight_detector",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

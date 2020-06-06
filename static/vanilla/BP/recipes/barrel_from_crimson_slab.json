@@ -1,0 +1,29 @@
+{
+    "format_version": "1.16",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "minecraft:barrel_from_crimson_slab"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "ABA",
+            "A A",
+            "ABA"
+        ],
+        "key": {
+            "A": {
+                "item": "crimson_slab"
+            },
+            "B": {
+                "item": "minecraft:stick"
+            }
+        },
+        "result": {
+            "item": "barrel",
+            "count": 1
+        },
+        "priority": 2
+    }
+}

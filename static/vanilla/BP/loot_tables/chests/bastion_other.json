@@ -5,7 +5,7 @@
             "entries": [
                 {
                     "type": "item",
-                    "weight": 10,
+                    "weight": 12,
                     "functions": [
                         {
                             "function": "minecraft:set_damage",
@@ -22,7 +22,7 @@
                 },
                 {
                     "type": "item",
-                    "weight": 5,
+                    "weight": 2,
                     "functions": [
                         {
                             "function": "set_count",
@@ -33,7 +33,7 @@
                 },
                 {
                     "type": "item",
-                    "weight": 5,
+                    "weight": 2,
                     "functions": [
                         {
                             "function": "set_count",
@@ -44,13 +44,13 @@
                 },
                 {
                     "type": "item",
-                    "weight": 10,
+                    "weight": 16,
                     "functions": [
                         {
                             "function": "set_count",
                             "count": {
-                                "min": 5,
-                                "max": 20
+                                "min": 2,
+                                "max": 15
                             }
                         }
                     ],
@@ -58,7 +58,7 @@
                 },
                 {
                     "type": "item",
-                    "weight": 10,
+                    "weight": 5,
                     "functions": [
                         {
                             "function": "set_count",
@@ -73,7 +73,7 @@
                 },
                 {
                     "type": "item",
-                    "weight": 10,
+                    "weight": 3,
                     "functions": [
                         {
                             "function": "set_count",
@@ -83,16 +83,8 @@
                     "name": "minecraft:record_pigstep"
                 },
                 {
-                    "type": "empty",
-                    "weight": 10
-                }
-            ]
-        },
-        {
-            "rolls": 2,
-            "entries": [
-                {
                     "type": "item",
+                    "weight": 10,
                     "functions": [
                         {
                             "function": "specific_enchants",
@@ -107,9 +99,17 @@
                             ]
                         }
                     ],
-                    "name": "minecraft:book",
-                    "weight": 1
+                    "name": "minecraft:book"
                 },
+                {
+                    "type": "empty",
+                    "weight": 50
+                }
+            ]
+        },
+        {
+            "rolls": 2,
+            "entries": [
                 {
                     "type": "item",
                     "functions": [

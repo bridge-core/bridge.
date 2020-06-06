@@ -23,6 +23,7 @@
         "result": {
             "item": "jukebox",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

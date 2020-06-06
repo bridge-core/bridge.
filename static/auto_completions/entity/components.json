@@ -871,7 +871,19 @@
                 "position": {
                     "$dynamic.list.index_triple": "$general.decimal"
                 },
-                "rotate_rider_by": "$general.degree"
+                "rotate_rider_by": {
+                    "@import.value": "$general.degree and ('query.' + $molang.general.query)",
+                    "@meta": { 
+                        "is_molang": true,
+                        "validate": {
+                            "confirm": "Bridge.Node.data === '' || Bridge.Node.data === 'true' || Bridge.Node.data === 'false'",
+                            "then": {
+                                "show": true,
+                                "message": "Invalid data type: Expected number or MoLang"
+                            }
+                        }
+                    }
+                }
             }
         }
     },

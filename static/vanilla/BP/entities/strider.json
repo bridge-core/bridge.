@@ -42,7 +42,7 @@
         },
         "minecraft:behavior.controlled_by_player": {
           "priority": 0,
-          "mount_speed_multiplier": 2.5
+          "mount_speed_multiplier": 1.45
         }
       },
 
@@ -156,10 +156,20 @@
         "minecraft:environment_sensor": {
           "triggers": {
             "filters": {
-              "test": "in_lava",
-              "subject": "self",
-              "operator": "==",
-              "value": true
+              "any_of": [
+                {
+                  "test": "in_lava",
+                  "subject": "self",
+                  "operator": "==",
+                  "value": true
+                },
+                {
+                  "test": "in_lava",
+                  "subject": "other",
+                  "operator": "==",
+                  "value": true
+                }
+              ]
             },
             "event": "stop_suffocating"
           }
@@ -178,13 +188,22 @@
                   "value": false
                 },
                 {
-                  "test": "is_riding",
-                  "subject": "self",
-                  "operator": "==",
-                  "value": false
+                  "any_of": [
+                    {
+                      "test": "is_riding",
+                      "subject": "self",
+                      "operator": "==",
+                      "value": false
+                    },
+                    {
+                      "test": "in_lava",
+                      "subject": "other",
+                      "operator": "==",
+                      "value": false
+                    }
+                  ]
                 }
               ]
-              
             },
             "event": "start_suffocating"
           }
@@ -204,12 +223,6 @@
         "is_pushable": true,
         "is_pushable_by_piston": true
       },      
-      "minecraft:damage_sensor": {
-        "triggers": {
-          "cause": "fall",
-          "deals_damage": false
-        }
-      },
       "minecraft:hurt_on_condition": {
         "damage_conditions": [
           {
@@ -235,7 +248,7 @@
         "value": 0.16
       },
       "minecraft:lava_movement": {
-        "value": 0.2
+        "value": 0.32
       },
       "minecraft:movement.basic": {
       },

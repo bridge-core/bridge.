@@ -87,7 +87,7 @@
                 "minecraft:behavior.melee_attack": {
                     "priority": 2,
                     "attack_once": true,
-                    "speed_multiplier": 9,
+                    "speed_multiplier": 1.4,
                     "on_attack": {
                         "event": "countdown_to_perish_event",
                         "target": "self"

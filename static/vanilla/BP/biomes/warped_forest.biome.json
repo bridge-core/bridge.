@@ -11,6 +11,13 @@
         "temperature": 2.0,
         "blue_spores": 0.25
       },
+      "minecraft:nether_generation_rules": {
+        "target_temperature": 0.0,
+        "target_humidity": 0.5,
+        "target_altitude": 0.0,
+        "target_weirdness": 0.0,
+        "weight": 0.375
+      },
       "minecraft:surface_parameters": {
         "sea_floor_depth": 1,
         "sea_floor_material": "minecraft:warped_nylium",
@@ -30,13 +37,6 @@
             "noise_range": [ 0.4, 1.0 ]
           }
         ]
-      },
-      "minecraft:nether_generation_rules": {
-        "target_temperature": 0.0,
-        "target_humidity": 0.5,
-        "target_altitude": 0.0,
-        "target_weirdness": 0.0,
-        "weight": 0.10
       },
 
       "nether": {},

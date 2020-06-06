@@ -25,6 +25,7 @@
         "result": {
             "item": "grindstone",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

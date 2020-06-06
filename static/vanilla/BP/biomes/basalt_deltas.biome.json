@@ -11,10 +11,17 @@
         "temperature": 2.0,
         "white_ash": 2.0
       },
+      "minecraft:nether_generation_rules": {
+        "target_temperature": -0.5,
+        "target_humidity": 0.0,
+        "target_altitude": 0.0,
+        "target_weirdness": 0.0,
+        "weight": 0.175
+      },
       "minecraft:surface_parameters": {
         "sea_floor_depth": 1,
         "sea_floor_material": "minecraft:basalt",
-        "foundation_material": "minecraft:basalt",
+        "foundation_material": "minecraft:netherrack",
         "mid_material": "minecraft:basalt",
         "top_material": "minecraft:basalt",
         "sea_material": "minecraft:lava"
@@ -28,15 +35,16 @@
             },
             "noise_frequency_scale": 0.1,
             "noise_range": [ -1.0, 0.0 ]
+          },
+          {
+            "materials": {
+              "top_material": "minecraft:gravel"
+            },
+            "height_range": [ "variable.sea_level - 3", "variable.sea_level + 2" ],
+            "noise_frequency_scale": 0.4125,
+            "noise_range": [ -1.0, 0.5 ]
           }
         ]
-      },
-      "minecraft:nether_generation_rules": {
-        "target_temperature": 0.0,
-        "target_humidity": 0.0,
-        "target_altitude": 0.5,
-        "target_weirdness": 0.0,
-        "weight": 0.25
       },
 
       "nether": {},

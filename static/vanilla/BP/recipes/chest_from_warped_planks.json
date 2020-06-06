@@ -20,6 +20,7 @@
         "result": {
             "item": "chest",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

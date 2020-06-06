@@ -219,7 +219,7 @@
       },
       "mason": {
         "minecraft:type_family": {
-          "family": [ "mason", "zombie_villager", "zombie", "undead", "monster", "mob" ]
+          "family": [ "stone_mason", "zombie_villager", "zombie", "undead", "monster", "mob" ]
         },
         "minecraft:variant": {
           "value": 0
@@ -370,13 +370,13 @@
             "priority": 2
           },
           {
-            "item": "minecraft:golden_sword",
+            "item": "minecraft:stone_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 3
           },
           {
-            "item": "minecraft:stone_sword",
+            "item": "minecraft:golden_sword",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 4
@@ -424,24 +424,28 @@
             "priority": 5
           },
           {
-            "item": "minecraft:skull",
+            "item": "minecraft:turtle_helmet",
             "want_amount": 1,
-            "item_aux": 0,
             "surplus_amount": 1,
             "priority": 6
           },
           {
-            "item": "minecraft:skull",
+            "item": "minecraft:skull:0",
             "want_amount": 1,
-            "item_aux": 1,
             "surplus_amount": 1,
-            "priority": 6
+            "priority": 7
+          },
+          {
+            "item": "minecraft:skull:1",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 7
           },
           {
             "item": "minecraft:carved_pumpkin",
             "want_amount": 1,
             "surplus_amount": 1,
-            "priority": 6
+            "priority": 7
           },
           {
             "item": "minecraft:netherite_chestplate",
@@ -930,7 +934,7 @@
               },
               // Transform mason zombie to mason villager
               {
-                "filters": { "test": "is_family", "subject": "other", "value": "mason" },
+                "filters": { "test": "is_family", "subject": "other", "value": "stone_mason" },
                 "add": { "component_groups": [ "mason" ] }
               }
             ]
