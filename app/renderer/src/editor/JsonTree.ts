@@ -464,7 +464,10 @@ export default class JSONTree {
 
 		this.addMeta(PROVIDER.getMeta(this.path, file_path, this), file_path)
 
-		if (deep) this.children.forEach(c => c.loadMeta(file_path, true))
+		if (deep)
+			this.children.forEach(c =>
+				requestIdleCallback(() => c.loadMeta(file_path, true))
+			)
 		this.updateUUID()
 	}
 	/**
