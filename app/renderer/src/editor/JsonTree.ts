@@ -17,8 +17,8 @@ import { runValidationFile } from './ScriptRunner/Validation/runFile'
 import { canBeMinified, getCacheData } from './JSONTree/cacheUtils'
 import { trigger } from '../AppCycle/EventSystem'
 
-declare const requestIdleCallback: (func: () => void) => void
-
+declare const requestIdleCallback: (func: () => void) => number
+declare const cancelIdleCallback: (id: number) => void
 let PROVIDER: Provider
 
 export class TreeIterator {
@@ -91,6 +91,7 @@ export default class JSONTree {
 	is_active = true //Whether to output the tree to the final JSON file upon saving
 	uuid: string
 	meta: any
+	cancelCallbacks = new Set<number>()
 	on = {
 		change: new Map<JSONTree, () => void>(),
 		destroy: new Map<JSONTree, () => void>(),
@@ -193,10 +194,18 @@ export default class JSONTree {
 		return false
 	}
 
+	dispose() {
+		this.cancelCallbacks.forEach(id => cancelIdleCallback(id))
+		this.children.forEach(c => c.dispose())
+	}
 	updateUUID() {
 		this.uuid = uuidv4()
 
-		requestIdleCallback(() => this.on.change.forEach(func => func()))
+		const id = requestIdleCallback(() => {
+			this.on.change.forEach(func => func())
+			this.cancelCallbacks.delete(id)
+		})
+		this.cancelCallbacks.add(id)
 	}
 	forEach(cb: (n?: JSONTree) => any) {
 		if (typeof cb !== 'function') return
@@ -465,9 +474,13 @@ export default class JSONTree {
 		this.addMeta(PROVIDER.getMeta(this.path, file_path, this), file_path)
 
 		if (deep)
-			this.children.forEach(c =>
-				requestIdleCallback(() => c.loadMeta(file_path, true))
-			)
+			this.children.forEach(c => {
+				const id = requestIdleCallback(() => {
+					c.loadMeta(file_path, true)
+					this.cancelCallbacks.delete(id)
+				})
+				this.cancelCallbacks.add(id)
+			})
 		this.updateUUID()
 	}
 	/**

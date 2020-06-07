@@ -199,7 +199,9 @@ class TabSystem {
 	//Closing tab
 	internalCloseId(id: number, project = this.project) {
 		//Remove same folder display
-		const { file_path, file_name } = this.projects[this.project][id]
+		const { file_path, file_name, content } = this.projects[this.project][
+			id
+		]
 		for (let i = 0; i < this.projects[this.project].length; i++) {
 			if (id === i) continue
 			const {
@@ -213,6 +215,9 @@ class TabSystem {
 				curr_folders.splice(curr_folders.indexOf(folder_1), 1)
 			}
 		}
+
+		//Dipose JSONTree
+		if (content instanceof JSONTree) content.dispose()
 
 		const [removed] = this.projects[project].splice(id, 1)
 		//Dispose monaco model
