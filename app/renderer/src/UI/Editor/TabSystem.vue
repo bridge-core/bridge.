@@ -7,7 +7,7 @@
 	>
 		<v-tab
 			v-for="(file, i) in open_files"
-			:key="`${selected_project}-${i}-${unsaved.join()}-${log(file.content.isLoadingMetaData)}`"
+			:key="`${selected_project}-${i}-${unsaved.join()}-${file.content.isLoadingMetaData}`"
 			:ripple="!isSelected(i)"
 			:class="`tab ${isSelected(i) ? 'selected' : ''}`"
 			:style="
