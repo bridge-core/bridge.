@@ -16,6 +16,7 @@ import { ENV } from './ScriptRunner/Validation/ENV'
 import { runValidationFile } from './ScriptRunner/Validation/runFile'
 import { canBeMinified, getCacheData } from './JSONTree/cacheUtils'
 import { trigger } from '../AppCycle/EventSystem'
+import EventBus from '../EventBus'
 
 declare const requestIdleCallback: (func: () => void) => number
 declare const cancelIdleCallback: (id: number) => void
@@ -193,6 +194,14 @@ export default class JSONTree {
 		}
 		return false
 	}
+	get isLoadingMetaData() {
+		if (this.cancelCallbacks.size > 0) return true
+
+		for (const c of this.children) {
+			if (c.isLoadingMetaData) return true
+		}
+		return false
+	}
 
 	dispose() {
 		this.cancelCallbacks.forEach(id => cancelIdleCallback(id))
@@ -201,11 +210,7 @@ export default class JSONTree {
 	updateUUID() {
 		this.uuid = uuidv4()
 
-		const id = requestIdleCallback(() => {
-			this.on.change.forEach(func => func())
-			this.cancelCallbacks.delete(id)
-		})
-		this.cancelCallbacks.add(id)
+		requestIdleCallback(() => this.on.change.forEach(func => func()))
 	}
 	forEach(cb: (n?: JSONTree) => any) {
 		if (typeof cb !== 'function') return
@@ -478,6 +483,7 @@ export default class JSONTree {
 				const id = requestIdleCallback(() => {
 					c.loadMeta(file_path, true)
 					this.cancelCallbacks.delete(id)
+					EventBus.trigger('updateTabUI')
 				})
 				this.cancelCallbacks.add(id)
 			})
