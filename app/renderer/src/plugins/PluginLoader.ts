@@ -353,7 +353,7 @@ export default class PluginLoader {
 		const promises: Promise<unknown>[] = []
 
 		try {
-			run(
+			await run(
 				fileContent,
 				[
 					createLimitedEnv(),
