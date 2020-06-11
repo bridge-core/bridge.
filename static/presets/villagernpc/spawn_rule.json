@@ -6,9 +6,7 @@
       "population_control": "villager"
     },
     "conditions": [
-      {
-        }
-      }
+      {}
     ]
   }
 }
