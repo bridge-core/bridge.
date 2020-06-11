@@ -1,32 +1,38 @@
 {
-    "pools": {
-        "$dynamic.list.next_index": {
-            "conditions": "$loot_table.conditions",
-            "tiers": {
-                "initial_range": "$general.number",
-                "bonus_rolls": "$general.number",
-                "bonus_chance": "$general.decimal"
-            },
-            "rolls": "$general.number",
-            "entries": {
-                "$dynamic.list.next_index": {
-                    "type": [ "item", "loot_table" ],
-                    "$dynamic_template": {
-                        "$key": "$dynamic.children.type",
-
-                        "item": {
-                            "name": "$general.item_identifier",
-                            "weight": "$general.number",
-                            "functions": "$loot_table.functions",
-                            "pools": "$loot_table.main.pools"
-                        },
-                        "loot_table": {
-                            "name": "$dynamic.loot_table_files",
-                            "weight": "$general.number"
-                        }
-                    }
-                }
-            }
-        }
-    }
+	"pools": {
+		"$dynamic.list.next_index": {
+			"conditions": "$loot_table.conditions",
+			"tiers": {
+				"initial_range": "$general.number",
+				"bonus_rolls": "$general.number",
+				"bonus_chance": "$general.decimal"
+			},
+			"rolls": "$general.number",
+			"entries": {
+				"$dynamic.list.next_index": {
+					"type": [
+						"item",
+						"loot_table",
+						"empty"
+					],
+					"$dynamic_template": {
+						"$key": "$dynamic.children.type",
+						"item": {
+							"name": "$general.item_identifier",
+							"weight": "$general.number",
+							"functions": "$loot_table.functions",
+							"pools": "$loot_table.main.pools"
+						},
+						"loot_table": {
+							"name": "$dynamic.loot_table_files",
+							"weight": "$general.number"
+						},
+						"empty": {
+							"weight": "$general.number"
+						}
+					}
+				}
+			}
+		}
+	}
 }
