@@ -1,5 +1,5 @@
 <template>
-	<component :is="tagName">
+	<component v-if="isOnScreen" :is="tagName">
 		<Await :promise="colorize(value)">
 			<template #default="{ data }">
 				<span v-html="data" />
@@ -12,6 +12,11 @@
 			</template>
 		</Await>
 	</component>
+	<component
+		:is="tagName === 'summary' ? tagName : 'div'"
+		v-else
+		v-text="value"
+	/>
 </template>
 
 <script>
@@ -30,6 +35,10 @@ export default {
 		},
 		language: String,
 		value: String,
+		isOnScreen: {
+			default: true,
+			type: Boolean,
+		},
 	},
 	computed: {
 		isDarkMode() {

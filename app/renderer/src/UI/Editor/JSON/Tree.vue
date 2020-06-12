@@ -1,5 +1,9 @@
 <template>
-	<div v-if="first || tree.open" style="margin-left: 16px;">
+	<div
+		v-if="first || tree.open"
+		v-intersect="onIntersect"
+		style="margin-left: 16px;"
+	>
 		<template v-for="child in tree.children">
 			<details
 				v-if="child.children.length > 0"
@@ -10,6 +14,7 @@
 					tagName="summary"
 					:language="language"
 					:value="child.key"
+					:isOnScreen="isOnScreen"
 				/>
 
 				<TreeRenderer
@@ -24,6 +29,7 @@
 				:key="`darkMode-${isDarkMode}-uuid-${child.uuid}`"
 				:language="language"
 				:value="`${child.key} : ${transformData(child.data) || '{}'}`"
+				:isOnScreen="isOnScreen"
 			/>
 		</template>
 	</div>
@@ -68,6 +74,10 @@ export default {
 		if (fakeEditor) fakeEditor.dispose()
 		fakeEditor = null
 	},
+
+	data: () => ({
+		isOnScreen: false,
+	}),
 	computed: {
 		isDarkMode() {
 			return this.$store.state.Appearance.is_dark_mode
@@ -79,6 +89,10 @@ export default {
 			if (!Number.isNaN(Number(data))) return data
 			if (data === 'true' || data === 'false') return data
 			return `"${data}"`
+		},
+		onIntersect(entries) {
+			this.isOnScreen = entries[0].intersectionRatio > 0
+			// console.log(this.isOnScreen)
 		},
 	},
 	watch: {
