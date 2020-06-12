@@ -8,8 +8,8 @@ export function readJSON(filePath: string): Promise<any> {
 			if (err) return reject(err)
 			try {
 				resolve(cJSON.parse(buffer.toString('utf-8'), undefined, true))
-			} catch (e) {
-				reject(e)
+			} catch (jErr) {
+				reject(jErr)
 			}
 		})
 	})

@@ -212,10 +212,11 @@ export default class JSONTree {
 		this.cancelCallbacks.forEach(id => cancelIdleCallback(id))
 		this.children.forEach(c => c.dispose())
 	}
-	updateUUID() {
+	updateUUID(triggerChangeCb = true) {
 		this.uuid = uuidv4()
 
-		requestIdleCallback(() => this.on.change.forEach(func => func()))
+		if (triggerChangeCb)
+			requestIdleCallback(() => this.on.change.forEach(func => func()))
 	}
 	forEach(cb: (n?: JSONTree) => any) {
 		if (typeof cb !== 'function') return

@@ -20,18 +20,24 @@
 			available_width="100%"
 		/>
 		<json-error-screen
-			v-else-if="file_viewer === 'json' && json_object == 'error'"
+			v-else-if="file_viewer === 'json' && jsonObject == 'error'"
 		/>
-		<json-editor-main
+		<!-- <json-editor-main
 			v-else-if="file_viewer === 'json'"
 			:compiled="file.is_compiled"
 			:tab_id="tab_id"
-			:object="json_object"
+			:object="jsonObject"
 			:available_height="available_height - 6"
 			:uuid="use_uuid"
 			:current_file_path="file.file_path"
 			:is_immutable="file.is_immutable"
 			:is_active="is_active"
+		/> -->
+		<JSONEditor
+			v-else-if="file_viewer === 'json'"
+			:json="jsonObject"
+			:availableHeight="available_height - 4"
+			:language="getLanguage(file.file_path)"
 		/>
 		<TextEditor
 			v-else
@@ -43,6 +49,7 @@
 </template>
 
 <script>
+import JSONEditor from './JSON/Main'
 import JsonEditorMain from './JsonEditor/Main'
 import JsonErrorScreen from './JsonErrorScreen'
 
@@ -55,10 +62,12 @@ import AudioPlayer from './AudioPlayer'
 import FileType from '../../editor/FileType'
 import ModelEditor from './Model/Main'
 import TextEditor from './Text/Monaco'
+import { basename } from 'path'
 
 export default {
 	name: 'file-manager',
 	components: {
+		JSONEditor,
 		JsonEditorMain,
 		JsonErrorScreen,
 		AudioPlayer,
@@ -144,7 +153,7 @@ export default {
 				else TabSystem.setCurrentContent(JSON.parse(val))
 			},
 		},
-		json_object() {
+		jsonObject() {
 			if (typeof this.content === 'string') {
 				try {
 					return cJSON.parse(this.content, undefined, true)
@@ -167,6 +176,10 @@ export default {
 				mimetype: `${type}/${ext}`,
 			})
 		},
+		getLanguage(filePath) {
+			let language = (FileType.getData(filePath) || {}).language
+			if (language) return basename(language, '.js')
+		},
 	},
 	watch: {
 		content_as_string() {
@@ -176,28 +189,6 @@ export default {
 }
 </script>
 
-<style>
-.CodeMirror {
-	font-family: inherit;
-}
-.CodeMirror.cm-s-monokai > * {
-	background: var(--v-background-base);
-}
-.cm-s-monokai .CodeMirror-gutters,
-.cm-s-monokai .CodeMirror-linenumbers {
-	background: var(--v-background-lighten1);
-}
-.cm-s-monokai .CodeMirror-selected {
-	background: rgb(60, 60, 60) !important;
-}
-.CodeMirror-vscrollbar {
-	outline: none !important;
-}
-
-.theme--dark .CodeMirror-cursor {
-	border-left: 1px solid white !important;
-}
-</style>
 <style scoped>
 .image {
 	image-rendering: pixelated;

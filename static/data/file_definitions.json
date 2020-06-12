@@ -63,7 +63,7 @@
         },
         "start_state": "entity/main",
         "lightning_cache": "entity",
-        "highlighter": "entity",
+        "language": "entity.js",
         "file_creator": "entity",
         "snippets": "entity"
     },

@@ -224,21 +224,17 @@ export default class FileType {
 	static async registerMonacoLanguages() {
 		let defs = this.getAllData()
 		return await Promise.all(
-			defs
-				.filter(
-					({ file_viewer }) =>
-						file_viewer === 'text' || file_viewer === undefined
-				)
-				.map(async ({ language, ...other }) => {
-					if (!language) return
-					let { extension } =
-						this.getFileCreator(undefined, other) ?? {}
+			defs.map(async ({ language, file_viewer, ...other }) => {
+				if (!language) return
+				let { extension } = this.getFileCreator(undefined, other) ?? {}
 
-					await runLanguageFile(
-						language,
-						extension ?? basename(language, extname(language))
-					)
-				})
+				await runLanguageFile(
+					language,
+					file_viewer !== 'json' && extension
+						? extension
+						: basename(language, extname(language))
+				)
+			})
 		)
 	}
 	static async updateLanguage(language: string) {

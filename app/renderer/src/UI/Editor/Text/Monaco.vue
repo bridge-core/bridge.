@@ -9,7 +9,7 @@ import { on } from '../../../AppCycle/EventSystem'
 import { uuid } from '../../../Utilities/useAttr'
 
 export default {
-	name: 'Monaco',
+	name: 'MonacoEditor',
 	props: {
 		value: String,
 		extension: String,
@@ -43,11 +43,11 @@ export default {
 		},
 	},
 	mounted() {
-		monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
-			target: monaco.languages.typescript.ScriptTarget.ESNext,
-			allowNonTsExtensions: true,
-			noLib: true,
-		})
+		// monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+		// 	target: monaco.languages.typescript.ScriptTarget.ESNext,
+		// 	allowNonTsExtensions: true,
+		// 	noLib: true,
+		// })
 
 		if (this.filePath) this.URI = monaco.Uri.file(this.filePath)
 		else this.URI = monaco.Uri.parse(uuid())
