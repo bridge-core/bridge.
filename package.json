@@ -1,6 +1,6 @@
 {
   "name": "bridge",
-  "version": "1.7.0-pre6",
+  "version": "1.7.0-pre7",
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
   "license": "GNU",
@@ -104,7 +104,7 @@
     "vue": "^2.6.11",
     "vue-electron": "^1.0.6",
     "vuedraggable": "^2.23.2",
-    "vuetify": "^2.2.21",
+    "vuetify": "^2.3.0",
     "vuex": "^3.1.3",
     "vuex-electron": "^1.0.0",
     "zip-a-folder": "0.0.7"
