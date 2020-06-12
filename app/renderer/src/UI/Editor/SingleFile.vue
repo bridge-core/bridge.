@@ -37,6 +37,8 @@
 			v-else-if="file_viewer === 'json'"
 			:json="jsonObject"
 			:availableHeight="available_height - 4"
+			:filePath="file.file_path"
+			:isImmutable="file.is_immutable"
 			:language="getLanguage(file.file_path)"
 		/>
 		<TextEditor
