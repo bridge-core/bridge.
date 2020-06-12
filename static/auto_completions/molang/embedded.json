@@ -1,5 +1,5 @@
 {
-    "@meta": { "is_molang": true, "validate": "molang.js" },
+    "@meta": { "is_molang": true, "language": "molang", "validate": "molang.js" },
 
         "$versioned_template": [
             {

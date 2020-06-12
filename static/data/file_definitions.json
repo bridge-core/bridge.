@@ -266,7 +266,7 @@
         },
         "start_state": "client_entity/main",
         "lightning_cache": "client_entity",
-        "highlighter": "entity",
+        "language": "entity.js",
         "file_creator": "client_entity"
     },
     {

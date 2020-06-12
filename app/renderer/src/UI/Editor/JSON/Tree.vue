@@ -29,8 +29,8 @@
 			<Highlight
 				v-else
 				:key="`darkMode-${isDarkMode}-uuid-${child.uuid}`"
-				:language="language"
-				:value="`${child.key} : ${transformData(child.data) || '{}'}`"
+				:language="child.meta.language || language"
+				:value="`${child.key} : ${getData(child) || '{}'}`"
 				:isOnScreen="isParentOnScreen && isOnScreen"
 			/>
 		</template>
@@ -91,8 +91,8 @@ export default {
 		},
 	},
 	methods: {
-		transformData(data) {
-			if (data === '') return data
+		getData({ data, meta }) {
+			if (data === '' || meta.language) return data
 			if (!Number.isNaN(Number(data))) return data
 			if (data === 'true' || data === 'false') return data
 			return `"${data}"`

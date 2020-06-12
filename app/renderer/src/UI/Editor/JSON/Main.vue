@@ -35,7 +35,6 @@ export default {
 
 			let tree = new JSONTree('global').buildFromObject(this.json)
 			if (!this.isImmutable) tree.loadMeta(this.filePath, true)
-			console.log(tree, this.json)
 
 			TabSystem.setTabCompiled(true)
 			TabSystem.setCurrentContent(tree)
