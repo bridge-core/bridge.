@@ -38,6 +38,7 @@ Bridge.registerTokens({
             [/true|false/, 'number'],
             [
                 /[\w$]*[a-z_$][\w$]*/,
+                {
                     cases: {
                         '@keywords': 'keyword',
                         '@titles': 'type.identifier',
