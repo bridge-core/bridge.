@@ -1,0 +1,49 @@
+{
+    "mob.{{IDENTIFIER}}.death": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/death"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.haggle": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/haggle1",
+        "sounds/mob/{{IDENTIFIER}}/haggle2",
+        "sounds/mob/{{IDENTIFIER}}/haggle3"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.hit": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/hit1",
+        "sounds/mob/{{IDENTIFIER}}/hit2",
+        "sounds/mob/{{IDENTIFIER}}/hit3",
+        "sounds/mob/{{IDENTIFIER}}/hit4"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.idle": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/idle1",
+        "sounds/mob/{{IDENTIFIER}}/idle2",
+        "sounds/mob/{{IDENTIFIER}}/idle3"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.no": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/no1",
+        "sounds/mob/{{IDENTIFIER}}/no2",
+        "sounds/mob/{{IDENTIFIER}}/no3"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.yes": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/yes1",
+        "sounds/mob/{{IDENTIFIER}}/yes2",
+        "sounds/mob/{{IDENTIFIER}}/yes3"
+      ]
+    }
+}

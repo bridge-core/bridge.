@@ -1,0 +1,29 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"{{PROJ_PREFIX}}:{{IDENTIFIER}}": {
+				"volume": 1,
+				"pitch": [
+					0.8,
+					1.2
+				],
+				"events": {
+					"ambient.tame": "mob.{{IDENTIFIER}}.meow",
+					"ambient": "mob.{{IDENTIFIER}}.straymeow",
+					"hurt": {
+						"sound": "mob.{{IDENTIFIER}}.hit",
+						"volume": 0.45
+					},
+					"death": {
+						"sound": "mob.{{IDENTIFIER}}.hit",
+						"volume": 0.5,
+						"pitch": 0.9
+					},
+					"purr": "mob.{{IDENTIFIER}}.purr",
+					"purreow": "mob.{{IDENTIFIER}}.purreow",
+					"eat": "mob.{{IDENTIFIER}}.eat"
+				}
+			}
+		}
+	}
+}

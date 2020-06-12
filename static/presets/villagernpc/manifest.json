@@ -1,4 +1,3 @@
-//bridge-file-version: #3
 {
 	"display_name": "VillagerNPC",
 	"description": "Creates a new Villager type NPC entity. This entity has 3 potential trade tables, and will cycle through them after a period of time. Custom Preset by BSavage81",
@@ -19,9 +18,28 @@
 		"render_controller.json": "render_controllers/"
 	},
 	"expand_rp_files": {
-		"en_US.lang": "texts/en_US.lang"
+		"en_US.lang": "texts/en_US.lang",
+		"sounds.json": "sounds.json",
+		"sound_definitions.json": "sounds/sound_definitions.json"
 	},
 	"copy_rp_files": {
-		"texture.png": "textures/entity/"
+		"texture.png": "textures/entity/",
+		"death.fsb": "sounds/mob/{{IDENTIFIER}}/death.fsb",
+		"haggle1.fsb": "sounds/mob/{{IDENTIFIER}}/haggle1.fsb",
+		"haggle2.fsb": "sounds/mob/{{IDENTIFIER}}/haggle2.fsb",
+		"haggle3.fsb": "sounds/mob/{{IDENTIFIER}}/haggle3.fsb",
+		"hit1.fsb": "sounds/mob/{{IDENTIFIER}}/hit1.fsb",
+		"hit2.fsb": "sounds/mob/{{IDENTIFIER}}/hit2.fsb",
+		"hit3.fsb": "sounds/mob/{{IDENTIFIER}}/hit3.fsb",
+		"hit4.fsb": "sounds/mob/{{IDENTIFIER}}/hit4.fsb",
+		"idle1.fsb": "sounds/mob/{{IDENTIFIER}}/idle1.fsb",
+		"idle2.fsb": "sounds/mob/{{IDENTIFIER}}/idle2.fsb",
+		"idle3.fsb": "sounds/mob/{{IDENTIFIER}}/idle3.fsb",
+		"no1.fsb": "sounds/mob/{{IDENTIFIER}}/no1.fsb",
+		"no2.fsb": "sounds/mob/{{IDENTIFIER}}/no1.fsb",
+		"no3.fsb": "sounds/mob/{{IDENTIFIER}}/no1.fsb",
+		"yes1.fsb": "sounds/mob/{{IDENTIFIER}}/yes1.fsb",
+		"yes2.fsb": "sounds/mob/{{IDENTIFIER}}/yes2.fsb",
+		"yes3.fsb": "sounds/mob/{{IDENTIFIER}}/yes3.fsb"
 	}
 }

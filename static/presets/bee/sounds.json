@@ -1,0 +1,39 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"{{PROJ_PREFIX}}:{{IDENTIFIER}}": {
+				"volume": 0.6,
+				"pitch": 1,
+				"events": {
+					"hurt": {
+						"sound": "mob.{{IDENTIFIER}}.hurt",
+						"volume": 0.6,
+						"pitch": [
+							0.9,
+							1.1
+						]
+					},
+					"death": {
+						"sound": "mob.{{IDENTIFIER}}.death",
+						"volume": 0.6,
+						"pitch": [
+							0.9,
+							1.1
+						]
+					},
+					"attack": {
+						"sound": "mob.{{IDENTIFIER}}.sting",
+						"pitch": [
+							0.8,
+							1
+						]
+					},
+					"ambient.pollinate": {
+						"sound": "mob.{{IDENTIFIER}}.pollinate",
+						"volume": 0.85
+					}
+				}
+			}
+		}
+	}
+}

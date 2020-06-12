@@ -1,4 +1,3 @@
-//bridge-file-version: #0
 {
 	"display_name": "Bee",
 	"description": "Creates a new bee entity.",
@@ -16,12 +15,32 @@
 		"render_controller.json": "render_controllers/"
 	},
 	"expand_rp_files": {
-		"en_US.lang": "texts/en_US.lang"
+		"en_US.lang": "texts/en_US.lang",
+		"sounds.json": "sounds.json",
+		"sound_definitions.json": "sounds/sound_definitions.json"
 	},
 	"copy_rp_files": {
 		"texture.png": "textures/entity/{{IDENTIFIER}}/",
 		"texture_angry.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_angry.png",
 		"texture_angry_nectar.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_angry_nectar.png",
-		"texture_nectar.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_nectar.png"
+		"texture_nectar.png": "textures/entity/{{IDENTIFIER}}/{{IDENTIFIER}}_nectar.png",
+		"aggressive1.fsb": "sounds/mob/{{IDENTIFIER}}/aggressive1.fsb",
+		"aggressive2.fsb": "sounds/mob/{{IDENTIFIER}}/aggressive2.fsb",
+		"aggressive3.fsb": "sounds/mob/{{IDENTIFIER}}/aggressive3.fsb",
+		"death1.fsb": "sounds/mob/{{IDENTIFIER}}/death1.fsb",
+		"death2.fsb": "sounds/mob/{{IDENTIFIER}}/death2.fsb",
+		"hurt1.fsb": "sounds/mob/{{IDENTIFIER}}/hurt1.fsb",
+		"hurt2.fsb": "sounds/mob/{{IDENTIFIER}}/hurt2.fsb",
+		"hurt3.fsb": "sounds/mob/{{IDENTIFIER}}/hurt3.fsb",
+		"loop1.fsb": "sounds/mob/{{IDENTIFIER}}/loop1.fsb",
+		"loop2.fsb": "sounds/mob/{{IDENTIFIER}}/loop2.fsb",
+		"loop3.fsb": "sounds/mob/{{IDENTIFIER}}/loop3.fsb",
+		"loop4.fsb": "sounds/mob/{{IDENTIFIER}}/loop4.fsb",
+		"loop5.fsb": "sounds/mob/{{IDENTIFIER}}/loop5.fsb",
+		"pollinate1.fsb": "sounds/mob/{{IDENTIFIER}}/pollinate1.fsb",
+		"pollinate2.fsb": "sounds/mob/{{IDENTIFIER}}/pollinate2.fsb",
+		"pollinate3.fsb": "sounds/mob/{{IDENTIFIER}}/pollinate3.fsb",
+		"pollinate4.fsb": "sounds/mob/{{IDENTIFIER}}/pollinate4.fsb",
+		"sting.fsb": "sounds/mob/{{IDENTIFIER}}/sting.fsb"
 	}
 }

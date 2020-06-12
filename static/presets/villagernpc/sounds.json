@@ -1,0 +1,22 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"{{PROJ_PREFIX}}:{{IDENTIFIER}}": {
+				"volume": 1,
+				"pitch": [
+					0.8,
+					1.2
+				],
+				"events": {
+					"ambient": "mob.{{IDENTIFIER}}.idle",
+					"hurt": "mob.{{IDENTIFIER}}.hit",
+					"death": "mob.{{IDENTIFIER}}.death",
+					"death.to.zombie": "mob.{{IDENTIFIER}}.death",
+					"haggle": "mob.{{IDENTIFIER}}.haggle",
+					"haggle.yes": "mob.{{IDENTIFIER}}.yes",
+					"haggle.no": "mob.{{IDENTIFIER}}.no"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"{{PROJ_PREFIX}}:{{IDENTIFIER}}": {
+				"volume": 1,
+				"pitch": [
+					0.8,
+					1.2
+				],
+				"events": {
+					"ambient": "mob.{{IDENTIFIER}}.say",
+					"hurt": "mob.{{IDENTIFIER}}.hurt",
+					"death": "mob.{{IDENTIFIER}}.hurt",
+					"step": {
+						"sound": "mob.{{IDENTIFIER}}.step",
+						"volume": 0.15,
+						"pitch": 1
+					}
+				}
+			}
+		}
+	}
+}

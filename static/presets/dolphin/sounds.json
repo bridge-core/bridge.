@@ -1,0 +1,35 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"{{PROJ_PREFIX}}:{{IDENTIFIER}}": {
+				"volume": 1,
+				"pitch": [
+					0.8,
+					1.2
+				],
+				"events": {
+					"ambient": "mob.{{IDENTIFIER}}.idle",
+					"hurt": "mob.{{IDENTIFIER}}.hurt",
+					"death": "mob.{{IDENTIFIER}}.death",
+					"breathe": "mob.{{IDENTIFIER}}.blowhole",
+					"attack": "mob.{{IDENTIFIER}}.attack",
+					"splash": "mob.{{IDENTIFIER}}.splash",
+					"swim": "mob.{{IDENTIFIER}}.swim",
+					"ambient.in.water": "mob.{{IDENTIFIER}}.idle_water",
+					"hurt.in.water": "mob.{{IDENTIFIER}}.hurt",
+					"death.in.water": "mob.{{IDENTIFIER}}.death",
+					"jump": {
+						"sound": "mob.{{IDENTIFIER}}.jump",
+						"volume": 0.7,
+						"pitch": 1
+					},
+					"eat": {
+						"sound": "mob.{{IDENTIFIER}}.eat",
+						"volume": 0.7,
+						"pitch": 1
+					}
+				}
+			}
+		}
+	}
+}

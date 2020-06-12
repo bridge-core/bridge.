@@ -15,9 +15,20 @@
 		"render_controller.json": "render_controllers/"
 	},
 	"expand_rp_files": {
-		"en_US.lang": "texts/en_US.lang"
+		"en_US.lang": "texts/en_US.lang",
+		"sounds.json": "sounds.json",
+		"sound_definitions.json": "sounds/sound_definitions.json"
 	},
 	"copy_rp_files": {
-		"texture.tga": "textures/entity/"
+		"template.tga": "textures/entity/",
+		"breathe1.fsb": "sounds/mob/{{IDENTIFIER}}/breathe1.fsb",
+		"breathe2.fsb": "sounds/mob/{{IDENTIFIER}}/breathe2.fsb",
+		"breathe3.fsb": "sounds/mob/{{IDENTIFIER}}/breathe3.fsb",
+		"breathe4.fsb": "sounds/mob/{{IDENTIFIER}}/breathe4.fsb",
+		"death.fsb": "sounds/mob/{{IDENTIFIER}}/death.fsb",
+		"hit1.fsb": "sounds/mob/{{IDENTIFIER}}/hit1.fsb",
+		"hit2.fsb": "sounds/mob/{{IDENTIFIER}}/hit2.fsb",
+		"hit3.fsb": "sounds/mob/{{IDENTIFIER}}/hit3.fsb",
+		"hit4.fsb": "sounds/mob/{{IDENTIFIER}}/hit4.fsb"
 	}
 }

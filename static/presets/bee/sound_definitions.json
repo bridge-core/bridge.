@@ -1,0 +1,68 @@
+{
+	"mob.{{IDENTIFIER}}.aggressive": {
+		"category": "neutral",
+		"max_distance": 8,
+		"sounds": [
+			{
+				"name": "sounds/mob/{{IDENTIFIER}}/aggressive1",
+				"load_on_low_memory": true
+			},
+			"sounds/mob/{{IDENTIFIER}}/aggressive2",
+			"sounds/mob/{{IDENTIFIER}}/aggressive3"
+		]
+	},
+	"mob.{{IDENTIFIER}}.death": {
+		"category": "neutral",
+		"sounds": [
+			{
+				"name": "sounds/mob/{{IDENTIFIER}}/death1",
+				"load_on_low_memory": true
+			},
+			"sounds/mob/{{IDENTIFIER}}/death2"
+		]
+	},
+	"mob.{{IDENTIFIER}}.hurt": {
+		"category": "neutral",
+		"sounds": [
+			"sounds/mob/{{IDENTIFIER}}/hurt1",
+			{
+				"name": "sounds/mob/{{IDENTIFIER}}/hurt2",
+				"load_on_low_memory": true
+			},
+			"sounds/mob/{{IDENTIFIER}}/hurt3"
+		]
+	},
+	"mob.{{IDENTIFIER}}.loop": {
+		"category": "neutral",
+		"max_distance": 6,
+		"sounds": [
+			"sounds/mob/{{IDENTIFIER}}/loop1",
+			"sounds/mob/{{IDENTIFIER}}/loop2",
+			"sounds/mob/{{IDENTIFIER}}/loop3",
+			"sounds/mob/{{IDENTIFIER}}/loop4",
+			{
+				"name": "sounds/mob/{{IDENTIFIER}}/loop5",
+				"load_on_low_memory": true
+			}
+		]
+	},
+	"mob.{{IDENTIFIER}}.pollinate": {
+		"category": "neutral",
+		"max_distance": 12,
+		"sounds": [
+			{
+				"name": "sounds/mob/{{IDENTIFIER}}/pollinate1",
+				"load_on_low_memory": true
+			},
+			"sounds/mob/{{IDENTIFIER}}/pollinate2",
+			"sounds/mob/{{IDENTIFIER}}/pollinate3",
+			"sounds/mob/{{IDENTIFIER}}/pollinate4"
+		]
+	},
+	"mob.{{IDENTIFIER}}.sting": {
+		"category": "neutral",
+		"sounds": [
+			"sounds/mob/{{IDENTIFIER}}/sting"
+		]
+	}
+}

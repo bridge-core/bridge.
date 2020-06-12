@@ -1,0 +1,93 @@
+{
+    "mob.{{IDENTIFIER}}.idle_water": {
+      "sounds": [
+        {
+          "name": "sounds/mob/{{IDENTIFIER}}/water/w_idle1",
+          "load_on_low_memory": true
+        },
+        "sounds/mob/{{IDENTIFIER}}/water/w_idle2",
+        "sounds/mob/{{IDENTIFIER}}/water/w_idle3",
+        "sounds/mob/{{IDENTIFIER}}/water/w_idle4",
+        "sounds/mob/{{IDENTIFIER}}/water/w_idle5",
+        "sounds/mob/{{IDENTIFIER}}/water/w_idle6",
+        "sounds/mob/{{IDENTIFIER}}/water/w_idle7",
+        "sounds/mob/{{IDENTIFIER}}/water/w_idle8",
+        "sounds/mob/{{IDENTIFIER}}/water/w_idle9",
+        "sounds/mob/{{IDENTIFIER}}/water/w_idle10"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.attack": {
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/attack1",
+        "sounds/mob/{{IDENTIFIER}}/attack2",
+        "sounds/mob/{{IDENTIFIER}}/attack3"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.blowhole": {
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/blowhole1",
+        "sounds/mob/{{IDENTIFIER}}/blowhole2"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.death": {
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/death1",
+        "sounds/mob/{{IDENTIFIER}}/death2"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.eat": {
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/eat1",
+        "sounds/mob/{{IDENTIFIER}}/eat2",
+        "sounds/mob/{{IDENTIFIER}}/eat3"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.hurt": {
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/hurt1",
+        "sounds/mob/{{IDENTIFIER}}/hurt2",
+        "sounds/mob/{{IDENTIFIER}}/hurt3"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.idle": {
+      "sounds": [
+        {
+          "name": "sounds/mob/{{IDENTIFIER}}/water/w_idle1",
+          "load_on_low_memory": true
+        },
+        "sounds/mob/{{IDENTIFIER}}/idle2",
+        "sounds/mob/{{IDENTIFIER}}/idle3",
+        "sounds/mob/{{IDENTIFIER}}/idle4",
+        "sounds/mob/{{IDENTIFIER}}/idle5",
+        "sounds/mob/{{IDENTIFIER}}/idle6"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.jump": {
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/jump1",
+        "sounds/mob/{{IDENTIFIER}}/jump2",
+        "sounds/mob/{{IDENTIFIER}}/jump3"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.play": {
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/play1",
+        "sounds/mob/{{IDENTIFIER}}/play2"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.splash": {
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/splash1",
+        "sounds/mob/{{IDENTIFIER}}/splash2",
+        "sounds/mob/{{IDENTIFIER}}/splash3"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.swim": {
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/swim1",
+        "sounds/mob/{{IDENTIFIER}}/swim2",
+        "sounds/mob/{{IDENTIFIER}}/swim3",
+        "sounds/mob/{{IDENTIFIER}}/swim4"
+      ]
+    }
+}

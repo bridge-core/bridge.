@@ -1,25 +1,40 @@
 {
-    "display_name": "Cow",
-    "description": "Creates a new cow entity.",
-    "icon": "mdi-cow",
-
-    "bp_map": {
-        "entity.json": "entities/",
-        "loot_table.json": "loot_tables/entities/",
-        "spawn_rule.json": "spawn_rules/"
-    },
-    "rp_map": {
-        "client_entity.json": "entity/",
+	"display_name": "Cow",
+	"description": "Creates a new cow entity.",
+	"icon": "mdi-cow",
+	"bp_map": {
+		"entity.json": "entities/",
+		"loot_table.json": "loot_tables/entities/",
+		"spawn_rule.json": "spawn_rules/"
+	},
+	"rp_map": {
+		"client_entity.json": "entity/",
 		"geometry.json": "models/entity/",
 		"animation.json": "animations/",
 		"render_controller.json": "render_controllers/"
-    },
-    "expand_rp_files": {
-        "item_texture.json": "textures/item_texture.json",
-        "en_US.lang": "texts/en_US.lang"
-    },
-    "copy_rp_files": {
-        "texture.png": "textures/entity/",
-        "icon.png": "textures/items/"
-    }
+	},
+	"expand_rp_files": {
+		"item_texture.json": "textures/item_texture.json",
+		"en_US.lang": "texts/en_US.lang",
+		"sounds.json": "sounds.json",
+		"sound_definitions.json": "sounds/sound_definitions.json"
+	},
+	"copy_rp_files": {
+		"texture.png": "textures/entity/",
+		"icon.png": "textures/items/",
+		"hurt1.fsb": "sounds/mob/{{IDENTIFIER}}/hurt1.fsb",
+		"hurt2.fsb": "sounds/mob/{{IDENTIFIER}}/hurt2.fsb",
+		"hurt3.fsb": "sounds/mob/{{IDENTIFIER}}/hurt3.fsb",
+		"milk1.fsb": "sounds/mob/{{IDENTIFIER}}/milk1.fsb",
+		"milk2.fsb": "sounds/mob/{{IDENTIFIER}}/milk2.fsb",
+		"milk3.fsb": "sounds/mob/{{IDENTIFIER}}/milk3.fsb",
+		"say1.fsb": "sounds/mob/{{IDENTIFIER}}/say1.fsb",
+		"say2.fsb": "sounds/mob/{{IDENTIFIER}}/say2.fsb",
+		"say3.fsb": "sounds/mob/{{IDENTIFIER}}/say3.fsb",
+		"say4.fsb": "sounds/mob/{{IDENTIFIER}}/say4.fsb",
+		"step1.fsb": "sounds/mob/{{IDENTIFIER}}/step1.fsb",
+		"step2.fsb": "sounds/mob/{{IDENTIFIER}}/step2.fsb",
+		"step3.fsb": "sounds/mob/{{IDENTIFIER}}/step3.fsb",
+		"step4.fsb": "sounds/mob/{{IDENTIFIER}}/step4.fsb"
+	}
 }

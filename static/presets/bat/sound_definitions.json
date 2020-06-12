@@ -1,0 +1,32 @@
+{
+	"mob.{{IDENTIFIER}}.death": {
+		"category": "neutral",
+		"sounds": [
+			"sounds/mob/{{IDENTIFIER}}/death"
+		]
+	},
+	"mob.{{IDENTIFIER}}.hurt": {
+		"category": "neutral",
+		"sounds": [
+			"sounds/mob/{{IDENTIFIER}}/hurt1",
+			"sounds/mob/{{IDENTIFIER}}/hurt2",
+			"sounds/mob/{{IDENTIFIER}}/hurt3",
+			"sounds/mob/{{IDENTIFIER}}/hurt4"
+		]
+	},
+	"mob.{{IDENTIFIER}}.idle": {
+		"category": "neutral",
+		"sounds": [
+			"sounds/mob/{{IDENTIFIER}}/idle1",
+			"sounds/mob/{{IDENTIFIER}}/idle2",
+			"sounds/mob/{{IDENTIFIER}}/idle3",
+			"sounds/mob/{{IDENTIFIER}}/idle4"
+		]
+	},
+	"mob.{{IDENTIFIER}}.takeoff": {
+		"category": "neutral",
+		"sounds": [
+			"sounds/mob/{{IDENTIFIER}}/takeoff"
+		]
+	}
+}
