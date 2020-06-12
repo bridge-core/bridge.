@@ -14,13 +14,15 @@
 					tagName="summary"
 					:language="language"
 					:value="child.key"
-					:isOnScreen="isOnScreen"
+					:isOnScreen="isParentOnScreen && isOnScreen"
+					@click.native="openTree($event, child)"
 				/>
 
 				<TreeRenderer
 					:first="false"
 					:language="language"
 					:tree="child"
+					:isParentOnScreen="isOnScreen"
 				/>
 			</details>
 
@@ -29,7 +31,7 @@
 				:key="`darkMode-${isDarkMode}-uuid-${child.uuid}`"
 				:language="language"
 				:value="`${child.key} : ${transformData(child.data) || '{}'}`"
-				:isOnScreen="isOnScreen"
+				:isOnScreen="isParentOnScreen && isOnScreen"
 			/>
 		</template>
 	</div>
@@ -40,6 +42,7 @@ import Await from '../../Common/Await'
 import Highlight from './Highlight.vue'
 import JSONTree from '../../../editor/JsonTree'
 import { editor } from 'monaco-editor'
+import debounce from 'lodash.debounce'
 
 let fakeEditor = null
 export default {
@@ -56,6 +59,10 @@ export default {
 		language: {
 			required: true,
 			type: String,
+		},
+		isParentOnScreen: {
+			default: true,
+			type: Boolean,
 		},
 	},
 	created() {
@@ -91,8 +98,13 @@ export default {
 			return `"${data}"`
 		},
 		onIntersect(entries) {
-			this.isOnScreen = entries[0].intersectionRatio > 0
-			// console.log(this.isOnScreen)
+			debounce(() => (this.isOnScreen = entries[0].isIntersecting), 200)()
+			// this.isOnScreen = entries[0].isIntersecting
+		},
+		openTree(event, tree) {
+			event.stopPropagation()
+			event.preventDefault()
+			tree.toggleOpen()
 		},
 	},
 	watch: {

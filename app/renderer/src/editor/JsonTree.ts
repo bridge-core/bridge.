@@ -494,7 +494,11 @@ export default class JSONTree {
 
 		if (validate) this.detectErrors(validate, filePath)
 	}
-	loadMeta(file_path = TabSystem.getCurrentFilePath(), deep = false) {
+	loadMeta(
+		file_path = TabSystem.getCurrentFilePath(),
+		deep = false,
+		first = true
+	) {
 		if (PROVIDER === undefined) PROVIDER = new Provider('')
 
 		this.addMeta(PROVIDER.getMeta(this.path, file_path, this), file_path)
@@ -502,13 +506,13 @@ export default class JSONTree {
 		if (deep)
 			this.children.forEach(c => {
 				const id = requestIdleCallback(() => {
-					c.loadMeta(file_path, true)
+					c.loadMeta(file_path, true, false)
 					this.cancelCallbacks.delete(id)
 					EventBus.trigger('updateTabUI')
 				})
 				this.cancelCallbacks.add(id)
 			})
-		this.updateUUID()
+		if (first) this.updateUUID()
 	}
 	/**
 	 * ERROR DETECTION
@@ -563,9 +567,8 @@ export default class JSONTree {
 		return this
 	}
 	toggleOpen() {
-		this.updateUUID()
-
 		this.open = !this.open
+		this.updateUUID()
 		return this
 	}
 	toggleOpenDeep(val = this.open) {
