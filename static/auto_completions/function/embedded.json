@@ -1,4 +1,4 @@
 {
-    "@meta": { "is_value": true },
+    "@meta": { "is_value": true, "language": "mcfunction" },
     "@import.value.embedded_command": "('/function ' + $dynamic.function_files) and ('/' + $function.main)"
 }

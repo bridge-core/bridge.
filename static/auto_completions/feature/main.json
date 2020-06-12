@@ -42,13 +42,13 @@
         "coordinate_eval_order": "$feature.general.coordinate_eval_orders",
         "scatter_chance": {
             "@meta": { "is_molang": true },
-            "@import.value.molang": "$molang.general.boolean and ('query.' + $molang.general.query)",
+            "@import.value.molang": "$molang.embedded",
 
             "$load": "$feature.general.chance_information"
         },
         "x": {
             "@meta": { "is_molang": true },
-            "@import.value.molang": "$molang.general.boolean and ('query.' + $molang.general.query)",
+            "@import.value.molang": "$molang.embedded",
 
             "extent": {
                 "$dynamic.list.index_pair": {
