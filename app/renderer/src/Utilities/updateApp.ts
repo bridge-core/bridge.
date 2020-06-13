@@ -7,6 +7,4 @@ export default async function updateApp(url: string) {
 	const lw = new LoadingWindow()
 	await ipcRenderer.invoke('bridge:installUpdate', url)
 	lw.close()
-	await ipcRenderer.invoke('bridge:abortUpdate')
-	throw new Error('ERROR: Failed to update!')
 }
