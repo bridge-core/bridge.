@@ -29,7 +29,8 @@ Bridge.registerTokens({
         "materials",
         "textures",
         "geometry",
-        "render_controllers"
+        "render_controllers",
+        "execute"
     ],
     tokenizer: {
         root: [
