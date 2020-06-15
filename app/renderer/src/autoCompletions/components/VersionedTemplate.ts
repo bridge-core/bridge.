@@ -35,8 +35,9 @@ interface IVersionedTemplate {
 export function compileVersionedTemplate(template: IVersionedTemplate[]) {
 	for (let { $if, $data } of template) {
 		if (!$if || compileCondition($if)) {
-			if(typeof $data === "string") return Omega.eval($data).object
+			if (typeof $data === 'string') return Omega.eval($data).object
 			else return $data
+		}
 	}
 }
 
