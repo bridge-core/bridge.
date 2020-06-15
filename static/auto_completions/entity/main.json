@@ -41,7 +41,7 @@
             "$placeholder": {
                 "$versioned_template": [
                     {
-                        "$if": "$format_version = 1.16.0",
+                        "$if": "$format_version >= 1.16.0",
                         "$data": {
                             "trigger": "$entity.general.event_string"
                         }
