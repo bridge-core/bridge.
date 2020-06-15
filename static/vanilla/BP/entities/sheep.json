@@ -266,27 +266,13 @@
                 "weight": 95,
                 "remove": {
                 },
-                "add": {
-                  "component_groups": [
-                    "minecraft:sheep_adult",
-                    "minecraft:sheep_dyeable",
-                    "minecraft:rideable_wooly",
-                    "minecraft:loot_wooly"
-                  ]
-                }
+                "trigger": "spawn_adult"
               },
               {
                 "weight": 5,
                 "remove": {
                 },
-                "add": {
-                  "component_groups": [
-                    "minecraft:sheep_baby",
-                    "minecraft:sheep_dyeable",
-                    "minecraft:rideable_sheared"
-                  ]
-
-                }
+                "trigger": "spawn_baby"
               }
             ]
           },
@@ -344,7 +330,25 @@
           }
         ]
       },
-
+      "spawn_adult": {
+        "add": {
+          "component_groups": [
+            "minecraft:sheep_adult",
+            "minecraft:sheep_dyeable",
+            "minecraft:rideable_wooly",
+            "minecraft:loot_wooly"
+          ]
+        }
+      },
+      "spawn_baby": {
+        "add": {
+          "component_groups": [
+            "minecraft:sheep_baby",
+            "minecraft:sheep_dyeable",
+            "minecraft:rideable_sheared"
+          ]
+        }
+      },
       "minecraft:entity_born": {
         "remove": {
         },
@@ -387,7 +391,7 @@
         }
       },
       "minecraft:on_eat_block": {
-        "sequence":[
+        "sequence": [
           {
             "remove": {
               "component_groups": [
@@ -401,7 +405,12 @@
             }
           },
           {
-            "filters": { "test" :  "has_component","subject" : "other", "operator": "!=", "value" :  "minecraft:is_baby"},
+            "filters": {
+              "test": "has_component",
+              "subject": "other",
+              "operator": "!=",
+              "value": "minecraft:is_baby"
+            },
             "add": {
               "component_groups": [
                 "minecraft:rideable_wooly",

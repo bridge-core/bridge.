@@ -69,12 +69,10 @@
 		</div>
 		<v-divider v-if="first && !is_immutable"></v-divider>
 		<v-layout class="controls" v-if="first && !is_immutable">
-			<template
-				v-if="
+			<template v-if="
 					$store.state.Settings.bridge_predictions &&
 						isKnownFileType()
-				"
-			>
+				">
 				<predicting-input
 					:render_object="render_object"
 					:tab_id="tab_id"
@@ -240,7 +238,8 @@ export default {
 			if (this.first && !this.compiled) {
 				let tree = InternalJSON.Format.toTree(
 					this.object,
-					this.current_file_path
+					this.current_file_path,
+					!this.is_immutable
 				)
 
 				TabSystem.setTabCompiled(true)

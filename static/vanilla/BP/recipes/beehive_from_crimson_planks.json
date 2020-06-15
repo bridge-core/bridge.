@@ -23,6 +23,7 @@
         "result": {
             "item": "beehive",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

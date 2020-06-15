@@ -1,0 +1,32 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"{{PROJ_PREFIX}}:{{IDENTIFIER}}": {
+				"volume": 1,
+				"pitch": [
+					0.8,
+					1.2
+				],
+				"events": {
+					"ambient": "mob.{{IDENTIFIER}}.say",
+					"hurt": "mob.{{IDENTIFIER}}.say",
+					"death": "mob.{{IDENTIFIER}}.death",
+					"step": {
+						"sound": "mob.{{IDENTIFIER}}.step",
+						"volume": 0.15,
+						"pitch": 1
+					},
+					"boost": {
+						"sound": "mob.{{IDENTIFIER}}.boost",
+						"volume": 1,
+						"pitch": 1
+					},
+					"death.to.zombie": {
+						"sound": "mob.{{IDENTIFIER}}.death",
+						"volume": 2
+					}
+				}
+			}
+		}
+	}
+}

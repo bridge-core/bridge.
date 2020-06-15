@@ -274,11 +274,6 @@ export default class SettingsWindow extends TabWindow {
 					text: 'Provide Auto-Completions',
 					key: `settings.editor.tab.auto_completions.${Math.random()}`,
 				}),
-				new ReactiveSwitch(this, 'text_auto_completions', {
-					color: 'primary',
-					text: 'Provide Text Auto-Completions',
-					key: `settings.editor.tab.text_auto_completions.${Math.random()}`,
-				}),
 				new ReactiveSwitch(this, 'auto_fill_inputs', {
 					color: 'primary',
 					text: 'Auto Fill Inputs',

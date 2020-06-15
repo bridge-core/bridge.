@@ -5,7 +5,9 @@
         "sound_interval": {
           "range_min": "$general.number",
           "range_max": "$general.number"
-        }
+        },
+        "on_admire_item_start": "$entity.general.event_definition",
+        "on_admire_item_stop": "$entity.general.event_definition"
     },
     "minecraft:behavior.avoid_block": {
         "priority": "$general.number",

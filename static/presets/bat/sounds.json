@@ -1,0 +1,26 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"{{PROJ_PREFIX}}:{{IDENTIFIER}}": {
+				"volume": 0.1,
+				"pitch": [
+					0.76,
+					1.14
+				],
+				"events": {
+					"ambient": "mob.{{IDENTIFIER}}.idle",
+					"hurt": "mob.{{IDENTIFIER}}.hurt",
+					"death": "mob.{{IDENTIFIER}}.death",
+					"takeoff": {
+						"sound": "mob.{{IDENTIFIER}}.takeoff",
+						"volume": 0.05,
+						"pitch": [
+							0.8,
+							1.2
+						]
+					}
+				}
+			}
+		}
+	}
+}

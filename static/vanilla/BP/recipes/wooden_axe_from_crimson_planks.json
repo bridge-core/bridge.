@@ -23,6 +23,7 @@
         "result": {
             "item": "wooden_axe",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

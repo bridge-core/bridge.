@@ -55,7 +55,7 @@
 
       "ranged_unit": {
         "minecraft:behavior.ranged_attack": {
-          "priority": 5,
+          "priority": 8,
           "attack_interval_min": 1,
           "attack_interval_max": 1,
           "attack_radius": 8,
@@ -82,7 +82,7 @@
 
       "melee_unit": {
         "minecraft:behavior.melee_attack": {
-          "priority": 5,
+          "priority": 8,
           "speed_multiplier": 1.0,
           "track_target": true
         },
@@ -115,6 +115,12 @@
                 "subject": "other",
                 "operator": "!=",
                 "value": "piglin"
+              },
+              {
+                "test": "has_component",
+                "subject": "self",
+                "operator": "!=",
+                "value": "minecraft:attack_cooldown"
               }
             ]
           },
@@ -133,7 +139,7 @@
             "event": "attack_cooldown_complete_event",
             "target": "self"
           }
-        } 
+        }
       },
 
       "piglin_baby": {
@@ -198,6 +204,29 @@
           },
           "radius": 16
         },
+        "minecraft:block_sensor": {
+          "sensor_radius": 16,
+          "on_break": [
+            {
+              "block_list": [
+                "minecraft:gold_block",
+                "minecraft:gilded_blackstone",
+                "minecraft:nether_gold_ore",
+                "minecraft:gold_ore",
+                "minecraft:chest",
+                "minecraft:trapped_chest",
+                "minecraft:ender_chest",
+                "minecraft:barrel",
+                "minecraft:shulker_box",
+                "minecraft:undyed_shulker_box"
+              ],
+              "on_block_broken": "important_block_destroyed_event"
+            }
+          ]
+        }
+      },
+
+      "interactable_piglin": {
         "minecraft:interact": {
           "interactions": [
             {
@@ -221,26 +250,8 @@
               "barter": true,
               "admire": true,
               "use_item": true,
+              "cooldown_after_being_attacked": 20,
               "interact_text": "action.interact.barter"
-            }
-          ]
-        },
-        "minecraft:block_sensor": {
-          "sensor_radius": 16,
-          "on_break": [
-            {
-              "block_list": [
-                "minecraft:gold_block",
-                "minecraft:gilded_blackstone",
-                "minecraft:nether_gold_ore",
-                "minecraft:gold_ore",
-                "minecraft:chest",
-                "minecraft:ender_chest",
-                "minecraft:barrel",
-                "minecraft:shulker_box",
-                "minecraft:undyed_shulker_box"
-              ],
-              "on_block_broken": "important_block_destroyed_event"
             }
           ]
         }
@@ -267,7 +278,7 @@
 
       "alert_for_attack_targets": {
         "minecraft:behavior.nearest_attackable_target": {
-          "priority": 4,
+          "priority": 7,
           "within_radius": 16.0,
           "persist_time": 2.0,
           "entity_types": [
@@ -372,7 +383,7 @@
 
       "take_target_as_response_to_block_break": {
         "minecraft:behavior.nearest_attackable_target": {
-          "priority": 4,
+          "priority": 7,
           "entity_types": [
             {
               "filters": {
@@ -385,7 +396,7 @@
           ]
         }
       },
-      
+
       "piglin_jockey": {
         "minecraft:behavior.find_mount": {
           "priority": 1,
@@ -446,8 +457,7 @@
       "minecraft:jump.static": {},
       "minecraft:nameable": {},
       "minecraft:inventory": {
-        "inventory_size": 8,
-        "private": true
+        "inventory_size": 8
       },
       "minecraft:despawn": {
         "despawn_from_distance": {}
@@ -456,44 +466,26 @@
         "priority": 1
       },
       "minecraft:behavior.admire_item": {
-        "priority": 1,
+        "priority": 2,
         "admire_item_sound": "admire",
         "sound_interval": {
           "range_min": 2.0,
           "range_max": 5.0
+        },
+        "on_admire_item_start": {
+          "event": "admire_item_started_event",
+          "target": "self"
+        },
+        "on_admire_item_stop": {
+          "event": "admire_item_stopped_event",
+          "target": "self"
         }
       },
       "minecraft:behavior.barter": {
-        "priority": 1
-      },
-      "minecraft:behavior.equip_item": {
-        "priority": 2
-      },
-
-      "minecraft:behavior.avoid_block": {
-        "priority": 6,
-        "tick_interval": 5,
-        "search_range": 8,
-        "search_height": 4,
-        "sprint_speed_modifier": 1.1,
-        "target_selection_method": "nearest",
-        "target_blocks": [
-          "minecraft:soul_fire",
-          "minecraft:soul_lantern",
-          "minecraft:soul_torch"
-        ]
-      },
-      "minecraft:behavior.pickup_items": {
-        "priority": 3,
-        "max_dist": 10,
-        "goal_radius": 2,
-        "speed_multiplier": 0.8,
-        "pickup_based_on_chance": false,
-        "can_pickup_any_item": false,
-        "cooldown_after_being_attacked": 20.0
+        "priority": 3
       },
       "minecraft:behavior.avoid_mob_type": {
-        "priority": 6,
+        "priority": 4,
         "remove_target": true,
         "entity_types": [
           {
@@ -535,6 +527,7 @@
                 }
               ]
             },
+            "sprint_speed_multiplier": 1.2,
             "check_if_outnumbered": true
           }
         ],
@@ -548,16 +541,47 @@
           "range_max": 5.0
         }
       },
-      "minecraft:behavior.random_stroll": {
+      "minecraft:behavior.equip_item": {
+        "priority": 5
+      },
+      "minecraft:behavior.pickup_items": {
         "priority": 6,
+        "max_dist": 10,
+        "goal_radius": 2,
+        "speed_multiplier": 0.8,
+        "pickup_based_on_chance": false,
+        "can_pickup_any_item": false,
+        "cooldown_after_being_attacked": 20.0
+      },
+      "minecraft:behavior.avoid_block": {
+        "priority": 9,
+        "tick_interval": 5,
+        "search_range": 8,
+        "search_height": 4,
+        "sprint_speed_modifier": 1.1,
+        "target_selection_method": "nearest",
+        "target_blocks": [
+          "minecraft:soul_fire",
+          "minecraft:soul_lantern",
+          "minecraft:soul_torch",
+          "minecraft:item.soul_campfire"
+        ],
+        "avoid_block_sound": "retreat",
+        "sound_interval": {
+          "range_min": 2.0,
+          "range_max": 5.0
+        }
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 10,
         "speed_multiplier": 0.6
       },
       "minecraft:behavior.look_at_player": {
-        "priority": 7,
+        "priority": 11,
         "look_distance": 8
       },
       "minecraft:behavior.random_look_around": {
-        "priority": 8
+        "priority": 12
       },
       "minecraft:physics": {},
       "minecraft:pushable": {
@@ -719,16 +743,14 @@
             "priority": 7
           },
           {
-            "item": "minecraft:skull",
+            "item": "minecraft:skull:0",
             "want_amount": 1,
-            "item_aux": 0,
             "surplus_amount": 1,
             "priority": 8
           },
           {
-            "item": "minecraft:skull",
+            "item": "minecraft:skull:1",
             "want_amount": 1,
-            "item_aux": 1,
             "surplus_amount": 1,
             "priority": 8
           },
@@ -901,7 +923,8 @@
             "alert_for_attack_targets",
             "ranged_unit",
             "attack_cooldown",
-            "hunter"
+            "hunter",
+            "interactable_piglin"
           ]
         }
       },
@@ -913,7 +936,8 @@
             "alert_for_attack_targets",
             "ranged_unit",
             "attack_cooldown",
-            "not_hunter"
+            "not_hunter",
+            "interactable_piglin"
           ]
         }
       },
@@ -925,7 +949,8 @@
             "alert_for_attack_targets",
             "melee_unit",
             "attack_cooldown",
-            "hunter"
+            "hunter",
+            "interactable_piglin"
           ]
         }
       },
@@ -937,7 +962,8 @@
             "alert_for_attack_targets",
             "melee_unit",
             "attack_cooldown",
-            "not_hunter"
+            "not_hunter",
+            "interactable_piglin"
           ]
         }
       },
@@ -1034,6 +1060,20 @@
         "add": {
           "component_groups": [
             "take_target_as_response_to_block_break"
+          ]
+        }
+      },
+      "admire_item_started_event": {
+        "remove": {
+          "component_groups": [
+            "interactable_piglin"
+          ]
+        }
+      },
+      "admire_item_stopped_event": {
+        "add": {
+          "component_groups": [
+            "interactable_piglin"
           ]
         }
       }

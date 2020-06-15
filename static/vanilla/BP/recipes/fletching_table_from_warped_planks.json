@@ -23,6 +23,7 @@
         "result": {
             "item": "fletching_table",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

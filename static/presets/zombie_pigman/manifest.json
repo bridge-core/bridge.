@@ -1,5 +1,5 @@
 {
-	"display_name":"Zombie Pigman",
+	"display_name": "Zombie Pigman",
 	"description": "Creates a new zombie pigman entity.",
 	"icon": "mdi-human",
 	"bp_map": {
@@ -15,9 +15,22 @@
 		"render_controller.json": "render_controllers/"
 	},
 	"expand_rp_files": {
-		"en_US.lang": "texts/en_US.lang"
+		"en_US.lang": "texts/en_US.lang",
+		"sounds.json": "sounds.json",
+		"sound_definitions.json": "sounds/sound_definitions.json"
 	},
 	"copy_rp_files": {
-		"texture.png": "textures/entity/"
+		"texture.png": "textures/entity/",
+		"zpig1.fsb": "sounds/mob/{{IDENTIFIER}}/zpig1.fsb",
+		"zpig2.fsb": "sounds/mob/{{IDENTIFIER}}/zpig2.fsb",
+		"zpig3.fsb": "sounds/mob/{{IDENTIFIER}}/zpig3.fsb",
+		"zpig4.fsb": "sounds/mob/{{IDENTIFIER}}/zpig4.fsb",
+		"zpigangry1.fsb": "sounds/mob/{{IDENTIFIER}}/zpigangry1.fsb",
+		"zpigangry2.fsb": "sounds/mob/{{IDENTIFIER}}/zpigangry2.fsb",
+		"zpigangry3.fsb": "sounds/mob/{{IDENTIFIER}}/zpigangry3.fsb",
+		"zpigangry4.fsb": "sounds/mob/{{IDENTIFIER}}/zpigangry4.fsb",
+		"zpigdeath.fsb": "sounds/mob/{{IDENTIFIER}}/zpigdeath.fsb",
+		"zpighurt1.fsb": "sounds/mob/{{IDENTIFIER}}/zpighurt1.fsb",
+		"zpighurt2.fsb": "sounds/mob/{{IDENTIFIER}}/zpighurt2.fsb"
 	}
 }

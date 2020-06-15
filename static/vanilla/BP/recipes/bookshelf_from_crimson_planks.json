@@ -23,6 +23,7 @@
         "result": {
             "item": "bookshelf",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

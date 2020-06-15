@@ -11,7 +11,7 @@
                             "count": 1
                         }
                     ],
-                    "name": "minecraft:lodestone_block"
+                    "name": "minecraft:lodestone"
                 }
             ]
         },
@@ -25,10 +25,27 @@
                     "type": "item",
                     "functions": [
                         {
+                            "function": "minecraft:set_damage",
+                            "damage": {
+                                "min": 0.1,
+                                "max": 0.5
+                            }
+                        },
+                        {
+                            "function": "enchant_randomly"
+                        }
+                    ],
+                    "name": "minecraft:crossbow",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
                             "function": "set_count",
                             "count": {
-                                "min": 5,
-                                "max": 18
+                                "min": 2,
+                                "max": 12
                             }
                         }
                     ],
@@ -42,7 +59,7 @@
                             "function": "set_count",
                             "count": {
                                 "min": 5,
-                                "max": 10
+                                "max": 8
                             }
                         }
                     ],

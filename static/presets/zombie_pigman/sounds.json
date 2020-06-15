@@ -1,0 +1,26 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"{{PROJ_PREFIX}}:{{IDENTIFIER}}": {
+				"volume": 1,
+				"pitch": [
+					0.8,
+					1.2
+				],
+				"events": {
+					"ambient": "mob.{{IDENTIFIER}}.zpig",
+					"hurt": "mob.{{IDENTIFIER}}.zpighurt",
+					"death": "mob.{{IDENTIFIER}}.zpigdeath",
+					"mad": {
+						"sound": "mob.{{IDENTIFIER}}.zpigangry",
+						"volume": 2,
+						"pitch": [
+							1.44,
+							2.16
+						]
+					}
+				}
+			}
+		}
+	}
+}

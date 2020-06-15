@@ -2,12 +2,12 @@ import fs from 'fs'
 import cJSON from 'comment-json'
 import FileType from '../editor/FileType'
 
-export function readJSON(path: string): Promise<any> {
+export function readJSON(filePath: string): Promise<any> {
 	return new Promise((resolve, reject) => {
-		fs.readFile(path, (err, data) => {
+		fs.readFile(filePath, (err, buffer) => {
 			if (err) return reject(err)
 			try {
-				resolve(cJSON.parse(data.toString('utf-8'), undefined, true))
+				resolve(cJSON.parse(buffer.toString('utf-8'), undefined, true))
 			} catch (e) {
 				reject(e)
 			}
@@ -15,18 +15,18 @@ export function readJSON(path: string): Promise<any> {
 	})
 }
 export function writeJSON(
-	path: string,
+	filePath: string,
 	data: any,
 	beautify = false,
-	file_version?: number
+	fileVersion?: number
 ) {
-	let to_save: any
-	if (file_version === undefined) {
-		to_save = JSON.stringify(data, null, beautify ? '\t' : undefined)
+	let toSave: string
+	if (fileVersion === undefined) {
+		toSave = JSON.stringify(data, null, beautify ? '\t' : undefined)
 	} else {
-		to_save = `${FileType.getCommentChar(
-			path
-		)}bridge-file-version: #${file_version}\n${JSON.stringify(
+		toSave = `${FileType.getCommentChar(
+			filePath
+		)}bridge-file-version: #${fileVersion}\n${JSON.stringify(
 			data,
 			null,
 			beautify ? '\t' : undefined
@@ -34,19 +34,23 @@ export function writeJSON(
 	}
 
 	return new Promise((resolve, reject) => {
-		fs.writeFile(path, to_save, err => {
+		fs.writeFile(filePath, toSave, err => {
 			if (err) reject(err)
 			else resolve()
 		})
 	})
 }
 
-export function readJSONSync(path: string) {
-	return cJSON.parse(fs.readFileSync(path).toString('utf-8'), undefined, true)
+export function readJSONSync(filePath: string) {
+	return cJSON.parse(
+		fs.readFileSync(filePath).toString('utf-8'),
+		undefined,
+		true
+	)
 }
-export function writeJSONSync(path: string, data: any, beautify = false) {
+export function writeJSONSync(filePath: string, data: any, beautify = false) {
 	fs.writeFileSync(
-		path,
+		filePath,
 		JSON.stringify(data, null, beautify ? '\t' : undefined)
 	)
 }

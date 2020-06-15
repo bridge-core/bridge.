@@ -19,6 +19,7 @@
         "result": {
             "item": "crafting_table",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

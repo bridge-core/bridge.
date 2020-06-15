@@ -447,6 +447,8 @@
         "totalSupply": 15,
         "suffocateTime": 0
       },
+      "minecraft:equip_item": {
+      },
       "minecraft:navigation.walk": {
         "can_path_over_water": true,
         "avoid_water": true,
@@ -537,6 +539,9 @@
       },
       "minecraft:behavior.float": {
         "priority": 0
+      },
+      "minecraft:behavior.equip_item": {
+        "priority": 2
       },
       "minecraft:behavior.avoid_mob_type": {
         "priority": 5,

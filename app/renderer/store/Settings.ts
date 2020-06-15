@@ -49,12 +49,12 @@ function setup() {
 
 	//Upgrade old settings files
 	if (DATA.id === undefined) save({ id: uuid() })
-	if (DATA.text_auto_completions === undefined)
-		save({ text_auto_completions: true })
 	if (DATA.run_error_detection === undefined)
 		save({ run_error_detection: true })
 	if (DATA.load_packs_from_worlds === undefined)
 		save({ load_packs_from_worlds: true })
+	if (DATA.text_auto_completions !== undefined)
+		save({ text_auto_completions: undefined })
 }
 function save(settings: { [s: string]: any }) {
 	if (DATA) DATA = Object.assign(DATA, settings)

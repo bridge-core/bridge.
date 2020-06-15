@@ -1,3 +1,3 @@
 import { IModuleConfig } from '../types'
 
-export const UIModule = ({ uiStore }: IModuleConfig) => uiStore.UI
+export const UIModule = ({ uiStore }: IModuleConfig) => uiStore?.UI

@@ -1886,9 +1886,11 @@
           {
             // Transform to adult villager
             "filters": { "test": "has_component", "subject": "other", "operator": "!=", "value": "minecraft:is_baby" },
-            "add": { "component_groups": [ "adult" ] },
-            
             "sequence": [ 
+              // Transform to adult villager
+              {
+                "add": { "component_groups": [ "adult" ] }
+              },
               // Transform to farmer villager
               {
                   "filters": { "test": "is_family", "subject": "other", "value": "farmer"},
@@ -1951,7 +1953,7 @@
               },
               // Transform to mason villager
               {
-                  "filters": { "test": "is_family", "subject": "other", "value": "mason" },
+                  "filters": { "test": "is_family", "subject": "other", "value": "stone_mason" },
                   "add": { "component_groups": [ "mason", "behavior_non_peasant", "work_schedule" ] }
               }
             ]

@@ -1,4 +1,3 @@
-//bridge-file-version: #2
 {
 	"display_name": "Salmon",
 	"description": "Creates a new salmon entity.",
@@ -16,9 +15,26 @@
 		"render_controller.json": "render_controllers/"
 	},
 	"expand_rp_files": {
-		"en_US.lang": "texts/en_US.lang"
+		"en_US.lang": "texts/en_US.lang",
+		"sounds.json": "sounds.json",
+		"sound_definitions.json": "sounds/sound_definitions.json"
 	},
 	"copy_rp_files": {
-		"texture.png": "textures/entity/fish/"
+		"texture.png": "textures/entity/fish/",
+		"flop1.fsb": "sounds/mob/{{IDENTIFIER}}/flop1.fsb",
+		"flop2.fsb": "sounds/mob/{{IDENTIFIER}}/flop2.fsb",
+		"flop3.fsb": "sounds/mob/{{IDENTIFIER}}/flop3.fsb",
+		"flop4.fsb": "sounds/mob/{{IDENTIFIER}}/flop4.fsb",
+		"hurt1.fsb": "sounds/mob/{{IDENTIFIER}}/hurt1.fsb",
+		"hurt2.fsb": "sounds/mob/{{IDENTIFIER}}/hurt2.fsb",
+		"hurt3.fsb": "sounds/mob/{{IDENTIFIER}}/hurt3.fsb",
+		"hurt4.fsb": "sounds/mob/{{IDENTIFIER}}/hurt4.fsb",
+		"swim1.fsb": "sounds/mob/{{IDENTIFIER}}/swim1.fsb",
+		"swim2.fsb": "sounds/mob/{{IDENTIFIER}}/swim2.fsb",
+		"swim3.fsb": "sounds/mob/{{IDENTIFIER}}/swim3.fsb",
+		"swim4.fsb": "sounds/mob/{{IDENTIFIER}}/swim4.fsb",
+		"swim5.fsb": "sounds/mob/{{IDENTIFIER}}/swim5.fsb",
+		"swim6.fsb": "sounds/mob/{{IDENTIFIER}}/swim6.fsb",
+		"swim7.fsb": "sounds/mob/{{IDENTIFIER}}/swim7.fsb"
 	}
 }

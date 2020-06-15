@@ -23,6 +23,7 @@
         "result": {
             "item": "wooden_hoe",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

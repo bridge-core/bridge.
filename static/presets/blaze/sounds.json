@@ -1,0 +1,19 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"{{PROJ_PREFIX}}:{{IDENTIFIER}}": {
+				"volume": 1,
+				"pitch": [
+					0.8,
+					1.2
+				],
+				"events": {
+					"ambient": "mob.{{IDENTIFIER}}.breathe",
+					"hurt": "mob.{{IDENTIFIER}}.hit",
+					"death": "mob.{{IDENTIFIER}}.death",
+					"shoot": "mob.{{IDENTIFIER}}.shoot"
+				}
+			}
+		}
+	}
+}

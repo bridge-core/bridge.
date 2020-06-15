@@ -1,0 +1,31 @@
+{
+    "format_version": "1.16",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "minecraft:campfire_from_stripped_crimson_stem_and_charcoal"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            " A ",
+            "ABA",
+            "CCC"
+        ],
+        "key": {
+            "A": {
+                "item": "stick"
+            },
+            "B": {
+                "item": "coal:1"
+            },
+            "C": {
+                "item": "stripped_crimson_stem"
+            }
+        },
+        "result": {
+            "item": "campfire",
+            "count": 1
+        }
+    }
+}

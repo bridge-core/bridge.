@@ -15,9 +15,21 @@
 		"render_controller.json": "render_controllers/"
 	},
 	"expand_rp_files": {
-		"en_US.lang": "texts/en_US.lang"
+		"en_US.lang": "texts/en_US.lang",
+		"sounds.json": "sounds.json",
+		"sound_definitions.json": "sounds/sound_definitions.json"
 	},
 	"copy_rp_files": {
-		"texture.png": "textures/entity/"
+		"texture.png": "textures/entity/",
+		"death.fsb": "sounds/mob/{{IDENTIFIER}}/death.fsb",
+		"hurt1.fsb": "sounds/mob/{{IDENTIFIER}}/hurt1.fsb",
+		"hurt2.fsb": "sounds/mob/{{IDENTIFIER}}/hurt2.fsb",
+		"hurt3.fsb": "sounds/mob/{{IDENTIFIER}}/hurt3.fsb",
+		"hurt4.fsb": "sounds/mob/{{IDENTIFIER}}/hurt4.fsb",
+		"idle1.fsb": "sounds/mob/{{IDENTIFIER}}/idle1.fsb",
+		"idle2.fsb": "sounds/mob/{{IDENTIFIER}}/idle2.fsb",
+		"idle3.fsb": "sounds/mob/{{IDENTIFIER}}/idle3.fsb",
+		"idle4.fsb": "sounds/mob/{{IDENTIFIER}}/idle4.fsb",
+		"takeoff.fsb": "sounds/mob/{{IDENTIFIER}}/takeoff.fsb"
 	}
 }

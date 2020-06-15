@@ -3,7 +3,7 @@
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:zoglin",
-      "is_spawnable": false,
+      "is_spawnable": true,
       "is_summonable": true,
       "is_experimental": false
     },
@@ -74,6 +74,9 @@
       "minecraft:health": {
         "value": 40,
         "max": 40
+      },
+      "minecraft:knockback_resistance": {
+        "value": 0.5
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 3,

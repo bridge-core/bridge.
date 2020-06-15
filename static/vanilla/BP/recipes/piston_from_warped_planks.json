@@ -29,6 +29,7 @@
         "result": {
             "item": "piston",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

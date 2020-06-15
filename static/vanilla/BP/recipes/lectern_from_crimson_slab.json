@@ -23,6 +23,7 @@
         "result": {
             "item": "lectern",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

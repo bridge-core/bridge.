@@ -7,7 +7,7 @@
 	>
 		<v-tab
 			v-for="(file, i) in open_files"
-			:key="`${selected_project}-${i}-${unsaved.join()}`"
+			:key="`${selected_project}-${i}-${unsaved.join()}-${file.content.isLoadingMetaData}`"
 			:ripple="!isSelected(i)"
 			:class="`tab ${isSelected(i) ? 'selected' : ''}`"
 			:style="
@@ -34,8 +34,16 @@
 			>
 				<v-icon small>mdi-book-open-page-variant</v-icon>
 			</v-btn>
+
+			<v-tooltip v-if="file.content.isLoadingMetaData" color="tooltip" right>
+				<template v-slot:activator="{ on }">
+					<v-progress-circular v-on="on" indeterminate :size="14" :width="2" color="primary" />
+				</template>
+				<span>Validating file...</span>
+			</v-tooltip>
+
 			<v-icon
-				v-if="getIcon(file.file_path)"
+				v-else-if="getIcon(file.file_path)"
 				:color="isSelected(i) ? 'primary' : undefined"
 				small
 			>{{ getIcon(file.file_path) }}</v-icon>

@@ -5,7 +5,7 @@
             "entries": [
                 {
                     "type": "item",
-                    "weight": 10,
+                    "weight": 5,
                     "functions": [
                         {
                             "function": "minecraft:set_damage",
@@ -18,11 +18,11 @@
                             "function": "enchant_randomly"
                         }
                     ],
-                    "name": "minecraft:netherite_shovel"
+                    "name": "minecraft:diamond_shovel"
                 },
                 {
                     "type": "item",
-                    "weight": 10,
+                    "weight": 2,
                     "functions": [
                         {
                             "function": "set_count",
@@ -33,7 +33,7 @@
                 },
                 {
                     "type": "item",
-                    "weight": 10,
+                    "weight": 3,
                     "functions": [
                         {
                             "function": "set_count",
@@ -44,7 +44,7 @@
                 },
                 {
                     "type": "item",
-                    "weight": 15,
+                    "weight": 10,
                     "functions": [
                         {
                             "function": "set_count",
@@ -55,7 +55,7 @@
                 },
                 {
                     "type": "item",
-                    "weight": 10,
+                    "weight": 25,
                     "functions": [
                         {
                             "function": "set_count",
@@ -69,7 +69,7 @@
                 },
                 {
                     "type": "item",
-                    "weight": 10,
+                    "weight": 15,
                     "functions": [
                         {
                             "function": "set_count",
@@ -83,7 +83,7 @@
                 },
                 {
                     "type": "empty",
-                    "weight": 10
+                    "weight": 45
                 }
             ]
         },

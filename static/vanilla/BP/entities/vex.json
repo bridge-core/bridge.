@@ -53,7 +53,7 @@
       },
       "minecraft:behavior.charge_attack": {
         "priority": 4,
-        "speed_multiplier": 3.0
+        "speed_multiplier": 2.0
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 3,

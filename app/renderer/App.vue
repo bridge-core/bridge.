@@ -3,13 +3,14 @@
 		:style="{
 			background: $vuetify.theme.themes[theme_variant].background,
 			fontSize: $store.state.Settings.ui_font_size || '14px',
-			fontFamily: $store.state.Settings.ui_font_family || 'Roboto, sans-serif',
+			fontFamily:
+				$store.state.Settings.ui_font_family || 'Roboto, sans-serif',
 		}"
 	>
 		<Toolbar />
 		<SidebarNavigation />
 
-		<v-content :style="`padding-bottom: 32px;`">
+		<v-main :style="`padding-bottom: 32px;`">
 			<v-row style="height: 100%;" no-gutters>
 				<v-col v-if="isSidebarOpen" cols="2">
 					<SidebarMain />
@@ -33,12 +34,16 @@
 					<EditorShellTabSystem />
 					<EditorShellContentManager />
 				</v-col>
-				<v-col @click="setSplitScreen(true)" v-if="has_split_screen" :cols="5 + 1 * !isSidebarOpen">
+				<v-col
+					@click="setSplitScreen(true)"
+					v-if="has_split_screen"
+					:cols="5 + 1 * !isSidebarOpen"
+				>
 					<EditorShellTabSystem :split_screen="true" />
 					<EditorShellContentManager :split_screen="true" />
 				</v-col>
 			</v-row>
-		</v-content>
+		</v-main>
 
 		<WindowFactoryMain />
 		<ContextMenuMain />

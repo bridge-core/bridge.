@@ -15,7 +15,7 @@
         "target_humidity": 0.0,
         "target_altitude": 0.0,
         "target_weirdness": 0.0,
-        "weight": 0.40
+        "weight": 0.0
       },
       "minecraft:surface_parameters": {
         "sea_floor_depth": 7,
@@ -54,7 +54,8 @@
       "spawn_magma_cubes": {},
       "spawn_zombified_piglin": {},
       "spawn_few_piglins": {},
-      "spawn_ghast": {}
+      "spawn_ghast": {},
+      "spawn_endermen": {}
     }
   }
 }

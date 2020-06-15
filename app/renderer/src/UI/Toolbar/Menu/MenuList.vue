@@ -87,12 +87,3 @@ export default {
 	},
 }
 </script>
-
-<style>
-/**
-	"tile" prop isn't working on v-menu -> manually tweak menu to not have border radius
- */
-.v-menu__content {
-	border-radius: 0;
-}
-</style>

@@ -23,6 +23,7 @@
         "result": {
             "item": "wooden_pickaxe",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

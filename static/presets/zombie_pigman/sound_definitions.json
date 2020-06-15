@@ -1,0 +1,36 @@
+{
+    "mob.{{IDENTIFIER}}.zpig": {
+      "category": "hostile",
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/zpig1",
+        "sounds/mob/{{IDENTIFIER}}/zpig2",
+        "sounds/mob/{{IDENTIFIER}}/zpig3",
+        "sounds/mob/{{IDENTIFIER}}/zpig4"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.zpigangry": {
+      "category": "hostile",
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/zpigangry1",
+        "sounds/mob/{{IDENTIFIER}}/zpigangry2",
+        "sounds/mob/{{IDENTIFIER}}/zpigangry3",
+        "sounds/mob/{{IDENTIFIER}}/zpigangry4"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.zpigdeath": {
+      "category": "hostile",
+      "sounds": [
+        "sounds/mob/{{IDENTIFIER}}/zpigdeath"
+      ]
+    },
+    "mob.{{IDENTIFIER}}.zpighurt": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/mob/{{IDENTIFIER}}/zpighurt1",
+          "load_on_low_memory": true
+        },
+        "sounds/mob/{{IDENTIFIER}}/zpighurt2"
+      ]
+    }
+}

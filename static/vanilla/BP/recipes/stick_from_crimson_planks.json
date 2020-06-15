@@ -19,6 +19,7 @@
         "result": {
             "item": "stick",
             "count": 4
-        }
+        },
+        "priority": 2
     }
 }
