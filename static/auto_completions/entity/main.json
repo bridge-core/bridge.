@@ -39,6 +39,14 @@
             "$asObject": "$entity.general.built_in_event",
 
             "$placeholder": {
+                "$versioned_template": [
+                    {
+                        "$if": "$format_version = 1.16.0",
+                        "$data": {
+                            "trigger": "$entity.general.event_string"
+                        }
+                    }
+                ],
                 "sequence": {
                     "$dynamic.list.next_index": {
                         "filters": "$entity.filters",

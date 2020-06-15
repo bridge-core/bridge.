@@ -40,9 +40,13 @@ export function compileVersionedTemplate(template: IVersionedTemplate[]) {
 export function compileCondition(condition: string) {
 	let [v1, operator, v2] = condition.split(/\s+/)
 	if (v1 === '$format_version')
-		v1 = TabSystem.getSelected().content.get('format_version')
+		v1 = TabSystem.getSelected()
+			.content.get('format_version')
+			.toJSON()
 	if (v2 === '$format_version')
-		v1 = TabSystem.getSelected().content.get('format_version')
+		v1 = TabSystem.getSelected()
+			.content.get('format_version')
+			.toJSON()
 
 	if (['>', '>=', '=', '<', '<='].includes(operator))
 		return compare(v1, v2, <CompareOperator>operator)

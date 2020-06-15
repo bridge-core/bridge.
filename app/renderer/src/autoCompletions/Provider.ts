@@ -234,15 +234,11 @@ class Provider {
 		}
 		if (object.$dynamic_template !== undefined) {
 			let t = this.compileTemplate(object.$dynamic_template)
-			if (t !== undefined) {
-				object = detachObj(object, t)
-			}
+			if (t !== undefined) object = detachObj(object, t)
 		}
 		if (object.$versioned_template !== undefined) {
 			let t = compileVersionedTemplate(object.$versioned_template)
-			if (t !== undefined) {
-				object = detachObj(object, t)
-			}
+			if (t !== undefined) object = detachObj(object, t)
 		}
 
 		return {
