@@ -1,8 +1,8 @@
-import DynamicTemplateKey from './$key_template'
+import { DynamicKeyTemplate } from './DynamicKeyTemplate'
 import Provider from '../Provider'
 import { CONTEXT_DOWN, CONTEXT_UP } from '../Dynamic'
 
-export default class Load {
+export class Load {
 	static confirm(
 		provider: Provider,
 		key: string,
@@ -21,8 +21,8 @@ export default class Load {
 
 		if (object[key] !== undefined)
 			return provider.walk(path_arr, object[key])
-		if (DynamicTemplateKey.confirm(provider, key, path_arr, object))
-			return DynamicTemplateKey.process(provider, key, path_arr, object)
+		if (DynamicKeyTemplate.confirm(provider, key, path_arr, object))
+			return DynamicKeyTemplate.process(provider, key, path_arr, object)
 
 		for (let k of Object.keys(object)) {
 			if (k[0] === '$') {

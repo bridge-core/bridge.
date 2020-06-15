@@ -15,6 +15,7 @@ import EventBus from '../EventBus'
 import { FileDefinition } from '../editor/FileDefinition'
 import JSONTree from '../editor/JsonTree'
 import InformationWindow from '../UI/Windows/Common/Information'
+import { compileVersionedTemplate } from './components/VersionedTemplate'
 
 declare var __static: string
 
@@ -23,7 +24,12 @@ let PLUGIN_FILE_DEFS: FileDefinition[] = []
 let PLUGIN_COMPLETIONS: { key: string; created: boolean }[][] = []
 let PLUGINS_TO_LOAD: any[] = []
 export let LIB_LOADED = false
-const REMOVE_LIST = ['$load', '$dynamic_template', '$placeholder']
+const REMOVE_LIST = [
+	'$load',
+	'$dynamic_template',
+	'$versioned_template',
+	'$placeholder',
+]
 export let LIB: any = { dynamic: DYNAMIC }
 
 class Provider {
@@ -228,6 +234,12 @@ class Provider {
 		}
 		if (object.$dynamic_template !== undefined) {
 			let t = this.compileTemplate(object.$dynamic_template)
+			if (t !== undefined) {
+				object = detachObj(object, t)
+			}
+		}
+		if (object.$versioned_template !== undefined) {
+			let t = compileVersionedTemplate(object.$versioned_template)
 			if (t !== undefined) {
 				object = detachObj(object, t)
 			}

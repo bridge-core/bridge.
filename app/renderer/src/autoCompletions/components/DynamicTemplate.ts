@@ -1,7 +1,7 @@
 import { CONTEXT_UP, CONTEXT_DOWN } from '../Dynamic'
 import Provider from '../Provider'
 
-export default class DynamicTemplate {
+export class DynamicTemplate {
 	static confirm(
 		provider: Provider,
 		key: string,

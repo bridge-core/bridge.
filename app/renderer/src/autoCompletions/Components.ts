@@ -1,10 +1,17 @@
-import Placeholder from './components/$placeholder'
-import Load from './components/$load'
-import DynamicTemplate from './components/$dynamic_template'
-import DynamicTemplateKey from './components/$key_template'
+import Placeholder from './components/Placeholder'
+import { Load } from './components/Load'
+import { DynamicTemplate } from './components/DynamicTemplate'
+import { DynamicKeyTemplate } from './components/DynamicKeyTemplate'
 import Provider from './Provider'
+import { VersionedTemplate } from './components/VersionedTemplate'
 
-const COMPONENTS = [Load, DynamicTemplateKey, DynamicTemplate, Placeholder]
+const COMPONENTS = [
+	Load,
+	DynamicKeyTemplate,
+	DynamicTemplate,
+	VersionedTemplate,
+	Placeholder,
+]
 
 export default class ComponentProvider {
 	static process(
