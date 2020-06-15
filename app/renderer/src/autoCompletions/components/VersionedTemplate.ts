@@ -2,6 +2,7 @@ import { CONTEXT_UP, CONTEXT_DOWN } from '../Dynamic'
 import Provider from '../Provider'
 import TabSystem from '../../TabSystem'
 import { compare, CompareOperator } from 'compare-versions'
+import { Omega } from '../Omega'
 
 export class VersionedTemplate {
 	static confirm(
@@ -33,11 +34,19 @@ interface IVersionedTemplate {
 
 export function compileVersionedTemplate(template: IVersionedTemplate[]) {
 	for (let { $if, $data } of template) {
-		if (!$if || compileCondition($if)) return $data
+		if (!$if || compileCondition($if)) {
+			if(typeof $data === "string") return Omega.eval($data)
+			else return $data
 	}
 }
 
 export function compileCondition(condition: string) {
+	let conds = condition.split(/\s+and\s+/)
+	for (const cond of conds) if (!compileSingleCondition(cond)) return false
+	return true
+}
+
+export function compileSingleCondition(condition: string) {
 	let [v1, operator, v2] = condition.split(/\s+/)
 	if (v1 === '$format_version')
 		v1 = TabSystem.getSelected()
