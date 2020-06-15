@@ -1,11 +1,7 @@
 import TabWindow from '../src/UI/Windows/Common/TabWindow'
 import Store from '../store/index'
 import SETTINGS from '../store/Settings'
-import {
-	MINECRAFT_VERSIONS,
-	BASE_PATH,
-	LOCAL_STATE_PATH,
-} from '../src/constants'
+import { BASE_PATH, LOCAL_STATE_PATH } from '../src/constants'
 import EventBus from '../src/EventBus'
 import fs from 'fs'
 import AddSnippetWindow from './AddSnippet'
@@ -185,21 +181,6 @@ export default class SettingsWindow extends TabWindow {
 				title: 'Editor',
 			},
 			content: [
-				{
-					color: 'grey',
-					text: '\nTarget Minecraft Version',
-				},
-				new ReactiveDropdown(
-					this,
-					'target_version',
-					MINECRAFT_VERSIONS,
-					{
-						text: 'Choose a version...',
-						key: `settings.editor.tab.target_version.${Math.random()}`,
-					},
-					() => EventBus.trigger('updateAutoCompletions')
-				),
-
 				{
 					color: 'grey',
 					text: '\nExperimental',

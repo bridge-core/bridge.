@@ -3,7 +3,6 @@
  */
 import fs from 'fs'
 import deepmerge from 'deepmerge'
-import VersionMap from '../editor/VersionMap'
 import Store from '../../store/index'
 import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from './Dynamic'
 import { detachMerge as detachObj } from '../Utilities/mergeUtils'
@@ -186,13 +185,7 @@ class Provider {
 		if (this.start_state === 'unknown')
 			return { object: [], value: [], META: {} }
 
-		path = path.replace(
-			'global',
-			VersionMap.convert(
-				this.start_state,
-				Store.state.Settings.target_version
-			)
-		)
+		path = path.replace('global', this.start_state)
 
 		SET_CONTEXT(context, context === undefined ? undefined : context.parent)
 		let propose = this.walk(path.split('/'))

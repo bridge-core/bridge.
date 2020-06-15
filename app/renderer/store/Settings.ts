@@ -55,6 +55,7 @@ function setup() {
 		save({ run_error_detection: true })
 	if (DATA.load_packs_from_worlds === undefined)
 		save({ load_packs_from_worlds: true })
+	if (DATA.target_version !== undefined) save({ target_version: undefined })
 }
 function save(settings: { [s: string]: any }) {
 	if (DATA) DATA = Object.assign(DATA, settings)
