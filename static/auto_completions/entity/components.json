@@ -786,14 +786,15 @@
           "$dynamic.list.index_pair": "$general.number"
         },
         "knockback": "$general.boolean",
-        "semirandomdiffdamage": "$general.boolean",
-        "destroyonhit": "$general.boolean",
-        "maxcriticaldamage": "$general.number",
-        "mincriticaldamage": "$general.number",
-        "powermultiplier": "$general.decimal",
-        "shouldbounce": "$general.boolean"
+        "semi_random_diff_damage": "$general.boolean",
+        "destroy_on_hit": "$general.boolean",
+        "max_critical_damage": "$general.number",
+        "min_critical_damage": "$general.number",
+        "power_multiplier": "$general.decimal",
+        "should_bounce": "$general.boolean"
       },
       "spawn_chance": {
+        "first_spawn_percent_chance": "$general.number",
         "first_spawn_chance": "$general.number",
         "second_spawn_chance": "$general.number",
         "first_spawn_count": "$general.number",
@@ -808,9 +809,9 @@
       },
       "mob_effect": {
         "effect": "$general.effect_name",
-        "durationeasy": "$general.number",
-        "durationnormal": "$general.number",
-        "durationhard": "$general.number",
+        "duration_easy": "$general.number",
+        "duration_normal": "$general.number",
+        "duration_hard": "$general.number",
         "amplifier": "$general.number"
       },
       "stick_in_ground": {
@@ -834,7 +835,7 @@
     "shoot_sound": "$general.sound",
     "hit_sound": "$general.sound",
     "hit_ground_sound": "$general.sound",
-    "isdangerous": "$general.boolean",
+    "is_dangerous": "$general.boolean",
     "inertia": "$general.decimal",
     "liquid_inertia": "$general.decimal",
     "power": "$general.decimal",
@@ -843,11 +844,11 @@
     "uncertainty_multiplier": "$general.number",
     "anchor": "$general.number",
     "angleoffset": "$general.decimal",
-    "semirandomdiffdamage": "$general.boolean",
-    "shoottarget": "$general.boolean",
+    "semi_random_diff_damage": "$general.boolean",
+    "shoot_target": "$general.boolean",
     "stop_on_hurt": "$general.boolean",
-    "multipletargets": "$general.boolean",
-    "shouldbounce": "$general.boolean",
+    "multiple_targets": "$general.boolean",
+    "should_bounce": "$general.boolean",
     "reflect_on_hurt": "$general.boolean",
     "catch_fire": "$general.boolean",
     "offset": {
