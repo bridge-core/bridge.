@@ -13,7 +13,6 @@
     "block/components",
 
     "entity/main",
-    "entity/main_beta",
     "entity/general",
     "entity/components",
     "entity/beta_components",
