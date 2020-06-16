@@ -6,6 +6,7 @@ import { use } from '../Utilities/useAttr'
 import { detachMerge } from '../Utilities/mergeUtils'
 import LightningCache from '../editor/LightningCache'
 import FileType from '../editor/FileType'
+import { ContextEnv } from './scripts/modules/env'
 
 export interface BridgeComponentClass {
 	component_name: string
@@ -65,6 +66,8 @@ export default class ComponentRegistry {
 				'ERROR',
 				`Unknown component "${component_name}"!`
 			)
+		//ADD LOCATION TO CONTEXT ENV
+		ContextEnv.value.location = location
 
 		//Save that this file is using the specific custom component inside the LightningCache
 		EventBus.once(
@@ -83,6 +86,11 @@ export default class ComponentRegistry {
 	static async parse(file_path: string, data: any, simulated_call?: boolean) {
 		if (data === undefined || data['minecraft:entity'] === undefined) return
 		const MASK = await JSONFileMasks.get(file_path)
+		const entityIdentifier = use(
+			data,
+			'minecraft:entity/description/identifier',
+			false
+		)
 
 		//RESET OLD CHANNELS
 		let { custom_components } =
@@ -91,6 +99,11 @@ export default class ComponentRegistry {
 				FileType.get(file_path)
 			)) || {}
 		;(custom_components || []).forEach(c => MASK.reset(`component@${c}`))
+
+		//SETUP PLUGIN API ENV
+		ContextEnv.value = {
+			entityIdentifier,
+		}
 
 		//PROCESS CUSTOM COMPONENTS
 		for (let component_name in this.components) {
@@ -126,6 +139,9 @@ export default class ComponentRegistry {
 				'custom_components',
 				'entity.custom_components'
 			)
+
+		//RESET CONTEXT ENV
+		ContextEnv.value = {}
 	}
 
 	static propose() {
