@@ -20,7 +20,9 @@ export class VersionedTemplate {
 		current: any
 	): any {
 		for (let i = 0; i < path_arr.length + 1; i++) CONTEXT_UP()
-		let template = compileVersionedTemplate(current.$versioned_template)
+		let { object: template } = compileVersionedTemplate(
+			current.$versioned_template
+		)
 		for (let i = 0; i < path_arr.length + 1; i++) CONTEXT_DOWN()
 		//Template is undefined if path is_data_path
 		return provider.walk(path_arr, (template || {})[key])
@@ -35,7 +37,7 @@ interface IVersionedTemplate {
 export function compileVersionedTemplate(template: IVersionedTemplate[]) {
 	for (let { $if, $data } of template) {
 		if (!$if || compileCondition($if)) {
-			if (typeof $data === 'string') return Omega.eval($data).object
+			if (typeof $data === 'string') return Omega.eval($data)
 			else return $data
 		}
 	}

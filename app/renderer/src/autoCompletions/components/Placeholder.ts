@@ -1,6 +1,6 @@
 import Provider from '../Provider'
 
-export default class Placeholder {
+export class Placeholder {
 	static confirm(
 		provider: Provider,
 		key: string,

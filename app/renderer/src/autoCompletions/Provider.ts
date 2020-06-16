@@ -230,8 +230,13 @@ class Provider {
 			if (t !== undefined) object = detachObj(object, t)
 		}
 		if (object.$versioned_template !== undefined) {
-			let t = compileVersionedTemplate(object.$versioned_template)
-			if (t !== undefined) object = detachObj(object, t)
+			const {
+				object: tmpObject,
+				value: tmpValue,
+			} = compileVersionedTemplate(object.$versioned_template)
+			if (tmpObject !== undefined) object = detachObj(object, tmpObject)
+			if (tmpValue !== undefined && tmpValue.length > 0)
+				value = value.concat(tmpValue)
 		}
 
 		return {
