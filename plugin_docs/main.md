@@ -59,3 +59,7 @@ We are currently working on creating the new API documentation.
 ### Other
 
 -   [`Default File Types`](https://github.com/solvedDev/bridge./blob/master/plugin_docs/other/default_file_types.md)
+
+### Old JavaScript API Docs:
+
+**Script API 1:** [Documentation](https://github.com/solvedDev/bridge./blob/master/plugins/getting-started.md)
