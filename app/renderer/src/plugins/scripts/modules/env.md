@@ -14,7 +14,7 @@ Returns the absolute path to the current resource pack
 
 Returns the prefix/namespace of the current project
 
-### `getContext(): string`
+### `getContext(): Object`
 
 Returns data that depends on the context you call the method in
 
