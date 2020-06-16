@@ -20,6 +20,7 @@ import { DEV_MENU } from '../src/UI/Toolbar/setupDefaults'
 import { LoadedProjects } from '../src/UI/ProjectScreen/state'
 import { loadProjects } from '../src/UI/ProjectScreen/load'
 import { basename } from 'path'
+import { trigger } from '../src/AppCycle/EventSystem'
 
 class ReactiveListEntry {
 	type = 'card'
@@ -437,6 +438,7 @@ export default class SettingsWindow extends TabWindow {
 					action: (val: string) => {
 						ThemeManager.applyTheme(val)
 						ProjectConfig.setTheme(val)
+						trigger('bridge:reloadPlugins')
 					},
 				},
 				{
