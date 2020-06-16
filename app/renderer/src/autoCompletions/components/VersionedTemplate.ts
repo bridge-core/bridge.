@@ -38,7 +38,7 @@ export function compileVersionedTemplate(template: IVersionedTemplate[]) {
 	for (let { $if, $data } of template) {
 		if (!$if || compileCondition($if)) {
 			if (typeof $data === 'string') return Omega.eval($data)
-			else return $data
+			else return { object: $data, value: [] }
 		}
 	}
 }
