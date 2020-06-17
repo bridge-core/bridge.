@@ -1,19 +1,15 @@
 import ListView from './ListView'
-import Session, {
-	tag,
-	download,
-} from './Common'
-import {
-	greaterThan
-} from '../../src/Utilities/VersionUtils'
+import Session, { tag, download } from './Common'
+import { greaterThan } from '../../src/Utilities/VersionUtils'
 
 class DownloadButton {
 	type = 'button'
 	icon = 'mdi-download'
-	text = 'Download'
+	text = undefined
 	color = 'primary'
-	constructor(parent, action, disabled, is_installed, is_update) {
+	constructor(parent, action, disabled, is_installed, is_update, text) {
 		this.is_disabled = disabled
+		this.text = text
 
 		if (is_update) {
 			this.setUpdateAvailable()
@@ -47,23 +43,19 @@ class DownloadButton {
 
 export default class PluginCard {
 	constructor(
-		parent, {
-			author,
-			name,
-			version,
-			description,
-			tags,
-			link,
-			id
-		},
+		parent,
+		{ author, name, version, description, tags, link, id },
 		close_parent = true
 	) {
 		this.type = 'card'
-		this.above_content = [{
-			text: `${name}`
-		}]
-		this.content = [{
-				type: 'divider'
+		this.above_content = [
+			{
+				text: `${name}`,
+			},
+		]
+		this.content = [
+			{
+				type: 'divider',
 			},
 			{
 				type: 'container',
@@ -87,25 +79,38 @@ export default class PluginCard {
 				}),
 			},
 			{
-				text: `\n${description}\n\n`
+				text: `\n${description}\n\n`,
 			},
 			{
-				type: 'divider'
+				type: 'divider',
 			},
 		]
 
-		this.below_content = [{
-				type: 'space'
+		this.below_content = [
+			{
+				type: 'space',
 			},
 			new DownloadButton(
 				this,
 				async () => {
-						await download(link)
-						Session.setSessionInstalled(id, version)
-					},
-					link === undefined,
-					parent.plugin_map[id] !== undefined,
-					greaterThan(version, parent.plugin_map[id] || version)
+					await download(link)
+					Session.setSessionInstalled(id, version)
+				},
+				link === undefined,
+				parent.plugin_map[id] !== undefined,
+				greaterThan(version, parent.plugin_map[id] || version),
+				'Download'
+			),
+			new DownloadButton(
+				this,
+				async () => {
+					await download(link, true)
+					Session.setSessionInstalled(id, version)
+				},
+				link === undefined,
+				parent.plugin_map[id] !== undefined,
+				greaterThan(version, parent.plugin_map[id] || version),
+				'Global Download'
 			),
 		]
 

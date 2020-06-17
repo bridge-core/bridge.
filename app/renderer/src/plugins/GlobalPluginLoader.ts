@@ -4,7 +4,6 @@
  *
  * Unloading is still handled by store/modules/Plugins.js
  */
-import { BASE_PATH, CURRENT } from '../constants'
 import path from 'path'
 import { promises as fs, createReadStream, Dirent } from 'fs'
 import { readJSON } from '../Utilities/JsonFS'
@@ -51,6 +50,7 @@ export default class GlobalPluginLoader {
 	static unloaded_plugins: string[]
 
 	static getInstalledPlugins() {
+		console.log(GLOBAL_PLUGIN_DATA)
 		return GLOBAL_PLUGIN_DATA
 	}
 	static pushPluginData(data: any) {
@@ -63,9 +63,11 @@ export default class GlobalPluginLoader {
 		resetLoadLocations()
 	}
 
+	static globalPluginsFolderPath: string = path.join(DATA_PATH, 'plugins/')
+
 	static async unloadPlugins() {
 		//INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
-		Store.commit('unloadPlugins')
+		Store.commit('unloadGlobalPlugins')
 		clearAllDisposables()
 	}
 
@@ -73,8 +75,8 @@ export default class GlobalPluginLoader {
 		this.unloadPlugins()
 
 		const uninstalledPath = path.join(
-			DATA_PATH,
-			'plugins/uninstalled_global_plugins.json'
+			this.globalPluginsFolderPath,
+			'/uninstalled_global_plugins.json'
 		)
 
 		let unloaded_plugins: string[]
@@ -83,7 +85,7 @@ export default class GlobalPluginLoader {
 				(await fs.readFile(uninstalledPath)).toString()
 			)
 		} catch {
-			fs.mkdir(path.join(DATA_PATH, 'plugins'), {
+			fs.mkdir(this.globalPluginsFolderPath, {
 				recursive: true,
 			}).finally(() => fs.writeFile(uninstalledPath, '[]'))
 			unloaded_plugins = []
@@ -96,7 +98,7 @@ export default class GlobalPluginLoader {
 
 		try {
 			GLOBAL_PLUGIN_FOLDERS = await fs.readdir(
-				path.join(BASE_PATH, 'bridge/plugins')
+				this.globalPluginsFolderPath
 			)
 		} catch (e) {
 			GLOBAL_PLUGIN_FOLDERS = []
@@ -117,20 +119,20 @@ export default class GlobalPluginLoader {
 		)
 		await Promise.all(
 			GLOBAL_PLUGIN_FOLDERS.map(plugin_folder =>
-				this.loadPlugin(project, plugin_folder, unloaded_plugins)
+				this.loadPlugin(plugin_folder, unloaded_plugins)
 			)
 		)
 		await ThemeManager.loadTheme()
 
 		await Promise.all([
 			//LOAD CUSTOM COMPONENENTS IN PROJECT
-			this.loadComponents(CURRENT.PROJECT_PATH).then(() =>
+			this.loadComponents(this.globalPluginsFolderPath).then(() =>
 				ComponentRegistry.updateFiles()
 			),
 
 			//LOAD CUSTOM COMMANDS IN PROJECT
 			loadCustomCommands(
-				path.join(CURRENT.PROJECT_PATH, 'commands')
+				path.join(this.globalPluginsFolderPath, 'commands')
 			).then(() => updateCommandFiles()),
 		])
 
@@ -139,11 +141,11 @@ export default class GlobalPluginLoader {
 
 		//INIT LEGACY PLUGIN DATA FOR UI
 		Store.commit('finishedGlobalPluginLoading', GLOBAL_PLUGIN_DATA)
-		EventBus.trigger('bridge:globalpluginsLoaded')
+		EventBus.trigger('bridge:globalPluginsLoaded')
 	}
 
 	static async loadPlugin(plugin_folder: string, unloaded_plugins: string[]) {
-		let pluginPath = path.join(BASE_PATH, 'bridge/plugins', plugin_folder)
+		let pluginPath = path.join(this.globalPluginsFolderPath, plugin_folder)
 		if ((await fs.lstat(pluginPath)).isFile()) {
 			if (path.extname(pluginPath) === '.js') {
 				//LEGACY PLUGINS
@@ -158,9 +160,7 @@ export default class GlobalPluginLoader {
 			} else if (path.extname(pluginPath) === '.zip') {
 				//Load archived plugins
 				let unzip_path = path.join(
-					BASE_PATH,
-					project,
-					'bridge/plugins',
+					this.globalPluginsFolderPath,
 					path.basename(plugin_folder, '.zip')
 				)
 				await createReadStream(pluginPath)
@@ -184,7 +184,6 @@ export default class GlobalPluginLoader {
 				await Promise.all([
 					fs.unlink(pluginPath),
 					this.loadPlugin(
-						project,
 						path.basename(plugin_folder, '.zip'),
 						unloaded_plugins
 					),
