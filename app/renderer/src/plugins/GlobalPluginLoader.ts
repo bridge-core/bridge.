@@ -50,7 +50,8 @@ export default class GlobalPluginLoader {
 	static unloaded_plugins: string[]
 
 	static getInstalledPlugins() {
-		console.log(GLOBAL_PLUGIN_DATA)
+		if (process.env.NODE_ENV === 'development')
+			console.log(GLOBAL_PLUGIN_DATA)
 		return GLOBAL_PLUGIN_DATA
 	}
 	static pushPluginData(data: any) {
@@ -101,6 +102,7 @@ export default class GlobalPluginLoader {
 				this.globalPluginsFolderPath
 			)
 		} catch (e) {
+			console.log(e)
 			GLOBAL_PLUGIN_FOLDERS = []
 		}
 

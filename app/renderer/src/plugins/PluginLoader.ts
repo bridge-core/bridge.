@@ -49,7 +49,7 @@ export default class PluginLoader {
 	static unloaded_plugins: string[]
 
 	static getInstalledPlugins() {
-		console.log(PLUGIN_DATA)
+		if (process.env.NODE_ENV === 'development') console.log(PLUGIN_DATA)
 		return PLUGIN_DATA
 	}
 	static pushPluginData(data: any) {
