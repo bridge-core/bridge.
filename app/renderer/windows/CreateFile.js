@@ -59,21 +59,23 @@ class FileContent {
 							this.curr_input = val
 
 							if (
-								val === '' &&
-								!this.parent.actions[1].is_disabled
+								val === '' ||
+								val.indexOf('../../../') == 0
 							) {
-								this.input.content[0].color = 'error'
-								this.input.content[0].key = uuidv4()
-								this.input.content[0].input = this.curr_input
-								this.parent.actions[1].is_disabled = true
+								if (!this.parent.actions[1].is_disabled) {
+									this.input.content[0].color = 'error'
+									this.input.content[0].key = uuidv4()
+									this.input.content[0].input = this.curr_input
+									this.parent.actions[1].is_disabled = true
 
-								// this.path_info.text = "Invalid file name!\n\n"
-								// this.path_info.color = "error";
+									// this.path_info.text = "Invalid file name!\n\n"
+									// this.path_info.color = "error";
 
-								this.parent.update({
-									content: this.content,
-									actions: this.parent.actions,
-								})
+									this.parent.update({
+										content: this.content,
+										actions: this.parent.actions,
+									})
+								}
 							} else if (this.parent.actions[1].is_disabled) {
 								this.input.content[0].color = 'primary'
 								this.input.content[0].key = uuidv4()
@@ -246,6 +248,7 @@ export default class CreateFileWindow extends ContentWindow {
 		})
 
 		this.createFile = () => {
+			if (this.current_content.getFullPath.indexOf('../../../') == 0) return // Silently stop. Shouldn't ever happen
 			FileSystem.save(
 				this.current_content.getFullPath(),
 				this.chosen_template,
