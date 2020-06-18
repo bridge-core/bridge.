@@ -70,3 +70,23 @@ export function splitCommand(command: string) {
 
 	return res
 }
+export function splitSelectorArgs(selectorArgs: string) {
+	let i = 0
+	let lastSplit = 0
+	let curlyBracket = 0
+	let res: string[] = []
+
+	while (i < selectorArgs.length) {
+		const char = selectorArgs[i++]
+		if (char === '{') curlyBracket++
+		else if (char === '}') curlyBracket--
+		else if (char === ',' && curlyBracket === 0) {
+			res.push(selectorArgs.substring(lastSplit, i - 1))
+			lastSplit = i
+		}
+	}
+
+	res.push(selectorArgs.substring(lastSplit, selectorArgs.length))
+
+	return res
+}
