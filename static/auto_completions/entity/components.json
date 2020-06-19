@@ -25,7 +25,8 @@
       "minecraft:scaffolding_climber",
       "minecraft:trade_resupply",
       "minecraft:trust",
-      "minecraft:wants_jockey"
+      "minecraft:wants_jockey",
+      "minecraft:equip_item"
     ]
   },
   "minecraft:addrider": {
@@ -157,6 +158,24 @@
       "$dynamic.list.next_index": "$general.block_identifier"
     }
   },
+  "$versioned_template.minecraft:buoyant": [
+    {
+      "$if": "$format_version >= 1.16.0",
+      "$data": {
+        "minecraft:buoyant": {
+          "apply_gravity": "$general.boolean",
+          "base_buoyancy": "$general.decimal",
+          "big_wave_probability": "$general.decimal",
+          "big_wave_speed": "$general.number",
+          "drag_down_on_buoyancy_removed": "$general.decimal",
+          "liquid_blocks": {
+            "$dynamic.list.next_index": "$general.block_identifier"
+          },
+          "simulate_waves": "$general.boolean"
+        }
+      }
+    }
+  ],
   "minecraft:breedable": {
     "allow_sitting": "$general.boolean",
     "blend_attributes": "$general.boolean",
@@ -334,6 +353,12 @@
       }
     }
   },
+  "$verioned_template.minecraft:equip_items": [
+    {
+      "$if": "$format_version >= 1.16.0",
+      "$data": { "minecraft:equip_items": {} }
+    }
+  ], 
   "minecraft:equippable": {
     "slots": {
       "$dynamic.list.next_index": {
@@ -649,6 +674,38 @@
   "minecraft:navigation.hover": "$entity.components.minecraft:navigation&dot;climb",
   "minecraft:navigation.swim": "$entity.components.minecraft:navigation&dot;climb",
   "minecraft:navigation.walk": "$entity.components.minecraft:navigation&dot;climb",
+  "$versioned_template.minecraft:npc": [
+    {
+      "$if": "$format_version >= 1.16.0",
+      "$data": {
+        "minecraft:npc": {
+          "npc_data": {
+            "portrait_offsets": {
+              "translate": {
+                "$dynamic.list.index_triple": "$general.number"
+              },
+              "scale": {
+                "$dynamic.list.index_triple": "$general.number"
+              }
+            },
+            "picker_offsets": {
+              "translate": {
+                "$dynamic.list.index_triple": "$general.number"
+              },
+              "scale": {
+                "$dynamic.list.index_triple": "$general.number"
+              }
+            },
+            "skin_list": {
+              "$dynamic.list.next_index": {
+                "variant": "$general.number"
+              }
+            }
+          }
+        }
+      }
+    }
+  ], 
   "minecraft:on_death": {
     "@meta": {
       "validate": {
@@ -960,6 +1017,52 @@
   "minecraft:sound_volume": {
     "value": "$general.decimal"
   },
+  "$versioned_template.minecraft:spawn_entity": [
+    {
+      "$if": "$format_version < 1.16.0",
+      "$data": {
+        "minecraft:spawn_entity": {
+          "$dynamic.list.next_index": {
+            "should_leash": "$general.boolean",
+            "num_to_spawn": "$general.number",
+            "min_wait_time": "$general.number",
+            "max_wait_time": "$general.number",
+            "spawn_entity": "$general.entity_identifier",
+            "spawn_event": "$entity.general.event_string",
+            "spawn_item": "$general.item_identifier",
+            "spawn_method": [
+              "born"
+            ],
+            "spawn_sound": "$general.sound",
+            "filters": "$entity.filters",
+            "single_use": "$general.boolean"
+          }
+        }
+      }
+    },
+    {
+      "$if": "$format_version >= 1.16.0",
+      "$data": {
+        "minecraft:spawn_entity": {
+          "entities": {
+            "$dynamic.list.next_index": {
+              "should_leash": "$general.boolean",
+              "num_to_spawn": "$general.number",
+              "min_wait_time": "$general.number",
+              "max_wait_time": "$general.number",
+              "spawn_entity": "$general.entity_identifier",
+              "spawn_event": "$entity.general.event_string",
+              "spawn_item": "$general.item_identifier",
+              "spawn_method": [ "born" ],
+              "spawn_sound": "$general.sound",
+              "filters": "$entity.filters",
+              "single_use": "$general.boolean"
+            }
+          }
+        }
+      }
+    }
+  ],
   "minecraft:spawn_entity": {
     "$versioned_template": [
       {

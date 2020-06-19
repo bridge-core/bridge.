@@ -74,18 +74,7 @@
     "has_target": "$general.boolean",
     "surface_mob": "$general.boolean",
     "has_equipment": "$general.item_identifier and $general.block_identifier",
-    "has_component": {
-      "$versioned_template": [
-        {
-          "$if": "$format_version < 1.16.0",
-          "$data": "('minecraft:effect.' + $general.effect_name) and asValue($entity.general.components)"
-        },
-        {
-          "$if": "$format_version >= 1.16.0",
-          "$data": "('minecraft:effect.' + $general.effect_name) and asValue($entity.general.beta_components and $entity.general.components)"
-        }
-      ]
-    },
+    "has_component": "('minecraft:effect.' + $general.effect_name) and asValue($entity.general.components)",
     "has_ability": "$general.ability",
     "is_family": "$entity.general.family",
     "has_mob_effect": "$general.effect_name",

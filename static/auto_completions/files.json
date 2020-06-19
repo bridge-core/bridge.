@@ -15,7 +15,6 @@
     "entity/main",
     "entity/general",
     "entity/components",
-    "entity/beta_components",
     "entity/annotations",
     "entity/behavior",
     "entity/filters",

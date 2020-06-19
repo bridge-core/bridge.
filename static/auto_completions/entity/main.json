@@ -33,29 +33,9 @@
       }
     },
     "component_groups": {
-      "$placeholder": {
-        "$versioned_template": [
-          {
-            "$if": "$format_version >= 1.16.0",
-            "$data": "$entity.general.components and $entity.general.beta_components"
-          },
-          {
-            "$data": "$entity.general.components"
-          }
-        ]
-      }
+      "$placeholder": "$entity.general.components"
     },
-    "components": {
-      "$versioned_template": [
-        {
-          "$if": "$format_version >= 1.16.0",
-          "$data": "$entity.general.components and $entity.general.beta_components"
-        },
-        {
-          "$data": "$entity.general.components"
-        }
-      ]
-    },
+    "components": "$entity.general.components",
     "events": {
       "$asObject": "$entity.general.built_in_event",
       "$placeholder": {
