@@ -2,7 +2,7 @@
     "location": [ "~", "^", "@wildcard" ],
     "target_selector": [ "@a", "@e", "@p", "@r", "@s", "@wildcard" ],
     "fill_option": [ "outline", "hollow", "destroy", "keep" ],
-    "structure_name": [ "buriedtreasure", "endcity", "fortress", "mansion", "mineshaft", "monument", "pillageroutpost", "ruins", "shipwreck", "stronghold", "temple", "village" ],
+    "structure_name": [ "bastionremnant", "buriedtreasure", "endcity", "fortress", "mansion", "mineshaft", "monument", "pillageroutpost", "ruinedportal", "ruins", "shipwreck", "stronghold", "temple", "village" ],
     "scoreboard_operation": [ "%=", "*=", "+=", "-=", "/=", "<", "=", ">", "<>" ],
     "title_type": [ "title", "subtitle", "actionbar" ],
     "weather_type": [ "clear", "rain", "thunder" ],
