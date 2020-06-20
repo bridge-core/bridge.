@@ -248,7 +248,7 @@ export default class CreateFileWindow extends ContentWindow {
 		})
 
 		this.createFile = () => {
-			if (/\.\.(\\|\/)/g.test(this.current_content.getFullPath.indexOf)) return // Silently stop. Shouldn't ever happen
+			if (/\.\.(\\|\/)/g.test(this.current_content.getFullPath())) return // Silently stop. Shouldn't ever happen
 			FileSystem.save(
 				this.current_content.getFullPath(),
 				this.chosen_template,
