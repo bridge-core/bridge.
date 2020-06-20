@@ -45,58 +45,58 @@ class FileContent {
 			center: true,
 			key: uuidv4(),
 			content: [{
-					type: 'input',
-					text: 'Name',
-					input: this.curr_input,
-					has_focus: true,
-					color: 'primary',
-					key: uuidv4(),
-					action: {
-						enter: () => {
-							if (this.curr_input !== '') this.parent.createFile()
-						},
-						default: val => {
-							this.curr_input = val
+				type: 'input',
+				text: 'Name',
+				input: this.curr_input,
+				has_focus: true,
+				color: 'primary',
+				key: uuidv4(),
+				action: {
+					enter: () => {
+						if (this.curr_input !== '') this.parent.createFile()
+					},
+					default: val => {
+						this.curr_input = val
 
-							if (
-								val === '' ||
-								val.indexOf('../../../') == 0
-							) {
-								if (!this.parent.actions[1].is_disabled) {
-									this.input.content[0].color = 'error'
-									this.input.content[0].key = uuidv4()
-									this.input.content[0].input = this.curr_input
-									this.parent.actions[1].is_disabled = true
-
-									// this.path_info.text = "Invalid file name!\n\n"
-									// this.path_info.color = "error";
-
-									this.parent.update({
-										content: this.content,
-										actions: this.parent.actions,
-									})
-								}
-							} else if (this.parent.actions[1].is_disabled) {
-								this.input.content[0].color = 'primary'
+						if (
+							val === '' ||
+							/\.\.(\\|\/)/g.test(val)
+						) {
+							if (!this.parent.actions[1].is_disabled) {
+								this.input.content[0].color = 'error'
 								this.input.content[0].key = uuidv4()
 								this.input.content[0].input = this.curr_input
-								this.parent.actions[1].is_disabled = false
+								this.parent.actions[1].is_disabled = true
 
-								// this.path_info.text = this.getPath(val) + "\n\n";
-								// this.path_info.color = "grey";
+								// this.path_info.text = "Invalid file name!\n\n"
+								// this.path_info.color = "error";
 
 								this.parent.update({
 									content: this.content,
 									actions: this.parent.actions,
 								})
 							}
-						},
+						} else if (this.parent.actions[1].is_disabled) {
+							this.input.content[0].color = 'primary'
+							this.input.content[0].key = uuidv4()
+							this.input.content[0].input = this.curr_input
+							this.parent.actions[1].is_disabled = false
+
+							// this.path_info.text = this.getPath(val) + "\n\n";
+							// this.path_info.color = "grey";
+
+							this.parent.update({
+								content: this.content,
+								actions: this.parent.actions,
+							})
+						}
 					},
 				},
-				{
-					text: `.${ext}`,
-					color: 'grey',
-				},
+			},
+			{
+				text: `.${ext}`,
+				color: 'grey',
+			},
 			],
 		}
 		this.path_info = () => {
@@ -107,70 +107,70 @@ class FileContent {
 		}
 
 		this.content = [{
-				text: '\n',
-			},
-			{
-				type: 'container',
-				display: 'inline-block',
-				height: '32px',
-				content: [
-					is_experimental ? [{
-						type: 'icon',
-						text: 'mdi-test-tube',
-						color: 'purple',
-						tooltip: 'Experimental Gameplay',
-					}, ] : [],
-					is_custom_syntax ? [{
-						type: 'icon',
-						text: 'mdi-code-braces',
-						color: 'purple',
-						tooltip: 'Custom Syntax',
-					}, ] : [],
-					{
-						type: 'big-header',
-						text: name,
-					},
-				].flat(),
-			},
-			{
-				type: 'divider',
-			},
-			{
-				text: '\n',
-			},
-			this.input,
-			this.path_info,
+			text: '\n',
+		},
+		{
+			type: 'container',
+			display: 'inline-block',
+			height: '32px',
+			content: [
+				is_experimental ? [{
+					type: 'icon',
+					text: 'mdi-test-tube',
+					color: 'purple',
+					tooltip: 'Experimental Gameplay',
+				},] : [],
+				is_custom_syntax ? [{
+					type: 'icon',
+					text: 'mdi-code-braces',
+					color: 'purple',
+					tooltip: 'Custom Syntax',
+				},] : [],
+				{
+					type: 'big-header',
+					text: name,
+				},
+			].flat(),
+		},
+		{
+			type: 'divider',
+		},
+		{
+			text: '\n',
+		},
+		this.input,
+		this.path_info,
 		]
 
 		if (add_location === undefined) add_location = []
 		if (add_content !== undefined && Object.keys(add_content).length !== 0)
 			this.add({
-					...add_content,
-					action: parameter => {
-						if (
-							add_content.action !== undefined &&
-							add_content.action.type === 'change_path'
-						) {
-							this.expand_path = run(add_content.action.to, {
-								parameter,
-							}, {
-								executionContext: "inline"
-							})
-							this.path_info.text = this.getPath(
-								undefined,
-								undefined
-							)
-							this.parent.update({
-								content: this.content,
-							})
-						} else if (add_content.action !== undefined) {
-							throw new Error(
-								'Unknown add_content.action type: ' +
-								add_content.action.type
-							)
-						}
-					},
+				...add_content,
+				action: parameter => {
+					if (
+						add_content.action !== undefined &&
+						add_content.action.type === 'change_path'
+					) {
+						this.expand_path = run(add_content.action.to, {
+							parameter,
+						}, {
+							executionContext: "inline"
+						})
+						this.path_info.text = this.getPath(
+							undefined,
+							undefined
+						)
+						this.parent.update({
+							content: this.content,
+						})
+					} else if (add_content.action !== undefined) {
+						throw new Error(
+							'Unknown add_content.action type: ' +
+							add_content.action.type
+						)
+					}
 				},
+			},
 				...add_location
 			)
 	}
@@ -180,7 +180,7 @@ class FileContent {
 			this.use_rp_path
 				? Store.state.Explorer.project.resource_pack
 				: Store.state.Explorer.project.explorer
-		}/${expand}${val}.${ext}`
+			}/${expand}${val}.${ext}`
 	}
 
 	getFullPath(val, ext, expand) {
@@ -209,12 +209,12 @@ export default class CreateFileWindow extends ContentWindow {
 			Store.state.Explorer.project.resource_pack === undefined
 		)
 			FILE_DATA = FileType.getFileCreators()
-			.filter(f => (show_rp ? f.rp_definition : !f.rp_definition))
-			.sort(({
-				title: t1
-			}, {
-				title: t2
-			}) => t1.localeCompare(t2))
+				.filter(f => (show_rp ? f.rp_definition : !f.rp_definition))
+				.sort(({
+					title: t1
+				}, {
+					title: t2
+				}) => t1.localeCompare(t2))
 		else
 			FILE_DATA = FileType.getFileCreators().sort(
 				({
@@ -248,7 +248,7 @@ export default class CreateFileWindow extends ContentWindow {
 		})
 
 		this.createFile = () => {
-			if (this.current_content.getFullPath.indexOf('../../../') == 0) return // Silently stop. Shouldn't ever happen
+			if (/\.\.(\\|\/)/g.test(this.current_content.getFullPath())) return // Silently stop. Shouldn't ever happen
 			FileSystem.save(
 				this.current_content.getFullPath(),
 				this.chosen_template,
@@ -258,16 +258,16 @@ export default class CreateFileWindow extends ContentWindow {
 			this.close()
 		}
 		this.actions = [{
-				type: 'space',
-			},
-			{
-				type: 'button',
-				text: 'Create!',
-				color: 'primary',
-				is_rounded: false,
-				is_disabled: false,
-				action: this.createFile,
-			},
+			type: 'space',
+		},
+		{
+			type: 'button',
+			text: 'Create!',
+			color: 'primary',
+			is_rounded: false,
+			is_disabled: false,
+			action: this.createFile,
+		},
 		]
 		this.win_def.actions = this.actions
 		this.contents = FILE_DATA.map(
@@ -280,16 +280,16 @@ export default class CreateFileWindow extends ContentWindow {
 				is_custom_syntax,
 				is_experimental,
 			}) =>
-			new FileContent(
-				title,
-				extension,
-				this,
-				path,
-				add_content,
-				rp_definition,
-				is_custom_syntax,
-				is_experimental
-			)
+				new FileContent(
+					title,
+					extension,
+					this,
+					path,
+					add_content,
+					rp_definition,
+					is_custom_syntax,
+					is_experimental
+				)
 		)
 		//Templates
 		this.templates = FILE_DATA.map(({
@@ -318,7 +318,7 @@ export default class CreateFileWindow extends ContentWindow {
 		this.win_def.options.is_visible = true
 		this.win_def.content = this.contents[id].get() || [{
 			text: 'Nothing to show yet',
-		}, ]
+		},]
 
 		if (this.templates[id] && !this.win_def.content.added_select)
 			await this.compileTemplate(this.templates[id])
