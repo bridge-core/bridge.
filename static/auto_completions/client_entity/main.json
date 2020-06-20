@@ -28,7 +28,7 @@
                 }
             },
             "geometry": {
-                "$placeholder": { "@meta": { "is_value": true } }
+                "$placeholder": "$dynamic.cache.entity_model.identifiers"
             },
             "animations": {
                 "$placeholder": { 
