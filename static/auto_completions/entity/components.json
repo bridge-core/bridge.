@@ -162,7 +162,6 @@
     {
       "$if": "$format_version >= 1.16.0",
       "$data": {
-        "minecraft:buoyant": {
           "apply_gravity": "$general.boolean",
           "base_buoyancy": "$general.decimal",
           "big_wave_probability": "$general.decimal",
@@ -172,7 +171,6 @@
             "$dynamic.list.next_index": "$general.block_identifier"
           },
           "simulate_waves": "$general.boolean"
-        }
       }
     }
   ],
@@ -353,10 +351,10 @@
       }
     }
   },
-  "$versioned_template.minecraft:equip_items": [
+  "$versioned_template.minecraft:equip_item": [
     {
       "$if": "$format_version >= 1.16.0",
-      "$data": { "minecraft:equip_items": {} }
+      "$data": {}
     }
   ], 
   "minecraft:equippable": {
@@ -678,7 +676,6 @@
     {
       "$if": "$format_version >= 1.16.0",
       "$data": {
-        "minecraft:npc": {
           "npc_data": {
             "portrait_offsets": {
               "translate": {
@@ -699,7 +696,6 @@
             "skin_list": {
               "$dynamic.list.next_index": {
                 "variant": "$general.number"
-              }
             }
           }
         }
@@ -1021,7 +1017,6 @@
     {
       "$if": "$format_version < 1.16.0",
       "$data": {
-        "minecraft:spawn_entity": {
           "$dynamic.list.next_index": {
             "should_leash": "$general.boolean",
             "num_to_spawn": "$general.number",
@@ -1036,14 +1031,12 @@
             "spawn_sound": "$general.sound",
             "filters": "$entity.filters",
             "single_use": "$general.boolean"
-          }
         }
       }
     },
     {
       "$if": "$format_version >= 1.16.0",
       "$data": {
-        "minecraft:spawn_entity": {
           "entities": {
             "$dynamic.list.next_index": {
               "should_leash": "$general.boolean",
@@ -1057,7 +1050,6 @@
               "spawn_sound": "$general.sound",
               "filters": "$entity.filters",
               "single_use": "$general.boolean"
-            }
           }
         }
       }

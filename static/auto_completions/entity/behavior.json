@@ -286,16 +286,13 @@
     {
       "$if": "$format_version < 1.16.0",
       "$data": {
-        "minecraft:behavior.eat_block": {
           "priority": "$general.number",
           "on_eat": "$entity.general.event_definition"
-        }
       }
     },
     {
       "$if": "$format_version >= 1.16.0",
       "$data": {
-        "minecraft:behavior.eat_block": {
           "priority": "$general.number",
           "success_chance": "$molang.embedded",
           "time_until_eat": "$general.number",
@@ -306,7 +303,6 @@
             }
           },
           "on_eat": "$entity.general.event_definition"
-        }
       }
     }
   ],
@@ -340,13 +336,11 @@
     },
     "priority": "$general.number"
   },
-  "$versioned_template.minecraft.behavior.equip_items": [
+  "$versioned_template.minecraft:behavior.equip_items": [
     {
       "$if": "$format_version >= 1.16.0",
       "$data": {
-        "minecraft:behavior.equip_items": {
           "priority": "$general.number"
-        }
       }
     }
   ],
@@ -637,7 +631,7 @@
   "$versioned_template.minecraft:behavior.move_to_lava": [
     {
       "$if": "$format_version >= 1.16.0",
-      "$data": { "minecraft:behavior.move_to_lava": "$entity.behavior.minecraft:behavior&dot;move_to_water" }
+      "$data": "$entity.behavior.minecraft:behavior&dot;move_to_water"
     }
   ], 
   "minecraft:behavior.move_to_random_block": {
