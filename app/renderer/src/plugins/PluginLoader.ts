@@ -37,7 +37,7 @@ import {
 import { executeScript } from './scripts/execute'
 import { createEnv, createLimitedEnv } from './scripts/require'
 import { DATA_PATH } from '../../../shared/DefaultDir'
-import { on } from '../AppCycle/EventSystem'
+import { on, trigger } from '../AppCycle/EventSystem'
 
 let PLUGIN_FOLDERS: [string, string][] = []
 let PLUGIN_DATA: any[] = []
@@ -67,6 +67,7 @@ export default class PluginLoader {
 	}
 
 	static async unloadPlugins() {
+		trigger('bridge:scriptRunner.resetCaches')
 		//INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
 		Store.commit('unloadPlugins')
 		clearAllDisposables()
