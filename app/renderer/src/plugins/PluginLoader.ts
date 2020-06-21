@@ -50,7 +50,6 @@ export default class PluginLoader {
 	static unloadedPlugins: string[]
 
 	static getInstalledPlugins() {
-		if (process.env.NODE_ENV === 'development') console.log(PLUGIN_DATA)
 		return PLUGIN_DATA
 	}
 	static pushPluginData(data: any) {
@@ -233,7 +232,10 @@ export default class PluginLoader {
 				]).catch(console.error)
 				addLoadLocation(path.join(pluginPath, 'presets'))
 			}
-			PLUGIN_DATA.push(manifest)
+			PLUGIN_DATA.push({
+				...manifest,
+				pluginPath, //Used by extension store to update plugins
+			})
 			setDisposables(manifest.id, disposables)
 		}
 	}
