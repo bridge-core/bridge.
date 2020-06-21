@@ -113,6 +113,13 @@
 	</v-layout>
 
 	<!-- BUTTONS -->
+	<v-overflow-btn
+		v-else-if="content.type == 'button-select'"
+		:items="content.options"
+		:label="content.text"
+		:color="content.color || 'default_button'"
+		segmented
+	/>
 	<v-btn
 		v-else-if="content.type == 'button'"
 		@click.stop.native="action.default"

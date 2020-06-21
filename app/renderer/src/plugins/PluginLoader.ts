@@ -4,7 +4,7 @@
  *
  * Unloading is still handled by store/modules/Plugins.js
  */
-import { BASE_PATH, CURRENT } from '../constants'
+import { CURRENT } from '../constants'
 import path from 'path'
 import { promises as fs, createReadStream, Dirent } from 'fs'
 import { readJSON } from '../Utilities/JsonFS'
@@ -36,8 +36,10 @@ import {
 } from './Disposables'
 import { executeScript } from './scripts/execute'
 import { createEnv, createLimitedEnv } from './scripts/require'
+import { DATA_PATH } from '../../../shared/DefaultDir'
+import { on } from '../AppCycle/EventSystem'
 
-let PLUGIN_FOLDERS: string[]
+let PLUGIN_FOLDERS: [string, string][] = []
 let PLUGIN_DATA: any[] = []
 
 interface AutoCompletionFormat {
@@ -45,8 +47,11 @@ interface AutoCompletionFormat {
 	definition?: any
 }
 
+on('bridge:reloadPlugins', () => {
+	PluginLoader.loadPlugins(CURRENT.PROJECT)
+})
 export default class PluginLoader {
-	static unloaded_plugins: string[]
+	static unloadedPlugins: string[]
 
 	static getInstalledPlugins() {
 		return PLUGIN_DATA
@@ -67,51 +72,64 @@ export default class PluginLoader {
 		clearAllDisposables()
 	}
 
-	static async loadPlugins(project: string) {
-		if (project === undefined) return
+	static async loadPlugins(
+		basePaths = [path.join(CURRENT.PROJECT_PATH, 'bridge'), DATA_PATH]
+	) {
 		this.unloadPlugins()
 
+		//Disabling/Enabling of plugins always works per workspace
 		const uninstalledPath = path.join(
 			CURRENT.PROJECT_PATH,
 			'bridge/uninstalled_plugins.json'
 		)
-		let unloaded_plugins: string[]
+		let unloadedPlugins: string[]
 		try {
-			unloaded_plugins = JSON.parse(
+			unloadedPlugins = JSON.parse(
 				(await fs.readFile(uninstalledPath)).toString()
 			)
 		} catch {
-			fs.mkdir(path.join(BASE_PATH, project, 'bridge/plugins'), {
+			fs.mkdir(path.join(CURRENT.PROJECT_PATH, 'plugins'), {
 				recursive: true,
 			}).finally(() => fs.writeFile(uninstalledPath, '[]'))
-			unloaded_plugins = []
+			unloadedPlugins = []
 		}
 
-		this.unloaded_plugins = unloaded_plugins
+		this.unloadedPlugins = unloadedPlugins
 		//Activate/Deactivate BridgeCore
-		if (!unloaded_plugins.includes('bridge.core')) BridgeCore.activate()
+		if (!unloadedPlugins.includes('bridge.core')) BridgeCore.activate()
 		else BridgeCore.deactivate()
 
+		PLUGIN_FOLDERS = []
 		try {
-			PLUGIN_FOLDERS = await fs.readdir(
-				path.join(BASE_PATH, project, 'bridge/plugins')
+			await Promise.all(
+				basePaths.map(basePath =>
+					fs
+						.readdir(path.join(basePath, 'plugins'))
+						.then(pluginFolders =>
+							pluginFolders.forEach(pluginFolder =>
+								PLUGIN_FOLDERS.push([basePath, pluginFolder])
+							)
+						)
+				)
 			)
-		} catch (e) {
-			PLUGIN_FOLDERS = []
-		}
+		} catch {}
 
-		let PLUGIN_ZIPS = PLUGIN_FOLDERS.filter(p => path.extname(p) === '.zip')
-		PLUGIN_FOLDERS = PLUGIN_FOLDERS.filter(p => path.extname(p) !== '.zip')
+		let PLUGIN_ZIPS = PLUGIN_FOLDERS.filter(
+			([_, p]) => path.extname(p) === '.zip'
+		)
+		PLUGIN_FOLDERS = PLUGIN_FOLDERS.filter(
+			([_, p]) => path.extname(p) !== '.zip'
+		)
 		//Initialize PLUGIN_DATA with UI_DATA of BridgeCore
 		PLUGIN_DATA = [UI_DATA]
 		await Promise.all(
-			PLUGIN_ZIPS.map(plugin_folder =>
-				this.loadPlugin(project, plugin_folder, unloaded_plugins)
+			PLUGIN_ZIPS.map(([basePath, pluginFolder]) =>
+				this.loadPlugin(basePath, pluginFolder, unloadedPlugins)
 			)
 		)
 		await Promise.all(
-			PLUGIN_FOLDERS.map(plugin_folder =>
-				this.loadPlugin(project, plugin_folder, unloaded_plugins)
+			PLUGIN_FOLDERS.map(([basePath, pluginFolder]) =>
+				this.loadPlugin(basePath, pluginFolder, unloadedPlugins)
 			)
 		)
 		await ThemeManager.loadTheme()
@@ -137,34 +155,26 @@ export default class PluginLoader {
 	}
 
 	static async loadPlugin(
-		project: string,
-		plugin_folder: string,
-		unloaded_plugins: string[]
+		basePath: string,
+		pluginFolder: string,
+		unloadedPlugins: string[]
 	) {
-		let pluginPath = path.join(
-			BASE_PATH,
-			project,
-			'bridge/plugins',
-			plugin_folder
-		)
+		let pluginPath = path.join(basePath, 'plugins', pluginFolder)
 		if ((await fs.lstat(pluginPath)).isFile()) {
 			if (path.extname(pluginPath) === '.js') {
 				//LEGACY PLUGINS
-				if (
-					!unloaded_plugins.includes(path.basename(pluginPath, '.js'))
-				)
+				if (!unloadedPlugins.includes(path.basename(pluginPath, '.js')))
 					createErrorNotification(
 						new Error(
-							`LEGACY PLUGIN: Legacy plugins are no longer supported: "${plugin_folder}"`
+							`LEGACY PLUGIN: Legacy plugins are no longer supported: "${pluginFolder}"`
 						)
 					)
 			} else if (path.extname(pluginPath) === '.zip') {
 				//Load archived plugins
 				let unzip_path = path.join(
-					BASE_PATH,
-					project,
-					'bridge/plugins',
-					path.basename(plugin_folder, '.zip')
+					basePath,
+					'plugins',
+					path.basename(pluginFolder, '.zip')
 				)
 				await createReadStream(pluginPath)
 					.pipe(unzipper.Extract({ path: unzip_path }))
@@ -174,22 +184,18 @@ export default class PluginLoader {
 				 * Prevent loading plugin twice
 				 * (once as folder and once as .zip)
 				 */
-				if (
-					PLUGIN_FOLDERS.includes(
-						path.basename(plugin_folder, '.zip')
-					)
-				) {
-					PLUGIN_FOLDERS = PLUGIN_FOLDERS.filter(
-						p => p !== path.basename(plugin_folder, '.zip')
-					)
-				}
+				const index = PLUGIN_FOLDERS.findIndex(
+					([_, tmpPluginFolder]) =>
+						tmpPluginFolder === path.basename(pluginFolder, '.zip')
+				)
+				if (index !== -1) PLUGIN_FOLDERS.splice(index, 1)
 
 				await Promise.all([
 					fs.unlink(pluginPath),
 					this.loadPlugin(
-						project,
-						path.basename(plugin_folder, '.zip'),
-						unloaded_plugins
+						basePath,
+						path.basename(pluginFolder, '.zip'),
+						unloadedPlugins
 					),
 				]).catch(e => {})
 			}
@@ -207,7 +213,7 @@ export default class PluginLoader {
 			disposables.push(uiStore)
 
 			//IF ACTIVE: LOAD PLUGIN
-			if (manifest.id && !unloaded_plugins.includes(manifest.id)) {
+			if (manifest.id && !unloadedPlugins.includes(manifest.id)) {
 				await Promise.all([
 					loadUIComponents(
 						path.join(pluginPath, 'ui'),
@@ -230,7 +236,10 @@ export default class PluginLoader {
 				]).catch(console.error)
 				addLoadLocation(path.join(pluginPath, 'presets'))
 			}
-			PLUGIN_DATA.push(manifest)
+			PLUGIN_DATA.push({
+				...manifest,
+				pluginPath, //Used by extension store to update plugins
+			})
 			setDisposables(manifest.id, disposables)
 		}
 	}
@@ -313,22 +322,22 @@ export default class PluginLoader {
 	}
 
 	static async loadThemeCSS(pluginPath: string) {
-		let css_files = await fs
-			.readdir(path.join(pluginPath, 'css'), { withFileTypes: true })
+		let cssFiles = await fs
+			.readdir(path.join(pluginPath, 'styles'), { withFileTypes: true })
 			.catch(e => [] as Dirent[])
 
 		let css: string[] = await Promise.all(
-			css_files.map(css_file => {
-				if (css_file.isDirectory()) return
+			cssFiles.map(cssFile => {
+				if (cssFile.isDirectory()) return
 				return fs
-					.readFile(path.join(pluginPath, 'css', css_file.name))
+					.readFile(path.join(pluginPath, 'styles', cssFile.name))
 					.catch(e => undefined)
 					.then(data => data.toString('utf-8'))
 			})
 		)
 
 		css.forEach((css, i) => {
-			ThemeManager.css.set(css_files[i].name, css)
+			ThemeManager.css.set(cssFiles[i].name, css)
 		})
 	}
 

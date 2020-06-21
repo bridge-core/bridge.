@@ -1,7 +1,7 @@
 import ListView from './ListView'
 import Session, {
 	tag,
-	download,
+	download
 } from './Common'
 import {
 	greaterThan
@@ -10,21 +10,23 @@ import {
 class DownloadButton {
 	type = 'button'
 	icon = 'mdi-download'
-	text = 'Download'
+	text = undefined
 	color = 'primary'
-	constructor(parent, action, disabled, is_installed, is_update) {
+	isGlobalInstall = false
+	constructor(parent, action, disabled, isInstalled, isUpdate, pluginPath, text) {
 		this.is_disabled = disabled
+		this.text = text
 
-		if (is_update) {
+		if (isUpdate) {
 			this.setUpdateAvailable()
-		} else if (is_installed) {
+		} else if (isInstalled) {
 			this.setInstalled()
 		}
 
 		this.action = async () => {
 			this.is_loading = true
 			parent.update()
-			if (typeof action === 'function') await action()
+			if (typeof action === 'function') await action(this.isGlobalInstall, pluginPath)
 			this.is_loading = false
 			this.setInstalled()
 			parent.update()
@@ -58,12 +60,13 @@ export default class PluginCard {
 		},
 		close_parent = true
 	) {
+		this.key = `pluginCard-${id}`
 		this.type = 'card'
 		this.above_content = [{
-			text: `${name}`
-		}]
+			text: `${name}`,
+		}, ]
 		this.content = [{
-				type: 'divider'
+				type: 'divider',
 			},
 			{
 				type: 'container',
@@ -87,26 +90,45 @@ export default class PluginCard {
 				}),
 			},
 			{
-				text: `\n${description}\n\n`
+				text: `\n${description}\n\n`,
 			},
 			{
-				type: 'divider'
+				type: 'divider',
 			},
 		]
 
+
+		const {
+			version: loadedVersion,
+			pluginPath
+		} = parent.plugin_map[id] || {}
+
+		const button = new DownloadButton(
+			this,
+			async (isGlobal, pluginPath) => {
+					await download(link, isGlobal, pluginPath)
+					Session.setSessionInstalled(id, version)
+				},
+				link === undefined,
+				loadedVersion !== undefined,
+				greaterThan(version, loadedVersion || version),
+				pluginPath,
+				'Download',
+		)
+
 		this.below_content = [{
-				type: 'space'
+				key: `globalSwitch-${id}`,
+				type: 'switch',
+				text: 'Global Installation',
+				input: button.isGlobalInstall,
+				action: (val) => {
+					button.isGlobalInstall = val
+				}
 			},
-			new DownloadButton(
-				this,
-				async () => {
-						await download(link)
-						Session.setSessionInstalled(id, version)
-					},
-					link === undefined,
-					parent.plugin_map[id] !== undefined,
-					greaterThan(version, parent.plugin_map[id] || version)
-			),
+			{
+				type: 'space',
+			},
+			button
 		]
 
 		this.update = () => {
