@@ -36,9 +36,7 @@ export const DevMenu: IAppMenu = {
 				trigger('bridge:scriptRunner.resetCaches')
 				Provider.loadAssets()
 				ThemeManager.reloadDefaultThemes()
-				await PluginLoader.loadPlugins(
-					Store.state.Explorer.project.explorer
-				)
+				await PluginLoader.loadPlugins()
 
 				lw.close()
 			},
