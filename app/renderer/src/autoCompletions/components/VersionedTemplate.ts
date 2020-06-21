@@ -37,9 +37,12 @@ interface IVersionedTemplate {
 export function compileVersionedTemplate(template: IVersionedTemplate[]) {
 	let resObject: any = {},
 		resValue: string[] = []
+	let hasTruthyCondition = false
 
 	for (let { $if, $data } of template) {
 		if (!$if || compileCondition($if)) {
+			hasTruthyCondition = true
+
 			if (typeof $data === 'string') {
 				const { object, value } = Omega.eval($data)
 				resObject = detachMerge(resObject, object)
@@ -51,6 +54,7 @@ export function compileVersionedTemplate(template: IVersionedTemplate[]) {
 		}
 	}
 
+	if (!hasTruthyCondition) return { object: undefined, value: undefined }
 	return { object: resObject, value: resValue }
 }
 

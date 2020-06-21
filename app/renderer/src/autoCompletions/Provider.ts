@@ -270,11 +270,7 @@ class Provider {
 						value: tmpValue,
 					} = compileVersionedTemplate(object[key])
 
-					if (
-						tmpValue.length === 0 &&
-						Object.keys(tmpObject).length === 0
-					)
-						return undefined
+					if (tmpObject === undefined) return undefined
 					return key.substring(key.indexOf('.') + 1, key.length)
 				} else if (key.startsWith('@import.value')) {
 					if (Array.isArray(object[key])) {
