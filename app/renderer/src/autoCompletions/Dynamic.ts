@@ -13,6 +13,7 @@ import ProjectConfig from '../Project/Config'
 import ComponentRegistry from '../plugins/CustomComponents'
 import JSONTree from '../editor/JsonTree'
 import { proposeCustomCommands } from '../plugins/CustomCommands'
+import uuid from 'uuid/v4'
 
 let PARENT_CONTEXT: JSONTree
 let NODE_CONTEXT: JSONTree
@@ -60,6 +61,11 @@ export function CONTEXT_DOWN() {
 export const DYNAMIC = {
 	get cache() {
 		return LightningCache.getCompiledSync()
+	},
+	util: {
+		uuid() {
+			return uuid()
+		},
 	},
 	bridge_core: {
 		is_active() {

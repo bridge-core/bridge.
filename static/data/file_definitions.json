@@ -1,5 +1,12 @@
 [
     {
+        "id": "manifest_bp",
+        "includes": "manifest.json",
+        "file_viewer": "json",
+        "start_state": "manifest/main",
+        "rp_definition": false
+    },
+    {
         "id": "animation",
         "includes": "animations/",
         "file_viewer": "json",
@@ -186,6 +193,13 @@
 
 
     {
+        "id": "manifest_rp",
+        "includes": "manifest.json",
+        "file_viewer": "json",
+        "start_state": "manifest/main",
+        "rp_definition": true
+    },
+    {
         "id": "entity_model",
         "includes": "models/entity",
         "file_viewer": "model",
@@ -346,19 +360,5 @@
         "file_viewer": "json",
         "start_state": "simple/sounds",
         "rp_definition": true
-    },
-    {
-        "id": "manifest_rp",
-        "includes": "manifest.json",
-        "file_viewer": "json",
-        "start_state": "manifest/main",
-        "rp_definition": true
-    },
-    {
-        "id": "manifest_bp",
-        "includes": "manifest.json",
-        "file_viewer": "json",
-        "start_state": "manifest/main",
-        "rp_definition": false
     }
 ]
