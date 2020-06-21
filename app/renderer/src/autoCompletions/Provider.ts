@@ -263,9 +263,9 @@ class Provider {
 						object[key].$if === undefined ||
 						Omega.walk(object[key].$if)
 					)
-						return key.split('.').pop()
+						return key.substring(key.indexOf('.') + 1, key.length)
 				} else if (key.startsWith('$versioned_template.')) {
-					return key.split('.').pop()
+					return key.substring(key.indexOf('.') + 1, key.length)
 				} else if (key.startsWith('@import.value')) {
 					if (Array.isArray(object[key])) {
 						if (asObject) return object[key]
