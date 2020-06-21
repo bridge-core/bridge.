@@ -39,3 +39,5 @@ Since v0.13.0-pre10 it is possible to define which file data you want to cache. 
 |  ```$dynamic.loot_table_files``` | Returns all loot table files
 |  ```$dynamic.trade_table_files``` | Returns all trade table files
 |  ```$dynamic.function_files``` | Returns all function files
+|  ```$dynamic.utils.uuid``` | Returns a random uuid
+
