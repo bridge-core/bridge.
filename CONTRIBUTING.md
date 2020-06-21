@@ -1,43 +1,28 @@
 Thank you for considering to contribute to **"bridge."**
 
 ## Starting development
-You need to install [NodeJS](https://nodejs.org/en/) in order to get started.
+We recommend Visual Studio Code to edit our code base.
+In order to get started testing the application, you need to install [NodeJS](https://nodejs.org/en/).
 Open the terminal, cd to the directory you have cloned "bridge." to and run ```npm i```. Afterwards, you can use ```npm run dev``` and ```npm run build```
 to start the development environment and build versions of "bridge.".
 
 ## Code Rules
 ### Verified as working
 All code contributed to this repository should be verified as working, meaning you've tested the
-functionality at least once and didn't encounter unexpected behaviour. Your build also may not contain errors inside the console.
+functionality at least once and didn't encounter unexpected behaviour. Building the application also may not contain errors inside the console.
 
 ### Code Style
 #### General
-Although not required by the language JavaScript itself, you should end all instructions with a ";". 
+This code base uses Prettier to automatically style code upon saving. We recommend installing the Prettier extension for VS Code for the smoothest experience.
 
 #### Names
-Variable, constant and parameter names should all be snake_case. This also includes Vue's computed properties.
+All identifier names should be camelCase.
 
 ```javascript
 // Example
-let my_var = "Hello World!";
-```
+let myVar = "Hello World!"
 
-Method and function names are prefered to be CamelCase.
-```javascript
-// Example
 function doSomethingNow(par_1, par_2) {
-  doSomething(par_1 + par_2);
+  doSomething(par_1 + par_2)
 }
-```
-
-#### Method Chaining
-Wherever it makes sense, you should chain methods by inserting a new line to improve readability first.
-
-```javascript
-// Example
-doSomething()
-  .then(data => data.string())
-  .then(str => console.log(str))
-  .catch(err => console.error(err))
-  .finally(updateUI());
 ```

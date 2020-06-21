@@ -20,6 +20,7 @@ import { DEV_MENU } from '../src/UI/Toolbar/setupDefaults'
 import { LoadedProjects } from '../src/UI/ProjectScreen/state'
 import { loadProjects } from '../src/UI/ProjectScreen/load'
 import { basename } from 'path'
+import { trigger } from '../src/AppCycle/EventSystem'
 
 class ReactiveListEntry {
 	type = 'card'
@@ -274,11 +275,6 @@ export default class SettingsWindow extends TabWindow {
 					text: 'Provide Auto-Completions',
 					key: `settings.editor.tab.auto_completions.${Math.random()}`,
 				}),
-				new ReactiveSwitch(this, 'text_auto_completions', {
-					color: 'primary',
-					text: 'Provide Text Auto-Completions',
-					key: `settings.editor.tab.text_auto_completions.${Math.random()}`,
-				}),
 				new ReactiveSwitch(this, 'auto_fill_inputs', {
 					color: 'primary',
 					text: 'Auto Fill Inputs',
@@ -442,6 +438,7 @@ export default class SettingsWindow extends TabWindow {
 					action: (val: string) => {
 						ThemeManager.applyTheme(val)
 						ProjectConfig.setTheme(val)
+						trigger('bridge:reloadPlugins')
 					},
 				},
 				{

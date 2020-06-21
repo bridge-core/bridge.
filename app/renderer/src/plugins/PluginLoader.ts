@@ -37,6 +37,7 @@ import {
 import { executeScript } from './scripts/execute'
 import { createEnv, createLimitedEnv } from './scripts/require'
 import { DATA_PATH } from '../../../shared/DefaultDir'
+import { on } from '../AppCycle/EventSystem'
 
 let PLUGIN_FOLDERS: [string, string][] = []
 let PLUGIN_DATA: any[] = []
@@ -46,6 +47,9 @@ interface AutoCompletionFormat {
 	definition?: any
 }
 
+on('bridge:reloadPlugins', () => {
+	PluginLoader.loadPlugins(CURRENT.PROJECT)
+})
 export default class PluginLoader {
 	static unloadedPlugins: string[]
 
@@ -318,22 +322,22 @@ export default class PluginLoader {
 	}
 
 	static async loadThemeCSS(pluginPath: string) {
-		let css_files = await fs
-			.readdir(path.join(pluginPath, 'css'), { withFileTypes: true })
+		let cssFiles = await fs
+			.readdir(path.join(pluginPath, 'styles'), { withFileTypes: true })
 			.catch(e => [] as Dirent[])
 
 		let css: string[] = await Promise.all(
-			css_files.map(css_file => {
-				if (css_file.isDirectory()) return
+			cssFiles.map(cssFile => {
+				if (cssFile.isDirectory()) return
 				return fs
-					.readFile(path.join(pluginPath, 'css', css_file.name))
+					.readFile(path.join(pluginPath, 'styles', cssFile.name))
 					.catch(e => undefined)
 					.then(data => data.toString('utf-8'))
 			})
 		)
 
 		css.forEach((css, i) => {
-			ThemeManager.css.set(css_files[i].name, css)
+			ThemeManager.css.set(cssFiles[i].name, css)
 		})
 	}
 

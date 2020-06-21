@@ -5,6 +5,9 @@ import {
 import path from 'path'
 import ThemeManager from '../../src/editor/Themes/ThemeManager'
 import EventBus from '../../src/EventBus'
+import {
+	createStyleSheet
+} from '../../src/plugins/styles/createStyle'
 const CM_NAME_MAP = readJSONSync(path.join(__static, 'data/cm_name_map.json'))
 
 const state = {
@@ -89,8 +92,7 @@ const state = {
 	options: {},
 }
 
-let STYLE_TAG = document.createElement('style')
-document.head.appendChild(STYLE_TAG)
+let StyleSheet
 
 function applyTheme(theme, mode = 'dark') {
 	let style = `.theme--${mode} .CodeMirror { color: ${
@@ -141,12 +143,12 @@ const mutations = {
 			Vue.set(state.color_theme, 'light', light || {})
 		}
 
-		document.head.removeChild(STYLE_TAG)
-		STYLE_TAG.innerHTML =
+		if (StyleSheet) StyleSheet.dispose()
+		StyleSheet = createStyleSheet(
 			applyTheme(state.color_theme.dark) +
 			applyTheme(state.color_theme.light, 'light') +
 			(state.options.css || '')
-		document.head.appendChild(STYLE_TAG)
+		)
 
 		EventBus.trigger('bridge:themeChanged')
 	},

@@ -9,6 +9,7 @@ import { ENVModule } from './modules/env'
 import { UtilsModule } from './modules/utils'
 import { ImportFileModule } from './modules/importFiles'
 import { PathModule } from './modules/path'
+import { FetchDefinitionModule } from './modules/fetchDefinition'
 
 const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/ui', UIModule],
@@ -19,6 +20,7 @@ const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/env', ENVModule],
 	['@bridge/utils', UtilsModule],
 	['@bridge/file-importer', ImportFileModule],
+	['@bridge/fetch-definition', FetchDefinitionModule],
 ])
 //For usage inside of custom commands, components etc.
 const LimitedModules = new Map<string, (config: IModuleConfig) => unknown>([
@@ -27,6 +29,7 @@ const LimitedModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/path', PathModule],
 	['@bridge/env', ENVModule],
 	['@bridge/utils', UtilsModule],
+	['@bridge/fetch-definition', FetchDefinitionModule],
 ])
 
 function createGenericEnv(

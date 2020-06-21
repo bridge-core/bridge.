@@ -106,12 +106,15 @@
     },
     "give": {
         "$function.general.target_selector": {
-            "$function.general.item_identifier": {
-                "$general.number": {
-                    "$general.number": {}
-                }
+          "$function.general.item_identifier": {
+            "$general.number": {
+              "$general.number": {}
             }
+          }
         }
+    },
+    "kick": {
+      "$function.general.target_selector": {}
     },
     "kill": {
         "$function.general.target_selector": {}

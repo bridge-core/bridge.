@@ -4,6 +4,7 @@ import { createErrorNotification } from '../../AppCycle/Errors'
 import { TUIStore } from './store'
 import { IDisposable } from '../../Types/disposable'
 import { executeScript } from '../scripts/execute'
+import { createStyleSheet } from '../styles/createStyle'
 
 export async function loadUIComponents(
 	pluginPath: string,
@@ -61,6 +62,7 @@ export async function loadUIComponent(
 		const scripts = fileContent.match(/<script>.*<\/script>/gs) ?? [
 			'<script>return {}</script>',
 		]
+		const style = fileContent.match(/<style>.*<\/style>/gs)
 		if (templates.length > 1 || scripts.length > 1) {
 			createErrorNotification(
 				new Error(
@@ -82,6 +84,12 @@ export async function loadUIComponent(
 			...(await (<any>executeScript(script, uiStore, disposables))),
 			template,
 		}
+
+		if (style)
+			disposables.push(
+				createStyleSheet(style[0].substring(7, style[0].length - 9))
+			)
+
 		resolve(component)
 	})
 
