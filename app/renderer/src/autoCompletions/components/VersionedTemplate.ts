@@ -3,6 +3,7 @@ import Provider from '../Provider'
 import TabSystem from '../../TabSystem'
 import { compare, CompareOperator } from 'compare-versions'
 import { Omega } from '../Omega'
+import { detachMerge } from '../../Utilities/mergeUtils'
 
 export class VersionedTemplate {
 	static confirm(
@@ -35,12 +36,23 @@ interface IVersionedTemplate {
 }
 
 export function compileVersionedTemplate(template: IVersionedTemplate[]) {
+	let resObject: any = {},
+		resValue: string[] = []
+
 	for (let { $if, $data } of template) {
 		if (!$if || compileCondition($if)) {
-			if (typeof $data === 'string') return Omega.eval($data)
-			else return { object: $data, value: [] }
+			if (typeof $data === 'string') {
+				const { object, value } = Omega.eval($data)
+				resObject = detachMerge(resObject, object)
+				resValue.push(...value)
+			} else {
+				if (Array.isArray($data)) resValue.push(...($data as string[]))
+				else resObject = detachMerge(resObject, $data)
+			}
 		}
 	}
+
+	return { object: resObject, value: resValue }
 }
 
 export function compileCondition(condition: string) {

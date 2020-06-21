@@ -3,6 +3,7 @@ import { Load } from './components/Load'
 import { DynamicTemplate } from './components/DynamicTemplate'
 import { DynamicKeyTemplate } from './components/DynamicKeyTemplate'
 import { VersionedTemplate } from './components/VersionedTemplate'
+import { VersionedKeyTemplate } from './components/VersionedKeyTemplate'
 import Provider from './Provider'
 
 const COMPONENTS = [
@@ -10,6 +11,7 @@ const COMPONENTS = [
 	DynamicKeyTemplate,
 	DynamicTemplate,
 	VersionedTemplate,
+	VersionedKeyTemplate,
 	Placeholder,
 ]
 

@@ -264,6 +264,8 @@ class Provider {
 						Omega.walk(object[key].$if)
 					)
 						return key.split('.').pop()
+				} else if (key.startsWith('$versioned_template.')) {
+					return key.split('.').pop()
 				} else if (key.startsWith('@import.value')) {
 					if (Array.isArray(object[key])) {
 						if (asObject) return object[key]
