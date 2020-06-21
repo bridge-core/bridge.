@@ -62,7 +62,7 @@ export const DYNAMIC = {
 	get cache() {
 		return LightningCache.getCompiledSync()
 	},
-	util: {
+	utils: {
 		uuid() {
 			return uuid()
 		},
