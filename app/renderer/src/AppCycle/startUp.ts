@@ -9,14 +9,11 @@ import { createNotification } from '../UI/Footer/create'
 import './DropFile'
 import './ResizeWatcher'
 import './Errors'
-import GlobalPluginLoader from '../plugins/GlobalPluginLoader'
 
 export default async function startUp() {
 	SETTINGS.setup()
 	// Start listening for online and offline events
 	CONNECTION.startListening()
-	//dirty fix for global plugins not loading
-	GlobalPluginLoader.loadPlugins()
 
 	setupDefaultMenus()
 	if (process.env.NODE_ENV !== 'development') {

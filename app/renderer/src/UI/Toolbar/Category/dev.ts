@@ -6,7 +6,6 @@ import PluginLoader from '../../../plugins/PluginLoader'
 import Store from '../../../../store/index'
 import ThemeManager from '../../../editor/Themes/ThemeManager'
 import LoadingWindow from '../../../../windows/LoadingWindow'
-import GlobalPluginLoader from '../../../plugins/GlobalPluginLoader'
 
 export const DevMenu: IAppMenu = {
 	displayName: 'Development',
@@ -37,10 +36,7 @@ export const DevMenu: IAppMenu = {
 				trigger('bridge:scriptRunner.resetCaches')
 				Provider.loadAssets()
 				ThemeManager.reloadDefaultThemes()
-				await PluginLoader.loadPlugins(
-					Store.state.Explorer.project.explorer
-				)
-				await GlobalPluginLoader.loadPlugins()
+				await PluginLoader.loadPlugins()
 
 				lw.close()
 			},

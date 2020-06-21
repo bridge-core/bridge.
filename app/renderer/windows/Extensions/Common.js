@@ -1,12 +1,23 @@
-import { WEB_APP_PLUGINS, CURRENT } from '../../src/constants'
-import { readJSONSync } from '../../src/Utilities/JsonFS'
-import { promises as fs } from 'fs'
+import {
+	WEB_APP_PLUGINS,
+	CURRENT
+} from '../../src/constants'
+import {
+	readJSONSync
+} from '../../src/Utilities/JsonFS'
+import {
+	promises as fs
+} from 'fs'
 import path from 'path'
 import PluginLoader from '../../src/plugins/PluginLoader'
 import LoadingWindow from '../LoadingWindow'
 import EventBus from '../../src/EventBus'
-import { createNotification } from '../../src/UI/Footer/create'
-import GlobalPluginLoader from '../../src/plugins/GlobalPluginLoader'
+import {
+	createNotification
+} from '../../src/UI/Footer/create'
+import {
+	DATA_PATH
+} from '../../../shared/DefaultDir'
 
 export const EXT_TAG_MAP = readJSONSync(
 	path.join(__static, 'data/ext_tag_map.json')
@@ -26,8 +37,7 @@ export const createReloadPush = () => {
 			RELOAD_NOTIFICATION = undefined
 
 			let lw = new LoadingWindow().show()
-			await PluginLoader.loadPlugins(CURRENT.PROJECT)
-			await GlobalPluginLoader.loadPlugins()
+			await PluginLoader.loadPlugins()
 			lw.close()
 		},
 	})
@@ -42,8 +52,7 @@ export async function download(url, global = false) {
 		.then(async data => {
 			if (global == false) {
 				await fs.mkdir(
-					path.join(CURRENT.PROJECT_PATH, 'bridge/plugins'),
-					{
+					path.join(CURRENT.PROJECT_PATH, 'bridge/plugins'), {
 						recursive: true,
 					}
 				)
@@ -57,11 +66,11 @@ export async function download(url, global = false) {
 				)
 			} else {
 				await fs
-					.mkdir(GlobalPluginLoader.globalPluginsFolderPath)
+					.mkdir(path.join(DATA_PATH, "plugins"))
 					.catch(() => {})
 				await fs.writeFile(
 					path.join(
-						GlobalPluginLoader.globalPluginsFolderPath,
+						path.join(DATA_PATH, "plugins"),
 						path.basename(url)
 					),
 					new Buffer(data)
@@ -75,11 +84,10 @@ export async function download(url, global = false) {
 export function getInfoMap() {
 	let res = {}
 
-	for (let { id, version } of PluginLoader.getInstalledPlugins()) {
-		res[id] = version
-	}
-
-	for (let { id, version } of GlobalPluginLoader.getInstalledPlugins()) {
+	for (let {
+			id,
+			version
+		} of PluginLoader.getInstalledPlugins()) {
 		res[id] = version
 	}
 
@@ -99,7 +107,12 @@ export default class Session {
 		this.data = await fetch(WEB_APP_PLUGINS + '/plugins.json')
 			.then(raw => raw.json())
 			.then(data =>
-				data.map(({ author, version, tags, ...other }) => ({
+				data.map(({
+					author,
+					version,
+					tags,
+					...other
+				}) => ({
 					author,
 					version,
 					tags: [`v${version}`, author].concat(tags || []),
