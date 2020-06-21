@@ -355,7 +355,7 @@
         "rp_definition": true
     },
     {
-        "id": "manifest_rp",
+        "id": "manifest_bp",
         "includes": "manifest.json",
         "file_viewer": "json",
         "start_state": "manifest/main",
