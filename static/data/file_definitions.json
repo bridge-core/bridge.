@@ -346,5 +346,19 @@
         "file_viewer": "json",
         "start_state": "simple/sounds",
         "rp_definition": true
+    },
+    {
+        "id": "manifest_rp",
+        "includes": "manifest.json",
+        "file_viewer": "json",
+        "start_state": "manifest/main",
+        "rp_definition": true
+    },
+    {
+        "id": "manifest_rp",
+        "includes": "manifest.json",
+        "file_viewer": "json",
+        "start_state": "manifest/main",
+        "rp_definition": false
     }
 ]

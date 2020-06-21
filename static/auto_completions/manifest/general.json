@@ -1,0 +1,5 @@
+{
+    "module_type": [
+        "data", "resources", "client_data", "interface", "world_template"
+    ]
+}

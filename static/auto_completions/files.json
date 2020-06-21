@@ -83,6 +83,9 @@
     "particle/general",
     "particle/components",
 
+    "manifest/main",
+    "manifest/general",
+
     "simple/general",
     "simple/item_texture",
     "simple/terrain_texture",

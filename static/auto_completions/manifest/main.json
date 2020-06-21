@@ -1,0 +1,45 @@
+{
+    "format_version": "$general.number",
+    "header": {
+        "name": {"@meta": {"is_value": true}},
+        "description": {"@meta": {"is_value": true}},
+        "uuid": {"@meta": {"is_value": true}},
+        "version": {
+            "dynamic.list.index_triple": "$general.number"
+        },
+        "min_engine_version": {
+            "dynamic.list.index_triple": "$general.number"
+        },
+        "base_game_version": {
+            "dynamic.list.index_triple": "$general.number"
+        },
+        "lock_template_options": "$general.boolean"
+    },
+    "modules": {
+        "$dynamic.list.next_index": {
+            "type": "$manifest.general.module_type",
+            "description": {"@meta": {"is_value": true}},
+            "uuid": {"@meta": {"is_value": true}},
+            "version": {
+                "dynamic.list.index_triple": "$general.number"
+            }
+        }
+    },
+    "dependencies": {
+        "$dynamic.list.next_index": {
+            "uuid": {"@meta": {"is_value": true}},
+            "version": {
+                "dynamic.list.index_triple": "$general.number"
+            }
+        }
+    },
+    "metadata": {
+        "authors": {"@meta": {"is_value": true}},
+        "license": {"@meta": {"is_value": true}},
+        "url": {"@meta": {"is_value": true}}
+    },
+    "capabilities": {
+        "chemistry": "$general.boolean",
+        "experimental_custom_ui": "$general.boolean"
+    }
+}
