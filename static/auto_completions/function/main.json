@@ -192,12 +192,16 @@
             "list": {},
             "setdisplay": {
                 "sidebar": {
+                    "$dynamic.cache.function.scoreboards": {},
                     "$placeholder": [ "ascending", "descending" ]
                 },
                 "list": {
+                    "$dynamic.cache.function.scoreboards": {},
                     "$placeholder": [ "ascending", "descending" ]
                 },
-                "belowname": {}
+                "belowname": {
+                    "$dynamic.cache.function.scoreboards": {}
+                }
             }
         },
         "players": {
@@ -205,6 +209,7 @@
             "reset": "$function.general.target_selector",
             "test": {
                 "$function.general.target_selector": {
+                    "$dynamic.cache.function.scoreboards": {},
                     "$placeholder": {
                         "$general.number": "$general.number"
                     }
@@ -212,6 +217,7 @@
             },
             "random": {
                 "$function.general.target_selector": {
+                    "$dynamic.cache.function.scoreboards": {},
                     "$placeholder": {
                         "$general.number": "$general.number"
                     }
@@ -219,23 +225,31 @@
             },
             "set": {
                 "$function.general.target_selector": {
+                    "$dynamic.cache.function.scoreboards": {},
                     "$placeholder": "$general.number"
                 }
             },
             "add": {
                 "$function.general.target_selector": {
+                    "$dynamic.cache.function.scoreboards": {},
                     "$placeholder": "$general.number"
                 }
             },
             "remove": {
                 "$function.general.target_selector": {
+                    "$dynamic.cache.function.scoreboards": {},
                     "$placeholder": "$general.number"
                 }
             },
             "operation": {
                 "$function.general.target_selector": {
+                    "$dynamic.cache.function.scoreboards": {},
                     "$placeholder": {
-                        "$function.general.scoreboard_operation": "$function.general.target_selector"
+                        "$function.general.scoreboard_operation": {
+                            "$function.general.target_selector": {
+                                "$dynamic.cache.function.scoreboards": {}
+                            }
+                        }
                     }
                 }
             }
@@ -295,8 +309,12 @@
     },
     "tag": {
         "$function.general.target_selector": {
-            "add": {},
-            "remove": {},
+            "add": {
+                "$dynamic.cache.function.tags": {}
+            },
+            "remove": {
+                "$dynamic.cache.function.tags": {}
+            },
             "list": {}
         }
     },

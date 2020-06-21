@@ -5,13 +5,17 @@ import {
 } from '../../plugins/CustomCommands'
 import LightningCache from '../../editor/LightningCache'
 
+export const FunctionCache = new Map<string, string[]>()
+
 export async function parseFunction(str: string, filePath: string) {
 	const [commands, lines] = parseCommands(str)
 
 	await LightningCache.setPlainData(filePath, {
 		custom_commands: Array.from(commands).concat(Array.from(UsedSelectors)),
+		...Object.fromEntries(FunctionCache.entries()),
 	})
 	UsedSelectors.clear()
+	FunctionCache.clear()
 	return lines.join('\n')
 }
 
@@ -39,7 +43,11 @@ export function parseCommands(commands: string) {
 					}
 				}
 
+				//Only executes if command is not a registered custom command
 				const [command, ...args] = splitCommand(l)
+
+				//Save scoreboard & tag names
+				setFunctionCache(l)
 
 				return `${command} ${parseCommandArguments(
 					args.filter(arg => arg !== ''),
@@ -89,4 +97,23 @@ export function splitSelectorArgs(selectorArgs: string) {
 	res.push(selectorArgs.substring(lastSplit, selectorArgs.length))
 
 	return res
+}
+
+export async function setFunctionCache(line: string) {
+	const tests = <const>[
+		['scoreboards', /(scoreboard\s+objectives\s+add\s+)(.+)(\s+dummy)/],
+		['tags', /(tag\s+.+\s+add\s+)(.+)/],
+		['tags', /(tag\s+.+\s+remove\s+)(.+)/],
+	]
+
+	for (const [id, test] of tests) {
+		const result = line.match(test)
+		if (result !== null) {
+			if (FunctionCache.has(id)) {
+				FunctionCache.get(id).push(result[2])
+			} else {
+				FunctionCache.set(id, [result[2]])
+			}
+		}
+	}
 }
