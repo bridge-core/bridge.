@@ -41,3 +41,6 @@ doSomething()
   .catch(err => console.error(err))
   .finally(updateUI());
 ```
+
+### Opening a Pull Request
+Please make sure that you have been working with the "dev" branch. Pull request should use the "dev" branch as their base.
