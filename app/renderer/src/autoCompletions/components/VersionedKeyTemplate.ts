@@ -1,14 +1,15 @@
 import { CONTEXT_UP, CONTEXT_DOWN } from '../Dynamic'
 import Provider from '../Provider'
+import { compileVersionedTemplate } from './VersionedTemplate'
 
-export default class DynamicTemplate {
+export class VersionedKeyTemplate {
 	static confirm(
 		provider: Provider,
 		key: string,
 		path_arr: string[],
 		current: any
 	) {
-		return current.$dynamic_template !== undefined
+		return current['$versioned_template.' + key] !== undefined
 	}
 	static process(
 		provider: Provider,
@@ -16,10 +17,10 @@ export default class DynamicTemplate {
 		path_arr: string[],
 		current: any
 	): any {
-		for (let i = 0; i < path_arr.length + 1; i++) CONTEXT_UP()
-		let template = provider.compileTemplate(current.$dynamic_template)
-		for (let i = 0; i < path_arr.length + 1; i++) CONTEXT_DOWN()
+		let { object: template } = compileVersionedTemplate(
+			current['$versioned_template.' + key]
+		)
 		//Template is undefined if path is_data_path
-		return provider.walk(path_arr, (template || {})[key])
+		return provider.walk(path_arr, template || {})
 	}
 }

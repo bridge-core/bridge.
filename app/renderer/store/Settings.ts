@@ -53,6 +53,7 @@ function setup() {
 		save({ run_error_detection: true })
 	if (DATA.load_packs_from_worlds === undefined)
 		save({ load_packs_from_worlds: true })
+	if (DATA.target_version !== undefined) save({ target_version: undefined })
 	if (DATA.text_auto_completions !== undefined)
 		save({ text_auto_completions: undefined })
 }
