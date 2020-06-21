@@ -4,15 +4,19 @@ import {
 	UsedSelectors,
 } from '../../plugins/CustomCommands'
 import LightningCache from '../../editor/LightningCache'
-
-export const FunctionCache = new Map<string, string[]>()
+import { setFunctionCache, CacheTests, FunctionCache } from './cache'
 
 export async function parseFunction(str: string, filePath: string) {
 	const [commands, lines] = parseCommands(str)
 
 	await LightningCache.setPlainData(filePath, {
 		custom_commands: Array.from(commands).concat(Array.from(UsedSelectors)),
-		...Object.fromEntries(FunctionCache.entries()),
+		...Object.fromEntries(
+			Array.from(FunctionCache.entries()).map(([id, set]) => [
+				id,
+				Array.from(set),
+			])
+		),
 	})
 	UsedSelectors.clear()
 	FunctionCache.clear()
@@ -35,11 +39,35 @@ export function parseCommands(commands: string) {
 						usedCommands.add(commandName)
 
 						const [_, ...args] = splitCommand(l)
-						return command.onApply(
-							parseCommandArguments(
-								args.filter(arg => arg !== '')
-							)
+
+						const commandArgs = parseCommandArguments(
+							args.filter(arg => arg !== '')
 						)
+
+						command
+							.onCacheHook?.(commandArgs)
+							?.filter(arr => arr && arr[0] && arr[1])
+							?.forEach(([id, data]: [string, string[]]) => {
+								if (!data || !data[0]) return
+
+								if (FunctionCache.has(id)) {
+									;(Array.isArray(data)
+										? data
+										: [data]
+									).forEach(entry =>
+										FunctionCache.get(id).add(entry)
+									)
+								} else {
+									FunctionCache.set(
+										id,
+										Array.isArray(data)
+											? new Set(data as string[])
+											: new Set([data])
+									)
+								}
+							})
+
+						return command.onApply(commandArgs)
 					}
 				}
 
@@ -47,7 +75,7 @@ export function parseCommands(commands: string) {
 				const [command, ...args] = splitCommand(l)
 
 				//Save scoreboard & tag names
-				setFunctionCache(l)
+				setFunctionCache(l, CacheTests)
 
 				return `${command} ${parseCommandArguments(
 					args.filter(arg => arg !== ''),
@@ -97,23 +125,4 @@ export function splitSelectorArgs(selectorArgs: string) {
 	res.push(selectorArgs.substring(lastSplit, selectorArgs.length))
 
 	return res
-}
-
-export async function setFunctionCache(line: string) {
-	const tests = <const>[
-		['scoreboards', /(scoreboard\s+objectives\s+add\s+)(.+)(\s+dummy)/],
-		['tags', /(tag\s+.+\s+add\s+)(.+)/],
-		['tags', /(tag\s+.+\s+remove\s+)(.+)/],
-	]
-
-	for (const [id, test] of tests) {
-		const result = line.match(test)
-		if (result !== null) {
-			if (FunctionCache.has(id)) {
-				FunctionCache.get(id).push(result[2])
-			} else {
-				FunctionCache.set(id, [result[2]])
-			}
-		}
-	}
 }

@@ -27,6 +27,7 @@ export abstract class BridgeCommand {
 	static command_name = 'bridge:demo_command'
 
 	abstract onApply(data: unknown[]): string | string[]
+	abstract onCacheHook(data: unknown[]): [string, string[]][]
 	onPropose() {}
 }
 
