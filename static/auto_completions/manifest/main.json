@@ -3,7 +3,7 @@
     "header": {
         "name": {"@meta": {"is_value": true}},
         "description": {"@meta": {"is_value": true}},
-        "uuid": {"@meta": {"is_value": true}},
+        "uuid": "$dynamic.utils.uuid",
         "version": {
             "dynamic.list.index_triple": "$general.number"
         },
@@ -19,7 +19,7 @@
         "$dynamic.list.next_index": {
             "type": "$manifest.general.module_type",
             "description": {"@meta": {"is_value": true}},
-            "uuid": {"@meta": {"is_value": true}},
+            "uuid": "$dynamic.utils.uuid",
             "version": {
                 "dynamic.list.index_triple": "$general.number"
             }
@@ -27,7 +27,7 @@
     },
     "dependencies": {
         "$dynamic.list.next_index": {
-            "uuid": {"@meta": {"is_value": true}},
+            "uuid": "$dynamic.utils.uuid",
             "version": {
                 "dynamic.list.index_triple": "$general.number"
             }
