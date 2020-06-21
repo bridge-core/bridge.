@@ -20,11 +20,10 @@ export class VersionedTemplate {
 		path_arr: string[],
 		current: any
 	): any {
-		for (let i = 0; i < path_arr.length + 1; i++) CONTEXT_UP()
 		let { object: template } = compileVersionedTemplate(
 			current.$versioned_template
 		)
-		for (let i = 0; i < path_arr.length + 1; i++) CONTEXT_DOWN()
+
 		//Template is undefined if path is_data_path
 		return provider.walk(path_arr, (template || {})[key])
 	}
