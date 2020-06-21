@@ -96,8 +96,8 @@ export default class PluginLoader {
 		if (!unloadedPlugins.includes('bridge.core')) BridgeCore.activate()
 		else BridgeCore.deactivate()
 
+		PLUGIN_FOLDERS = []
 		try {
-			PLUGIN_FOLDERS = []
 			await Promise.all(
 				basePaths.map(basePath =>
 					fs
@@ -170,7 +170,7 @@ export default class PluginLoader {
 				//Load archived plugins
 				let unzip_path = path.join(
 					basePath,
-					'bridge/plugins',
+					'plugins',
 					path.basename(pluginFolder, '.zip')
 				)
 				await createReadStream(pluginPath)
