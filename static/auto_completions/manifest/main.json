@@ -5,13 +5,13 @@
         "description": {"@meta": {"is_value": true}},
         "uuid": "$dynamic.utils.uuid",
         "version": {
-            "dynamic.list.index_triple": "$general.number"
+            "$dynamic.list.index_triple": "$general.number"
         },
         "min_engine_version": {
-            "dynamic.list.index_triple": "$general.number"
+            "$dynamic.list.index_triple": "$general.number"
         },
         "base_game_version": {
-            "dynamic.list.index_triple": "$general.number"
+            "$dynamic.list.index_triple": "$general.number"
         },
         "lock_template_options": "$general.boolean"
     },
@@ -21,7 +21,7 @@
             "description": {"@meta": {"is_value": true}},
             "uuid": "$dynamic.utils.uuid",
             "version": {
-                "dynamic.list.index_triple": "$general.number"
+                "$dynamic.list.index_triple": "$general.number"
             }
         }
     },
@@ -29,7 +29,7 @@
         "$dynamic.list.next_index": {
             "uuid": "$dynamic.utils.uuid",
             "version": {
-                "dynamic.list.index_triple": "$general.number"
+                "$dynamic.list.index_triple": "$general.number"
             }
         }
     },
