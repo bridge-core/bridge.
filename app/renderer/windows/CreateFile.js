@@ -59,10 +59,10 @@ class FileContent {
 						this.curr_input = val
 
 						if (
-							val === '' ||
-							/\.\.(\\|\/)/g.test(val)
+							(val === '' ||
+							/\.\.(\\|\/)/g.test(val)) &&
+							!this.parent.actions[1].is_disabled
 						) {
-							if (!this.parent.actions[1].is_disabled) {
 								this.input.content[0].color = 'error'
 								this.input.content[0].key = uuidv4()
 								this.input.content[0].input = this.curr_input
