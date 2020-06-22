@@ -112,7 +112,8 @@
 							"particle"
 						]
 					},
-					"@import.value.particle": "$dynamic.cache.particle.ids"
+					"@import.value.particle": "$dynamic.cache.particle.ids",
+					"@import.value": "$vanilla.particle_identifier"
 				}
 			},
 			"particle_emitters": {

@@ -124,7 +124,7 @@
     },
     "me": {},
     "particle": {
-        "$placeholder": {
+        "$function.general.particle_identifier": {
             "$function.general.location": {
                 "$function.general.location": {
                     "$function.general.location": {
