@@ -129,7 +129,8 @@
     "has_tag": {
       "@meta": {
         "is_value": true
-      }
+      },
+      "@import.value.tag": "$dynamic.cache.function.tags"
     }
   }
 }
