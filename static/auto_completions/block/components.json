@@ -1,13 +1,90 @@
 {
-    "minecraft:destroy_time": "$general.decimal",
-    "minecraft:block_light_emission": "$general.decimal",
-    "minecraft:block_light_absorption": "$general.decimal",
-    "minecraft:map_color": { "@meta": { "is_value": true, "is_color": true } },
+    "$versioned_template.minecraft:destroy_time": [
+        {
+            "$if": "$format_version < 1.16.0",
+            "$data": {
+                "value": "$general.decimal"
+            }
+        },
+        {
+            "$if":"$format_version >= 1.16.0",
+            "$data": "$general.decimal"
+        }
+    ],
+    "$versioned_template.minecraft:block_light_emission": [
+        {
+            "$if": "$format_version < 1.16.0",
+            "$data": {
+                "emission": "$general.decimal"
+            }
+        },
+        {
+            "$if":"$format_version >= 1.16.0",
+            "$data": "$general.decimal"
+        }
+    ],
+    "$versioned_template.minecraft:block_light_absorption": [
+        {
+            "$if": "$format_version < 1.16.0",
+            "$data": {
+                "value": "$general.decimal"
+            }
+        },
+        {
+            "$if":"$format_version >= 1.16.0",
+            "$data": "$general.decimal"
+        }
+    ],
+    "$versioned_template.minecraft:map_color": [
+        {
+            "$if": "$format_version < 1.16.0",
+            "$data": {
+                "color": { "@meta": { "is_value": true, "is_color": true } }
+            }
+        },
+        {
+            "$if":"$format_version >= 1.16.0",
+            "$data": { "@meta": { "is_value": true, "is_color": true } }
+        }
+    ],
     "minecraft:flammable": {
         "burn_odds": "$general.decimal",
         "flame_odds": "$general.decimal"
     },
-    "minecraft:friction": "$general.decimal",
-    "minecraft:explosion_resistance": "$general.decimal",
-    "minecraft:loot": "$dynamic.loot_table_files"
+    "$versioned_template.minecraft:friction": [
+        {
+            "$if": "$format_version < 1.16.0",
+            "$data": {
+                "value": "$general.decimal"
+            }
+        },
+        {
+            "$if":"$format_version >= 1.16.0",
+            "$data": "$general.decimal"
+        }
+    ],
+    "$versioned_template.minecraft:explosion_resistance": [
+        {
+            "$if": "$format_version < 1.16.0",
+            "$data": {
+                "value": "$general.decimal"
+            }
+        },
+        {
+            "$if":"$format_version >= 1.16.0",
+            "$data": "$general.decimal"
+        }
+    ],
+    "$versioned_template.minecraft:loot": [
+        {
+            "$if": "$format_version < 1.16.0",
+            "$data": {
+                "table": "$dynamic.loot_table_files"
+            }
+        },
+        {
+            "$if":"$format_version >= 1.16.0",
+            "$data": "$dynamic.loot_table_files"
+        }
+    ]
 }
