@@ -105,8 +105,10 @@ class Provider {
 
 		if (arr_path.length > 0) {
 			this.storeInLIB(arr_path, store, current[key], native)
-		} else if (native || created) {
+		} else if (native) {
 			current[key] = deepmerge(current[key], store)
+		} else if (created) {
+			current[key] = store
 		} else if (!native && arr_path.length > 0) {
 			return new InformationWindow(
 				'Auto-Completions',
