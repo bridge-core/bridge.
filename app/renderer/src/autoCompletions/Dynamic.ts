@@ -64,7 +64,7 @@ export const DYNAMIC = {
 	},
 	utils: {
 		uuid() {
-			return uuid()
+			return [uuid()]
 		},
 	},
 	bridge_core: {
