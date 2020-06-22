@@ -9,4 +9,5 @@ export const ENV = (
 	filePath = TabSystem.getCurrentFilePath()
 ) => ({
 	...vENV(disposables, Node, filePath),
+	JSONTree,
 })

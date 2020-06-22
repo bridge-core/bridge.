@@ -3,6 +3,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
+                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data)" },
                 "value": "$general.decimal"
             }
         },
@@ -15,6 +16,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
+                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('emission') || {}).data)" },
                 "emission": "$general.decimal"
             }
         },
@@ -27,6 +29,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
+                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('emission') || {}).data)" },
                 "value": "$general.decimal"
             }
         },
@@ -39,6 +42,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
+                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('color') || {}).data)" },
                 "color": { "@meta": { "is_value": true, "is_color": true } }
             }
         },
@@ -55,6 +59,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
+                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data)" },
                 "value": "$general.decimal"
             }
         },
@@ -67,6 +72,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
+                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data)" },
                 "value": "$general.decimal"
             }
         },
@@ -79,6 +85,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
+                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('table') || {}).data)" },
                 "table": "$dynamic.loot_table_files"
             }
         },

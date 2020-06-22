@@ -4,7 +4,8 @@ import { run } from './ScriptRunner/run'
 function private_toJSON(
 	tree: JSONTree,
 	build_arrays?: boolean,
-	default_build_arrays = false
+	default_build_arrays = false,
+	shouldCompile = false
 ) {
 	if (tree.data !== '' && tree.children.length === 0) {
 		return toCorrectType(tree.data)
@@ -14,7 +15,14 @@ function private_toJSON(
 			tree.children.forEach(c => {
 				if (!c.is_active) return
 
-				arr.push(private_toJSON(c.identity(), build_arrays))
+				arr.push(
+					private_toJSON(
+						c.identity(shouldCompile),
+						build_arrays,
+						undefined,
+						shouldCompile
+					)
+				)
 			})
 			return arr
 		} else {
@@ -23,7 +31,12 @@ function private_toJSON(
 			tree.children.forEach(c => {
 				if (!c.is_active) return
 
-				obj[c.key] = private_toJSON(c.identity(), build_arrays)
+				obj[c.key] = private_toJSON(
+					c.identity(shouldCompile),
+					build_arrays,
+					undefined,
+					shouldCompile
+				)
 			})
 			return obj
 		}
@@ -56,9 +69,15 @@ export class Format {
 	static toJSON(
 		tree: JSONTree,
 		build_arrays = true,
-		default_build_arrays = false
+		default_build_arrays = false,
+		shouldCompile = false
 	) {
-		return private_toJSON(tree, build_arrays, default_build_arrays)
+		return private_toJSON(
+			tree,
+			build_arrays,
+			default_build_arrays,
+			shouldCompile
+		)
 	}
 
 	static toTree(obj: any, file_path = '', validateFile = true) {
