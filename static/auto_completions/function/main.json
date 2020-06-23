@@ -16,7 +16,16 @@
 							"$function.general.location": {
 								"$function.general.location": {
 									"$function.general.location": {
-										"$function.general.location": {}
+										"$function.general.location": {
+											"$function.general.mask_mode": {
+												"$function.general.clone_mode": {}
+											},
+											"filtered": {
+												"$function.general.clone_mode": {
+													"$function.general.block_identifier": "$general.number"
+												}
+											}
+										}
 									}
 								}
 							}

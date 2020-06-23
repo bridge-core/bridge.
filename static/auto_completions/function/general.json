@@ -11,5 +11,7 @@
     "entity_identifier": "$vanilla.unprefixed_entity_identifier and $dynamic.cache.entity.identifiers",
     "particle_identifier": "$vanilla.particle_identifier and $dynamic.cache.particle.ids",
     "sound_definitions": "$vanilla.sound_definitions and $dynamic.cache.sound_definition.ids",
-    "replace_mode": ["destroy", "keep"]
+    "replace_mode": ["destroy", "keep"],
+    "mask_mode": ["replace", "masked"],
+    "clone_mode": ["force", "move", "normal"]
 }

@@ -163,7 +163,7 @@
     "gamerule": [
         "alwaysday", "commandblockoutput", "commandblocksenabled", "dodaylightcycle", "doentitydrops", "dofiretick", "doimmediaterespawn", "domobloot", "domobspawning", "dotiledrops", "doweathercycle", "drowningdamage", "falldamage", "firedamage", "functioncommandlimit", "keepinventory", "maxcommandchainlength", "mobgriefing", "naturalregeneration", "pvp", "randomtickspeed", "sendcommandfeedback", "showcoordinates", "showdeathmessages", "tntexplodes"
     ],
-    "game_difficulty": ["easy", "hard", "normal", "peaceful"],
+    "game_difficulty": ["easy", "hard", "normal", "peaceful", "p", "e", "n", "h"],
     "gamemode": ["adventure", "creative", "default", "survival"],
     "biome_tag": [
         "monster", "animal", "ocean", "nether", "the_end", "mooshroom_island", "plains", "desert", "jungle", "taiga", "extreme_hills", "savanna", "frozen", "cold", "lukewarm", "warm", "river", "swamp", "beach", "flower_forest", "forest", "birch", "dark_oak", "hills", "mutated", "edge", "lakes", "plateau", "deep", "mesa", "ice_plains", "ice", "mountain", "shore", "stone", "roofed", "mega", "netherwart_forest", "crimson_forest", "warped_forest", "soulsand_valley", "nether_wastes", "basalt_deltas", "spawn_few_zombified_piglins", "spawn_piglin", "spawn_endermen", "spawn_ghast", "spawn_magma_cubes", "spawn_many_magma_cubes"
