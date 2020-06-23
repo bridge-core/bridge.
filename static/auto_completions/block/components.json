@@ -3,7 +3,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
-                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data)" },
+                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data) } else { return Bridge.Node }" },
                 "value": "$general.decimal"
             }
         },
@@ -16,7 +16,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
-                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('emission') || {}).data)" },
+                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('emission') || {}).data) } else { return Bridge.Node }" },
                 "emission": "$general.decimal"
             }
         },
@@ -29,7 +29,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
-                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('emission') || {}).data)" },
+                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('emission') || {}).data) } else { return Bridge.Node }" },
                 "value": "$general.decimal"
             }
         },
@@ -42,7 +42,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
-                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('color') || {}).data)" },
+                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('color') || {}).data) } else { return Bridge.Node }" },
                 "color": { "@meta": { "is_value": true, "is_color": true } }
             }
         },
@@ -59,7 +59,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
-                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data)" },
+                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data) } else { return Bridge.Node }" },
                 "value": "$general.decimal"
             }
         },
@@ -72,7 +72,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
-                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data)" },
+                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data) } else { return Bridge.Node }" },
                 "value": "$general.decimal"
             }
         },
@@ -85,7 +85,7 @@
         {
             "$if": "$format_version < 1.16.0",
             "$data": {
-                "@meta": { "compile": "return new Bridge.JSONTree(undefined, (Bridge.Node.get('table') || {}).data)" },
+                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('table') || {}).data) } else { return Bridge.Node }" },
                 "table": "$dynamic.loot_table_files"
             }
         },
