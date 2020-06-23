@@ -9,5 +9,6 @@
     "item_identifier": "$vanilla.unprefixed_item_identifier and $dynamic.cache.item.identifiers",
     "block_identifier": "$vanilla.unprefixed_block_identifier and $dynamic.cache.block.identifiers",
     "entity_identifier": "$vanilla.unprefixed_entity_identifier and $dynamic.cache.entity.identifiers",
-    "particle_identifier": "$vanilla.particle_identifier and $dynamic.cache.particle.ids"
+    "particle_identifier": "$vanilla.particle_identifier and $dynamic.cache.particle.ids",
+    "sound_definitions": "$vanilla.sound_definitions and $dynamic.cache.sound_definition.ids"
 }

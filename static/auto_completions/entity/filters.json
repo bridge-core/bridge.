@@ -78,7 +78,7 @@
     "has_ability": "$general.ability",
     "is_family": "$entity.general.family",
     "has_mob_effect": "$general.effect_name",
-    "has_biome_tag": "$general.biome_tag",
+    "has_biome_tag": "$general.biome_tag and $dynamic.cache.biome.tags",
     "has_damage": "$general.damage_type",
     "is_color": "$general.color_palette",
     "is_biome": "$general.biome_name",

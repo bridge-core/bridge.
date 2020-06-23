@@ -53,7 +53,7 @@
         },
         "test": [ "has_biome_tag" ],
         "operator": "$entity.general.filter_operators",
-        "value": "$general.biome_tag"
+        "value": "$general.biome_tag and $dynamic.cache.biome.tags"
     },
     "minecraft:player_in_village_filter": {
       "distance": "$general.number",

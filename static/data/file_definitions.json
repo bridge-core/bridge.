@@ -36,6 +36,7 @@
 
         "documentation": "Biomes",
         "start_state": "biome/main",
+        "lightning_cache": "biome",
         "highlighter": "biome",
         "file_creator": "biome"
     },
@@ -352,6 +353,7 @@
         "includes": "sounds/sound_definitions.json",
         "file_viewer": "json",
         "start_state": "simple/sound_definitions",
+        "lightning_cache": "sound_definition",
         "rp_definition": true
     },
     {
