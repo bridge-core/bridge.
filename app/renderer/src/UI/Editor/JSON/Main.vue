@@ -1,7 +1,7 @@
 <template>
 	<div :style="`height: ${availableHeight}px; overflow-y: auto;`">
 		<UtilBar />
-		<TreeRenderer :tree="jsonTree" :language="language" />
+		<TreeRenderer style="margin-top: 12px;" :tree="jsonTree" :language="language" />
 	</div>
 </template>
 

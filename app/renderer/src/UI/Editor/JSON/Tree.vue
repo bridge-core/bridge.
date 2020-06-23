@@ -1,29 +1,14 @@
 <template>
-	<div
-		v-if="first || tree.open"
-		v-intersect="onIntersect"
-		style="margin-left: 16px;"
-	>
+	<div v-if="first || tree.open" v-intersect="onIntersect" style="margin-left: 16px;">
 		<template v-for="child in tree.children">
 			<details
 				v-if="child.children.length > 0"
 				:key="`darkMode-${isDarkMode}-uuid-${child.uuid}`"
 				:open="child.open"
 			>
-				<Highlight
-					tagName="summary"
-					:language="language"
-					:value="child.key"
-					:isOnScreen="isParentOnScreen && isOnScreen"
-					@click.native="openTree($event, child)"
-				/>
+				<TreeKey :language="language" :tree="child" :isOnScreen="isParentOnScreen && isOnScreen" />
 
-				<TreeRenderer
-					:first="false"
-					:language="language"
-					:tree="child"
-					:isParentOnScreen="isOnScreen"
-				/>
+				<TreeRenderer :first="false" :language="language" :tree="child" :isParentOnScreen="isOnScreen" />
 			</details>
 
 			<Highlight
@@ -40,6 +25,8 @@
 <script>
 import Await from '../../Common/Await'
 import Highlight from './Highlight.vue'
+import TreeKey from './Tree/Key.vue'
+import TreeProperty from './Tree/Property.vue'
 import JSONTree from '../../../editor/JsonTree'
 import { editor } from 'monaco-editor'
 import debounce from 'lodash.debounce'
@@ -49,6 +36,8 @@ export default {
 	name: 'TreeRenderer',
 	components: {
 		Highlight,
+		TreeKey,
+		TreeProperty,
 	},
 	props: {
 		first: {
@@ -100,11 +89,6 @@ export default {
 		onIntersect(entries) {
 			debounce(() => (this.isOnScreen = entries[0].isIntersecting), 200)()
 			// this.isOnScreen = entries[0].isIntersecting
-		},
-		openTree(event, tree) {
-			event.stopPropagation()
-			event.preventDefault()
-			tree.toggleOpen()
 		},
 	},
 	watch: {

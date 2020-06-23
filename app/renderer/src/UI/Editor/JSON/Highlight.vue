@@ -1,5 +1,5 @@
 <template>
-	<component v-if="isOnScreen" :is="tagName">
+	<component v-if="shouldRender" :is="tagName">
 		<Await :promise="colorize(value)">
 			<template #default="{ data }">
 				<span v-html="data" />
@@ -12,11 +12,7 @@
 			</template>
 		</Await>
 	</component>
-	<component
-		:is="tagName === 'summary' ? tagName : 'div'"
-		v-else
-		v-text="value"
-	/>
+	<component :is="tagName === 'summary' ? tagName : 'div'" v-else v-text="value" />
 </template>
 
 <script>
@@ -40,6 +36,12 @@ export default {
 			type: Boolean,
 		},
 	},
+	data() {
+		return {
+			shouldRender: this.isOnScreen,
+			timeoutId: null,
+		}
+	},
 	computed: {
 		isDarkMode() {
 			return this.$store.state.Appearance.is_dark_mode
@@ -50,6 +52,19 @@ export default {
 			return editor.colorize(string, this.language, {
 				theme: this.isDarkMode ? 'bridge-dark' : 'bridge-light',
 			})
+		},
+	},
+	watch: {
+		isOnScreen(isOnScreen) {
+			if (isOnScreen) {
+				this.shouldRender = true
+				if (this.timeoutId) clearTimeout(this.timeoutId)
+			} else {
+				this.timeoutId = setTimeout(() => {
+					this.shouldRender = false
+					this.timeoutId = null
+				}, 3000)
+			}
 		},
 	},
 }

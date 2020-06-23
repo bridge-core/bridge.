@@ -356,8 +356,8 @@ export default class JSONTree {
 	/**
 	 * @param {String} new_key
 	 */
-	editKey(new_key: string, update_history = false) {
-		if (update_history)
+	editKey(new_key: string, updateHistory = false, updateUUID = true) {
+		if (updateHistory)
 			TabSystem.getHistory().add(
 				new JSONAction('edit-key', this, this.key)
 			)
@@ -369,7 +369,7 @@ export default class JSONTree {
 			this.key = new_key
 		}
 
-		this.updateUUID()
+		if (updateUUID) this.updateUUID()
 	}
 	/**
 	 * @param {String} key (Optional)
@@ -566,9 +566,9 @@ export default class JSONTree {
 		this.open = val
 		return this
 	}
-	toggleOpen() {
+	toggleOpen(updateUUID = true) {
 		this.open = !this.open
-		this.updateUUID()
+		if (updateUUID) this.updateUUID()
 		return this
 	}
 	toggleOpenDeep(val = this.open) {
