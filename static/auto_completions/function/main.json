@@ -127,7 +127,7 @@
 		}
 	},
 	"playsound": {
-		"$function.general.sound_definitions": {
+		"$placeholder": {
 			"$function.general.target_selector": {
 				"$function.general.location": {
 					"$function.general.location": {
@@ -139,7 +139,8 @@
 					}
 				}
 			}
-		}
+		},
+		"$function.general.sound_definitions": {}
 	},
 	"reload": {},
 	"replaceitem": {
@@ -295,7 +296,9 @@
 		}
 	},
 	"stopsound": {
-		"$function.general.target_selector": "$function.general.sound_definitions"
+		"$function.general.target_selector": {
+			"$function.general.sound_definitions": {}
+		}
 	},
 	"summon": {
 		"$function.general.entity_identifier": {
