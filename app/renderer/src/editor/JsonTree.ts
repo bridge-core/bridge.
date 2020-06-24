@@ -17,6 +17,10 @@ import { runValidationFile } from './ScriptRunner/Validation/runFile'
 import { canBeMinified, getCacheData } from './JSONTree/cacheUtils'
 import { trigger } from '../AppCycle/EventSystem'
 import EventBus from '../EventBus'
+import {
+	runCompilationFile,
+	runCompilation,
+} from './ScriptRunner/Compilation/runFile'
 
 declare const requestIdleCallback: (func: () => void) => number
 declare const cancelIdleCallback: (id: number) => void
@@ -526,10 +530,12 @@ export default class JSONTree {
 	 * Can be used by plugins to hook into how a node is saved to disk.
 	 * Overwriting this method is more efficient than looping over all nodes inside the plugin itself
 	 */
-	identity() {
-		// const { compile } = this.meta
-		// if (compile) {
-		// }
+	identity(shouldCompile = false) {
+		if (!shouldCompile) return this
+
+		const { compile } = this.meta
+		if (compile) return runCompilation(compile, this) as JSONTree
+
 		return this
 	}
 

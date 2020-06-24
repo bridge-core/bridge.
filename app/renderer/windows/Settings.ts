@@ -1,11 +1,7 @@
 import TabWindow from '../src/UI/Windows/Common/TabWindow'
 import Store from '../store/index'
 import SETTINGS from '../store/Settings'
-import {
-	MINECRAFT_VERSIONS,
-	BASE_PATH,
-	LOCAL_STATE_PATH,
-} from '../src/constants'
+import { BASE_PATH, LOCAL_STATE_PATH } from '../src/constants'
 import EventBus from '../src/EventBus'
 import fs from 'fs'
 import AddSnippetWindow from './AddSnippet'
@@ -20,6 +16,7 @@ import { DEV_MENU } from '../src/UI/Toolbar/setupDefaults'
 import { LoadedProjects } from '../src/UI/ProjectScreen/state'
 import { loadProjects } from '../src/UI/ProjectScreen/load'
 import { basename } from 'path'
+import { trigger } from '../src/AppCycle/EventSystem'
 
 class ReactiveListEntry {
 	type = 'card'
@@ -185,21 +182,6 @@ export default class SettingsWindow extends TabWindow {
 				title: 'Editor',
 			},
 			content: [
-				{
-					color: 'grey',
-					text: '\nTarget Minecraft Version',
-				},
-				new ReactiveDropdown(
-					this,
-					'target_version',
-					MINECRAFT_VERSIONS,
-					{
-						text: 'Choose a version...',
-						key: `settings.editor.tab.target_version.${Math.random()}`,
-					},
-					() => EventBus.trigger('updateAutoCompletions')
-				),
-
 				{
 					color: 'grey',
 					text: '\nExperimental',
@@ -437,6 +419,7 @@ export default class SettingsWindow extends TabWindow {
 					action: (val: string) => {
 						ThemeManager.applyTheme(val)
 						ProjectConfig.setTheme(val)
+						trigger('bridge:reloadPlugins')
 					},
 				},
 				{

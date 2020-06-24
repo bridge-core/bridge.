@@ -484,7 +484,7 @@ class TabSystem {
 			return JSON.stringify(
 				toJSON
 					? await BridgeCore.beforeSave(
-							Format.toJSON(c),
+							Format.toJSON(c, true, false, true),
 							undefined,
 							undefined,
 							undefined,

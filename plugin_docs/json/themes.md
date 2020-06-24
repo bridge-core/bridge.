@@ -29,7 +29,7 @@ bridge. applies the default color theme first and then overwrites it with the th
 | --------------------- | --------- | ------- | ------------------------------------------------------------------------------------ |
 | `no_logo_display`     | `Boolean` | `false` | Whether to display the blue bridge. logo or simply "bridge."                         |
 | `inherit_highlighter` | `Boolean` | `false` | Whether your theme highlighter should use the default bridge. highlighter as a basis |
-| `css`                 | `String`  | `---`   | A CSS file to use (CSS files are loaded from the `<PLUGIN NAME>/css` folder)         |
+| `styles`              | `String`  | `---`   | A CSS file to use (CSS files are loaded from the `<PLUGIN NAME>/styles` folder)      |
 
 #### ThemeDefinition
 

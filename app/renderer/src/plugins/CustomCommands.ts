@@ -8,6 +8,7 @@ import OmegaCache from '../editor/OmegaCache'
 import { toCorrectType } from '../editor/Json'
 import Provider from '../autoCompletions/Provider'
 import { CURRENT } from '../constants'
+import { splitSelectorArgs, parseCommands } from '../bridgeCore/functions/parse'
 
 type TSelectorTransform = (
 	selector: string,
@@ -26,6 +27,9 @@ export abstract class BridgeCommand {
 	static command_name = 'bridge:demo_command'
 
 	abstract onApply(data: unknown[]): string | string[]
+	onCacheHook(data: unknown[]): [string, string[]][] {
+		return []
+	}
 	onPropose() {}
 }
 
@@ -72,6 +76,7 @@ export async function registerCustomCommand(
 				)
 				promises.push(fileRefs)
 			},
+			parseCommands: parseCommands,
 			insertAutoCompletions(path: string, definition: unknown) {
 				Provider.addPluginCompletion(path, definition)
 			},
@@ -170,10 +175,9 @@ export function parseSelector(rawSelector: string) {
 		selector = rawSelector
 	} else {
 		selector = rawSelector.substring(0, splitIndex)
-		selectorArgs = rawSelector
-			.substring(splitIndex + 1, rawSelector.length - 1)
-			.split(',')
-			.map(arg => arg.trim())
+		selectorArgs = splitSelectorArgs(
+			rawSelector.substring(splitIndex + 1, rawSelector.length - 1)
+		).map(arg => arg.trim())
 	}
 
 	for (let [selectorKey, parse] of SelectorRegistry) {

@@ -158,15 +158,15 @@
         "absorption", "bad_omen", "blindness", "conduit_power", "fatal_poison", "fire_resistance", "haste", "health_boost", "hunger", "instant_damage", "instant_health", "invisibility", "jump_boost", "levitation", "mining_fatigue", "nausea", "night_vision", "poison", "regeneration", "resistance", "saturation", "slow_falling", "slowness", "speed", "strength", "village_hero", "water_breathing", "weakness", "wither"
     ],
     "enchantment_name": [
-        "aqua_affinity", "bane_of_arthropods", "blast_protection", "channeling", "depth_strider", "efficiency", "feather_falling", "fire_aspect", "fire_protection", "flame", "fortune", "frost_walker", "impaling", "infinity", "knockback", "looting", "loyalty", "luck_of_the_sea", "lure", "mending", "multishot", "piercing", "power", "projectile_protection", "protection", "punch", "quick_charge", "respiration", "riptide", "sharpness", "silk_touch", "smite", "thorns", "unbreaking"
+        "aqua_affinity", "bane_of_arthropods", "binding", "blast_protection", "channeling", "depth_strider", "efficiency", "feather_falling", "fire_aspect", "fire_protection", "flame", "fortune", "frost_walker", "impaling", "infinity", "knockback", "looting", "loyalty", "luck_of_the_sea", "lure", "mending", "multishot", "piercing", "power", "projectile_protection", "protection", "punch", "quick_charge", "respiration", "riptide", "sharpness", "silk_touch", "smite", "soul_speed", "thorns", "unbreaking", "vanishing"
     ],
     "gamerule": [
         "alwaysday", "commandblockoutput", "commandblocksenabled", "dodaylightcycle", "doentitydrops", "dofiretick", "doimmediaterespawn", "domobloot", "domobspawning", "dotiledrops", "doweathercycle", "drowningdamage", "falldamage", "firedamage", "functioncommandlimit", "keepinventory", "maxcommandchainlength", "mobgriefing", "naturalregeneration", "pvp", "randomtickspeed", "sendcommandfeedback", "showcoordinates", "showdeathmessages", "tntexplodes"
     ],
-    "game_difficulty": ["easy", "hard", "normal", "peaceful"],
+    "game_difficulty": ["easy", "hard", "normal", "peaceful", "p", "e", "n", "h"],
     "gamemode": ["adventure", "creative", "default", "survival"],
     "biome_tag": [
-        "monster", "animal", "ocean", "nether", "the_end", "mooshroom_island", "plains", "desert", "jungle", "taiga", "extreme_hills", "savanna", "frozen", "cold", "lukewarm", "warm", "river", "swamp", "beach", "flower_forest", "forest", "birch", "dark_oak", "hills", "mutated", "edge", "lakes", "plateau", "deep", "mesa", "ice_plains", "ice", "mountain", "shore", "stone", "roofed", "mega"
+        "monster", "animal", "ocean", "nether", "the_end", "mooshroom_island", "plains", "desert", "jungle", "taiga", "extreme_hills", "savanna", "frozen", "cold", "lukewarm", "warm", "river", "swamp", "beach", "flower_forest", "forest", "birch", "dark_oak", "hills", "mutated", "edge", "lakes", "plateau", "deep", "mesa", "ice_plains", "ice", "mountain", "shore", "stone", "roofed", "mega", "netherwart_forest", "crimson_forest", "warped_forest", "soulsand_valley", "nether_wastes", "basalt_deltas", "spawn_few_zombified_piglins", "spawn_piglin", "spawn_endermen", "spawn_ghast", "spawn_magma_cubes", "spawn_many_magma_cubes"
     ],
     "biome_name": [
         "ice", "forest", "extreme_hills", "beach", "jungle", "desert", "flat", "the_nether", "mesa", "plain", "mushroom_island", "ocean", "river", "savanna", "stone_beach", "swamp", "taiga", "the_end"

@@ -46,11 +46,23 @@ class FileContent {
 						default: val => {
 							this.curr_input = val
 
-							if (
-								(val === '' || /\.\.(\\|\/)/g.test(val)) &&
-								!this.parent.actions[1].is_disabled
-							) {
+							if (val === '' || /\.\.(\\|\/)/g.test(val)) {
+								if (this.parent.actions[1].is_disabled) return
+
 								this.input.content[0].color = 'error'
+								this.input.content[0].key = uuidv4()
+								this.input.content[0].input = this.curr_input
+								this.parent.actions[1].is_disabled = true
+
+								// this.path_info.text = "Invalid file name!\n\n"
+								// this.path_info.color = "error";
+
+								this.parent.update({
+									content: this.content,
+									actions: this.parent.actions,
+								})
+							} else if (this.parent.actions[1].is_disabled) {
+								this.input.content[0].color = 'primary'
 								this.input.content[0].key = uuidv4()
 								this.input.content[0].input = this.curr_input
 								this.parent.actions[1].is_disabled = false

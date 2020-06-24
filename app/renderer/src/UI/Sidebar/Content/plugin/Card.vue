@@ -68,7 +68,7 @@ export default {
 	},
 	computed: {
 		uninstalled_plugins() {
-			return this.unloaded_plugins || PluginLoader.unloaded_plugins
+			return this.unloaded_plugins || PluginLoader.unloadedPlugins
 		},
 	},
 	methods: {

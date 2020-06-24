@@ -274,7 +274,7 @@ export default {
 			}
 
 			if (this.load_plugins) {
-				await PluginLoader.loadPlugins(dir)
+				await PluginLoader.loadPlugins()
 			}
 			lw.close()
 		},

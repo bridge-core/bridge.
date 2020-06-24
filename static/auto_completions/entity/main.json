@@ -1,103 +1,107 @@
 {
-    "format_version": "$general.format_version",
-    "minecraft:entity": {
-        "@meta": {
-            "expand_path_exceptions": ["do_not_upgrade"]
-        },
-        "do_not_upgrade": {},
-        "description": {
-            "identifier": "$general.file_identifier and $general.entity_identifier",
-            "runtime_identifier": "$vanilla.entity_identifier",
-            "is_spawnable": "$general.boolean",
-            "is_summonable": "$general.boolean",
-            "is_experimental": "$general.boolean",
-            "$dynamic_template.tags": {
-                "$if": "$dynamic.bridge_core.is_active",
-
-                "$default": {
-                    "$dynamic.list.next_index": "$dynamic.cache.entity_tag.identifiers"
-                }
-            },
-            "animations": {
-                "$placeholder": "$dynamic.animation_ids and $dynamic.animation_controller_ids"
-            },
-            "scripts": {
-                "animate": {
-                    "$dynamic.list.next_index": {
-                        "$dynamic.entity.animation_references": {},
-                        "$placeholder": "$molang.embedded",
-                        "@import.value.refs": "$dynamic.entity.animation_references"
-                    }
-                }
-            }
-        },
-        "component_groups": {
-            "$placeholder": "$entity.general.components"
-        },
-        "components": "$entity.general.components",
-        "events": {
-            "$asObject": "$entity.general.built_in_event",
-
-            "$placeholder": {
-                "sequence": {
-                    "$dynamic.list.next_index": {
-                        "filters": "$entity.filters",
-                        "$load": "$entity.main.minecraft:entity.events.$placeholder"
-                    }
-                },
-                "randomize": {
-                    "$dynamic.list.next_index": {
-                        "weight": "$general.number",
-                        "$load": "$entity.main.minecraft:entity.events.$placeholder"
-                    }
-                },
-                "add": {
-                    "component_groups": {
-                        "$dynamic.list.next_index": "$entity.general.component_group_name"
-                    },
-                    "$dynamic_template.spell_effects": {
-                        "$if": "$dynamic.bridge_core.is_active",
-
-                        "$default": "$entity.components.minecraft:spell_effects.add_effects"
-                    },
-                    "$dynamic_template.group": {
-                        "$if": "$dynamic.bridge_core.is_active",
-
-                        "$default": {
-                            "name": {
-                                "@meta": {
-                                    "is_value": true
-                                }
-                            },
-                            "components": "$entity.main.minecraft:entity.components"
-                        }
-                    }
-                },
-                "remove": {
-                    "component_groups": {
-                        "$dynamic.list.next_index": "$entity.general.component_group_name"
-                    },
-                    "$dynamic_template.spell_effects": {
-                        "$if": "$dynamic.bridge_core.is_active",
-
-                        "$default": "$entity.components.minecraft:spell_effects.remove_effects"
-                    }
-                },
-                "$dynamic_template.execute": {
-                    "$if": "$dynamic.bridge_core.is_active",
-
-                    "$default": {
-                        "commands": {
-                            "$dynamic.list.next_index": {
-                                "@meta": {
-                                    "is_value": true
-                                },
-                                "@import.value.command": "('/function ' + $dynamic.function_files)"
-                            }
-                        }
-                    }
-                }
-            }
+  "format_version": "$general.format_version",
+  "minecraft:entity": {
+    "@meta": {
+      "expand_path_exceptions": [
+        "do_not_upgrade"
+      ]
+    },
+    "do_not_upgrade": {},
+    "description": {
+      "identifier": "$general.file_identifier and $general.entity_identifier",
+      "runtime_identifier": "$vanilla.entity_identifier",
+      "is_spawnable": "$general.boolean",
+      "is_summonable": "$general.boolean",
+      "is_experimental": "$general.boolean",
+      "$dynamic_template.tags": {
+        "$if": "$dynamic.bridge_core.is_active",
+        "$default": {
+          "$dynamic.list.next_index": "$dynamic.cache.entity_tag.identifiers"
         }
+      },
+      "animations": {
+        "$placeholder": "$dynamic.animation_ids and $dynamic.animation_controller_ids"
+      },
+      "scripts": {
+        "animate": {
+          "$dynamic.list.next_index": {
+            "$dynamic.entity.animation_references": {},
+            "$placeholder": "$molang.embedded",
+            "@import.value.refs": "$dynamic.entity.animation_references"
+          }
+        }
+      }
+    },
+    "component_groups": {
+      "$placeholder": "$entity.general.components"
+    },
+    "components": "$entity.general.components",
+    "events": {
+      "$asObject": "$entity.general.built_in_event",
+      "$placeholder": {
+        "$versioned_template": [
+          {
+            "$if": "$format_version >= 1.16.0",
+            "$data": {
+              "trigger": "$entity.general.event_string"
+            }
+          }
+        ],
+        "sequence": {
+          "$dynamic.list.next_index": {
+            "filters": "$entity.filters",
+            "$load": "$entity.main.minecraft:entity.events.$placeholder"
+          }
+        },
+        "randomize": {
+          "$dynamic.list.next_index": {
+            "weight": "$general.number",
+            "$load": "$entity.main.minecraft:entity.events.$placeholder"
+          }
+        },
+        "add": {
+          "component_groups": {
+            "$dynamic.list.next_index": "$entity.general.component_group_name"
+          },
+          "$dynamic_template.spell_effects": {
+            "$if": "$dynamic.bridge_core.is_active",
+            "$default": "$entity.components.minecraft:spell_effects.add_effects"
+          },
+          "$dynamic_template.group": {
+            "$if": "$dynamic.bridge_core.is_active",
+            "$default": {
+              "name": {
+                "@meta": {
+                  "is_value": true
+                }
+              },
+              "components": "$entity.main.minecraft:entity.components"
+            }
+          }
+        },
+        "remove": {
+          "component_groups": {
+            "$dynamic.list.next_index": "$entity.general.component_group_name"
+          },
+          "$dynamic_template.spell_effects": {
+            "$if": "$dynamic.bridge_core.is_active",
+            "$default": "$entity.components.minecraft:spell_effects.remove_effects"
+          }
+        },
+        "$dynamic_template.execute": {
+          "$if": "$dynamic.bridge_core.is_active",
+          "$default": {
+            "commands": {
+              "$dynamic.list.next_index": {
+                "@meta": {
+                  "is_value": true
+                },
+                "@import.value.command": "('/function ' + $dynamic.function_files)"
+              }
+            }
+          }
+        }
+      }
     }
+  }
 }

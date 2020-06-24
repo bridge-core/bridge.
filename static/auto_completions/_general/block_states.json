@@ -37,5 +37,5 @@
     "rail_direction": [ "0", "1", "2", "3", "4", "5", "6", "7", "8" ],
     "redstone_signal": "$general.number0_15",
     "repeater_delay": [ "0", "1", "2", "3" ],
-    "stone_types": [ "andesite", "andesite_smooth" ]
+    "stone_type": [ "andesite", "andesite_smooth" ]
 }

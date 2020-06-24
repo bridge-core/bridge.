@@ -4,7 +4,6 @@
     "_general/block_states",
 
     "biome/main",
-    "biome/main_beta",
     "biome/general",
     "biome/components",
     "biome/tags",
@@ -13,10 +12,8 @@
     "block/components",
 
     "entity/main",
-    "entity/main_beta",
     "entity/general",
     "entity/components",
-    "entity/beta_components",
     "entity/annotations",
     "entity/behavior",
     "entity/filters",
@@ -32,10 +29,8 @@
     "function/general",
 
     "item/main",
-    "item/main_beta",
     "item/general",
     "item/components",
-    "item/beta_components",
 
     "recipe/main",
     "recipe/general",
@@ -59,10 +54,8 @@
     "map_area/general",
 
     "spawn_rule/main",
-    "spawn_rule/main_beta",
     "spawn_rule/general",
     "spawn_rule/components",
-    "spawn_rule/beta_components",
 
     "animation/main",
     "animation/rp_main",
@@ -84,6 +77,9 @@
     "particle/main",
     "particle/general",
     "particle/components",
+
+    "manifest/main",
+    "manifest/general",
 
     "simple/general",
     "simple/item_texture",

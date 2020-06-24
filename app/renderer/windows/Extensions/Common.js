@@ -15,6 +15,9 @@ import EventBus from '../../src/EventBus'
 import {
 	createNotification
 } from '../../src/UI/Footer/create'
+import {
+	DATA_PATH
+} from '../../../shared/DefaultDir'
 
 export const EXT_TAG_MAP = readJSONSync(
 	path.join(__static, 'data/ext_tag_map.json')
@@ -22,7 +25,7 @@ export const EXT_TAG_MAP = readJSONSync(
 /**
  * @type {import('../../src/Types/disposable').IDisposable}
  */
-export let RELOAD_NOTIFICATION;
+export let RELOAD_NOTIFICATION
 export const createReloadPush = () => {
 	if (RELOAD_NOTIFICATION !== undefined) return
 
@@ -34,7 +37,7 @@ export const createReloadPush = () => {
 			RELOAD_NOTIFICATION = undefined
 
 			let lw = new LoadingWindow().show()
-			await PluginLoader.loadPlugins(CURRENT.PROJECT)
+			await PluginLoader.loadPlugins()
 			lw.close()
 		},
 	})
@@ -43,35 +46,56 @@ export const createReloadPush = () => {
 export function tag(tag_name, index) {
 	return EXT_TAG_MAP[tag_name] || EXT_TAG_MAP[`${index}`] || {}
 }
-export async function download(url) {
+export async function download(url, isGlobal = false, pluginPath) {
 	await fetch(WEB_APP_PLUGINS + url)
 		.then(data => data.arrayBuffer())
 		.then(async data => {
-			await fs.mkdir(path.join(CURRENT.PROJECT_PATH, 'bridge/plugins'), {
-				recursive: true,
-			})
-			await fs.writeFile(
-				path.join(
-					CURRENT.PROJECT_PATH,
-					'bridge/plugins',
-					path.basename(url)
-				),
-				new Buffer(data)
-			)
+			console.log(DATA_PATH, CURRENT.PROJECT_PATH, isGlobal)
+			if (isGlobal == false) {
+				await fs.mkdir(
+					path.join(CURRENT.PROJECT_PATH, 'bridge/plugins'), {
+						recursive: true,
+					}
+				)
+				await fs.writeFile(
+					pluginPath ? `${pluginPath}.zip` :
+					path.join(
+						CURRENT.PROJECT_PATH,
+						'bridge/plugins',
+						path.basename(url)
+					),
+					new Buffer(data)
+				)
+			} else {
+				await fs
+					.mkdir(path.join(DATA_PATH, "plugins"))
+					.catch(() => {})
+				await fs.writeFile(
+					pluginPath ? `${pluginPath}.zip` :
+					path.join(
+						path.join(DATA_PATH, "plugins"),
+						path.basename(url)
+					),
+					new Buffer(data)
+				)
+			}
 			createReloadPush()
 		})
 		.catch(console.error)
 }
-
 
 export function getInfoMap() {
 	let res = {}
 
 	for (let {
 			id,
-			version
+			version,
+			pluginPath
 		} of PluginLoader.getInstalledPlugins()) {
-		res[id] = version
+		res[id] = {
+			version,
+			pluginPath
+		}
 	}
 
 	return Object.assign(res, Session.session_installed)

@@ -9,6 +9,9 @@
     "minecraft:spawns_on_block_filter": {
         "$dynamic.list.next_index": "$general.block_identifier"
     },
+    "minecraft:spawns_on_block_prevented_filter": {
+        "$dynamic.list.next_index": "$general.block_identifier"
+    },
 
     "minecraft:brightness_filter": {
         "min": "$general.number",
@@ -53,7 +56,7 @@
         },
         "test": [ "has_biome_tag" ],
         "operator": "$entity.general.filter_operators",
-        "value": "$general.biome_tag"
+        "value": "$general.biome_tag and $dynamic.cache.biome.tags"
     },
     "minecraft:player_in_village_filter": {
       "distance": "$general.number",

@@ -15,7 +15,7 @@ Since v0.13.0-pre10 it is possible to define which file data you want to cache. 
 | ```$dynamic.list.next_index``` | Returns the next array index
 | ```$dynamic.list.index_pair``` | Returns only "0" & "1"
 | ```$dynamic.list.index_triple``` | Returns "0", "1" & "2"
-| ```$dynamic.setting.target_version``` | Returns one of the target version defined under ```static/auto_completions/versions.json```
+| ```$dynamic.setting.target_version``` | **DEPRECATED** - Use format version based auto-completions format instead
 | ```$dynamic.entity.component_list``` | Returns the available component names
 | ```$dynamic.entity.component_groups``` | Returns component group names inside the current file
 | ```$dynamic.entity.events``` | Returns event names inside the current file
@@ -39,3 +39,5 @@ Since v0.13.0-pre10 it is possible to define which file data you want to cache. 
 |  ```$dynamic.loot_table_files``` | Returns all loot table files
 |  ```$dynamic.trade_table_files``` | Returns all trade table files
 |  ```$dynamic.function_files``` | Returns all function files
+|  ```$dynamic.utils.uuid``` | Returns a random uuid
+

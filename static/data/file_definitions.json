@@ -1,5 +1,12 @@
 [
     {
+        "id": "manifest_bp",
+        "includes": "manifest.json",
+        "file_viewer": "json",
+        "start_state": "manifest/main",
+        "rp_definition": false
+    },
+    {
         "id": "animation",
         "includes": "animations/",
         "file_viewer": "json",
@@ -29,6 +36,7 @@
 
         "documentation": "Biomes",
         "start_state": "biome/main",
+        "lightning_cache": "biome",
         "highlighter": "biome",
         "file_creator": "biome"
     },
@@ -186,6 +194,13 @@
 
 
     {
+        "id": "manifest_rp",
+        "includes": "manifest.json",
+        "file_viewer": "json",
+        "start_state": "manifest/main",
+        "rp_definition": true
+    },
+    {
         "id": "entity_model",
         "includes": "models/entity",
         "file_viewer": "model",
@@ -338,6 +353,7 @@
         "includes": "sounds/sound_definitions.json",
         "file_viewer": "json",
         "start_state": "simple/sound_definitions",
+        "lightning_cache": "sound_definition",
         "rp_definition": true
     },
     {

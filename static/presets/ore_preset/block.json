@@ -1,21 +1,14 @@
 {
-	"format_version": "1.10.0",
+	"format_version": "1.16.0",
 	"minecraft:block": {
 		"description": {
 			"identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}",
-			"is_experimental": false,
-			"register_to_creative_menu": true
+			"is_experimental": false
 		},
 		"components": {
-			"minecraft:destroy_time": {
-				"value": 1
-			},
-			"minecraft:explosion_resistance": {
-				"value": 1
-			},
-			"minecraft:map_color": {
-				"color": "#ffffff"
-			}
+			"minecraft:destroy_time": 1,
+			"minecraft:explosion_resistance": 1,
+			"minecraft:map_color": "#ffffff"
 		}
 	}
 }

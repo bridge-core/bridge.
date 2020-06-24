@@ -3,7 +3,6 @@
  */
 import fs from 'fs'
 import deepmerge from 'deepmerge'
-import VersionMap from '../editor/VersionMap'
 import Store from '../../store/index'
 import { DYNAMIC, SET_CONTEXT, CONTEXT_UP, CONTEXT_DOWN } from './Dynamic'
 import { detachMerge as detachObj } from '../Utilities/mergeUtils'
@@ -15,6 +14,7 @@ import EventBus from '../EventBus'
 import { FileDefinition } from '../editor/FileDefinition'
 import JSONTree from '../editor/JsonTree'
 import InformationWindow from '../UI/Windows/Common/Information'
+import { compileVersionedTemplate } from './components/VersionedTemplate'
 
 declare var __static: string
 
@@ -23,7 +23,12 @@ let PLUGIN_FILE_DEFS: FileDefinition[] = []
 let PLUGIN_COMPLETIONS: { key: string; created: boolean }[][] = []
 let PLUGINS_TO_LOAD: any[] = []
 export let LIB_LOADED = false
-const REMOVE_LIST = ['$load', '$dynamic_template', '$placeholder']
+const REMOVE_LIST = [
+	'$load',
+	'$dynamic_template',
+	'$versioned_template',
+	'$placeholder',
+]
 export let LIB: any = { dynamic: DYNAMIC }
 
 class Provider {
@@ -100,8 +105,10 @@ class Provider {
 
 		if (arr_path.length > 0) {
 			this.storeInLIB(arr_path, store, current[key], native)
-		} else if (native || created) {
+		} else if (native) {
 			current[key] = deepmerge(current[key], store)
+		} else if (created) {
+			current[key] = store
 		} else if (!native && arr_path.length > 0) {
 			return new InformationWindow(
 				'Auto-Completions',
@@ -180,13 +187,7 @@ class Provider {
 		if (this.start_state === 'unknown')
 			return { object: [], value: [], META: {} }
 
-		path = path.replace(
-			'global',
-			VersionMap.convert(
-				this.start_state,
-				Store.state.Settings.target_version
-			)
-		)
+		path = path.replace('global', this.start_state)
 
 		SET_CONTEXT(context, context === undefined ? undefined : context.parent)
 		let propose = this.walk(path.split('/'))
@@ -228,9 +229,16 @@ class Provider {
 		}
 		if (object.$dynamic_template !== undefined) {
 			let t = this.compileTemplate(object.$dynamic_template)
-			if (t !== undefined) {
-				object = detachObj(object, t)
-			}
+			if (t !== undefined) object = detachObj(object, t)
+		}
+		if (object.$versioned_template !== undefined) {
+			const {
+				object: tmpObject,
+				value: tmpValue,
+			} = compileVersionedTemplate(object.$versioned_template)
+			if (tmpObject !== undefined) object = detachObj(object, tmpObject)
+			if (tmpValue !== undefined && tmpValue.length > 0)
+				value = value.concat(tmpValue)
 		}
 
 		return {
@@ -257,7 +265,15 @@ class Provider {
 						object[key].$if === undefined ||
 						Omega.walk(object[key].$if)
 					)
-						return key.split('.').pop()
+						return key.substring(key.indexOf('.') + 1, key.length)
+				} else if (key.startsWith('$versioned_template.')) {
+					const {
+						object: tmpObject,
+						value: tmpValue,
+					} = compileVersionedTemplate(object[key])
+
+					if (tmpObject === undefined) return undefined
+					return key.substring(key.indexOf('.') + 1, key.length)
 				} else if (key.startsWith('@import.value')) {
 					if (Array.isArray(object[key])) {
 						if (asObject) return object[key]
