@@ -377,7 +377,8 @@
   },
   "minecraft:explode": {
     "fuse_length": {
-      "$dynamic.list.index_pair": "$general.decimal"
+      "$dynamic.list.index_pair": "$general.decimal",
+      "@import.value.decimal": "$general.decimal"
     },
     "power": "$general.number",
     "max_resistance": "$general.decimal",
