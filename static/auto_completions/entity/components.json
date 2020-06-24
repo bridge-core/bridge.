@@ -1124,7 +1124,13 @@
     "time": {
       "@import.value.decimal": "$general.decimal",
       "@meta": {
-        "validate": {}
+        "validate": {
+          "confirm": "Bridge.Node.children.length !== 2 || Number.isNaN(Number(Bridge.Node.data))",
+          "then": {
+            "show": true,
+            "message": "Invalid data type: Expected number or [number, number]"
+          }
+        }
       },
       "$dynamic.list.index_pair": "$general.decimal"
     },
