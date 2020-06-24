@@ -36,6 +36,7 @@ export function parseCommands(commands: string): [Set<string>, string[]] {
 				l = l.trim()
 
 				for (let [commandName, command] of CommandRegistry) {
+					//Handle execute command executing custom commands
 					if (l.startsWith('execute ')) {
 						const [
 							execute,
@@ -46,25 +47,23 @@ export function parseCommands(commands: string): [Set<string>, string[]] {
 							...command
 						] = splitCommand(l)
 
-						const [tmpUsedCommands, tmpCommands] = parseCommands(
+						//Parse nested command
+						const [tmpUsedCommands, parsedCommands] = parseCommands(
 							command.join(' ')
 						)
 
+						//Update usedCommands reference
 						usedCommands = new Set([
 							...usedCommands,
 							...tmpUsedCommands,
 						])
 
-						return tmpCommands.reduce(
-							(previous: string[], command: string) => {
-								return [
-									...previous,
-									`execute ${parseSelector(
-										selector
-									)} ${loc1} ${loc2} ${loc3} ${command}`,
-								]
-							},
-							[]
+						//Prefix parsedCommands with execute command
+						return parsedCommands.map(
+							(command: string) =>
+								`execute ${parseSelector(
+									selector
+								)} ${loc1} ${loc2} ${loc3} ${command}`
 						)
 					} else if (l.startsWith(`${commandName}`)) {
 						usedCommands.add(commandName)
