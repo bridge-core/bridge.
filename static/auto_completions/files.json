@@ -30,10 +30,8 @@
     "function/general",
 
     "item/main",
-    "item/main_beta",
     "item/general",
     "item/components",
-    "item/beta_components",
 
     "recipe/main",
     "recipe/general",
@@ -57,10 +55,8 @@
     "map_area/general",
 
     "spawn_rule/main",
-    "spawn_rule/main_beta",
     "spawn_rule/general",
     "spawn_rule/components",
-    "spawn_rule/beta_components",
 
     "animation/main",
     "animation/rp_main",

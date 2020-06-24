@@ -9,6 +9,9 @@
     "minecraft:spawns_on_block_filter": {
         "$dynamic.list.next_index": "$general.block_identifier"
     },
+    "minecraft:spawns_on_block_prevented_filter": {
+        "$dynamic.list.next_index": "$general.block_identifier"
+    },
 
     "minecraft:brightness_filter": {
         "min": "$general.number",
