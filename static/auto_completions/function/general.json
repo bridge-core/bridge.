@@ -13,5 +13,7 @@
     "sound_definitions": "$vanilla.sound_definitions and $dynamic.cache.sound_definition.ids",
     "replace_mode": ["destroy", "keep"],
     "mask_mode": ["replace", "masked"],
-    "clone_mode": ["force", "move", "normal"]
+    "clone_mode": ["force", "move", "normal"],
+    "mob_event": ["minecraft:pillager_patrols_event", "minecraft:wandering_trader_event", "minecraft:ender_dragon_event", "events_enabled"],
+    "time": ["day", "night", "noon", "midnight", "sunrise", "sunset"]
 }
