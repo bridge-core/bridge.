@@ -8,7 +8,7 @@ import OmegaCache from '../editor/OmegaCache'
 import { toCorrectType } from '../editor/Json'
 import Provider from '../autoCompletions/Provider'
 import { CURRENT } from '../constants'
-import { splitSelectorArgs } from '../bridgeCore/functions/parse'
+import { splitSelectorArgs, parseCommands } from '../bridgeCore/functions/parse'
 
 type TSelectorTransform = (
 	selector: string,
@@ -27,7 +27,9 @@ export abstract class BridgeCommand {
 	static command_name = 'bridge:demo_command'
 
 	abstract onApply(data: unknown[]): string | string[]
-	abstract onCacheHook(data: unknown[]): [string, string[]][]
+	onCacheHook(data: unknown[]): [string, string[]][] {
+		return []
+	}
 	onPropose() {}
 }
 
@@ -74,6 +76,7 @@ export async function registerCustomCommand(
 				)
 				promises.push(fileRefs)
 			},
+			parseCommands: parseCommands,
 			insertAutoCompletions(path: string, definition: unknown) {
 				Provider.addPluginCompletion(path, definition)
 			},

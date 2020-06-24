@@ -28,14 +28,13 @@ import { run } from '../editor/ScriptRunner/run'
 import { createErrorNotification } from '../AppCycle/Errors'
 import { loadUIComponents } from './UI/load'
 import { createUIStore, TUIStore } from './UI/store'
-import { createSidebar } from '../UI/Sidebar/create'
 import { IDisposable } from '../Types/disposable'
 import {
 	clearAll as clearAllDisposables,
 	set as setDisposables,
 } from './Disposables'
 import { executeScript } from './scripts/execute'
-import { createEnv, createLimitedEnv } from './scripts/require'
+import { createLimitedEnv } from './scripts/require'
 import { DATA_PATH } from '../../../shared/DefaultDir'
 import { on, trigger } from '../AppCycle/EventSystem'
 

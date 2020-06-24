@@ -2,6 +2,7 @@ import {
 	CommandRegistry,
 	parseCommandArguments,
 	UsedSelectors,
+	parseSelector,
 } from '../../plugins/CustomCommands'
 import LightningCache from '../../editor/LightningCache'
 import { setFunctionCache, CacheTests, FunctionCache } from './cache'
@@ -23,8 +24,8 @@ export async function parseFunction(str: string, filePath: string) {
 	return lines.join('\n')
 }
 
-export function parseCommands(commands: string) {
-	const usedCommands = new Set<string>()
+export function parseCommands(commands: string): [Set<string>, string[]] {
+	let usedCommands = new Set<string>()
 
 	return <[Set<string>, string[]]>[
 		usedCommands,
@@ -35,7 +36,37 @@ export function parseCommands(commands: string) {
 				l = l.trim()
 
 				for (let [commandName, command] of CommandRegistry) {
-					if (l.startsWith(`${commandName}`)) {
+					if (l.startsWith('execute ')) {
+						const [
+							execute,
+							selector,
+							loc1,
+							loc2,
+							loc3,
+							...command
+						] = splitCommand(l)
+
+						const [tmpUsedCommands, tmpCommands] = parseCommands(
+							command.join(' ')
+						)
+
+						usedCommands = new Set([
+							...usedCommands,
+							...tmpUsedCommands,
+						])
+
+						return tmpCommands.reduce(
+							(previous: string[], command: string) => {
+								return [
+									...previous,
+									`execute ${parseSelector(
+										selector
+									)} ${loc1} ${loc2} ${loc3} ${command}`,
+								]
+							},
+							[]
+						)
+					} else if (l.startsWith(`${commandName}`)) {
 						usedCommands.add(commandName)
 
 						const [_, ...args] = splitCommand(l)
