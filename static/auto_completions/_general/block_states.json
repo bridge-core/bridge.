@@ -64,7 +64,7 @@
     "rail_direction": [ "0", "1", "2", "3", "4", "5", "6", "7", "8" ],
     "redstone_signal": "$general.number0_15",
     "repeater_delay": [ "0", "1", "2", "3" ],
-    "stone_type": [ "andesite", "andesite_smooth" ],
+    "stone_type": [ "andesite", "andesite_smooth", "stone", "granite", "granite_smooth", "diorite", "diorite_smooth"],
     "stability": ["0", "1", "2", "3", "4", "5", "6", "7"],
     "stability_check": "$general.boolean",
     "sapling_type": ["acacia", "birch", "dark_oak", "jungle", "oak", "spruce"],
