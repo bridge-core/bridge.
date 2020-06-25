@@ -27,7 +27,8 @@
     "BP": {
         "folders": [
             "texts",
-            "functions"
+            "functions",
+            "bridge"
         ],
         "files": {
             "pack_icon.png": "pack_icon.png",
