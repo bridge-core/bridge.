@@ -39,7 +39,6 @@
         "url": {"@meta": {"is_value": true}}
     },
     "capabilities": {
-        "chemistry": "$general.boolean",
-        "experimental_custom_ui": "$general.boolean"
+        "$dynamic.list.next_index": "$manifest.general.capabilities"
     }
 }
