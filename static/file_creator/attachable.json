@@ -3,7 +3,6 @@
     "title": "Attachable",
     "extension": "json",
     "path": "attachables/",
-    "is_experimental": true,
 
     "templates": {
         "$default_pack": {
