@@ -35,9 +35,10 @@ export function parseCommands(commands: string): [Set<string>, string[]] {
 				if (l[0] === '#') return l
 				l = l.trim()
 
-				for (let [commandName, command] of CommandRegistry) {
-					//Handle execute command executing custom commands
-					if (l.startsWith('execute ')) {
+				//Handle execute command executing custom commands
+				if (l.startsWith('execute ')) {
+					const commandArr = splitCommand(l)
+					if (commandArr.length > 6) {
 						const [
 							execute,
 							selector,
@@ -45,7 +46,7 @@ export function parseCommands(commands: string): [Set<string>, string[]] {
 							loc2,
 							loc3,
 							...command
-						] = splitCommand(l)
+						] = commandArr
 
 						//Parse nested command
 						const [tmpUsedCommands, parsedCommands] = parseCommands(
@@ -65,7 +66,11 @@ export function parseCommands(commands: string): [Set<string>, string[]] {
 									selector
 								)} ${loc1} ${loc2} ${loc3} ${command}`
 						)
-					} else if (l.startsWith(`${commandName}`)) {
+					}
+				}
+
+				for (let [commandName, command] of CommandRegistry) {
+					if (l.startsWith(`${commandName}`)) {
 						usedCommands.add(commandName)
 
 						const [_, ...args] = splitCommand(l)
