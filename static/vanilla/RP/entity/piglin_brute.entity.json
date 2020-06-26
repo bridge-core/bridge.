@@ -2,19 +2,19 @@
   "format_version": "1.10.0",
   "minecraft:client_entity": {
     "description": {
-      "identifier": "minecraft:piglin",
+      "identifier": "minecraft:piglin_brute",
       "materials": {
-        "default": "piglin"
+        "default": "piglin_brute"
       },
       "textures": {
-        "default": "textures/entity/piglin/piglin"
+        "default": "textures/entity/piglin/piglin_brute"
       },
       "geometry": {
         "default": "geometry.piglin"
       },
-      "spawn_egg": {
-        "base_color": "#995f40",
-        "overlay_color": "#f9f3a4"
+      "spawn_egg": { 
+        "base_color": "#592A10",
+        "overlay_color": "#F9F3A4"
       },
       "scripts": {
         "pre_animation": [
@@ -25,10 +25,7 @@
           "variable.x_bob = Math.sin(query.life_time * 76.776372) * 2.865;"
         ],
         "animate": [
-          { "admire": "query.is_admiring" },
           { "humanoid_big_head": "query.is_baby" },
-          { "celebrate_hunt": "query.is_celebrating" },
-          { "celebrate_hunt_special": "query.is_celebrating_special" },
 
           "move",
           "bob",
@@ -41,9 +38,6 @@
         "move": "animation.piglin.move",
         "bob": "animation.humanoid.bob",
         "humanoid_big_head": "animation.humanoid.big_head",
-        "admire": "animation.piglin.admire",
-        "celebrate_hunt": "animation.piglin.celebrate_hunt",
-        "celebrate_hunt_special": "animation.piglin.celebrate_hunt_special",
 
         "look_at_target_controller": "controller.animation.humanoid.look_at_target",
         "look_at_target_default": "animation.humanoid.look_at_target.default",
@@ -59,7 +53,7 @@
         "riding.arms": "animation.humanoid.riding.arms",
         "riding.legs": "animation.humanoid.riding.legs"
       },
-      "render_controllers": [ "controller.render.piglin" ],
+      "render_controllers": [ "controller.render.piglin_brute" ],
       "enable_attachables": true
     }
   }

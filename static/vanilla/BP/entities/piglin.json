@@ -104,6 +104,9 @@
           "broadcast_anger_on_attack": true,
           "broadcast_anger_on_being_attacked": true,
           "broadcast_range": 16,
+          "broadcast_targets": [
+            "piglin" // we want to broadcast to both normal piglins and piglin_brute
+          ],
           "calm_event": {
             "event": "become_calm_event",
             "target": "self"
@@ -243,6 +246,12 @@
                       "test": "is_family",
                       "subject": "other",
                       "value": "player"
+                    },
+                    {
+                      "test": "has_component",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "minecraft:is_baby"
                     }
                   ]
                 }
@@ -597,84 +606,91 @@
             "item": "minecraft:golden_sword",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:golden_axe",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:golden_hoe",
             "priority": 2,
             "admire": true,
-            "stored_in_inventory": true
-          },
-          {
-            "item": "minecraft:golden_pickaxe",
-            "priority": 2,
-            "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:golden_shovel",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:golden_rail",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:golden_helmet",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:golden_chestplate",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:golden_leggings",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:golden_boots",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:golden_apple",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:appleEnchanted",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:golden_carrot",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:gold_block",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
@@ -686,24 +702,28 @@
             "item": "minecraft:gold_ore",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:nether_gold_ore",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:gilded_blackstone",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:horsearmorgold",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
@@ -820,24 +840,28 @@
             "item": "minecraft:bell",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:clock",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:speckled_melon",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {
             "item": "minecraft:light_weighted_pressure_plate",
             "priority": 2,
             "admire": true,
+            "pickup_limit": 1,
             "stored_in_inventory": true
           },
           {

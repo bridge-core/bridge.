@@ -14,14 +14,14 @@
         ],
         "key": {
             "A": {
-                "item": "warped_slab"
+                "item": "minecraft:stick"
             },
             "B": {
-                "item": "minecraft:stick"
+                "item": "warped_slab"
             }
         },
         "result": {
-            "item": "barrel",
+            "item": "minecraft:barrel",
             "count": 1
         },
         "priority": 2

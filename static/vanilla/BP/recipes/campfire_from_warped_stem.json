@@ -26,6 +26,7 @@
         "result": {
             "item": "campfire",
             "count": 1
-        }
+        },
+        "priority": 2
     }
 }

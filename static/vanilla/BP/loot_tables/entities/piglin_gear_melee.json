@@ -6,20 +6,7 @@
         {
           "type": "item",
           "name": "minecraft:golden_sword",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "looting_enchant",
-              "count": {
-                "min": 0,
-                "max": 1
-              }
-            },
-            {
-              "function": "enchant_random_gear",
-              "chance": 0.10
-            }
-          ]
+          "weight": 1
         }
       ]
     },

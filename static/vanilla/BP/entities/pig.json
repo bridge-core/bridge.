@@ -44,9 +44,6 @@
         "minecraft:loot": {
           "table": "loot_tables/entities/pig.json"
         },
-      "minecraft:despawn": {
-        "despawn_from_distance": {}
-      },
         "minecraft:behavior.breed": {
           "priority": 4,
           "speed_multiplier": 1.0
@@ -185,6 +182,9 @@
       },
       "minecraft:balloonable": {
         "mass": 0.75
+      },
+      "minecraft:despawn": {
+        "despawn_from_distance": {}
       },
       "minecraft:behavior.mount_pathing": {
         "priority": 1,

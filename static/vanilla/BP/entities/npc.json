@@ -19,11 +19,6 @@
         "family": [ "npc", "mob" ]
       },
       "minecraft:fire_immune": true,
-      "minecraft:health": {
-        "value": 20,
-        "max": 20,
-        "min":  20
-      },
       "minecraft:movement": {
         "value": 0.5
       },

@@ -14,14 +14,14 @@
         ],
         "key": {
             "A": {
-                "item": "crimson_slab"
+                "item": "minecraft:stick"
             },
             "B": {
-                "item": "minecraft:stick"
+                "item": "crimson_slab"
             }
         },
         "result": {
-            "item": "barrel",
+            "item": "minecraft:barrel",
             "count": 1
         },
         "priority": 2

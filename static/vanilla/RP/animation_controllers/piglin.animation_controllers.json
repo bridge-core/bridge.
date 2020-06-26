@@ -1,45 +1,6 @@
 {
 	"format_version" : "1.10.0",
-	"animation_controllers" : {
-		"controller.animation.piglin.move" : {
-			"initial_state" : "default",
-			"states" : {
-				"default" : {
-					"animations" : [ "move" ]
-				}
-			}
-		},
-		"controller.animation.piglin.celebrate": {
-			"initial_state": "default",
-			"states": {
-				"default": {
-					"transitions": [
-						{
-							"celebrating" : "query.is_celebrating == 1"
-						},
-						{
-							"celebrating_special": "query.is_celebrating_special == 1"
-						}
-					]
-				},
-				"celebrating": {
-					"animations": [ "celebrate_hunt" ],
-					"transitions": [
-						{
-							"default": "query.is_celebrating == 0"
-						}
-					]
-				},
-				"celebrating_special": {
-					"animations": [ "celebrate_hunt_special" ],
-					"transitions": [
-						{
-							"default": "query.is_celebrating_special == 0"
-						}
-					]
-				}
-			}
-		},
+	"animation_controllers": {
 		"controller.animation.piglin.attack" : {
 			"initial_state" : "default",
 			"states" : {
@@ -85,22 +46,6 @@
 							"default" : "!variable.has_target || variable.attack_time < 0.0 ||  query.is_admiring"
 						}
 					]
-				}
-			}
-		},
-		"controller.animation.piglin.admire" : {
-			"initial_state" : "default",
-			"states" : {
-				"default" : {
-					"transitions": [{
-						"admiring": "query.is_admiring"
-					}]
-				},
-				"admiring": {
-					"animations": ["admire"],
-					"transitions": [{
-						"default": "!query.is_admiring"
-					}]
 				}
 			}
 		}

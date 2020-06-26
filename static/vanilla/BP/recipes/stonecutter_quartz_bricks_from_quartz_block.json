@@ -8,7 +8,7 @@
     "priority": 2,
     "ingredients": [
       {
-        "item": "minecraft:quartz_block"
+        "item": "minecraft:quartz_block:0"
       }
     ],
     "result": {

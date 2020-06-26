@@ -6,7 +6,7 @@
     },
 
 	"tags": ["furnace"],
-	"input": "minecraft:quartz_block",
+	"input": "minecraft:quartz_block:0",
 	"output": "minecraft:quartz_block:3"
   }
 }
