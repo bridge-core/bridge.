@@ -40,5 +40,14 @@
     },
     "capabilities": {
         "$dynamic.list.next_index": "$manifest.general.capabilities"
+    },
+    "subpacks": {
+        "$dynamic.list.next_index":{
+            "folder_name": {
+                "@meta": {"is_value": true}
+            },
+            "name": {"@meta": {"is_value": true}},
+            "memory_tier": "$general.number"
+        }
     }
 }
