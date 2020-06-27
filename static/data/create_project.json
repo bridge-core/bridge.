@@ -11,6 +11,7 @@
             "RP/blocks.json": "blocks.json",
             "RP/sounds.json": "sounds.json",
             "RP/terrain_texture.json": "textures/terrain_texture.json",
+            "RP/flipbook_textures.json": "textures/flipbook_textures.json",
             "RP/item_texture.json": "textures/item_texture.json",
             "RP/sound_definitions.json": "sounds/sound_definitions.json",
             "RP/music_definitions.json": "sounds/music_definitions.json",
