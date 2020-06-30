@@ -78,17 +78,16 @@
                 "may_replace": {}
             }
         },
-        "Blank Weighted Features": {
+        "Blank Weighted Random Feature": {
             "format_version": {},
-            "minecraft:weighted_features": {
+            "minecraft:weighted_random_feature": {
                 "description": {
                     "identifier": {}
                 },
-                "early_out": {},
                 "features": {}
             }
         },
-        "Blank Structure Features": {
+        "Blank Structure Feature": {
             "format_version": {},
             "minecraft:structure_template_feature": {
                 "description": {
@@ -104,7 +103,7 @@
                 }
             }
         },
-        "Blank Search Features": {
+        "Blank Search Feature": {
             "format_version": {},
             "minecraft:search_feature": {
                 "description": {
@@ -119,7 +118,7 @@
                 "required_successes": {}
             }
         },
-        "Blank Sequence Features": {
+        "Blank Sequence Feature": {
             "format_version": {},
             "minecraft:sequence_feature": {
                 "description": {
