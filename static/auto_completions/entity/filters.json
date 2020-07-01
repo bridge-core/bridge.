@@ -1,4 +1,5 @@
 {
+  "@meta": { "validate": "entity/filters.js" },
   "all_of": {
     "$dynamic.list.next_index": "$entity.filters"
   },
