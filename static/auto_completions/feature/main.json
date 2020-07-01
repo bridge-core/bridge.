@@ -261,7 +261,7 @@
             }
         }
     },
-    "minecraft:weighted_features": {
+    "minecraft:weighted_random_feature": {
         "description": {
             "identifier": "$general.file_identifier"
         },

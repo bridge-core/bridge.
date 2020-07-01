@@ -23,7 +23,7 @@
       },
       "scripts": {
         "pre_animation": [
-          "variable.modified_tcos0 = (Math.cos(query.modified_distance_moved * 13.5) * query.modified_move_speed / variable.gliding_speed_value) * 25.0;"
+          "variable.modified_tcos0 = Math.clamp(((Math.cos(query.modified_distance_moved * 13.5) * Math.min(query.modified_move_speed, 0.6) / variable.gliding_speed_value) * 25.0), -12.5, 12.5);"
         ],
         "animate": [
           "look_at_target",

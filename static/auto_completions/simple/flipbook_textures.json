@@ -1,0 +1,19 @@
+{
+    "$dynamic.list.next_index": {
+        "flipbook_texture": {
+            "@meta": { "is_value": true },
+            "@import.value.block_png": "$dynamic.rp.block_png"
+        },
+        "atlas_tile": {
+            "@meta": { "is_value": true}
+        },
+        "atlas_tile_variant": "$general.number",
+        "atlas_index": "$general.number",
+        "frames": {
+            "$dynamic.list.next_index": "$general.number"
+        },
+        "replicate": "$general.number",
+        "ticks_per_frame": "$general.number",
+        "blend_frames": "$general.boolean"
+    }
+}

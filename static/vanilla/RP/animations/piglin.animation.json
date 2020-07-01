@@ -24,12 +24,12 @@
 			"loop" : true
 		},
 		"animation.piglin.sword.attack" : {
-			"bones" : {
-				"leftarm" : {
-					"rotation" : [ "-90 + (variable.attack2 * 1.2 - variable.attack * 0.4) - variable.x_bob - this", "5.73 - (variable.attack2 * 0.6) - this", "-variable.z_bob - this" ]
+			"bones": {
+				"leftarm": {
+				"rotation": [ "(math.cos(query.life_time * 20.0 * 10.89) * 28.65) + (math.sin(variable.attack_time * 180.0) * 68.76 - (math.sin((1.0 - (1.0 - variable.attack_time) * (1.0 - variable.attack_time)) * 180.0)) * 22.92)", 0.0, 0.0 ]
 				},
-				"rightarm" : {
-					"rotation" : [ "-90 + (variable.attack2 * 1.2 - variable.attack * 0.4) + variable.x_bob - this", "variable.attack2 * 0.6 - 5.73 - this", "variable.z_bob - this" ]
+				"rightarm": {
+				"rotation": [ "-100 + (variable.attack2 * 2.2 - variable.attack * 0.4) + variable.x_bob - this", "variable.attack2 * 0.6 - 5.73 - this", "variable.z_bob - this" ]
 				}
 			},
 			"loop" : true
@@ -38,22 +38,22 @@
 			"loop" : true,
 			"bones": {
 				"leftear": {
-					"rotation" : [ 0.0, 0.0, "variable.tcos_left_side * 0.5" ]
+					"rotation" : [ 0.0, 0.0, "variable.tcos0 * 0.5" ]
 				},
 				"rightear": {
-					"rotation" : [ 0.0, 0.0, "variable.tcos_right_side * 0.5" ]
+					"rotation" : [ 0.0, 0.0, "-variable.tcos0 * 0.5" ]
 				},
 				"leftarm" : {
-					"rotation" : [ "-variable.tcos_left_side", 0.0, 0.0 ]
+					"rotation" : [ "variable.tcos0", 0.0, 0.0 ]
 				},
 				"leftleg" : {
-					"rotation" : [ "variable.tcos_left_side * 1.4", 0.0, 0.0 ]
+					"rotation" : [ "-variable.tcos0 * 1.4", 0.0, 0.0 ]
 				},
 				"rightarm" : {
-					"rotation" : [ "-variable.tcos_right_side", 0.0, 0.0 ]
+					"rotation" : [ "-variable.tcos0", 0.0, 0.0 ]
 				},
 				"rightleg" : {
-					"rotation" : [ "variable.tcos_right_side * 1.4", 0.0, 0.0 ]
+					"rotation" : [ "variable.tcos0 * 1.4", 0.0, 0.0 ]
 				}
 			}
 		},

@@ -24,7 +24,7 @@
 								v-if="icon"
 								style="margin: 4px 12px 4px 0;"
 							>
-								<v-icon>{{ icon }}</v-icon>
+								<v-icon color="accent" small>{{ icon }}</v-icon>
 							</v-list-item-icon>
 							<v-list-item-action class="context-menu-action">
 								{{ title }}

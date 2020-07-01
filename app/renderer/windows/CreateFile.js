@@ -9,6 +9,7 @@ import uuidv4 from 'uuid/v4'
 import { walkSync } from '../src/autoCompletions/Dynamic'
 import { join } from 'path'
 import { promises as fs } from 'fs'
+import { uuid } from '../src/Utilities/useAttr'
 
 class FileContent {
 	constructor(
@@ -141,18 +142,21 @@ class FileContent {
 			this.add(
 				{
 					...add_content,
+					input: this.parameter,
+					key: uuid(),
 					action: parameter => {
 						if (
 							add_content.action !== undefined &&
 							add_content.action.type === 'change_path'
 						) {
+							this.parameter = parameter
+							console.log(this.parameter)
 							this.expand_path = run(
 								add_content.action.to,
-								{
-									parameter,
-								},
+								parameter,
 								{
 									executionContext: 'inline',
+									envName: 'parameter',
 								}
 							)
 							this.path_info.text = this.getPath(

@@ -25,6 +25,7 @@
 | --- | --- 
 | ```lang_def``` | RP/texts/languages.json
 | ```function_tick``` | BP/functions/tick.json
+| ```manifest_bp``` | BP/manifest.json
 
 ### RP
 | File Type | Description 
@@ -46,9 +47,11 @@
 | ```sound_definition``` | RP/sounds/sound_definitions.json
 | ```item_texture``` | RP/textures/item_texture.json
 | ```terrain_texture``` | RP/textures/terrain_texture.json
+| ```flipbook_texture``` | RP/textures/flipbook_textures.json
 | ```client_block``` | RP/blocks.json
 | ```client_biome``` | RP/biomes_client.json
 | ```client_sound``` | RP/sounds.json
+| ```manifest_rp``` | RP/manifest.json
 
 ### Other
 | File Type | Description 

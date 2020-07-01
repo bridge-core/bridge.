@@ -1,5 +1,5 @@
 {
-    "distributions": [ "gaussian", "uniform" ],
+    "distributions": [ "gaussian", "uniform", "inverse_gaussian", "fixed_grid", "jittered_grid" ],
     "early_outs": [ "none", "first_failure", "first_success" ],
     "coordinate_eval_orders": [ "xyz", "zyx", "yxz", "xzy", "zxy", "yzx" ],
     "chance_information": {

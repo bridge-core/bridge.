@@ -223,12 +223,6 @@
         {
           "type": "item",
           "name": "minecraft:appleEnchanted",
-          "functions": [
-            {
-              "function": "set_data",
-              "data": 1
-            }
-          ],
           "weight": 1
         },
         {

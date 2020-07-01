@@ -15,7 +15,6 @@ import { UI_DATA, BridgeCore } from '../bridgeCore/main'
 import ThemeManager from '../editor/Themes/ThemeManager'
 import unzipper from 'unzipper'
 import ComponentRegistry from './CustomComponents'
-import InformationWindow from '../UI/Windows/Common/Information'
 import Provider from '../autoCompletions/Provider'
 import { addLoadLocation, resetLoadLocations, IManifest } from '../Presets'
 import {
@@ -24,7 +23,6 @@ import {
 	updateCommandFiles,
 } from './CustomCommands'
 import FileType from '../editor/FileType'
-import { run } from '../editor/ScriptRunner/run'
 import { createErrorNotification } from '../AppCycle/Errors'
 import { loadUIComponents } from './UI/load'
 import { createUIStore, TUIStore } from './UI/store'
@@ -34,9 +32,9 @@ import {
 	set as setDisposables,
 } from './Disposables'
 import { executeScript } from './scripts/execute'
-import { createLimitedEnv } from './scripts/require'
 import { DATA_PATH } from '../../../shared/DefaultDir'
 import { on, trigger } from '../AppCycle/EventSystem'
+import { loadCustomComponent } from './components/load'
 
 let PLUGIN_FOLDERS: [string, string][] = []
 let PLUGIN_DATA: any[] = []
@@ -353,37 +351,7 @@ export default class PluginLoader {
 		)
 	}
 	static async loadComponent(filePath: string, fileContent?: string) {
-		if (fileContent === undefined)
-			fileContent = (
-				await fs.readFile(filePath).catch(e => undefined)
-			)?.toString('utf-8')
-		if (fileContent === undefined) return
-
-		const promises: Promise<unknown>[] = []
-
-		try {
-			await run(
-				fileContent,
-				[
-					createLimitedEnv(),
-					{
-						register: (c: any) =>
-							promises.push(ComponentRegistry.register(c)),
-						report: (info: string) =>
-							new InformationWindow('Information', info, false),
-					},
-				],
-				{
-					executionContext: 'file',
-					envName: 'require, Bridge',
-					async: true,
-				}
-			)
-		} catch (err) {
-			createErrorNotification(err)
-		}
-
-		await Promise.all(promises)
+		return await loadCustomComponent(filePath, fileContent)
 	}
 
 	static async loadAutoCompletions(pluginPath: string) {

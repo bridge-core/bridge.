@@ -39,6 +39,8 @@
     "events": {
       "$asObject": "$entity.general.built_in_event",
       "$placeholder": {
+        "@meta": { "validate": "entity/eventStructure.js" },
+
         "$versioned_template": [
           {
             "$if": "$format_version >= 1.16.0",

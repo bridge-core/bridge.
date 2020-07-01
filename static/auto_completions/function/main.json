@@ -125,7 +125,11 @@
 	"locate": {
 		"$function.general.structure_name": {}
 	},
+	"list": {},
 	"me": {},
+	"mobevent": {
+		"$function.general.mob_event": "$general.boolean"
+	},
 	"particle": {
 		"$function.general.particle_identifier": {
 			"$function.general.location": {
@@ -338,11 +342,14 @@
 		"$function.general.location": {
 			"$function.general.location": {
 				"$function.general.location": {
+					"$general.boolean": {},
 					"$general.degree": "$general.degree",
 					"facing": {
 						"$function.general.location": {
 							"$function.general.location": {
-								"$function.general.location": {}
+								"$function.general.location": {
+									"$general.boolean": {}
+								}
 							}
 						},
 						"$function.general.target_selector": {}
@@ -444,6 +451,18 @@
 			}
 		},
 		"remove_all": {}
+	},
+	"time": {
+		"add": "$general.hourly_clock_time",
+		"set": {
+			"$function.general.time": {},
+			"$general.hourly_clock_time": {}
+		},
+		"query": {
+			"daytime": {},
+			"gametime": {},
+			"day": {}
+		}
 	},
 	"title": {
 		"$function.general.target_selector": {

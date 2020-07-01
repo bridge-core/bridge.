@@ -35,6 +35,40 @@ export function parseCommands(commands: string): [Set<string>, string[]] {
 				if (l[0] === '#') return l
 				l = l.trim()
 
+				//Handle execute command executing custom commands
+				if (l.startsWith('execute ')) {
+					const commandArr = splitCommand(l)
+					if (commandArr.length > 6) {
+						const [
+							execute,
+							selector,
+							loc1,
+							loc2,
+							loc3,
+							...command
+						] = commandArr
+
+						//Parse nested command
+						const [tmpUsedCommands, parsedCommands] = parseCommands(
+							command.join(' ')
+						)
+
+						//Update usedCommands reference
+						usedCommands = new Set([
+							...usedCommands,
+							...tmpUsedCommands,
+						])
+
+						//Prefix parsedCommands with execute command
+						return parsedCommands.map(
+							(command: string) =>
+								`execute ${parseSelector(
+									selector
+								)} ${loc1} ${loc2} ${loc3} ${command}`
+						)
+					}
+				}
+
 				for (let [commandName, command] of CommandRegistry) {
 					if (l.startsWith('execute ')) {
 						const [

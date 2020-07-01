@@ -25,6 +25,7 @@
     },
     "result": {
       "item": "minecraft:campfire"
-    }
+    },
+    "priority": 2    
   }
 }

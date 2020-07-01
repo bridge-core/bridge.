@@ -7,7 +7,7 @@
             "animation_length": "$general.number",
             "blend_weight": "$general.decimal",
             "override_previous_animation": "$general.boolean",
-            "loop": "$general.boolean",
+            "loop": "$animation.general.loop_type",
             "bones": {
                 "$placeholder": {
                     "rotation": {

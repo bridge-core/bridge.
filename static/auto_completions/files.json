@@ -84,6 +84,7 @@
     "simple/general",
     "simple/item_texture",
     "simple/terrain_texture",
+    "simple/flipbook_textures",
     "simple/biomes_client",
     "simple/blocks",
     "simple/sound_definitions",

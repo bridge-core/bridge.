@@ -1,3 +1,15 @@
 {
-    "events": "$dynamic.entity.@events"
+    "events": "$dynamic.entity.@events",
+    "loop_type": {
+        "@meta": {
+            "validate": {
+                "confirm": "Bridge.Node.data !== 'true' && Bridge.Node.data !== 'false' && Bridge.Node.data !== 'hold_on_last_frame'",
+                "then": {
+                    "show": true,
+                    "message": "Invalid data type: Expected boolean or hold_on_last_frame string"
+                }
+            }
+        },
+        "@import.value": ["true", "false", "hold_on_last_frame"]
+    }
 }

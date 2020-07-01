@@ -3,7 +3,6 @@
     "title": "Block",
     "extension": "json",
     "path": "blocks/",
-    "is_experimental": true,
     
     "templates": {
         "Blank Block": {
