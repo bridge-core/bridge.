@@ -406,7 +406,7 @@ export default class SettingsWindow extends TabWindow {
 				}),
 				{
 					color: 'grey',
-					text: '\nTheme',
+					text: '\nLocal Theme',
 				},
 				{
 					key: uuid(),
@@ -424,6 +424,10 @@ export default class SettingsWindow extends TabWindow {
 						ProjectConfig.setTheme(val)
 						trigger('bridge:reloadPlugins')
 					},
+				},
+				{
+					color: 'grey',
+					text: '\nGlobal Theme',
 				},
 				{
 					key: `settings.editor.tab.appearance.global_theme`,
