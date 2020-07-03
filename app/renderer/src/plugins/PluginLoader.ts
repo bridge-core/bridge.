@@ -4,7 +4,7 @@
  *
  * Unloading is still handled by store/modules/Plugins.js
  */
-import { CURRENT, BASE_PATH } from '../constants'
+import { CURRENT } from '../constants'
 import path from 'path'
 import { promises as fs, createReadStream, Dirent } from 'fs'
 import { readJSON } from '../Utilities/JsonFS'

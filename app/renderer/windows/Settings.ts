@@ -17,7 +17,6 @@ import { LoadedProjects } from '../src/UI/ProjectScreen/state'
 import { loadProjects } from '../src/UI/ProjectScreen/load'
 import { basename } from 'path'
 import { trigger } from '../src/AppCycle/EventSystem'
-import { TorusGeometry } from 'three'
 
 class ReactiveListEntry {
 	type = 'card'
