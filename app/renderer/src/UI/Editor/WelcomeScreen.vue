@@ -21,7 +21,7 @@
 						elevation="14"
 						color="sidebar_navigation"
 					>
-						<v-card-title>Need Help?</v-card-title>
+						<v-card-title class="ml-13">Need Help?</v-card-title>
 						<v-layout align-center justify-center>
 							<div>
 								<p class="pt-2">
@@ -76,7 +76,7 @@
 										>
 									</v-tooltip>
 								</p>
-								<p class="pt-10">
+								<p class="pt-12">
 									<v-tooltip bottom color="primary">
 										<template
 											v-slot:activator="{ on, attrs }"
@@ -114,7 +114,7 @@
 						elevation="14"
 						color="sidebar_navigation"
 					>
-						<v-card-title>Features</v-card-title>
+						<v-card-title class="ml-16 pl-9">Features</v-card-title>
 						<v-expansion-panels tile>
 							<v-expansion-panel>
 								<v-expansion-panel-header>
@@ -206,7 +206,9 @@
 						elevation="14"
 						color="sidebar_navigation"
 					>
-						<v-card-title>Customize Your Experience</v-card-title>
+						<v-card-title class="ml-3"
+							>Customize Your Experience</v-card-title
+						>
 						<p>
 							With Plugins You Can Customize Your Experience With
 							bridge.!
@@ -216,15 +218,17 @@
 							<br />
 							<header>You can create/download new...</header>
 							<li>
-								<v-icon>mdi-palette</v-icon>
+								<v-icon small>mdi-palette</v-icon>
 								<span>Themes</span>
 							</li>
 							<li>
-								<v-icon>mdi-attachment</v-icon>
+								<v-icon small>mdi-attachment</v-icon>
 								<span>Snippets</span>
 							</li>
 							<li>
-								<v-icon>mdi-text-box-multiple-outline</v-icon>
+								<v-icon small
+									>mdi-text-box-multiple-outline</v-icon
+								>
 								<span>Presets</span>
 							</li>
 							<li>
@@ -232,7 +236,9 @@
 								<span>UI Elements</span>
 							</li>
 							<li>
-								<v-icon>mdi-format-list-bulleted-square</v-icon>
+								<v-icon small
+									>mdi-format-list-bulleted-square</v-icon
+								>
 								<span>And Much More!</span>
 							</li>
 						</ul>
