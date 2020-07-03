@@ -4,7 +4,7 @@
  *
  * Unloading is still handled by store/modules/Plugins.js
  */
-import { CURRENT } from '../constants'
+import { CURRENT, BASE_PATH } from '../constants'
 import path from 'path'
 import { promises as fs, createReadStream, Dirent } from 'fs'
 import { readJSON } from '../Utilities/JsonFS'
@@ -303,10 +303,12 @@ export default class PluginLoader {
 	}
 
 	static async loadThemes(pluginPath: string) {
+		// Fetches a list of the files in the plugin's themes folder
 		let themes: string[] = await fs
 			.readdir(path.join(pluginPath, 'themes'))
 			.catch(e => [])
 
+		// Fetches the contents of each file in the themes array
 		let loaded_themes: any[] = await Promise.all(
 			themes.map(t =>
 				readJSON(path.join(pluginPath, 'themes', t)).catch(
@@ -315,7 +317,8 @@ export default class PluginLoader {
 			)
 		)
 		loaded_themes.forEach(t => {
-			if (t !== undefined) ThemeManager.addTheme(t)
+			if (t !== undefined)
+				ThemeManager.addTheme(t, pluginPath.startsWith(DATA_PATH))
 		})
 	}
 

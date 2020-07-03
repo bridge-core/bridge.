@@ -60,10 +60,10 @@ export default class ProjectConfig {
 				return (
 					(await readJSON(this.config_path)).theme[
 						SETTINGS.load().id
-					] || 'bridge.default.theme'
+					] || 'bridge.null'
 				)
 			} catch {
-				return 'bridge.default.theme'
+				return 'bridge.null'
 			}
 		})()
 	}

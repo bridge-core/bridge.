@@ -76,14 +76,16 @@ export default class ThemeManager {
 	static css = new Map<string, string>()
 	static themes: any = getDefaultThemes()
 	static plugin_themes: any = {}
+	static plugin_themes_global: any = {}
 	static current_theme: string
 	static options: IThemeOptions
+	static global_theme: string
 
 	static reloadDefaultThemes() {
 		this.themes = getDefaultThemes()
 	}
 
-	static get theme_names() {
+	static get local_theme_names() {
 		let theme_names = []
 		for (let id in this.themes) {
 			theme_names.push({ text: this.themes[id].name, value: id })
@@ -93,8 +95,24 @@ export default class ThemeManager {
 		}
 		return theme_names.sort()
 	}
+	static get global_theme_names() {
+		let theme_names = []
+		for (let id in this.themes) {
+			theme_names.push({ text: this.themes[id].name, value: id })
+		}
+		for (let id in this.plugin_themes_global) {
+			theme_names.push({
+				text: this.plugin_themes_global[id].name,
+				value: id,
+			})
+		}
+		return theme_names.sort()
+	}
 
-	static addTheme({ id, ...theme }: { id: string; [other: string]: any }) {
+	static addTheme(
+		{ id, ...theme }: { id: string; [other: string]: any },
+		isGlobal: boolean
+	) {
 		if (!id)
 			return console.error(
 				"No valid ID provided for theme. IDs may not be 'falsy'"
@@ -102,7 +120,8 @@ export default class ThemeManager {
 		if (theme.definition.dark === undefined) theme.definition.dark = {}
 		if (theme.definition.light === undefined) theme.definition.light = {}
 
-		this.plugin_themes[id] = theme
+		if (isGlobal) this.plugin_themes_global[id] = theme
+		else this.plugin_themes[id] = theme
 	}
 
 	static applyTheme(id: string) {
@@ -146,8 +165,18 @@ export default class ThemeManager {
 	}
 
 	static async loadTheme() {
+		// If we haven't set the global theme yet, get it from the settings.
+		// If settings has no global theme, this.applyTheme will use bridge.default.theme which works nicely
+		this.global_theme = this.global_theme
+			? this.global_theme
+			: Store.state.Settings.global_theme
 		try {
-			this.applyTheme(await ProjectConfig.theme)
+			this.applyTheme(
+				// If the local theme is "None", use the global theme.
+				(await ProjectConfig.theme) == 'bridge.null'
+					? this.global_theme
+					: await ProjectConfig.theme
+			)
 		} catch {
 			this.applyTheme('bridge.default.theme')
 		}
