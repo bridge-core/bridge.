@@ -9,110 +9,16 @@
 				<br />
 				<br />
 			</v-layout>
-			<v-container fluid class="pb-12">
+			<v-container>
 				<v-row>
-					<!---Need Help Card-->
-					<v-card
-						tile
-						class="mx-auto"
-						min-width="250"
-						max-width="300"
-						height="450"
-						elevation="14"
-						color="sidebar_navigation"
-					>
-						<v-card-title class="ml-13">Need Help?</v-card-title>
-						<v-layout align-center justify-center>
-							<div>
-								<p class="pt-2">
-									<v-tooltip bottom color="#7289DA">
-										<template
-											v-slot:activator="{ on, attrs }"
-										>
-											<v-btn
-												class="mx-2"
-												fab
-												dark
-												x-large
-												color="#7289DA"
-												@click="openDiscord"
-											>
-												<v-icon
-													dark
-													v-bind="attrs"
-													v-on="on"
-												>
-													mdi-discord
-												</v-icon>
-											</v-btn>
-										</template>
-										<span>Join Our Discord Server!</span>
-									</v-tooltip>
-								</p>
-								<p class="pt-10">
-									<v-tooltip bottom color="secondary">
-										<template
-											v-slot:activator="{ on, attrs }"
-										>
-											<v-btn
-												class="mx-2"
-												fab
-												dark
-												x-large
-												color="secondary"
-												@click="openBedrockGuide"
-											>
-												<v-icon
-													dark
-													v-bind="attrs"
-													v-on="on"
-												>
-													mdi-book-open-variant
-												</v-icon>
-											</v-btn>
-										</template>
-										<span
-											>Check Out These Addon Guides!</span
-										>
-									</v-tooltip>
-								</p>
-								<p class="pt-12">
-									<v-tooltip bottom color="primary">
-										<template
-											v-slot:activator="{ on, attrs }"
-										>
-											<v-btn
-												class="mx-2"
-												fab
-												dark
-												x-large
-												color="primary"
-												@click="openBedrockWiki"
-											>
-												<v-icon
-													dark
-													v-bind="attrs"
-													v-on="on"
-												>
-													mdi-earth
-												</v-icon>
-											</v-btn>
-										</template>
-										<span>Check Out This Addon Wiki!</span>
-									</v-tooltip>
-								</p>
-							</div>
-						</v-layout>
-					</v-card>
 					<!---Features Card-->
 					<v-card
-						tile
+						flat
 						class="mx-auto"
 						min-width="250"
 						max-width="300"
 						height="465"
-						elevation="14"
-						color="sidebar_navigation"
+						color="background"
 					>
 						<v-card-title class="ml-16 pl-9">Features</v-card-title>
 						<v-expansion-panels tile>
@@ -198,17 +104,17 @@
 					</v-card>
 					<!---Customize Card-->
 					<v-card
-						tile
+						flat
 						class="mx-auto"
 						min-width="250"
 						max-width="300"
 						height="450"
-						elevation="14"
-						color="sidebar_navigation"
+						color="background"
 					>
 						<v-card-title class="ml-3"
 							>Customize Your Experience</v-card-title
 						>
+						<br />
 						<p>
 							With Plugins You Can Customize Your Experience With
 							bridge.!
@@ -255,6 +161,53 @@
 							</v-btn>
 						</p>
 					</v-card>
+				</v-row>
+				<v-row>
+					<!---Need Help? Row-->
+					<header class="mx-auto">Need Help?</header>
+					<v-layout align-end class="pl-5">
+						<div class="text-center">
+							<v-btn
+								class="ma-2"
+								rounded
+								dark
+								large
+								color="#7289DA"
+								@click="openDiscord"
+							>
+								<v-icon dark>
+									mdi-discord
+								</v-icon>
+								<span>Join Our Discord Server!</span>
+							</v-btn>
+							<v-btn
+								class="ma-2"
+								rounded
+								dark
+								large
+								color="secondary"
+								@click="openBedrockGuide"
+							>
+								<v-icon dark>
+									mdi-book-open-variant
+								</v-icon>
+								<span>Check Out guide.bedrock.dev!</span>
+							</v-btn>
+							<v-btn
+								class="ma-2"
+								rounded
+								dark
+								large
+								color="primary"
+								@click="openBedrockWiki"
+							>
+								<v-icon dark>
+									mdi-earth
+								</v-icon>
+								<span>Check Out wiki.bedrock.dev!</span>
+							</v-btn>
+						</div>
+					</v-layout>
 				</v-row>
 			</v-container>
 		</v-layout>
