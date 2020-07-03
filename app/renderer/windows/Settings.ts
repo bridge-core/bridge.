@@ -414,7 +414,7 @@ export default class SettingsWindow extends TabWindow {
 					is_box: true,
 					color: 'primary',
 					text: 'None',
-					input: ProjectConfig.theme,
+					input: ThemeManager.local_theme,
 					options: [
 						{ text: 'None', value: 'bridge.null' },
 						...ThemeManager.local_theme_names,

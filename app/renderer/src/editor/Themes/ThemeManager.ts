@@ -80,6 +80,7 @@ export default class ThemeManager {
 	static current_theme: string
 	static options: IThemeOptions
 	static global_theme: string
+	static local_theme: string
 
 	static reloadDefaultThemes() {
 		this.themes = getDefaultThemes()
@@ -92,6 +93,12 @@ export default class ThemeManager {
 		}
 		for (let id in this.plugin_themes) {
 			theme_names.push({ text: this.plugin_themes[id].name, value: id })
+		}
+		for (let id in this.plugin_themes_global) {
+			theme_names.push({
+				text: this.plugin_themes_global[id].name,
+				value: id,
+			})
 		}
 		return theme_names.sort()
 	}
@@ -126,7 +133,11 @@ export default class ThemeManager {
 
 	static applyTheme(id: string) {
 		this.current_theme = id
-		const theme = this.themes[id] || this.plugin_themes[id] || {}
+		const theme =
+			this.themes[id] ||
+			this.plugin_themes[id] ||
+			this.plugin_themes_global[id] ||
+			{}
 
 		//Load theme options
 		this.options = theme.options || {}
@@ -180,6 +191,8 @@ export default class ThemeManager {
 		} catch {
 			this.applyTheme('bridge.default.theme')
 		}
+		// Regardless of what theme is chosen, save what the local theme is for the settings menu to reference
+		this.local_theme = await ProjectConfig.theme
 	}
 
 	static reset() {
