@@ -24,7 +24,7 @@
 						<v-expansion-panels tile>
 							<v-expansion-panel>
 								<v-expansion-panel-header>
-									<v-icon>mdi-auto-fix</v-icon>
+									<v-icon small>mdi-auto-fix</v-icon>
 									<span>Syntax highlighting</span>
 								</v-expansion-panel-header>
 								<v-expansion-panel-content>
@@ -33,7 +33,9 @@
 							</v-expansion-panel>
 							<v-expansion-panel>
 								<v-expansion-panel-header>
-									<v-icon>mdi-format-list-bulleted</v-icon>
+									<v-icon small
+										>mdi-format-list-bulleted</v-icon
+									>
 									<span>Rich auto-completions</span>
 								</v-expansion-panel-header>
 								<v-expansion-panel-content>
@@ -43,7 +45,7 @@
 							</v-expansion-panel>
 							<v-expansion-panel>
 								<v-expansion-panel-header>
-									<v-icon>mdi-folder-multiple</v-icon>
+									<v-icon small>mdi-folder-multiple</v-icon>
 									<span>Easy project mangement</span>
 								</v-expansion-panel-header>
 								<v-expansion-panel-content>
@@ -56,7 +58,7 @@
 							</v-expansion-panel>
 							<v-expansion-panel>
 								<v-expansion-panel-header>
-									<v-icon>mdi-package-variant</v-icon>
+									<v-icon small>mdi-package-variant</v-icon>
 									<span>Custom components</span>
 								</v-expansion-panel-header>
 								<v-expansion-panel-content>
@@ -67,7 +69,7 @@
 							</v-expansion-panel>
 							<v-expansion-panel>
 								<v-expansion-panel-header>
-									<v-icon>mdi-console-line</v-icon>
+									<v-icon small>mdi-console-line</v-icon>
 									<span>Custom commands</span>
 								</v-expansion-panel-header>
 								<v-expansion-panel-content>
@@ -79,7 +81,7 @@
 							</v-expansion-panel>
 							<v-expansion-panel>
 								<v-expansion-panel-header>
-									<v-icon>mdi-cog</v-icon>
+									<v-icon small>mdi-cog</v-icon>
 									<span>Collection of settings</span>
 								</v-expansion-panel-header>
 								<v-expansion-panel-content>
@@ -91,7 +93,7 @@
 							</v-expansion-panel>
 							<v-expansion-panel>
 								<v-expansion-panel-header>
-									<v-icon>mdi-cube-outline</v-icon>
+									<v-icon small>mdi-cube-outline</v-icon>
 									<span>OBJ model converter</span>
 								</v-expansion-panel-header>
 								<v-expansion-panel-content>
@@ -105,7 +107,7 @@
 					<!---Customize Card-->
 					<v-card
 						flat
-						class="mx-auto"
+						class="mx-auto mt-1"
 						min-width="250"
 						max-width="300"
 						height="450"
@@ -122,7 +124,8 @@
 						<ul class="pr-3">
 							<title>What you can do:</title>
 							<br />
-							<header>You can create/download new...</header>
+							<header>You can create new...</header>
+							<br />
 							<li>
 								<v-icon small>mdi-palette</v-icon>
 								<span>Themes</span>
@@ -148,7 +151,7 @@
 								<span>And Much More!</span>
 							</li>
 						</ul>
-						<p class="pt-14">
+						<p class="pt-10">
 							<v-btn
 								rounded
 								large
@@ -165,7 +168,7 @@
 				<v-row>
 					<!---Need Help? Row-->
 					<header class="mx-auto">Need Help?</header>
-					<v-layout align-end class="pl-5">
+					<v-layout align-end class="pl-7">
 						<div class="text-center">
 							<v-btn
 								class="ma-2"
@@ -185,7 +188,7 @@
 								rounded
 								dark
 								large
-								color="secondary"
+								color="primary"
 								@click="openBedrockGuide"
 							>
 								<v-icon dark>
