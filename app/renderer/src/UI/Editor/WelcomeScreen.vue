@@ -13,42 +13,41 @@
 				<v-row>
 					<!---Features Card-->
 					<v-card
-						flat
-						class="mx-auto"
-						min-width="250"
+						class="mx-auto mb-7"
+						min-width="270"
 						max-width="300"
-						height="465"
+						height="420"
 						color="background"
 					>
 						<v-card-title class="ml-16 pl-9">Features</v-card-title>
-						<v-expansion-panels tile>
+						<v-expansion-panels accordion flat>
 							<v-expansion-panel>
-								<v-expansion-panel-header>
+								<v-expansion-panel-header color="background">
 									<v-icon small>mdi-auto-fix</v-icon>
 									<span>Syntax highlighting</span>
 								</v-expansion-panel-header>
-								<v-expansion-panel-content>
+								<v-expansion-panel-content color="background">
 									Beautiful syntax highlighting for all files
 								</v-expansion-panel-content>
 							</v-expansion-panel>
 							<v-expansion-panel>
-								<v-expansion-panel-header>
+								<v-expansion-panel-header color="background">
 									<v-icon small
 										>mdi-format-list-bulleted</v-icon
 									>
 									<span>Rich auto-completions</span>
 								</v-expansion-panel-header>
-								<v-expansion-panel-content>
+								<v-expansion-panel-content color="background">
 									We provide hand-written auto-completions for
 									every JSON, lang and mcfunction file!
 								</v-expansion-panel-content>
 							</v-expansion-panel>
 							<v-expansion-panel>
-								<v-expansion-panel-header>
+								<v-expansion-panel-header color="background">
 									<v-icon small>mdi-folder-multiple</v-icon>
 									<span>Easy project mangement</span>
 								</v-expansion-panel-header>
-								<v-expansion-panel-content>
+								<v-expansion-panel-content color="background">
 									Creating addons is easy with bridge.. You
 									can create new behaviour and resource packs
 									with an automatically generated manifest and
@@ -57,22 +56,22 @@
 								</v-expansion-panel-content>
 							</v-expansion-panel>
 							<v-expansion-panel>
-								<v-expansion-panel-header>
+								<v-expansion-panel-header color="background">
 									<v-icon small>mdi-package-variant</v-icon>
 									<span>Custom components</span>
 								</v-expansion-panel-header>
-								<v-expansion-panel-content>
+								<v-expansion-panel-content color="background">
 									With custom entity components you can write
 									Javascript to make your own components with
 									custom arguments.
 								</v-expansion-panel-content>
 							</v-expansion-panel>
 							<v-expansion-panel>
-								<v-expansion-panel-header>
+								<v-expansion-panel-header color="background">
 									<v-icon small>mdi-console-line</v-icon>
 									<span>Custom commands</span>
 								</v-expansion-panel-header>
-								<v-expansion-panel-content>
+								<v-expansion-panel-content color="background">
 									With custom commands you can write
 									Javascript to make custom commands and
 									target selctors that can be used in
@@ -80,11 +79,11 @@
 								</v-expansion-panel-content>
 							</v-expansion-panel>
 							<v-expansion-panel>
-								<v-expansion-panel-header>
+								<v-expansion-panel-header color="background">
 									<v-icon small>mdi-cog</v-icon>
 									<span>Collection of settings</span>
 								</v-expansion-panel-header>
-								<v-expansion-panel-content>
+								<v-expansion-panel-content color="background">
 									With bridge., you get to choose from a
 									collection of settings that can affect the
 									look of bridge., the format of JSON files,
@@ -92,11 +91,11 @@
 								</v-expansion-panel-content>
 							</v-expansion-panel>
 							<v-expansion-panel>
-								<v-expansion-panel-header>
+								<v-expansion-panel-header color="background">
 									<v-icon small>mdi-cube-outline</v-icon>
 									<span>OBJ model converter</span>
 								</v-expansion-panel-header>
-								<v-expansion-panel-content>
+								<v-expansion-panel-content color="background">
 									The OBJ to JSON model converter can be used
 									to easily convert OBJ models to be used in
 									Minecraft.
@@ -106,11 +105,10 @@
 					</v-card>
 					<!---Customize Card-->
 					<v-card
-						flat
-						class="mx-auto mt-1"
+						class="mx-auto mb-7"
 						min-width="250"
 						max-width="300"
-						height="450"
+						height="420"
 						color="background"
 					>
 						<v-card-title class="ml-3"
@@ -141,7 +139,7 @@
 								<span>Presets</span>
 							</li>
 							<li>
-								<v-icon>mdi-menu</v-icon>
+								<v-icon small>mdi-menu</v-icon>
 								<span>UI Elements</span>
 							</li>
 							<li>
