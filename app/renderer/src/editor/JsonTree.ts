@@ -344,14 +344,14 @@ export default class JSONTree {
 	/**
 	 * @param {String} new_data
 	 */
-	edit(new_data: string, update_history = false) {
+	edit(new_data: string, update_history = false, updateUUID = true) {
 		if (update_history)
 			TabSystem.getHistory().add(
 				new JSONAction('edit-data', this, this.data)
 			)
 
 		this.data = new_data
-		this.loadMeta()
+		this.loadMeta(undefined, undefined, updateUUID)
 	}
 	/**
 	 * @param {String} new_key

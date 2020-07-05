@@ -11,11 +11,11 @@
 				<TreeRenderer :first="false" :language="language" :tree="child" :isParentOnScreen="isOnScreen" />
 			</details>
 
-			<Highlight
+			<TreeProperty
 				v-else
 				:key="`darkMode-${isDarkMode}-uuid-${child.uuid}`"
-				:language="child.meta.language || language"
-				:value="`${child.key} : ${getData(child) || '{}'}`"
+				:language="language"
+				:tree="child"
 				:isOnScreen="isParentOnScreen && isOnScreen"
 			/>
 		</template>

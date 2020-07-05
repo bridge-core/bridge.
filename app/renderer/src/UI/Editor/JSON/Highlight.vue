@@ -1,18 +1,15 @@
 <template>
 	<component v-if="shouldRender" :is="tagName">
-		<Await :promise="colorize(value)">
+		<Await @load="$emit('load')" @error="$emit('error')" :promise="colorize(value)">
 			<template #default="{ data }">
 				<span v-html="data" />
-			</template>
-			<template #pending>
-				<span v-text="value" />
 			</template>
 			<template #error>
 				<span v-text="value" />
 			</template>
 		</Await>
 	</component>
-	<component :is="tagName === 'summary' ? tagName : 'div'" v-else v-text="value" />
+	<component :is="tagName === 'summary' ? tagName : 'span'" v-else v-text="value" />
 </template>
 
 <script>
@@ -49,9 +46,13 @@ export default {
 	},
 	methods: {
 		colorize(string) {
-			return editor.colorize(string, this.language, {
-				theme: this.isDarkMode ? 'bridge-dark' : 'bridge-light',
-			})
+			return editor
+				.colorize(string, this.language, {
+					theme: this.isDarkMode ? 'bridge-dark' : 'bridge-light',
+				})
+				.then(htmlString =>
+					htmlString.substring(0, htmlString.length - 5)
+				)
 		},
 	},
 	watch: {

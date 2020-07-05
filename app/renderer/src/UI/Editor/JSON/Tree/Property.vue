@@ -1,21 +1,21 @@
 <template>
 	<span>
-		<!-- <Highlight
-			v-if="!isEditing"
-			tagName="summary"
-			:language="language"
-			:value="treeKey"
-			:isOnScreen="isOnScreen"
-			@click.native="onClick"
-		/>:
-		<input
-			v-else
-			ref="input"
-			class="inline-edit"
+		<EditableHighlight
 			v-model="treeKey"
-			@blur="deactivateEditMode"
-			@keydown.enter="deactivateEditMode"
-		/>-->
+			@click="tree.toggleOpen()"
+			:isOnScreen="isOnScreen"
+			:language="language"
+			tagName="span"
+		/>:
+		<EditableHighlight
+			v-if="treeData !== ''"
+			v-model="treeData"
+			:isOnScreen="isOnScreen"
+			:language="language"
+			tagName="span"
+		/>
+		<template v-else>{}</template>
+		<br />
 	</span>
 </template>
 
@@ -23,16 +23,40 @@
 import Highlight from '../Highlight.vue'
 import JSONTree from '../../../../editor/JsonTree'
 import TabSystem from '../../../../TabSystem'
+import EditableHighlight from '../../../Common/EditableHighlight'
 
 export default {
-	name: 'TreeProperty',
+	name: 'TreeKey',
 	props: {
 		isOnScreen: Boolean,
 		tree: JSONTree,
 		language: String,
 	},
 	components: {
-		Highlight,
+		EditableHighlight,
+	},
+
+	computed: {
+		treeKey: {
+			set(val) {
+				TabSystem.setCurrentUnsaved()
+
+				this.tree.editKey(val, true, false)
+			},
+			get() {
+				return this.tree.key
+			},
+		},
+		treeData: {
+			set(val) {
+				TabSystem.setCurrentUnsaved()
+
+				this.tree.edit(val, true, false)
+			},
+			get() {
+				return this.tree.data
+			},
+		},
 	},
 }
 </script>

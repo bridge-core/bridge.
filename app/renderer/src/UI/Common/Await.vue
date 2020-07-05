@@ -20,10 +20,14 @@ export default {
 	created() {
 		this.promise
 			.then(value => {
+				this.$emit('load')
 				this.isLoading = false
 				this.value = value
 			})
-			.catch(err => (this.error = err))
+			.catch(err => {
+				this.$emit('error')
+				this.error = err
+			})
 	},
 }
 </script>
