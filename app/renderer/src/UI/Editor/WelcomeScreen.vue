@@ -13,16 +13,17 @@
 				<v-row>
 					<v-carousel
 						continuous
-						hide-delimiters
-						class="mx-16 px-16 pt-6"
+						class="mx-16 pt-2"
+						hide-delimiter-background
+						height="600"
 					>
 						<!---Features Card-->
 						<v-carousel-item>
 							<v-card
-								class="mx-auto mb-7"
+								class="mx-auto mt-4"
 								min-width="270"
 								max-width="300"
-								height="420"
+								height="415"
 								color="background"
 							>
 								<v-card-title class="ml-16 pl-9"
@@ -155,7 +156,7 @@
 						<!---Customize Card-->
 						<v-carousel-item>
 							<v-card
-								class="mx-auto mb-7"
+								class="mx-auto mt-10"
 								min-width="250"
 								max-width="300"
 								height="420"
@@ -213,54 +214,64 @@
 								</p>
 							</v-card>
 						</v-carousel-item>
+						<v-carousel-item>
+							<!---Need Help? Card-->
+							<v-card
+								class="mx-auto mt-16 pt-5"
+								min-width="300"
+								max-width="360"
+								height="360"
+								color="background"
+							>
+								<v-card-title class="ml-16 pl-14">
+									Need Help?
+								</v-card-title>
+								<div class="text-center">
+									<v-btn
+										class="ma-5"
+										rounded
+										dark
+										large
+										color="#7289DA"
+										@click="openDiscord"
+									>
+										<v-icon dark>
+											mdi-discord
+										</v-icon>
+										<span>Join Our Discord Server!</span>
+									</v-btn>
+									<v-btn
+										class="ma-5"
+										rounded
+										dark
+										large
+										color="primary"
+										@click="openBedrockGuide"
+									>
+										<v-icon dark>
+											mdi-book-open-variant
+										</v-icon>
+										<span
+											>Check Out guide.bedrock.dev!</span
+										>
+									</v-btn>
+									<v-btn
+										class="ma-5"
+										rounded
+										dark
+										large
+										color="primary"
+										@click="openBedrockWiki"
+									>
+										<v-icon dark>
+											mdi-earth
+										</v-icon>
+										<span>Check Out wiki.bedrock.dev!</span>
+									</v-btn>
+								</div>
+							</v-card>
+						</v-carousel-item>
 					</v-carousel>
-				</v-row>
-				<v-row>
-					<!---Need Help? Row-->
-					<header class="mx-auto">Need Help?</header>
-					<v-layout align-end class="pl-7">
-						<div class="text-center">
-							<v-btn
-								class="ma-2"
-								rounded
-								dark
-								large
-								color="#7289DA"
-								@click="openDiscord"
-							>
-								<v-icon dark>
-									mdi-discord
-								</v-icon>
-								<span>Join Our Discord Server!</span>
-							</v-btn>
-							<v-btn
-								class="ma-2"
-								rounded
-								dark
-								large
-								color="primary"
-								@click="openBedrockGuide"
-							>
-								<v-icon dark>
-									mdi-book-open-variant
-								</v-icon>
-								<span>Check Out guide.bedrock.dev!</span>
-							</v-btn>
-							<v-btn
-								class="ma-2"
-								rounded
-								dark
-								large
-								color="primary"
-								@click="openBedrockWiki"
-							>
-								<v-icon dark>
-									mdi-earth
-								</v-icon>
-								<span>Check Out wiki.bedrock.dev!</span>
-							</v-btn>
-						</div>
-					</v-layout>
 				</v-row>
 			</v-container>
 		</v-layout>
