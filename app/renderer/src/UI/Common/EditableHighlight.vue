@@ -48,9 +48,6 @@ export default {
 			width: null,
 		}
 	},
-	mounted() {
-		this.trySetWidth()
-	},
 
 	methods: {
 		onClick(event) {
@@ -78,11 +75,11 @@ export default {
 		},
 		activateEditMode() {
 			this.isEditing = true
+			this.trySetWidth()
 			this.$nextTick(() => this.$refs.input.focus())
 		},
 		deactivateEditMode() {
 			this.isEditing = false
-			this.$nextTick(() => this.trySetWidth())
 		},
 		trySetWidth() {
 			try {
