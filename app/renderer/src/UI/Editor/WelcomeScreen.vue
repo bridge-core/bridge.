@@ -16,6 +16,7 @@
 						class="mx-16 pt-2"
 						hide-delimiter-background
 						height="600"
+						:light="!is_dark_mode"
 					>
 						<!---Features Card-->
 						<v-carousel-item>
@@ -306,6 +307,11 @@ export default {
 		},
 		openBedrockWiki(event) {
 			shell.openExternal('https://wiki.bedrock.dev')
+		},
+	},
+	computed: {
+		is_dark_mode() {
+			return this.$store.state.Appearance.is_dark_mode
 		},
 	},
 }
