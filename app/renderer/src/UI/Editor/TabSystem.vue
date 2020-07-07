@@ -4,76 +4,95 @@
 		:style="
 			`display: inline-block; overflow-x: scroll; white-space: nowrap; width: 100%;`
 		"
+		class="tab-drag"
 	>
-		<v-tab
-			v-for="(file, i) in open_files"
-			:key="`${selected_project}-${i}-${unsaved.join()}-${file.content.isLoadingMetaData}`"
-			:ripple="!isSelected(i)"
-			:class="`tab ${isSelected(i) ? 'selected' : ''}`"
-			:style="
-				`
+		<draggable ghost-class="ghost" @end="onEnd">
+			<v-tab
+				v-for="(file, i) in open_files"
+				:key="
+					`${selected_project}-${i}-${unsaved.join()}-${
+						file.content.isLoadingMetaData
+					}`
+				"
+				:ripple="!isSelected(i)"
+				:class="`tab ${isSelected(i) ? 'selected' : ''} sortable`"
+				:style="
+					`
                 ${isInactiveAndSelected(i) ? 'opacity: 1;' : ''}
                 display: inline-block;
                 border-bottom: 2px solid var(--v-background-darken2);
                 background: var(--v-background-darken1);
 				max-width: unset;
             `
-			"
-			@click.native="selected_tab = i"
-			@click.middle.native="closeTab(i)"
-			@contextmenu.native="onContextMenu($event, i)"
-		>
-			<v-btn
-				v-if="showDocButton(file.file_path)"
-				:disabled="!isSelected(i)"
-				color="primary"
-				@click.stop="openDoc(file.file_path)"
-				text
-				icon
-				small
+				"
+				@click.native="selected_tab = i"
+				@click.middle.native="closeTab(i)"
+				@contextmenu.native="onContextMenu($event, i)"
 			>
-				<v-icon small>mdi-book-open-page-variant</v-icon>
-			</v-btn>
+				<v-btn
+					v-if="showDocButton(file.file_path)"
+					:disabled="!isSelected(i)"
+					color="primary"
+					@click.stop="openDoc(file.file_path)"
+					text
+					icon
+					small
+				>
+					<v-icon small>mdi-book-open-page-variant</v-icon>
+				</v-btn>
 
-			<v-tooltip v-if="file.content.isLoadingMetaData" color="tooltip" right>
-				<template v-slot:activator="{ on }">
-					<v-progress-circular v-on="on" indeterminate :size="14" :width="2" color="primary" />
-				</template>
-				<span>Validating file...</span>
-			</v-tooltip>
+				<v-tooltip
+					v-if="file.content.isLoadingMetaData"
+					color="tooltip"
+					right
+				>
+					<template v-slot:activator="{ on }">
+						<v-progress-circular
+							v-on="on"
+							indeterminate
+							:size="14"
+							:width="2"
+							color="primary"
+						/>
+					</template>
+					<span>Validating file...</span>
+				</v-tooltip>
 
-			<v-icon
-				v-else-if="getIcon(file.file_path)"
-				:color="isSelected(i) ? 'primary' : undefined"
-				small
-			>{{ getIcon(file.file_path) }}</v-icon>
+				<v-icon
+					v-else-if="getIcon(file.file_path)"
+					:color="isSelected(i) ? 'primary' : undefined"
+					small
+					>{{ getIcon(file.file_path) }}</v-icon
+				>
 
-			<span v-if="file.folders.length > 0">
-				{{ file.folders[file.folders.length - 1] }}
-				/
-			</span>
-			<v-tooltip
-				color="tooltip"
-				:open-delay="600"
-				transition="scale-transition"
-				:disabled="file.file_name.length <= 27"
-				bottom
-			>
-				<template v-slot:activator="{ on }">
-					<span
-						v-on="on"
-						:style="
-							`font-style: ${unsaved[i] ? 'italic' : 'none'};`
-						"
-					>{{ getFileName(file.file_name) }}</span>
-				</template>
-				<span>{{ file.file_name }}</span>
-			</v-tooltip>
+				<span v-if="file.folders.length > 0">
+					{{ file.folders[file.folders.length - 1] }}
+					/
+				</span>
+				<v-tooltip
+					color="tooltip"
+					:open-delay="600"
+					transition="scale-transition"
+					:disabled="file.file_name.length <= 27"
+					bottom
+				>
+					<template v-slot:activator="{ on }">
+						<span
+							v-on="on"
+							:style="
+								`font-style: ${unsaved[i] ? 'italic' : 'none'};`
+							"
+							>{{ getFileName(file.file_name) }}</span
+						>
+					</template>
+					<span>{{ file.file_name }}</span>
+				</v-tooltip>
 
-			<v-btn @click.stop="closeTab(i)" text icon small>
-				<v-icon small>mdi-close</v-icon>
-			</v-btn>
-		</v-tab>
+				<v-btn @click.stop="closeTab(i)" text icon small>
+					<v-icon small>mdi-close</v-icon>
+				</v-btn>
+			</v-tab>
+		</draggable>
 	</div>
 </template>
 
@@ -84,6 +103,7 @@ import FileType from '../../editor/FileType'
 import { shell } from 'electron'
 import { DOC_URL } from '../../constants'
 import { getTabContextMenu } from '../../UI/ContextMenu/Tab'
+import draggable from 'vuedraggable'
 
 export default {
 	name: 'editor-shell-tab-system',
@@ -93,6 +113,9 @@ export default {
 			default: false,
 		},
 	},
+	components: {
+		draggable,
+	},
 	data() {
 		return {
 			open_files: TabSystem.getCurrentProjects(this.split_screen),
@@ -100,6 +123,8 @@ export default {
 				this.split_screen
 			),
 			unsaved: [],
+			oldIndex: '',
+			newIndex: '',
 		}
 	},
 	created() {
@@ -205,6 +230,10 @@ export default {
 		getIcon(file_path) {
 			return FileType.getFileIcon(file_path)
 		},
+		onEnd: function(evt) {
+			this.oldIndex = evt.oldIndex
+			this.newIndex = evt.newIndex
+		},
 		async onContextMenu(event, index) {
 			this.$store.commit('openContextMenu', {
 				x_position: event.clientX,
@@ -242,7 +271,9 @@ div.flex {
 	border-bottom-left-radius: 2px;
 	border-bottom-right-radius: 2px;
 }
-
+.tab-drag .sortable-drag {
+	opacity: 0;
+}
 /* .v-icon {
         margin-left: 0.1em;
         opacity: 0.4;
