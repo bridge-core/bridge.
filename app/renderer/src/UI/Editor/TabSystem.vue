@@ -233,6 +233,7 @@ export default {
 		updateOrder: function(evt) {
 			this.oldIndex = evt.oldIndex
 			this.newIndex = evt.newIndex
+			this.selected_tab = this.newIndex
 		},
 		async onContextMenu(event, index) {
 			this.$store.commit('openContextMenu', {
