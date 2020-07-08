@@ -6,7 +6,7 @@
 		"
 		class="tab-drag"
 	>
-		<draggable ghost-class="ghost" @end="onEnd">
+		<draggable ghost-class="ghost" @end="updateOrder">
 			<v-tab
 				v-for="(file, i) in open_files"
 				:key="
@@ -230,7 +230,7 @@ export default {
 		getIcon(file_path) {
 			return FileType.getFileIcon(file_path)
 		},
-		onEnd: function(evt) {
+		updateOrder: function(evt) {
 			this.oldIndex = evt.oldIndex
 			this.newIndex = evt.newIndex
 		},
