@@ -1,13 +1,9 @@
 import Vue from 'vue'
-import {
-	readJSONSync
-} from '../../src/Utilities/JsonFS'
+import { readJSONSync } from '../../src/Utilities/JsonFS'
 import path from 'path'
 import ThemeManager from '../../src/editor/Themes/ThemeManager'
 import EventBus from '../../src/EventBus'
-import {
-	createStyleSheet
-} from '../../src/plugins/styles/createStyle'
+import { createStyleSheet } from '../../src/plugins/styles/createStyle'
 const CM_NAME_MAP = readJSONSync(path.join(__static, 'data/cm_name_map.json'))
 
 const state = {
@@ -22,6 +18,8 @@ const state = {
 		'.txt': 'mdi-file-document-outline',
 		'.xls': 'mdi-file-excel',
 		'.lang': 'mdi-web',
+		'.ogg': 'mdi-volume-high',
+		'.fsb': 'mdi-volume-high',
 	},
 	color_theme: {
 		dark: {
@@ -99,11 +97,7 @@ function applyTheme(theme, mode = 'dark') {
 		mode === 'dark' ? 'white' : 'black'
 	};}`
 	for (let key in theme) {
-		let {
-			color,
-			text_decoration,
-			is_italic = false
-		} = theme[key]
+		let { color, text_decoration, is_italic = false } = theme[key]
 
 		style += `.theme--${mode} span.cm-${CM_NAME_MAP[key] || key} {
             color: ${color || 'unset'};
@@ -121,11 +115,7 @@ const mutations = {
 	setDarkMode(state, val) {
 		state.is_dark_mode = val
 	},
-	setColorTheme(state, {
-		light,
-		dark,
-		update_styles
-	} = {}) {
+	setColorTheme(state, { light, dark, update_styles } = {}) {
 		if (!update_styles) return
 		if (ThemeManager.options.inherit_highlighter) {
 			Vue.set(
@@ -146,8 +136,8 @@ const mutations = {
 		if (StyleSheet) StyleSheet.dispose()
 		StyleSheet = createStyleSheet(
 			applyTheme(state.color_theme.dark) +
-			applyTheme(state.color_theme.light, 'light') +
-			(state.options.css || '')
+				applyTheme(state.color_theme.light, 'light') +
+				(state.options.css || '')
 		)
 
 		EventBus.trigger('bridge:themeChanged')
