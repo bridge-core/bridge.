@@ -21,9 +21,9 @@ export function setupKeyBindings() {
 		let action = KEYMAP.get(
 			getStrKeyCode({
 				key,
-				ctrlKey,
+				ctrlKey: platform() === 'darwin' ? metaKey : ctrlKey,
 				altKey,
-				metaKey,
+				metaKey: platform() === 'darwin' ? ctrlKey : metaKey,
 				shiftKey: key.toUpperCase() === key,
 			})
 		)
@@ -68,9 +68,12 @@ export function getStrKeyCode({
 	metaKey,
 }: IKeyBinding) {
 	let code = key.toUpperCase()
-	if (metaKey) code = 'Meta + ' + code
 	if (shiftKey) code = 'Shift + ' + code
 	if (altKey) code = 'Alt + ' + code
+	if (metaKey) {
+		if (platform() === 'darwin') code = 'Ctrl + ' + code
+		else code = 'Meta + ' + code
+	}
 	if (ctrlKey) {
 		if (platform() === 'darwin') code = 'Cmd + ' + code
 		else code = 'Ctrl + ' + code
