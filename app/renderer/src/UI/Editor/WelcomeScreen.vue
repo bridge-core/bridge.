@@ -154,67 +154,6 @@
 								</v-expansion-panels>
 							</v-card>
 						</v-carousel-item>
-						<!---Customize Card-->
-						<v-carousel-item>
-							<v-card
-								class="mx-auto mt-10"
-								min-width="250"
-								max-width="300"
-								height="420"
-								color="background"
-							>
-								<v-card-title class="ml-3"
-									>Customize Your Experience</v-card-title
-								>
-								<br />
-								<p>
-									With Plugins You Can Customize Your
-									Experience With bridge.!
-								</p>
-								<ul class="pr-3">
-									<title>What you can do:</title>
-									<br />
-									<header>You can create new...</header>
-									<br />
-									<li>
-										<v-icon small>mdi-palette</v-icon>
-										<span>Themes</span>
-									</li>
-									<li>
-										<v-icon small>mdi-attachment</v-icon>
-										<span>Snippets</span>
-									</li>
-									<li>
-										<v-icon small
-											>mdi-text-box-multiple-outline</v-icon
-										>
-										<span>Presets</span>
-									</li>
-									<li>
-										<v-icon small>mdi-menu</v-icon>
-										<span>UI Elements</span>
-									</li>
-									<li>
-										<v-icon small
-											>mdi-format-list-bulleted-square</v-icon
-										>
-										<span>And Much More!</span>
-									</li>
-								</ul>
-								<p class="pt-10">
-									<v-btn
-										rounded
-										large
-										dark
-										color="primary"
-										@click="openExtensionBrowser"
-									>
-										<v-icon>mdi-puzzle</v-icon>
-										<span>Open Extension Store</span>
-									</v-btn>
-								</p>
-							</v-card>
-						</v-carousel-item>
 						<v-carousel-item>
 							<!---Need Help? Card-->
 							<v-card
@@ -283,7 +222,6 @@
 import CreateFileWindow from '../../../windows/CreateFile'
 import DiscordWindow from '../../../windows/Discord'
 import { shell } from 'electron'
-import ExtensionBrowser from '../../../windows/Extensions/Browser'
 
 export default {
 	name: 'welcome-screen',
@@ -298,9 +236,6 @@ export default {
 			new DiscordWindow(() => {
 				shell.openExternal('https://discord.gg/jj2PmqU')
 			})
-		},
-		openExtensionBrowser(event) {
-			new ExtensionBrowser()
 		},
 		openBedrockGuide(event) {
 			shell.openExternal('https://guide.bedrock.dev')

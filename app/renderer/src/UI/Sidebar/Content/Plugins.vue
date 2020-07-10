@@ -20,9 +20,7 @@
 		<v-divider />
 
 		<div class="container" :style="`height: ${plugin_height}px;`">
-			<span v-if="plugins.length === 0"
-				>It doesn't look like you have installed an extension yet.</span
-			>
+			<PluginIntro style="margin-bottom: 8px;" />
 
 			<v-card
 				color="expanded_sidebar"
@@ -39,11 +37,13 @@
 <script>
 import ExtensionBrowser from '../../../../windows/Extensions/Browser'
 import PluginCard from './plugin/Card'
+import PluginIntro from './plugin/Intro'
 
 export default {
 	name: 'content-plugins',
 	components: {
 		PluginCard,
+		PluginIntro,
 	},
 	created() {
 		window.addEventListener('resize', this.on_resize)
