@@ -1,40 +1,57 @@
 <template>
-	<v-dialog v-model="isVisible.value">
-		<v-card color="background">
-			<v-card-title>Projects</v-card-title>
+	<BaseWindow
+		windowTitle="Projects"
+		:isVisible="isVisible.value"
+		:hasMaximizeButton="false"
+		@closeWindow="isVisible.value = false"
+	>
+		<template #default>
+			<ProjectCard
+				v-for="({
+					projectPath,
+					version,
+					name,
+					description,
+					author,
+					relativeProjectPath,
+				},
+				i) in LoadedProjects"
+				:key="projectPath"
+				:style="
+					`display: inline-block; margin-left: ${12 *
+						(i % 4 !==
+							0)}px; margin-bottom: 12px; width: calc(25% - 9px);`
+				"
+				:relativeProjectPath="relativeProjectPath"
+				:projectPath="projectPath"
+				:projectVersion="version"
+				:projectName="name"
+				:projectDescription="description"
+				:projectAuthor="author"
+			/>
+		</template>
 
-			<v-card-text>
-				<ProjectCard
-					v-for="({ projectPath, version, name, description, author, relativeProjectPath }, i) in LoadedProjects"
-					:key="projectPath"
-					:style="`display: inline-block; margin-left: ${12 * (i % 4 !== 0)}px; margin-bottom: 12px; width: calc(25% - 9px);`"
-					:relativeProjectPath="relativeProjectPath"
-					:projectPath="projectPath"
-					:projectVersion="version"
-					:projectName="name"
-					:projectDescription="description"
-					:projectAuthor="author"
-				/>
-			</v-card-text>
+		<!-- <template #actions>
+			<v-spacer />
 
-			<!-- <v-card-actions>
-				<v-spacer />
-
-				<v-btn color="success" text @click="isVisible.value = false">Add project location</v-btn>
-			</v-card-actions>-->
-		</v-card>
-	</v-dialog>
+			<v-btn color="success" text @click="isVisible.value = false"
+				>Add project location</v-btn
+			>
+		</template> -->
+	</BaseWindow>
 </template>
 
 <script>
 import { isVisible, LoadedProjects } from './state'
 import { loadProjects } from './load'
 import ProjectCard from './ProjectCard'
+import BaseWindow from '../Windows/Layout/Base'
 
 export default {
 	name: 'ProjectScreen',
 	components: {
 		ProjectCard,
+		BaseWindow,
 	},
 
 	data: () => ({
@@ -44,5 +61,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>
