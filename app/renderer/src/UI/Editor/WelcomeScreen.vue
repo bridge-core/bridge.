@@ -4,7 +4,7 @@
 			column
 			:style="`padding: 2em; height: ${available_height}px;`"
 		>
-			<v-layout @dblclick="createFile" justify-center>
+			<v-layout @dblclick="createFile" justify-center class="pt-1">
 				<h1>Welcome to bridge.</h1>
 				<br />
 				<br />
@@ -13,7 +13,7 @@
 				<v-row>
 					<v-carousel
 						continuous
-						class="mx-16 pt-2"
+						class="mx-16 my-auto"
 						hide-delimiter-background
 						height="600"
 						:light="!is_dark_mode"
@@ -21,10 +21,10 @@
 						<!---Features Card-->
 						<v-carousel-item>
 							<v-card
-								class="mx-auto mt-4"
+								class="mx-auto mt-2"
 								min-width="270"
 								max-width="300"
-								height="415"
+								height="410"
 								color="background"
 							>
 								<v-card-title class="ml-16 pl-9"
