@@ -134,9 +134,9 @@ export default class PluginLoader {
 
 		await Promise.all([
 			//LOAD CUSTOM COMPONENENTS IN PROJECT
-			this.loadComponents(CURRENT.PROJECT_PATH).then(() =>
-				ComponentRegistry.updateFiles()
-			),
+			this.loadComponents(
+				path.join(CURRENT.PROJECT_PATH, 'components')
+			).then(() => ComponentRegistry.updateFiles()),
 
 			//LOAD CUSTOM COMMANDS IN PROJECT
 			loadCustomCommands(
@@ -227,7 +227,7 @@ export default class PluginLoader {
 					),
 					this.loadSnippets(pluginPath),
 					this.loadThemes(pluginPath),
-					this.loadComponents(pluginPath),
+					this.loadComponents(path.join(pluginPath, 'components')),
 					this.loadAutoCompletions(pluginPath),
 					this.loadThemeCSS(pluginPath),
 					loadCustomCommands(path.join(pluginPath, 'commands')),
@@ -343,15 +343,25 @@ export default class PluginLoader {
 	}
 
 	static async loadComponents(pluginPath: string) {
-		let components: string[] = await fs
-			.readdir(path.join(pluginPath, 'components'))
+		let dirents: Dirent[] = await fs
+			.readdir(path.join(pluginPath), { withFileTypes: true })
 			.catch(e => [])
 
-		await Promise.all(
-			components.map(c =>
-				this.loadComponent(path.join(pluginPath, 'components', c))
-			)
-		)
+		const promises: Promise<unknown>[] = []
+
+		dirents.map(dirent => {
+			if (dirent.isDirectory()) {
+				promises.push(
+					this.loadComponents(path.join(pluginPath, dirent.name))
+				)
+			} else {
+				promises.push(
+					this.loadComponent(path.join(pluginPath, dirent.name))
+				)
+			}
+		})
+
+		await Promise.all(promises)
 	}
 	static async loadComponent(filePath: string, fileContent?: string) {
 		return await loadCustomComponent(filePath, fileContent)
