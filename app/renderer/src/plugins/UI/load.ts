@@ -57,9 +57,17 @@ export async function loadUIComponent(
 	}
 
 	const promise = new Promise(async (resolve, reject) => {
-		const { template, script, styles } = parseComponent(
+		//@ts-expect-error "errors" is not defined in .d.ts file
+		const { template, script, styles, errors } = parseComponent(
 			(await fs.readFile(componentPath)).toString('utf-8')
 		)
+
+		if (errors.length > 0) {
+			;(errors as Error[]).forEach(error =>
+				createErrorNotification(error)
+			)
+			return reject(errors[0])
+		}
 
 		const component = {
 			name: basename(componentPath),
