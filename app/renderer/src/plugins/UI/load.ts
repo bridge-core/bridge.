@@ -6,6 +6,7 @@ import { IDisposable } from '../../Types/disposable'
 import { executeScript } from '../scripts/execute'
 import { createStyleSheet } from '../styles/createStyle'
 import { parseComponent } from 'vue-template-compiler'
+import Vue from 'vue'
 
 export async function loadUIComponents(
 	pluginPath: string,
@@ -56,12 +57,9 @@ export async function loadUIComponent(
 	}
 
 	const promise = new Promise(async (resolve, reject) => {
-		//@ts-expect-error "errors" is not defined in .d.ts file
-		const { template, script, styles, errors } = parseComponent(
+		const { template, script, styles } = parseComponent(
 			(await fs.readFile(componentPath)).toString('utf-8')
 		)
-
-		if (errors.length > 0) reject(errors[0])
 
 		const component = {
 			name: basename(componentPath),
@@ -72,7 +70,7 @@ export async function loadUIComponent(
 					disposables
 				)
 			))),
-			template: template.content,
+			...Vue.compile(template.content),
 		}
 
 		styles.forEach(style =>
