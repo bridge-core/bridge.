@@ -120,6 +120,8 @@ export const EditMenu: IAppMenu = {
 			keyBinding: {
 				key: 'backspace',
 				ctrlKey: true,
+				prevent: e =>
+					e.tagName === 'INPUT' && (<HTMLInputElement>e).value !== '',
 			},
 			onClick: () => TabSystem.deleteCurrent(),
 		},
@@ -129,6 +131,8 @@ export const EditMenu: IAppMenu = {
 			keyBinding: {
 				key: 'delete',
 				ctrlKey: true,
+				prevent: e =>
+					e.tagName === 'INPUT' && (<HTMLInputElement>e).value !== '',
 			},
 			onClick: () => TabSystem.deleteCurrent(),
 		},
