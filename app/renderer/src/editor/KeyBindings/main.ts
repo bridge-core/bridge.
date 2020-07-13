@@ -15,7 +15,7 @@ export interface IKeyBinding {
 let lastTimeStamp = 0
 export function setupKeyBindings() {
 	document.addEventListener('keydown', event => {
-		const { key, ctrlKey, altKey, metaKey } = event
+		const { key, ctrlKey, altKey, metaKey, shiftKey } = event
 		if (IGNORE_KEYS.includes(key)) return
 
 		let action = KEYMAP.get(
@@ -24,7 +24,7 @@ export function setupKeyBindings() {
 				ctrlKey: platform() === 'darwin' ? metaKey : ctrlKey,
 				altKey,
 				metaKey: platform() === 'darwin' ? ctrlKey : metaKey,
-				shiftKey: key.toUpperCase() === key,
+				shiftKey,
 			})
 		)
 
