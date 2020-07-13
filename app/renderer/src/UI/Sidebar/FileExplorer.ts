@@ -162,21 +162,16 @@ export class FileExplorer {
 
 	async update(absolute_path: string, f_path: string) {
 		if (this.is_loading) await this.loading_promise
+		const newAbsolutePath = path.join(absolute_path, this.name)
 		if (!this.is_folder) {
 			await Promise.all([
-				OmegaCache.rename(this.absolute_path, path.join(absolute_path)),
-				LightningCache.rename(
-					this.absolute_path,
-					path.join(absolute_path)
-				),
-				JSONFileMasks.rename(
-					this.absolute_path,
-					path.join(absolute_path)
-				),
+				OmegaCache.rename(this.absolute_path, newAbsolutePath),
+				LightningCache.rename(this.absolute_path, newAbsolutePath),
+				JSONFileMasks.rename(this.absolute_path, newAbsolutePath),
 			])
 		}
 
-		this.absolute_path = path.join(absolute_path, this.name)
+		this.absolute_path = newAbsolutePath
 		this.path = path.join(f_path, this.name)
 
 		if (!this.loaded_children && this.is_folder) await this.load()
