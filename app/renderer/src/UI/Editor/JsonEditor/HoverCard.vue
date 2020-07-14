@@ -14,6 +14,7 @@
 			<v-divider />
 
 			<v-text-field
+				v-if="!isImmutable"
 				solo
 				background-color="background"
 				v-model="current_comment"
@@ -23,7 +24,7 @@
 				hide-details
 				style="margin: 4px 0px;"
 			/>
-			<v-divider />
+			<v-divider v-if="!isImmutable" />
 
 			<v-card-actions>
 				<template v-for="(btn, i) in filteredButtons">
@@ -264,7 +265,7 @@ export default {
 			return this.$store.state.EditorHover.isImmutable
 		},
 		filteredButtons() {
-			if (this.isImmutable) return this.buttons
+			if (!this.isImmutable) return this.buttons
 			return this.buttons.filter(({ mutatesFile }) => !mutatesFile)
 		},
 	},
