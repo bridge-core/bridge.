@@ -2,7 +2,7 @@ import SETTINGS from '../../store/Settings'
 import UpdateWindow from '../../windows/NewUpdateWindow'
 import DiscordWindow from '../../windows/Discord'
 import { shell } from 'electron'
-import fetchLatestJson from '../../src/Utilities/FetchLatestJson'
+import { fetchLatestJson } from '../../src/Utilities/updateApp'
 import { CONNECTION } from '../../src/Utilities/ConnectionStatus'
 import { setupDefaultMenus } from '../UI/Toolbar/setupDefaults'
 import { createNotification } from '../UI/Footer/create'
@@ -16,6 +16,7 @@ export default async function startUp() {
 	CONNECTION.startListening()
 
 	setupDefaultMenus()
+	/* No longer needed - discord link on welcome screen
 	if (process.env.NODE_ENV !== 'development') {
 		let discord_msg = createNotification({
 			icon: 'mdi-discord',
@@ -34,6 +35,7 @@ export default async function startUp() {
 			},
 		})
 	}
+	*/
 
 	// Fetch the latest json/version data
 	fetchLatestJson().then(updateData => {

@@ -406,20 +406,42 @@ export default class SettingsWindow extends TabWindow {
 				}),
 				{
 					color: 'grey',
-					text: '\nTheme',
+					text: '\nLocal Theme',
 				},
 				{
 					key: uuid(),
 					type: 'autocomplete',
 					is_box: true,
 					color: 'primary',
-					text: 'Choose a Theme...',
-					input: ThemeManager.current_theme,
-					options: ThemeManager.theme_names,
+					text: 'None',
+					input: ThemeManager.local_theme,
+					options: [
+						{ text: 'None', value: 'bridge.null' },
+						...ThemeManager.local_theme_names,
+					],
 					action: (val: string) => {
-						ThemeManager.applyTheme(val)
+						if (val != 'bridge.null') ThemeManager.applyTheme(val)
 						ProjectConfig.setTheme(val)
 						trigger('bridge:reloadPlugins')
+					},
+				},
+				{
+					color: 'grey',
+					text: '\nGlobal Theme',
+				},
+				{
+					key: `settings.editor.tab.appearance.global_theme`,
+					type: 'autocomplete',
+					is_box: true,
+					color: 'primary',
+					text: 'Choose a global theme...',
+					input: this.data.global_theme,
+					options: ThemeManager.global_theme_names,
+					action: (val: string) => {
+						this.data.global_theme = val
+						ThemeManager.global_theme = val
+						trigger('bridge:reloadPlugins')
+						this.save()
 					},
 				},
 				{

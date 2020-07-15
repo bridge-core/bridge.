@@ -14,6 +14,7 @@
 			<v-divider />
 
 			<v-text-field
+				v-if="!isImmutable"
 				solo
 				background-color="background"
 				v-model="current_comment"
@@ -23,10 +24,10 @@
 				hide-details
 				style="margin: 4px 0px;"
 			/>
-			<v-divider />
+			<v-divider v-if="!isImmutable" />
 
 			<v-card-actions>
-				<template v-for="(btn, i) in buttons">
+				<template v-for="(btn, i) in filteredButtons">
 					<v-spacer v-if="btn === 'space'" :key="i" />
 					<v-tooltip
 						v-else-if="
@@ -83,6 +84,7 @@ export default {
 				{
 					title: 'Ignore Error',
 					color: 'indigo',
+					mutatesFile: true,
 					condition: () => {
 						let c = TabSystem.getCurrentNavObj()
 						return (
@@ -103,6 +105,7 @@ export default {
 				{
 					title: 'Reveal Error',
 					color: 'indigo lighten-2',
+					mutatesFile: true,
 					condition: () => {
 						let c = TabSystem.getCurrentNavObj()
 						return (
@@ -171,12 +174,14 @@ export default {
 					title: 'Move Down',
 					icon: 'mdi-chevron-down',
 					color: 'secondary',
+					mutatesFile: true,
 					action: () => TabSystem.moveCurrentDown(),
 				},
 				{
 					title: 'Move Up',
 					icon: 'mdi-chevron-up',
 					color: 'secondary',
+					mutatesFile: true,
 					action: () => TabSystem.moveCurrentUp(),
 				},
 				{
@@ -193,6 +198,7 @@ export default {
 					title: 'Cut',
 					icon: 'mdi-content-cut',
 					color: 'success',
+					mutatesFile: true,
 					action: () => {
 						this.is_visible = false
 
@@ -203,6 +209,7 @@ export default {
 					title: 'Paste',
 					icon: 'mdi-download',
 					color: 'success',
+					mutatesFile: true,
 					action: () => {
 						this.is_visible = false
 
@@ -213,6 +220,7 @@ export default {
 					title: 'Comment/Uncomment',
 					icon: '//',
 					color: 'warning',
+					mutatesFile: true,
 					action: () => {
 						try {
 							TabSystem.getCurrentNavObj().toggleIsActive()
@@ -225,6 +233,7 @@ export default {
 					title: 'Delete',
 					icon: 'mdi-delete',
 					color: 'error',
+					mutatesFile: true,
 					action: () => {
 						this.is_visible = false
 						TabSystem.deleteCurrent()
@@ -251,6 +260,13 @@ export default {
 		},
 		y_position() {
 			return this.$store.state.EditorHover.y_position
+		},
+		isImmutable() {
+			return this.$store.state.EditorHover.isImmutable
+		},
+		filteredButtons() {
+			if (!this.isImmutable) return this.buttons
+			return this.buttons.filter(({ mutatesFile }) => !mutatesFile)
 		},
 	},
 	methods: {

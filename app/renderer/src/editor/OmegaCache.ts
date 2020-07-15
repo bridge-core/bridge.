@@ -195,15 +195,16 @@ export default class OmegaCache {
 	static async rename(old_path: string, new_path: string) {
 		if (!this.mayBeCached(new_path)) return this.clear(old_path)
 
-		try {
-			await fsp.mkdir(path.dirname(new_path), { recursive: true })
-		} catch {}
+		const oldCachePath = this.toCachePath(old_path)
+		const newCachePath = this.toCachePath(new_path)
 
 		try {
-			await fsp.copyFile(
-				this.toCachePath(old_path),
-				this.toCachePath(new_path)
-			)
+			await fsp.mkdir(path.dirname(newCachePath), { recursive: true })
+		} catch {}
+		console.log(oldCachePath, newCachePath)
+
+		try {
+			await fsp.copyFile(oldCachePath, newCachePath)
 			this.clear(old_path)
 		} catch (e) {
 			console.error(e)

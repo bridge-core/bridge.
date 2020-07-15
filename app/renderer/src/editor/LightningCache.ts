@@ -41,7 +41,7 @@ interface CacheDefConfig {
 	key: string //Cache key
 	path?: string //Path to data to store
 	filter?: string[] //Exclude these values
-	load_data?: boolean //Store data from an object instead of the keys
+	loadData?: boolean //Store data from an object instead of the keys
 
 	iterate?: string //An array to iterate over
 
@@ -58,41 +58,41 @@ interface CacheDefConfig {
 export type CacheDef = CacheDefConfig | CacheDefConfig[]
 
 export interface LightningCacheData {
-	[file_type: string]: {
-		[file_path: string]: {
-			[cache_key: string]: string[]
+	[fileType: string]: {
+		[filePath: string]: {
+			[cacheKey: string]: string[]
 		}
 	}
 }
 
 export default class LightningCache {
-	static global_cache: LightningCacheData = undefined
-	static compiled_cache: any = undefined
-	static get l_cache_path() {
+	static globalCache: LightningCacheData = undefined
+	static compiledCache: any = undefined
+	static get loadCachePath() {
 		return path.join(BASE_PATH, CURRENT.PROJECT, 'bridge/.lightning_cache')
 	}
 	static init() {
-		this.global_cache = undefined
-		this.compiled_cache = undefined
+		this.globalCache = undefined
+		this.compiledCache = undefined
 	}
 	static async saveCache() {
-		await writeJSON(this.l_cache_path, this.global_cache, true)
+		await writeJSON(this.loadCachePath, this.globalCache, true)
 	}
 
-	static async add(file_path: string, content: JSONTree, fs_access = true) {
+	static async add(filePath: string, content: JSONTree, fsAccess = true) {
 		if (!(content instanceof JSONTree)) return
-		let type = FileType.get(file_path)
+		let type = FileType.get(filePath)
 		if (type === 'unknown') return
 
-		let defs = await FileType.getLightningCacheDefs(file_path)
+		let defs = await FileType.getLightningCacheDefs(filePath)
 		if (defs === undefined) return
-		if (this.global_cache === undefined) {
-			if (!fs_access) this.global_cache = {}
+		if (this.globalCache === undefined) {
+			if (!fsAccess) this.globalCache = {}
 			else {
 				try {
-					this.global_cache = await readJSON(this.l_cache_path)
+					this.globalCache = await readJSON(this.loadCachePath)
 				} catch (e) {
-					this.global_cache = {}
+					this.globalCache = {}
 				}
 			}
 		}
@@ -100,14 +100,14 @@ export default class LightningCache {
 		if (!Array.isArray(defs) && defs.define_multiple !== undefined)
 			await Promise.all(
 				defs.definitions.map(d =>
-					this.parse(file_path, type, d, content).catch(console.error)
+					this.parse(filePath, type, d, content).catch(console.error)
 				)
 			)
-		else await this.parse(file_path, type, defs, content)
+		else await this.parse(filePath, type, defs, content)
 
-		this.compiled_cache = undefined
-		if (fs_access)
-			await writeJSON(this.l_cache_path, this.global_cache, true)
+		this.compiledCache = undefined
+		if (fsAccess)
+			await writeJSON(this.loadCachePath, this.globalCache, true)
 	}
 
 	//Can be used by text files to store data
@@ -115,51 +115,51 @@ export default class LightningCache {
 		filePath: string,
 		data: { [key: string]: string[] }
 	) {
-		let cache_key = OmegaCache.toCachePath(filePath, false)
-		let file_type = FileType.get(filePath)
-		if (this.global_cache === undefined) {
+		let cacheKey = OmegaCache.toCachePath(filePath, false)
+		let fileType = FileType.get(filePath)
+		if (this.globalCache === undefined) {
 			try {
-				this.global_cache = await readJSON(this.l_cache_path)
+				this.globalCache = await readJSON(this.loadCachePath)
 			} catch (e) {
-				this.global_cache = {}
+				this.globalCache = {}
 			}
 		}
-		if (this.global_cache[file_type] === undefined)
-			this.global_cache[file_type] = {}
+		if (this.globalCache[fileType] === undefined)
+			this.globalCache[fileType] = {}
 
-		this.global_cache[file_type][cache_key] = data
-		this.compiled_cache = undefined
-		await writeJSON(this.l_cache_path, this.global_cache, true)
+		this.globalCache[fileType][cacheKey] = data
+		this.compiledCache = undefined
+		await writeJSON(this.loadCachePath, this.globalCache, true)
 	}
 
 	//Manually triggers a hook update for a specific identifier
 	static async triggerHook(
-		file_path: string,
+		filePath: string,
 		identifier: string,
 		hook: string
 	) {
-		let cache_key = OmegaCache.toCachePath(file_path, false)
-		let file_type = FileType.get(file_path)
-		if (this.global_cache === undefined) {
+		let cacheKey = OmegaCache.toCachePath(filePath, false)
+		let fileType = FileType.get(filePath)
+		if (this.globalCache === undefined) {
 			try {
-				this.global_cache = await readJSON(this.l_cache_path)
+				this.globalCache = await readJSON(this.loadCachePath)
 			} catch (e) {
-				this.global_cache = {}
+				this.globalCache = {}
 			}
 		}
-		if (this.global_cache[file_type] === undefined)
-			this.global_cache[file_type] = {}
-		if (this.global_cache[file_type][cache_key] === undefined)
-			this.global_cache[file_type][cache_key] = {}
+		if (this.globalCache[fileType] === undefined)
+			this.globalCache[fileType] = {}
+		if (this.globalCache[fileType][cacheKey] === undefined)
+			this.globalCache[fileType][cacheKey] = {}
 
-		this.global_cache[file_type][cache_key][identifier] =
+		this.globalCache[fileType][cacheKey][identifier] =
 			EventBus.trigger(`bridge:onCacheHook[${hook}]`).flat() || []
-		this.compiled_cache = undefined
-		await writeJSON(this.l_cache_path, this.global_cache, true)
+		this.compiledCache = undefined
+		await writeJSON(this.loadCachePath, this.globalCache, true)
 	}
 
 	static async parse(
-		file_path: string,
+		filePath: string,
 		type: string,
 		defs: CacheDef,
 		content: JSONTree
@@ -189,16 +189,16 @@ export default class LightningCache {
 			}
 		}
 
-		let cache_key = OmegaCache.toCachePath(file_path, false)
-		if (this.global_cache[type] === undefined) this.global_cache[type] = {}
-		if (this.global_cache[type][cache_key] === undefined)
-			this.global_cache[type][cache_key] = {}
-		let cache = this.global_cache[type][cache_key]
+		let cacheKey = OmegaCache.toCachePath(filePath, false)
+		if (this.globalCache[type] === undefined) this.globalCache[type] = {}
+		if (this.globalCache[type][cacheKey] === undefined)
+			this.globalCache[type][cacheKey] = {}
+		let cache = this.globalCache[type][cacheKey]
 		;(defs as CacheDefConfig[]).forEach(
-			({ iterate, path, key, search, hook, load_data, filter }) => {
+			({ iterate, path, key, search, hook, loadData, filter }) => {
 				if (iterate !== undefined) {
 					;(content.get(iterate)?.children ?? []).forEach(c =>
-						this.storeInCahe(cache, c, path, key, filter, load_data)
+						this.storeInCahe(cache, c, path, key, filter, loadData)
 					)
 				} else if (path !== undefined) {
 					this.storeInCahe(
@@ -207,7 +207,7 @@ export default class LightningCache {
 						path,
 						key,
 						filter,
-						load_data
+						loadData
 					)
 				} else if (search !== undefined) {
 					let res: string[] = []
@@ -247,12 +247,12 @@ export default class LightningCache {
 	}
 
 	static storeInCahe(
-		cache: { [cache_key: string]: string[] },
+		cache: { [cacheKey: string]: string[] },
 		content: JSONTree,
 		path: string,
 		key: string,
 		filter?: string[],
-		load_data?: boolean
+		loadData?: boolean
 	) {
 		try {
 			let data
@@ -262,7 +262,7 @@ export default class LightningCache {
 			if (Array.isArray(data)) {
 				cache[key] = data.filter(d => !filter || !filter.includes(d))
 			} else if (typeof data === 'object') {
-				cache[key] = load_data
+				cache[key] = loadData
 					? <string[]>(
 							Object.values(data).filter(
 								d => !filter || !filter.includes(<string>d)
@@ -279,32 +279,32 @@ export default class LightningCache {
 		}
 	}
 
-	static async load(file_path?: string): Promise<LightningCacheData> {
-		if (this.global_cache !== undefined) return this.global_cache
+	static async load(filePath?: string): Promise<LightningCacheData> {
+		if (this.globalCache !== undefined) return this.globalCache
 
 		try {
-			return await readJSON(this.l_cache_path)
+			return await readJSON(this.loadCachePath)
 		} catch (err) {
 			return {}
 		}
 	}
 
 	static async loadType(
-		file_path?: string,
+		filePath?: string,
 		type?: string
-	): Promise<{ [cache_key: string]: string[] }> {
-		if (type === undefined) type = FileType.get(file_path)
+	): Promise<{ [cacheKey: string]: string[] }> {
+		if (type === undefined) type = FileType.get(filePath)
 
 		try {
-			if (this.global_cache !== undefined)
+			if (this.globalCache !== undefined)
 				return (
-					this.global_cache[type][
-						OmegaCache.toCachePath(file_path, false)
+					this.globalCache[type][
+						OmegaCache.toCachePath(filePath, false)
 					] || {}
 				)
 			return (
-				(await readJSON(this.l_cache_path))[type][
-					OmegaCache.toCachePath(file_path, false)
+				(await readJSON(this.loadCachePath))[type][
+					OmegaCache.toCachePath(filePath, false)
 				] || {}
 			)
 		} catch (err) {
@@ -313,66 +313,66 @@ export default class LightningCache {
 	}
 
 	static loadSync() {
-		if (this.global_cache !== undefined) return this.global_cache
+		if (this.globalCache !== undefined) return this.globalCache
 		try {
-			return JSON.parse(fs.readFileSync(this.l_cache_path).toString())
+			return JSON.parse(fs.readFileSync(this.loadCachePath).toString())
 		} catch (err) {
 			return {}
 		}
 	}
 
-	static async rename(old_path: string, new_path: string) {
-		let old_type = FileType.get(old_path)
-		let new_type = FileType.get(new_path)
+	static async rename(oldPath: string, newPath: string) {
+		let oldType = FileType.get(oldPath)
+		let newType = FileType.get(newPath)
 
-		this.global_cache = await this.load()
+		this.globalCache = await this.load()
 		try {
-			if (this.global_cache[old_type] === undefined) return
-			if (this.global_cache[new_type] === undefined)
-				this.global_cache[new_type] = {}
-			this.global_cache[new_type][
-				OmegaCache.toCachePath(new_path, false)
-			] = this.global_cache[old_type][
-				OmegaCache.toCachePath(old_path, false)
+			if (this.globalCache[oldType] === undefined) return
+			if (this.globalCache[newType] === undefined)
+				this.globalCache[newType] = {}
+			this.globalCache[newType][
+				OmegaCache.toCachePath(newPath, false)
+			] = this.globalCache[oldType][
+				OmegaCache.toCachePath(oldPath, false)
 			]
-			delete this.global_cache[old_type][
-				OmegaCache.toCachePath(old_path, false)
+			delete this.globalCache[oldType][
+				OmegaCache.toCachePath(oldPath, false)
 			]
 		} catch (e) {}
 
-		await writeJSON(this.l_cache_path, this.global_cache, true)
+		await writeJSON(this.loadCachePath, this.globalCache, true)
 	}
 	static async duplicate(what: string, as: string) {
-		let old_type = FileType.get(what)
-		let new_type = FileType.get(as)
+		let oldType = FileType.get(what)
+		let newType = FileType.get(as)
 
-		this.global_cache = await this.load()
+		this.globalCache = await this.load()
 		try {
-			if (this.global_cache[old_type] === undefined) return
-			if (this.global_cache[new_type] === undefined)
-				this.global_cache[new_type] = {}
-			this.global_cache[new_type][
+			if (this.globalCache[oldType] === undefined) return
+			if (this.globalCache[newType] === undefined)
+				this.globalCache[newType] = {}
+			this.globalCache[newType][
 				OmegaCache.toCachePath(as, false)
-			] = this.global_cache[old_type][OmegaCache.toCachePath(what, false)]
+			] = this.globalCache[oldType][OmegaCache.toCachePath(what, false)]
 		} catch (e) {}
 
-		await writeJSON(this.l_cache_path, this.global_cache, true)
+		await writeJSON(this.loadCachePath, this.globalCache, true)
 	}
-	static async clear(file_path: string) {
-		let type = FileType.get(file_path)
+	static async clear(filePath: string) {
+		let type = FileType.get(filePath)
 		if (type === 'unknown') return
 
-		this.global_cache = await this.load()
+		this.globalCache = await this.load()
 		try {
-			delete this.global_cache[type][
-				OmegaCache.toCachePath(file_path, false)
+			delete this.globalCache[type][
+				OmegaCache.toCachePath(filePath, false)
 			]
 		} catch (e) {}
-		await writeJSON(this.l_cache_path, this.global_cache, true)
+		await writeJSON(this.loadCachePath, this.globalCache, true)
 	}
 
 	static async getCompiled() {
-		if (this.compiled_cache !== undefined) return this.compiled_cache
+		if (this.compiledCache !== undefined) return this.compiledCache
 		let cache = await this.load()
 		let res: any = {}
 
@@ -380,11 +380,11 @@ export default class LightningCache {
 			if (cache[key]) res[key] = toUnifiedObj(cache[key])
 		}
 
-		this.compiled_cache = res
+		this.compiledCache = res
 		return res
 	}
 	static getCompiledSync() {
-		if (this.compiled_cache !== undefined) return this.compiled_cache
+		if (this.compiledCache !== undefined) return this.compiledCache
 		let cache = this.loadSync()
 		let res: any = {}
 
@@ -392,7 +392,7 @@ export default class LightningCache {
 			if (cache[key]) res[key] = toUnifiedObj(cache[key])
 		}
 
-		this.compiled_cache = res
+		this.compiledCache = res
 		return res
 	}
 }

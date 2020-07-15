@@ -223,7 +223,6 @@ export default {
 			this.$root.$emit(`load(${this.tab_id}):${this.object_key}`)
 		},
 		openContextMenu(event) {
-			if (this.is_immutable) return
 			TabSystem.setCurrentFileNav(this.object_key)
 			let data
 			if (Number.isNaN(Number(this.node_context.key)))
@@ -238,6 +237,7 @@ export default {
 				data,
 				x_position: event.clientX,
 				y_position: event.clientY,
+				isImmutable: this.is_immutable,
 			})
 		},
 	},

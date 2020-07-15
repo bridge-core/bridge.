@@ -29,7 +29,9 @@
 				v-ripple="force_project_algorithm === undefined"
 				@click="openProjectScreen"
 			>
-				{{ selected.split(/\\|\//g).pop() }}
+				<span class="text-truncate">
+					{{ selected.split(/\\|\//g).pop() }}
+				</span>
 				<template v-if="force_project_algorithm === undefined">
 					<v-spacer />
 					<v-icon small>mdi-menu-down</v-icon>

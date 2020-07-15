@@ -134,9 +134,9 @@ export default class PluginLoader {
 
 		await Promise.all([
 			//LOAD CUSTOM COMPONENENTS IN PROJECT
-			this.loadComponents(CURRENT.PROJECT_PATH).then(() =>
-				ComponentRegistry.updateFiles()
-			),
+			this.loadComponents(
+				path.join(CURRENT.PROJECT_PATH, 'components')
+			).then(() => ComponentRegistry.updateFiles()),
 
 			//LOAD CUSTOM COMMANDS IN PROJECT
 			loadCustomCommands(
@@ -227,7 +227,7 @@ export default class PluginLoader {
 					),
 					this.loadSnippets(pluginPath),
 					this.loadThemes(pluginPath),
-					this.loadComponents(pluginPath),
+					this.loadComponents(path.join(pluginPath, 'components')),
 					this.loadAutoCompletions(pluginPath),
 					this.loadThemeCSS(pluginPath),
 					loadCustomCommands(path.join(pluginPath, 'commands')),
@@ -303,10 +303,12 @@ export default class PluginLoader {
 	}
 
 	static async loadThemes(pluginPath: string) {
+		// Fetches a list of the files in the plugin's themes folder
 		let themes: string[] = await fs
 			.readdir(path.join(pluginPath, 'themes'))
 			.catch(e => [])
 
+		// Fetches the contents of each file in the themes array
 		let loaded_themes: any[] = await Promise.all(
 			themes.map(t =>
 				readJSON(path.join(pluginPath, 'themes', t)).catch(
@@ -315,7 +317,8 @@ export default class PluginLoader {
 			)
 		)
 		loaded_themes.forEach(t => {
-			if (t !== undefined) ThemeManager.addTheme(t)
+			if (t !== undefined)
+				ThemeManager.addTheme(t, pluginPath.startsWith(DATA_PATH))
 		})
 	}
 
@@ -340,15 +343,25 @@ export default class PluginLoader {
 	}
 
 	static async loadComponents(pluginPath: string) {
-		let components: string[] = await fs
-			.readdir(path.join(pluginPath, 'components'))
+		let dirents: Dirent[] = await fs
+			.readdir(path.join(pluginPath), { withFileTypes: true })
 			.catch(e => [])
 
-		await Promise.all(
-			components.map(c =>
-				this.loadComponent(path.join(pluginPath, 'components', c))
-			)
-		)
+		const promises: Promise<unknown>[] = []
+
+		dirents.map(dirent => {
+			if (dirent.isDirectory()) {
+				promises.push(
+					this.loadComponents(path.join(pluginPath, dirent.name))
+				)
+			} else {
+				promises.push(
+					this.loadComponent(path.join(pluginPath, dirent.name))
+				)
+			}
+		})
+
+		await Promise.all(promises)
 	}
 	static async loadComponent(filePath: string, fileContent?: string) {
 		return await loadCustomComponent(filePath, fileContent)

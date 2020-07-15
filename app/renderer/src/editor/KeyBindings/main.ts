@@ -2,33 +2,40 @@ import { IDisposable } from '../../Types/disposable'
 import { platform } from 'os'
 
 const IGNORE_KEYS = ['Control', 'Alt', 'Meta']
-const KEYMAP = new Map<string, () => void>()
+const KEYMAP = new Map<string, IKeyBindingData>()
 
+export interface IKeyBindingData {
+	prevent?: (element: HTMLElement) => boolean
+	action: () => void
+}
 export interface IKeyBinding {
 	key: string
 	shiftKey?: boolean
 	ctrlKey?: boolean
 	altKey?: boolean
 	metaKey?: boolean
+	prevent?: (element: HTMLElement) => boolean
 }
 
 let lastTimeStamp = 0
 export function setupKeyBindings() {
 	document.addEventListener('keydown', event => {
-		const { key, ctrlKey, altKey, metaKey } = event
+		const { key, ctrlKey, altKey, metaKey, shiftKey } = event
 		if (IGNORE_KEYS.includes(key)) return
 
-		let action = KEYMAP.get(
-			getStrKeyCode({
-				key,
-				ctrlKey,
-				altKey,
-				metaKey,
-				shiftKey: key.toUpperCase() === key,
-			})
-		)
+		const { action, prevent } =
+			KEYMAP.get(
+				getStrKeyCode({
+					key,
+					ctrlKey: platform() === 'darwin' ? metaKey : ctrlKey,
+					altKey,
+					metaKey: platform() === 'darwin' ? ctrlKey : metaKey,
+					shiftKey,
+				})
+			) ?? {}
 
 		if (action && lastTimeStamp + 500 < Date.now()) {
+			if (prevent?.(<HTMLElement>event.target)) return
 			lastTimeStamp = Date.now()
 			event.preventDefault()
 			event.stopImmediatePropagation()
@@ -68,9 +75,12 @@ export function getStrKeyCode({
 	metaKey,
 }: IKeyBinding) {
 	let code = key.toUpperCase()
-	if (metaKey) code = 'Meta + ' + code
 	if (shiftKey) code = 'Shift + ' + code
 	if (altKey) code = 'Alt + ' + code
+	if (metaKey) {
+		if (platform() === 'darwin') code = 'Ctrl + ' + code
+		else code = 'Meta + ' + code
+	}
 	if (ctrlKey) {
 		if (platform() === 'darwin') code = 'Cmd + ' + code
 		else code = 'Ctrl + ' + code
@@ -89,7 +99,8 @@ export function addKeyBinding(
 		throw new Error(`KeyBinding with keyCode "${keyCode}" already exists!`)
 	}
 
-	KEYMAP.set(keyCode, action)
+	const { prevent } = keyBinding
+	KEYMAP.set(keyCode, { action, prevent })
 
 	return {
 		dispose: () => KEYMAP.delete(keyCode),

@@ -6,6 +6,15 @@
         "sound": { "@meta": { "is_value": true } },
         "brightness_gamma": "$general.decimal",
         "isotropic": {
+            "@meta": {
+                "validate": {
+                    "confirm": "Bridge.Node.data === '' ? Bridge.Node.children.length > 2 : Bridge.Node.data !== 'true' && Bridge.Node.data !== 'false'",
+                    "then": {
+                        "show": true,
+                        "message": "Invalid \"isotropic\" structure"
+                    }
+                } 
+            },
             "@import.value.boolean_simple": "$general.boolean",
             "up": "$general.boolean",
             "down": "$general.boolean",

@@ -212,12 +212,15 @@ export default class CreateFileWindow extends ContentWindow {
 			Store.state.Explorer.project.resource_pack === undefined
 		)
 			FILE_DATA = FileType.getFileCreators()
-				.filter(f => (show_rp ? f.rp_definition : !f.rp_definition))
+				.filter(
+					({ rp_definition, is_hidden }) =>
+						!is_hidden && (show_rp ? rp_definition : !rp_definition)
+				)
 				.sort(({ title: t1 }, { title: t2 }) => t1.localeCompare(t2))
 		else
-			FILE_DATA = FileType.getFileCreators().sort(
-				({ title: t1 }, { title: t2 }) => t1.localeCompare(t2)
-			)
+			FILE_DATA = FileType.getFileCreators()
+				.filter(({ is_hidden }) => !is_hidden)
+				.sort(({ title: t1 }, { title: t2 }) => t1.localeCompare(t2))
 
 		super({
 			display_name: 'New File',

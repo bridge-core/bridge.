@@ -5,6 +5,8 @@ import { TUIStore } from './store'
 import { IDisposable } from '../../Types/disposable'
 import { executeScript } from '../scripts/execute'
 import { createStyleSheet } from '../styles/createStyle'
+import { parseComponent } from 'vue-template-compiler'
+import Vue from 'vue'
 
 export async function loadUIComponents(
 	pluginPath: string,
@@ -55,40 +57,33 @@ export async function loadUIComponent(
 	}
 
 	const promise = new Promise(async (resolve, reject) => {
-		const fileContent = (await fs.readFile(componentPath)).toString('utf-8')
-		const templates = fileContent.match(/<template>.*<\/template>/gs) ?? [
-			'<template></template>',
-		]
-		const scripts = fileContent.match(/<script>.*<\/script>/gs) ?? [
-			'<script>return {}</script>',
-		]
-		const style = fileContent.match(/<style>.*<\/style>/gs)
-		if (templates.length > 1 || scripts.length > 1) {
-			createErrorNotification(
-				new Error(
-					`INVALID VUE FILE: Found multiple templates or scripts inside of "${basename(
-						componentPath
-					)}"!`
-				)
-			)
-			return reject()
-		}
+		//@ts-expect-error "errors" is not defined in .d.ts file
+		const { template, script, styles, errors } = parseComponent(
+			(await fs.readFile(componentPath)).toString('utf-8')
+		)
 
-		const template = templates[0].substring(11, templates[0].length - 12)
-		const script = scripts[0]
-			.substring(8, scripts[0].length - 9)
-			.replace('export default', 'return')
+		if (errors.length > 0) {
+			;(errors as Error[]).forEach(error =>
+				createErrorNotification(error)
+			)
+			return reject(errors[0])
+		}
 
 		const component = {
 			name: basename(componentPath),
-			...(await (<any>executeScript(script, uiStore, disposables))),
-			template,
+			...(await (<any>(
+				executeScript(
+					script?.content?.replace('export default', 'return') ?? '',
+					uiStore,
+					disposables
+				)
+			))),
+			...Vue.compile(template.content),
 		}
 
-		if (style)
-			disposables.push(
-				createStyleSheet(style[0].substring(7, style[0].length - 9))
-			)
+		styles.forEach(style =>
+			disposables.push(createStyleSheet(style.content))
+		)
 
 		resolve(component)
 	})
