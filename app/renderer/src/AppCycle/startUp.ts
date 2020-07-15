@@ -1,11 +1,11 @@
 import SETTINGS from '../../store/Settings'
 import UpdateWindow from '../../windows/NewUpdateWindow'
-import DiscordWindow from '../../windows/Discord'
-import { shell, remote } from 'electron'
 import { fetchLatestJson } from '../../src/Utilities/updateApp'
 import { CONNECTION } from '../../src/Utilities/ConnectionStatus'
 import { setupDefaultMenus } from '../UI/Toolbar/setupDefaults'
 import { createNotification } from '../UI/Footer/create'
+import { shell, remote } from 'electron'
+import { Discord as DiscordWindow } from '../UI/Windows/Discord/definition'
 import './DropFile'
 import './ResizeWatcher'
 import './Errors'
@@ -24,14 +24,8 @@ export default async function startUp() {
 			color: '#7289DA',
 			textColor: 'white',
 			onClick: () => {
-				new DiscordWindow(
-					() => {
-						shell.openExternal('https://discord.gg/jj2PmqU')
-					},
-					() => {
-						discord_msg.dispose()
-					}
-				)
+				DiscordWindow.open()
+				discord_msg.dispose()
 			},
 		})
 	}
