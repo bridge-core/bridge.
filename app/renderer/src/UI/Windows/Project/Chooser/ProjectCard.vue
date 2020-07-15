@@ -10,9 +10,11 @@
 		<v-card-title>{{ projectName }}</v-card-title>
 
 		<v-card-text>
-			<div
-				class="my-4 subtitle-1"
-			>by {{ projectAuthor }} • v{{ (projectVersion || [1, 0, 0]).join('.') }}</div>
+			<div class="my-4 subtitle-1">
+				by {{ projectAuthor }} • v{{
+					(projectVersion || [1, 0, 0]).join('.')
+				}}
+			</div>
 
 			<div>{{ projectDescription }}</div>
 		</v-card-text>
@@ -28,8 +30,8 @@
 <script>
 import { promises as fs } from 'fs'
 import { join, basename } from 'path'
-import EventBus from '../../EventBus'
-import { isVisible } from './state'
+import EventBus from '../../../../EventBus'
+import { ProjectChooser } from './definition'
 
 export default {
 	name: 'ProjectCard',
@@ -58,12 +60,11 @@ export default {
 	},
 	methods: {
 		selectProject() {
-			isVisible.value = false
+			ProjectChooser.close()
 			EventBus.trigger('bridge:selectProject', this.relativeProjectPath)
 		},
 	},
 }
 </script>
 
-<style>
-</style>
+<style></style>

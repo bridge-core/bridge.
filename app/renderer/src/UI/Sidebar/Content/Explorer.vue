@@ -110,10 +110,10 @@ import FileType from '../../../editor/FileType'
 import { setRP, trySetRP } from '../../../Utilities/FindRP'
 import path from 'path'
 import {
-	isVisible as ProjectScreenVisible,
+	ProjectChooser,
 	LoadedProjects,
-} from '../../ProjectScreen/state'
-import { loadProjects } from '../../ProjectScreen/load'
+} from '../../Windows/Project/Chooser/definition'
+import { loadProjects } from '../../Windows/Project/Chooser/load'
 
 export default {
 	name: 'content-explorer',
@@ -219,7 +219,7 @@ export default {
 	methods: {
 		openProjectScreen() {
 			if (this.force_project_algorithm === undefined)
-				ProjectScreenVisible.value = true
+				ProjectChooser.open()
 		},
 		async refresh(force_val) {
 			if (this.force_project_algorithm) {
