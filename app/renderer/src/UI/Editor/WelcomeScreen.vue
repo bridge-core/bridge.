@@ -1,5 +1,84 @@
 <template>
-	<v-layout>
+	<v-layout
+		:style="`padding: 10em; height: ${available_height}px;`"
+		@dblclick="createFile"
+		column
+	>
+		<h1>Welcome to bridge.</h1>
+		<div>
+			<br />
+			<p>Creating Minecraft addons has never been more convenient!</p>
+			<ul>
+				<li>
+					<v-icon color="accent" small>mdi-auto-fix</v-icon>
+					<span>Syntax highlighting</span>
+				</li>
+				<li>
+					<v-icon color="accent" small
+						>mdi-format-list-bulleted</v-icon
+					>
+					<span>Rich auto-completions</span>
+				</li>
+				<li>
+					<v-icon color="accent" small>mdi-folder-multiple</v-icon>
+					<span>Easy project management</span>
+				</li>
+				<li>
+					<v-icon color="accent" small>mdi-code-json</v-icon>
+					<span>Custom addon syntax</span>
+				</li>
+				<li>
+					<v-icon color="accent" small>mdi-package-variant</v-icon>
+					<span>Custom components</span>
+				</li>
+				<li>
+					<v-icon color="accent" small>mdi-console-line</v-icon>
+					<span>Custom commands</span>
+				</li>
+				<li>
+					<v-icon color="accent" small>mdi-nodejs</v-icon>
+					<span>Customizable through plugins</span>
+				</li>
+			</ul>
+		</div>
+	</v-layout>
+</template>
+
+<script>
+import CreateFileWindow from '../../../windows/CreateFile'
+import DiscordWindow from '../../../windows/Discord'
+import { shell } from 'electron'
+
+export default {
+	name: 'welcome-screen',
+	props: {
+		available_height: Number,
+	},
+	methods: {
+		createFile(event) {
+			new CreateFileWindow(undefined, false)
+		},
+		openDiscord(event) {
+			new DiscordWindow(() => {
+				shell.openExternal('https://discord.gg/jj2PmqU')
+			})
+		},
+		openBedrockGuide(event) {
+			shell.openExternal('https://guide.bedrock.dev')
+		},
+		openBedrockWiki(event) {
+			shell.openExternal('https://wiki.bedrock.dev')
+		},
+	},
+	computed: {
+		is_dark_mode() {
+			return this.$store.state.Appearance.is_dark_mode
+		},
+	},
+}
+
+/**
+ * <v-layout>
 		<v-layout
 			column
 			:style="`padding: 2em; height: ${available_height}px;`"
@@ -216,40 +295,7 @@
 			</v-container>
 		</v-layout>
 	</v-layout>
-</template>
-
-<script>
-import CreateFileWindow from '../../../windows/CreateFile'
-import DiscordWindow from '../../../windows/Discord'
-import { shell } from 'electron'
-
-export default {
-	name: 'welcome-screen',
-	props: {
-		available_height: Number,
-	},
-	methods: {
-		createFile(event) {
-			new CreateFileWindow(undefined, false)
-		},
-		openDiscord(event) {
-			new DiscordWindow(() => {
-				shell.openExternal('https://discord.gg/jj2PmqU')
-			})
-		},
-		openBedrockGuide(event) {
-			shell.openExternal('https://guide.bedrock.dev')
-		},
-		openBedrockWiki(event) {
-			shell.openExternal('https://wiki.bedrock.dev')
-		},
-	},
-	computed: {
-		is_dark_mode() {
-			return this.$store.state.Appearance.is_dark_mode
-		},
-	},
-}
+ */
 </script>
 
 <style scoped>
