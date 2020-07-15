@@ -1,16 +1,17 @@
 <template>
 	<div>
-		<ProjectScreen />
+		<component v-for="(window, uuid) in WINDOWS" :key="uuid" :is="window" />
 	</div>
 </template>
 
 <script>
-import ProjectScreen from '../ProjectScreen/Main'
+import { WINDOWS } from './create'
 
 export default {
 	name: 'CollectedWindows',
-	components: {
-		ProjectScreen,
-	},
+
+	data: () => ({
+		WINDOWS,
+	}),
 }
 </script>

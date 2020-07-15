@@ -1,9 +1,9 @@
 import { promises as fs, Dirent } from 'fs'
-import { BP_BASE_PATH, MOJANG_PATH } from '../../constants'
+import { BP_BASE_PATH, MOJANG_PATH } from '../../../../constants'
 import { join } from 'path'
-import { LoadedProjects } from './state'
-import { readJSON } from '../../Utilities/JsonFS'
-import Store from '../../../store/index'
+import { LoadedProjects } from './definition'
+import { readJSON } from '../../../../Utilities/JsonFS'
+import Store from '../../../../../store/index'
 
 export async function loadProjects() {
 	// Remove old data
