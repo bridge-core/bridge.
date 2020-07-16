@@ -58,17 +58,16 @@ export default class PluginLoader {
 		PLUGIN_DATA.push(data)
 	}
 
-	static reset() {
-		CommandRegistry.clear()
-		ComponentRegistry.reset()
-		resetLoadLocations()
-	}
-
 	static async unloadPlugins() {
 		trigger('bridge:scriptRunner.resetCaches')
+
 		//INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
 		Store.commit('unloadPlugins')
 		clearAllDisposables()
+
+		CommandRegistry.clear()
+		ComponentRegistry.reset()
+		resetLoadLocations()
 	}
 
 	static async unloadPlugin(pluginId: string) {
@@ -229,7 +228,7 @@ export default class PluginLoader {
 						)
 					),
 					this.loadSnippets(pluginPath, disposables),
-					this.loadThemes(pluginPath),
+					this.loadThemes(pluginPath, disposables),
 					this.loadComponents(path.join(pluginPath, 'components')),
 					this.loadAutoCompletions(pluginPath),
 					this.loadThemeCSS(pluginPath),
@@ -312,7 +311,7 @@ export default class PluginLoader {
 		).forEach(disposable => disposables.push(disposable))
 	}
 
-	static async loadThemes(pluginPath: string) {
+	static async loadThemes(pluginPath: string, disposables: IDisposable[]) {
 		// Fetches a list of the files in the plugin's themes folder
 		let themes: string[] = await fs
 			.readdir(path.join(pluginPath, 'themes'))
@@ -328,7 +327,9 @@ export default class PluginLoader {
 		)
 		loaded_themes.forEach(t => {
 			if (t !== undefined)
-				ThemeManager.addTheme(t, pluginPath.startsWith(DATA_PATH))
+				disposables.push(
+					ThemeManager.addTheme(t, pluginPath.startsWith(DATA_PATH))
+				)
 		})
 	}
 
