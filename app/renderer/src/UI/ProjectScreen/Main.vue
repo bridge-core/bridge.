@@ -6,29 +6,35 @@
 		@closeWindow="isVisible.value = false"
 	>
 		<template #default>
-			<ProjectCard
-				v-for="({
-					projectPath,
-					version,
-					name,
-					description,
-					author,
-					relativeProjectPath,
-				},
-				i) in LoadedProjects"
-				:key="projectPath"
-				:style="
-					`display: inline-block; margin-left: ${12 *
-						(i % 4 !==
-							0)}px; margin-bottom: 12px; width: calc(25% - 9px);`
-				"
-				:relativeProjectPath="relativeProjectPath"
-				:projectPath="projectPath"
-				:projectVersion="version"
-				:projectName="name"
-				:projectDescription="description"
-				:projectAuthor="author"
-			/>
+			<div
+				style="
+				display: grid;
+    			grid-template-columns: repeat(4, minmax(150px, 25%));
+			"
+			>
+				<ProjectCard
+					v-for="({
+						projectPath,
+						version,
+						name,
+						description,
+						author,
+						relativeProjectPath,
+					},
+					i) in LoadedProjects"
+					:key="projectPath"
+					:style="
+						`display: inline-block; margin-left: ${12 *
+							(i % 4 !== 0)}px; margin-bottom: 12px;`
+					"
+					:relativeProjectPath="relativeProjectPath"
+					:projectPath="projectPath"
+					:projectVersion="version"
+					:projectName="name"
+					:projectDescription="description"
+					:projectAuthor="author"
+				/>
+			</div>
 		</template>
 
 		<!-- <template #actions>
