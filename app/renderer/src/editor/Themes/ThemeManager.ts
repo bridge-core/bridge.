@@ -131,7 +131,7 @@ export default class ThemeManager {
 		else this.plugin_themes[id] = theme
 	}
 
-	static applyTheme(id: string) {
+	static applyTheme(id = 'bridge.default.theme') {
 		this.current_theme = id
 		const theme =
 			this.themes[id] ||

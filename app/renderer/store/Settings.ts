@@ -56,6 +56,8 @@ function setup() {
 	if (DATA.target_version !== undefined) save({ target_version: undefined })
 	if (DATA.text_auto_completions !== undefined)
 		save({ text_auto_completions: undefined })
+	if (DATA.global_theme === undefined)
+		save({ global_theme: 'bridge.default.theme' })
 }
 function save(settings: { [s: string]: any }) {
 	if (DATA) DATA = Object.assign(DATA, settings)
