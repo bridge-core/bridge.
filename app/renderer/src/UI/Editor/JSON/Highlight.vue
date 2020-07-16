@@ -1,6 +1,10 @@
 <template>
 	<component v-if="shouldRender" :is="tagName">
-		<Await @load="$emit('load')" @error="$emit('error')" :promise="colorize(value)">
+		<Await
+			@load="$emit('load')"
+			@error="$emit('error')"
+			:promise="colorize(value)"
+		>
 			<template #default="{ data }">
 				<span v-html="data" />
 			</template>
@@ -9,7 +13,11 @@
 			</template>
 		</Await>
 	</component>
-	<component :is="tagName === 'summary' ? tagName : 'span'" v-else v-text="value" />
+	<component
+		:is="tagName === 'summary' ? tagName : 'span'"
+		v-else
+		v-text="value"
+	/>
 </template>
 
 <script>
@@ -33,6 +41,10 @@ export default {
 			type: Boolean,
 		},
 	},
+	beforeDestroy() {
+		clearTimeout(this.timeoutId)
+	},
+
 	data() {
 		return {
 			shouldRender: this.isOnScreen,
