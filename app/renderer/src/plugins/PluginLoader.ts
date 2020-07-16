@@ -137,12 +137,14 @@ export default class PluginLoader {
 		await Promise.all([
 			//LOAD CUSTOM COMPONENENTS IN PROJECT
 			this.loadComponents(
-				path.join(CURRENT.PROJECT_PATH, 'components')
+				path.join(CURRENT.PROJECT_PATH, 'components'),
+				[]
 			).then(() => ComponentRegistry.updateFiles()),
 
 			//LOAD CUSTOM COMMANDS IN PROJECT
 			loadCustomCommands(
-				path.join(CURRENT.PROJECT_PATH, 'commands')
+				path.join(CURRENT.PROJECT_PATH, 'commands'),
+				[]
 			).then(() => updateCommandFiles()),
 		])
 
@@ -229,10 +231,16 @@ export default class PluginLoader {
 					),
 					this.loadSnippets(pluginPath, disposables),
 					this.loadThemes(pluginPath, disposables),
-					this.loadComponents(path.join(pluginPath, 'components')),
+					this.loadComponents(
+						path.join(pluginPath, 'components'),
+						disposables
+					),
 					this.loadAutoCompletions(pluginPath),
 					this.loadThemeCSS(pluginPath, disposables),
-					loadCustomCommands(path.join(pluginPath, 'commands')),
+					loadCustomCommands(
+						path.join(pluginPath, 'commands'),
+						disposables
+					),
 				]).catch(console.error)
 				addLoadLocation(path.join(pluginPath, 'presets'))
 			}
@@ -359,7 +367,10 @@ export default class PluginLoader {
 		})
 	}
 
-	static async loadComponents(pluginPath: string) {
+	static async loadComponents(
+		pluginPath: string,
+		disposables: IDisposable[]
+	) {
 		let dirents: Dirent[] = await fs
 			.readdir(path.join(pluginPath), { withFileTypes: true })
 			.catch(e => [])
@@ -369,19 +380,29 @@ export default class PluginLoader {
 		dirents.map(dirent => {
 			if (dirent.isDirectory()) {
 				promises.push(
-					this.loadComponents(path.join(pluginPath, dirent.name))
+					this.loadComponents(
+						path.join(pluginPath, dirent.name),
+						disposables
+					)
 				)
 			} else {
 				promises.push(
-					this.loadComponent(path.join(pluginPath, dirent.name))
+					this.loadComponent(
+						path.join(pluginPath, dirent.name),
+						disposables
+					)
 				)
 			}
 		})
 
 		await Promise.all(promises)
 	}
-	static async loadComponent(filePath: string, fileContent?: string) {
-		return await loadCustomComponent(filePath, fileContent)
+	static async loadComponent(
+		filePath: string,
+		disposables: IDisposable[],
+		fileContent?: string
+	) {
+		return await loadCustomComponent(filePath, disposables, fileContent)
 	}
 
 	static async loadAutoCompletions(pluginPath: string) {
