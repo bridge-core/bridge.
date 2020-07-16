@@ -228,7 +228,7 @@ export default class PluginLoader {
 							disposables
 						)
 					),
-					this.loadSnippets(pluginPath),
+					this.loadSnippets(pluginPath, disposables),
 					this.loadThemes(pluginPath),
 					this.loadComponents(path.join(pluginPath, 'components')),
 					this.loadAutoCompletions(pluginPath),
@@ -291,7 +291,7 @@ export default class PluginLoader {
 		})
 	}
 
-	static async loadSnippets(pluginPath: string) {
+	static async loadSnippets(pluginPath: string, disposables: IDisposable[]) {
 		let snippets: string[] = await fs
 			.readdir(path.join(pluginPath, 'snippets'))
 			.catch(e => [])
@@ -303,9 +303,13 @@ export default class PluginLoader {
 				)
 			)
 		)
-		loaded_snippets.forEach(s => {
-			if (s !== undefined) PluginSnippets.add(s)
-		})
+		;(
+			await Promise.all(
+				loaded_snippets.map(s => {
+					if (s !== undefined) return PluginSnippets.add(s)
+				})
+			)
+		).forEach(disposable => disposables.push(disposable))
 	}
 
 	static async loadThemes(pluginPath: string) {

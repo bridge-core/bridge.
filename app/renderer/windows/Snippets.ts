@@ -28,6 +28,12 @@ async function addSnippet(s: any) {
 
 	if (SNIPPETS[s.file_type] === undefined) SNIPPETS[s.file_type] = []
 	SNIPPETS[s.file_type].push(s)
+
+	return {
+		dispose: () => {
+			SNIPPETS[s.file_type].splice(SNIPPETS[s.file_type].indexOf(s), 1)
+		},
+	}
 }
 async function removeSnippet(s: any) {
 	await assureLoadedSnippets()
@@ -141,7 +147,7 @@ class SnippetWindow extends ContentWindow {
 
 export class PluginSnippets {
 	static add(s: any) {
-		addSnippet({
+		return addSnippet({
 			...s,
 			is_plugin: true,
 		})
