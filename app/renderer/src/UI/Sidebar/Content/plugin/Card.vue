@@ -4,9 +4,9 @@
 			<!-- HEADER -->
 			<v-list-item-content>
 				<v-list-item-title>{{ plugin.name }}</v-list-item-title>
-				<v-list-item-subtitle class="text--primary"
-					>by {{ plugin.author }}</v-list-item-subtitle
-				>
+				<v-list-item-subtitle class="text--primary">
+					by {{ plugin.author }}
+				</v-list-item-subtitle>
 			</v-list-item-content>
 
 			<!-- ACTIONS -->
@@ -16,9 +16,9 @@
 				</v-list-item-action-text>
 				<v-tooltip color="error" right v-if="!plugin.id">
 					<template v-slot:activator="{ on }">
-						<v-icon v-on="on" color="error"
-							>mdi-alert-circle</v-icon
-						>
+						<v-icon v-on="on" color="error">
+							mdi-alert-circle
+						</v-icon>
 					</template>
 					<span>Not Loaded: No valid ID assigned</span>
 				</v-tooltip>
@@ -41,7 +41,7 @@
 				<v-tooltip
 					color="success"
 					right
-					v-if="plugin.id && !uninstalled_plugins.includes(plugin.id)"
+					v-if="plugin.id && !uninstalledPlugins.includes(plugin.id)"
 				>
 					<template v-slot:activator="{ on }">
 						<v-icon
@@ -85,14 +85,20 @@ export default {
 	props: {
 		plugin: Object,
 	},
-	data() {
-		return {
-			unloaded_plugins: undefined,
-		}
-	},
+	data: () => ({
+		localUninstalledPlugins: undefined,
+	}),
 	computed: {
-		uninstalled_plugins() {
-			return this.unloaded_plugins || PluginLoader.unloadedPlugins
+		uninstalledPlugins: {
+			get() {
+				return (
+					this.localUninstalledPlugins || PluginLoader.unloadedPlugins
+				)
+			},
+			set(val) {
+				this.localUninstalledPlugins = val
+				PluginLoader.unloadedPlugins = val
+			},
 		},
 	},
 	methods: {
@@ -100,7 +106,6 @@ export default {
 			shell.openExternal(link)
 		},
 		async activate() {
-			console.log(this.plugin)
 			let lw = new LoadingWindow().show()
 			let plugins
 			let file_path = path.join(
@@ -114,7 +119,7 @@ export default {
 			}
 
 			plugins.splice(plugins.indexOf(this.plugin.id), 1)
-			this.unloaded_plugins = plugins
+			this.uninstalledPlugins = plugins
 			await writeJSON(file_path, plugins)
 
 			//This ensures that we're not trying to load the built-in bridge. Core plugin
@@ -140,8 +145,8 @@ export default {
 				plugins = []
 			}
 
-			this.unloaded_plugins = plugins.concat([this.plugin.id])
-			await writeJSON(file_path, plugins.concat([this.plugin.id]))
+			this.uninstalledPlugins = plugins.concat([this.plugin.id])
+			await writeJSON(file_path, this.uninstalledPlugins)
 
 			//This ensures that we're not trying to unload the built-in bridge. Core plugin
 			if (this.plugin.pluginPath)
