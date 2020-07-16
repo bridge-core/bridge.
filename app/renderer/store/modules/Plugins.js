@@ -17,7 +17,6 @@ const mutations = {
 		Provider.removePluginFileDefs()
 		Provider.removePluginCompletions()
 		FileType.reset()
-		PluginSnippets.removeAll()
 		ThemeManager.reset()
 		PluginLoader.reset()
 
