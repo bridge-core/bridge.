@@ -30,6 +30,7 @@ import { IDisposable } from '../Types/disposable'
 import {
 	clearAll as clearAllDisposables,
 	set as setDisposables,
+	clear as clearDisposables,
 } from './Disposables'
 import { executeScript } from './scripts/execute'
 import { DATA_PATH } from '../../../shared/DefaultDir'
@@ -70,6 +71,10 @@ export default class PluginLoader {
 		clearAllDisposables()
 	}
 
+	static async unloadPlugin(pluginId: string) {
+		clearDisposables(pluginId)
+	}
+
 	static async loadPlugins(
 		basePaths = [path.join(CURRENT.PROJECT_PATH, 'bridge'), DATA_PATH]
 	) {
@@ -82,9 +87,7 @@ export default class PluginLoader {
 		)
 		let unloadedPlugins: string[]
 		try {
-			unloadedPlugins = JSON.parse(
-				(await fs.readFile(uninstalledPath)).toString()
-			)
+			unloadedPlugins = await readJSON(uninstalledPath)
 		} catch {
 			fs.mkdir(path.join(CURRENT.PROJECT_PATH, 'plugins'), {
 				recursive: true,
@@ -234,9 +237,12 @@ export default class PluginLoader {
 				]).catch(console.error)
 				addLoadLocation(path.join(pluginPath, 'presets'))
 			}
+
 			PLUGIN_DATA.push({
 				...manifest,
 				pluginPath, //Used by extension store to update plugins
+				pluginFolder, //Used for dynamic activation/deactivation of plugins
+				basePath, //Used for dynamic activation/deactivation of plugins
 			})
 			setDisposables(manifest.id, disposables)
 		}
