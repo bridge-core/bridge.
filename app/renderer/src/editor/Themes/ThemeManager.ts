@@ -6,6 +6,7 @@ import Store from '../../../store/index'
 import fs from 'fs'
 import deepmerge from 'deepmerge'
 import { defineMonacoTheme } from './Monaco'
+import { createErrorNotification } from '../../AppCycle/Errors'
 
 declare var __static: string
 
@@ -120,15 +121,29 @@ export default class ThemeManager {
 		{ id, ...theme }: { id: string; [other: string]: any },
 		isGlobal: boolean
 	) {
-		if (!id)
-			return console.error(
-				"No valid ID provided for theme. IDs may not be 'falsy'"
+		if (!id) {
+			createErrorNotification(
+				new Error(
+					`INVALID THEME: No valid ID provided for theme. IDs may not be 'falsy'`
+				)
 			)
+			return {
+				dispose: () => {},
+			}
+		}
+
 		if (theme.definition.dark === undefined) theme.definition.dark = {}
 		if (theme.definition.light === undefined) theme.definition.light = {}
 
 		if (isGlobal) this.plugin_themes_global[id] = theme
 		else this.plugin_themes[id] = theme
+
+		return {
+			dispose: () => {
+				if (isGlobal) this.plugin_themes_global[id] = undefined
+				else this.plugin_themes[id] = undefined
+			},
+		}
 	}
 
 	static applyTheme(id = 'bridge.default.theme') {
@@ -193,9 +208,5 @@ export default class ThemeManager {
 		}
 		// Regardless of what theme is chosen, save what the local theme is for the settings menu to reference
 		this.local_theme = await ProjectConfig.theme
-	}
-
-	static reset() {
-		this.plugin_themes = []
 	}
 }

@@ -2,9 +2,6 @@ import Vue from 'vue'
 import Provider from '../../src/autoCompletions/Provider'
 import FileType from '../../src/editor/FileType'
 import EventBus from '../../src/EventBus'
-import { PluginSnippets } from '../../windows/Snippets'
-import ThemeManager from '../../src/editor/Themes/ThemeManager'
-import PluginLoader from '../../src/plugins/PluginLoader'
 
 const state = {
 	installed_plugins: [],
@@ -17,8 +14,6 @@ const mutations = {
 		Provider.removePluginFileDefs()
 		Provider.removePluginCompletions()
 		FileType.reset()
-		ThemeManager.reset()
-		PluginLoader.reset()
 
 		EventBus.trigger('bridge:unloadPlugins')
 		Vue.set(state, 'installed_plugins', [])
