@@ -231,7 +231,7 @@ export default class PluginLoader {
 					this.loadThemes(pluginPath, disposables),
 					this.loadComponents(path.join(pluginPath, 'components')),
 					this.loadAutoCompletions(pluginPath),
-					this.loadThemeCSS(pluginPath),
+					this.loadThemeCSS(pluginPath, disposables),
 					loadCustomCommands(path.join(pluginPath, 'commands')),
 				]).catch(console.error)
 				addLoadLocation(path.join(pluginPath, 'presets'))
@@ -333,7 +333,7 @@ export default class PluginLoader {
 		})
 	}
 
-	static async loadThemeCSS(pluginPath: string) {
+	static async loadThemeCSS(pluginPath: string, disposables: IDisposable[]) {
 		let cssFiles = await fs
 			.readdir(path.join(pluginPath, 'styles'), { withFileTypes: true })
 			.catch(e => [] as Dirent[])
@@ -350,6 +350,12 @@ export default class PluginLoader {
 
 		css.forEach((css, i) => {
 			ThemeManager.css.set(cssFiles[i].name, css)
+
+			disposables.push({
+				dispose: () => {
+					ThemeManager.css.delete(cssFiles[i].name)
+				},
+			})
 		})
 	}
 
