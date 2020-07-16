@@ -6,12 +6,7 @@
 		@closeWindow="isVisible.value = false"
 	>
 		<template #default>
-			<div
-				style="
-				display: grid;
-    			grid-template-columns: repeat(4, minmax(150px, 25%));
-			"
-			>
+			<div class="card-container">
 				<ProjectCard
 					v-for="({
 						projectPath,
@@ -67,4 +62,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.card-container {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(150px, 25%));
+}
+</style>
