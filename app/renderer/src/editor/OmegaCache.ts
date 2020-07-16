@@ -201,14 +201,11 @@ export default class OmegaCache {
 		try {
 			await fsp.mkdir(path.dirname(newCachePath), { recursive: true })
 		} catch {}
-		console.log(oldCachePath, newCachePath)
 
 		try {
 			await fsp.copyFile(oldCachePath, newCachePath)
 			this.clear(old_path)
-		} catch (e) {
-			console.error(e)
-		}
+		} catch {}
 	}
 	static async duplicate(what: string, as: string) {
 		if (!this.mayBeCached(as)) return

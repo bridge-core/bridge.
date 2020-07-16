@@ -162,16 +162,16 @@ export class FileExplorer {
 
 	async update(absolute_path: string, f_path: string) {
 		if (this.is_loading) await this.loading_promise
-		const newAbsolutePath = path.join(absolute_path, this.name)
 		if (!this.is_folder) {
 			await Promise.all([
-				OmegaCache.rename(this.absolute_path, newAbsolutePath),
-				LightningCache.rename(this.absolute_path, newAbsolutePath),
-				JSONFileMasks.rename(this.absolute_path, newAbsolutePath),
+				OmegaCache.rename(this.absolute_path, absolute_path),
+				LightningCache.rename(this.absolute_path, absolute_path),
+				JSONFileMasks.rename(this.absolute_path, absolute_path),
 			])
 		}
 
-		this.absolute_path = newAbsolutePath
+		this.absolute_path = absolute_path
+		this.name = path.basename(absolute_path)
 		this.path = path.join(f_path, this.name)
 
 		if (!this.loaded_children && this.is_folder) await this.load()
@@ -210,31 +210,37 @@ export class FileExplorer {
 		}
 		this.parent.updateUUID()
 	}
-	async duplicate(new_name: string, open = true) {
-		if (this.parent.find(new_name) !== undefined)
+	async duplicate(newName: string, open = true) {
+		if (this.parent.find(newName) !== undefined)
 			return new InformationWindow(
 				'Error',
-				`A file with the name "${new_name}" already exists`
+				`A file with the name "${newName}" already exists`
 			)
-		let new_path = path.join(path.dirname(this.absolute_path), new_name)
+		let newAbsolutePath = path.join(
+			path.dirname(this.absolute_path),
+			newName
+		)
 
 		await Promise.all([
-			OmegaCache.duplicate(this.absolute_path, new_path).catch(() => {}),
-			LightningCache.duplicate(this.absolute_path, new_path),
-			JSONFileMasks.duplicate(this.absolute_path, new_path),
-			fs.copyFile(this.absolute_path, new_path),
+			OmegaCache.duplicate(
+				this.absolute_path,
+				newAbsolutePath
+			).catch(() => {}),
+			LightningCache.duplicate(this.absolute_path, newAbsolutePath),
+			JSONFileMasks.duplicate(this.absolute_path, newAbsolutePath),
+			fs.copyFile(this.absolute_path, newAbsolutePath),
 		])
 
 		this.parent.children.push(
 			new FileExplorer(
 				this.parent,
-				path.join(this.parent.path, new_name),
-				new_path,
+				path.join(this.parent.path, newName),
+				newAbsolutePath,
 				false
 			)
 		)
-		if (open)
-			FileSystem.open(path.join(this.parent.absolute_path, new_name))
+		if (open) FileSystem.open(path.join(this.parent.absolute_path, newName))
+		this.parent.sort()
 		this.parent.updateUUID()
 	}
 	rename(val: string) {

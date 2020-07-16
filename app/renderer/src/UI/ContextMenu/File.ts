@@ -70,18 +70,19 @@ export const FILE_CONTEXT_MENU = async (
 					},
 					async (new_name: string) => {
 						const CLOSED = TabSystem.closeByPath(file_path)
-						const NEW_PATH = path.join(
+						const newPath = path.join(
 							path.dirname(file_path),
 							path.dirname(new_name),
 							path.basename(new_name)
 						)
 
-						await fs.mkdir(path.dirname(NEW_PATH), {
+						await fs.mkdir(path.dirname(newPath), {
 							recursive: true,
 						})
-						await fs.rename(file_path, NEW_PATH)
+						await fs.rename(file_path, newPath)
+
 						await file.update(
-							NEW_PATH,
+							newPath,
 							path.join(
 								path.dirname(file.path),
 								path.dirname(new_name),
@@ -90,7 +91,7 @@ export const FILE_CONTEXT_MENU = async (
 						)
 						await file.parent.refresh()
 
-						if (CLOSED) FileSystem.open(NEW_PATH)
+						if (CLOSED) FileSystem.open(newPath)
 					}
 				)
 			},
