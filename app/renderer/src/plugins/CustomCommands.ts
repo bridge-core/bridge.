@@ -9,6 +9,7 @@ import { toCorrectType } from '../editor/Json'
 import Provider from '../autoCompletions/Provider'
 import { CURRENT } from '../constants'
 import { splitSelectorArgs, parseCommands } from '../bridgeCore/functions/parse'
+import { IDisposable } from '../Types/disposable'
 
 type TSelectorTransform = (
 	selector: string,
@@ -33,7 +34,10 @@ export abstract class BridgeCommand {
 	onPropose() {}
 }
 
-export async function loadCustomCommands(folderPath: string) {
+export async function loadCustomCommands(
+	folderPath: string,
+	disposables: IDisposable[]
+) {
 	try {
 		const data = await fs.readdir(folderPath, { withFileTypes: true })
 
@@ -41,10 +45,13 @@ export async function loadCustomCommands(folderPath: string) {
 			data.map(async dirent => {
 				if (dirent.isDirectory())
 					return await loadCustomCommands(
-						join(folderPath, dirent.name)
+						join(folderPath, dirent.name),
+						disposables
 					)
 
-				await registerCustomCommand(join(folderPath, dirent.name))
+				disposables.push(
+					await registerCustomCommand(join(folderPath, dirent.name))
+				)
 			})
 		)
 	} catch {}
@@ -59,6 +66,7 @@ export async function registerCustomCommand(
 	if (fileContent === undefined) return
 
 	const promises: Promise<unknown>[] = []
+	const disposables: IDisposable[] = []
 
 	run(
 		fileContent,
@@ -75,6 +83,16 @@ export async function registerCustomCommand(
 					fileRefs.forEach(filePath => UpdateFiles.add(filePath))
 				)
 				promises.push(fileRefs)
+
+				disposables.push({
+					dispose: () => {
+						CommandNames.splice(
+							CommandNames.indexOf(Command.command_name),
+							1
+						)
+						CommandRegistry.delete(Command.command_name)
+					},
+				})
 			},
 			parseCommands: parseCommands,
 			insertAutoCompletions(path: string, definition: unknown) {
@@ -94,6 +112,12 @@ export async function registerCustomCommand(
 					fileRefs.forEach(filePath => UpdateFiles.add(filePath))
 				)
 				promises.push(fileRefs)
+
+				disposables.push({
+					dispose: () => {
+						SelectorRegistry.delete(`selector@${selectorKey}`)
+					},
+				})
 			},
 			createFunction: (filePath: string, fileContent: string) => {
 				return fs.writeFile(
@@ -121,6 +145,12 @@ export async function registerCustomCommand(
 		}
 	)
 	await Promise.all(promises)
+
+	return {
+		dispose: () => {
+			disposables.forEach(disposable => disposable.dispose())
+		},
+	}
 }
 
 export async function updateCommandFiles() {

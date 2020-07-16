@@ -44,6 +44,12 @@ export default class ComponentRegistry {
 			true
 		)
 		refs.forEach(ref => this.registerUpdates.add(ref))
+
+		return {
+			dispose: () => {
+				delete this.components[name]
+			},
+		}
 	}
 	static async updateFiles() {
 		for (let f of this.registerUpdates) await JSONFileMasks.apply(f)

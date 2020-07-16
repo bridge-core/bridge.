@@ -5,9 +5,11 @@ import InformationWindow from '../../UI/Windows/Common/Information'
 import { createLimitedEnv } from '../scripts/require'
 import { run } from '../../editor/ScriptRunner/run'
 import { extname } from 'path'
+import { IDisposable } from '../../Types/disposable'
 
 export async function loadJS(
 	fileContent: string,
+	disposables: IDisposable[],
 	promises: Promise<unknown>[] = []
 ) {
 	try {
@@ -16,8 +18,12 @@ export async function loadJS(
 			[
 				createLimitedEnv(),
 				{
-					register: (c: any) =>
-						promises.push(ComponentRegistry.register(c)),
+					register: (c: any) => {
+						const promise = ComponentRegistry.register(
+							c
+						).then(disposable => disposables.push(disposable))
+						promises.push(promise)
+					},
 					report: (info: string) =>
 						new InformationWindow('Information', info, false),
 				},
@@ -33,18 +39,21 @@ export async function loadJS(
 	}
 }
 
-export function loadJSON(fileContent: string) {
+export async function loadJSON(fileContent: string) {
 	try {
 		const {
 			description: { identifier = undefined, ...description } = {},
 			...entity
 		} = JSON.parse(fileContent)['bridge:component']
 
-		if (!identifier)
-			return createErrorNotification(
+		if (!identifier) {
+			createErrorNotification(
 				new Error('Custom component must include component name')
 			)
-		ComponentRegistry.register(
+			return { dispose: () => {} }
+		}
+
+		return await ComponentRegistry.register(
 			class {
 				static component_name = identifier
 
@@ -71,6 +80,7 @@ export function loadJSON(fileContent: string) {
 
 export async function loadCustomComponent(
 	filePath: string,
+	disposables: IDisposable[],
 	fileContent?: string
 ) {
 	if (fileContent === undefined)
@@ -82,9 +92,9 @@ export async function loadCustomComponent(
 	const promises: Promise<unknown>[] = []
 
 	if (extname(filePath) === '.js') {
-		await loadJS(fileContent, promises)
+		await loadJS(fileContent, disposables, promises)
 	} else if (extname('.json')) {
-		loadJSON(fileContent)
+		disposables.push(await loadJSON(fileContent))
 	}
 
 	await Promise.all(promises)
