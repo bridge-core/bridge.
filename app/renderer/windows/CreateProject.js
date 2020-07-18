@@ -8,6 +8,7 @@ import uuidv4 from 'uuid/v4'
 import CreateFiles from '../src/Project/CreateFiles'
 import path from 'path'
 import EventBus from '../src/EventBus'
+import ProjectConfig from '../src/Project/Config'
 
 export default class CreateProjectWindow extends ContentWindow {
 	constructor(create_bp = true, cb) {
@@ -110,6 +111,24 @@ export default class CreateProjectWindow extends ContentWindow {
 			{
 				type: 'divider',
 			},
+			{
+				type: 'select',
+				color: 'primary',
+				text: 'Target Minecraft version',
+				options: [
+					'1.8.0',
+					'1.9.0',
+					'1.10.0',
+					'1.11.0',
+					'1.12.0',
+					'1.13.0',
+					'1.14.0',
+					'1.16.0',
+				].reverse(),
+				action: val => {
+					this.target_mc_version = val
+				},
+			},
 			create_bp
 				? {
 						type: 'switch',
@@ -202,7 +221,7 @@ export default class CreateProjectWindow extends ContentWindow {
 							)
 
 						Vue.$root.$emit('refreshExplorer')
-
+						ProjectConfig.setFormatVersion(this.target_mc_version)
 						l_w.hide()
 						if (typeof cb === 'function') cb(this.input)
 						if (create_bp)

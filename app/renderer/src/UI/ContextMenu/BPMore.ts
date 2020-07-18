@@ -12,6 +12,7 @@ import { promises as fs } from 'fs'
 import { refreshCache } from '../../Project/RefreshCache'
 import { zip } from 'zip-a-folder'
 import { createNotification } from '../Footer/create'
+import DropdownWindow from '../Windows/Common/Dropdown'
 
 export default [
 	{
@@ -33,6 +34,39 @@ export default [
 				},
 				val => {
 					ProjectConfig.setPrefix(val)
+				}
+			)
+		},
+	},
+	{
+		icon: 'mdi-rename-box', // TODO
+		title: 'Project Format Version',
+		action: async () => {
+			let formatVersion
+			try {
+				formatVersion = await ProjectConfig.formatVersion
+			} catch (e) {
+				formatVersion = '1.13.0'
+			}
+
+			new DropdownWindow(
+				{
+					header: 'Project Format Version',
+					label: 'Format Version',
+					text: formatVersion,
+					options: [
+						'1.8.0',
+						'1.9.0',
+						'1.10.0',
+						'1.11.0',
+						'1.12.0',
+						'1.13.0',
+						'1.14.0',
+						'1.16.0',
+					].reverse(),
+				},
+				val => {
+					ProjectConfig.setFormatVersion(val)
 				}
 			)
 		},
