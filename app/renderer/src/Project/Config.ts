@@ -6,6 +6,7 @@ import path from 'path'
 import { readJSON, writeJSON, readJSONSync } from '../Utilities/JsonFS'
 import SETTINGS from '../../store/Settings'
 import { on } from '../AppCycle/EventSystem'
+import { getFormatVersions } from '../autoCompletions/components/VersionedTemplate/Common'
 
 on('bridge:changedProject', () => {
 	ProjectConfig.prefix_cache = undefined
@@ -59,20 +60,22 @@ export default class ProjectConfig {
 		try {
 			if (this.formatVersion_cache === undefined)
 				this.formatVersion_cache =
-					readJSONSync(this.config_path).formatVersion || 'bridge'
+					readJSONSync(this.config_path).formatVersion ||
+					getFormatVersions().pop()
 			return this.formatVersion_cache
 		} catch (e) {
-			return 'bridge'
+			return getFormatVersions().pop()
 		}
 	}
 	static get formatVersion(): Promise<string> {
 		return (async () => {
 			try {
 				return (
-					(await readJSON(this.config_path)).formatVersion || 'bridge'
+					(await readJSON(this.config_path)).formatVersion ||
+					getFormatVersions().pop()
 				)
 			} catch {
-				return 'bridge'
+				return getFormatVersions().pop()
 			}
 		})()
 	}

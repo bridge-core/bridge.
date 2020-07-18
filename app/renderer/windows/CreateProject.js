@@ -9,6 +9,7 @@ import CreateFiles from '../src/Project/CreateFiles'
 import path from 'path'
 import EventBus from '../src/EventBus'
 import ProjectConfig from '../src/Project/Config'
+import { getFormatVersions } from '../src/autoCompletions/components/VersionedTemplate/Common'
 
 export default class CreateProjectWindow extends ContentWindow {
 	constructor(create_bp = true, cb) {
@@ -115,16 +116,7 @@ export default class CreateProjectWindow extends ContentWindow {
 				type: 'select',
 				color: 'primary',
 				text: 'Target Minecraft version',
-				options: [
-					'1.8.0',
-					'1.9.0',
-					'1.10.0',
-					'1.11.0',
-					'1.12.0',
-					'1.13.0',
-					'1.14.0',
-					'1.16.0',
-				].reverse(),
+				options: getFormatVersions().reverse(),
 				action: val => {
 					this.target_mc_version = val
 				},
