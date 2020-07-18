@@ -19,13 +19,13 @@ export default class CreateProjectWindow extends ContentWindow {
 			create_bp
 				? 'development_behavior_packs'
 				: 'development_resource_packs'
-		}" folder.`
+		}" folder.\n\n`
 
 		super({
 			display_name: create_bp ? 'New Project' : 'New Resource Pack',
 			options: {
 				is_persistent: false,
-				height: 280,
+				height: 380,
 			},
 		})
 
@@ -113,9 +113,13 @@ export default class CreateProjectWindow extends ContentWindow {
 				type: 'divider',
 			},
 			{
+				text: '\n',
+			},
+			{
 				type: 'select',
 				color: 'primary',
 				text: 'Target Minecraft version',
+				max_height: 160,
 				options: getFormatVersions().reverse(),
 				action: val => {
 					this.target_mc_version = val

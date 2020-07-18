@@ -46,6 +46,7 @@ export default class DropdownWindow {
 			text: label,
 			input: text,
 			has_focus: true,
+			max_height: 160,
 			action: {
 				enter: () => {
 					if (this.input === '') return
