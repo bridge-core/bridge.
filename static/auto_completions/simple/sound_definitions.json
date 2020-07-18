@@ -1,14 +1,17 @@
 {
-    "$placeholder": {
-        "category": [ "weather", "block", "hostile", "player", "neutral", "bucket", "record", "ui" ],
-        "min_distance": "$general.decimal",
-        "sounds": {
-            "$dynamic.list.next_index": {
-                "name": { "@meta": { "is_value": true }, "@import.value": "$dynamic.rp.sound_file" },
-                "stream": "$general.boolean",
-                "load_on_low_memory": "$general.boolean",
-                "volume": "$general.decimal",
-                "@import.value": "$dynamic.rp.sound_file"
+    "format_version": "$general.format_version",
+    "sound_definitions": {
+        "$placeholder": {
+            "category": [ "weather", "block", "hostile", "player", "neutral", "bucket", "record", "ui" ],
+            "min_distance": "$general.decimal",
+            "sounds": {
+                "$dynamic.list.next_index": {
+                    "name": { "@meta": { "is_value": true }, "@import.value": "$dynamic.rp.sound_file" },
+                    "stream": "$general.boolean",
+                    "load_on_low_memory": "$general.boolean",
+                    "volume": "$general.decimal",
+                    "@import.value": "$dynamic.rp.sound_file"
+                }
             }
         }
     }

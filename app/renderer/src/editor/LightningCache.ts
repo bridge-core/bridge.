@@ -279,7 +279,7 @@ export default class LightningCache {
 		}
 	}
 
-	static async load(filePath?: string): Promise<LightningCacheData> {
+	static async load(): Promise<LightningCacheData> {
 		if (this.globalCache !== undefined) return this.globalCache
 
 		try {
