@@ -9,6 +9,7 @@ import { on } from '../AppCycle/EventSystem'
 
 on('bridge:changedProject', () => {
 	ProjectConfig.prefix_cache = undefined
+	ProjectConfig.formatVersion_cache = undefined
 })
 
 export default class ProjectConfig {
@@ -16,6 +17,7 @@ export default class ProjectConfig {
 		return path.join(CURRENT.PROJECT_PATH, 'bridge/config.json')
 	}
 	static prefix_cache: string
+	static formatVersion_cache: string
 
 	//PREFIX
 	static getPrefixSync() {
@@ -53,7 +55,43 @@ export default class ProjectConfig {
 			})
 		})()
 	}
+	static getFormatVersionSync() {
+		try {
+			if (this.formatVersion_cache === undefined)
+				this.formatVersion_cache =
+					readJSONSync(this.config_path).formatVersion || 'bridge'
+			return this.formatVersion_cache
+		} catch (e) {
+			return 'bridge'
+		}
+	}
+	static get formatVersion(): Promise<string> {
+		return (async () => {
+			try {
+				return (
+					(await readJSON(this.config_path)).formatVersion || 'bridge'
+				)
+			} catch {
+				return 'bridge'
+			}
+		})()
+	}
+	static setFormatVersion(val: string) {
+		;(async () => {
+			let data
+			try {
+				data = await readJSON(this.config_path)
+			} catch (e) {
+				data = {}
+			}
+			this.formatVersion_cache = val
 
+			await writeJSON(this.config_path, {
+				...data,
+				formatVersion: val,
+			})
+		})()
+	}
 	static get theme(): Promise<string> {
 		return (async () => {
 			try {

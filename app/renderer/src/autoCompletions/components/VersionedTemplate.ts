@@ -4,6 +4,7 @@ import TabSystem from '../../TabSystem'
 import { compare, CompareOperator } from 'compare-versions'
 import { Omega } from '../Omega'
 import { detachMerge } from '../../Utilities/mergeUtils'
+import ProjectConfig from '../../Project/Config'
 
 export class VersionedTemplate {
 	static confirm(
@@ -81,6 +82,6 @@ function getFormatVersion() {
 			.content.get('format_version')
 			.toJSON()
 	} catch {
-		return
+		return ProjectConfig.getFormatVersionSync()
 	}
 }
