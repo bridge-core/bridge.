@@ -1,14 +1,27 @@
 <template>
-	<div v-if="first || tree.open" v-intersect="onIntersect" style="margin-left: 16px;">
+	<div
+		v-if="first || tree.open"
+		v-intersect="onIntersect"
+		style="margin-left: 16px;"
+	>
 		<template v-for="child in tree.children">
 			<details
 				v-if="child.children.length > 0"
 				:key="`darkMode-${isDarkMode}-uuid-${child.uuid}`"
 				:open="child.open"
 			>
-				<TreeKey :language="language" :tree="child" :isOnScreen="isParentOnScreen && isOnScreen" />
+				<TreeKey
+					:language="language"
+					:tree="child"
+					:isOnScreen="isParentOnScreen && isOnScreen"
+				/>
 
-				<TreeRenderer :first="false" :language="language" :tree="child" :isParentOnScreen="isOnScreen" />
+				<TreeRenderer
+					:first="false"
+					:language="language"
+					:tree="child"
+					:isParentOnScreen="isOnScreen"
+				/>
 			</details>
 
 			<TreeProperty
@@ -87,8 +100,8 @@ export default {
 			return `"${data}"`
 		},
 		onIntersect(entries) {
-			debounce(() => (this.isOnScreen = entries[0].isIntersecting), 200)()
-			// this.isOnScreen = entries[0].isIntersecting
+			// debounce(() => (this.isOnScreen = entries[0].isIntersecting), 200)()
+			this.isOnScreen = entries[0].isIntersecting
 		},
 	},
 	watch: {

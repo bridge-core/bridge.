@@ -58,6 +58,10 @@ export default {
 	},
 	methods: {
 		colorize(string) {
+			// It looks like editor.colorize(...) calls are too expensive.
+			// We need to collect requests to the web worker and send them together
+			// return Promise.resolve(string)
+
 			return editor
 				.colorize(string, this.language, {
 					theme: this.isDarkMode ? 'bridge-dark' : 'bridge-light',
