@@ -1,38 +1,20 @@
-import { CONTEXT_UP, CONTEXT_DOWN } from '../Dynamic'
-import Provider from '../Provider'
-import TabSystem from '../../TabSystem'
+import { detachMerge } from '../../../Utilities/mergeUtils'
+import { Omega } from '../../Omega'
 import { compare, CompareOperator } from 'compare-versions'
-import { Omega } from '../Omega'
-import { detachMerge } from '../../Utilities/mergeUtils'
-import ProjectConfig from '../../Project/Config'
-
-export class VersionedTemplate {
-	static confirm(
-		provider: Provider,
-		key: string,
-		path_arr: string[],
-		current: any
-	) {
-		return current.$versioned_template !== undefined
-	}
-	static process(
-		provider: Provider,
-		key: string,
-		path_arr: string[],
-		current: any
-	): any {
-		let { object: template } = compileVersionedTemplate(
-			current.$versioned_template
-		)
-
-		//Template is undefined if path is_data_path
-		return provider.walk(path_arr, (template || {})[key])
-	}
-}
+import TabSystem from '../../../TabSystem'
+import ProjectConfig from '../../../Project/Config'
+import Provider from '../../Provider'
 
 interface IVersionedTemplate {
 	$if: string
 	$data: any
+}
+
+let provider: Provider
+
+export function getFormatVersions() {
+	if (!provider) provider = new Provider(undefined, '')
+	return provider.get('general/format_version').value
 }
 
 export function compileVersionedTemplate(template: IVersionedTemplate[]) {

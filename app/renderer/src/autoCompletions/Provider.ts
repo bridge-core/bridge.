@@ -14,7 +14,7 @@ import EventBus from '../EventBus'
 import { FileDefinition } from '../editor/FileDefinition'
 import JSONTree from '../editor/JsonTree'
 import InformationWindow from '../UI/Windows/Common/Information'
-import { compileVersionedTemplate } from './components/VersionedTemplate'
+import { compileVersionedTemplate } from './components/VersionedTemplate/Common'
 
 declare var __static: string
 
@@ -34,8 +34,9 @@ export let LIB: any = { dynamic: DYNAMIC }
 class Provider {
 	private start_state: string
 	private META: any
-	constructor(current?: string) {
-		this.validator(current)
+	constructor(currentProposePath?: string, startState?: string) {
+		if (currentProposePath) this.validator(currentProposePath)
+		else if (startState) this.start_state = startState
 	}
 
 	static loadAssets() {
@@ -187,7 +188,12 @@ class Provider {
 		if (this.start_state === 'unknown')
 			return { object: [], value: [], META: {} }
 
-		path = path.replace('global', this.start_state)
+		//Default data query for auto-completion engine
+		if (this.start_state !== '')
+			path = path.replace('global', this.start_state)
+		// We may want to use the auto-completion provider to access our data-base.
+		// In this case use an empty start_state
+		else path = path.replace('global/', this.start_state)
 
 		SET_CONTEXT(context, context === undefined ? undefined : context.parent)
 		let propose = this.walk(path.split('/'))

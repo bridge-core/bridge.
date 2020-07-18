@@ -13,6 +13,7 @@ import { refreshCache } from '../../Project/RefreshCache'
 import { zip } from 'zip-a-folder'
 import { createNotification } from '../Footer/create'
 import DropdownWindow from '../Windows/Common/Dropdown'
+import { getFormatVersions } from '../../autoCompletions/components/VersionedTemplate/Common'
 
 export default [
 	{
@@ -39,8 +40,8 @@ export default [
 		},
 	},
 	{
-		icon: 'mdi-rename-box', // TODO
-		title: 'Project Format Version',
+		icon: 'mdi-numeric',
+		title: 'Project Target Version',
 		action: async () => {
 			let formatVersion
 			try {
@@ -54,16 +55,7 @@ export default [
 					header: 'Project Format Version',
 					label: 'Format Version',
 					text: formatVersion,
-					options: [
-						'1.8.0',
-						'1.9.0',
-						'1.10.0',
-						'1.11.0',
-						'1.12.0',
-						'1.13.0',
-						'1.14.0',
-						'1.16.0',
-					].reverse(),
+					options: getFormatVersions().reverse(),
 				},
 				val => {
 					ProjectConfig.setFormatVersion(val)

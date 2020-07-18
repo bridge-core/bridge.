@@ -2,8 +2,8 @@ import { Placeholder } from './components/Placeholder'
 import { Load } from './components/Load'
 import { DynamicTemplate } from './components/DynamicTemplate'
 import { DynamicKeyTemplate } from './components/DynamicKeyTemplate'
-import { VersionedTemplate } from './components/VersionedTemplate'
-import { VersionedKeyTemplate } from './components/VersionedKeyTemplate'
+import { VersionedTemplate } from './components/VersionedTemplate/Main'
+import { VersionedKeyTemplate } from './components/VersionedTemplate/Key'
 import Provider from './Provider'
 
 const COMPONENTS = [
