@@ -70,18 +70,21 @@ export function compileSingleCondition(condition: string) {
 	if (v1 === '$format_version') v1 = getFormatVersion()
 	if (v2 === '$format_version') v2 = getFormatVersion()
 	if (!v1 || !v2) return false
-
 	if (['>', '>=', '=', '<', '<='].includes(operator))
 		return compare(v1, v2, <CompareOperator>operator)
 	else throw new Error(`Undefined format_version operator: "${operator}"`)
 }
 
 function getFormatVersion() {
+	let version
 	try {
-		return TabSystem.getSelected()
+		version = TabSystem.getSelected()
 			.content.get('format_version')
 			.toJSON()
 	} catch {
-		return ProjectConfig.getFormatVersionSync()
+		version = ProjectConfig.getFormatVersionSync()
 	}
+	if (typeof version === 'object')
+		version = ProjectConfig.getFormatVersionSync()
+	return version
 }
