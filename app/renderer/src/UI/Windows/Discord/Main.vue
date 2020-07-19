@@ -6,21 +6,23 @@
 		:hasMaximizeButton="false"
 		:isFullscreen="false"
 		:width="420"
-		:maxWidth="420"
-		:height="180"
-		:maxHeight="180"
+		:height="80"
 		@closeWindow="close"
 	>
-		<h2>Join the official bridge. Discord server!</h2>
-		<v-row align="end" justify="center" class="pt-13">
-			<v-btn large class="ma-2" @click="close">
+		<template #default>
+			<p>Join the official bridge. Discord server!</p>
+		</template>
+
+		<template #actions>
+			<v-spacer />
+			<v-btn @click="close">
 				<span>Later</span>
 			</v-btn>
-			<v-btn color="#7289DA" large class="ma-2" @click="openDiscord">
-				<v-icon>mdi-discord</v-icon>
-				<span>Join</span>
+			<v-btn color="#7289DA" @click="openDiscord">
+				<v-icon color="white">mdi-discord</v-icon>
+				<span class="white--text">Join</span>
 			</v-btn>
-		</v-row>
+		</template>
 	</BaseWindow>
 </template>
 
