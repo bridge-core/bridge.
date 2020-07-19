@@ -14,7 +14,7 @@
 		<v-autocomplete
 			placeholder="Search..."
 			:items="files"
-			v-model.lazy="file"
+			@input="openFile"
 			autofocus
 			:menu-props="{ maxWidth: 380 }"
 		/>
@@ -29,27 +29,21 @@ import FileSystem from '../../../../src/FileSystem'
 
 export default {
 	name: 'GoToFile',
-	props: {
-		file: '',
-	},
 	components: {
 		BaseWindow,
 	},
 	data: () => GoToFile.getState(),
-	methods: {
-		close: () => GoToFile.close(),
-	},
 	computed: {
 		files() {
 			return loadFiles()
 		},
 	},
-	watch: {
-		file() {
-			if (this.file.length > 0) {
-				FileSystem.open(this.file)
-				GoToFile.close()
-			}
+
+	methods: {
+		close: () => GoToFile.close(),
+		openFile(filePath) {
+			FileSystem.open(filePath)
+			GoToFile.close()
 		},
 	},
 }
