@@ -1,5 +1,5 @@
 import { IAppMenu } from '../create'
-import GoToFileWindow from '../../../../windows/GoToFileWindow'
+import { GoToFile } from '../../Windows/GoToFile/definition'
 import SnippetWindow from '../../../../windows/Snippets'
 import PresetWindow from '../../../../windows/PresetWindow'
 
@@ -29,7 +29,7 @@ export const ToolMenu: IAppMenu = {
 				ctrlKey: true,
 				shiftKey: true,
 			},
-			onClick: () => GoToFileWindow.show(),
+			onClick: () => GoToFile.open(),
 		},
 	],
 }

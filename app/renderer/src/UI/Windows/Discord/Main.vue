@@ -4,11 +4,11 @@
 		windowTitle="Discord"
 		:isVisible="isVisible"
 		:hasMaximizeButton="false"
-		isFullscreen="false"
-		width="420"
-		maxWidth="420"
-		height="180"
-		maxHeight="180"
+		:isFullscreen="false"
+		:width="420"
+		:maxWidth="420"
+		:height="180"
+		:maxHeight="180"
 		@closeWindow="close"
 	>
 		<h2>Join the official bridge. Discord server!</h2>
