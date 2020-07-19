@@ -1,7 +1,7 @@
 {
     "sound_object": {
-        "@import.value.sound_def": "$dynamic.rp.sound_definition",
-        "sound": "$dynamic.rp.sound_definition",
+        "@import.value.sound_def": "$dynamic.cache.sound_definition.ids",
+        "sound": "$dynamic.cache.sound_definition.ids",
         "volume": "$simple.general.number_range",
         "pitch": "$simple.general.number_range"
     },
