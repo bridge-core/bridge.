@@ -15,7 +15,9 @@
 			placeholder="Search..."
 			:items="files"
 			v-model.lazy="file"
-		></v-autocomplete>
+			autofocus
+			:menu-props="{ maxWidth: 380 }"
+		/>
 	</BaseWindow>
 </template>
 
