@@ -80,7 +80,7 @@ export default class ComponentRegistry {
 			location
 		)
 		if (typeof apply_data !== 'object' || Array.isArray(apply_data)) return
-		MASK.overwrite(`component@${component_name}`, apply_data)
+		MASK.set(`component@${component_name}`, apply_data)
 	}
 
 	static async parse(file_path: string, data: any, simulated_call?: boolean) {
@@ -98,7 +98,7 @@ export default class ComponentRegistry {
 				file_path,
 				FileType.get(file_path)
 			)) || {}
-		;(custom_components || []).forEach(c => MASK.reset(`component@${c}`))
+		MASK.keep(channelName => !channelName.startsWith('component@'))
 
 		//SETUP PLUGIN API ENV
 		ContextEnv.value = {

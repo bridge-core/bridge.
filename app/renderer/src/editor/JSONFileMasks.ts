@@ -54,6 +54,11 @@ export class JSONMask {
 		if (!channel) this.data = {}
 		else this.data[channel] = undefined
 	}
+	keep(keepFilter?: (channelName: string) => boolean) {
+		for (let channelName in this.data) {
+			if (!keepFilter(channelName)) this.data[channelName] = undefined
+		}
+	}
 
 	get(channel: string) {
 		return this.data[channel]
