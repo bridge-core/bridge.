@@ -97,7 +97,7 @@ import TabSystem from '../../../TabSystem'
 import { BASE_PATH, BP_BASE_PATH, MOJANG_PATH } from '../../../constants'
 import DataUrl from 'dataurl'
 import fsync, { promises as fs } from 'fs'
-import LinkRPWindow from '../../../../windows/LinkRPWindow'
+import { LinkRP } from '../../Windows/LinkRP/definition'
 import CreateProjectWindow from '../../../../windows/CreateProject'
 import PackLinker from '../../../Utilities/LinkPacks'
 import OmegaCache from '../../../editor/OmegaCache'
@@ -337,7 +337,7 @@ export default {
 		},
 
 		linkRP() {
-			new LinkRPWindow(this.$store.state.Explorer.project.explorer)
+			LinkRP.open()
 		},
 		unlinkRP() {
 			PackLinker.unlink(this.$store.state.Explorer.project.explorer)
