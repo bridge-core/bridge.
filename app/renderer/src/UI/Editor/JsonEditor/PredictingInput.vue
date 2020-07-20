@@ -12,18 +12,27 @@
 					top: false,
 					contentClass: 'json-input-suggestions',
 				}"
-				:hide-no-data="true"
+				hide-no-data
+				auto-select-first
 				no-data-text="No suggestions available..."
 				dense
 				class="json-input-menu"
 			></v-combobox>
 
-			<v-btn color="default_button" style="margin: 0 4px;" @click="click(null, 'object')">
+			<v-btn
+				color="default_button"
+				style="margin: 0 4px;"
+				@click="click(null, 'object')"
+			>
 				<v-icon>mdi-code-braces</v-icon>
 			</v-btn>
 			<v-tooltip color="default_button" bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn color="default_button" v-on="on" @click="click(null, 'value')">
+					<v-btn
+						color="default_button"
+						v-on="on"
+						@click="click(null, 'value')"
+					>
 						<v-icon>mdi-format-quote-close</v-icon>
 					</v-btn>
 				</template>

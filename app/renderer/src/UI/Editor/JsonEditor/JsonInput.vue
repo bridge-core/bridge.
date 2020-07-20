@@ -21,7 +21,8 @@
 					top: false,
 					contentClass: 'json-input-suggestions',
 				}"
-				:hide-no-data="true"
+				hide-no-data
+				auto-select-first
 				no-data-text="No suggestions available..."
 				class="json-input-menu"
 			></v-combobox>
