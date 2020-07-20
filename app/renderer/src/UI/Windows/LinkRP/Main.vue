@@ -6,9 +6,7 @@
 		:hasMaximizeButton="false"
 		:isFullscreen="false"
 		:width="420"
-		:maxWidth="420"
-		:height="160"
-		:maxHeight="160"
+		:height="180"
 		@closeWindow="close"
 	>
 		<template #default>
@@ -16,12 +14,22 @@
 				Create a link between the currently selected behavior pack and
 				one of your resource packs
 			</p>
-			<v-select :items="resourcePacks" v-model="selectedRP" />
+			<v-select
+				v-model="selectedRP"
+				:items="resourcePacks"
+				solo
+				placeholder="Choose a resource pack..."
+			/>
 		</template>
 		<template #actions>
-			<v-layout class="justify-end">
-				<v-btn color="primary" @click="link"><span>Link!</span></v-btn>
-			</v-layout>
+			<v-spacer />
+			<v-btn
+				color="primary"
+				:disabled="selectedRP === null"
+				@click="link"
+			>
+				Link!
+			</v-btn>
 		</template>
 	</BaseWindow>
 </template>
@@ -30,9 +38,8 @@
 import { LinkRP } from './definition'
 import BaseWindow from '../Layout/Base'
 import fs from 'fs'
-import { RP_BASE_PATH } from '../../../constants'
+import { RP_BASE_PATH, CURRENT } from '../../../constants'
 import PackLinker from '../../../Utilities/LinkPacks'
-import InformationWindow from '../Common/Information'
 
 export default {
 	name: 'LinkRP',
@@ -40,22 +47,14 @@ export default {
 		BaseWindow,
 	},
 	data: () => LinkRP.getState(),
-	props: {
-		selectedRP: '',
-	},
 	methods: {
 		close: () => LinkRP.close(),
-		link(selected_rp) {
-			if (this.selectedRP != undefined) {
-				const bp_name = this.$store.state.Explorer.project.explorer
-				LinkRP.close()
-				setTimeout(() => PackLinker.link(bp_name, this.selectedRP), 300)
-			} else {
-				new InformationWindow(
-					'No RP selected',
-					'Please select a resource pack before trying to link'
-				)
-			}
+		link() {
+			LinkRP.close()
+			setTimeout(
+				() => PackLinker.link(CURRENT.PROJECT, this.selectedRP),
+				300
+			)
 		},
 	},
 	computed: {
