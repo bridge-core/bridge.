@@ -18,14 +18,14 @@ export default async function startUp() {
 
 	setupDefaultMenus()
 	if (process.env.NODE_ENV !== 'development') {
-		let discord_msg = createNotification({
+		let discordMsg = createNotification({
 			icon: 'mdi-discord',
 			message: 'Discord Server',
 			color: '#7289DA',
 			textColor: 'white',
 			onClick: () => {
 				DiscordWindow.open()
-				discord_msg.dispose()
+				discordMsg.dispose()
 			},
 		})
 	}
