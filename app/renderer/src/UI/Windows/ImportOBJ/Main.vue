@@ -12,22 +12,22 @@
 		@closeWindow="close"
 		@toggleFullscreen="isFullscreen = !isFullscreen"
 	>
-		<h3 v-if="OBJPath === ''" class="text-space">
+		<h3 v-if="OBJPath === null" class="text-space">
 			Please select a model to import
 		</h3>
-		<h3 v-if="OBJPath != ''" class="text-space">OBJ: {{ OBJPath }}</h3>
+		<h3 v-if="OBJPath != null" class="text-space">OBJ: {{ OBJPath }}</h3>
 		<div class="line" />
 		<br />
-		<v-btn color="primary" @click="addOBJ()">Choose OBJ File</v-btn>
-		<h3 v-if="TexturePath === ''" class="text-space">
+		<v-btn color="primary" @click="addOBJ">Choose OBJ File</v-btn>
+		<h3 v-if="TexturePath === null" class="text-space">
 			Please select a texture file for this model
 		</h3>
-		<h3 v-if="TexturePath != ''" class="text-space">
+		<h3 v-if="TexturePath != null" class="text-space">
 			Texture: {{ TexturePath }}
 		</h3>
 		<div class="line" />
 		<br />
-		<v-btn color="primary" @click="addTexture()">Choose Texture</v-btn>
+		<v-btn color="primary" @click="addTexture">Choose Texture</v-btn>
 		<div class="large-break" />
 		<v-text-field
 			label="Model Identifier"
@@ -45,8 +45,17 @@
 		></v-slider>
 		<div class="large-break" />
 		<div class="line" />
-		<v-layout class="justify-end pt-4">
-			<v-btn color="primary" @click="convert">Import!</v-btn>
+		<v-layout class="justify-end pt-3">
+			<v-btn
+				color="primary"
+				@click="convert"
+				:disabled="
+					identifier === '' ||
+						OBJPath === null ||
+						TexturePath === null
+				"
+				>Import!</v-btn
+			>
 		</v-layout>
 	</BaseWindow>
 </template>
@@ -57,13 +66,6 @@ import BaseWindow from '../Layout/Base'
 
 export default {
 	name: 'ImportOBJ',
-	props: {
-		isFullscreen: false,
-		identifier: 'unknown',
-		scale: 1,
-		OBJPath: '',
-		TexturePath: '',
-	},
 	components: {
 		BaseWindow,
 	},
