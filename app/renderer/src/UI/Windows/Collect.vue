@@ -1,6 +1,11 @@
 <template>
 	<div>
-		<component v-for="(window, uuid) in WINDOWS" :key="uuid" :is="window" />
+		<component
+			v-for="([windowComponent, windowApi], uuid) in WINDOWS"
+			:key="uuid"
+			:is="windowComponent"
+			:currentWindow="windowApi"
+		/>
 	</div>
 </template>
 

@@ -13,9 +13,8 @@ export function createWindow(
 		shouldRender: false,
 		...state,
 	})
-	Vue.set(WINDOWS, windowUUID, vueComponent)
 
-	return {
+	const windowApi = {
 		getState: () => windowState,
 		close: () => {
 			windowState.isVisible = false
@@ -29,4 +28,8 @@ export function createWindow(
 		},
 		dispose: () => Vue.delete(WINDOWS, windowUUID),
 	}
+
+	Vue.set(WINDOWS, windowUUID, [vueComponent, windowApi])
+
+	return windowApi
 }
