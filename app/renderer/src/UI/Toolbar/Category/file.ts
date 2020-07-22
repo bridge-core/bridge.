@@ -1,6 +1,5 @@
 import { IAppMenu } from '../create'
 import CreateFileWindow from '../../../../windows/CreateFile'
-import InformationWindow from '../../../UI/Windows/Common/Information'
 import Store from '../../../../store/index'
 import { ipcRenderer } from 'electron'
 import TabSystem from '../../../TabSystem'
@@ -11,6 +10,7 @@ import { ImportOBJ } from '../../Windows/ImportOBJ/definition'
 import LoadingWindow from '../../../../windows/LoadingWindow'
 import FileSystem from '../../../FileSystem'
 import { ImportFileMap } from '../../../plugins/scripts/modules/importFiles'
+import { createInformationWindow } from '../../Windows/Common/CommonDefinitions'
 
 export const FileMenu: IAppMenu = {
 	displayName: 'File',
@@ -27,7 +27,7 @@ export const FileMenu: IAppMenu = {
 				if (Store.state.Explorer.project.explorer)
 					new CreateFileWindow(undefined, false)
 				else
-					new InformationWindow(
+					createInformationWindow(
 						'Information',
 						'You need to create a project before you can create files.'
 					)

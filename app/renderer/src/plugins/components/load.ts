@@ -1,11 +1,11 @@
 import { promises as fs } from 'fs'
 import { createErrorNotification } from '../../AppCycle/Errors'
 import ComponentRegistry from '../CustomComponents'
-import InformationWindow from '../../UI/Windows/Common/Information'
 import { createLimitedEnv } from '../scripts/require'
 import { run } from '../../editor/ScriptRunner/run'
 import { extname } from 'path'
 import { IDisposable } from '../../Types/disposable'
+import { createInformationWindow } from '../../UI/Windows/Common/CommonDefinitions'
 
 export async function loadJS(
 	fileContent: string,
@@ -25,7 +25,7 @@ export async function loadJS(
 						promises.push(promise)
 					},
 					report: (info: string) =>
-						new InformationWindow('Information', info, false),
+						createInformationWindow('Information', info),
 				},
 			],
 			{

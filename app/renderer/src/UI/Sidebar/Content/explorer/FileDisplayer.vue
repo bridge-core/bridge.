@@ -102,10 +102,10 @@ import {
 	FileExplorerStorage,
 } from '../../../../UI/Sidebar/FileExplorer'
 import EventBus from '../../../../EventBus'
-import InformationWindow from '../../../../UI/Windows/Common/Information'
 import { FILE_CONTEXT_MENU } from '../../../../UI/ContextMenu/File'
 import { FOLDER_CONTEXT_MENU } from '../../../../UI/ContextMenu/Folder'
 import FileType from '../../../../editor/FileType'
+import { createInformationWindow } from '../../../Windows/Common/CommonDefinitions'
 
 export default {
 	name: 'file-displayer',
@@ -210,7 +210,7 @@ export default {
 					)
 					added.element.parent = this.file_explorer
 				} catch (e) {
-					new InformationWindow(
+					createInformationWindow(
 						'ERROR',
 						'Failed to move file/folder because a file/folder with the same name already exists.'
 					)

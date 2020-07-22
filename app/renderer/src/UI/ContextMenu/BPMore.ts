@@ -1,7 +1,6 @@
 import ProjectConfig from '../../Project/Config'
 import InputWindow from '../Windows/Common/Input'
 import { CURRENT, MOJANG_PATH } from '../../constants'
-import InformationWindow from '../Windows/Common/Information'
 import LoadingWindow from '../../../windows/LoadingWindow'
 import { join } from 'path'
 import trash from 'trash'
@@ -14,6 +13,7 @@ import { zip } from 'zip-a-folder'
 import { createNotification } from '../Footer/create'
 import DropdownWindow from '../Windows/Common/Dropdown'
 import { getFormatVersions } from '../../autoCompletions/components/VersionedTemplate/Common'
+import { createInformationWindow } from '../Windows/Common/CommonDefinitions'
 
 export default [
 	{
@@ -88,7 +88,7 @@ export default [
 						async project_name => {
 							//Make sure that the resource pack can be loaded
 							if (!CURRENT.RESOURCE_PACK)
-								return new InformationWindow(
+								return createInformationWindow(
 									'No Resource Pack',
 									'Please connect a resource pack before packaging the whole project.'
 								)

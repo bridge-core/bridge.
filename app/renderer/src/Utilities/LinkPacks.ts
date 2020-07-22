@@ -1,9 +1,9 @@
 import { BASE_PATH, RP_BASE_PATH } from '../constants'
-import InformationWindow from '../UI/Windows/Common/Information'
 import LoadingWindow from '../../windows/LoadingWindow'
 import findRP, { setRP } from './FindRP'
 import EventBus from '../EventBus'
 import { writeJSON, readJSON } from './JsonFS'
+import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
 
 export default class PackLinker {
 	static async link(bp_name: string, rp_name: string) {
@@ -31,9 +31,9 @@ export default class PackLinker {
 			lw.close()
 		} catch (e) {
 			lw.close()
-			new InformationWindow(
-				'Unable to link packs',
-				`bridge. failed to link the packs ${bp_name} and ${rp_name}. ${e.message}`
+			createInformationWindow(
+				'Unable to link pakcs',
+				`bridge. failed to link the pack ${bp_name} and ${rp_name}. ${e.message}`
 			)
 		}
 	}
@@ -55,7 +55,7 @@ export default class PackLinker {
 			lw.close()
 		} catch (e) {
 			lw.close()
-			new InformationWindow(
+			createInformationWindow(
 				'Unable to unlink packs',
 				`bridge. failed to unlink the resource pack from ${bp_name}. ${e.message}`
 			)

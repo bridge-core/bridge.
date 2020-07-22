@@ -1,6 +1,5 @@
 import FetchDefinitions from '../editor/FetchDefinitions'
 import { JSONFileMasks, JSONMask } from '../editor/JSONFileMasks'
-import InformationWindow from '../UI/Windows/Common/Information'
 import { use } from '../Utilities/useAttr'
 import { detachMerge } from '../Utilities/mergeUtils'
 import LightningCache from '../editor/LightningCache'

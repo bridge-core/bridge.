@@ -7,7 +7,7 @@ import JSONTree from './editor/JsonTree'
 import path from 'path'
 import OmegaCache from './editor/OmegaCache'
 import ConfirmWindow from './UI/Windows/Common/Confirm'
-import InformationWindow from './UI/Windows/Common/Information'
+import { createInformationWindow } from './UI/Windows/Common/CommonDefinitions'
 import { readJSON } from './Utilities/JsonFS'
 import { stripFileVersion } from './Utilities/FileVersioning'
 import { useCache } from './Project/NoCacheConfig'
@@ -37,7 +37,7 @@ export default class FileSystem {
 		open = true
 	) {
 		if (path === undefined)
-			new InformationWindow(
+			createInformationWindow(
 				'ERROR',
 				"bridge. cannot save this tab's content!"
 			)

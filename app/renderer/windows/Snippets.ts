@@ -4,7 +4,7 @@ import TabSystem from '../src/TabSystem'
 import JSONTree from '../src/editor/JsonTree'
 import Store from '../store/index'
 import EventBus from '../src/EventBus'
-import InformationWindow from '../src/UI/Windows/Common/Information'
+import { createInformationWindow } from '../src/UI/Windows/Common/CommonDefinitions'
 
 let SNIPPETS: any
 
@@ -172,16 +172,14 @@ export default {
 			SNIPPETS[type].length === 0
 		) {
 			if (TabSystem.getSelected())
-				return new InformationWindow(
+				return createInformationWindow(
 					'ERROR',
-					'No snippets available for the currently opened file.',
-					false
+					'No snippets avaliable for the currently opened file.'
 				)
 			else
-				return new InformationWindow(
+				return createInformationWindow(
 					'ERROR',
-					'You have to open a file to use snippets.',
-					false
+					'You have to open a file to use snippets'
 				)
 		}
 

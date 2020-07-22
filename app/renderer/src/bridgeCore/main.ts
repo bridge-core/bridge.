@@ -11,7 +11,7 @@ import CORE_FILES from './CORE_FILES'
 import EntityHandler, { handleTags } from './EntityHandler'
 import ItemHandler from './ItemHandler'
 import TagHandler from './TagHandler'
-import InformationWindow from '../UI/Windows/Common/Information'
+
 import ComponentRegistry from '../plugins/CustomComponents'
 import MapAreaHandler from './MapAreaHandler'
 import trash from 'trash'
@@ -22,6 +22,7 @@ import { updateCustomComponent } from './update/components'
 import { updateCustomCommand } from './update/commands'
 import AnimationHandler from './AnimationHandler'
 import AnimationControllerHandler from './AnimationControllerHandler'
+import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
 
 export interface OnSaveData {
 	file_path: string
@@ -129,7 +130,7 @@ export class BridgeCore {
 		file_uuid?: string
 	) {
 		if (depth <= 0) {
-			new InformationWindow('ERROR', 'Maximum import depth reached')
+			createInformationWindow('ERROR', 'Maximum import depth reached')
 			return data
 		}
 		let file_name = path.basename(file_path)

@@ -13,8 +13,8 @@ import { BridgeCore } from '../bridgeCore/main'
 import EventBus from '../EventBus'
 import { FileDefinition } from '../editor/FileDefinition'
 import JSONTree from '../editor/JsonTree'
-import InformationWindow from '../UI/Windows/Common/Information'
 import { compileVersionedTemplate } from './components/VersionedTemplate/Common'
+import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
 
 declare var __static: string
 
@@ -111,9 +111,9 @@ class Provider {
 		} else if (created) {
 			current[key] = store
 		} else if (!native && arr_path.length > 0) {
-			return new InformationWindow(
-				'Auto-Completions',
-				'Unable to register auto-completions to already exisiting path.'
+			return createInformationWindow(
+				'Auto-completions',
+				'Unable to register auto-completions to already existing path.'
 			)
 		}
 	}

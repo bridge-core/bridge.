@@ -3,7 +3,14 @@
 		<v-toolbar color="expanded_sidebar" flat height="30px">
 			<v-tooltip color="tooltip" bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn icon text @click.stop="reset" v-on="on" class="toolbar-button" small>
+					<v-btn
+						icon
+						text
+						@click.stop="reset"
+						v-on="on"
+						class="toolbar-button"
+						small
+					>
 						<v-icon small>mdi-refresh</v-icon>
 					</v-btn>
 				</template>
@@ -50,7 +57,9 @@
 		<v-container>
 			<v-divider />
 
-			<span v-if="selected_nodes_total > 0">Selected Nodes: {{ selected_nodes_total }}</span>
+			<span v-if="selected_nodes_total > 0"
+				>Selected Nodes: {{ selected_nodes_total }}</span
+			>
 			<span v-else>
 				Start searching for JSON nodes by opening a file and typing into
 				the "Search" field.
@@ -68,9 +77,9 @@
 <script>
 import TabSystem from '../../../TabSystem'
 import JSONTree from '../../../editor/JsonTree'
-import InformationWindow from '../../../UI/Windows/Common/Information'
 import EventBus from '../../../EventBus'
 import NodePreview from '../../Common/NodePreview'
+import { createInformationWindow } from '../../Windows/Common/CommonDefinitions'
 
 export default {
 	name: 'content-file-search',
@@ -113,9 +122,9 @@ export default {
 			} else {
 				let sel = TabSystem.getSelected()
 				if (!sel)
-					return new InformationWindow(
+					return createInformationWindow(
 						'ERROR',
-						'You need to open a file to get started with file search.'
+						'You need to open a file to get started with the file search.'
 					)
 
 				let c = sel.content

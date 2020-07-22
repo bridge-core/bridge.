@@ -74,6 +74,7 @@ import EventBus from '../../../EventBus'
 import NodeShortcuts from '../../../editor/NodeShortcuts'
 import JumpToDefintion from '../../../editor/JumpToDef'
 import { openDocumentation } from '../../../editor/Documentation'
+import { createInformationWindow } from '../../Windows/Common/CommonDefinitions'
 
 export default {
 	name: 'json-editor-hover-card',
@@ -160,7 +161,7 @@ export default {
 							c.data
 						)
 						if (open.length === 0)
-							new InformationWindow(
+							createInformationWindow(
 								'Definition Not Found',
 								`Unable to find ${definitions.join(
 									'/'
