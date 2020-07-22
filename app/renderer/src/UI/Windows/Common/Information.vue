@@ -10,7 +10,7 @@
 		:hasCloseButton="false"
 	>
 		<template #default>
-			<p>{{ content }}</p>
+			<p class="mt-2">{{ content }}</p>
 		</template>
 		<template #actions>
 			<v-spacer />
