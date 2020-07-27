@@ -61,7 +61,7 @@
                     "@meta": {
                         "is_value": true
                     },
-                    "@import.value": "('/function ' + $dynamic.function_files)"
+                    "@import.value": "('/function ' + $dynamic.function_files) and ('/' + $function.main)"
                 }
             },
 

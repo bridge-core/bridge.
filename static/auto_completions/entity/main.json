@@ -98,7 +98,7 @@
                 "@meta": {
                   "is_value": true
                 },
-                "@import.value.command": "('/function ' + $dynamic.function_files)"
+                "@import.value.command": "('/function ' + $dynamic.function_files) and ('/' + $function.main)"
               }
             }
           }
