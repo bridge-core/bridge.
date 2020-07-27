@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import CreateProjectWindow from '../../../../../windows/CreateProject'
+import { CreateBP } from '../../../Windows/CreateProject/definition'
 
 export default {
 	name: 'explorer-no-projects',
 	methods: {
 		createBP() {
-			new CreateProjectWindow()
+			CreateBP.open()
 		},
 	},
 }

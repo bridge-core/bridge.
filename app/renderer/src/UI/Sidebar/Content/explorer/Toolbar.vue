@@ -121,7 +121,7 @@
 <script>
 import { shell, remote } from 'electron'
 import CreateFileWindow from '../../../../../windows/CreateFile'
-import CreateProjectWindow from '../../../../../windows/CreateProject'
+import { CreateBP } from '../../../Windows/CreateProject/definition'
 import LoadingWindow from '../../../../../windows/LoadingWindow'
 import { zip } from 'zip-a-folder'
 import { join } from 'path'
@@ -155,7 +155,7 @@ export default {
 			new CreateFileWindow()
 		},
 		openCreateProjectWindow() {
-			new CreateProjectWindow()
+			CreateBP.open()
 		},
 		async packageProject() {
 			let lw = new LoadingWindow()

@@ -32,7 +32,7 @@ export default class PackLinker {
 		} catch (e) {
 			lw.close()
 			createInformationWindow(
-				'Unable to link pakcs',
+				'Unable to link packs',
 				`bridge. failed to link the pack ${bp_name} and ${rp_name}. ${e.message}`
 			)
 		}

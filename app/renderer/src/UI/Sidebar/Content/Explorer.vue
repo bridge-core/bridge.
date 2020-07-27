@@ -98,7 +98,7 @@ import { BASE_PATH, BP_BASE_PATH, MOJANG_PATH } from '../../../constants'
 import DataUrl from 'dataurl'
 import fsync, { promises as fs } from 'fs'
 import { LinkRP } from '../../Windows/LinkRP/definition'
-import CreateProjectWindow from '../../../../windows/CreateProject'
+import { CreateRP } from '../../Windows/CreateProject/definition'
 import PackLinker from '../../../Utilities/LinkPacks'
 import OmegaCache from '../../../editor/OmegaCache'
 import ExplorerNoProjects from './explorer/NoProjects'
@@ -343,12 +343,7 @@ export default {
 			PackLinker.unlink(this.$store.state.Explorer.project.explorer)
 		},
 		createRP() {
-			new CreateProjectWindow(false, rp_name => {
-				PackLinker.link(
-					this.$store.state.Explorer.project.explorer,
-					rp_name
-				)
-			})
+			CreateRP.open()
 		},
 	},
 }
