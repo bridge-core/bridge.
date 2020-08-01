@@ -7,5 +7,10 @@
         "visible": "$general.number_boolean",
         "ambient": "$general.number_boolean"
     },
-    "saturation_modifier": [ "poor", "low", "normal", "good", "max", "supernatural" ]
+    "saturation_modifier": [ "poor", "low", "normal", "good", "max", "supernatural" ],
+    "aliases": ["nametag"],
+    "slots": ["bow", "armor_feet", "armor_torso", "armor_head", "armor_legs", "hoe", "pickaxe", "shovel", "elytra", "fishing_rod", "flintsteel", "shears", "cosmetic_head"],
+    "cooldown_types": ["chorusfruit", "ender_pearl"],
+    "fertilizer_types": ["bonemeal", "rapid"],
+    "potion_types": ["lingering", "regular", "splash"]
 }

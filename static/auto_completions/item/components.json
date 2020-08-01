@@ -5,8 +5,124 @@
     "minecraft:hand_equipped": "$general.boolean",
     "minecraft:stacked_by_data": "$general.boolean",
     "minecraft:foil": "$general.boolean",
-    "minecraft:block": "$general.block_identifier",
+    "minecraft:bucket": {},
+    "minecraft:bed": {},
+    "minecraft:frame_count": "$general.number",
+    "minecraft:animates_in_toolbar": "$general.boolean",
+    "minecraft:ignores_permission": "$general.boolean",
+    "minecraft:coal": {},
+    "minecraft:mining_speed": "$general.number",
+    "minecraft:damage": "$general.number",
+    "minecraft:can_destroy_in_creative": "$general.boolean",
+    "minecraft:dye": {},
+    "minecraft:requires_interact": "$general.boolean",
+    "minecraft:fire_charge": {},
+    "minecraft:mirrored_art": "$general.boolean",
+    "minecraft:fishing_rod": {},
+    "minecraft:flint_and_steel": {},
+    "minecraft:bottle": {},
+    "minecraft:lead": {},
+    "minecraft:name_tag": {},
+    "minecraft:explodable": "$general.boolean",
+    "minecraft:should_despawn": "$general.boolean",
+    "saddle": {},
+    "minecraft:shears": {},
+    "minecarft:skull": {},
+    "minecraft:mob_placer": {},
 
+    "minecraft:door": {
+        "material": ["metal", "wood"],
+        "type": "$_general.block_states.wood_type and iron"
+    },
+    "minecraft:sign": {
+        "type": "$_general.block_states.wood_type"
+    },
+    "minecraft:allow_off_hand": "$general.boolean",
+    "minecraft:projectile": {
+        "projectile_entity": "$general.entity_identifier",
+        "minimum_critical_power": "$general.decimal"
+    },
+    "minecraft:block_placer": {
+        "block": "$general.block_identifier",
+        "use_block_descritpion": "$general.boolean"
+    },
+    "minecraft:liquid_clipped": "$general.boolean",
+    "minecraft:entity_placer": {
+        "entity": "$general.entity_identifier",
+        "allowed_blocks": {
+            "$dynamic.list.next_index": "$general.block_identifier"
+        }
+    },
+    "minecraft:enchantable": {
+        "slot": "$item.general.slots",
+        "value": "$general.number"
+    },
+    "minecraft:shooter": {
+        "max_draw_duration": "$general.number",
+        "charge_on_draw": "$general.boolean",
+        "scale_power_by_draw_duration": "$general.boolean",
+        "ammunition": {
+            "$dynamic.list.next_index": {
+                "item": "$general.item_identifier",
+                "use_offhand": "$general.boolean",
+                "search_inventory": "$general.boolean",
+                "use_in_creative": "$general.boolean"
+            }
+        }
+    },
+    "minecraft:damageable": {
+        "max_damage": "$general.number",
+        "damage_chance": {
+            "min": "$general.number",
+            "max": "$general.number"
+        },
+        "repair_items": {
+            "$dynamic.list.next_index": "$general.item_identifier"
+        }
+    },
+    "minecraft:armor": {
+        "protection": "$general.number"
+    },
+    "minecraft:wearable": {
+        "slot": "$general.slot_type"
+    },
+    "minecraft:cooldown": {
+        "category": "$item.general.cooldown_types"
+    },
+    "minecraft:use_on": {
+        "blocks": {
+            "$dynamic.list.next_index": "$general.block_identifier"
+        }
+    },
+    "minecraft:digger": {
+        "use_efficiency": "$general.boolean",
+        "destroy_speeds": {
+            "$dynamic.list.next_index": {
+                "block": {
+                    "@import.value": "$general.block_identifier",
+                    "any_tag": ""
+                },
+                "speed": "$general.number"
+            }
+        }
+    },
+    "minecraft:fertilizer": {
+        "type": "$item.general.fertilizer_type"
+    },
+    "minecraft:throwable": {
+        "do_swing_animation": "$general.boolean",
+        "max_draw_duration": "$general.number",
+        "scale_power_by_draw_duration": "$general.boolean"
+    },
+    "minecraft:map": {
+        "empty": "$general.boolean"
+    },
+    "minecraft:potion": {
+        "type": "$item.general.potion_types"
+    },
+    "minecraft:hanging_entity": {
+        "actor_type": "$general.number"
+    },
     "minecraft:food": {
         "nutrition": "$general.number",
         "can_always_eat": "$general.boolean",
@@ -21,14 +137,6 @@
         "on_use_action": ["chorus_teleport", "suspicious_stew_effect", "none"],
         "on_use_range": {
             "$dynamic.list.index_triple": "$general.number"
-        },
-        "cooldown_type": ["chorusfruit", "none"],
-        "cooldown_time": "$general.number"
-    },
-    "minecraft:seed": {
-        "crop_result": "$general.block_identifier",
-        "plant_at": {
-            "$dynamic.list.next_index": "$general.block_identifier"
         }
     },
     "$dynamic_template.bridge:weapon_damage": {

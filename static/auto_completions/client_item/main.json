@@ -8,12 +8,22 @@
 
         "components": {
             "minecraft:icon": {
-                "@meta": { "is_value": true },
-                "@import.value.item_texture": "$dynamic.rp.item_textures"
+                "texture": {
+                    "@meta": {"is_value": true},
+                    "@import.value": "$dynamic.rp.item_textures"
+                },
+                "frame_index": "$general.number"
             },
             "minecraft:use_animation": [ "bow", "eat", "drink", "crossbow", "camera" ],
             "minecraft:hover_text_color": "$general.minecraft_color",
-            "minecraft:render_offsets": [ "apple", "tools" ],
+
+            "minecraft:render_offsets": [ "apple", "tools", "miscellaneous" ],
+            "minecraft:creative_category": {
+                "parent": "$general.block_identifier and $general.item_identifier"
+            },
+            "minecraft:armor": {
+                "texture_type": ["leather", "chain", "diamond", "iron", "gold"]
+            },
             "$versioned_template.minecraft:display_name": [
                 {
                     "$if": "$project_target_version >= 1.16.100",
