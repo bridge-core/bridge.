@@ -2,7 +2,6 @@ import { JSONFileMasks, JSONMask } from '../editor/JSONFileMasks'
 import { CURRENT } from '../constants'
 import path, { join, dirname } from 'path'
 import { set } from '../Utilities/useAttr'
-import WeaponDamage from './item/WeaponDamage'
 import ItemEquippedSensor from './item/ItemEquippedSensor'
 import { OnSaveData } from './main'
 import { promises as fs } from 'fs'
@@ -29,18 +28,8 @@ export async function transformComponents({
 }: ItemComponentData) {
 	let item_id = identifier.split(':').pop()
 
-	if (component_name === 'bridge:weapon_damage') {
-		WeaponDamage({
-			PLAYER_MASK,
-			A_C_MASK,
-			component_name,
-			component,
-			identifier,
-			file_uuid,
-			item_id,
-		})
-	} else if (component_name === 'bridge:item_equipped_sensor') {
-		await ItemEquippedSensor({
+	if (component_name === 'bridge:item_equipped_sensor') {
+		ItemEquippedSensor({
 			PLAYER_MASK,
 			A_C_MASK,
 			component_name,

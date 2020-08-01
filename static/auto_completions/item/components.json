@@ -47,15 +47,16 @@
     "minecraft:shears": {},
     "minecarft:skull": {},
     "minecraft:mob_placer": {},
+    "minecraft:liquid_clipped": "$general.boolean",
+    "minecraft:allow_off_hand": "$general.boolean",
 
     "minecraft:door": {
         "material": ["metal", "wood"],
-        "type": "$_general.block_states.wood_type and iron"
+        "type": "$item.general.door_types"
     },
     "minecraft:sign": {
         "type": "$_general.block_states.wood_type"
     },
-    "minecraft:allow_off_hand": "$general.boolean",
     "minecraft:projectile": {
         "projectile_entity": "$general.entity_identifier",
         "minimum_critical_power": "$general.decimal"
@@ -64,7 +65,6 @@
         "block": "$general.block_identifier",
         "use_block_descritpion": "$general.boolean"
     },
-    "minecraft:liquid_clipped": "$general.boolean",
     "minecraft:entity_placer": {
         "entity": "$general.entity_identifier",
         "allowed_blocks": {
@@ -156,11 +156,6 @@
         "on_use_range": {
             "$dynamic.list.index_triple": "$general.number"
         }
-    },
-    "$dynamic_template.bridge:weapon_damage": {
-        "$if": "$dynamic.bridge_core.is_active",
-
-        "$default": "$general.number"
     },
     "$dynamic_template.bridge:item_equipped_sensor": {
         "$if": "$dynamic.bridge_core.is_active",
