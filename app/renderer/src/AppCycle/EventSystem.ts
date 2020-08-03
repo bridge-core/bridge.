@@ -13,7 +13,6 @@ interface IEventState {
 const EventState: IEventState = {}
 
 export async function trigger(event: string, ...data: unknown[]) {
-	console.log(event, Object.keys(EventState[event] || {}))
 	if (EventState[event] !== undefined)
 		return await Promise.all(
 			Object.values(EventState[event]).map(cb => cb(...data))

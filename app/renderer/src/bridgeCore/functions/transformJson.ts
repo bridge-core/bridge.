@@ -12,24 +12,30 @@ export async function transformJsonCommands(
 	const transformedCommands: string[] = []
 
 	for (let command of commandArr) {
+		//This array entry is not a command (entity event or molang)
+		if (command[0] !== '/') {
+			transformedCommands.push(command)
+			continue
+		}
+
 		const [usedCommands, commands] = parseCommands(
 			command.substring(1, command.length)
 		)
 		usedCommands.forEach(command => commandsStore.add(command))
 
-		await LightningCache.setPlainDataWithTypeAndKey(
-			'function',
-			fileUuid,
-			Object.fromEntries(
-				Array.from(FunctionCache.entries()).map(([id, set]) => [
-					id,
-					Array.from(set),
-				])
-			)
-		)
-
 		transformedCommands.push(...commands.map(command => `/${command}`))
 	}
+
+	await LightningCache.setPlainDataWithTypeAndKey(
+		'function',
+		fileUuid,
+		Object.fromEntries(
+			Array.from(FunctionCache.entries()).map(([id, set]) => [
+				id,
+				Array.from(set),
+			])
+		)
+	)
 
 	once('bridge:onCacheHook[json.custom_commands]', () =>
 		Array.from(commandsStore).concat(Array.from(UsedSelectors))
