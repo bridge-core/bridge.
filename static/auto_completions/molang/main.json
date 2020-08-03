@@ -1,4 +1,11 @@
 {
+    "context": {
+        ".": {
+            "$placeholder": {
+                "$molang.general.operator": "$molang.main"
+            }
+        }
+    },
     "temp": {
         ".": {
             "$placeholder": {

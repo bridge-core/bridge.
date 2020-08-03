@@ -13,8 +13,15 @@
             },
             "minecraft:use_animation": [ "bow", "eat", "drink", "crossbow", "camera" ],
             "minecraft:hover_text_color": "$general.minecraft_color",
-
-            "minecraft:render_offsets": [ "apple", "tools" ]
+            "minecraft:render_offsets": [ "apple", "tools" ],
+            "$versioned_template.minecraft:display_name": [
+                {
+                    "$if": "$project_target_version >= 1.16.100.50",
+                    "$data": {
+                        "value": {"@meta": {"is_value": true}}
+                    }
+                }
+            ]
         }
     }
 }
