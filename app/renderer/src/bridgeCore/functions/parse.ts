@@ -8,10 +8,12 @@ import LightningCache from '../../editor/LightningCache'
 import { setFunctionCache, CacheTests, FunctionCache } from './cache'
 
 export async function parseFunction(str: string, filePath: string) {
-	const [commands, lines] = parseCommands(str)
+	const [usedCommands, lines] = parseCommands(str)
 
 	await LightningCache.setPlainData(filePath, {
-		custom_commands: Array.from(commands).concat(Array.from(UsedSelectors)),
+		custom_commands: Array.from(usedCommands).concat(
+			Array.from(UsedSelectors)
+		),
 		...Object.fromEntries(
 			Array.from(FunctionCache.entries()).map(([id, set]) => [
 				id,
@@ -155,13 +157,23 @@ export function splitCommand(command: string) {
 	let i = 0
 	let lastSplit = 0
 	let squareBracket = 0
+	let isInQuotes = false
+	let isInSingleQuotes = false
 	let res: string[] = []
 
 	while (i < command.length) {
 		const char = command[i++]
 		if (char === '[') squareBracket++
 		else if (char === ']') squareBracket--
-		else if (char === ' ' && squareBracket === 0) {
+		else if (char === '"' && !isInSingleQuotes) isInQuotes = !isInQuotes
+		else if (char === "'" && !isInQuotes)
+			isInSingleQuotes = !isInSingleQuotes
+		else if (
+			char === ' ' &&
+			squareBracket === 0 &&
+			!isInQuotes &&
+			!isInSingleQuotes
+		) {
 			res.push(command.substring(lastSplit, i - 1))
 			lastSplit = i
 		}

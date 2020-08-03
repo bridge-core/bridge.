@@ -9,6 +9,7 @@ import { toCorrectType } from '../editor/Json'
 import Provider from '../autoCompletions/Provider'
 import { CURRENT } from '../constants'
 import { splitSelectorArgs, parseCommands } from '../bridgeCore/functions/parse'
+import JSONTree from '../editor/JsonTree'
 
 type TSelectorTransform = (
 	selector: string,
@@ -67,8 +68,14 @@ export async function registerCustomCommand(
 				CommandNames.push(Command.command_name)
 				CommandRegistry.set(Command.command_name, new Command())
 				//Update files with custom command
-				const fileRefs = FetchDefinitions.fetchSingle(
-					'function',
+				const fileRefs = FetchDefinitions.fetch(
+					[
+						'function',
+						'entity',
+						'animation_controller',
+						'animation',
+						'item',
+					],
 					['custom_commands'],
 					Command.command_name
 				).then(fileRefs =>
@@ -86,8 +93,14 @@ export async function registerCustomCommand(
 			) => {
 				if (typeof func !== 'function') return
 				SelectorRegistry.set(`selector@${selectorKey}`, func)
-				const fileRefs = FetchDefinitions.fetchSingle(
-					'function',
+				const fileRefs = FetchDefinitions.fetch(
+					[
+						'function',
+						'entity',
+						'animation_controller',
+						'animation',
+						'item',
+					],
 					['custom_commands'],
 					`selector@${selectorKey}`
 				).then(fileRefs =>
@@ -127,16 +140,29 @@ export async function updateCommandFiles() {
 	await Promise.all(
 		Array.from(UpdateFiles).map(async file => {
 			try {
-				const { cache_content, file_version } = await OmegaCache.load(
-					file
-				)
-				await fs.writeFile(
-					file,
-					`#bridge-file-version: #${file_version}\n${await BridgeCore.beforeTextSave(
-						cache_content,
-						file
-					)}`
-				)
+				const {
+					cache_content,
+					file_version,
+					file_uuid,
+				} = await OmegaCache.load(file)
+
+				if (typeof cache_content === 'string') {
+					await fs.writeFile(
+						file,
+						`#bridge-file-version: #${file_version}\n${await BridgeCore.beforeTextSave(
+							cache_content,
+							file
+						)}`
+					)
+				} else {
+					await BridgeCore.beforeSave(
+						JSONTree.buildFromCache(cache_content).toJSON(),
+						file,
+						undefined,
+						true,
+						file_uuid
+					)
+				}
 			} catch {}
 		})
 	)

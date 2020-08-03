@@ -1,6 +1,7 @@
 [ 
     { "key": "events", "path": "#;bridge_node_skip;#/events" }, 
     { "key": "custom_components", "hook": "entity.custom_components" }, 
+    { "key": "custom_commands", "hook": "json.custom_commands" }, 
     { "key": "bridge_core_tags", "path": "#;bridge_node_skip;#/description/tags" }, 
     { "key": "identifiers", "path": "#;bridge_node_skip;#/description/identifier" }, 
     { "key": "animation_references", "path": "#;bridge_node_skip;#/description/animations" }, 

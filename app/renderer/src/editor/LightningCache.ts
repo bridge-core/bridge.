@@ -4,6 +4,7 @@
  *
  * Defined cache hooks at the moment:
  * - bridge:onCacheHook[entity.custom_components]
+ * - bridge:onCacheHook[json.custom_commands]
  */
 
 import FileType from './FileType'
@@ -14,7 +15,7 @@ import OmegaCache from './OmegaCache'
 import JSONTree from './JsonTree'
 import fs from 'fs'
 import deepmerge from 'deepmerge'
-import EventBus from '../EventBus'
+import { trigger } from '../AppCycle/EventSystem'
 
 function toUnifiedObj(obj: any) {
 	let tmp = []
@@ -87,8 +88,9 @@ export default class LightningCache {
 		let defs = await FileType.getLightningCacheDefs(filePath)
 		if (defs === undefined) return
 		if (this.globalCache === undefined) {
-			if (!fsAccess) this.globalCache = {}
-			else {
+			if (!fsAccess) {
+				this.globalCache = {}
+			} else {
 				try {
 					this.globalCache = await readJSON(this.loadCachePath)
 				} catch (e) {
@@ -100,20 +102,19 @@ export default class LightningCache {
 		if (!Array.isArray(defs) && defs.define_multiple !== undefined)
 			await Promise.all(
 				defs.definitions.map(d =>
-					this.parse(filePath, type, d, content).catch(console.error)
+					this.parse(filePath, type, d, content)
 				)
 			)
 		else await this.parse(filePath, type, defs, content)
 
 		this.compiledCache = undefined
-		if (fsAccess)
-			await writeJSON(this.loadCachePath, this.globalCache, true)
+		if (fsAccess) await this.saveCache()
 	}
 
 	//Can be used by text files to store data
 	static async setPlainData(
 		filePath: string,
-		data: { [key: string]: string[] }
+		data: Record<string, string[]>
 	) {
 		let cacheKey = OmegaCache.toCachePath(filePath, false)
 		let fileType = FileType.get(filePath)
@@ -129,7 +130,26 @@ export default class LightningCache {
 
 		this.globalCache[fileType][cacheKey] = data
 		this.compiledCache = undefined
-		await writeJSON(this.loadCachePath, this.globalCache, true)
+		await this.saveCache()
+	}
+	static async setPlainDataWithTypeAndKey(
+		fileType: string,
+		cacheKey: string,
+		data: Record<string, string[]>
+	) {
+		if (this.globalCache === undefined) {
+			try {
+				this.globalCache = await readJSON(this.loadCachePath)
+			} catch (e) {
+				this.globalCache = {}
+			}
+		}
+		if (this.globalCache[fileType] === undefined)
+			this.globalCache[fileType] = {}
+
+		this.globalCache[fileType][cacheKey] = data
+		this.compiledCache = undefined
+		await this.saveCache()
 	}
 
 	//Manually triggers a hook update for a specific identifier
@@ -152,10 +172,11 @@ export default class LightningCache {
 		if (this.globalCache[fileType][cacheKey] === undefined)
 			this.globalCache[fileType][cacheKey] = {}
 
-		this.globalCache[fileType][cacheKey][identifier] =
-			EventBus.trigger(`bridge:onCacheHook[${hook}]`).flat() || []
+		this.globalCache[fileType][cacheKey][identifier] = ((
+			await trigger(`bridge:onCacheHook[${hook}]`)
+		).flat(Infinity) || []) as string[]
 		this.compiledCache = undefined
-		await writeJSON(this.loadCachePath, this.globalCache, true)
+		await this.saveCache()
 	}
 
 	static async parse(
@@ -194,53 +215,70 @@ export default class LightningCache {
 		if (this.globalCache[type][cacheKey] === undefined)
 			this.globalCache[type][cacheKey] = {}
 		let cache = this.globalCache[type][cacheKey]
-		;(defs as CacheDefConfig[]).forEach(
-			({ iterate, path, key, search, hook, loadData, filter }) => {
-				if (iterate !== undefined) {
-					;(content.get(iterate)?.children ?? []).forEach(c =>
-						this.storeInCahe(cache, c, path, key, filter, loadData)
-					)
-				} else if (path !== undefined) {
-					this.storeInCahe(
-						cache,
-						content,
-						path,
-						key,
-						filter,
-						loadData
-					)
-				} else if (search !== undefined) {
-					let res: string[] = []
-					search.locations.forEach(l => {
-						let n = content.get(l)
-						if (n === undefined) return
 
-						n.forEach(c => {
-							if (c.key === search.key) {
-								if (search.data !== undefined)
-									c = c.get(search.data)
+		await Promise.all(
+			(<CacheDefConfig[]>defs).map(
+				async ({
+					iterate,
+					path,
+					key,
+					search,
+					hook,
+					loadData,
+					filter,
+				}) => {
+					if (iterate !== undefined) {
+						;(content.get(iterate)?.children ?? []).forEach(c =>
+							this.storeInCahe(
+								cache,
+								c,
+								path,
+								key,
+								filter,
+								loadData
+							)
+						)
+					} else if (path !== undefined) {
+						this.storeInCahe(
+							cache,
+							content,
+							path,
+							key,
+							filter,
+							loadData
+						)
+					} else if (search !== undefined) {
+						let res: string[] = []
+						search.locations.forEach(l => {
+							let n = content.get(l)
+							if (n === undefined) return
 
-								let data = c.toJSON()
-								if (Array.isArray(data)) {
-									res.push(...data)
-								} else if (typeof data === 'object') {
-									res.push(...Object.keys(data))
-								} else {
-									res.push(data)
+							n.forEach(c => {
+								if (c.key === search.key) {
+									if (search.data !== undefined)
+										c = c.get(search.data)
+
+									let data = c.toJSON()
+									if (Array.isArray(data)) {
+										res.push(...data)
+									} else if (typeof data === 'object') {
+										res.push(...Object.keys(data))
+									} else {
+										res.push(data)
+									}
 								}
-							}
+							})
 						})
-					})
-					cache[key] = res
-				} else if (hook !== undefined) {
-					cache[key] =
-						EventBus.trigger(
-							`bridge:onCacheHook[${hook}]`
-						).flat() || []
-				} else {
-					console.warn('Unknown cache definition!')
+						cache[key] = res
+					} else if (hook !== undefined) {
+						cache[key] = ((
+							(await trigger(`bridge:onCacheHook[${hook}]`)) ?? []
+						).flat(Infinity) || []) as string[]
+					} else {
+						console.warn('Unknown cache definition!')
+					}
 				}
-			}
+			)
 		)
 
 		if (except) cache[except] = []
@@ -340,7 +378,7 @@ export default class LightningCache {
 			]
 		} catch (e) {}
 
-		await writeJSON(this.loadCachePath, this.globalCache, true)
+		await this.saveCache()
 	}
 	static async duplicate(what: string, as: string) {
 		let oldType = FileType.get(what)
@@ -356,7 +394,7 @@ export default class LightningCache {
 			] = this.globalCache[oldType][OmegaCache.toCachePath(what, false)]
 		} catch (e) {}
 
-		await writeJSON(this.loadCachePath, this.globalCache, true)
+		await this.saveCache()
 	}
 	static async clear(filePath: string) {
 		let type = FileType.get(filePath)
@@ -368,7 +406,7 @@ export default class LightningCache {
 				OmegaCache.toCachePath(filePath, false)
 			]
 		} catch (e) {}
-		await writeJSON(this.loadCachePath, this.globalCache, true)
+		await this.saveCache()
 	}
 
 	static async getCompiled() {

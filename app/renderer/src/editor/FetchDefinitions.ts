@@ -6,10 +6,6 @@ import LightningCache from './LightningCache'
 import { CURRENT } from '../constants'
 import path from 'path'
 
-interface FetchDefs {
-	[x: string]: string[]
-}
-
 export default class FetchDefinitions {
 	/**
 	 * Load a complete cache entry of all files of a given file_type
@@ -33,13 +29,18 @@ export default class FetchDefinitions {
 	 */
 	static async fetch(
 		file_types: string[],
-		fetch_defs: FetchDefs = {},
+		fetch_defs: Record<string, string[]> | string[],
 		fetch_search: string,
 		fetch_all = true
 	) {
 		let res = await Promise.all(
 			file_types.map(t =>
-				this.fetchSingle(t, fetch_defs[t], fetch_search, fetch_all)
+				this.fetchSingle(
+					t,
+					Array.isArray(fetch_defs) ? fetch_defs : fetch_defs[t],
+					fetch_search,
+					fetch_all
+				)
 			)
 		).catch(console.error)
 
@@ -163,13 +164,18 @@ export default class FetchDefinitions {
 	 */
 	static fetchSync(
 		file_types: string[],
-		fetch_defs: FetchDefs = {},
+		fetch_defs: Record<string, string[]> | string[],
 		fetch_search: string,
 		fetch_all = true
 	) {
 		return file_types
 			.map(d =>
-				this.fetchSingleSync(d, fetch_defs[d], fetch_search, fetch_all)
+				this.fetchSingleSync(
+					d,
+					Array.isArray(fetch_defs) ? fetch_defs : fetch_defs[d],
+					fetch_search,
+					fetch_all
+				)
 			)
 			.flat()
 	}

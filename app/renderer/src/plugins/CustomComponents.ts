@@ -1,12 +1,12 @@
 import FetchDefinitions from '../editor/FetchDefinitions'
 import { JSONFileMasks, JSONMask } from '../editor/JSONFileMasks'
 import InformationWindow from '../UI/Windows/Common/Information'
-import EventBus from '../EventBus'
 import { use } from '../Utilities/useAttr'
 import { detachMerge } from '../Utilities/mergeUtils'
 import LightningCache from '../editor/LightningCache'
 import FileType from '../editor/FileType'
 import { ContextEnv } from './scripts/modules/env'
+import { once } from '../AppCycle/EventSystem'
 
 export interface BridgeComponentClass {
 	component_name: string
@@ -70,7 +70,7 @@ export default class ComponentRegistry {
 		ContextEnv.value.location = location
 
 		//Save that this file is using the specific custom component inside the LightningCache
-		EventBus.once(
+		once(
 			'bridge:onCacheHook[entity.custom_components]',
 			() => component_name
 		)

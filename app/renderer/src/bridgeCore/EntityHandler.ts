@@ -9,18 +9,20 @@ import { transformTag } from './TagHandler'
 import LightningCache from '../editor/LightningCache'
 import FileType from '../editor/FileType'
 import { OnSaveData } from './main'
+import { transformJsonCommands } from './functions/transformJson'
 
 let COM_ID_COUNTER = 0
 let A_C: AnimationController
 let COMMAND_ANIM_REGISTERED = false
 
-function transformEvent(
+async function transformEvent(
 	event: any,
 	{
 		component_groups,
 		description,
 		events,
 		file_name,
+		file_uuid,
 	}: Partial<
 		OnSaveData & { component_groups: any; description: any; events: any }
 	>
@@ -102,31 +104,37 @@ function transformEvent(
 					transitions: [
 						{ default: `query.skin_id != ${COM_ID_COUNTER}` },
 					],
-					on_entry: e_c.concat([
-						'@s bridge:remove_command_id_' + COM_ID_COUNTER,
-					]),
+					on_entry: (
+						await transformJsonCommands(file_uuid, e_c)
+					).concat(['@s bridge:remove_command_id_' + COM_ID_COUNTER]),
 				},
 			}
 		)
 	}
 
 	if (event.sequence !== undefined)
-		event.sequence.forEach((e: any) =>
-			transformEvent(e, {
-				component_groups,
-				description,
-				events,
-				file_name,
-			})
+		await Promise.all(
+			event.sequence.map((e: any) =>
+				transformEvent(e, {
+					component_groups,
+					description,
+					events,
+					file_name,
+					file_uuid,
+				})
+			)
 		)
 	if (event.randomize !== undefined)
-		event.randomize.forEach((e: any) =>
-			transformEvent(e, {
-				component_groups,
-				description,
-				events,
-				file_name,
-			})
+		await Promise.all(
+			event.randomize.map((e: any) =>
+				transformEvent(e, {
+					component_groups,
+					description,
+					events,
+					file_name,
+					file_uuid,
+				})
+			)
 		)
 }
 
@@ -146,14 +154,14 @@ export async function handleTags(
 
 	if (!Array.isArray(tags) || tags.length === 0) return
 
-	let tag_refs = await Promise.all(
+	const tagRefs = await Promise.all(
 		tags.map(t =>
 			FetchDefinitions.fetchSingle('entity_tag', ['identifiers'], t, true)
 		)
 	)
 
 	await Promise.all(
-		tag_refs.flat().map(async ref => {
+		tagRefs.flat().map(async ref => {
 			const { identifier, ...tag_entity } =
 				transformTag(await FileSystem.loadFile(ref)) || {}
 			if (!identifier) return
@@ -165,6 +173,7 @@ export async function handleTags(
 export default async function EntityHandler({
 	file_name,
 	data,
+	file_uuid,
 	file_path,
 	simulated_call,
 }: OnSaveData) {
@@ -179,10 +188,11 @@ export default async function EntityHandler({
 	A_C = new AnimationController()
 
 	for (let e in events)
-		transformEvent(events[e], {
+		await transformEvent(events[e], {
 			component_groups,
 			description,
 			events,
+			file_uuid,
 			file_name: file_name.replace('.json', ''),
 		})
 
