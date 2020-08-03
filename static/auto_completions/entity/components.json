@@ -39,7 +39,7 @@
 	},
 	"$versioned_template.minecraft:ageable": [
 		{
-			"$if": "$project_target_version >= 1.16.100.50",
+			"$if": "$project_target_version >= 1.16.100",
 			"$data": {
 				"minecraft:ageable": {
 					"duration": "$general.number",
@@ -218,11 +218,11 @@
           "breed_items": {
             "$dynamic.list.next_index": {
               "@import.value": "$general.item_identifier",
-								"any_tag": {
-									"$dynamic.list.next_index": {
-										"@meta": { "is_value": true }
-									}
-								}
+				"any_tag": {
+					"$dynamic.list.next_index": {
+						"@meta": { "is_value": true }
+					}
+				}
             }
           },
           "breeds_with": {
@@ -260,7 +260,7 @@
   ],
  "$versioned_template.minecraft:bribeable": [
    {
-     "$if": "$project_target_version >= 1.16.100.50",
+     "$if": "$project_target_version >= 1.16.100",
      "$data": {
       "minecraft:bribeable": {
         "bribe_cooldown": "$general.number",
@@ -543,7 +543,7 @@
   },
   "$versioned_template.minecraft:giveable": [
     {
-      "$if":"$project_target_version >= 1.16.100.50",
+      "$if":"$project_target_version >= 1.16.100",
       "$data": {
         "minecraft:giveable": {
           "triggers": {
@@ -595,7 +595,7 @@
   },
   "$versioned_template.minecraft:healable": [
     {
-      "$if":"$project_target_version >= 1.16.100.50",
+      "$if":"$project_target_version >= 1.16.100",
       "$data": {
         "minecraft:healable": {
           "force_use": "$general.boolean",
@@ -1239,7 +1239,7 @@
   },
   "$versioned_template.minecraft:tamemount": [
     {
-      "$if":"$project_target_version >= 1.16.100.50",
+      "$if":"$project_target_version >= 1.16.100",
       "$data": {
         "minecraft:tamemount": {
           "attempt_temper_mod": "$general.number",

@@ -16,7 +16,7 @@
             "minecraft:render_offsets": [ "apple", "tools" ],
             "$versioned_template.minecraft:display_name": [
                 {
-                    "$if": "$project_target_version >= 1.16.100.50",
+                    "$if": "$project_target_version >= 1.16.100",
                     "$data": {
                         "value": {"@meta": {"is_value": true}}
                     }
