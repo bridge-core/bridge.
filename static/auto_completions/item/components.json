@@ -60,8 +60,8 @@
                 "$dynamic.list.next_index": "$function.embedded"
             },
 
-            "$dynamic_template.is_equipped": "$entity.components",
-            "$dynamic_template.is_not_equipped": "$entity.components"
+            "is_equipped": "$entity.components",
+            "is_not_equipped": "$entity.components"
         }
     }
 }
