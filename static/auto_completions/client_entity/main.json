@@ -87,7 +87,7 @@
 				},
 				"$versioned_template": [
 					{
-						"$if": "$project_target_version >= 1.16.100.50",
+						"$if": "$project_target_version >= 1.16.100",
 						"$data": {
 							"variables": {
 								"$placeholder": "public"
