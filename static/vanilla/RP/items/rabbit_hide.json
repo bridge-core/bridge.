@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:rabbit_hide"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.leather"
+      },
+      "minecraft:icon": {
+        "texture": "rabbit_hide"
+      },
+      "minecraft:render_offsets": "rabbit_hide",
+      "minecraft:display_name": {}
+    }
+  }
+}

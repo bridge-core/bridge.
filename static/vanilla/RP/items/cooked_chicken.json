@@ -5,12 +5,16 @@
       "identifier": "minecraft:cooked_chicken",
       "category": "Equipment"
     },
-
     "components": {
-      "minecraft:icon": "chicken_cooked",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.cookedFood"
+      },
+      "minecraft:icon": {
+        "texture": "chicken_cooked"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "meats"
+      "minecraft:render_offsets": "meats",
+      "minecraft:display_name": {}
     }
   }
 }

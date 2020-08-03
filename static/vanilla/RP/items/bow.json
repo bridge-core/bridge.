@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:bow"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.bows"
+      },
+      "minecraft:icon": {
+        "texture": "bow_standby"
+      },
+      "minecraft:use_animation": "bow",
+      "minecraft:render_offsets": "bow",
+      "minecraft:display_name": {}
+    }
+  }
+}

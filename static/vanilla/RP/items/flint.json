@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:flint"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.arrowComponents"
+      },
+      "minecraft:icon": {
+        "texture": "flint"
+      },
+      "minecraft:render_offsets": "flint",
+      "minecraft:display_name": {}
+    }
+  }
+}

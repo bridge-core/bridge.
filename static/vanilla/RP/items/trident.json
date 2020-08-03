@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:trident"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.trident"
+      },
+      "minecraft:icon": {
+        "texture": "trident"
+      },
+      "minecraft:render_offsets": "trident",
+      "minecraft:display_name": {}
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:acacia_sign"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.sign"
+      },
+      "minecraft:icon": {
+        "texture": "sign_acacia"
+      },
+      "minecraft:render_offsets": "sign",
+      "minecraft:display_name": {}
+    }
+  }
+}

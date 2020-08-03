@@ -5,12 +5,18 @@
       "identifier": "minecraft:muttonRaw",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "mutton_raw",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.rawFood"
+      },
+      "minecraft:icon": {
+        "texture": "mutton_raw"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "meats"
+      "minecraft:render_offsets": "meats",
+      "minecraft:display_name": {
+        "value": "item.muttonRaw.name"
+      }
     }
   }
 }

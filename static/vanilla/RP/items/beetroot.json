@@ -5,12 +5,16 @@
       "identifier": "minecraft:beetroot",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "beetroot",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.crop"
+      },
+      "minecraft:icon": {
+        "texture": "beetroot"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "beetroot"
+      "minecraft:render_offsets": "beetroot",
+      "minecraft:display_name": {}
     }
   }
 }

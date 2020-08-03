@@ -1,0 +1,17 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:record_13"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.record"
+      },
+      "minecraft:icon": {
+        "texture": "record_13"
+      },
+      "minecraft:display_name": {}
+    }
+  }
+}

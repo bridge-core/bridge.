@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:netherbrick"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.bricks"
+      },
+      "minecraft:icon": {
+        "texture": "netherbrick"
+      },
+      "minecraft:render_offsets": "bricks",
+      "minecraft:display_name": {}
+    }
+  }
+}

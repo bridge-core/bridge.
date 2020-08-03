@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:slime_ball"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.slimeBall"
+      },
+      "minecraft:icon": {
+        "texture": "slimeball"
+      },
+      "minecraft:render_offsets": "slime_ball",
+      "minecraft:display_name": {}
+    }
+  }
+}

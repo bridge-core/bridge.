@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:iron_ingot"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.iron"
+      },
+      "minecraft:icon": {
+        "texture": "iron_ingot"
+      },
+      "minecraft:render_offsets": "ingots",
+      "minecraft:display_name": {}
+    }
+  }
+}

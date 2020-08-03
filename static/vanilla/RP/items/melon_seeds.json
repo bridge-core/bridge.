@@ -5,11 +5,15 @@
       "identifier": "minecraft:melon_seeds",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "seeds_melon",
-
-      "minecraft:render_offsets": "seeds"
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.seed"
+      },
+      "minecraft:icon": {
+        "texture": "seeds_melon"
+      },
+      "minecraft:render_offsets": "seeds",
+      "minecraft:display_name": {}
     }
   }
 }

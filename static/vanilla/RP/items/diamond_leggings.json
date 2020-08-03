@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:diamond_leggings"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.leggings"
+      },
+      "minecraft:icon": {
+        "texture": "leggings",
+        "frame_index": 4
+      },
+	  "minecraft:armor": {
+		"texture_type": "diamond"
+      },
+      "minecraft:render_offsets": "leggings",
+      "minecraft:display_name": {}
+    }
+  }
+}

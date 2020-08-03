@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:armor_stand"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.armorStand"
+      },
+      "minecraft:icon": {
+        "texture": "armor_stand"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
+    }
+  }
+}

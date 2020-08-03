@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:carpet"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.woolCarpet"
+      },
+      "minecraft:render_offsets": "carpets",
+      "minecraft:display_name": {}
+    }
+  }
+}

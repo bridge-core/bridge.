@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:snowball"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.snowball"
+      },
+      "minecraft:icon": {
+        "texture": "snowball"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
+    }
+  }
+}

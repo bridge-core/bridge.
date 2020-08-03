@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:clay_ball"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.clayBall"
+      },
+      "minecraft:icon": {
+        "texture": "clay_ball"
+      },
+      "minecraft:render_offsets": "powders",
+      "minecraft:display_name": {}
+    }
+  }
+}

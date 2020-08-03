@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:wooden_pickaxe"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.pickaxe"
+      },
+      "minecraft:icon": {
+        "texture": "pickaxe",
+        "frame_index": 0
+      },
+      "minecraft:render_offsets": "tools",
+      "minecraft:display_name": {}
+    }
+  }
+}

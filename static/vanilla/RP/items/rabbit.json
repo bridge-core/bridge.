@@ -5,12 +5,16 @@
       "identifier": "minecraft:rabbit",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "rabbit",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.rawFood"
+      },
+      "minecraft:icon": {
+        "texture": "rabbit"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "rabbit"
+      "minecraft:render_offsets": "rabbit",
+      "minecraft:display_name": {}
     }
   }
 }

@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:book"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.book"
+      },
+      "minecraft:icon": {
+        "texture": "book_normal"
+      },
+      "minecraft:render_offsets": "books",
+      "minecraft:display_name": {}
+    }
+  }
+}

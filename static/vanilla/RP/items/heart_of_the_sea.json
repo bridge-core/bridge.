@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:heart_of_the_sea"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.nautilus"
+      },
+      "minecraft:icon": {
+        "texture": "heart_of_the_sea"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
+    }
+  }
+}

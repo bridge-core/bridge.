@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:skull"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.skull"
+      },
+      "minecraft:render_offsets": "skull",
+      "minecraft:display_name": {}
+    }
+  }
+}

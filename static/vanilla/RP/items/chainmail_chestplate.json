@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:chainmail_chestplate"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.chestplate"
+      },
+      "minecraft:icon": {
+        "texture": "chestplate",
+        "frame_index": 1
+      },
+	  "minecraft:armor": {
+		"texture_type": "chain"
+      },
+      "minecraft:render_offsets": "chestplates",
+      "minecraft:display_name": {}
+    }
+  }
+}

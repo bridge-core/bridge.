@@ -1,0 +1,21 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:emptyMap"
+    },
+    "components": {
+      "minecraft:max_stack_size": 64,
+      "minecraft:stacked_by_data": true,
+      "minecraft:allow_off_hand": true,
+      "minecraft:map": {},
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.navigation"
+      },
+      "minecraft:icon": {
+        "texture": "map_empty"
+      },
+      "minecraft:display_name": {}
+    }
+  }
+}

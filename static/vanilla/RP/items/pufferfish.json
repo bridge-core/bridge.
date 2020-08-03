@@ -5,12 +5,16 @@
       "identifier": "minecraft:pufferfish",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "pufferfish",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.rawFood"
+      },
+      "minecraft:icon": {
+        "texture": "pufferfish"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "fishes"
+      "minecraft:render_offsets": "fishes",
+      "minecraft:display_name": {}
     }
   }
 }

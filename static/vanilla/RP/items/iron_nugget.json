@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:iron_nugget",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.iron"
+      },
+      "minecraft:icon": {
+        "texture": "iron_nugget"
+      },
+      "minecraft:render_offsets": "gold_nugget",
+      "minecraft:display_name": {}
+    }
+  }
+}

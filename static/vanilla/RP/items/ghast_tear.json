@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:ghast_tear"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.ghastTear"
+      },
+      "minecraft:icon": {
+        "texture": "ghast_tear"
+      },
+      "minecraft:render_offsets": "ghast_tear",
+      "minecraft:display_name": {}
+    }
+  }
+}
