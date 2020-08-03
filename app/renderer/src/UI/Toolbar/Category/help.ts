@@ -35,5 +35,13 @@ export const HelpMenu: IAppMenu = {
 					'https://github.com/solvedDev/bridge./blob/master/plugin_docs/main.md'
 				),
 		},
+		{
+			displayName: 'Getting Started',
+			displayIcon: 'mdi-help-circle-outline',
+			onClick: () =>
+				shell.openExternal(
+					'https://github.com/bridge-core/bridge./blob/dev/GETTING_STARTED.md'
+				),
+		},
 	],
 }

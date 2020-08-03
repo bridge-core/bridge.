@@ -49,4 +49,18 @@ export default async function startUp() {
 			})
 		}
 	})
+
+	if (process.env.NODE_ENV !== 'development') {
+		let getting_started = createNotification({
+			icon: 'mdi-help-circle-outline',
+			message: 'Getting Started',
+			textColor: 'white',
+			onClick: () => {
+				shell.openExternal(
+					'https://github.com/bridge-core/bridge./blob/dev/GETTING_STARTED.md'
+				)
+				getting_started.dispose()
+			},
+		})
+	}
 }

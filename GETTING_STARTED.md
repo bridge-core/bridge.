@@ -85,7 +85,7 @@ bridge. also supports opening and editing other file types, including:
 
 ## Unique editing features
 
-bridge. includes built-in tools that will make your developing experience quicker and easier!
+bridge. includes tools that will make your developing experience quicker and easier!
 
 ### Presets
 
