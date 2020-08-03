@@ -94,12 +94,7 @@
           "$if": "$dynamic.bridge_core.is_active",
           "$default": {
             "commands": {
-              "$dynamic.list.next_index": {
-                "@meta": {
-                  "is_value": true
-                },
-                "@import.value.command": "('/function ' + $dynamic.function_files) and ('/' + $function.main)"
-              }
+              "$dynamic.list.next_index": "$function.embedded"
             }
           }
         }
