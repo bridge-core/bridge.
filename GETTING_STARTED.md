@@ -75,14 +75,17 @@ _There is currently a work in progress, updated JSON renderer which will feature
 
 bridge. also supports opening and editing other file types, including:
 
-.mcfunction
+### .mcfunction
+
 ![Mcfunction](https://github.com/bridge-core/bridge./blob/dev/images/getting_started_9.png)
-.js
+
+### .js
+
 ![Javascript](https://github.com/bridge-core/bridge./blob/dev/images/getting_started_10.png)
 
 ## Unique editing features
 
-Using bridge. will let you use many built-in, powerful tools that will make your developing experience quicker and easier!
+bridge. includes built-in tools that will make your developing experience quicker and easier!
 
 ### Presets
 
