@@ -82,7 +82,7 @@ export class Omega {
 					newObject[prefix + key] = object[key]
 				} else if (key === '$load') {
 					const result = this.walk(object[key])
-					console.log(result)
+
 					if (Array.isArray(result))
 						newValues.push(...result.map(r => prefix + r))
 					else
