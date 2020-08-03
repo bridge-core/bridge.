@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:frame"
+    },
+    "components": {
+      "minecraft:block_placer": {
+        "block": "frame"
+      }
+    }
+  }
+}

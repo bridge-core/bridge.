@@ -4,10 +4,9 @@
     "description": {
       "identifier": "minecraft:melon_seeds"
     },
-
     "components": {
-      "minecraft:seed": {
-        "crop_result": "melon_stem"
+      "minecraft:block_placer": {
+        "block": "minecraft:melon_stem"
       }
     }
   }

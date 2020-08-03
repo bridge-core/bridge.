@@ -1,0 +1,23 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:fishing_rod"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:enchantable": {
+        "value": 1,
+        "slot": "fishing_rod"
+      },
+      "minecraft:frame_count": 2,
+      "minecraft:mirrored_art": true,
+      "minecraft:requires_interact": true,
+      "minecraft:damageable": {
+        "max_damage": 384
+      },
+      "minecraft:fishing_rod": {}
+    }
+  }
+}

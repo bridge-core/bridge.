@@ -4,10 +4,8 @@
     "description": {
       "identifier": "minecraft:dried_kelp"
     },
-
     "components": {
-      "minecraft:use_duration": 16,
-
+      "minecraft:use_duration": 0.8,
       "minecraft:food": {
         "nutrition": 1,
         "saturation_modifier": "poor"

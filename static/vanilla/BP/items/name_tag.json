@@ -1,0 +1,14 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:name_tag",
+      "aliases": [
+        "nametag"
+      ]
+    },
+    "components": {
+      "minecraft:name_tag": {}
+    }
+  }
+}

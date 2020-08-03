@@ -1,0 +1,21 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:shears"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:damageable": {
+        "max_damage": 238,
+        "repair_items": [
+          "minecraft:iron_ingot"
+        ]
+      },
+      "minecraft:enchantable": {
+        "slot": "shears"
+      },
+      "minecraft:shears": {}
+    }
+  }
+}

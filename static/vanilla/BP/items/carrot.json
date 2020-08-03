@@ -4,16 +4,14 @@
     "description": {
       "identifier": "minecraft:carrot"
     },
-
     "components": {
-      "minecraft:use_duration": 32,
-
+      "minecraft:use_duration": 1.6,
       "minecraft:food": {
         "nutrition": 3,
         "saturation_modifier": "normal"
       },
-      "minecraft:seed": {
-        "crop_result": "carrots"
+      "minecraft:block_placer": {
+        "block": "minecraft:carrots"
       }
     }
   }

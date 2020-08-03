@@ -1,0 +1,11 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:chorus_fruit_popped"
+    },
+    "components": {
+
+    }
+  }
+}

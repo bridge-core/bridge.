@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:brewing_stand"
+    },
+    "components": {
+      "minecraft:block_placer": {
+        "block": "brewing_stand"
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:coal"
+    },
+    "components": {
+      "minecraft:stacked_by_data": true,
+      "minecraft:coal": {}
+    }
+  }
+}
