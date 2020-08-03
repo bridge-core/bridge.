@@ -51,6 +51,11 @@ export function compileSingleCondition(condition: string) {
 	let [v1, operator, v2] = condition.split(/\s+/)
 	if (v1 === '$format_version') v1 = getFormatVersion()
 	if (v2 === '$format_version') v2 = getFormatVersion()
+	if (v1 === '$project_target_version')
+		v1 = ProjectConfig.getFormatVersionSync()
+	if (v2 === '$project_target_version')
+		v2 = ProjectConfig.getFormatVersionSync()
+
 	if (!v1 || !v2) return false
 	if (['>', '>=', '=', '<', '<='].includes(operator))
 		return compare(v1, v2, <CompareOperator>operator)
