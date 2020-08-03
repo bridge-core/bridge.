@@ -3,7 +3,7 @@
   "minecraft:feature_rules": {
     "description": {
       "identifier": "minecraft:minecraft:savanna_mutated_surface_tall_grass_feature",
-      "places_feature": "minecraft:tall_grass_feature"
+      "places_feature": "minecraft:scatter_tall_grass_feature"
     },
     "conditions": {
       "placement_pass": "surface_pass",

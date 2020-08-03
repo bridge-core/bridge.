@@ -7,7 +7,7 @@
     "early_out": "first_success",
     "features": [
       "minecraft:optional_ferns_feature",
-      "minecraft:tall_grass_feature"
+      "minecraft:scatter_tall_grass_feature"
     ]
   }
 }

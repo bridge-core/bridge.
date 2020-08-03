@@ -24,7 +24,10 @@
 							"ranged_charge" : "query.variant == 0 && variable.attack_state == 2 && !query.is_admiring"
 						},
 						{
-							"melee_attack": "variable.has_target && query.variant == 1 && variable.attack_time >= 0.0 && !query.is_admiring"
+							"hand_attack": "variable.has_target && query.variant == 1 && !query.is_item_equipped && variable.attack_time >= 0.0 && !query.is_admiring"
+						},
+						{
+							"melee_attack": "variable.has_target && query.variant == 1 && query.is_item_equipped && variable.attack_time >= 0.0 && !query.is_admiring"
 						}
 					]
 				},
@@ -43,7 +46,15 @@
 					"animations": ["melee_attack"],
 					"transitions" : [
 						{
-							"default" : "!variable.has_target || variable.attack_time < 0.0 ||  query.is_admiring"
+							"default" : "!query.is_item_equipped || !variable.has_target || variable.attack_time < 0.0 ||  query.is_admiring"
+						}
+					]
+				},
+				"hand_attack" : {
+					"animations": ["hand_attack"],
+					"transitions" : [
+						{
+							"default" : "query.is_item_equipped || !variable.has_target || variable.attack_time < 0.0 ||  query.is_admiring"
 						}
 					]
 				}

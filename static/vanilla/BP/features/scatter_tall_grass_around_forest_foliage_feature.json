@@ -1,0 +1,23 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:scatter_feature": {
+    "description": {
+      "identifier": "minecraft:scatter_tall_grass_around_forest_foliage_feature"
+    },
+    "iterations": 20,
+    "x": {
+      "distribution": "gaussian",
+      "extent": [ -3, 3 ]
+    },
+    "y": {
+      "distribution": "gaussian",
+      "extent": [ -4, 4 ]
+    },
+    "z": {
+      "distribution": "gaussian",
+      "extent": [ -3, 3 ]
+    },
+    "coordinate_eval_order": "zyx",
+    "places_feature": "minecraft:tall_grass_feature"
+  }
+}
