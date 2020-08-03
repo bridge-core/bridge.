@@ -90,7 +90,7 @@
 						"$if": "$project_target_version >= 1.16.100",
 						"$data": {
 							"variables": {
-								"$placeholder": "public"
+								"$placeholder": ["public"]
 							}
 						}
 					}
