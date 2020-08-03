@@ -1,6 +1,7 @@
 import { createWindow } from '../create'
 import CreateRPComponent from './RP/Main.vue'
 import CreateBPComponent from './BP/Main.vue'
+import { getFormatVersions } from '../../../autoCompletions/components/VersionedTemplate/Common'
 
 export const CreateRP = createWindow(CreateRPComponent, {
 	RPName: '',
@@ -8,7 +9,7 @@ export const CreateRP = createWindow(CreateRPComponent, {
 })
 
 export const CreateBP = createWindow(CreateBPComponent, {
-	targetVersions: [1.16, 1.14, 1.13],
+	targetVersions: getFormatVersions().reverse(),
 	targetVersion: '',
 	projectName: '',
 	projectDescription: '',
