@@ -40,7 +40,7 @@ export const HelpMenu: IAppMenu = {
 			displayIcon: 'mdi-help-circle-outline',
 			onClick: () =>
 				shell.openExternal(
-					'https://github.com/bridge-core/bridge./blob/dev/GETTING_STARTED.md'
+					'https://github.com/bridge-core/bridge./blob/master/GETTING_STARTED.md'
 				),
 		},
 	],
