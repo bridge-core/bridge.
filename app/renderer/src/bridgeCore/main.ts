@@ -189,7 +189,6 @@ export class BridgeCore {
 				)
 		)
 		await JSONFileMasks.saveMasks()
-		console.log(data)
 		return data
 	}
 
