@@ -1,0 +1,21 @@
+{
+    "format_version": "1.10",
+    "minecraft:item": {
+      "description": {
+        "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}_leggings"
+      },
+      "components": {
+        "minecraft:creative_category": {		
+          "parent": "itemGroup.name.leggings"	
+        },
+        "minecraft:icon": {	
+          "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}_leggings"
+        },
+        "minecraft:armor": {		
+          "texture_type": ""	
+        },
+        "minecraft:render_offsets": "leggings",	
+        "minecraft:display_name": {}	
+      }
+    }
+  }

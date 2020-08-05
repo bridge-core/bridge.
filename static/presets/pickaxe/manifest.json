@@ -1,0 +1,18 @@
+{
+    "display_name": "Pickaxe",
+    "description": "Creates a new pickaxe item.",
+    "icon": "mdi-pickaxe",
+    "bp_map": {
+        "item.json": "items/{{IDENTIFIER}}.json"
+    },
+    "rp_map": {
+        "client_item.json": "items/{{IDENTIFIER}}.json"
+    },
+    "expand_rp_files": {
+        "item_texture.json": "textures/item_texture.json",
+        "en_US.lang": "texts/en_US.lang"
+    },
+    "copy_rp_files": {
+        "icon.png": "textures/items/{{IDENTIFIER}}.png"
+    }
+}

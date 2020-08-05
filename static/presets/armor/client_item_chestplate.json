@@ -1,0 +1,21 @@
+{
+    "format_version": "1.10",
+    "minecraft:item": {
+      "description": {
+        "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}_chesplate"
+      },
+      "components": {
+        "minecraft:creative_category": {		
+          "parent": "itemGroup.name.chestplate"	
+        },
+        "minecraft:icon": {	
+          "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}_chestplate"
+        },
+        "minecraft:armor": {		
+          "texture_type": ""	
+        },
+        "minecraft:render_offsets": "chestplates",	
+        "minecraft:display_name": {}	
+      }
+    }
+  }

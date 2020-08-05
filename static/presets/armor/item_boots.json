@@ -1,0 +1,30 @@
+{
+    "format_version": "1.10",
+    "minecraft:item": {
+      "description": {
+        "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}_boots" 
+      },
+      "components": {
+        "minecraft:max_stack_size": 1, 
+        "minecraft:enchantable": {     
+          "value": 9,		    
+          "slot": "armor_feet"	 
+        },
+        "minecraft:damageable": {		
+          "max_damage": 195,		
+          "damage_chance": {		
+            "min": 60,			
+            "max": 100
+          },
+          "repair_items": []
+        },
+        "minecraft:damage": 2,		
+        "minecraft:armor": {		
+          "protection": 2		
+        },
+        "minecraft:wearable": {		
+          "slot": "slot.armor.feet"	
+        }
+      }
+    }
+  }

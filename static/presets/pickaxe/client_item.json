@@ -1,0 +1,18 @@
+{
+    "format_version": "1.10",
+    "minecraft:item": {
+      "description": {
+        "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}"
+      },
+      "components": {
+        "minecraft:creative_category": {
+          "parent": "itemGroup.name.pickaxe"
+        },
+        "minecraft:icon": {
+          "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}"
+        },
+        "minecraft:render_offsets": "tool", 
+        "minecraft:display_name": {} 
+      }
+    }
+  }
