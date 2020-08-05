@@ -26,7 +26,7 @@ To add a resource pack to your project you need to select the resource pack on t
 
 ![Create resource pack](https://github.com/bridge-core/bridge./blob/master/images/getting_started_3.png)
 
-**Link** will allow you to link an existing resource pack to your project. The resoruce pack will resource pack will then be made a dependency of your selected behavior pack
+**Link** will allow you to link an existing resource pack to your project. The resource pack will resource pack will then be made a dependency of your selected behavior pack
 
 **Create** will open a resource pack creation window where you can input a name and description for your resource pack
 
@@ -37,7 +37,7 @@ Once you have done that click create and your resource pack will be created and 
 ## Creating files
 
 bridge. supports creating **all** files that Minecraft supports.
-You can create a file in you Behavior Pack and Resource pack by clicking the new file button, or double clicking the welcome screen.
+You can create a file in your Behavior Pack and Resource pack by clicking the new file button, or double clicking the welcome screen.
 
 ![Create file button](https://github.com/bridge-core/bridge./blob/master/images/getting_started_5.png)
 
@@ -96,7 +96,7 @@ Presets are a feature that lets you create a whole entity, block, item and much 
 
 ### Snippets
 
-Snippets can be used by pressing `ctrl + q` while you have a JSON file open. Snippets allow you to quickly insert JSON into a file. bridge. has snippets for entity behavior files, but more can be added with plugin or you can create your own by going to the toolbar and clicking **File > Preferences > Settings** Then you can select the Snippets tab in the window's sidebar click the plus icon under Custom Snippets.
+Snippets can be used by pressing `ctrl + q` while you have a JSON file open. Snippets allow you to quickly insert JSON into a file. bridge. has snippets for entity behavior files, but more can be added with plugin or you can create your own by going to the toolbar and clicking **File > Preferences > Settings** Then you can select the Snippets tab in the window's sidebar and click the plus icon under Custom Snippets.
 
 ![Settings > Snippets](https://github.com/bridge-core/bridge./blob/master/images/getting_started_13.png)
 ![Snippet Window](https://github.com/bridge-core/bridge./blob/master/images/getting_started_14.png)
@@ -104,7 +104,7 @@ Snippets can be used by pressing `ctrl + q` while you have a JSON file open. Sni
 ### Custom syntax
 
 bridge. has custom syntax in JSON files that allow you to make complex features quickly.
-An example of custom syntax is the `bridge:item_equipped_sensor` component which can be found in item behavior files. This component aloows you to easily execute commands when you hold the item, trigger events when you equip/unequip the item and have components active on the player while holding/ not holding the item.
+An example of custom syntax is the `bridge:item_equipped_sensor` component which can be found in item behavior files. This component aloows you to easily execute commands when you hold the item, trigger events when you equip/unequip the item and have components active on the player while holding/not holding the item.
 
 ![bridge:item_equipped_sensor](https://github.com/bridge-core/bridge./blob/master/images/getting_started_15.png)
 
