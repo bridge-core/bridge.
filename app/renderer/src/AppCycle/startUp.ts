@@ -1,7 +1,7 @@
 import SETTINGS from '../../store/Settings'
 import UpdateWindow from '../../windows/NewUpdateWindow'
 import DiscordWindow from '../../windows/Discord'
-import { shell } from 'electron'
+import { shell, remote } from 'electron'
 import { fetchLatestJson } from '../../src/Utilities/updateApp'
 import { CONNECTION } from '../../src/Utilities/ConnectionStatus'
 import { setupDefaultMenus } from '../UI/Toolbar/setupDefaults'
@@ -9,6 +9,7 @@ import { createNotification } from '../UI/Footer/create'
 import './DropFile'
 import './ResizeWatcher'
 import './Errors'
+import Store from '../../store/index'
 
 export default async function startUp() {
 	SETTINGS.setup()
@@ -62,5 +63,8 @@ export default async function startUp() {
 				getting_started.dispose()
 			},
 		})
+	}
+	if (Store.state.Settings.open_in_fullscreen) {
+		remote.getCurrentWindow().maximize()
 	}
 }
