@@ -208,7 +208,7 @@ export default class SettingsWindow extends TabWindow {
 				// }),
 				new ReactiveSwitch(this, 'open_in_fullscreen', {
 					color: 'primary',
-					text: 'Launch app in fullscreen',
+					text: 'Launch in fullscreen',
 					key: `settings.editor.tab.open_in_fullscreen.${Math.random()}`,
 				}),
 				new ReactiveSwitch(this, 'is_alternative_append_with_copy', {
