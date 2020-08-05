@@ -197,21 +197,24 @@ export default class FileSystem {
 			return cache_content
 		}
 	}
-	static async loadFileAsTree(file_path: string) {
+	static async loadFileAsTree(filePath: string) {
 		try {
 			let { format_version, cache_content } = await OmegaCache.load(
-				file_path
+				filePath
 			)
 			if (format_version === 1) {
 				return JSONTree.buildFromCache(cache_content)
 			} else {
-				if (typeof cache_content === 'string') return
+				if (typeof cache_content === 'string') return cache_content
 				return JSONTree.buildFromObject(cache_content)
 			}
 		} catch (e) {
+			const fileContent = (await fs.readFile(filePath)).toString('utf-8')
 			try {
-				return JSONTree.buildFromObject(await readJSON(file_path))
-			} catch (e) {}
+				return JSONTree.buildFromObject(JSON.parse(fileContent))
+			} catch (e) {
+				return fileContent
+			}
 		}
 	}
 

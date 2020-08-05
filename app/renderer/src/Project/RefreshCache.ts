@@ -4,6 +4,8 @@ import JSONTree from '../editor/JsonTree'
 import LightningCache from '../editor/LightningCache'
 import ComponentRegistry from '../plugins/CustomComponents'
 import { trySetRP } from '../Utilities/FindRP'
+import { BridgeCore } from '../bridgeCore/main'
+import FileType from '../editor/FileType'
 
 export async function refreshCache(refresh_rp = false, reset = true) {
 	if (!CURRENT.RPFileExplorer) await trySetRP() //Try loading the RP if it's not loaded yet
@@ -13,12 +15,16 @@ export async function refreshCache(refresh_rp = false, reset = true) {
 
 	let files = explorer.getAllFiles()
 	if (reset) LightningCache.init()
-	for (let f of files) {
-		let tree = await FileSystem.loadFileAsTree(f)
-		if (!(tree instanceof JSONTree)) continue
-
-		await ComponentRegistry.parse(f, tree.toJSON(), false)
-		await LightningCache.add(f, tree, false)
+	for (let filePath of files) {
+		let fileContent = await FileSystem.loadFileAsTree(filePath)
+		console.log(filePath)
+		if (fileContent instanceof JSONTree) {
+			await ComponentRegistry.parse(filePath, fileContent.toJSON(), false)
+			await LightningCache.add(filePath, fileContent, false)
+		} else {
+			if (FileType.get(filePath) === 'function')
+				await BridgeCore.beforeTextSave(fileContent, filePath)
+		}
 	}
 	await LightningCache.saveCache()
 }
