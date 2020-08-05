@@ -19,10 +19,10 @@
 
             "minecraft:render_offsets": [ "apple", "tools", "miscellaneous" ],
             "minecraft:creative_category": {
-                "parent": "$general.block_identifier and $general.item_identifier"
+                "parent": "$client_item.general.item_group_reference"
             },
             "minecraft:armor": {
-                "texture_type": ["leather", "chain", "diamond", "iron", "gold"]
+                "texture_type": "$client_item.general.armor_types"
             },
             "$versioned_template.minecraft:display_name": [
                 {
