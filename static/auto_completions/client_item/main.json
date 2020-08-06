@@ -17,7 +17,7 @@
             "minecraft:use_animation": [ "bow", "eat", "drink", "crossbow", "camera" ],
             "minecraft:hover_text_color": "$general.minecraft_color",
 
-            "minecraft:render_offsets": [ "apple", "tools", "miscellaneous" ],
+            "minecraft:render_offsets": "$client_item.general.render_offsets",
             "minecraft:creative_category": {
                 "parent": "$client_item.general.item_group_reference"
             },
