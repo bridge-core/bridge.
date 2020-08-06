@@ -1,4 +1,4 @@
-# @bridge/utils
+# @bridge/fs
 
 Module that allows plugins to interact with the user's file system.
 
