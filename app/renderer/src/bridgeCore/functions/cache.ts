@@ -14,7 +14,7 @@ export async function setFunctionCache(
 			if (FunctionCache.has(id)) {
 				FunctionCache.get(id).add(result[2])
 			} else {
-				FunctionCache.set(id, new Set(result[2]))
+				FunctionCache.set(id, new Set([result[2]]))
 			}
 		}
 	}
