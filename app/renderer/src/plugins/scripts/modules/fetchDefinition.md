@@ -4,7 +4,7 @@ Grants access to the lightning cache database
 
 ### `fetchDefinition(fileType: string, fetchDefs: string[], fetchSearch: string, fetchAll = false): Promise<string[]>`
 
-Search through the definitions `fetchDefs` in `fileType` files for `fetchSearch`. Available definitions can be found by browsing the lightning cache files [here](https://github.com/bridge-core/bridge./tree/master/static/lightning_cache).
+Search through the definitions `fetchDefs` in `fileType` files for `fetchSearch`. Available definitions can be found by browsing the lightning cache files [here](https://github.com/bridge-core/bridge./tree/master/static/lightning_cache). Valid built-in file types are listed [here](https://github.com/bridge-core/bridge./blob/master/plugin_docs/other/default_file_types.md).
 
 #### Example:
 
