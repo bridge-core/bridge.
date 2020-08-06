@@ -25,7 +25,5 @@ export function createInputWindow(
 		onConfirmCb: onConfirm,
 	})
 	Input.open()
-	return {
-		...Input,
-	}
+	return Input
 }

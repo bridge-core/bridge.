@@ -17,7 +17,7 @@
 			<v-btn
 				color="primary"
 				@click="onConfirm"
-				:disabled="inputValue == ''"
+				:disabled="inputValue === ''"
 			>
 				<span>Confirm</span>
 			</v-btn>
