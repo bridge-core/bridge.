@@ -22,14 +22,10 @@ export function createInputWindow(
 		windowTitle: displayName,
 		label: inputLabel,
 		inputValue: '',
+		onConfirmCb: onConfirm,
 	})
 	Input.open()
 	return {
 		...Input,
-		confirm: () => {
-			Input.close()
-			console.log('testing')
-			onConfirm(inputValue)
-		},
 	}
 }

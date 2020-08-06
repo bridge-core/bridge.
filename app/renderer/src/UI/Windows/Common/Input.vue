@@ -7,14 +7,18 @@
 		:isFullscreen="false"
 		:width="440"
 		:height="120"
-		@closeWindow="close"
+		@closeWindow="onClose"
 	>
 		<template #default>
 			<v-text-field :label="label" v-model="inputValue"></v-text-field>
 		</template>
 		<template #actions>
 			<v-spacer />
-			<v-btn color="primary" @click="close" :disabled="inputValue == ''">
+			<v-btn
+				color="primary"
+				@click="onConfirm"
+				:disabled="inputValue == ''"
+			>
 				<span>Confirm</span>
 			</v-btn>
 		</template>
@@ -34,10 +38,13 @@ export default {
 		return this.currentWindow.getState()
 	},
 	methods: {
-		close() {
+		onClose() {
 			this.currentWindow.close()
 		},
-		confirm() {},
+		onConfirm() {
+			this.currentWindow.close()
+			this.onConfirmCb(this.inputValue)
+		},
 	},
 }
 </script>
