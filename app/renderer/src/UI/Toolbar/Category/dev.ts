@@ -6,6 +6,10 @@ import PluginLoader from '../../../plugins/PluginLoader'
 import Store from '../../../../store/index'
 import ThemeManager from '../../../editor/Themes/ThemeManager'
 import LoadingWindow from '../../../../windows/LoadingWindow'
+import {
+	createInputWindow,
+	createInformationWindow,
+} from '../../Windows/Common/CommonDefinitions'
 
 export const DevMenu: IAppMenu = {
 	displayName: 'Development',
@@ -51,6 +55,15 @@ export const DevMenu: IAppMenu = {
 			},
 			onClick: () => {
 				ipcRenderer.send('toggleDevTools')
+			},
+		},
+		{
+			displayName: 'Create Input Window',
+			displayIcon: 'mdi-console',
+			onClick: () => {
+				createInputWindow('hello', 'mylabel', (input: string) =>
+					createInformationWindow('title', input)
+				)
 			},
 		},
 	],

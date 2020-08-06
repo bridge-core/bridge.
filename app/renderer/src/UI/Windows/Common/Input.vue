@@ -1,0 +1,45 @@
+<template>
+	<BaseWindow
+		v-if="shouldRender"
+		:windowTitle="windowTitle"
+		:isVisible="isVisible"
+		:hasMaximizeButton="false"
+		:isFullscreen="false"
+		:width="440"
+		:height="120"
+		@closeWindow="close"
+	>
+		<template #default>
+			<v-text-field :label="label" v-model="inputValue"></v-text-field>
+		</template>
+		<template #actions>
+			<v-spacer />
+			<v-btn color="primary" @click="close" :disabled="inputValue == ''">
+				<span>Confirm</span>
+			</v-btn>
+		</template>
+	</BaseWindow>
+</template>
+
+<script>
+import BaseWindow from '../Layout/Base'
+
+export default {
+	name: 'Information',
+	components: {
+		BaseWindow,
+	},
+	props: ['currentWindow'],
+	data() {
+		return this.currentWindow.getState()
+	},
+	methods: {
+		close() {
+			this.currentWindow.close()
+		},
+		confirm() {},
+	},
+}
+</script>
+
+<style></style>
