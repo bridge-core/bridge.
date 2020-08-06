@@ -205,14 +205,18 @@
         "includes": "models/entity",
         "file_viewer": "model",
         "player": "model",
-        "rp_definition": true
+        "rp_definition": true,
+
+        "lightning_cache": "model"
     },
     {
         "id": "entity_model",
         "includes": "models/mobs.json",
         "file_viewer": "model",
         "player": "model",
-        "rp_definition": true
+        "rp_definition": true,
+
+        "lightning_cache": "model"
     },
     {
         "id": "rp_animation",
@@ -222,6 +226,7 @@
         
         "build_array_exceptions": [ "particle_effects", "rotation", "position", "scale" ],
         "start_state": "animation/rp_main",
+        "lightning_cache": "rp_animation",
         "highlighter": "animation",
         "file_creator": "rp_animation"
     },
@@ -233,6 +238,7 @@
         
         "build_array_exceptions": [ "remap_curve" ],
         "start_state": "animation_controller/rp_main",
+        "lightning_cache": "rp_animation_controller",
         "highlighter": "animation_controller",
         "file_creator": "rp_animation_controller"
     },
@@ -243,6 +249,7 @@
         "rp_definition": true,
         
         "start_state": "attachable/main",
+        "lightning_cache": "attachable",
         "highlighter": "entity",
         "file_creator": "attachable"
     },
@@ -258,6 +265,7 @@
             "extend": "Client Entity Documentation"
         },
         "start_state": "client_entity/main",
+        "lightning_cache": "client_entity",
         "highlighter": "entity",
         "file_creator": "client_entity"
     },
@@ -295,6 +303,7 @@
         "rp_definition": true,
         
         "start_state": "particle/main",
+        "lightning_cache": "particle",
         "highlighter": "particle",
         "file_creator": "particle"
     },
@@ -306,6 +315,7 @@
         
         "build_array_exceptions": [ "timeline", "gradient" ],
         "start_state": "render_controller/main",
+        "lightning_cache": "render_controller",
         "file_creator": "render_controller",
         "highlighter": "render_controller"
     },
@@ -350,6 +360,7 @@
         "includes": "sounds/sound_definitions.json",
         "file_viewer": "json",
         "start_state": "simple/sound_definitions",
+        "lightning_cache": "sound_definition",
         "rp_definition": true
     },
     {
