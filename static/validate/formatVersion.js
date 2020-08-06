@@ -28,7 +28,7 @@ if (
 				//Grab the most recent defined format_version or use '1.13.0' to fix the error
 				Bridge.Node.edit(
 					(DATA[FileType] || [])[(DATA[FileType] || []).length - 1] ||
-						'1.13.0',
+						'1.16.0',
 					true
 				)
 				Tab.setUnsaved()
