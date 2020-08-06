@@ -76,6 +76,10 @@ Bridge.registerConfiguration({
 	},
 	autoClosingPairs: [
 		{
+			open: '(',
+			close: ')',
+		},
+		{
 			open: '[',
 			close: ']',
 		},
