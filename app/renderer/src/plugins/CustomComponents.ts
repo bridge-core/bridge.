@@ -7,6 +7,7 @@ import LightningCache from '../editor/LightningCache'
 import FileType from '../editor/FileType'
 import { ContextEnv } from './scripts/modules/env'
 import { once } from '../AppCycle/EventSystem'
+import { createErrorNotification } from '../AppCycle/Errors'
 
 export interface BridgeComponentClass {
 	component_name: string
@@ -61,31 +62,35 @@ export default class ComponentRegistry {
 		simulated_call = false,
 		location = 'components'
 	) {
-		if (this.components[component_name] === undefined)
-			return new InformationWindow(
-				'ERROR',
-				`Unknown component "${component_name}"!`
+		if (this.components[component_name] === undefined) {
+			createErrorNotification(
+				new Error(`Unknown component: "${component_name}"`)
 			)
+			return
+		}
 		//ADD LOCATION TO CONTEXT ENV
 		ContextEnv.value.location = location
 
 		//Save that this file is using the specific custom component inside the LightningCache
-		once(
-			'bridge:onCacheHook[entity.custom_components]',
-			() => component_name
-		)
 
 		let apply_data = this.components[component_name].onApply(
 			component_data,
 			location
 		)
-		if (typeof apply_data !== 'object' || Array.isArray(apply_data)) return
-		MASK.set(`component@${component_name}`, apply_data)
+		if (typeof apply_data !== 'object' || Array.isArray(apply_data)) {
+			createErrorNotification(
+				new Error(`Invalid data for component "${component_name}"`)
+			)
+		} else {
+			MASK.set(`component@${component_name}`, apply_data)
+		}
+
+		return component_name
 	}
 
-	static async parse(file_path: string, data: any, simulated_call?: boolean) {
+	static async parse(filePath: string, data: any, simulatedCall?: boolean) {
 		if (data === undefined || data['minecraft:entity'] === undefined) return
-		const MASK = await JSONFileMasks.get(file_path)
+		const MASK = await JSONFileMasks.get(filePath)
 		const entityIdentifier = use(
 			data,
 			'minecraft:entity/description/identifier',
@@ -93,11 +98,6 @@ export default class ComponentRegistry {
 		)
 
 		//RESET OLD CHANNELS
-		let { custom_components } =
-			(await LightningCache.loadType(
-				file_path,
-				FileType.get(file_path)
-			)) || {}
 		MASK.keep(channelName => !channelName.startsWith('component@'))
 
 		//SETUP PLUGIN API ENV
@@ -105,13 +105,22 @@ export default class ComponentRegistry {
 			entityIdentifier,
 		}
 
+		const usedComponents: string[] = []
 		//PROCESS CUSTOM COMPONENTS
 		for (let component_name in this.components) {
 			//CHECK "COMPONENTS"
 			let c = use(data, `minecraft:entity/components/${component_name}`)
 
 			if (c !== undefined)
-				this.set(MASK, component_name, c, simulated_call, 'components')
+				usedComponents.push(
+					this.set(
+						MASK,
+						component_name,
+						c,
+						simulatedCall,
+						'components'
+					)
+				)
 
 			//CHECK "COMPONENT_GROUPS"
 			for (let component_group in data['minecraft:entity']
@@ -122,26 +131,39 @@ export default class ComponentRegistry {
 				)
 
 				if (c !== undefined)
-					this.set(
-						MASK,
-						component_name,
-						c,
-						simulated_call,
-						component_group
+					usedComponents.push(
+						this.set(
+							MASK,
+							component_name,
+							c,
+							simulatedCall,
+							component_group
+						)
 					)
 			}
 		}
 
-		//Trigger LightningCache update if simulated_call
-		if (simulated_call)
+		this.setCacheHook(usedComponents)
+
+		//Trigger LightningCache update if simulatedCall
+		if (simulatedCall)
 			await LightningCache.triggerHook(
-				file_path,
+				filePath,
 				'custom_components',
 				'entity.custom_components'
 			)
 
 		//RESET CONTEXT ENV
 		ContextEnv.value = {}
+
+		return usedComponents
+	}
+
+	static setCacheHook(componentNames: string[]) {
+		once(
+			'bridge:onCacheHook[entity.custom_components]',
+			() => componentNames
+		)
 	}
 
 	static propose() {
