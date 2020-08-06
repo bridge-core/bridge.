@@ -5,7 +5,7 @@ import uuid from 'uuid/v4'
 export const WINDOWS = Vue.observable({})
 export function createWindow(
 	vueComponent: VueComponent,
-	state: { [key: string]: unknown } = {}
+	state: Record<string, unknown> = {}
 ) {
 	const windowUUID = uuid()
 	const windowState: typeof state = Vue.observable({
