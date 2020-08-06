@@ -42,11 +42,8 @@ export default [
 		title: 'Refresh Cache',
 		action: async () => {
 			let win = new LoadingWindow()
-			console.log('REFRESH BP')
 			await refreshCache(false)
-			console.log('REFRESH RP')
 			await refreshCache(true, false)
-			console.log('DONE')
 			win.close()
 		},
 	},
