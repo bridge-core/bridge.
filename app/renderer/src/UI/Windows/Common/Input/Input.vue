@@ -10,7 +10,15 @@
 		@closeWindow="onClose"
 	>
 		<template #default>
-			<v-text-field :label="label" v-model="inputValue"></v-text-field>
+			<v-row>
+				<v-text-field
+					:label="label"
+					v-model="inputValue"
+				></v-text-field>
+				<p class="expand_text" v-if="expandText != ''">
+					{{ expandText }}
+				</p>
+			</v-row>
 		</template>
 		<template #actions>
 			<v-spacer />
@@ -49,4 +57,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.expand_text {
+	opacity: 60%;
+	padding-top: 26px;
+}
+</style>

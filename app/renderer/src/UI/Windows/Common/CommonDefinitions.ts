@@ -17,12 +17,15 @@ export function createInformationWindow(
 export function createInputWindow(
 	displayName: String,
 	inputLabel: String,
+	defaultValue: String,
+	expandText: String,
 	onConfirm: (input: string) => void
 ) {
 	const Input = createWindow(InputComponent, {
 		windowTitle: displayName,
 		label: inputLabel,
-		inputValue: '',
+		inputValue: defaultValue,
+		expandText: expandText,
 		onConfirmCb: onConfirm,
 	})
 	Input.open()
@@ -31,13 +34,13 @@ export function createInputWindow(
 
 export function createDropdownWindow(
 	displayName: String,
-	placeholderText: String,
+	placeholder: String,
 	options: Array<string>,
 	onConfirm: (input: string) => void
 ) {
 	const Dropdown = createWindow(DropdownComponent, {
 		windowTitle: displayName,
-		placeholder: placeholderText,
+		placeholder: placeholder,
 		selectedValue: '',
 		items: options,
 		onConfirmCb: onConfirm,

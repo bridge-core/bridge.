@@ -9,6 +9,7 @@ import path from 'path'
 import { FileExplorer } from '../Sidebar/FileExplorer'
 import CreateFileHereWindow from '../../../windows/CreateFileHere'
 import { shell } from 'electron'
+import { createInputWindow } from '../Windows/Common/CommonDefinitions'
 
 export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 	{
@@ -44,32 +45,25 @@ export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 		title: 'New Folder',
 		icon: 'mdi-folder-plus',
 		action: () => {
-			new InputWindow(
-				{
-					text: '',
-					label: 'Name',
-					header: 'Name Input',
-				},
-				async name => {
-					await fs.mkdir(path.join(file_path, name), {
-						recursive: true,
-					})
+			createInputWindow('Name Input', 'Name', '', '', async name => {
+				await fs.mkdir(path.join(file_path, name), {
+					recursive: true,
+				})
 
-					let curr_file = file
-					name.split(/\\|\//g).forEach(folder => {
-						let tmp = new FileExplorer(
-							file,
-							path.join(file.path, folder),
-							path.join(file_path, folder),
-							true,
-							true
-						)
-						curr_file.children.push(tmp)
-						curr_file.sort()
-						curr_file = tmp
-					})
-				}
-			)
+				let curr_file = file
+				name.split(/\\|\//g).forEach(folder => {
+					let tmp = new FileExplorer(
+						file,
+						path.join(file.path, folder),
+						path.join(file_path, folder),
+						true,
+						true
+					)
+					curr_file.children.push(tmp)
+					curr_file.sort()
+					curr_file = tmp
+				})
+			})
 		},
 	},
 	{

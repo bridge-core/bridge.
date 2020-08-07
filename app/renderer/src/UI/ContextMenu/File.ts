@@ -4,7 +4,6 @@
 import ManageFileMasks from '../../../windows/FileMasks'
 import FileSystem from '../../FileSystem'
 import ConfirmWindow from '../Windows/Common/Confirm'
-import InputWindow from '../Windows/Common/Input'
 import trash from 'trash'
 import TabSystem from '../../TabSystem'
 import { promises as fs } from 'fs'
@@ -15,6 +14,7 @@ import { readJSON } from '../../Utilities/JsonFS'
 import Manifest from '../../files/Manifest'
 import { writeJSON } from 'fs-extra'
 import { shell } from 'electron'
+import { createInputWindow } from '../Windows/Common/CommonDefinitions'
 
 export const FILE_CONTEXT_MENU = async (
 	file_path: string,
@@ -61,14 +61,12 @@ export const FILE_CONTEXT_MENU = async (
 			title: 'Rename',
 			icon: 'mdi-pencil',
 			action: () => {
-				new InputWindow(
-					{
-						text: path.basename(file_path, path.extname(file_path)),
-						label: 'Name',
-						header: 'Name Input',
-						expand_text: path.extname(file_path),
-					},
-					async (new_name: string) => {
+				createInputWindow(
+					'Name Input',
+					'Name',
+					path.basename(file_path, path.extname(file_path)),
+					path.extname(file_path),
+					async new_name => {
 						const CLOSED = TabSystem.closeByPath(file_path)
 						const newPath = path.join(
 							path.dirname(file_path),
@@ -100,14 +98,12 @@ export const FILE_CONTEXT_MENU = async (
 			title: 'Duplicate',
 			icon: 'mdi-content-duplicate',
 			action: () => {
-				new InputWindow(
-					{
-						text: path.basename(file_path, path.extname(file_path)),
-						label: 'Name',
-						header: 'Name Input',
-						expand_text: path.extname(file_path),
-					},
-					(new_name: string) => file.duplicate(new_name)
+				createInputWindow(
+					'Name Input',
+					'Name',
+					path.basename(file_path, path.extname(file_path)),
+					path.extname(file_path),
+					new_name => file.duplicate(new_name)
 				)
 			},
 		},

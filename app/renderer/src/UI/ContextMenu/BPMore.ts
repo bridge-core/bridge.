@@ -1,5 +1,4 @@
 import ProjectConfig from '../../Project/Config'
-import InputWindow from '../Windows/Common/Input'
 import { CURRENT, MOJANG_PATH } from '../../constants'
 import LoadingWindow from '../../../windows/LoadingWindow'
 import { join } from 'path'
@@ -13,7 +12,10 @@ import { zip } from 'zip-a-folder'
 import { createNotification } from '../Footer/create'
 import DropdownWindow from '../Windows/Common/Dropdown'
 import { getFormatVersions } from '../../autoCompletions/components/VersionedTemplate/Common'
-import { createInformationWindow } from '../Windows/Common/CommonDefinitions'
+import {
+	createInformationWindow,
+	createInputWindow,
+} from '../Windows/Common/CommonDefinitions'
 
 export default [
 	{
@@ -27,15 +29,12 @@ export default [
 				prefix = 'bridge'
 			}
 
-			new InputWindow(
-				{
-					header: 'Project Namespace',
-					label: 'Namespace',
-					text: prefix,
-				},
-				val => {
-					ProjectConfig.setPrefix(val)
-				}
+			createInputWindow(
+				'Project Namespace',
+				'Namespace',
+				prefix,
+				'',
+				val => ProjectConfig.setPrefix(val)
 			)
 		},
 	},
@@ -79,12 +78,11 @@ export default [
 		action: async () => {
 			new ConfirmWindow(
 				() => {
-					new InputWindow(
-						{
-							header: 'Project Name',
-							label: 'Name',
-							text: '',
-						},
+					createInputWindow(
+						'Project Name',
+						'Name',
+						'',
+						'',
 						async project_name => {
 							//Make sure that the resource pack can be loaded
 							if (!CURRENT.RESOURCE_PACK)

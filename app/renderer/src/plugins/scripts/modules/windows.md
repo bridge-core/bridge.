@@ -4,7 +4,7 @@ Module that provides acess to bridge's window system
 
 ### `createInformationWindow(displayName: string, displayContent: string): IBridgeWindow`
 
-### `createInputWindow(displayName: string, inputLabel: string, onConfirm: (input: string) => void): IBridgeWindow`
+### `createInputWindow(displayName: string, inputLabel: string, defaultValue: string, expandText: string, onConfirm: (input: string) => void): IBridgeWindow`
 
 ### `createDropdownWindow(displayName: string, placeholderText: string, options: Array<string>, onConfirm: (input: string) => void): IBridgeWindow`
 

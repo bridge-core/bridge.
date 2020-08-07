@@ -17,8 +17,17 @@ export const WindowModule = ({}: IModuleConfig) => ({
 	createInputWindow: (
 		displayName: string,
 		inputLabel: string,
+		defaultValue: string,
+		expandText: string,
 		onConfirm: (input: string) => void
-	) => createInputWindow(displayName, inputLabel, onConfirm),
+	) =>
+		createInputWindow(
+			displayName,
+			inputLabel,
+			defaultValue,
+			expandText,
+			onConfirm
+		),
 	createDropdownWindow: (
 		displayName: string,
 		placeholderText: string,
