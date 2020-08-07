@@ -19,10 +19,11 @@ export async function loadJS(
 				createLimitedEnv(),
 				{
 					register: (c: any) => {
-						const promise = ComponentRegistry.register(
-							c
-						).then(disposable => disposables.push(disposable))
-						promises.push(promise)
+						promises.push(
+							ComponentRegistry.register(c).then(disposable =>
+								disposables.push(disposable)
+							)
+						)
 					},
 					report: (info: string) =>
 						createInformationWindow('Information', info),
