@@ -32,6 +32,14 @@ export const WindowModule = ({}: IModuleConfig) => ({
 		displayName: string,
 		placeholderText: string,
 		options: Array<string>,
+		defaultSelected: string,
 		onConfirm: (input: string) => void
-	) => createDropdownWindow(displayName, placeholderText, options, onConfirm),
+	) =>
+		createDropdownWindow(
+			displayName,
+			placeholderText,
+			options,
+			defaultSelected,
+			onConfirm
+		),
 })

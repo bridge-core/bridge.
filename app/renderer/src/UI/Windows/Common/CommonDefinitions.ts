@@ -36,12 +36,13 @@ export function createDropdownWindow(
 	displayName: String,
 	placeholder: String,
 	options: Array<string>,
+	defaultSelected: string,
 	onConfirm: (input: string) => void
 ) {
 	const Dropdown = createWindow(DropdownComponent, {
 		windowTitle: displayName,
 		placeholder: placeholder,
-		selectedValue: '',
+		selectedValue: defaultSelected,
 		items: options,
 		onConfirmCb: onConfirm,
 	})

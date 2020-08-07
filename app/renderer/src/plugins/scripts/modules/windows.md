@@ -6,7 +6,7 @@ Module that provides acess to bridge's window system
 
 ### `createInputWindow(displayName: string, inputLabel: string, defaultValue: string, expandText: string, onConfirm: (input: string) => void): IBridgeWindow`
 
-### `createDropdownWindow(displayName: string, placeholderText: string, options: Array<string>, onConfirm: (input: string) => void): IBridgeWindow`
+### `createDropdownWindow(displayName: string, placeholderText: string, options: Array<string>, defaultSelected: string, onConfirm: (input: string) => void): IBridgeWindow`
 
 ### `createWindow(vueComponent: VueComponent, state: Record<string, any>): IBridgeWindow`
 

@@ -10,11 +10,11 @@ import { promises as fs } from 'fs'
 import { refreshCache } from '../../Project/RefreshCache'
 import { zip } from 'zip-a-folder'
 import { createNotification } from '../Footer/create'
-import DropdownWindow from '../Windows/Common/Dropdown'
 import { getFormatVersions } from '../../autoCompletions/components/VersionedTemplate/Common'
 import {
 	createInformationWindow,
 	createInputWindow,
+	createDropdownWindow,
 } from '../Windows/Common/CommonDefinitions'
 
 export default [
@@ -49,13 +49,11 @@ export default [
 				formatVersion = '1.13.0'
 			}
 
-			new DropdownWindow(
-				{
-					header: 'Project Format Version',
-					label: 'Format Version',
-					text: formatVersion,
-					options: getFormatVersions().reverse(),
-				},
+			createDropdownWindow(
+				'Project Format Version',
+				'Format Version',
+				getFormatVersions().reverse(),
+				formatVersion,
 				val => {
 					ProjectConfig.setFormatVersion(val)
 				}
