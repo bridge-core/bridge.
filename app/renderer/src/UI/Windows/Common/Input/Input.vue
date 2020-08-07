@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import BaseWindow from '../Layout/Base'
+import BaseWindow from '../../Layout/Base'
 
 export default {
 	name: 'Information',

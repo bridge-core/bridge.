@@ -35,19 +35,19 @@
 </template>
 
 <script>
-import BaseWindow from '../../Layout/Base'
+import BaseWindow from '../../../Layout/Base'
 import { CreateRP } from '../definition'
 import fs from 'fs'
-import ContentWindow from '../../../../UI/Windows/Common/Content'
-import { RP_BASE_PATH, CURRENT } from '../../../../constants'
-import Vue from '../../../../../main'
-import LoadingWindow from '../../../../../windows/LoadingWindow'
-import Manifest from '../../../../files/Manifest'
+import ContentWindow from '../../../Common/Content'
+import { RP_BASE_PATH, CURRENT } from '../../../../../constants'
+import Vue from '../../../../../../main'
+import LoadingWindow from '../../../../../../windows/LoadingWindow'
+import Manifest from '../../../../../files/Manifest'
 import uuidv4 from 'uuid/v4'
-import CreateFiles from '../../../../Project/CreateFiles'
+import CreateFiles from '../../../../../Project/CreateFiles'
 import path from 'path'
-import ProjectConfig from '../../../../Project/Config'
-import PackLinker from '../../../../Utilities/LinkPacks'
+import ProjectConfig from '../../../../../Project/Config'
+import PackLinker from '../../../../../Utilities/LinkPacks'
 
 export default {
 	name: 'CreateRP',

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { CreateBP } from '../../../Windows/CreateProject/definition'
+import { CreateBP } from '../../../Windows/Project/Create/definition'
 
 export default {
 	name: 'explorer-no-projects',

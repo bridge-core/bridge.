@@ -1,6 +1,6 @@
 import { createWindow } from '../create'
-import InformationComponent from './Information.vue'
-import InputComponent from './Input.vue'
+import InformationComponent from './Information/Information.vue'
+import InputComponent from './Input/Input.vue'
 
 export function createInformationWindow(
 	displayName: String,

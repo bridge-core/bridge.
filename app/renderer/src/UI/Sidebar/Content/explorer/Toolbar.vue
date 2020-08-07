@@ -121,7 +121,7 @@
 <script>
 import { shell, remote } from 'electron'
 import CreateFileWindow from '../../../../../windows/CreateFile'
-import { CreateBP } from '../../../Windows/CreateProject/definition'
+import { CreateBP } from '../../../Windows/Project/Create/definition'
 import LoadingWindow from '../../../../../windows/LoadingWindow'
 import { zip } from 'zip-a-folder'
 import { join } from 'path'

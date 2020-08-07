@@ -56,20 +56,20 @@
 </template>
 
 <script>
-import BaseWindow from '../../Layout/Base'
+import BaseWindow from '../../../Layout/Base'
 import { CreateBP } from '../definition'
 import fs from 'fs'
-import ContentWindow from '../../../../UI/Windows/Common/Content'
-import { BASE_PATH } from '../../../../constants'
-import Vue from '../../../../../main'
-import LoadingWindow from '../../../../../windows/LoadingWindow'
-import Manifest from '../../../../files/Manifest'
+import ContentWindow from '../../../Common/Content'
+import { BASE_PATH } from '../../../../../constants'
+import Vue from '../../../../../../main'
+import LoadingWindow from '../../../../../../windows/LoadingWindow'
+import Manifest from '../../../../../files/Manifest'
 import uuidv4 from 'uuid/v4'
-import CreateFiles from '../../../../Project/CreateFiles'
+import CreateFiles from '../../../../../Project/CreateFiles'
 import path from 'path'
-import EventBus from '../../../../EventBus'
-import ProjectConfig from '../../../../Project/Config'
-import { getFormatVersions } from '../../../../autoCompletions/components/VersionedTemplate/Common'
+import EventBus from '../../../../../EventBus'
+import ProjectConfig from '../../../../../Project/Config'
+import { getFormatVersions } from '../../../../../autoCompletions/components/VersionedTemplate/Common'
 
 export default {
 	name: 'CreateBP',
