@@ -2,7 +2,9 @@
 
 Module that provides acess to bridge's window system
 
-### `createInformationWindow(displayName: string, displayContent: string)`
+### `createInformationWindow(displayName: string, displayContent: string): IBridgeWindow`
+
+### `createInputWindow(displayName: string, inputLabel: string, onConfirm: (input: string) => void): IBridgeWindow`
 
 ### `createWindow(vueComponent: VueComponent, state: Record<string, any>): IBridgeWindow`
 
