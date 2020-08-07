@@ -31,7 +31,7 @@ async function addSnippet(s: any) {
 
 	return {
 		dispose: () => {
-			SNIPPETS[s.file_type].splice(SNIPPETS[s.file_type].indexOf(s), 1)
+			SNIPPETS[s.file_type]?.splice(SNIPPETS[s.file_type].indexOf(s), 1)
 		},
 	}
 }
