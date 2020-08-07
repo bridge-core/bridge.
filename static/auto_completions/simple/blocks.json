@@ -3,7 +3,7 @@
         "$dynamic.list.index_triple": "$general.number"
     },
     "$placeholder": {
-        "sound": { "@meta": { "is_value": true } },
+        "sound": "$simple.general.block_sounds",
         "brightness_gamma": "$general.decimal",
         "isotropic": {
             "@meta": {

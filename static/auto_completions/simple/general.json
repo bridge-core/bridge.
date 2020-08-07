@@ -17,5 +17,6 @@
             }
         },
         "$dynamic.list.index_pair": "$general.decimal"
-    }
+    },
+    "block_sounds": ["wood", "metal", "stone", "ancient_debris", "anvil", "bamboo", "bamboo_sapling", "barrier", "basalt", "glass", "nether_wart", "bone_block", "brick", "grass", "cloth", "chain", "stem", "nylium", "roots", "gravel", "honey_block", "coral", "nether_brick", "nether_gold_ore", "netherite", "netherrack", "scaffolding", "slime", "shroomlight", "lantern", "sweet_berry_bush", "vines"]
 }
