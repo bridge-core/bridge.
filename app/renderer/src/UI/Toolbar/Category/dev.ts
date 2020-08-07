@@ -57,14 +57,5 @@ export const DevMenu: IAppMenu = {
 				ipcRenderer.send('toggleDevTools')
 			},
 		},
-		{
-			displayName: 'Create Input Window',
-			displayIcon: 'mdi-console',
-			onClick: () => {
-				createInputWindow('hello', 'mylabel', (input: string) =>
-					createInformationWindow('title', input)
-				)
-			},
-		},
 	],
 }
