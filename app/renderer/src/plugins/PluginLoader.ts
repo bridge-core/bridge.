@@ -132,9 +132,11 @@ export default class PluginLoader {
 				this.loadPlugin(basePath, pluginFolder, unloadedPlugins)
 			)
 		)
-		await ThemeManager.loadTheme()
 
 		await Promise.all([
+			//LOAD CORRECT THEME
+			ThemeManager.loadTheme(),
+
 			//LOAD CUSTOM COMPONENENTS IN PROJECT
 			this.loadComponents(
 				path.join(CURRENT.PROJECT_PATH, 'components'),
