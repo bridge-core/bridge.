@@ -1,4 +1,5 @@
 {
+  "sound_definitions": {
     "mob.{{IDENTIFIER}}.death": {
       "category": "neutral",
       "sounds": [
@@ -46,4 +47,5 @@
         "sounds/mob/{{IDENTIFIER}}/yes3"
       ]
     }
+  }
 }
