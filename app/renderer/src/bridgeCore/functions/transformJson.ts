@@ -8,6 +8,8 @@ export async function transformJsonCommands(
 	fileUuid: string,
 	commandArr: string[]
 ) {
+	UsedSelectors.clear()
+	FunctionCache.clear()
 	const commandsStore = new Set<string>()
 	const transformedCommands: string[] = []
 

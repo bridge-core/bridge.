@@ -72,37 +72,7 @@ export function parseCommands(commands: string): [Set<string>, string[]] {
 				}
 
 				for (let [commandName, command] of CommandRegistry) {
-					if (l.startsWith('execute ')) {
-						const [
-							execute,
-							selector,
-							loc1,
-							loc2,
-							loc3,
-							...command
-						] = splitCommand(l)
-
-						const [tmpUsedCommands, tmpCommands] = parseCommands(
-							command.join(' ')
-						)
-
-						usedCommands = new Set([
-							...usedCommands,
-							...tmpUsedCommands,
-						])
-
-						return tmpCommands.reduce(
-							(previous: string[], command: string) => {
-								return [
-									...previous,
-									`execute ${parseSelector(
-										selector
-									)} ${loc1} ${loc2} ${loc3} ${command}`,
-								]
-							},
-							[]
-						)
-					} else if (l.startsWith(`${commandName}`)) {
+					if (l.startsWith(`${commandName}`)) {
 						usedCommands.add(commandName)
 
 						const [_, ...args] = splitCommand(l)
