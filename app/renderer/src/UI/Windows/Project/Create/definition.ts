@@ -9,7 +9,7 @@ export const CreateRP = createWindow(CreateRPComponent, {
 })
 
 export const CreateBP = createWindow(CreateBPComponent, {
-	targetVersions: getFormatVersions().reverse(),
+	targetVersions: [],
 	targetVersion: '',
 	projectName: '',
 	projectDescription: '',

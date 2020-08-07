@@ -1,8 +1,8 @@
 <template>
 	<BaseWindow
 		v-if="shouldRender"
-		windowTitle="Create Project"
 		:isVisible="isVisible"
+		windowTitle="Create Project"
 		:hasMaximizeButton="false"
 		:isFullscreen="false"
 		:width="500"
@@ -79,7 +79,8 @@ export default {
 	data: () => CreateBP.getState(),
 	methods: {
 		close() {
-			CreateBP.close(), this.reset()
+			CreateBP.close()
+			this.reset()
 		},
 		createProject() {
 			CreateBP.close()
@@ -93,10 +94,11 @@ export default {
 					err => {
 						if (err && err.message.includes('already exists'))
 							return l_w.hide()
-						if (err) {
+						else if (err) {
 							l_w.hide()
 							throw err
 						}
+
 						fs.writeFile(
 							path.join(
 								b_path,
@@ -141,8 +143,15 @@ export default {
 			//this.reset()
 		},
 		reset() {
-			;(this.projectName = ''), (this.projectDescription = '')
+			this.projectName = ''
+			this.projectDescription = ''
 			this.targetVersion = ''
+		},
+	},
+	watch: {
+		isVisible() {
+			if (this.isVisible)
+				this.targetVersions = getFormatVersions().reverse()
 		},
 	},
 }
