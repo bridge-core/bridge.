@@ -4,7 +4,8 @@
 			position: 'relative',
 			top: '-7px',
 			fontSize: $store.state.Settings.file_font_size || '14px',
-			fontFamily: $store.state.Settings.file_font_family || 'Roboto, sans-serif',
+			fontFamily:
+				$store.state.Settings.file_font_family || 'Roboto, sans-serif',
 			height: `${available_height}px`,
 		}"
 	>
@@ -18,7 +19,9 @@
 			:available_height="available_height"
 			available_width="100%"
 		/>
-		<json-error-screen v-else-if="file_viewer === 'json' && json_object == 'error'" />
+		<json-error-screen
+			v-else-if="file_viewer === 'json' && json_object == 'error'"
+		/>
 		<json-editor-main
 			v-else-if="file_viewer === 'json'"
 			:compiled="file.is_compiled"
@@ -30,7 +33,12 @@
 			:is_immutable="file.is_immutable"
 			:is_active="is_active"
 		/>
-		<TextEditor v-else v-model="content_as_string" :extension="extension" :filePath="file.file_path" />
+		<TextEditor
+			v-else
+			v-model="content_as_string"
+			:extension="extension"
+			:filePath="file.file_path"
+		/>
 	</div>
 </template>
 
@@ -40,7 +48,6 @@ import JsonErrorScreen from './JsonErrorScreen'
 
 import cJSON from 'comment-json'
 import TabSystem from '../../TabSystem'
-import Runtime from '../../plugins/Runtime'
 import EventBus from '../../EventBus'
 import TextProvider from '../../autoCompletions/TextProvider'
 import DataUrl from 'dataurl'
