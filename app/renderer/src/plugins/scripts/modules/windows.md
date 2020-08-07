@@ -6,6 +6,8 @@ Module that provides acess to bridge's window system
 
 ### `createInputWindow(displayName: string, inputLabel: string, onConfirm: (input: string) => void): IBridgeWindow`
 
+### `createDropdownWindow(displayName: string, placeholderText: string, options: Array<string>, onConfirm: (input: string) => void): IBridgeWindow`
+
 ### `createWindow(vueComponent: VueComponent, state: Record<string, any>): IBridgeWindow`
 
 A helper function that is used internally to define all app windows. You can use it to create rich, custom interfaces for your plugin.
