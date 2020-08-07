@@ -85,8 +85,10 @@ export function parseCommands(commands: string): [Set<string>, string[]] {
 							.onCacheHook?.(commandArgs)
 							?.filter(arr => arr && arr[0] && arr[1])
 							?.forEach(([id, data]: [string, string[]]) => {
+								// Validate that data has the correct structure
 								if (!data || !data[0]) return
 
+								//Populate cache with data
 								if (FunctionCache.has(id)) {
 									;(Array.isArray(data)
 										? data
