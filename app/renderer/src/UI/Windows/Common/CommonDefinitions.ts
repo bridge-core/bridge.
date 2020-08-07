@@ -1,6 +1,7 @@
 import { createWindow } from '../create'
 import InformationComponent from './Information/Information.vue'
 import InputComponent from './Input/Input.vue'
+import DropdownComponent from './Dropdown/Dropdown.vue'
 
 export function createInformationWindow(
 	displayName: String,
@@ -26,4 +27,21 @@ export function createInputWindow(
 	})
 	Input.open()
 	return Input
+}
+
+export function createDropdownWindow(
+	displayName: String,
+	placeholderText: String,
+	options: Array<string>,
+	onConfirm: (input: string) => void
+) {
+	const Dropdown = createWindow(DropdownComponent, {
+		windowTitle: displayName,
+		placeholder: placeholderText,
+		selectedValue: '',
+		items: options,
+		onConfirmCb: onConfirm,
+	})
+	Dropdown.open()
+	return Dropdown
 }

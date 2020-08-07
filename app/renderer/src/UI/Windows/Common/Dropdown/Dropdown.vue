@@ -10,14 +10,15 @@
 		@closeWindow="onClose"
 	>
 		<template #default>
-			<v-text-field :label="label" v-model="inputValue"></v-text-field>
+			<v-select :items="items" autofocus v-model="selectedValue">
+			</v-select>
 		</template>
 		<template #actions>
 			<v-spacer />
 			<v-btn
 				color="primary"
 				@click="onConfirm"
-				:disabled="inputValue === ''"
+				:disabled="selectedValue === ''"
 			>
 				<span>Confirm</span>
 			</v-btn>
@@ -29,7 +30,7 @@
 import BaseWindow from '../../Layout/Base'
 
 export default {
-	name: 'Input',
+	name: 'Dropdown',
 	components: {
 		BaseWindow,
 	},
@@ -43,7 +44,7 @@ export default {
 		},
 		onConfirm() {
 			this.currentWindow.close()
-			this.onConfirmCb(this.inputValue)
+			this.onConfirmCb(this.selectedValue)
 		},
 	},
 }
