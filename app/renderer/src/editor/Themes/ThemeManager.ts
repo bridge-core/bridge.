@@ -90,14 +90,14 @@ export default class ThemeManager {
 	static get local_theme_names() {
 		let theme_names = []
 		for (let id in this.themes) {
-			theme_names.push({ text: this.themes[id].name, value: id })
+			theme_names.push({ text: this.themes[id]?.name, value: id })
 		}
 		for (let id in this.plugin_themes) {
-			theme_names.push({ text: this.plugin_themes[id].name, value: id })
+			theme_names.push({ text: this.plugin_themes[id]?.name, value: id })
 		}
 		for (let id in this.plugin_themes_global) {
 			theme_names.push({
-				text: this.plugin_themes_global[id].name,
+				text: this.plugin_themes_global[id]?.name,
 				value: id,
 			})
 		}
@@ -106,11 +106,11 @@ export default class ThemeManager {
 	static get global_theme_names() {
 		let theme_names = []
 		for (let id in this.themes) {
-			theme_names.push({ text: this.themes[id].name, value: id })
+			theme_names.push({ text: this.themes[id]?.name, value: id })
 		}
 		for (let id in this.plugin_themes_global) {
 			theme_names.push({
-				text: this.plugin_themes_global[id].name,
+				text: this.plugin_themes_global[id]?.name,
 				value: id,
 			})
 		}
