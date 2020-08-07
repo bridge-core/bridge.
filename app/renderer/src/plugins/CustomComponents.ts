@@ -22,7 +22,7 @@ export class BridgeComponent {
 }
 
 export default class ComponentRegistry {
-	static components: { [s: string]: BridgeComponent } = {}
+	static components: Record<string, BridgeComponent> = {}
 	static registerUpdates = new Set<string>()
 
 	static async register(Component: BridgeComponentClass) {
@@ -52,6 +52,7 @@ export default class ComponentRegistry {
 		}
 	}
 	static async updateFiles() {
+		console.log(Object.entries(this.components))
 		for (let f of this.registerUpdates) await JSONFileMasks.apply(f)
 
 		this.registerUpdates.clear()
