@@ -9,6 +9,7 @@ import LoadingWindow from '../../../../windows/LoadingWindow'
 import {
 	createInputWindow,
 	createInformationWindow,
+	createConfirmWindow,
 } from '../../Windows/Common/CommonDefinitions'
 
 export const DevMenu: IAppMenu = {

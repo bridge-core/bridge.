@@ -1,27 +1,25 @@
 <template>
 	<BaseWindow
 		v-if="shouldRender"
-		:windowTitle="windowTitle"
+		windowTitle="Confirmation"
 		:isVisible="isVisible"
 		:hasMaximizeButton="false"
 		:isFullscreen="false"
 		:width="440"
 		:height="130"
-		@closeWindow="onClose"
+		:hasCloseButton="false"
 	>
 		<template #default>
-			<v-select :items="items" autofocus v-model="selectedValue">
-			</v-select>
+			<p class="mt-2">{{ content }}</p>
 		</template>
 		<template #actions>
 			<v-spacer />
-			<v-btn
-				color="primary"
-				@click="onConfirm"
-				:disabled="selectedValue === ''"
+			<v-btn @click="onCancel"
+				><span>{{ cancelText }}</span></v-btn
 			>
-				<span>Confirm</span>
-			</v-btn>
+			<v-btn color="primary" @click="onConfirm"
+				><span>{{ confirmText }}</span></v-btn
+			>
 		</template>
 	</BaseWindow>
 </template>
@@ -30,7 +28,7 @@
 import BaseWindow from '../../Layout/Base'
 
 export default {
-	name: 'Dropdown',
+	name: 'Confirm',
 	components: {
 		BaseWindow,
 	},
@@ -39,12 +37,13 @@ export default {
 		return this.currentWindow.getState()
 	},
 	methods: {
-		onClose() {
+		onCancel() {
 			this.currentWindow.close()
+			this.onCancelCb()
 		},
 		onConfirm() {
 			this.currentWindow.close()
-			this.onConfirmCb(this.selectedValue)
+			this.onConfirmCb()
 		},
 	},
 }

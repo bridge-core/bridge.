@@ -4,7 +4,6 @@ import LoadingWindow from '../../../windows/LoadingWindow'
 import { join } from 'path'
 import trash from 'trash'
 import { remote } from 'electron'
-import ConfirmWindow from '../Windows/Common/Confirm'
 import EventBus from '../../EventBus'
 import { promises as fs } from 'fs'
 import { refreshCache } from '../../Project/RefreshCache'
@@ -15,6 +14,7 @@ import {
 	createInformationWindow,
 	createInputWindow,
 	createDropdownWindow,
+	createConfirmWindow,
 } from '../Windows/Common/CommonDefinitions'
 
 export default [
@@ -74,7 +74,10 @@ export default [
 		icon: 'mdi-package-variant-closed',
 		title: 'Package Project',
 		action: async () => {
-			new ConfirmWindow(
+			createConfirmWindow(
+				'Please backup your project before packaging it!',
+				'Confirm',
+				'Cancel',
 				() => {
 					createInputWindow(
 						'Project Name',
@@ -140,8 +143,7 @@ export default [
 						}
 					)
 				},
-				() => {},
-				'Please backup your project before packaging it!'
+				() => {}
 			)
 		},
 	},
@@ -149,15 +151,17 @@ export default [
 		icon: 'mdi-delete',
 		title: 'Delete Project',
 		action: () => {
-			new ConfirmWindow(
+			createConfirmWindow(
+				'Do you really want to delete this project?',
+				'Confirm',
+				'Cancel',
 				async () => {
 					let lw = new LoadingWindow()
 					await trash(CURRENT.PROJECT_PATH)
 					EventBus.trigger('bridge:findDefaultPack', true)
 					lw.close()
 				},
-				null,
-				'Do you really want to delete this project?'
+				() => {}
 			)
 		},
 	},

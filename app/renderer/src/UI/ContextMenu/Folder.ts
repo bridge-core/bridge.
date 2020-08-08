@@ -1,7 +1,6 @@
 /**
  * Define context menu upon right clicking on a folder (FileDisplayer.vue)
  */
-import ConfirmWindow from '../Windows/Common/Confirm'
 import InputWindow from '../Windows/Common/Input'
 import trash from 'trash'
 import { promises as fs } from 'fs'
@@ -9,7 +8,10 @@ import path from 'path'
 import { FileExplorer } from '../Sidebar/FileExplorer'
 import CreateFileHereWindow from '../../../windows/CreateFileHere'
 import { shell } from 'electron'
-import { createInputWindow } from '../Windows/Common/CommonDefinitions'
+import {
+	createInputWindow,
+	createConfirmWindow,
+} from '../Windows/Common/CommonDefinitions'
 
 export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 	{
@@ -24,20 +26,17 @@ export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 		title: 'Delete',
 		icon: 'mdi-delete',
 		action: () => {
-			new ConfirmWindow(
+			createConfirmWindow(
+				`Are you sure that you want to delete "${path
+					.basename(file_path)
+					.replace(/\\/g, '/')}"?`,
+				'Delete',
+				'Cancel',
 				async () => {
 					await trash(file_path)
 					await file.remove()
 				},
-				() => {},
-				`Are you sure that you want to delete "${path
-					.basename(file_path)
-					.replace(/\\/g, '/')}"?`,
-				{
-					options: {
-						is_persistent: false,
-					},
-				}
+				() => {}
 			)
 		},
 	},

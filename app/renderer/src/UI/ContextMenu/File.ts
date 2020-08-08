@@ -3,7 +3,6 @@
  */
 import ManageFileMasks from '../../../windows/FileMasks'
 import FileSystem from '../../FileSystem'
-import ConfirmWindow from '../Windows/Common/Confirm'
 import trash from 'trash'
 import TabSystem from '../../TabSystem'
 import { promises as fs } from 'fs'
@@ -14,7 +13,10 @@ import { readJSON } from '../../Utilities/JsonFS'
 import Manifest from '../../files/Manifest'
 import { writeJSON } from 'fs-extra'
 import { shell } from 'electron'
-import { createInputWindow } from '../Windows/Common/CommonDefinitions'
+import {
+	createInputWindow,
+	createConfirmWindow,
+} from '../Windows/Common/CommonDefinitions'
 
 export const FILE_CONTEXT_MENU = async (
 	file_path: string,
@@ -40,20 +42,17 @@ export const FILE_CONTEXT_MENU = async (
 			title: 'Delete',
 			icon: 'mdi-delete',
 			action: () => {
-				new ConfirmWindow(
+				createConfirmWindow(
+					`Are you sure that you want to delete "${path
+						.basename(file_path)
+						.replace(/\\/g, '/')}"?`,
+					'Delete',
+					'Cancel',
 					async () => {
 						await trash(file_path)
 						file.remove()
 					},
-					() => {},
-					`Are you sure that you want to delete "${path
-						.basename(file_path)
-						.replace(/\\/g, '/')}"?`,
-					{
-						options: {
-							is_persistent: false,
-						},
-					}
+					() => {}
 				)
 			},
 		},

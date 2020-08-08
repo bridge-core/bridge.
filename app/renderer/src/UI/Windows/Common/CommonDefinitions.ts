@@ -2,6 +2,7 @@ import { createWindow } from '../create'
 import InformationComponent from './Information/Information.vue'
 import InputComponent from './Input/Input.vue'
 import DropdownComponent from './Dropdown/Dropdown.vue'
+import ConfirmComponent from './Confirm/Confirm.vue'
 
 export function createInformationWindow(
 	displayName: String,
@@ -48,4 +49,22 @@ export function createDropdownWindow(
 	})
 	Dropdown.open()
 	return Dropdown
+}
+
+export function createConfirmWindow(
+	displayContent: String,
+	confirmText: String,
+	cancelText: String,
+	onConfirm: () => void,
+	onCancel: () => void
+) {
+	const Confirm = createWindow(ConfirmComponent, {
+		content: displayContent,
+		confirmText: confirmText,
+		cancelText: cancelText,
+		onConfirmCb: onConfirm,
+		onCancelCb: onCancel,
+	})
+	Confirm.open()
+	return Confirm
 }

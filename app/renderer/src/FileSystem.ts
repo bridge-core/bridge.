@@ -6,8 +6,10 @@ import { ipcRenderer } from 'electron'
 import JSONTree from './editor/JsonTree'
 import path from 'path'
 import OmegaCache from './editor/OmegaCache'
-import ConfirmWindow from './UI/Windows/Common/Confirm'
-import { createInformationWindow } from './UI/Windows/Common/CommonDefinitions'
+import {
+	createInformationWindow,
+	createConfirmWindow,
+} from './UI/Windows/Common/CommonDefinitions'
 import { readJSON } from './Utilities/JsonFS'
 import { stripFileVersion } from './Utilities/FileVersioning'
 import { useCache } from './Project/NoCacheConfig'
@@ -97,7 +99,12 @@ export default class FileSystem {
 				is_immutable
 			)
 		} else {
-			new ConfirmWindow(
+			createConfirmWindow(
+				`It looks like the file "${path.basename(
+					file_path
+				)}" was edited with a different editor. Do you want to open it from bridge.'s cache or from disk?`,
+				'Cache',
+				'Disk',
 				() => {
 					OmegaCache.load(file_path)
 						.then(
@@ -124,13 +131,6 @@ export default class FileSystem {
 				},
 				() => {
 					this.loadFromDisk(file_path, file)
-				},
-				`It looks like the file "${path.basename(
-					file_path
-				)}" was edited with a different editor. Do you want to open it from bridge.'s cache or from disk?`,
-				{
-					confirm_text: 'Cache',
-					cancel_text: 'Disk',
 				}
 			)
 		}

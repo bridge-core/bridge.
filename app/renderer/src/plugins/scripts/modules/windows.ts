@@ -3,6 +3,7 @@ import {
 	createInformationWindow,
 	createInputWindow,
 	createDropdownWindow,
+	createConfirmWindow,
 } from '../../../UI/Windows/Common/CommonDefinitions'
 import { createWindow } from '../../../UI/Windows/create'
 import { Component as VueComponent } from 'vue'
@@ -41,5 +42,19 @@ export const WindowModule = ({}: IModuleConfig) => ({
 			options,
 			defaultSelected,
 			onConfirm
+		),
+	createConfirmWindow: (
+		displayContent: string,
+		confirmText: string,
+		cancelText: string,
+		onConfirm: () => void,
+		onCancel: () => void
+	) =>
+		createConfirmWindow(
+			displayContent,
+			confirmText,
+			cancelText,
+			onConfirm,
+			onCancel
 		),
 })
