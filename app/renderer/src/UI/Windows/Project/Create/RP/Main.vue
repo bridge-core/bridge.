@@ -26,7 +26,7 @@
 			<v-spacer />
 			<v-btn
 				color="primary"
-				@click="createRP"
+				@click="invalidNameCheck"
 				:disabled="RPName == '' || RPDescription == ''"
 				><span>Create!</span></v-btn
 			>
@@ -48,6 +48,7 @@ import CreateFiles from '../../../../../Project/CreateFiles'
 import path from 'path'
 import ProjectConfig from '../../../../../Project/Config'
 import PackLinker from '../../../../../Utilities/LinkPacks'
+import { createInformationWindow } from '../../../Common/CommonDefinitions'
 
 export default {
 	name: 'CreateRP',
@@ -58,6 +59,16 @@ export default {
 	methods: {
 		close() {
 			CreateRP.close(), this.reset()
+		},
+		invalidNameCheck() {
+			if (this.RPName.endsWith('.')) {
+				createInformationWindow(
+					'Invalid RP Name',
+					`'${this.RPName}' ends with an invalid character '.'`
+				)
+			} else {
+				this.createRP()
+			}
 		},
 		createRP() {
 			CreateRP.close()

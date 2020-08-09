@@ -43,7 +43,7 @@
 			<v-spacer />
 			<v-btn
 				color="primary"
-				@click="createProject"
+				@click="invalidNameCheck"
 				:disabled="
 					projectName == '' ||
 						projectDescription == '' ||
@@ -70,6 +70,7 @@ import path from 'path'
 import EventBus from '../../../../../EventBus'
 import ProjectConfig from '../../../../../Project/Config'
 import { getFormatVersions } from '../../../../../autoCompletions/components/VersionedTemplate/Common'
+import { createInformationWindow } from '../../../Common/CommonDefinitions'
 
 export default {
 	name: 'CreateBP',
@@ -81,6 +82,16 @@ export default {
 		close() {
 			CreateBP.close()
 			this.reset()
+		},
+		invalidNameCheck() {
+			if (this.projectName.endsWith('.')) {
+				createInformationWindow(
+					'Invalid Project Name',
+					`'${this.projectName}' ends with an invalid character '.'`
+				)
+			} else {
+				this.createProject()
+			}
 		},
 		createProject() {
 			CreateBP.close()

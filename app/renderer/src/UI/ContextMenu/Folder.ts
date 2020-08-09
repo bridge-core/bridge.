@@ -11,7 +11,9 @@ import { shell } from 'electron'
 import {
 	createInputWindow,
 	createConfirmWindow,
+	createInformationWindow,
 } from '../Windows/Common/CommonDefinitions'
+import { createFileHereWindow } from '../Windows/File/CreateFileHere/definition'
 
 export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 	{
@@ -45,23 +47,30 @@ export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 		icon: 'mdi-folder-plus',
 		action: () => {
 			createInputWindow('Name Input', 'Name', '', '', async name => {
-				await fs.mkdir(path.join(file_path, name), {
-					recursive: true,
-				})
-
-				let curr_file = file
-				name.split(/\\|\//g).forEach(folder => {
-					let tmp = new FileExplorer(
-						file,
-						path.join(file.path, folder),
-						path.join(file_path, folder),
-						true,
-						true
+				if (name.endsWith('.')) {
+					createInformationWindow(
+						'Invalid Folder Name',
+						`'${name}' ends with an invalid character '.'`
 					)
-					curr_file.children.push(tmp)
-					curr_file.sort()
-					curr_file = tmp
-				})
+				} else {
+					await fs.mkdir(path.join(file_path, name), {
+						recursive: true,
+					})
+
+					let curr_file = file
+					name.split(/\\|\//g).forEach(folder => {
+						let tmp = new FileExplorer(
+							file,
+							path.join(file.path, folder),
+							path.join(file_path, folder),
+							true,
+							true
+						)
+						curr_file.children.push(tmp)
+						curr_file.sort()
+						curr_file = tmp
+					})
+				}
 			})
 		},
 	},
@@ -72,7 +81,7 @@ export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 		title: 'Create File Here',
 		icon: 'mdi-file-plus',
 		action: () => {
-			new CreateFileHereWindow('unknown', file_path, file)
+			createFileHereWindow('unknown', file_path, file)
 		},
 	},
 ]
