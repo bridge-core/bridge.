@@ -3,6 +3,7 @@
 		v-if="shouldRender"
 		windowTitle="Confirmation"
 		:isVisible="isVisible"
+		:isPersistent="true"
 		:hasMaximizeButton="false"
 		:isFullscreen="false"
 		:width="440"
