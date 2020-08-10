@@ -5,7 +5,7 @@
 		:isVisible="isVisible"
 		:hasMaximizeButton="false"
 		:isFullscreen="false"
-		:width="420"
+		:width="480"
 		:height="140"
 		@closeWindow="onClose"
 	>
