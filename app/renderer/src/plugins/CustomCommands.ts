@@ -11,6 +11,7 @@ import { CURRENT } from '../constants'
 import { splitSelectorArgs, parseCommands } from '../bridgeCore/functions/parse'
 import JSONTree from '../editor/JsonTree'
 import { IDisposable } from '../Types/disposable'
+import { createLimitedEnv } from './scripts/require'
 
 type TSelectorTransform = (
 	selector: string,
@@ -69,92 +70,97 @@ export async function registerCustomCommand(
 	const promises: Promise<unknown>[] = []
 	const disposables: IDisposable[] = []
 
-	run(
+	await run(
 		fileContent,
-		{
-			register: (Command: BridgeCommandClass) => {
-				CommandNames.push(Command.command_name)
-				CommandRegistry.set(Command.command_name, new Command())
-				//Update files with custom command
-				const fileRefs = FetchDefinitions.fetch(
-					[
-						'function',
-						'entity',
-						'animation_controller',
-						'animation',
-						'item',
-					],
-					['custom_commands'],
-					Command.command_name
-				).then(fileRefs =>
-					fileRefs.forEach(filePath => UpdateFiles.add(filePath))
-				)
-				promises.push(fileRefs)
+		[
+			createLimitedEnv(),
+			{
+				register: (Command: BridgeCommandClass) => {
+					CommandNames.push(Command.command_name)
+					CommandRegistry.set(Command.command_name, new Command())
+					//Update files with custom command
+					const fileRefs = FetchDefinitions.fetch(
+						[
+							'function',
+							'entity',
+							'animation_controller',
+							'animation',
+							'item',
+						],
+						['custom_commands'],
+						Command.command_name
+					).then(fileRefs =>
+						fileRefs.forEach(filePath => UpdateFiles.add(filePath))
+					)
+					promises.push(fileRefs)
 
-				disposables.push({
-					dispose: () => {
-						CommandNames.splice(
-							CommandNames.indexOf(Command.command_name),
-							1
-						)
-						CommandRegistry.delete(Command.command_name)
-					},
-				})
-			},
-			parseCommands: parseCommands,
-			insertAutoCompletions(path: string, definition: unknown) {
-				Provider.addPluginCompletion(path, definition)
-			},
-			registerSelector: (
-				selectorKey: string,
-				func: TSelectorTransform
-			) => {
-				if (typeof func !== 'function') return
-				SelectorRegistry.set(`selector@${selectorKey}`, func)
-				const fileRefs = FetchDefinitions.fetch(
-					[
-						'function',
-						'entity',
-						'animation_controller',
-						'animation',
-						'item',
-					],
-					['custom_commands'],
-					`selector@${selectorKey}`
-				).then(fileRefs =>
-					fileRefs.forEach(filePath => UpdateFiles.add(filePath))
-				)
-				promises.push(fileRefs)
+					disposables.push({
+						dispose: () => {
+							CommandNames.splice(
+								CommandNames.indexOf(Command.command_name),
+								1
+							)
+							CommandRegistry.delete(Command.command_name)
+						},
+					})
+				},
+				parseCommands: parseCommands,
+				insertAutoCompletions(path: string, definition: unknown) {
+					Provider.addPluginCompletion(path, definition)
+				},
+				registerSelector: (
+					selectorKey: string,
+					func: TSelectorTransform
+				) => {
+					if (typeof func !== 'function') return
+					SelectorRegistry.set(`selector@${selectorKey}`, func)
+					const fileRefs = FetchDefinitions.fetch(
+						[
+							'function',
+							'entity',
+							'animation_controller',
+							'animation',
+							'item',
+						],
+						['custom_commands'],
+						`selector@${selectorKey}`
+					).then(fileRefs =>
+						fileRefs.forEach(filePath => UpdateFiles.add(filePath))
+					)
+					promises.push(fileRefs)
 
-				disposables.push({
-					dispose: () => {
-						SelectorRegistry.delete(`selector@${selectorKey}`)
-					},
-				})
-			},
-			createFunction: (filePath: string, fileContent: string) => {
-				return fs.writeFile(
-					join(
-						CURRENT.PROJECT_PATH,
-						'functions',
-						filePath + '.mcfunction'
-					),
-					fileContent
-				)
-			},
-			readFunction: (filePath: string) =>
-				fs
-					.readFile(
+					disposables.push({
+						dispose: () => {
+							SelectorRegistry.delete(`selector@${selectorKey}`)
+						},
+					})
+				},
+				createFunction: (filePath: string, fileContent: string) => {
+					return fs.writeFile(
 						join(
 							CURRENT.PROJECT_PATH,
 							'functions',
 							filePath + '.mcfunction'
-						)
+						),
+						fileContent
 					)
-					.then(buffer => buffer.toString('utf-8')),
-		},
+				},
+				readFunction: (filePath: string) =>
+					fs
+						.readFile(
+							join(
+								CURRENT.PROJECT_PATH,
+								'functions',
+								filePath + '.mcfunction'
+							)
+						)
+						.then(buffer => buffer.toString('utf-8')),
+			},
+		],
 		{
 			executionContext: 'file',
+			envName: 'require, Bridge',
+			async: true,
 		}
 	)
 	await Promise.all(promises)
