@@ -14,11 +14,11 @@ import OmegaCache, { FormatVersion } from './editor/OmegaCache'
 import LightningCache from './editor/LightningCache'
 import { BridgeCore } from './bridgeCore/main'
 import { uuid } from './Utilities/useAttr'
-import CloseUnsavedTab from '../windows/CloseUnsavedTab'
 import { useCache } from './Project/NoCacheConfig'
 import { getFolderDiff } from './files/DiffPaths'
 import { editor, Uri } from 'monaco-editor'
 import { trigger } from './AppCycle/EventSystem'
+import { createCloseUnsavedTabWindow } from './UI/Windows/CloseUnsavedTab/definition'
 
 export interface Tab {
 	file_name: string
@@ -252,7 +252,7 @@ class TabSystem {
 			this.projects[project][id].is_unsaved &&
 			!this.projects[project][id].is_immutable
 		) {
-			new CloseUnsavedTab(
+			createCloseUnsavedTabWindow(
 				async () => {
 					await this.saveCurrent()
 					this.internalCloseId(id, project)
