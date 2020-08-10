@@ -68,10 +68,10 @@ export default {
 
 <style>
 .select {
-	width: 25%;
+	width: 32%;
 }
 .text-field {
-	width: 72%;
+	width: 65%;
 	padding-right: 3%;
 }
 </style>
