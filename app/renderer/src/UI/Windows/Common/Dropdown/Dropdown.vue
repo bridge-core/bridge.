@@ -10,8 +10,7 @@
 		@closeWindow="onClose"
 	>
 		<template #default>
-			<v-select :items="items" autofocus v-model="selectedValue">
-			</v-select>
+			<v-select autofocus solo v-model="selectedValue" :items="items" />
 		</template>
 		<template #actions>
 			<v-spacer />
@@ -49,5 +48,3 @@ export default {
 	},
 }
 </script>
-
-<style></style>

@@ -42,7 +42,7 @@ export function createDropdownWindow(
 ) {
 	const Dropdown = createWindow(DropdownComponent, {
 		windowTitle: displayName,
-		placeholder: placeholder,
+		placeholder,
 		selectedValue: defaultSelected,
 		items: options,
 		onConfirmCb: onConfirm,
@@ -60,8 +60,8 @@ export function createConfirmWindow(
 ) {
 	const Confirm = createWindow(ConfirmComponent, {
 		content: displayContent,
-		confirmText: confirmText,
-		cancelText: cancelText,
+		confirmText,
+		cancelText,
 		onConfirmCb: onConfirm,
 		onCancelCb: onCancel,
 	})
