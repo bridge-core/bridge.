@@ -52,7 +52,7 @@ export default {
 		},
 		onConfirm() {
 			this.currentWindow.close()
-			this.onConfirmCb(this.inputValue)
+			this.onConfirmCb(this.inputValue + this.expandText)
 		},
 	},
 }

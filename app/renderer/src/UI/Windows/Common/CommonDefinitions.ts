@@ -26,7 +26,7 @@ export function createInputWindow(
 		windowTitle: displayName,
 		label: inputLabel,
 		inputValue: defaultValue,
-		expandText: expandText,
+		expandText: expandText ?? '',
 		onConfirmCb: onConfirm,
 	})
 	Input.open()
