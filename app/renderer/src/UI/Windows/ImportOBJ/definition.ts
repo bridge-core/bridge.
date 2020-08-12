@@ -5,6 +5,6 @@ export const ImportOBJ = createWindow(ImportOBJComponent, {
 	identifier: 'unknown',
 	scale: 1,
 	OBJPath: null,
-	TexturePath: null,
+	texturePath: null,
 	isFullscreen: false,
 })

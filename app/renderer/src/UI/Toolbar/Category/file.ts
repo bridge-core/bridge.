@@ -5,7 +5,6 @@ import { ipcRenderer } from 'electron'
 import TabSystem from '../../../TabSystem'
 import SettingsWindow from '../../../../windows/Settings'
 import ExtensionBrowser from '../../../../windows/Extensions/Browser'
-import ImportObjWindow from '../../../../windows/ImportObj'
 import { ImportOBJ } from '../../Windows/ImportOBJ/definition'
 import LoadingWindow from '../../../../windows/LoadingWindow'
 import FileSystem from '../../../FileSystem'
@@ -60,8 +59,7 @@ export const FileMenu: IAppMenu = {
 				{
 					displayName: 'Import OBJ Model',
 					displayIcon: 'mdi-video-3d',
-					onClick: () => new ImportObjWindow(),
-					//ImportOBJ.open(),
+					onClick: () => ImportOBJ.open(),
 				},
 				...ImportFileMap.values(),
 			],
