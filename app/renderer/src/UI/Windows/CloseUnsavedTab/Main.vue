@@ -19,6 +19,7 @@
 			<v-spacer />
 			<v-btn @click="onCancel"><span>Cancel</span></v-btn>
 			<v-btn color="success" @click="onConfirm"><span>Save</span></v-btn>
+			<v-btn color="error" @click="onClose"><span>Close</span></v-btn>
 		</template>
 	</BaseWindow>
 </template>

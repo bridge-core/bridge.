@@ -3,8 +3,8 @@ import CloseUnsavedTabComponent from './Main.vue'
 
 export function createCloseUnsavedTabWindow(
 	onConfirm: () => void,
-	onCancel: () => void,
-	onClose: () => void
+	onClose: () => void,
+	onCancel: () => void
 ) {
 	const CloseUnsavedTab = createWindow(CloseUnsavedTabComponent, {
 		onConfirmCb: onConfirm,
