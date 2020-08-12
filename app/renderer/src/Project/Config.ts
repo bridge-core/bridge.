@@ -10,7 +10,7 @@ import { getFormatVersions } from '../autoCompletions/components/VersionedTempla
 
 on('bridge:changedProject', () => {
 	ProjectConfig.prefix_cache = undefined
-	ProjectConfig.formatVersion_cache = undefined
+	ProjectConfig.formatVersionCache = undefined
 })
 
 export default class ProjectConfig {
@@ -18,7 +18,7 @@ export default class ProjectConfig {
 		return path.join(CURRENT.PROJECT_PATH, 'bridge/config.json')
 	}
 	static prefix_cache: string
-	static formatVersion_cache: string
+	static formatVersionCache: string
 
 	//PREFIX
 	static getPrefixSync() {
@@ -58,11 +58,11 @@ export default class ProjectConfig {
 	}
 	static getFormatVersionSync() {
 		try {
-			if (this.formatVersion_cache === undefined)
-				this.formatVersion_cache =
+			if (this.formatVersionCache === undefined)
+				this.formatVersionCache =
 					readJSONSync(this.config_path).formatVersion ||
 					getFormatVersions().pop()
-			return this.formatVersion_cache
+			return this.formatVersionCache
 		} catch (e) {
 			return getFormatVersions().pop()
 		}
@@ -87,7 +87,7 @@ export default class ProjectConfig {
 			} catch (e) {
 				data = {}
 			}
-			this.formatVersion_cache = val
+			this.formatVersionCache = val
 
 			await writeJSON(this.config_path, {
 				...data,

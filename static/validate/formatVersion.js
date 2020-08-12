@@ -1,4 +1,4 @@
-const { Node, FileType, Tab } = Bridge
+const { Node, FileType, Tab, Version } = Bridge
 
 const DATA = {
 	client_entity: ['1.8.0', '1.10.0'],
@@ -28,9 +28,23 @@ if (
 				//Grab the most recent defined format_version or use '1.13.0' to fix the error
 				Bridge.Node.edit(
 					(DATA[FileType] || [])[(DATA[FileType] || []).length - 1] ||
-						'1.16.0',
+						Version.ProjectTarget,
 					true
 				)
+				Tab.setUnsaved()
+			},
+		},
+	}
+} else if (Version.compare(Node.data, Version.ProjectTarget, '>')) {
+	//Format version is higher than project target version
+	Node.error = {
+		show: true,
+		message: `Format version too high`,
+		fix: {
+			//Provide auto-fix
+			run: () => {
+				//Grab the most recent defined format_version or use '1.13.0' to fix the error
+				Bridge.Node.edit(Version.ProjectTarget, true)
 				Tab.setUnsaved()
 			},
 		},
