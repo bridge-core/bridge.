@@ -14,8 +14,9 @@
 				<v-text-field
 					:label="label"
 					v-model="inputValue"
-				></v-text-field>
-				<p class="expand_text" v-if="expandText != ''">
+					@keydown.enter.native="onConfirm"
+				/>
+				<p class="expand_text" v-if="expandText !== ''">
 					{{ expandText }}
 				</p>
 			</v-row>
