@@ -276,6 +276,12 @@ export default {
 			}
 
 			TabSystem.setCurrentFileNav(context.path)
+
+			//Node already has data meaning that we can focus the editing input (no new children can be added)
+			if (context.data !== '') {
+				const input = document.getElementById('json-editing-input')
+				if (input) input.focus()
+			}
 		},
 		attrClick() {
 			let path = `${this.object_key}/${(
