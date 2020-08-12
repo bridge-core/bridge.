@@ -39,7 +39,7 @@ if (
 	//Format version is higher than project target version
 	Node.error = {
 		show: true,
-		message: `Format version too high`,
+		message: `Format version higher than project target version`,
 		fix: {
 			//Provide auto-fix
 			run: () => {
