@@ -75,7 +75,6 @@
 					@click.stop="openFile(file.absolute_path)"
 					@contextmenu="
 						event =>
-							!is_immutable &&
 							showContextMenu(event, file.absolute_path, file)
 					"
 					v-ripple
@@ -223,7 +222,11 @@ export default {
 			this.$store.commit('openContextMenu', {
 				x_position: event.clientX,
 				y_position: event.clientY,
-				menu: await FILE_CONTEXT_MENU(file_path, file),
+				menu: await FILE_CONTEXT_MENU(
+					file_path,
+					file,
+					this.is_immutable
+				),
 			})
 		},
 		async showFolderContextMenu(event, file_path, file) {
