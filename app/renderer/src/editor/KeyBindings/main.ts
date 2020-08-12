@@ -34,7 +34,7 @@ export function setupKeyBindings() {
 				})
 			) ?? {}
 
-		if (action && lastTimeStamp + 500 < Date.now()) {
+		if (action && lastTimeStamp + 100 < Date.now()) {
 			if (prevent?.(<HTMLElement>event.target)) return
 			lastTimeStamp = Date.now()
 			event.preventDefault()
