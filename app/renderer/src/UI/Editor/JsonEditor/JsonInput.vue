@@ -2,6 +2,7 @@
 	<v-flex>
 		<v-layout align-center>
 			<v-text-field
+				id="json-editing-input"
 				ref="input"
 				@keydown.enter.native="click"
 				:disabled="file_navigation === 'global'"
