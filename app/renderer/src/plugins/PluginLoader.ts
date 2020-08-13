@@ -2,8 +2,6 @@
  * bridge. PluginLoader
  * Loads v1 & v2 plugins
  *
- * Unloading is partially still handled by store/modules/Plugins.js
- * Transition to disposable architecture is in progress
  */
 import { CURRENT } from '../constants'
 import path from 'path'
