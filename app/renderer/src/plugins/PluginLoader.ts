@@ -60,7 +60,6 @@ export default class PluginLoader {
 	}
 
 	static async unloadPlugins() {
-		Provider.removePluginCompletions()
 		//Only resets legacy JSON highlighter cache & file creator definition cache.
 		//Can be removed once we have the new infrastructure in place
 		FileType.reset()
@@ -431,7 +430,7 @@ export default class PluginLoader {
 
 		formats.forEach(({ path, definition } = {}) => {
 			if (path === undefined || definition === undefined) return
-			Provider.addPluginCompletion(path, definition)
+			Provider.addPluginCompletion(path, definition, disposables)
 		})
 	}
 

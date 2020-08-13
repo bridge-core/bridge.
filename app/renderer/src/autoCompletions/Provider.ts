@@ -15,12 +15,13 @@ import { FileDefinition } from '../editor/FileDefinition'
 import JSONTree from '../editor/JsonTree'
 import { compileVersionedTemplate } from './components/VersionedTemplate/Common'
 import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
+import { IDisposable } from '../Types/disposable'
 
 declare var __static: string
 
 let FILE_DEFS: FileDefinition[] = []
 let PLUGIN_FILE_DEFS: Record<string, FileDefinition[]> = {}
-let PLUGIN_COMPLETIONS: { key: string; created: boolean }[][] = []
+let PLUGIN_COMPLETIONS: { key: string; created: boolean }[] = []
 let PLUGINS_TO_LOAD: any[] = []
 export let LIB_LOADED = false
 const REMOVE_LIST = [
@@ -99,7 +100,7 @@ class Provider {
 			created = true
 		}
 		if (!native)
-			PLUGIN_COMPLETIONS[PLUGIN_COMPLETIONS.length - 1].push({
+			PLUGIN_COMPLETIONS.push({
 				key,
 				created,
 			})
@@ -126,23 +127,29 @@ class Provider {
 		if (path.length > 0) this.removeFromLib(path, current[key])
 		if (created) delete current[key]
 	}
-	static addPluginCompletion(path: string, def: any) {
-		if (!LIB_LOADED) PLUGINS_TO_LOAD.push({ path, def })
-		else {
-			PLUGIN_COMPLETIONS.push([])
+	static addPluginCompletion(
+		path: string,
+		def: any,
+		disposables: IDisposable[]
+	) {
+		if (!LIB_LOADED) {
+			PLUGINS_TO_LOAD.push({ path, def, disposables })
+		} else {
+			PLUGIN_COMPLETIONS = []
 			this.storeInLIB(path, def, undefined, false)
+
+			disposables.push({
+				dispose: () => {
+					this.removeFromLib(PLUGIN_COMPLETIONS)
+				},
+			})
 		}
 	}
 	static loadAllPluginCompletions() {
-		PLUGINS_TO_LOAD.forEach(({ path, def }) => {
-			PLUGIN_COMPLETIONS.push([])
-			this.storeInLIB(path, def, undefined, false)
+		PLUGINS_TO_LOAD.forEach(({ path, def, disposables }) => {
+			this.addPluginCompletion(path, def, disposables)
 		})
 		PLUGINS_TO_LOAD = []
-	}
-	static removePluginCompletions() {
-		PLUGIN_COMPLETIONS.forEach(comp => this.removeFromLib(comp))
-		PLUGIN_COMPLETIONS = []
 	}
 	static addPluginFileDefs(id: string, defs: FileDefinition[]) {
 		PLUGIN_FILE_DEFS[id] = defs
