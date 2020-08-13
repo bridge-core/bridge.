@@ -5,6 +5,7 @@
 				ref="input"
 				v-model="value"
 				@input="click"
+				@keydown.enter.native="click(value)"
 				label="Add"
 				:items="items"
 				:menu-props="{

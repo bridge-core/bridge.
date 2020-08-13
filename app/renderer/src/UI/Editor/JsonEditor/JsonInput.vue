@@ -14,6 +14,7 @@
 				v-else
 				v-model="value"
 				@input="click"
+				@keydown.enter.native="click"
 				:label="label"
 				:items="items"
 				dense
