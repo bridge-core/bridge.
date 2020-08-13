@@ -39,6 +39,7 @@ function setup() {
 			load_packs_from_worlds: true,
 			is_alternative_append_with_copy: true,
 			custom_snippets: [],
+			open_in_fullscreen: false,
 		})
 	} else {
 		DATA = STORE.load('settings')

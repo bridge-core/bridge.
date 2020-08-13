@@ -9,6 +9,9 @@ import { toCorrectType } from '../editor/Json'
 import Provider from '../autoCompletions/Provider'
 import { CURRENT } from '../constants'
 import { splitSelectorArgs, parseCommands } from '../bridgeCore/functions/parse'
+import JSONTree from '../editor/JsonTree'
+import { IDisposable } from '../Types/disposable'
+import { createLimitedEnv } from './scripts/require'
 
 type TSelectorTransform = (
 	selector: string,
@@ -33,7 +36,10 @@ export abstract class BridgeCommand {
 	onPropose() {}
 }
 
-export async function loadCustomCommands(folderPath: string) {
+export async function loadCustomCommands(
+	folderPath: string,
+	disposables: IDisposable[]
+) {
 	try {
 		const data = await fs.readdir(folderPath, { withFileTypes: true })
 
@@ -41,10 +47,13 @@ export async function loadCustomCommands(folderPath: string) {
 			data.map(async dirent => {
 				if (dirent.isDirectory())
 					return await loadCustomCommands(
-						join(folderPath, dirent.name)
+						join(folderPath, dirent.name),
+						disposables
 					)
 
-				await registerCustomCommand(join(folderPath, dirent.name))
+				disposables.push(
+					await registerCustomCommand(join(folderPath, dirent.name))
+				)
 			})
 		)
 	} catch {}
@@ -59,84 +68,137 @@ export async function registerCustomCommand(
 	if (fileContent === undefined) return
 
 	const promises: Promise<unknown>[] = []
+	const disposables: IDisposable[] = []
 
-	run(
+	await run(
 		fileContent,
-		{
-			register: (Command: BridgeCommandClass) => {
-				CommandNames.push(Command.command_name)
-				CommandRegistry.set(Command.command_name, new Command())
-				//Update files with custom command
-				const fileRefs = FetchDefinitions.fetchSingle(
-					'function',
-					['custom_commands'],
-					Command.command_name
-				).then(fileRefs =>
-					fileRefs.forEach(filePath => UpdateFiles.add(filePath))
-				)
-				promises.push(fileRefs)
-			},
-			parseCommands: parseCommands,
-			insertAutoCompletions(path: string, definition: unknown) {
-				Provider.addPluginCompletion(path, definition)
-			},
-			registerSelector: (
-				selectorKey: string,
-				func: TSelectorTransform
-			) => {
-				if (typeof func !== 'function') return
-				SelectorRegistry.set(`selector@${selectorKey}`, func)
-				const fileRefs = FetchDefinitions.fetchSingle(
-					'function',
-					['custom_commands'],
-					`selector@${selectorKey}`
-				).then(fileRefs =>
-					fileRefs.forEach(filePath => UpdateFiles.add(filePath))
-				)
-				promises.push(fileRefs)
-			},
-			createFunction: (filePath: string, fileContent: string) => {
-				return fs.writeFile(
-					join(
-						CURRENT.PROJECT_PATH,
-						'functions',
-						filePath + '.mcfunction'
-					),
-					fileContent
-				)
-			},
-			readFunction: (filePath: string) =>
-				fs
-					.readFile(
+		[
+			createLimitedEnv(),
+			{
+				register: (Command: BridgeCommandClass) => {
+					CommandNames.push(Command.command_name)
+					CommandRegistry.set(Command.command_name, new Command())
+					//Update files with custom command
+					const fileRefs = FetchDefinitions.fetch(
+						[
+							'function',
+							'entity',
+							'animation_controller',
+							'animation',
+							'item',
+						],
+						['custom_commands'],
+						Command.command_name
+					).then(fileRefs =>
+						fileRefs.forEach(filePath => UpdateFiles.add(filePath))
+					)
+					promises.push(fileRefs)
+
+					disposables.push({
+						dispose: () => {
+							CommandNames.splice(
+								CommandNames.indexOf(Command.command_name),
+								1
+							)
+							CommandRegistry.delete(Command.command_name)
+						},
+					})
+				},
+				parseCommands: parseCommands,
+				insertAutoCompletions(path: string, definition: unknown) {
+					Provider.addPluginCompletion(path, definition)
+				},
+				registerSelector: (
+					selectorKey: string,
+					func: TSelectorTransform
+				) => {
+					if (typeof func !== 'function') return
+					SelectorRegistry.set(`selector@${selectorKey}`, func)
+					const fileRefs = FetchDefinitions.fetch(
+						[
+							'function',
+							'entity',
+							'animation_controller',
+							'animation',
+							'item',
+						],
+						['custom_commands'],
+						`selector@${selectorKey}`
+					).then(fileRefs =>
+						fileRefs.forEach(filePath => UpdateFiles.add(filePath))
+					)
+					promises.push(fileRefs)
+
+					disposables.push({
+						dispose: () => {
+							SelectorRegistry.delete(`selector@${selectorKey}`)
+						},
+					})
+				},
+				createFunction: (filePath: string, fileContent: string) => {
+					return fs.writeFile(
 						join(
 							CURRENT.PROJECT_PATH,
 							'functions',
 							filePath + '.mcfunction'
-						)
+						),
+						fileContent
 					)
-					.then(buffer => buffer.toString('utf-8')),
-		},
+				},
+				readFunction: (filePath: string) =>
+					fs
+						.readFile(
+							join(
+								CURRENT.PROJECT_PATH,
+								'functions',
+								filePath + '.mcfunction'
+							)
+						)
+						.then(buffer => buffer.toString('utf-8')),
+			},
+		],
 		{
 			executionContext: 'file',
+			envName: 'require, Bridge',
+			async: true,
 		}
 	)
 	await Promise.all(promises)
+
+	return {
+		dispose: () => {
+			disposables.forEach(disposable => disposable.dispose())
+		},
+	}
 }
 
 export async function updateCommandFiles() {
 	await Promise.all(
 		Array.from(UpdateFiles).map(async file => {
 			try {
-				const { cache_content, file_version } = await OmegaCache.load(
-					file
-				)
-				await fs.writeFile(
-					file,
-					`#bridge-file-version: #${file_version}\n${await BridgeCore.beforeTextSave(
-						cache_content,
-						file
-					)}`
-				)
+				const {
+					cache_content,
+					file_version,
+					file_uuid,
+				} = await OmegaCache.load(file)
+
+				if (typeof cache_content === 'string') {
+					await fs.writeFile(
+						file,
+						`#bridge-file-version: #${file_version}\n${await BridgeCore.beforeTextSave(
+							cache_content,
+							file
+						)}`
+					)
+				} else {
+					await BridgeCore.beforeSave(
+						JSONTree.buildFromCache(cache_content).toJSON(),
+						file,
+						undefined,
+						true,
+						file_uuid
+					)
+				}
 			} catch {}
 		})
 	)

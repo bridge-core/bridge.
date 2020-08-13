@@ -4,9 +4,9 @@ import { readJSON, writeJSON } from './Utilities/JsonFS'
 import ProjectConfig from './Project/Config'
 import { CURRENT } from './constants'
 import { detachMerge } from './Utilities/mergeUtils'
-import InformationWindow from './UI/Windows/Common/Information'
 import { trySetRP } from './Utilities/FindRP'
 import EventBus from './EventBus'
+import { createInformationWindow } from './UI/Windows/Common/CommonDefinitions'
 declare var __static: string
 
 let LOAD_LOCATIONS: string[] = []
@@ -95,7 +95,7 @@ export async function loadPresets() {
 
 export async function buildPreset(preset: IPresetData, identifier: string) {
 	if (!(await trySetRP()))
-		return new InformationWindow(
+		return createInformationWindow(
 			'No Resource Pack',
 			'Please create or connect a resource pack before creating a preset.'
 		)

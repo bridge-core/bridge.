@@ -1,9 +1,9 @@
 import ContentWindow from '../src/UI/Windows/Common/Content'
 import FileType from '../src/editor/FileType'
-import InformationWindow from '../src/UI/Windows/Common/Information'
 import Snippets from './Snippets'
 import uuidv4 from 'uuid/v4'
 import SettingsWindow from './Settings'
+import { createInformationWindow } from '../src/UI/Windows/Common/CommonDefinitions'
 
 export default class AddSnippetWindow extends ContentWindow {
 	private data: {
@@ -89,14 +89,14 @@ export default class AddSnippetWindow extends ContentWindow {
 				action: () => {
 					let data = this.getTemplate(this.data.template)
 					if (this.data.name === '')
-						return new InformationWindow(
-							'Invalid Snippet Name',
+						return createInformationWindow(
+							'Invlid Snippet Name',
 							'You need to provide a name for your snippet.'
 						)
 					if (data === undefined)
-						return new InformationWindow(
+						return createInformationWindow(
 							'Invalid Template',
-							'The provided snippet template does not contain valid JSON.'
+							'The provided snippet template does not conatain valid JSON.'
 						)
 
 					let s = {

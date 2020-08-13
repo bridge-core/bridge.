@@ -624,6 +624,13 @@
             "stored_in_inventory": true
           },
           {
+            "item": "minecraft:golden_pickaxe",
+            "priority": 2,
+            "admire": true,
+            "pickup_limit": 1,
+            "stored_in_inventory": true
+          },
+          {
             "item": "minecraft:golden_shovel",
             "priority": 2,
             "admire": true,

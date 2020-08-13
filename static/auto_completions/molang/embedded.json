@@ -1,4 +1,14 @@
 {
     "@meta": { "is_molang": true },
-    "@import.value.embedded_molang": "$molang.general.boolean and ('query.' + $molang.general.query)"
+
+        "$versioned_template": [
+            {
+                "$if": "$project_target_version >= 1.16.100",
+                "$data": "('query.' + $molang.general.query_beta)"
+            },
+            {
+                "$data": "$molang.general.boolean and ('query.' + $molang.general.query)"
+            }
+        ]
+
 }

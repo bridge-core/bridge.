@@ -8,6 +8,8 @@ import uuidv4 from 'uuid/v4'
 import CreateFiles from '../src/Project/CreateFiles'
 import path from 'path'
 import EventBus from '../src/EventBus'
+import ProjectConfig from '../src/Project/Config'
+import { getFormatVersions } from '../src/autoCompletions/components/VersionedTemplate/Common'
 
 export default class CreateProjectWindow extends ContentWindow {
 	constructor(create_bp = true, cb) {
@@ -17,13 +19,13 @@ export default class CreateProjectWindow extends ContentWindow {
 			create_bp
 				? 'development_behavior_packs'
 				: 'development_resource_packs'
-		}" folder.`
+		}" folder.\n\n`
 
 		super({
 			display_name: create_bp ? 'New Project' : 'New Resource Pack',
 			options: {
 				is_persistent: false,
-				height: 280,
+				height: 380,
 			},
 		})
 
@@ -109,6 +111,19 @@ export default class CreateProjectWindow extends ContentWindow {
 			},
 			{
 				type: 'divider',
+			},
+			{
+				text: '\n',
+			},
+			{
+				type: 'select',
+				color: 'primary',
+				text: 'Target Minecraft version',
+				max_height: 160,
+				options: getFormatVersions().reverse(),
+				action: val => {
+					this.target_mc_version = val
+				},
 			},
 			create_bp
 				? {
@@ -202,7 +217,7 @@ export default class CreateProjectWindow extends ContentWindow {
 							)
 
 						Vue.$root.$emit('refreshExplorer')
-
+						ProjectConfig.setFormatVersion(this.target_mc_version)
 						l_w.hide()
 						if (typeof cb === 'function') cb(this.input)
 						if (create_bp)

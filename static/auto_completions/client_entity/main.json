@@ -84,7 +84,17 @@
 						"$placeholder": "$molang.embedded",
 						"@import.value.animation": "$dynamic.client_entity.animation_references"
 					}
-				}
+				},
+				"$versioned_template": [
+					{
+						"$if": "$project_target_version >= 1.16.100",
+						"$data": {
+							"variables": {
+								"$placeholder": ["public"]
+							}
+						}
+					}
+				]
 			},
 			"sound_effects": {
 				"$placeholder": {

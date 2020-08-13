@@ -1,4 +1,5 @@
 {
+  "sound_definitions": {
     "mob.{{IDENTIFIER}}.idle_water": {
       "sounds": [
         {
@@ -90,4 +91,5 @@
         "sounds/mob/{{IDENTIFIER}}/swim4"
       ]
     }
+  }
 }

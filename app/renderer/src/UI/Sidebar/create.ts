@@ -24,7 +24,7 @@ export interface ISidebarInstance extends IDisposable, ISidebar {
 }
 
 /**
- * Creates a new notification
+ * Creates a new sidebar
  * @param config
  */
 export function createSidebar(config: ISidebar): ISidebarInstance {

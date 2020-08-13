@@ -1,22 +1,20 @@
 import TabWindow from '../src/UI/Windows/Common/TabWindow'
 import Store from '../store/index'
 import SETTINGS from '../store/Settings'
-import { BASE_PATH, LOCAL_STATE_PATH } from '../src/constants'
-import EventBus from '../src/EventBus'
-import fs from 'fs'
+import { LOCAL_STATE_PATH } from '../src/constants'
 import AddSnippetWindow from './AddSnippet'
 import Snippets from './Snippets'
 import { ipcRenderer, remote } from 'electron'
-import ConfirmWindow from '../src/UI/Windows/Common/Confirm'
 import ThemeManager from '../src/editor/Themes/ThemeManager'
 import ProjectConfig from '../src/Project/Config'
 import { uuid } from '../src/Utilities/useAttr'
 import FontList from 'font-list'
 import { DEV_MENU } from '../src/UI/Toolbar/setupDefaults'
-import { LoadedProjects } from '../src/UI/ProjectScreen/state'
-import { loadProjects } from '../src/UI/ProjectScreen/load'
+import { LoadedProjects } from '../src/UI/Windows/Project/Chooser/definition'
+import { loadProjects } from '../src/UI/Windows/Project/Chooser/load'
 import { basename } from 'path'
 import { trigger } from '../src/AppCycle/EventSystem'
+import { createConfirmWindow } from '../src/UI/Windows/Common/CommonDefinitions'
 
 class ReactiveListEntry {
 	type = 'card'
@@ -206,6 +204,11 @@ export default class SettingsWindow extends TabWindow {
 				// 	text: 'Hide File Toolbar',
 				// 	key: `settings.editor.tab.hide_file_toolbar.${Math.random()}`,
 				// }),
+				new ReactiveSwitch(this, 'open_in_fullscreen', {
+					color: 'primary',
+					text: 'Launch In Fullscreen',
+					key: `settings.editor.tab.open_in_fullscreen.${Math.random()}`,
+				}),
 				new ReactiveSwitch(this, 'is_alternative_append_with_copy', {
 					color: 'primary',
 					text: 'Alternative Paste: Append "_copy"',
@@ -341,16 +344,14 @@ export default class SettingsWindow extends TabWindow {
 					color: 'error',
 					is_rounded: false,
 					action: () => {
-						new ConfirmWindow(
+						createConfirmWindow(
+							'Setting a new default directory requires an app restart. Make sure to save your progress first!',
+							'Continue',
+							'Cancel',
 							() => {
 								ipcRenderer.send('chooseDefaultDirectory')
 							},
-							() => {},
-							'Setting a new default directory requires an app restart. Make sure to save your progress first!',
-							{
-								cancel_text: 'Cancel',
-								confirm_text: 'Continue',
-							}
+							() => {}
 						)
 					},
 				},
@@ -562,7 +563,10 @@ export default class SettingsWindow extends TabWindow {
 						: 'error',
 					is_block: true,
 					action: () => {
-						new ConfirmWindow(
+						createConfirmWindow(
+							'Disabling/enabling hardware acceleration requires an app restart. Make sure to save your progress first!',
+							'Continue',
+							'Cancel',
 							() => {
 								this.data.disable_hardware_acceleration = !this
 									.data.disable_hardware_acceleration
@@ -570,12 +574,7 @@ export default class SettingsWindow extends TabWindow {
 								remote.app.relaunch()
 								remote.app.quit()
 							},
-							() => {},
-							'Disabling/enabling hardware acceleration requires an app restart. Make sure to save your progress first!',
-							{
-								cancel_text: 'Cancel',
-								confirm_text: 'Continue',
-							}
+							() => {}
 						)
 					},
 				},

@@ -248,7 +248,7 @@
         "file_viewer": "json",
         "rp_definition": true,
         
-        "start_state": "attachables/main",
+        "start_state": "attachable/main",
         "lightning_cache": "attachable",
         "highlighter": "entity",
         "file_creator": "attachable"

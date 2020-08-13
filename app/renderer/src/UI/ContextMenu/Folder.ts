@@ -1,7 +1,6 @@
 /**
  * Define context menu upon right clicking on a folder (FileDisplayer.vue)
  */
-import ConfirmWindow from '../Windows/Common/Confirm'
 import InputWindow from '../Windows/Common/Input'
 import trash from 'trash'
 import { promises as fs } from 'fs'
@@ -9,6 +8,12 @@ import path from 'path'
 import { FileExplorer } from '../Sidebar/FileExplorer'
 import CreateFileHereWindow from '../../../windows/CreateFileHere'
 import { shell } from 'electron'
+import {
+	createInputWindow,
+	createConfirmWindow,
+	createInformationWindow,
+} from '../Windows/Common/CommonDefinitions'
+import { createFileHereWindow } from '../Windows/File/CreateFileHere/definition'
 
 export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 	{
@@ -23,20 +28,17 @@ export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 		title: 'Delete',
 		icon: 'mdi-delete',
 		action: () => {
-			new ConfirmWindow(
+			createConfirmWindow(
+				`Are you sure that you want to delete "${path
+					.basename(file_path)
+					.replace(/\\/g, '/')}"?`,
+				'Delete',
+				'Cancel',
 				async () => {
 					await trash(file_path)
 					await file.remove()
 				},
-				() => {},
-				`Are you sure that you want to delete "${path
-					.basename(file_path)
-					.replace(/\\/g, '/')}"?`,
-				{
-					options: {
-						is_persistent: false,
-					},
-				}
+				() => {}
 			)
 		},
 	},
@@ -44,13 +46,13 @@ export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 		title: 'New Folder',
 		icon: 'mdi-folder-plus',
 		action: () => {
-			new InputWindow(
-				{
-					text: '',
-					label: 'Name',
-					header: 'Name Input',
-				},
-				async name => {
+			createInputWindow('Name Input', 'Name', '', '', async name => {
+				if (name.endsWith('.')) {
+					createInformationWindow(
+						'Invalid Folder Name',
+						`'${name}' ends with an invalid character '.'`
+					)
+				} else {
 					await fs.mkdir(path.join(file_path, name), {
 						recursive: true,
 					})
@@ -69,7 +71,7 @@ export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 						curr_file = tmp
 					})
 				}
-			)
+			})
 		},
 	},
 	{
@@ -79,7 +81,7 @@ export const FOLDER_CONTEXT_MENU = (file_path: string, file: FileExplorer) => [
 		title: 'Create File Here',
 		icon: 'mdi-file-plus',
 		action: () => {
-			new CreateFileHereWindow('unknown', file_path, file)
+			createFileHereWindow('unknown', file_path, file)
 		},
 	},
 ]

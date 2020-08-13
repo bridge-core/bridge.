@@ -1,37 +1,20 @@
-import { CONTEXT_UP, CONTEXT_DOWN } from '../Dynamic'
-import Provider from '../Provider'
-import TabSystem from '../../TabSystem'
+import { detachMerge } from '../../../Utilities/mergeUtils'
+import { Omega } from '../../Omega'
 import { compare, CompareOperator } from 'compare-versions'
-import { Omega } from '../Omega'
-import { detachMerge } from '../../Utilities/mergeUtils'
-
-export class VersionedTemplate {
-	static confirm(
-		provider: Provider,
-		key: string,
-		path_arr: string[],
-		current: any
-	) {
-		return current.$versioned_template !== undefined
-	}
-	static process(
-		provider: Provider,
-		key: string,
-		path_arr: string[],
-		current: any
-	): any {
-		let { object: template } = compileVersionedTemplate(
-			current.$versioned_template
-		)
-
-		//Template is undefined if path is_data_path
-		return provider.walk(path_arr, (template || {})[key])
-	}
-}
+import TabSystem from '../../../TabSystem'
+import ProjectConfig from '../../../Project/Config'
+import Provider from '../../Provider'
 
 interface IVersionedTemplate {
 	$if: string
 	$data: any
+}
+
+let provider: Provider
+
+export function getFormatVersions() {
+	if (!provider) provider = new Provider(undefined, '')
+	return provider.get('general/format_version').value
 }
 
 export function compileVersionedTemplate(template: IVersionedTemplate[]) {
@@ -68,19 +51,27 @@ export function compileSingleCondition(condition: string) {
 	let [v1, operator, v2] = condition.split(/\s+/)
 	if (v1 === '$format_version') v1 = getFormatVersion()
 	if (v2 === '$format_version') v2 = getFormatVersion()
-	if (!v1 || !v2) return false
+	if (v1 === '$project_target_version')
+		v1 = ProjectConfig.getFormatVersionSync()
+	if (v2 === '$project_target_version')
+		v2 = ProjectConfig.getFormatVersionSync()
 
+	if (!v1 || !v2) return false
 	if (['>', '>=', '=', '<', '<='].includes(operator))
 		return compare(v1, v2, <CompareOperator>operator)
 	else throw new Error(`Undefined format_version operator: "${operator}"`)
 }
 
 function getFormatVersion() {
+	let version
 	try {
-		return TabSystem.getSelected()
+		version = TabSystem.getSelected()
 			.content.get('format_version')
 			.toJSON()
 	} catch {
-		return
+		version = ProjectConfig.getFormatVersionSync()
 	}
+	if (typeof version === 'object')
+		version = ProjectConfig.getFormatVersionSync()
+	return version
 }

@@ -3,8 +3,6 @@
  */
 import ManageFileMasks from '../../../windows/FileMasks'
 import FileSystem from '../../FileSystem'
-import ConfirmWindow from '../Windows/Common/Confirm'
-import InputWindow from '../Windows/Common/Input'
 import trash from 'trash'
 import TabSystem from '../../TabSystem'
 import { promises as fs } from 'fs'
@@ -15,21 +13,30 @@ import { readJSON } from '../../Utilities/JsonFS'
 import Manifest from '../../files/Manifest'
 import { writeJSON } from 'fs-extra'
 import { shell } from 'electron'
+import {
+	createInputWindow,
+	createConfirmWindow,
+} from '../Windows/Common/CommonDefinitions'
 
 export const FILE_CONTEXT_MENU = async (
 	file_path: string,
-	file: FileExplorer
+	file: FileExplorer,
+	isImmutable = false
 ) => {
-	const file_name = path.basename(file_path)
-	const DEFAULT_MENU = [
-		{
-			title: 'Open to the Side',
-			icon: 'mdi-arrow-split-vertical',
-			action: () => {
-				TabSystem.split_screen_active = true
-				FileSystem.open(file_path)
-			},
+	const fileName = path.basename(file_path)
+	const openInSplitScreen = {
+		title: 'Open to the Side',
+		icon: 'mdi-arrow-split-vertical',
+		action: () => {
+			TabSystem.split_screen_active = true
+			FileSystem.open(file_path)
 		},
+	}
+
+	if (isImmutable) return [openInSplitScreen]
+
+	const DEFAULT_MENU = [
+		openInSplitScreen,
 		{
 			title: 'Reveal in File Explorer',
 			icon: 'mdi-folder-search',
@@ -40,20 +47,17 @@ export const FILE_CONTEXT_MENU = async (
 			title: 'Delete',
 			icon: 'mdi-delete',
 			action: () => {
-				new ConfirmWindow(
+				createConfirmWindow(
+					`Are you sure that you want to delete "${path
+						.basename(file_path)
+						.replace(/\\/g, '/')}"?`,
+					'Delete',
+					'Cancel',
 					async () => {
 						await trash(file_path)
 						file.remove()
 					},
-					() => {},
-					`Are you sure that you want to delete "${path
-						.basename(file_path)
-						.replace(/\\/g, '/')}"?`,
-					{
-						options: {
-							is_persistent: false,
-						},
-					}
+					() => {}
 				)
 			},
 		},
@@ -61,14 +65,12 @@ export const FILE_CONTEXT_MENU = async (
 			title: 'Rename',
 			icon: 'mdi-pencil',
 			action: () => {
-				new InputWindow(
-					{
-						text: path.basename(file_path, path.extname(file_path)),
-						label: 'Name',
-						header: 'Name Input',
-						expand_text: path.extname(file_path),
-					},
-					async (new_name: string) => {
+				createInputWindow(
+					'Name Input',
+					'Name',
+					path.basename(file_path, path.extname(file_path)),
+					path.extname(file_path),
+					async new_name => {
 						const CLOSED = TabSystem.closeByPath(file_path)
 						const newPath = path.join(
 							path.dirname(file_path),
@@ -100,14 +102,12 @@ export const FILE_CONTEXT_MENU = async (
 			title: 'Duplicate',
 			icon: 'mdi-content-duplicate',
 			action: () => {
-				new InputWindow(
-					{
-						text: path.basename(file_path, path.extname(file_path)),
-						label: 'Name',
-						header: 'Name Input',
-						expand_text: path.extname(file_path),
-					},
-					(new_name: string) => file.duplicate(new_name)
+				createInputWindow(
+					'Name Input',
+					'Name',
+					path.basename(file_path, path.extname(file_path)),
+					path.extname(file_path),
+					new_name => file.duplicate(new_name)
 				)
 			},
 		},
@@ -131,7 +131,7 @@ export const FILE_CONTEXT_MENU = async (
 	/**
 	 * QUICK ACTION TO TOGGLE CLIENT SCRIPTS
 	 */
-	if (file_name === 'manifest.json') {
+	if (fileName === 'manifest.json') {
 		let manifest: Manifest = await readJSON(file_path).catch(console.error)
 		if (Manifest.hasClientData(manifest)) {
 			DEFAULT_MENU.push({

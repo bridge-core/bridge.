@@ -8,9 +8,9 @@ import LightningCache from '../../editor/LightningCache'
 import { JSONFileMasks } from '../../editor/JSONFileMasks'
 import TabSystem from '../../TabSystem'
 import { BridgeCore } from '../../bridgeCore/main'
-import InformationWindow from '../Windows/Common/Information'
 import uuid from 'uuid/v4'
 import FileSystem from '../../FileSystem'
+import { createInformationWindow } from '../Windows/Common/CommonDefinitions'
 declare function requestIdleCallback(cb: () => void): number
 
 export class FileExplorerStorage {
@@ -212,8 +212,8 @@ export class FileExplorer {
 	}
 	async duplicate(newName: string, open = true) {
 		if (this.parent.find(newName) !== undefined)
-			return new InformationWindow(
-				'Error',
+			return createInformationWindow(
+				'ERROR',
 				`A file with the name "${newName}" already exists`
 			)
 		let newAbsolutePath = path.join(

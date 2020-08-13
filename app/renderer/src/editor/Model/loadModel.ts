@@ -9,10 +9,10 @@ import {
 	FrontSide,
 } from 'three'
 import { createCube } from './createCube'
-import InformationWindow from '../../UI/Windows/Common/Information'
 import { lessThan } from '../../Utilities/VersionUtils'
 import { toNewModelFormat } from '../../UI/Play/Model/convertFormat'
 import { createPolyMesh } from './createPolyMesh'
+import { createInformationWindow } from '../../UI/Windows/Common/CommonDefinitions'
 
 export interface IImageProps {
 	width: number
@@ -109,7 +109,7 @@ export function loadModels(
 	if (lessThan(models.format_version ?? '1.2.0', '1.12.0')) {
 		return loadModels(scene, toNewModelFormat(models))
 	} else if (models['minecraft:geometry'] === undefined) {
-		new InformationWindow(
+		createInformationWindow(
 			'ERROR',
 			'Oops, bridge. currently cannot open this model!'
 		)

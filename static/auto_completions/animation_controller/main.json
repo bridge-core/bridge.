@@ -20,16 +20,10 @@
                     },
 
                     "on_entry": {
-                        "$dynamic.list.next_index": {
-                            "@meta": { "is_value": true },
-                            "@import.value.action": "('@s ' + $dynamic.entity.all_events) and ('/function ' + $dynamic.function_files)"
-                        }
+                        "$dynamic.list.next_index": "('@s ' + $dynamic.entity.all_events) and $function.embedded"
                     },
                     "on_exit": {
-                        "$dynamic.list.next_index": {
-                            "@meta": { "is_value": true },
-                            "@import.value.action": "('@s ' + $dynamic.entity.all_events) and ('/function ' + $dynamic.function_files)"
-                        }
+                        "$dynamic.list.next_index": "('@s ' + $dynamic.entity.all_events) and $function.embedded"
                     }
                 },
                 "$placeholder": "$animation_controller.main.animation_controllers.$placeholder.states.default"

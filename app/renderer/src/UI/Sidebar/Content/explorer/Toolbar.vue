@@ -121,7 +121,7 @@
 <script>
 import { shell, remote } from 'electron'
 import CreateFileWindow from '../../../../../windows/CreateFile'
-import CreateProjectWindow from '../../../../../windows/CreateProject'
+import { CreateBP } from '../../../Windows/Project/Create/definition'
 import LoadingWindow from '../../../../../windows/LoadingWindow'
 import { zip } from 'zip-a-folder'
 import { join } from 'path'
@@ -131,8 +131,6 @@ import { MOJANG_PATH } from '../../../../../../shared/Paths'
 import { CURRENT } from '../../../../constants'
 import { promises as fs } from 'fs'
 import trash from 'trash'
-import InformationWindow from '../../../Windows/Common/Information'
-import ConfirmWindow from '../../../Windows/Common/Confirm'
 import EventBus from '../../../../EventBus'
 import BPMore from '../../../ContextMenu/BPMore'
 import { createNotification } from '../../../Footer/create'
@@ -156,7 +154,7 @@ export default {
 			new CreateFileWindow()
 		},
 		openCreateProjectWindow() {
-			new CreateProjectWindow()
+			CreateBP.open()
 		},
 		async packageProject() {
 			let lw = new LoadingWindow()

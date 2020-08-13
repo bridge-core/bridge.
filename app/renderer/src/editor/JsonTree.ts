@@ -13,6 +13,7 @@ import Store from '../../store/index'
 import Vue from 'vue'
 import { run } from './ScriptRunner/run'
 import { ENV } from './ScriptRunner/Validation/ENV'
+import { ENV as ProposeFilterENV } from './ScriptRunner/ProposeFilter/ENV'
 import { runValidationFile } from './ScriptRunner/Validation/runFile'
 import { canBeMinified, getCacheData } from './JSONTree/cacheUtils'
 import { trigger } from '../AppCycle/EventSystem'
@@ -378,7 +379,7 @@ export default class JSONTree {
 
 		let c = key !== undefined ? this.children : this.parent.children
 		for (let i = 0; i < c.length; i++) {
-			if (c[i].parsed_key == (key || this.parsed_key)) {
+			if (c[i].parsed_key === (key || this.parsed_key)) {
 				c[i].on.destroy.forEach(func => func())
 
 				//HISTORY
@@ -439,7 +440,7 @@ export default class JSONTree {
 		if (PROVIDER === undefined) PROVIDER = new Provider('')
 		//console.log(PROVIDER.get(path), path)
 		if (Store.state.Settings.bridge_predictions) {
-			let { META, ...propose } = PROVIDER.get(
+			const { META, ...propose } = PROVIDER.get(
 				path,
 				TabSystem.getCurrentFilePath(),
 				this
@@ -448,17 +449,17 @@ export default class JSONTree {
 
 			this.propose_cache = null
 			this.propose_cache_uses = 0
-			return propose
+			return this.processProposeFilters(META, propose)
 		} else {
 			if (this.propose_cache_uses === 0) {
-				let { META, ...propose } = PROVIDER.get(
+				const { META, ...propose } = PROVIDER.get(
 					path,
 					TabSystem.getCurrentFilePath(),
 					this
 				)
 				this.addMeta(META)
 
-				this.propose_cache = propose
+				this.propose_cache = this.processProposeFilters(META, propose)
 				this.propose_cache_uses++
 			} else {
 				this.propose_cache_uses = 0
@@ -466,6 +467,21 @@ export default class JSONTree {
 			return this.propose_cache
 		}
 	}
+	processProposeFilters(
+		META: Record<string, any>,
+		propose: { object: string[]; value: string[] }
+	) {
+		if (META?.propose_filter?.object)
+			propose.object = propose.object.filter(item =>
+				run(META.propose_filter.object, ProposeFilterENV(item))
+			)
+		if (META?.propose_filter?.value)
+			propose.value = propose.value.filter(item =>
+				run(META.propose_filter.value, ProposeFilterENV(item))
+			)
+		return propose
+	}
+
 	addMeta(
 		META: { [x: string]: any } = {},
 		filePath = TabSystem.getCurrentFilePath()

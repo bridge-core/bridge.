@@ -4,7 +4,7 @@ import TabSystem from '../src/TabSystem'
 import JSONTree from '../src/editor/JsonTree'
 import Store from '../store/index'
 import EventBus from '../src/EventBus'
-import InformationWindow from '../src/UI/Windows/Common/Information'
+import { createInformationWindow } from '../src/UI/Windows/Common/CommonDefinitions'
 
 let SNIPPETS: any
 
@@ -28,6 +28,12 @@ async function addSnippet(s: any) {
 
 	if (SNIPPETS[s.file_type] === undefined) SNIPPETS[s.file_type] = []
 	SNIPPETS[s.file_type].push(s)
+
+	return {
+		dispose: () => {
+			SNIPPETS[s.file_type]?.splice(SNIPPETS[s.file_type].indexOf(s), 1)
+		},
+	}
 }
 async function removeSnippet(s: any) {
 	await assureLoadedSnippets()
@@ -141,7 +147,7 @@ class SnippetWindow extends ContentWindow {
 
 export class PluginSnippets {
 	static add(s: any) {
-		addSnippet({
+		return addSnippet({
 			...s,
 			is_plugin: true,
 		})
@@ -166,16 +172,14 @@ export default {
 			SNIPPETS[type].length === 0
 		) {
 			if (TabSystem.getSelected())
-				return new InformationWindow(
+				return createInformationWindow(
 					'ERROR',
-					'No snippets available for the currently opened file.',
-					false
+					'No snippets avaliable for the currently opened file.'
 				)
 			else
-				return new InformationWindow(
+				return createInformationWindow(
 					'ERROR',
-					'You have to open a file to use snippets.',
-					false
+					'You have to open a file to use snippets'
 				)
 		}
 

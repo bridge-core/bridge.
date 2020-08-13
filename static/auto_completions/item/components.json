@@ -57,30 +57,11 @@
                 }
             },
             "execute_commands": {
-                "$dynamic.list.next_index": {
-                    "@meta": {
-                        "is_value": true
-                    },
-                    "@import.value": "('/function ' + $dynamic.function_files)"
-                }
+                "$dynamic.list.next_index": "$function.embedded"
             },
 
-            "$dynamic_template.is_equipped": {
-                "$key": "$dynamic.setting.target_version",
-                "$default": "$entity.components",
-                "$fallback": "$entity.components",
-
-                "Stable": "$entity.components",
-                "Beta": "$entity.components and $entity.beta_components"
-            },
-            "$dynamic_template.is_not_equipped": {
-                "$key": "$dynamic.setting.target_version",
-                "$default": "$entity.components",
-                "$fallback": "$entity.components",
-
-                "Stable": "$entity.components",
-                "Beta": "$entity.components and $entity.beta_components"
-            }
+            "is_equipped": "$entity.components",
+            "is_not_equipped": "$entity.components"
         }
     }
 }

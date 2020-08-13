@@ -1,6 +1,5 @@
-import { CONTEXT_UP, CONTEXT_DOWN } from '../Dynamic'
-import Provider from '../Provider'
-import { compileVersionedTemplate } from './VersionedTemplate'
+import Provider from '../../Provider'
+import { compileVersionedTemplate } from './Common'
 
 export class VersionedKeyTemplate {
 	static confirm(

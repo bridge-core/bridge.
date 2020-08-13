@@ -1,7 +1,10 @@
 {
     "sound_object": {
         "@import.value.sound_def": "$dynamic.cache.sound_definition.ids",
-        "sound": "$dynamic.cache.sound_definition.ids",
+        "sound": {
+            "@meta": {"is_value": true},
+            "@import.value.sound_ids": "$dynamic.cache.sound_definition.ids"
+        },
         "volume": "$simple.general.number_range",
         "pitch": "$simple.general.number_range"
     },
@@ -17,5 +20,6 @@
             }
         },
         "$dynamic.list.index_pair": "$general.decimal"
-    }
+    },
+    "block_sounds": ["wood", "metal", "stone", "ancient_debris", "anvil", "bamboo", "bamboo_sapling", "barrier", "basalt", "glass", "nether_wart", "bone_block", "brick", "grass", "cloth", "chain", "stem", "nylium", "roots", "gravel", "honey_block", "coral", "nether_brick", "nether_gold_ore", "netherite", "netherrack", "scaffolding", "slime", "shroomlight", "lantern", "sweet_berry_bush", "vines"]
 }

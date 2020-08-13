@@ -48,6 +48,7 @@
         "crossbow_hold": "animation.piglin.crossbow.hold",
         "crossbow_charge": "animation.piglin.crossbow.charge",
         "melee_attack": "animation.piglin.sword.attack",
+        "hand_attack": "animation.piglin.hand.attack",
 
         "riding_controller": "controller.animation.humanoid.riding",
         "riding.arms": "animation.humanoid.riding.arms",

@@ -6,8 +6,10 @@ import { ipcRenderer } from 'electron'
 import JSONTree from './editor/JsonTree'
 import path from 'path'
 import OmegaCache from './editor/OmegaCache'
-import ConfirmWindow from './UI/Windows/Common/Confirm'
-import InformationWindow from './UI/Windows/Common/Information'
+import {
+	createInformationWindow,
+	createConfirmWindow,
+} from './UI/Windows/Common/CommonDefinitions'
 import { readJSON } from './Utilities/JsonFS'
 import { stripFileVersion } from './Utilities/FileVersioning'
 import { useCache } from './Project/NoCacheConfig'
@@ -37,7 +39,7 @@ export default class FileSystem {
 		open = true
 	) {
 		if (path === undefined)
-			new InformationWindow(
+			createInformationWindow(
 				'ERROR',
 				"bridge. cannot save this tab's content!"
 			)
@@ -97,7 +99,12 @@ export default class FileSystem {
 				is_immutable
 			)
 		} else {
-			new ConfirmWindow(
+			createConfirmWindow(
+				`It looks like the file "${path.basename(
+					file_path
+				)}" was edited with a different editor. Do you want to open it from bridge.'s cache or from disk?`,
+				'Cache',
+				'Disk',
 				() => {
 					OmegaCache.load(file_path)
 						.then(
@@ -124,13 +131,6 @@ export default class FileSystem {
 				},
 				() => {
 					this.loadFromDisk(file_path, file)
-				},
-				`It looks like the file "${path.basename(
-					file_path
-				)}" was edited with a different editor. Do you want to open it from bridge.'s cache or from disk?`,
-				{
-					confirm_text: 'Cache',
-					cancel_text: 'Disk',
 				}
 			)
 		}
@@ -197,21 +197,24 @@ export default class FileSystem {
 			return cache_content
 		}
 	}
-	static async loadFileAsTree(file_path: string) {
+	static async loadFileAsTree(filePath: string) {
 		try {
 			let { format_version, cache_content } = await OmegaCache.load(
-				file_path
+				filePath
 			)
 			if (format_version === 1) {
 				return JSONTree.buildFromCache(cache_content)
 			} else {
-				if (typeof cache_content === 'string') return
+				if (typeof cache_content === 'string') return cache_content
 				return JSONTree.buildFromObject(cache_content)
 			}
 		} catch (e) {
+			const fileContent = (await fs.readFile(filePath)).toString('utf-8')
 			try {
-				return JSONTree.buildFromObject(await readJSON(file_path))
-			} catch (e) {}
+				return JSONTree.buildFromObject(JSON.parse(fileContent))
+			} catch (e) {
+				return fileContent
+			}
 		}
 	}
 

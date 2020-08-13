@@ -18,7 +18,7 @@ functionality at least once and didn't encounter unexpected behaviour. Building 
 
 #### General
 
-This code base uses Prettier to automatically style code upon saving. We recommend installing the Prettier extension for VS Code for the smoothest experience.
+This code base uses Prettier to automatically style code before committing it. We recommend installing the Prettier extension for VS Code for the smoothest experience.
 
 #### Names
 
@@ -28,8 +28,8 @@ All identifier names should be camelCase.
 // Example
 let myVar = 'Hello World!'
 
-function doSomethingNow(par_1, par_2) {
-	doSomething(par_1 + par_2)
+function doSomethingNow(par1, par2) {
+	doSomething(par1 + par2)
 }
 ```
 

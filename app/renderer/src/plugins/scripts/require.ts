@@ -10,6 +10,7 @@ import { UtilsModule } from './modules/utils'
 import { ImportFileModule } from './modules/importFiles'
 import { PathModule } from './modules/path'
 import { FetchDefinitionModule } from './modules/fetchDefinition'
+import { WindowModule } from './modules/windows'
 
 const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/ui', UIModule],
@@ -21,6 +22,7 @@ const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/utils', UtilsModule],
 	['@bridge/file-importer', ImportFileModule],
 	['@bridge/fetch-definition', FetchDefinitionModule],
+	['@bridge/windows', WindowModule],
 ])
 //For usage inside of custom commands, components etc.
 const LimitedModules = new Map<string, (config: IModuleConfig) => unknown>([

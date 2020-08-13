@@ -11,21 +11,24 @@ import CORE_FILES from './CORE_FILES'
 import EntityHandler, { handleTags } from './EntityHandler'
 import ItemHandler from './ItemHandler'
 import TagHandler from './TagHandler'
-import InformationWindow from '../UI/Windows/Common/Information'
+
 import ComponentRegistry from '../plugins/CustomComponents'
 import MapAreaHandler from './MapAreaHandler'
 import trash from 'trash'
 import { CURRENT } from '../constants'
 import { use } from '../Utilities/useAttr'
 import { parseFunction } from './functions/parse'
-import { CommandRegistry } from '../plugins/CustomCommands'
 import { updateCustomComponent } from './update/components'
 import { updateCustomCommand } from './update/commands'
+import AnimationHandler from './AnimationHandler'
+import AnimationControllerHandler from './AnimationControllerHandler'
+import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
 
 export interface OnSaveData {
 	file_path: string
 	file_name: string
 	file_uuid: string
+	file_version: number
 	data: any
 	depth: number
 	simulated_call: boolean
@@ -127,11 +130,12 @@ export class BridgeCore {
 		file_uuid?: string
 	) {
 		if (depth <= 0) {
-			new InformationWindow('ERROR', 'Maximum import depth reached')
+			createInformationWindow('ERROR', 'Maximum import depth reached')
 			return data
 		}
 		let file_name = path.basename(file_path)
 		let file_type = FileType.get(file_path)
+		let file_version = await OmegaCache.loadFileVersion(file_path)
 		if (file_uuid === undefined)
 			file_uuid = await OmegaCache.loadFileUUID(file_path)
 
@@ -173,6 +177,7 @@ export class BridgeCore {
 				data,
 				depth,
 				simulated_call,
+				file_version,
 			})
 
 		data = await JSONFileMasks.applyOnData(
@@ -205,6 +210,8 @@ export class BridgeCore {
 }
 
 //REGISTER HANDLERS
+BridgeCore.setSaveHandler('animation', AnimationHandler)
+BridgeCore.setSaveHandler('animation_controller', AnimationControllerHandler)
 BridgeCore.setSaveHandler('entity', EntityHandler)
 BridgeCore.setSaveHandler('item', ItemHandler)
 BridgeCore.setSaveHandler('entity_tag', TagHandler)

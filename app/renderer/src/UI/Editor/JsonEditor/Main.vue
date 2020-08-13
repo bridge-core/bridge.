@@ -69,10 +69,12 @@
 		</div>
 		<v-divider v-if="first && !is_immutable"></v-divider>
 		<v-layout class="controls" v-if="first && !is_immutable">
-			<template v-if="
+			<template
+				v-if="
 					$store.state.Settings.bridge_predictions &&
 						isKnownFileType()
-				">
+				"
+			>
 				<predicting-input
 					:render_object="render_object"
 					:tab_id="tab_id"
@@ -274,12 +276,22 @@ export default {
 			}
 
 			TabSystem.setCurrentFileNav(context.path)
+
+			//Node already has data meaning that we can focus the editing input (no new children can be added)
+			if (context.data !== '') {
+				const input = document.getElementById('json-editing-input')
+				if (input) input.focus()
+			}
 		},
 		attrClick() {
 			let path = `${this.object_key}/${(
 				this.render_object.data + ''
 			).replace(/\//g, '#;slash;#')}`
+
 			TabSystem.setCurrentFileNav(path)
+
+			const input = document.getElementById('json-editing-input')
+			if (input) input.focus()
 		},
 		openAllChildren(
 			children = this.computed_object().children,

@@ -19,7 +19,7 @@ export type ItemComponentData = Partial<
 	}
 >
 
-export function transformComponents({
+export async function transformComponents({
 	PLAYER_MASK,
 	A_C_MASK,
 	component_name,
@@ -40,7 +40,7 @@ export function transformComponents({
 			item_id,
 		})
 	} else if (component_name === 'bridge:item_equipped_sensor') {
-		ItemEquippedSensor({
+		await ItemEquippedSensor({
 			PLAYER_MASK,
 			A_C_MASK,
 			component_name,
@@ -96,16 +96,20 @@ export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
 	})
 
 	//READ COMPONENTS
+	const promises = []
 	for (let c in components) {
-		transformComponents({
-			component_name: c,
-			component: components[c],
-			identifier: description.identifier || 'bridge:no_identifier',
-			PLAYER_MASK,
-			A_C_MASK,
-			file_uuid,
-		})
+		promises.push(
+			transformComponents({
+				component_name: c,
+				component: components[c],
+				identifier: description.identifier || 'bridge:no_identifier',
+				PLAYER_MASK,
+				A_C_MASK,
+				file_uuid,
+			})
+		)
 	}
+	await Promise.all(promises)
 
 	//SAVE ADDITIONAL FILES
 	await Promise.all([

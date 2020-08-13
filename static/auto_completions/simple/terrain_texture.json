@@ -6,7 +6,18 @@
     "texture_data": {
         "$placeholder": {
             "textures": {
-                "$dynamic.list.next_index": { "@meta": { "is_value": true }, "@import.value.block_png": "$dynamic.rp.block_png" }
+                "$dynamic.list.next_index": {
+                    "@import.value.block_png": "$dynamic.rp.block_png",
+                    "path": {"@meta": {"is_value": true}, "@import.value.block_png": "$dynamic.rp.block_png"},
+                    "overlay_color": {"@meta": {"is_color": true}},
+                    "variations": {
+                        "$dynamic.list.next_index": {
+                            "weight": "$general.number",
+                            "path": {"@meta": {"is_value": true}, "@import.value.block_png": "$dynamic.rp.block_png"},
+                            "overlay_color": {"@meta": {"is_color": true}}
+                        }
+                    }
+                }
             }
         }
     }

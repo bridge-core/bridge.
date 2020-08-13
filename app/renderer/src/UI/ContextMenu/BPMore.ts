@@ -1,17 +1,21 @@
 import ProjectConfig from '../../Project/Config'
-import InputWindow from '../Windows/Common/Input'
 import { CURRENT, MOJANG_PATH } from '../../constants'
-import InformationWindow from '../Windows/Common/Information'
 import LoadingWindow from '../../../windows/LoadingWindow'
 import { join } from 'path'
 import trash from 'trash'
 import { remote } from 'electron'
-import ConfirmWindow from '../Windows/Common/Confirm'
 import EventBus from '../../EventBus'
 import { promises as fs } from 'fs'
 import { refreshCache } from '../../Project/RefreshCache'
 import { zip } from 'zip-a-folder'
 import { createNotification } from '../Footer/create'
+import { getFormatVersions } from '../../autoCompletions/components/VersionedTemplate/Common'
+import {
+	createInformationWindow,
+	createInputWindow,
+	createDropdownWindow,
+	createConfirmWindow,
+} from '../Windows/Common/CommonDefinitions'
 
 export default [
 	{
@@ -25,14 +29,33 @@ export default [
 				prefix = 'bridge'
 			}
 
-			new InputWindow(
-				{
-					header: 'Project Namespace',
-					label: 'Namespace',
-					text: prefix,
-				},
+			createInputWindow(
+				'Project Namespace',
+				'Namespace',
+				prefix,
+				'',
+				val => ProjectConfig.setPrefix(val)
+			)
+		},
+	},
+	{
+		icon: 'mdi-numeric',
+		title: 'Project Target Version',
+		action: async () => {
+			let formatVersion
+			try {
+				formatVersion = await ProjectConfig.formatVersion
+			} catch (e) {
+				formatVersion = '1.13.0'
+			}
+
+			createDropdownWindow(
+				'Project Format Version',
+				'Format Version',
+				getFormatVersions().reverse(),
+				formatVersion,
 				val => {
-					ProjectConfig.setPrefix(val)
+					ProjectConfig.setFormatVersion(val)
 				}
 			)
 		},
@@ -51,18 +74,20 @@ export default [
 		icon: 'mdi-package-variant-closed',
 		title: 'Package Project',
 		action: async () => {
-			new ConfirmWindow(
+			createConfirmWindow(
+				'Please backup your project before packaging it!',
+				'Confirm',
+				'Cancel',
 				() => {
-					new InputWindow(
-						{
-							header: 'Project Name',
-							label: 'Name',
-							text: '',
-						},
+					createInputWindow(
+						'Project Name',
+						'Name',
+						'',
+						'',
 						async project_name => {
 							//Make sure that the resource pack can be loaded
 							if (!CURRENT.RESOURCE_PACK)
-								return new InformationWindow(
+								return createInformationWindow(
 									'No Resource Pack',
 									'Please connect a resource pack before packaging the whole project.'
 								)
@@ -118,8 +143,7 @@ export default [
 						}
 					)
 				},
-				() => {},
-				'Please backup your project before packaging it!'
+				() => {}
 			)
 		},
 	},
@@ -127,15 +151,17 @@ export default [
 		icon: 'mdi-delete',
 		title: 'Delete Project',
 		action: () => {
-			new ConfirmWindow(
+			createConfirmWindow(
+				'Do you really want to delete this project?',
+				'Confirm',
+				'Cancel',
 				async () => {
 					let lw = new LoadingWindow()
 					await trash(CURRENT.PROJECT_PATH)
 					EventBus.trigger('bridge:findDefaultPack', true)
 					lw.close()
 				},
-				null,
-				'Do you really want to delete this project?'
+				() => {}
 			)
 		},
 	},

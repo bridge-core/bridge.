@@ -27,6 +27,7 @@
     "simple/tick",
     "function/main",
     "function/general",
+    "function/embedded",
 
     "item/main",
     "item/general",

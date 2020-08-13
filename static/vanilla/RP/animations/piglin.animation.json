@@ -34,6 +34,17 @@
 			},
 			"loop" : true
 		},
+		"animation.piglin.hand.attack" : {
+			"bones": {
+				"leftarm" : {
+					"rotation" : [ "-(math.sin((1 - math.pow((1 - variable.attack_time), 4)) * 180) * 1.2 + math.sin(variable.attack_time * 180)) * 10.0", 0.0, 0.0 ]
+				},
+				"rightarm" : {
+					"rotation" : [ "-(math.sin((1 - math.pow((1 - variable.attack_time), 4)) * 180) * 1.2 + math.sin(variable.attack_time * 180)) * 30.0", "-(math.sin((1 - math.pow((1 - variable.attack_time), 4)) * 180) ? (-90.0 * math.sin((1 - math.pow((1 - variable.attack_time), 4)) * 180)) + 30.0 : 0.0)", 0.0 ]
+				}
+			},
+			"loop" : true
+		},
 		"animation.piglin.move" : {
 			"loop" : true,
 			"bones": {

@@ -6,9 +6,11 @@ import path from 'path'
 import { readJSON, writeJSON, readJSONSync } from '../Utilities/JsonFS'
 import SETTINGS from '../../store/Settings'
 import { on } from '../AppCycle/EventSystem'
+import { getFormatVersions } from '../autoCompletions/components/VersionedTemplate/Common'
 
 on('bridge:changedProject', () => {
 	ProjectConfig.prefix_cache = undefined
+	ProjectConfig.formatVersionCache = undefined
 })
 
 export default class ProjectConfig {
@@ -16,6 +18,7 @@ export default class ProjectConfig {
 		return path.join(CURRENT.PROJECT_PATH, 'bridge/config.json')
 	}
 	static prefix_cache: string
+	static formatVersionCache: string
 
 	//PREFIX
 	static getPrefixSync() {
@@ -53,7 +56,45 @@ export default class ProjectConfig {
 			})
 		})()
 	}
+	static getFormatVersionSync() {
+		try {
+			if (this.formatVersionCache === undefined)
+				this.formatVersionCache =
+					readJSONSync(this.config_path).formatVersion ||
+					getFormatVersions().pop()
+			return this.formatVersionCache
+		} catch (e) {
+			return getFormatVersions().pop()
+		}
+	}
+	static get formatVersion(): Promise<string> {
+		return (async () => {
+			try {
+				return (
+					(await readJSON(this.config_path)).formatVersion ||
+					getFormatVersions().pop()
+				)
+			} catch {
+				return getFormatVersions().pop()
+			}
+		})()
+	}
+	static setFormatVersion(val: string) {
+		;(async () => {
+			let data
+			try {
+				data = await readJSON(this.config_path)
+			} catch (e) {
+				data = {}
+			}
+			this.formatVersionCache = val
 
+			await writeJSON(this.config_path, {
+				...data,
+				formatVersion: val,
+			})
+		})()
+	}
 	static get theme(): Promise<string> {
 		return (async () => {
 			try {

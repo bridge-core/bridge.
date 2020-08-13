@@ -1,7 +1,8 @@
 import { PUSH_ONCE } from '../../Utilities/mergeUtils'
 import { ItemComponentData } from '../ItemHandler'
+import { transformJsonCommands } from '../functions/transformJson'
 
-export default function ItemEquippedSensor({
+export default async function ItemEquippedSensor({
 	PLAYER_MASK,
 	A_C_MASK,
 	component,
@@ -43,7 +44,12 @@ export default function ItemEquippedSensor({
 							].concat(
 								(on_equip || [])
 									.map((e: string) => '@s ' + e)
-									.concat(execute_commands || [])
+									.concat(
+										await transformJsonCommands(
+											file_uuid,
+											execute_commands || []
+										)
+									)
 							),
 							on_exit: [
 								'@s bridge:on_unequipped_' + file_uuid,

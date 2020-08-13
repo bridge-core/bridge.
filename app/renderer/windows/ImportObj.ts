@@ -6,8 +6,8 @@ import { OBJtoMC } from '../src/Compiler/File/Model/OBJtoMC'
 import { promises as fs } from 'fs'
 import { CURRENT } from '../src/constants'
 import { trySetRP, NEGATIVE_RESPONSES } from '../src/Utilities/FindRP'
-import InformationWindow from '../src/UI/Windows/Common/Information'
 import { join } from 'path'
+import { createInformationWindow } from '../src/UI/Windows/Common/CommonDefinitions'
 
 const INPUT_KEY = uuid()
 
@@ -44,7 +44,7 @@ export default class ImportObjWindow extends ContentWindow {
 				rpSet = await trySetRP()
 			if (!rpSet) {
 				lw.close()
-				return new InformationWindow(
+				return createInformationWindow(
 					'ERROR',
 					'You do not have a resource pack to add the model to.'
 				)

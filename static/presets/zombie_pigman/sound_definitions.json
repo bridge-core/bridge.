@@ -1,4 +1,5 @@
 {
+  "sound_definitions": {
     "mob.{{IDENTIFIER}}.zpig": {
       "category": "hostile",
       "sounds": [
@@ -33,4 +34,5 @@
         "sounds/mob/{{IDENTIFIER}}/zpighurt2"
       ]
     }
+  }
 }

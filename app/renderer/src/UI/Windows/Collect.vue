@@ -1,16 +1,22 @@
 <template>
 	<div>
-		<ProjectScreen />
+		<component
+			v-for="([windowComponent, windowApi], uuid) in WINDOWS"
+			:key="uuid"
+			:is="windowComponent"
+			:currentWindow="windowApi"
+		/>
 	</div>
 </template>
 
 <script>
-import ProjectScreen from '../ProjectScreen/Main'
+import { WINDOWS } from './create'
 
 export default {
 	name: 'CollectedWindows',
-	components: {
-		ProjectScreen,
-	},
+
+	data: () => ({
+		WINDOWS,
+	}),
 }
 </script>

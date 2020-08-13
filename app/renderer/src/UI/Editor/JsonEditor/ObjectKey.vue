@@ -2,7 +2,7 @@
 	<summary
 		@contextmenu="openContextMenu"
 		:class="selected_class"
-		v-on:keydown.enter="open_current"
+		@keydown.enter="openCurrent"
 		:id="'summary.' + object_key"
 		@click="event => $emit('mainClick', event)"
 		@dblclick="
@@ -85,7 +85,7 @@
 				:meta="node_context.meta"
 				:node_context="node_context"
 				:is_immutable="is_immutable"
-				@click="event => $emit('mainClick', event)"
+				@click="onDataClick"
 				@dblclick.native="
 					event =>
 						$store.state.Settings.cade_node_click
@@ -210,6 +210,14 @@ export default {
 		},
 	},
 	methods: {
+		onDataClick() {
+			this.node_context.openNode()
+			TabSystem.setCurrentFileNav(
+				`${this.node_context.path}/${this.node_context.data}`
+			)
+			const input = document.getElementById('json-editing-input')
+			if (input) input.focus()
+		},
 		fixError() {
 			if (typeof this.error.fix.run === 'string')
 				run(this.error.fix.run, ENV([], this.node_context))
@@ -219,7 +227,7 @@ export default {
 			return TabSystem.getCurrentNavigation() === this.object_key
 			//return this.$store.getters.current_internal_file_path() == this.object_key;
 		},
-		open_current() {
+		openCurrent() {
 			this.$root.$emit(`load(${this.tab_id}):${this.object_key}`)
 		},
 		openContextMenu(event) {

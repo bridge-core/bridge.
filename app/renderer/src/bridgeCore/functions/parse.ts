@@ -8,10 +8,12 @@ import LightningCache from '../../editor/LightningCache'
 import { setFunctionCache, CacheTests, FunctionCache } from './cache'
 
 export async function parseFunction(str: string, filePath: string) {
-	const [commands, lines] = parseCommands(str)
+	const [usedCommands, lines] = parseCommands(str)
 
 	await LightningCache.setPlainData(filePath, {
-		custom_commands: Array.from(commands).concat(Array.from(UsedSelectors)),
+		custom_commands: Array.from(usedCommands).concat(
+			Array.from(UsedSelectors)
+		),
 		...Object.fromEntries(
 			Array.from(FunctionCache.entries()).map(([id, set]) => [
 				id,
@@ -70,37 +72,7 @@ export function parseCommands(commands: string): [Set<string>, string[]] {
 				}
 
 				for (let [commandName, command] of CommandRegistry) {
-					if (l.startsWith('execute ')) {
-						const [
-							execute,
-							selector,
-							loc1,
-							loc2,
-							loc3,
-							...command
-						] = splitCommand(l)
-
-						const [tmpUsedCommands, tmpCommands] = parseCommands(
-							command.join(' ')
-						)
-
-						usedCommands = new Set([
-							...usedCommands,
-							...tmpUsedCommands,
-						])
-
-						return tmpCommands.reduce(
-							(previous: string[], command: string) => {
-								return [
-									...previous,
-									`execute ${parseSelector(
-										selector
-									)} ${loc1} ${loc2} ${loc3} ${command}`,
-								]
-							},
-							[]
-						)
-					} else if (l.startsWith(`${commandName}`)) {
+					if (l.startsWith(`${commandName}`)) {
 						usedCommands.add(commandName)
 
 						const [_, ...args] = splitCommand(l)
@@ -113,8 +85,10 @@ export function parseCommands(commands: string): [Set<string>, string[]] {
 							.onCacheHook?.(commandArgs)
 							?.filter(arr => arr && arr[0] && arr[1])
 							?.forEach(([id, data]: [string, string[]]) => {
+								// Validate that data has the correct structure
 								if (!data || !data[0]) return
 
+								//Populate cache with data
 								if (FunctionCache.has(id)) {
 									;(Array.isArray(data)
 										? data
@@ -155,13 +129,23 @@ export function splitCommand(command: string) {
 	let i = 0
 	let lastSplit = 0
 	let squareBracket = 0
+	let isInQuotes = false
+	let isInSingleQuotes = false
 	let res: string[] = []
 
 	while (i < command.length) {
 		const char = command[i++]
 		if (char === '[') squareBracket++
 		else if (char === ']') squareBracket--
-		else if (char === ' ' && squareBracket === 0) {
+		else if (char === '"' && !isInSingleQuotes) isInQuotes = !isInQuotes
+		else if (char === "'" && !isInQuotes)
+			isInSingleQuotes = !isInSingleQuotes
+		else if (
+			char === ' ' &&
+			squareBracket === 0 &&
+			!isInQuotes &&
+			!isInSingleQuotes
+		) {
 			res.push(command.substring(lastSplit, i - 1))
 			lastSplit = i
 		}

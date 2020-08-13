@@ -1,9 +1,10 @@
 <template>
 	<BaseWindow
+		v-if="shouldRender"
 		windowTitle="Projects"
-		:isVisible="isVisible.value"
+		:isVisible="isVisible"
 		:hasMaximizeButton="false"
-		@closeWindow="isVisible.value = false"
+		@closeWindow="close"
 	>
 		<template #default>
 			<div class="card-container">
@@ -43,10 +44,10 @@
 </template>
 
 <script>
-import { isVisible, LoadedProjects } from './state'
+import { ProjectChooser } from './definition'
 import { loadProjects } from './load'
 import ProjectCard from './ProjectCard'
-import BaseWindow from '../Windows/Layout/Base'
+import BaseWindow from '../../Layout/Base'
 
 export default {
 	name: 'ProjectScreen',
@@ -55,10 +56,10 @@ export default {
 		BaseWindow,
 	},
 
-	data: () => ({
-		isVisible,
-		LoadedProjects,
-	}),
+	data: () => ProjectChooser.getState(),
+	methods: {
+		close: () => ProjectChooser.close(),
+	},
 }
 </script>
 

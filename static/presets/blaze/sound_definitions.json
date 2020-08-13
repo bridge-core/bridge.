@@ -1,35 +1,35 @@
 {
-	"mob.{{IDENTIFIER}}.breathe": {
-		"category": "hostile",
-		"sounds": [
-			"sounds/mob/{{IDENTIFIER}}/breathe1",
-			"sounds/mob/{{IDENTIFIER}}/breathe2",
-			"sounds/mob/{{IDENTIFIER}}/breathe3",
-			"sounds/mob/{{IDENTIFIER}}/breathe4"
-		]
-	},
-	"mob.{{IDENTIFIER}}.death": {
-		"category": "hostile",
-		"sounds": [
-			"sounds/mob/{{IDENTIFIER}}/death"
-		]
-	},
-	"mob.{{IDENTIFIER}}.hit": {
-		"category": "hostile",
-		"sounds": [
-			"sounds/mob/{{IDENTIFIER}}/hit1",
-			"sounds/mob/{{IDENTIFIER}}/hit2",
-			"sounds/mob/{{IDENTIFIER}}/hit3",
-			"sounds/mob/{{IDENTIFIER}}/hit4"
-		]
-	},
-	"mob.{{IDENTIFIER}}.shoot": {
-		"sounds": [
-			{
-				"name": "sounds/mob/ghast/fireball4",
-				"volume": 3
-			}
-		],
-		"subtitle": "subtitles.entity.blaze.shoot"
+	"sound_definitions": {
+		"mob.{{IDENTIFIER}}.breathe": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/mob/{{IDENTIFIER}}/breathe1",
+				"sounds/mob/{{IDENTIFIER}}/breathe2",
+				"sounds/mob/{{IDENTIFIER}}/breathe3",
+				"sounds/mob/{{IDENTIFIER}}/breathe4"
+			]
+		},
+		"mob.{{IDENTIFIER}}.death": {
+			"category": "hostile",
+			"sounds": ["sounds/mob/{{IDENTIFIER}}/death"]
+		},
+		"mob.{{IDENTIFIER}}.hit": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/mob/{{IDENTIFIER}}/hit1",
+				"sounds/mob/{{IDENTIFIER}}/hit2",
+				"sounds/mob/{{IDENTIFIER}}/hit3",
+				"sounds/mob/{{IDENTIFIER}}/hit4"
+			]
+		},
+		"mob.{{IDENTIFIER}}.shoot": {
+			"sounds": [
+				{
+					"name": "sounds/mob/ghast/fireball4",
+					"volume": 3
+				}
+			],
+			"subtitle": "subtitles.entity.blaze.shoot"
+		}
 	}
 }

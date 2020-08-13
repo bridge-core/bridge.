@@ -13,6 +13,6 @@
     "z": 0,
     "y": 0,
     "project_input_to_floor": false,
-    "places_feature": "minecraft:fern_feature"
+    "places_feature": "minecraft:scatter_fern_feature"
   }
 }

@@ -13,14 +13,15 @@ import { BridgeCore } from '../bridgeCore/main'
 import EventBus from '../EventBus'
 import { FileDefinition } from '../editor/FileDefinition'
 import JSONTree from '../editor/JsonTree'
-import InformationWindow from '../UI/Windows/Common/Information'
-import { compileVersionedTemplate } from './components/VersionedTemplate'
+import { compileVersionedTemplate } from './components/VersionedTemplate/Common'
+import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
+import { IDisposable } from '../Types/disposable'
 
 declare var __static: string
 
 let FILE_DEFS: FileDefinition[] = []
-let PLUGIN_FILE_DEFS: FileDefinition[] = []
-let PLUGIN_COMPLETIONS: { key: string; created: boolean }[][] = []
+let PLUGIN_FILE_DEFS: Record<string, FileDefinition[]> = {}
+let PLUGIN_COMPLETIONS: { key: string; created: boolean }[] = []
 let PLUGINS_TO_LOAD: any[] = []
 export let LIB_LOADED = false
 const REMOVE_LIST = [
@@ -34,8 +35,9 @@ export let LIB: any = { dynamic: DYNAMIC }
 class Provider {
 	private start_state: string
 	private META: any
-	constructor(current?: string) {
-		this.validator(current)
+	constructor(currentProposePath?: string, startState?: string) {
+		if (currentProposePath) this.validator(currentProposePath)
+		else if (startState) this.start_state = startState
 	}
 
 	static loadAssets() {
@@ -98,7 +100,7 @@ class Provider {
 			created = true
 		}
 		if (!native)
-			PLUGIN_COMPLETIONS[PLUGIN_COMPLETIONS.length - 1].push({
+			PLUGIN_COMPLETIONS.push({
 				key,
 				created,
 			})
@@ -110,9 +112,9 @@ class Provider {
 		} else if (created) {
 			current[key] = store
 		} else if (!native && arr_path.length > 0) {
-			return new InformationWindow(
-				'Auto-Completions',
-				'Unable to register auto-completions to already exisiting path.'
+			return createInformationWindow(
+				'Auto-completions',
+				'Unable to register auto-completions to already existing path.'
 			)
 		}
 	}
@@ -125,37 +127,45 @@ class Provider {
 		if (path.length > 0) this.removeFromLib(path, current[key])
 		if (created) delete current[key]
 	}
-	static addPluginCompletion(path: string, def: any) {
-		if (!LIB_LOADED) PLUGINS_TO_LOAD.push({ path, def })
-		else {
-			PLUGIN_COMPLETIONS.push([])
+	static addPluginCompletion(
+		path: string,
+		def: any,
+		disposables: IDisposable[]
+	) {
+		if (!LIB_LOADED) {
+			PLUGINS_TO_LOAD.push({ path, def, disposables })
+		} else {
+			PLUGIN_COMPLETIONS = []
 			this.storeInLIB(path, def, undefined, false)
+
+			disposables.push({
+				dispose: () => {
+					this.removeFromLib(PLUGIN_COMPLETIONS)
+				},
+			})
 		}
 	}
 	static loadAllPluginCompletions() {
-		PLUGINS_TO_LOAD.forEach(({ path, def }) => {
-			PLUGIN_COMPLETIONS.push([])
-			this.storeInLIB(path, def, undefined, false)
+		PLUGINS_TO_LOAD.forEach(({ path, def, disposables }) => {
+			this.addPluginCompletion(path, def, disposables)
 		})
 		PLUGINS_TO_LOAD = []
 	}
-	static removePluginCompletions() {
-		PLUGIN_COMPLETIONS.forEach(comp => this.removeFromLib(comp))
-		PLUGIN_COMPLETIONS = []
+	static addPluginFileDefs(id: string, defs: FileDefinition[]) {
+		PLUGIN_FILE_DEFS[id] = defs
+
+		return {
+			dispose: () => delete PLUGIN_FILE_DEFS[id],
+		}
 	}
-	static addPluginFileDef(def: FileDefinition) {
-		PLUGIN_FILE_DEFS.push(def)
-	}
-	static removePluginFileDefs() {
-		PLUGIN_FILE_DEFS = []
-	}
+
 	static get FILE_DEFS() {
-		return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(
+		return FILE_DEFS.concat(Object.values(PLUGIN_FILE_DEFS).flat()).concat(
 			BridgeCore.FILE_DEFS as FileDefinition[]
 		)
 	}
 	get FILE_DEFS() {
-		return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(
+		return FILE_DEFS.concat(Object.values(PLUGIN_FILE_DEFS).flat()).concat(
 			BridgeCore.FILE_DEFS as FileDefinition[]
 		)
 	}
@@ -187,7 +197,12 @@ class Provider {
 		if (this.start_state === 'unknown')
 			return { object: [], value: [], META: {} }
 
-		path = path.replace('global', this.start_state)
+		//Default data query for auto-completion engine
+		if (this.start_state !== '')
+			path = path.replace('global', this.start_state)
+		// We may want to use the auto-completion provider to access our data-base.
+		// In this case use an empty start_state
+		else path = path.replace('global/', this.start_state)
 
 		SET_CONTEXT(context, context === undefined ? undefined : context.parent)
 		let propose = this.walk(path.split('/'))

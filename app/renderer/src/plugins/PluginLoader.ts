@@ -2,7 +2,6 @@
  * bridge. PluginLoader
  * Loads v1 & v2 plugins
  *
- * Unloading is still handled by store/modules/Plugins.js
  */
 import { CURRENT } from '../constants'
 import path from 'path'
@@ -30,6 +29,7 @@ import { IDisposable } from '../Types/disposable'
 import {
 	clearAll as clearAllDisposables,
 	set as setDisposables,
+	clear as clearDisposables,
 } from './Disposables'
 import { executeScript } from './scripts/execute'
 import { DATA_PATH } from '../../../shared/DefaultDir'
@@ -57,17 +57,23 @@ export default class PluginLoader {
 		PLUGIN_DATA.push(data)
 	}
 
-	static reset() {
+	static async unloadPlugins() {
+		//Only resets legacy JSON highlighter cache & file creator definition cache.
+		//Can be removed once we have the new infrastructure in place
+		FileType.reset()
+		trigger('bridge:scriptRunner.resetCaches')
+
+		//INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
+		Store.commit('unloadPlugins')
+		clearAllDisposables()
+
 		CommandRegistry.clear()
 		ComponentRegistry.reset()
 		resetLoadLocations()
 	}
 
-	static async unloadPlugins() {
-		trigger('bridge:scriptRunner.resetCaches')
-		//INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
-		Store.commit('unloadPlugins')
-		clearAllDisposables()
+	static async unloadPlugin(pluginId: string) {
+		clearDisposables(pluginId)
 	}
 
 	static async loadPlugins(
@@ -82,9 +88,7 @@ export default class PluginLoader {
 		)
 		let unloadedPlugins: string[]
 		try {
-			unloadedPlugins = JSON.parse(
-				(await fs.readFile(uninstalledPath)).toString()
-			)
+			unloadedPlugins = await readJSON(uninstalledPath)
 		} catch {
 			fs.mkdir(path.join(CURRENT.PROJECT_PATH, 'plugins'), {
 				recursive: true,
@@ -130,17 +134,21 @@ export default class PluginLoader {
 				this.loadPlugin(basePath, pluginFolder, unloadedPlugins)
 			)
 		)
-		await ThemeManager.loadTheme()
 
 		await Promise.all([
+			//LOAD CORRECT THEME
+			ThemeManager.loadTheme(),
+
 			//LOAD CUSTOM COMPONENENTS IN PROJECT
 			this.loadComponents(
-				path.join(CURRENT.PROJECT_PATH, 'components')
+				path.join(CURRENT.PROJECT_PATH, 'components'),
+				[]
 			).then(() => ComponentRegistry.updateFiles()),
 
 			//LOAD CUSTOM COMMANDS IN PROJECT
 			loadCustomCommands(
-				path.join(CURRENT.PROJECT_PATH, 'commands')
+				path.join(CURRENT.PROJECT_PATH, 'commands'),
+				[]
 			).then(() => updateCommandFiles()),
 		])
 
@@ -225,18 +233,28 @@ export default class PluginLoader {
 							disposables
 						)
 					),
-					this.loadSnippets(pluginPath),
-					this.loadThemes(pluginPath),
-					this.loadComponents(path.join(pluginPath, 'components')),
-					this.loadAutoCompletions(pluginPath),
-					this.loadThemeCSS(pluginPath),
-					loadCustomCommands(path.join(pluginPath, 'commands')),
+					this.loadSnippets(pluginPath, disposables),
+					this.loadThemes(pluginPath, disposables),
+					this.loadComponents(
+						path.join(pluginPath, 'components'),
+						disposables
+					),
+					this.loadAutoCompletions(pluginPath, disposables),
+					this.loadFileDefs(pluginPath, disposables),
+					this.loadThemeCSS(pluginPath, disposables),
+					loadCustomCommands(
+						path.join(pluginPath, 'commands'),
+						disposables
+					),
 				]).catch(console.error)
 				addLoadLocation(path.join(pluginPath, 'presets'))
 			}
+
 			PLUGIN_DATA.push({
 				...manifest,
 				pluginPath, //Used by extension store to update plugins
+				pluginFolder, //Used for dynamic activation/deactivation of plugins
+				basePath, //Used for dynamic activation/deactivation of plugins
 			})
 			setDisposables(manifest.id, disposables)
 		}
@@ -285,7 +303,7 @@ export default class PluginLoader {
 		})
 	}
 
-	static async loadSnippets(pluginPath: string) {
+	static async loadSnippets(pluginPath: string, disposables: IDisposable[]) {
 		let snippets: string[] = await fs
 			.readdir(path.join(pluginPath, 'snippets'))
 			.catch(e => [])
@@ -297,12 +315,16 @@ export default class PluginLoader {
 				)
 			)
 		)
-		loaded_snippets.forEach(s => {
-			if (s !== undefined) PluginSnippets.add(s)
-		})
+		;(
+			await Promise.all(
+				loaded_snippets.map(s => {
+					if (s !== undefined) return PluginSnippets.add(s)
+				})
+			)
+		).forEach(disposable => disposables.push(disposable))
 	}
 
-	static async loadThemes(pluginPath: string) {
+	static async loadThemes(pluginPath: string, disposables: IDisposable[]) {
 		// Fetches a list of the files in the plugin's themes folder
 		let themes: string[] = await fs
 			.readdir(path.join(pluginPath, 'themes'))
@@ -318,11 +340,13 @@ export default class PluginLoader {
 		)
 		loaded_themes.forEach(t => {
 			if (t !== undefined)
-				ThemeManager.addTheme(t, pluginPath.startsWith(DATA_PATH))
+				disposables.push(
+					ThemeManager.addTheme(t, pluginPath.startsWith(DATA_PATH))
+				)
 		})
 	}
 
-	static async loadThemeCSS(pluginPath: string) {
+	static async loadThemeCSS(pluginPath: string, disposables: IDisposable[]) {
 		let cssFiles = await fs
 			.readdir(path.join(pluginPath, 'styles'), { withFileTypes: true })
 			.catch(e => [] as Dirent[])
@@ -339,10 +363,19 @@ export default class PluginLoader {
 
 		css.forEach((css, i) => {
 			ThemeManager.css.set(cssFiles[i].name, css)
+
+			disposables.push({
+				dispose: () => {
+					ThemeManager.css.delete(cssFiles[i].name)
+				},
+			})
 		})
 	}
 
-	static async loadComponents(pluginPath: string) {
+	static async loadComponents(
+		pluginPath: string,
+		disposables: IDisposable[]
+	) {
 		let dirents: Dirent[] = await fs
 			.readdir(path.join(pluginPath), { withFileTypes: true })
 			.catch(e => [])
@@ -352,28 +385,41 @@ export default class PluginLoader {
 		dirents.map(dirent => {
 			if (dirent.isDirectory()) {
 				promises.push(
-					this.loadComponents(path.join(pluginPath, dirent.name))
+					this.loadComponents(
+						path.join(pluginPath, dirent.name),
+						disposables
+					)
 				)
 			} else {
 				promises.push(
-					this.loadComponent(path.join(pluginPath, dirent.name))
+					this.loadComponent(
+						path.join(pluginPath, dirent.name),
+						disposables
+					)
 				)
 			}
 		})
 
 		await Promise.all(promises)
 	}
-	static async loadComponent(filePath: string, fileContent?: string) {
-		return await loadCustomComponent(filePath, fileContent)
+	static async loadComponent(
+		filePath: string,
+		disposables: IDisposable[],
+		fileContent?: string
+	) {
+		return await loadCustomComponent(filePath, disposables, fileContent)
 	}
 
-	static async loadAutoCompletions(pluginPath: string) {
-		let auto_completions: string[] = await fs
+	static async loadAutoCompletions(
+		pluginPath: string,
+		disposables: IDisposable[]
+	) {
+		let autoCompletions: string[] = await fs
 			.readdir(path.join(pluginPath, 'auto_completions'))
 			.catch(e => [])
 
 		let formats: AutoCompletionFormat[] = await Promise.all(
-			auto_completions.map(a =>
+			autoCompletions.map(a =>
 				readJSON(path.join(pluginPath, 'auto_completions', a)).catch(
 					e => undefined
 				)
@@ -382,7 +428,28 @@ export default class PluginLoader {
 
 		formats.forEach(({ path, definition } = {}) => {
 			if (path === undefined || definition === undefined) return
-			Provider.addPluginCompletion(path, definition)
+			Provider.addPluginCompletion(path, definition, disposables)
 		})
+	}
+
+	static async loadFileDefs(pluginPath: string, disposables: IDisposable[]) {
+		let fileDefs: string[] = await fs
+			.readdir(path.join(pluginPath, 'file_definitions'))
+			.catch(e => [])
+
+		disposables.push(
+			Provider.addPluginFileDefs(
+				pluginPath,
+				(
+					await Promise.all(
+						fileDefs.map(file =>
+							readJSON(
+								path.join(pluginPath, 'file_definitions', file)
+							).catch(e => undefined)
+						)
+					)
+				).flat()
+			)
+		)
 	}
 }

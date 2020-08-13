@@ -2,6 +2,7 @@
 	<v-flex>
 		<v-layout align-center>
 			<v-text-field
+				id="json-editing-input"
 				ref="input"
 				@keydown.enter.native="click"
 				:disabled="file_navigation === 'global'"
@@ -13,6 +14,7 @@
 				v-else
 				v-model="value"
 				@input="click"
+				@keydown.enter.native="click"
 				:label="label"
 				:items="items"
 				dense
@@ -21,7 +23,8 @@
 					top: false,
 					contentClass: 'json-input-suggestions',
 				}"
-				:hide-no-data="true"
+				hide-no-data
+				auto-select-first
 				no-data-text="No suggestions available..."
 				class="json-input-menu"
 			></v-combobox>

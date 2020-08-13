@@ -4,7 +4,7 @@ import path from 'path'
 import FetchDefinitions from '../../editor/FetchDefinitions'
 import FILE_SYSTEM from '../../FileSystem'
 import LoadingWindow from '../../../windows/LoadingWindow'
-import InformationWindow from '../Windows/Common/Information'
+import { createInformationWindow } from '../Windows/Common/CommonDefinitions'
 
 let CACHE: string
 
@@ -88,9 +88,8 @@ export async function parseAffectedFiles(log: string) {
 
 	lw.close()
 	if (res.length === 0)
-		new InformationWindow(
+		createInformationWindow(
 			'ERROR',
-			'Unable to fetch affected files from provided debug log. Make sure that you have the correct project selected.',
-			false
+			'Unable to fetch affected files from provided debug log. Make sure that you have the correct project selected.'
 		)
 }

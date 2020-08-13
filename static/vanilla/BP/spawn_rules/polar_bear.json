@@ -8,7 +8,6 @@
     "conditions": [
       {
         "minecraft:spawns_on_surface": {},
-        "minecraft:spawns_on_block_filter": "minecraft:ice",
         "minecraft:brightness_filter": {
           "min": 7,
           "max": 15,
@@ -31,7 +30,6 @@
       },
       {
         "minecraft:spawns_on_surface": {},
-        "minecraft:spawns_on_block_filter": "minecraft:ice",
         "minecraft:brightness_filter": {
           "min": 7,
           "max": 15,

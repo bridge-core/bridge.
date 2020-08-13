@@ -156,19 +156,19 @@
         },
         "base_cluster": {
             "may_replace": {
-                "$general.list.next_index": "$feature.general.block_reference"
+                "$dynamic.list.next_index": "$feature.general.block_reference"
             },
             "num_clusters": "$general.number",
             "cluster_radius": "$general.number"
         },
         "may_grow_on": {
-            "$general.list.next_index": "$feature.general.block_reference"
+            "$dynamic.list.next_index": "$feature.general.block_reference"
         },
         "may_grow_through": {
-            "$general.list.next_index": "$feature.general.block_reference"
+            "$dynamic.list.next_index": "$feature.general.block_reference"
         },
         "may_replace": {
-            "$general.list.next_index": "$feature.general.block_reference"
+            "$dynamic.list.next_index": "$feature.general.block_reference"
         },
 
         "$load": "$feature.general.branches_reference",

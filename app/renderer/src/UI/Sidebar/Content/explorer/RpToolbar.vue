@@ -2,7 +2,14 @@
 	<v-toolbar color="expanded_sidebar" flat height="30px">
 		<v-tooltip color="tooltip" bottom class="first">
 			<template v-slot:activator="{ on }">
-				<v-btn icon text @click.stop="refresh" v-on="on" class="toolbar-button" small>
+				<v-btn
+					icon
+					text
+					@click.stop="refresh"
+					v-on="on"
+					class="toolbar-button"
+					small
+				>
 					<v-icon small>mdi-refresh</v-icon>
 				</v-btn>
 			</template>
@@ -11,7 +18,14 @@
 
 		<v-tooltip color="tooltip" bottom>
 			<template v-slot:activator="{ on }">
-				<v-btn icon text @click.stop="unlink" v-on="on" class="toolbar-button" small>
+				<v-btn
+					icon
+					text
+					@click.stop="unlink"
+					v-on="on"
+					class="toolbar-button"
+					small
+				>
 					<v-icon small>mdi-lock-open</v-icon>
 				</v-btn>
 			</template>
@@ -20,7 +34,14 @@
 
 		<v-tooltip color="tooltip" bottom>
 			<template v-slot:activator="{ on }">
-				<v-btn icon text @click.stop="openCreateFileWindow" v-on="on" class="toolbar-button" small>
+				<v-btn
+					icon
+					text
+					@click.stop="openCreateFileWindow"
+					v-on="on"
+					class="toolbar-button"
+					small
+				>
 					<v-icon small>mdi-file-document</v-icon>
 				</v-btn>
 			</template>
@@ -29,7 +50,14 @@
 
 		<v-tooltip color="tooltip" bottom>
 			<template v-slot:activator="{ on }">
-				<v-btn icon text @click.stop="packageProject" v-on="on" class="toolbar-button" small>
+				<v-btn
+					icon
+					text
+					@click.stop="packageProject"
+					v-on="on"
+					class="toolbar-button"
+					small
+				>
 					<v-icon small>mdi-package-variant-closed</v-icon>
 				</v-btn>
 			</template>
@@ -38,7 +66,14 @@
 
 		<v-tooltip color="tooltip" bottom>
 			<template v-slot:activator="{ on }">
-				<v-btn icon text @click.stop="openInExplorer" v-on="on" class="toolbar-button" small>
+				<v-btn
+					icon
+					text
+					@click.stop="openInExplorer"
+					v-on="on"
+					class="toolbar-button"
+					small
+				>
 					<v-icon small>mdi-folder-multiple</v-icon>
 				</v-btn>
 			</template>
@@ -47,7 +82,14 @@
 
 		<v-tooltip color="tooltip" bottom>
 			<template v-slot:activator="{ on }">
-				<v-btn icon text @click.stop="deleteRP" v-on="on" class="toolbar-button" small>
+				<v-btn
+					icon
+					text
+					@click.stop="deleteRP"
+					v-on="on"
+					class="toolbar-button"
+					small
+				>
 					<v-icon small>mdi-delete</v-icon>
 				</v-btn>
 			</template>
@@ -65,10 +107,10 @@ import PackLinker from '../../../../Utilities/LinkPacks'
 import { CURRENT } from '../../../../constants'
 import { MOJANG_PATH } from '../../../../../../shared/Paths'
 import { join } from 'path'
-import ConfirmWindow from '../../../Windows/Common/Confirm'
 import trash from 'trash'
 import EventBus from '../../../../EventBus'
 import { createNotification } from '../../../Footer/create'
+import { createConfirmWindow } from '../../../Windows/Common/CommonDefinitions'
 
 export default {
 	name: 'explorer-rp-toolbar',
@@ -110,15 +152,17 @@ export default {
 			remote.shell.showItemInFolder(join(this.base_path, this.selected))
 		},
 		deleteRP() {
-			new ConfirmWindow(
+			createConfirmWindow(
+				'Do you really want to delete this pack?',
+				'Delete',
+				'Cancel',
 				async () => {
 					let lw = new LoadingWindow()
 					PackLinker.unlink(CURRENT.PROJECT)
 					await trash(CURRENT.RP_PATH)
 					lw.close()
 				},
-				null,
-				'Do you really want to delete this pack?'
+				() => {}
 			)
 		},
 	},

@@ -3,6 +3,8 @@ import FileType from '../../FileType'
 import TabSystem from '../../../TabSystem'
 import LightningCache from '../../LightningCache'
 import { IDisposable } from '../../../Types/disposable'
+import { compare } from 'compare-versions'
+import ProjectConfig from '../../../Project/Config'
 
 export const ENV = (
 	disposables: IDisposable[],
@@ -21,6 +23,10 @@ export const ENV = (
 	},
 	get FileType() {
 		return FileType.get(filePath)
+	},
+	Version: {
+		ProjectTarget: ProjectConfig.getFormatVersionSync(),
+		compare,
 	},
 	File: {
 		usesEntity(identifier: string) {

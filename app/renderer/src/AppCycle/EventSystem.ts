@@ -6,7 +6,7 @@ import { IDisposable } from '../Types/disposable'
 
 interface IEventState {
 	[event: string]: {
-		[uuid: string]: (...data: unknown[]) => void | Promise<void>
+		[uuid: string]: (...data: unknown[]) => void | Promise<unknown>
 	}
 }
 
@@ -14,7 +14,7 @@ const EventState: IEventState = {}
 
 export async function trigger(event: string, ...data: unknown[]) {
 	if (EventState[event] !== undefined)
-		await Promise.all(
+		return await Promise.all(
 			Object.values(EventState[event]).map(cb => cb(...data))
 		)
 }
@@ -37,6 +37,6 @@ export function on(
 export function once(event: string, cb: (...data: unknown[]) => void) {
 	let disposable = on(event, (...data: unknown[]) => {
 		disposable.dispose()
-		cb(...data)
+		return cb(...data)
 	})
 }

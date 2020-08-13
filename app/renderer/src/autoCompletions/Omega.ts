@@ -75,15 +75,32 @@ export class Omega {
 			original.value.push(...value)
 			original.object = detachMerge(original.object, object)
 		} else {
-			let new_value = value.map(v => prefix + v)
-			let new_object: any = {}
+			let newValues = value.filter(v => v[0] !== '$').map(v => prefix + v)
+			let newObject: any = {}
 			for (let key in object) {
-				new_object[prefix + key] = object[key]
+				if (key[0] !== '$') {
+					newObject[prefix + key] = object[key]
+				} else if (key === '$load') {
+					const result = this.walk(object[key])
+
+					if (Array.isArray(result))
+						newValues.push(...result.map(r => prefix + r))
+					else
+						newObject = detachMerge(
+							newObject,
+							Object.fromEntries(
+								Object.entries(result).map(([key, data]) => [
+									prefix + key,
+									data,
+								])
+							)
+						)
+				}
 			}
 
 			return this.combine(original, {
-				value: new_value,
-				object: new_object,
+				value: newValues,
+				object: newObject,
 			})
 		}
 	}

@@ -3,18 +3,14 @@
 process.env.BABEL_ENV = 'renderer'
 
 const path = require('path')
-const {
-	dependencies
-} = require('../package.json')
+const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 
 const BabiliWebpackPlugin = require('babili-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {
-	VueLoaderPlugin
-} = require('vue-loader')
+const { VueLoaderPlugin } = require('vue-loader')
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 /**
@@ -37,7 +33,8 @@ let rendererConfig = {
 		),
 	],
 	module: {
-		rules: [{
+		rules: [
+			{
 				test: /\.scss$/,
 				use: ['vue-style-loader', 'css-loader', 'sass-loader'],
 			},
@@ -80,9 +77,11 @@ let rendererConfig = {
 				use: {
 					loader: 'vue-loader',
 					options: {
+						esModule: true,
 						extractCSS: process.env.NODE_ENV === 'production',
 						loaders: {
-							sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
+							sass:
+								'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
 							scss: 'vue-style-loader!css-loader!sass-loader',
 							less: 'vue-style-loader!css-loader!less-loader',
 						},
@@ -140,9 +139,10 @@ let rendererConfig = {
 				removeAttributeQuotes: true,
 				removeComments: true,
 			},
-			nodeModules: process.env.NODE_ENV !== 'production' ?
-				path.resolve(__dirname, '../node_modules') :
-				false,
+			nodeModules:
+				process.env.NODE_ENV !== 'production'
+					? path.resolve(__dirname, '../node_modules')
+					: false,
 		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin(),
@@ -183,11 +183,13 @@ if (process.env.NODE_ENV === 'production') {
 
 	rendererConfig.plugins.push(
 		new BabiliWebpackPlugin(),
-		new CopyWebpackPlugin([{
-			from: path.join(__dirname, '../static'),
-			to: path.join(__dirname, '../dist/electron/static'),
-			ignore: ['.*'],
-		}, ]),
+		new CopyWebpackPlugin([
+			{
+				from: path.join(__dirname, '../static'),
+				to: path.join(__dirname, '../dist/electron/static'),
+				ignore: ['.*'],
+			},
+		]),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': '"production"',
 		}),

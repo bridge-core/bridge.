@@ -11,3 +11,7 @@ export function clearAll() {
 		disposables.forEach(disposable => disposable.dispose())
 	})
 }
+
+export function clear(pluginId: string) {
+	DisposableStore.get(pluginId)?.forEach(disposable => disposable.dispose())
+}

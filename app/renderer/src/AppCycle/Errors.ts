@@ -1,7 +1,7 @@
 import { createNotification } from '../UI/Footer/create'
 import { IDisposable } from '../Types/disposable'
-import InformationWindow from '../UI/Windows/Common/Information'
 import Store from '../../store/index'
+import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
 
 window.addEventListener('error', event => {
 	createErrorNotification(event.error)
@@ -30,7 +30,7 @@ export function createErrorNotification(error: Error): IDisposable {
 		color: 'error',
 		disposeOnMiddleClick: true,
 		onClick: () => {
-			new InformationWindow(`ERROR: ${short}`, message)
+			createInformationWindow(`ERROR: ${short}`, message)
 			notification.dispose()
 		},
 	})
