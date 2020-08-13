@@ -4,12 +4,12 @@ let EventsNode
 let TargetNode
 
 const addListeners = () => {
-	Node.parent.on.change.set(Node, validateEvent)
+	if (Node) Node.parent.on.change.set(Node, validateEvent)
 	if (EventsNode) EventsNode.on.change.set(Node, validateEvent)
 	if (TargetNode) TargetNode.on.change.set(Node, validateEvent)
 }
 const clearListeners = () => {
-	Node.parent.on.change.delete(Node)
+	if (Node) Node.parent.on.change.delete(Node)
 	if (TargetNode) TargetNode.on.change.delete(Node)
 	if (EventsNode) EventsNode.on.change.delete(Node)
 }

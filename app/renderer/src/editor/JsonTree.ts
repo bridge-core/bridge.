@@ -379,7 +379,7 @@ export default class JSONTree {
 
 		let c = key !== undefined ? this.children : this.parent.children
 		for (let i = 0; i < c.length; i++) {
-			if (c[i].parsed_key == (key || this.parsed_key)) {
+			if (c[i].parsed_key === (key || this.parsed_key)) {
 				c[i].on.destroy.forEach(func => func())
 
 				//HISTORY

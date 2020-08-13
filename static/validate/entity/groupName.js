@@ -62,5 +62,8 @@ const validateGroup = () => {
 	}
 }
 
-Node.on.destroy.set(Node, () => ComponentGroupsNode.on.change.delete(Node))
+Node.on.destroy.set(
+	Node,
+	() => ComponentGroupsNode && ComponentGroupsNode.on.change.delete(Node)
+)
 validateGroup()
