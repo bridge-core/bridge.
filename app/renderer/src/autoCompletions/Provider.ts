@@ -19,7 +19,7 @@ import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
 declare var __static: string
 
 let FILE_DEFS: FileDefinition[] = []
-let PLUGIN_FILE_DEFS: FileDefinition[] = []
+let PLUGIN_FILE_DEFS: Record<string, FileDefinition[]> = {}
 let PLUGIN_COMPLETIONS: { key: string; created: boolean }[][] = []
 let PLUGINS_TO_LOAD: any[] = []
 export let LIB_LOADED = false
@@ -144,19 +144,21 @@ class Provider {
 		PLUGIN_COMPLETIONS.forEach(comp => this.removeFromLib(comp))
 		PLUGIN_COMPLETIONS = []
 	}
-	static addPluginFileDef(def: FileDefinition) {
-		PLUGIN_FILE_DEFS.push(def)
+	static addPluginFileDefs(id: string, defs: FileDefinition[]) {
+		PLUGIN_FILE_DEFS[id] = defs
+
+		return {
+			dispose: () => delete PLUGIN_FILE_DEFS[id],
+		}
 	}
-	static removePluginFileDefs() {
-		PLUGIN_FILE_DEFS = []
-	}
+
 	static get FILE_DEFS() {
-		return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(
+		return FILE_DEFS.concat(Object.values(PLUGIN_FILE_DEFS).flat()).concat(
 			BridgeCore.FILE_DEFS as FileDefinition[]
 		)
 	}
 	get FILE_DEFS() {
-		return FILE_DEFS.concat(PLUGIN_FILE_DEFS).concat(
+		return FILE_DEFS.concat(Object.values(PLUGIN_FILE_DEFS).flat()).concat(
 			BridgeCore.FILE_DEFS as FileDefinition[]
 		)
 	}

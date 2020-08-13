@@ -1,6 +1,4 @@
 import Vue from 'vue'
-import Provider from '../../src/autoCompletions/Provider'
-import FileType from '../../src/editor/FileType'
 
 const state = {
 	installed_plugins: [],
@@ -10,10 +8,6 @@ const state = {
 
 const mutations = {
 	unloadPlugins(state) {
-		Provider.removePluginFileDefs()
-		Provider.removePluginCompletions()
-		FileType.reset()
-
 		Vue.set(state, 'installed_plugins', [])
 	},
 	finishedPluginLoading(state, addPlugins) {

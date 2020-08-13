@@ -60,6 +60,10 @@ export default class PluginLoader {
 	}
 
 	static async unloadPlugins() {
+		Provider.removePluginCompletions()
+		//Only resets legacy JSON highlighter cache & file creator definition cache.
+		//Can be removed once we have the new infrastructure in place
+		FileType.reset()
 		trigger('bridge:scriptRunner.resetCaches')
 
 		//INIT LEGACY INTERPRETER & UNLOAD LEGACY PLUGINS
@@ -238,7 +242,8 @@ export default class PluginLoader {
 						path.join(pluginPath, 'components'),
 						disposables
 					),
-					this.loadAutoCompletions(pluginPath),
+					this.loadAutoCompletions(pluginPath, disposables),
+					this.loadFileDefs(pluginPath, disposables),
 					this.loadThemeCSS(pluginPath, disposables),
 					loadCustomCommands(
 						path.join(pluginPath, 'commands'),
@@ -408,13 +413,16 @@ export default class PluginLoader {
 		return await loadCustomComponent(filePath, disposables, fileContent)
 	}
 
-	static async loadAutoCompletions(pluginPath: string) {
-		let auto_completions: string[] = await fs
+	static async loadAutoCompletions(
+		pluginPath: string,
+		disposables: IDisposable[]
+	) {
+		let autoCompletions: string[] = await fs
 			.readdir(path.join(pluginPath, 'auto_completions'))
 			.catch(e => [])
 
 		let formats: AutoCompletionFormat[] = await Promise.all(
-			auto_completions.map(a =>
+			autoCompletions.map(a =>
 				readJSON(path.join(pluginPath, 'auto_completions', a)).catch(
 					e => undefined
 				)
@@ -425,5 +433,26 @@ export default class PluginLoader {
 			if (path === undefined || definition === undefined) return
 			Provider.addPluginCompletion(path, definition)
 		})
+	}
+
+	static async loadFileDefs(pluginPath: string, disposables: IDisposable[]) {
+		let fileDefs: string[] = await fs
+			.readdir(path.join(pluginPath, 'file_definitions'))
+			.catch(e => [])
+
+		disposables.push(
+			Provider.addPluginFileDefs(
+				pluginPath,
+				(
+					await Promise.all(
+						fileDefs.map(file =>
+							readJSON(
+								path.join(pluginPath, 'file_definitions', file)
+							).catch(e => undefined)
+						)
+					)
+				).flat()
+			)
+		)
 	}
 }
