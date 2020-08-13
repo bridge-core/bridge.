@@ -27,6 +27,8 @@ function validateEvent() {
 		keys.length > 1 &&
 		includesOneOf(keys, ['sequence', 'randomize'], included)
 	) {
+		if (included.includes('weight')) return
+
 		Node.error = {
 			show: true,
 			message: `You may not combine "${included[0]}" with "${included[1]}"`,
