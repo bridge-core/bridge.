@@ -11,7 +11,7 @@
 <script>
 import TabSystem from '../../../TabSystem'
 import { JSONAction } from '../../../TabSystem/CommonHistory'
-import ColorPicker from '../../../../windows/ColorPicker'
+import { createColorPickerWindow } from '../../Windows/ColorPicker/definition'
 
 export default {
 	props: {
@@ -37,7 +37,7 @@ export default {
 	methods: {
 		openWindow() {
 			if (this.is_immutable) return
-			new ColorPicker(this.node_context.data, val => {
+			createColorPickerWindow(this.node_context.data, val => {
 				if (val === this.node_context.data) return
 				TabSystem.getHistory().add(
 					new JSONAction(
