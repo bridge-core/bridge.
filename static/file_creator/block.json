@@ -10,8 +10,7 @@
 
             "minecraft:block": {
                 "description": {
-                    "identifier": {},
-                    "register_to_creative_menu": true
+                    "identifier": {}
                 },
 
                 "components": {}
