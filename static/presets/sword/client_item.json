@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.sword"
+      },
+      "minecraft:icon": {
+        "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}"
+      },
+      "minecraft:render_offsets": "tools",
+      "minecraft:display_name": {}
+    }
+  }
+}
