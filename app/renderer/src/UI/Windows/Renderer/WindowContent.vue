@@ -431,3 +431,9 @@ i {
 	height: 3px;
 }
 </style>
+
+<style>
+.theme--dark .v-color-picker__input input {
+	color: #ffffff;
+}
+</style>
