@@ -424,7 +424,7 @@ class TabSystem {
 
 		let nav = this.getCurrentNavigation()
 		if (current.isDataPath(nav)) {
-			current.get(nav).data = ''
+			current.get(nav).edit('', true)
 		} else {
 			current.get(nav).remove(undefined, true)
 		}
