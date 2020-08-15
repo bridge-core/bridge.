@@ -37,7 +37,7 @@
         "documentation": "Biomes",
         "start_state": "biome/main",
         "lightning_cache": "biome",
-        "highlighter": "biome",
+        "language": "biome.js",
         "file_creator": "biome"
     },
     {
@@ -48,7 +48,7 @@
         "documentation": "Blocks",
         "start_state": "block/main",
         "lightning_cache": "block",
-        "highlighter": "block",
+        "language": "block.js",
         "file_creator": "block"
     },
     {
@@ -74,7 +74,7 @@
 
         "start_state": "feature/main",
         "lightning_cache": "feature",
-        "highlighter": "feature",
+        "language": "feature.js",
         "file_creator": "feature"
     },
     {
@@ -84,7 +84,7 @@
 
         "start_state": "feature_rule/main",
         "lightning_cache": "feature",
-        "highlighter": "feature_rule",
+        "language": "feature_rule.js",
         "file_creator": "feature_rule"
     },
     {
@@ -114,7 +114,7 @@
         },
         "start_state": "item/main",
         "lightning_cache": "item",
-        "highlighter": "item",
+        "language": "item.js",
         "file_creator": "item"
     },
     {
@@ -138,7 +138,7 @@
         "file_viewer": "json",
 
         "start_state": "loot_table/main",
-        "highlighter": "loot_table",
+        "language": "loot_table.js",
         "file_creator": "loot_table"
     },
     {
@@ -158,7 +158,7 @@
         "build_array_exceptions": [ "key" ],
         "documentation": "Recipes",
         "start_state": "recipe/main",
-        "highlighter": "recipe",
+        "language": "recipe.js",
         "file_creator": "recipe"
     },
     {
@@ -179,7 +179,7 @@
             "extend": "Spawn Rules"
         },
         "start_state": "spawn_rule/main",
-        "highlighter": "spawn_rule",
+        "language": "spawn_rule.js",
         "file_creator": "spawn_rule"
     },
     {
@@ -188,7 +188,7 @@
         "file_viewer": "json",
 
         "start_state": "trade_table/main",
-        "highlighter": "trade_table",
+        "language": "trade_table.js",
         "file_creator": "trade_table"
     },
 
@@ -227,7 +227,7 @@
         "build_array_exceptions": [ "particle_effects", "rotation", "position", "scale" ],
         "start_state": "animation/rp_main",
         "lightning_cache": "rp_animation",
-        "highlighter": "animation",
+        "language": "animation.js",
         "file_creator": "rp_animation"
     },
     {
@@ -239,7 +239,7 @@
         "build_array_exceptions": [ "remap_curve" ],
         "start_state": "animation_controller/rp_main",
         "lightning_cache": "rp_animation_controller",
-        "highlighter": "animation_controller",
+        "language": "animation_controller.js",
         "file_creator": "rp_animation_controller"
     },
     {
@@ -250,7 +250,7 @@
         
         "start_state": "attachable/main",
         "lightning_cache": "attachable",
-        "highlighter": "entity",
+        "language": "entity.js",
         "file_creator": "attachable"
     },
     {
@@ -276,7 +276,7 @@
         "rp_definition": true,
         
         "start_state": "client_item/main",
-        "highlighter": "item",
+        "language": "item.js",
         "file_creator": "client_item"
     },
     {
@@ -304,7 +304,7 @@
         
         "start_state": "particle/main",
         "lightning_cache": "particle",
-        "highlighter": "particle",
+        "language": "particle.js",
         "file_creator": "particle"
     },
     {
@@ -317,7 +317,7 @@
         "start_state": "render_controller/main",
         "lightning_cache": "render_controller",
         "file_creator": "render_controller",
-        "highlighter": "render_controller"
+        "language": "render_controller.js"
     },
 
     {

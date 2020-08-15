@@ -1,8 +1,0 @@
-{
-    "set": {},
-    "define": {
-        "keywords": ["minecraft", "pools", "entries", "bridge"],
-        "titles": ["type"],
-        "symbols": ["functions", "conditions", "tiers", "rolls"]
-    }
-}

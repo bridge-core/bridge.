@@ -1,8 +1,0 @@
-{
-    "set": {},
-    "define": {
-        "keywords": ["render_controllers"],
-        "titles": ["format_version", "rebuild_animation_matrices", "light_color_multiplier", "ignore_lighting"],
-        "symbols": ["arrays", "geometry", "part_visibility", "uv_anim", "textures", "geometries", "materials", "overlay_color"]
-    }
-}

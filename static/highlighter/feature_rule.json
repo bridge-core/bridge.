@@ -1,8 +1,0 @@
-{
-    "set": {},
-    "define": {
-        "keywords": ["minecraft", "description", "distribution", "conditions"],
-        "titles": ["format_version"],
-        "symbols": []
-    }
-}
