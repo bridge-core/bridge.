@@ -2,7 +2,7 @@
 	<div
 		v-if="first || tree.open"
 		v-intersect="onIntersect"
-		style="margin-left: 16px;"
+		style="margin-left: 1.25em;"
 	>
 		<template v-for="child in tree.children">
 			<details
@@ -22,6 +22,7 @@
 					:tree="child"
 					:isParentOnScreen="isOnScreen"
 				/>
+				{{ child.is_array ? ']' : '}' }}{{ tree.is_array ? ',' : '' }}
 			</details>
 
 			<TreeProperty
@@ -93,14 +94,7 @@ export default {
 		},
 	},
 	methods: {
-		getData({ data, meta }) {
-			if (data === '' || meta.language) return data
-			if (!Number.isNaN(Number(data))) return data
-			if (data === 'true' || data === 'false') return data
-			return `"${data}"`
-		},
 		onIntersect(entries) {
-			// debounce(() => (this.isOnScreen = entries[0].isIntersecting), 200)()
 			this.isOnScreen = entries[0].isIntersecting
 		},
 	},

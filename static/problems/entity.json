@@ -1,17 +1,17 @@
 {
     "bridge:find_one": [{
-            "is_warning": true,
+            "isWarning": true,
             "search": "minecraft:behavior.send_event",
             "error_message": "minecraft:behavior.send_event is known to crash Minecraft"
         },
         {
-            "is_warning": true,
+            "isWarning": true,
             "search": "minecraft:spell_effects",
             "error_message": "minecraft:spell_effects is known to crash Minecraft if used inside of loops"
         }
     ],
     "bridge:two_incompatible": {
-        "is_warning": true,
+        "isWarning": true,
         "first": "minecraft:rideable",
         "second": "minecraft:spawn_entity",
         "error_message": "Entities being ridden cannot use minecraft:spawn_entity"
@@ -79,7 +79,7 @@
         }
     },
     "bridge:behavior_check": {
-        "is_warning": true,
+        "isWarning": true,
         "error_message": "$failure_name missing"
     }
 }

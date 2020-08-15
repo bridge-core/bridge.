@@ -1,20 +1,28 @@
 <template>
 	<span>
-		<EditableHighlight
-			v-model="treeKey"
-			@click="tree.toggleOpen()"
+		<Highlight
+			v-if="!isInArray"
+			:class="{
+				'error-line': hasError && !tree.error.isDataError,
+				'warning-line': hasWarning && !tree.error.isDataError,
+			}"
+			@click="onClick"
+			:value="tree.key"
 			:isOnScreen="isOnScreen"
 			:language="language"
-			tagName="span"
-		/>:
-		<EditableHighlight
-			v-if="treeData !== ''"
-			v-model="treeData"
+		/>{{ !isInArray && tree.data !== '' ? ':' : '' }}
+		<Highlight
+			:class="{
+				'error-line': hasError && tree.error.isDataError,
+				'warning-line': hasWarning && tree.error.isDataError,
+			}"
+			v-if="tree.data !== ''"
+			:value="getArrayTransformedData(tree.data)"
 			:isOnScreen="isOnScreen"
-			:language="language"
-			tagName="span"
+			:language="dataLanguage"
 		/>
 		<template v-else>{}</template>
+
 		<br />
 	</span>
 </template>
@@ -33,30 +41,54 @@ export default {
 		language: String,
 	},
 	components: {
-		EditableHighlight,
+		Highlight,
+	},
+
+	methods: {
+		getArrayTransformedData(data) {
+			return this.getData(data) + (this.isInArray ? ',' : '')
+		},
+		getData(data) {
+			if (data === '' || this.tree.meta.language) return data
+			if (!Number.isNaN(Number(data))) return data
+			if (data === 'true' || data === 'false') return data
+			return `"${data}"`
+		},
+		onClick() {
+			this.tree.toggleOpen()
+		},
 	},
 
 	computed: {
-		treeKey: {
-			set(val) {
-				TabSystem.setCurrentUnsaved()
-
-				this.tree.editKey(val, true, false)
-			},
-			get() {
-				return this.tree.key
-			},
+		isInArray() {
+			return this.tree.parent && this.tree.parent.is_array
 		},
-		treeData: {
-			set(val) {
-				TabSystem.setCurrentUnsaved()
-
-				this.tree.edit(val, true, false)
-			},
-			get() {
-				return this.tree.data
-			},
+		dataLanguage() {
+			return this.tree.meta.language || this.language
+		},
+		hasError() {
+			return (
+				this.tree.error &&
+				this.tree.error.show &&
+				!this.tree.error.isWarning
+			)
+		},
+		hasWarning() {
+			return (
+				this.tree.error &&
+				this.tree.error.show &&
+				this.tree.error.isWarning
+			)
 		},
 	},
 }
 </script>
+
+<style>
+.error-line {
+	border-bottom: 2px dotted #f44336;
+}
+.warning-line {
+	border-bottom: 2px dotted #ffa000;
+}
+</style>

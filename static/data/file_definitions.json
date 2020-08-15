@@ -15,7 +15,7 @@
         "documentation": "Entity%20Events",
         "start_state": "animation/main",
         "lightning_cache": "animation",
-        "highlighter": "animation",
+        "language": "animation.js",
         "file_creator": "animation"
     },
     {
@@ -26,7 +26,7 @@
         "documentation": "Entity%20Events",
         "start_state": "animation_controller/main",
         "lightning_cache": "animation_controller",
-        "highlighter": "animation_controller",
+        "language": "animation_controller.js",
         "file_creator": "animation_controller"
     },
     {

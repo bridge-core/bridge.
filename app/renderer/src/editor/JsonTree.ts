@@ -67,7 +67,8 @@ export class TreeIterator {
 }
 
 export interface IError {
-	is_warning?: boolean
+	isDataError?: boolean
+	isWarning?: boolean
 	show?: boolean
 	message: string
 	fix?: {
@@ -124,12 +125,6 @@ export default class JSONTree {
 		this.meta = Vue.observable({})
 	}
 
-	get type() {
-		throw new Error('JSONTree.type is deprecated!')
-	}
-	set type(val) {
-		throw new Error('JSONTree.type is deprecated!')
-	}
 	get is_array() {
 		let { build_array_exceptions } = FileType.getData() ?? {}
 
@@ -193,8 +188,7 @@ export default class JSONTree {
 	}
 	get child_contains_error() {
 		for (let child of this.children) {
-			if (child.error !== undefined && !child.error.is_warning)
-				return true
+			if (child.error !== undefined && !child.error.isWarning) return true
 			else if (child.child_contains_error) return true
 		}
 		return false
@@ -489,12 +483,13 @@ export default class JSONTree {
 	) {
 		this.meta = Object.assign(this.meta, META)
 
-		const { is_color, validate } = META
+		const { is_color, validate, language } = META
 		if (is_color && this.data === '') this.edit('#1778D2')
 
 		if (validate) this.detectErrors(validate, filePath)
+		if (language) this.updateUUID(false)
 	}
-	loadMeta(
+	async loadMeta(
 		file_path = TabSystem.getCurrentFilePath(),
 		deep = false,
 		first = true
@@ -503,16 +498,25 @@ export default class JSONTree {
 
 		this.addMeta(PROVIDER.getMeta(this.path, file_path, this), file_path)
 
-		if (deep)
-			this.children.forEach(c => {
-				const id = requestIdleCallback(() => {
-					c.loadMeta(file_path, true, false)
-					this.cancelCallbacks.delete(id)
-					EventBus.trigger('updateTabUI')
+		if (deep) {
+			await Promise.all(
+				this.children.map(c => {
+					return new Promise(resolve => {
+						const id = requestIdleCallback(async () => {
+							await c.loadMeta(file_path, true, false)
+							this.cancelCallbacks.delete(id)
+							resolve()
+						})
+						this.cancelCallbacks.add(id)
+					})
 				})
-				this.cancelCallbacks.add(id)
-			})
-		if (first) this.updateUUID()
+			)
+
+			if (first) {
+				EventBus.trigger('updateTabUI')
+				this.updateUUID(false)
+			}
+		}
 	}
 	/**
 	 * ERROR DETECTION
@@ -561,18 +565,18 @@ export default class JSONTree {
 	}
 
 	openNode(val = true) {
-		this.updateUUID()
+		this.updateUUID(false)
 
 		this.open = val
 		return this
 	}
 	toggleOpen(updateUUID = true) {
 		this.open = !this.open
-		if (updateUUID) this.updateUUID()
+		if (updateUUID) this.updateUUID(false)
 		return this
 	}
 	toggleOpenDeep(val = this.open) {
-		this.updateUUID()
+		this.updateUUID(false)
 
 		this.open = !val
 		this.children.forEach(c => c.toggleOpenDeep(val))

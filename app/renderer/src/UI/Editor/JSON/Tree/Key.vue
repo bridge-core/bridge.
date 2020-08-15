@@ -1,7 +1,8 @@
 <template>
-	<EditableHighlight
-		v-model="treeKey"
+	<Highlight
+		tagName="summary"
 		@click="tree.toggleOpen()"
+		:value="treeKey"
 		:isOnScreen="isOnScreen"
 		:language="language"
 	/>
@@ -11,7 +12,6 @@
 import Highlight from '../Highlight.vue'
 import JSONTree from '../../../../editor/JsonTree'
 import TabSystem from '../../../../TabSystem'
-import EditableHighlight from '../../../Common/EditableHighlight'
 
 export default {
 	name: 'TreeKey',
@@ -21,19 +21,22 @@ export default {
 		language: String,
 	},
 	components: {
-		EditableHighlight,
+		Highlight,
 	},
 
 	computed: {
-		treeKey: {
-			set(val) {
-				TabSystem.setCurrentUnsaved()
+		isInArray() {
+			return this.tree.parent && this.tree.parent.is_array
+		},
+		treeKey() {
+			let brackets = '{}'
+			if (this.tree.is_array) brackets = '[]'
 
-				this.tree.editKey(val, true, false)
-			},
-			get() {
-				return this.tree.key
-			},
+			return `${!this.isInArray ? this.tree.key : ''} ${brackets[0]}${
+				this.tree.open
+					? ''
+					: `...${brackets[1]}${this.isInArray ? ',' : ''}`
+			}`
 		},
 	},
 }

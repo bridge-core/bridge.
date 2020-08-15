@@ -35,7 +35,7 @@
 			:open-delay="1400"
 			right
 			:nudge-right="error.fix ? 12 : 0"
-			:color="error.is_warning ? 'amber darken-2' : 'error'"
+			:color="error.isWarning ? 'amber darken-2' : 'error'"
 		>
 			<template v-slot:activator="{ on }">
 				<span v-on="on">
@@ -47,7 +47,7 @@
 						"
 						:class="
 							`object ${
-								error.is_warning ? 'warning-line' : 'error-line'
+								error.isWarning ? 'warning-line' : 'error-line'
 							}`
 						"
 						>{{ node_context.key }}</highlight-text

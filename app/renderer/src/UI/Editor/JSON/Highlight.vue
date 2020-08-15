@@ -1,5 +1,9 @@
 <template>
-	<component v-if="shouldRender" :is="tagName">
+	<component
+		@click="$emit('click', $event)"
+		v-if="shouldRender"
+		:is="tagName"
+	>
 		<Await
 			@load="$emit('load')"
 			@error="$emit('error')"
@@ -14,6 +18,7 @@
 		</Await>
 	</component>
 	<component
+		@click="$emit('click', $event)"
 		:is="tagName === 'summary' ? tagName : 'span'"
 		v-else
 		v-text="value"
@@ -58,10 +63,6 @@ export default {
 	},
 	methods: {
 		colorize(string) {
-			// It looks like editor.colorize(...) calls are too expensive.
-			// We need to collect requests to the web worker and send them together
-			// return Promise.resolve(string)
-
 			return editor
 				.colorize(string, this.language, {
 					theme: this.isDarkMode ? 'bridge-dark' : 'bridge-light',
