@@ -215,8 +215,10 @@ export default {
 			TabSystem.setCurrentFileNav(
 				`${this.node_context.path}/${this.node_context.data}`
 			)
-			const input = document.getElementById('json-editing-input')
-			if (input) input.focus()
+			this.$nextTick(() => {
+				const input = document.getElementById('json-editing-input')
+				if (input) input.focus()
+			})
 		},
 		fixError() {
 			if (typeof this.error.fix.run === 'string')
