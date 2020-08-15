@@ -11,15 +11,24 @@ Bridge.registerTokens({
 		['{', '}', 'delimiter.curly'],
 	],
 	keywords: ['return', 'loop', 'for_each', 'break', 'continue', 'this'],
-	identifiers: ['v', 't', 'c', 'q', 'variable', 'temp', 'context', 'query'],
+	identifiers: [
+		'v',
+		't',
+		'c',
+		'q',
+		'variable',
+		'temp',
+		'context',
+		'query',
+		'math',
+	],
 	tokenizer: {
 		root: [
 			[/'.*'|'.*'/, 'string'],
 			[/[0-9]+(\.[0-9]+)?/, 'number'],
 			[/true|false/, 'number'],
-			[/\=|\,|\!|%=|\*=|\+=|-=|\/=|<|=|>|<>/, 'definition'],
 			[
-				/[a-z_$][\w$]*/,
+				/[a-zA-Z_$][\w$]*/,
 				{
 					cases: {
 						'@keywords': 'keyword',
