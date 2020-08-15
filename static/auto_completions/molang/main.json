@@ -1,4 +1,44 @@
 {
+    "for_each": {
+        "$placeholder": "$molang.main"
+    },
+    "loop": {
+        "$placeholder": "$molang.main"
+    },
+
+    "c": {
+        ".": {
+            "$placeholder": {
+                "$molang.general.operator": "$molang.main"
+            }
+        }
+    },
+    "t": {
+        ".": {
+            "$placeholder": {
+                "$molang.general.operator": "$molang.main"
+            }
+        }
+    },
+    "v": {
+        ".": {
+            "$molang.general.variable": { "$molang.general.operator": "$molang.main" }
+        }
+    },
+    "m": {
+        ".": {
+            "$molang.general.math": {
+                "$molang.general.operator": "$molang.main"
+            }
+        }
+    },
+    "q": {
+        ".": {
+            "$molang.general.query": {
+                "$molang.general.operator": "$molang.main"
+            }
+        }
+    },
     "context": {
         ".": {
             "$placeholder": {
@@ -34,5 +74,7 @@
     },
     "this": { "$molang.general.operator": "$molang.main" },
     "return": "$molang.main",
+    "break": {},
+    "continue": {},
     "$general.decimal": "$molang.main"
 }
