@@ -1,11 +1,18 @@
 <template>
-	<Highlight
-		tagName="summary"
-		@click="tree.toggleOpen()"
-		:value="treeKey"
-		:isOnScreen="isOnScreen"
-		:language="language"
-	/>
+	<summary @click="onClick">
+		<v-icon small>
+			{{ tree.open ? 'mdi-chevron-down' : 'mdi-chevron-right' }}
+		</v-icon>
+		<Highlight
+			:class="{
+				'error-line': hasError && !tree.error.isDataError,
+				'warning-line': hasWarning && !tree.error.isDataError,
+			}"
+			:value="treeKey"
+			:isOnScreen="isOnScreen"
+			:language="language"
+		/>
+	</summary>
 </template>
 
 <script>
@@ -32,12 +39,40 @@ export default {
 			let brackets = '{}'
 			if (this.tree.is_array) brackets = '[]'
 
-			return `${!this.isInArray ? this.tree.key : ''} ${brackets[0]}${
+			return `${!this.isInArray ? this.tree.key + ' ' : ''}${
+				brackets[0]
+			}${
 				this.tree.open
 					? ''
 					: `...${brackets[1]}${this.isInArray ? ',' : ''}`
 			}`
 		},
+		hasError() {
+			return (
+				this.tree.error &&
+				this.tree.error.show &&
+				!this.tree.error.isWarning
+			)
+		},
+		hasWarning() {
+			return (
+				this.tree.error &&
+				this.tree.error.show &&
+				this.tree.error.isWarning
+			)
+		},
+	},
+	methods: {
+		onClick(event) {
+			event.preventDefault()
+			this.tree.toggleOpen()
+		},
 	},
 }
 </script>
+
+<style scoped>
+summary::-webkit-details-marker {
+	display: none;
+}
+</style>

@@ -1,5 +1,6 @@
 <template>
 	<span>
+		<v-icon style="opacity: 0.6;" small>mdi-chevron-right</v-icon>
 		<Highlight
 			v-if="!isInArray"
 			:class="{
@@ -16,12 +17,10 @@
 				'error-line': hasError && tree.error.isDataError,
 				'warning-line': hasWarning && tree.error.isDataError,
 			}"
-			v-if="tree.data !== ''"
 			:value="getArrayTransformedData(tree.data)"
 			:isOnScreen="isOnScreen"
 			:language="dataLanguage"
 		/>
-		<template v-else>{}</template>
 
 		<br />
 	</span>
@@ -46,6 +45,7 @@ export default {
 
 	methods: {
 		getArrayTransformedData(data) {
+			if (data === '') return '{}'
 			return this.getData(data) + (this.isInArray ? ',' : '')
 		},
 		getData(data) {
