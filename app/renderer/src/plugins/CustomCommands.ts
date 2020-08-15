@@ -106,7 +106,7 @@ export async function registerCustomCommand(
 				},
 				parseCommands: parseCommands,
 				insertAutoCompletions(path: string, definition: unknown) {
-					Provider.addPluginCompletion(path, definition)
+					Provider.addPluginCompletion(path, definition, disposables)
 				},
 				registerSelector: (
 					selectorKey: string,
