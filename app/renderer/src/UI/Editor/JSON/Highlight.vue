@@ -1,9 +1,5 @@
 <template>
-	<component
-		@click="$emit('click', $event)"
-		v-if="shouldRender"
-		:is="tagName"
-	>
+	<span @click="$emit('click', $event)" v-if="shouldRender">
 		<Await
 			@load="$emit('load')"
 			@error="$emit('error')"
@@ -16,8 +12,8 @@
 				<span v-text="value" />
 			</template>
 		</Await>
-	</component>
-	<component
+	</span>
+	<span
 		@click="$emit('click', $event)"
 		:is="tagName === 'summary' ? tagName : 'span'"
 		v-else

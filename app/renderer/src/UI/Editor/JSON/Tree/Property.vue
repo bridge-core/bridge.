@@ -1,26 +1,52 @@
 <template>
 	<span>
-		<v-icon style="opacity: 0.6;" small>mdi-chevron-right</v-icon>
-		<Highlight
+		<v-icon style="opacity: 0.5;" small>mdi-chevron-right</v-icon>
+		<v-tooltip
 			v-if="!isInArray"
-			:class="{
-				'error-line': hasError && !tree.error.isDataError,
-				'warning-line': hasWarning && !tree.error.isDataError,
-			}"
-			@click="onClick"
-			:value="tree.key"
-			:isOnScreen="isOnScreen"
-			:language="language"
-		/>{{ !isInArray && tree.data !== '' ? ':' : '' }}
-		<Highlight
-			:class="{
-				'error-line': hasError && tree.error.isDataError,
-				'warning-line': hasWarning && tree.error.isDataError,
-			}"
-			:value="getArrayTransformedData(tree.data)"
-			:isOnScreen="isOnScreen"
-			:language="dataLanguage"
-		/>
+			:color="tree.error && tree.error.isWarning ? 'warning' : 'error'"
+			:disabled="!tree.error || tree.error.isDataError"
+			right
+		>
+			<template v-slot:activator="{ on, attrs }">
+				<span v-on="on">
+					<Highlight
+						:class="{
+							'error-line': hasError && !tree.error.isDataError,
+							'warning-line':
+								hasWarning && !tree.error.isDataError,
+						}"
+						@click="onClick"
+						:value="tree.key"
+						:isOnScreen="isOnScreen"
+						:language="language"
+					/>
+				</span>
+			</template>
+			<span v-if="tree.error">{{ tree.error.message }}</span>
+		</v-tooltip>
+		<span>{{ !isInArray && tree.data !== '' ? ':' : '' }}</span>
+
+		<v-tooltip
+			:color="tree.error && tree.error.isWarning ? 'warning' : 'error'"
+			:disabled="!tree.error || !tree.error.isDataError"
+			right
+		>
+			<template v-slot:activator="{ on, attrs }">
+				<span v-on="on">
+					<Highlight
+						:class="{
+							'error-line': hasError && tree.error.isDataError,
+							'warning-line':
+								hasWarning && tree.error.isDataError,
+						}"
+						:value="getData(tree.data)"
+						:isOnScreen="isOnScreen"
+						:language="dataLanguage"
+					/>
+				</span>
+			</template>
+			<span v-if="tree.error">{{ tree.error.message }}</span>
+		</v-tooltip>
 
 		<br />
 	</span>
@@ -44,12 +70,9 @@ export default {
 	},
 
 	methods: {
-		getArrayTransformedData(data) {
-			if (data === '') return '{}'
-			return this.getData(data) + (this.isInArray ? ',' : '')
-		},
 		getData(data) {
-			if (data === '' || this.tree.meta.language) return data
+			if (data === '') return '{}'
+			if (this.tree.meta.language) return data
 			if (!Number.isNaN(Number(data))) return data
 			if (data === 'true' || data === 'false') return data
 			return `"${data}"`

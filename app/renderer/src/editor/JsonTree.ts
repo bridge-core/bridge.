@@ -193,6 +193,13 @@ export default class JSONTree {
 		}
 		return false
 	}
+	get child_contains_warning() {
+		for (let child of this.children) {
+			if (child.error !== undefined && child.error.isWarning) return true
+			else if (child.child_contains_warning) return true
+		}
+		return false
+	}
 	get isLoadingMetaData() {
 		if (this.cancelCallbacks.size > 0) return true
 

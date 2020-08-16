@@ -22,7 +22,7 @@
 					:tree="child"
 					:isParentOnScreen="isOnScreen"
 				/>
-				{{ child.is_array ? ']' : '}' }}{{ tree.is_array ? ',' : '' }}
+				{{ child.is_array ? ']' : '}' }}
 			</details>
 
 			<TreeProperty
