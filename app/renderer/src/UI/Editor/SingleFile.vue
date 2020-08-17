@@ -35,9 +35,11 @@
 		/> -->
 		<JSONEditor
 			v-else-if="file_viewer === 'json'"
+			:tabId="tab_id"
 			:json="jsonObject"
 			:availableHeight="available_height - 4"
 			:filePath="file.file_path"
+			:isActive="is_active"
 			:isImmutable="file.is_immutable"
 			:language="getLanguage(file.file_path)"
 		/>

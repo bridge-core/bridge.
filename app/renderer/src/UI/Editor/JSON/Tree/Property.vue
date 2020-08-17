@@ -14,6 +14,7 @@
 							'error-line': hasError && !tree.error.isDataError,
 							'warning-line':
 								hasWarning && !tree.error.isDataError,
+							selected: isSelected(),
 						}"
 						@click="onClick"
 						:value="tree.key"
@@ -38,7 +39,9 @@
 							'error-line': hasError && tree.error.isDataError,
 							'warning-line':
 								hasWarning && tree.error.isDataError,
+							selected: isDataSelected(),
 						}"
+						@click="onDataClick"
 						:value="getData(tree.data)"
 						:isOnScreen="isOnScreen"
 						:language="dataLanguage"
@@ -57,6 +60,7 @@ import Highlight from '../Highlight.vue'
 import JSONTree from '../../../../editor/JsonTree'
 import TabSystem from '../../../../TabSystem'
 import EditableHighlight from '../../../Common/EditableHighlight'
+import Interact from './shared.ts'
 
 export default {
 	name: 'TreeKey',
@@ -68,24 +72,9 @@ export default {
 	components: {
 		Highlight,
 	},
-
-	methods: {
-		getData(data) {
-			if (data === '') return '{}'
-			if (this.tree.meta.language) return data
-			if (!Number.isNaN(Number(data))) return data
-			if (data === 'true' || data === 'false') return data
-			return `"${data}"`
-		},
-		onClick() {
-			this.tree.toggleOpen()
-		},
-	},
+	mixins: [Interact],
 
 	computed: {
-		isInArray() {
-			return this.tree.parent && this.tree.parent.is_array
-		},
 		dataLanguage() {
 			return this.tree.meta.language || this.language
 		},
@@ -113,5 +102,9 @@ export default {
 }
 .warning-line {
 	border-bottom: 2px dotted #ffa000;
+}
+.selected {
+	font-style: italic;
+	background: rgba(119, 119, 119, 0.1);
 }
 </style>

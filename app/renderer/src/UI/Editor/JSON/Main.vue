@@ -1,7 +1,54 @@
 <template>
 	<div :style="`height: ${availableHeight}px; overflow-y: auto;`">
 		<UtilBar />
-		<TreeRenderer style="margin-top: 12px;" :tree="jsonTree" :language="language" />
+		<TreeRenderer
+			:style="
+				`height: ${availableHeight -
+					170 * !this.isImmutable}px; margin-top: 12px;`
+			"
+			:tree="jsonTree"
+			:language="language"
+		/>
+		<v-divider />
+
+		<v-layout style="margin-right: 0.75em;" v-if="!isImmutable">
+			<template
+				v-if="
+					$store.state.Settings.bridge_predictions &&
+						isKnownFileType()
+				"
+			>
+				<predicting-input
+					:render_object="jsonTree"
+					:tab_id="tabId"
+					:file_navigation="fileNavigation"
+					:current_file_path="filePath"
+					:is_active="isActive"
+				/>
+				<json-input
+					ref="edit"
+					:render_object="jsonTree"
+					:tab_id="tabId"
+					type="edit"
+					:file_navigation="fileNavigation"
+					:current_file_path="filePath"
+					:is_active="isActive"
+				/>
+			</template>
+			<template v-else>
+				<json-input
+					v-for="input_type in ['object', 'value', 'edit']"
+					:ref="input_type"
+					:render_object="jsonTree"
+					:tab_id="tabId"
+					:type="input_type"
+					:key="`${input_type}`"
+					:file_navigation="fileNavigation"
+					:current_file_path="filePath"
+					:is_active="isActive"
+				/>
+			</template>
+		</v-layout>
 	</div>
 </template>
 
@@ -11,12 +58,17 @@ import TreeRenderer from './Tree'
 import JSONTree from '../../../editor/JsonTree'
 import InternalJSON from '../../../editor/Json'
 import TabSystem from '../../../TabSystem'
+import FileType from '../../../editor/FileType'
+import JsonInput from '../JsonEditor/JsonInput'
+import PredictingInput from '../JsonEditor/PredictingInput'
 
 export default {
 	name: 'JSONEditor',
 	components: {
 		UtilBar,
 		TreeRenderer,
+		JsonInput,
+		PredictingInput,
 	},
 	props: {
 		json: Object,
@@ -27,6 +79,8 @@ export default {
 			default: 'json',
 		},
 		isImmutable: Boolean,
+		isActive: Boolean,
+		tabId: Number,
 	},
 
 	computed: {
@@ -40,6 +94,14 @@ export default {
 			TabSystem.setCurrentContent(tree)
 
 			return tree
+		},
+		fileNavigation() {
+			return TabSystem.getCurrentNavigation()
+		},
+	},
+	methods: {
+		isKnownFileType() {
+			return FileType.get() !== 'unknown'
 		},
 	},
 }

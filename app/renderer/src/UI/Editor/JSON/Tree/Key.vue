@@ -1,6 +1,6 @@
 <template>
-	<summary @click="onClick">
-		<v-icon small>
+	<summary :class="{ selected: isSelected() }" @click="onClick">
+		<v-icon v-ripple @click="onIconClick" small>
 			{{ tree.open ? 'mdi-chevron-down' : 'mdi-chevron-right' }}
 		</v-icon>
 
@@ -59,6 +59,7 @@
 import Highlight from '../Highlight.vue'
 import JSONTree from '../../../../editor/JsonTree'
 import TabSystem from '../../../../TabSystem'
+import Interact from './shared.ts'
 
 export default {
 	name: 'TreeKey',
@@ -70,11 +71,9 @@ export default {
 	components: {
 		Highlight,
 	},
+	mixins: [Interact],
 
 	computed: {
-		isInArray() {
-			return this.tree.parent && this.tree.parent.is_array
-		},
 		brackets() {
 			if (this.tree.is_array) return '[]'
 			return '{}'
@@ -103,16 +102,15 @@ export default {
 			return this.tree.child_contains_warning
 		},
 	},
-	methods: {
-		onClick(event) {
-			event.preventDefault()
-			this.tree.toggleOpen()
-		},
-	},
 }
 </script>
 
 <style scoped>
+summary {
+	outline: none;
+	cursor: pointer;
+	transition: all ease-in-out 0.1s;
+}
 summary::-webkit-details-marker {
 	display: none;
 }
