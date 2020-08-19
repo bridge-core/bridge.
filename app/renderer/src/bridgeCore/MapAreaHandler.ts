@@ -80,9 +80,7 @@ export default async function MapAreaHandler({
 				`animation_controllers/controller.animation.map_area.${identifier}/states`,
 				{
 					default: {
-						transitions: [
-							{ [`map_area_${identifier}`]: trans_arg },
-						],
+						transitions: [{ in_area: trans_arg }],
 					},
 					in_area: {
 						transitions: [{ default: `!(${trans_arg})` }],
@@ -123,7 +121,7 @@ export default async function MapAreaHandler({
 
 				const ANIM = new Animation()
 				set(ANIM, `animations/animation.map_area_timer.${identifier}`, {
-					animation_length: timer.time,
+					animation_length: timer.time + 0.05,
 					loop: timer.looping,
 					timeline: {
 						[timer.time]: Object.values(timer.event || {})
@@ -131,6 +129,7 @@ export default async function MapAreaHandler({
 							.flat(),
 					},
 				})
+
 				await ANIM.save(
 					join(
 						CURRENT.PROJECT_PATH,
