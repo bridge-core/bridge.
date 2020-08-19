@@ -419,6 +419,8 @@ class Provider {
 		if (template[`$dynamic_template.${dyn}`] !== undefined) {
 			return this.compileTemplate(template[`$dynamic_template.${dyn}`])
 		}
+		if (template.$load)
+			template = { ...template, ...this.omegaExpression(template.$load) }
 		return template[dyn || '$fallback'] || template['$default']
 	}
 }
