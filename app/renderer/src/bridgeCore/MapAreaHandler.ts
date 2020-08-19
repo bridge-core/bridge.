@@ -11,9 +11,9 @@ let A_C: AnimationController
 function generateTransArg(from: number[], to: number[]) {
 	let str = ''
 	for (let i = 0; i < 3; i++)
-		str += `query.get_position(${i}) >= ${from[i] || 0} && `
+		str += `query.position(${i}) >= ${from[i] || 0} && `
 	for (let i = 0; i < 3; i++)
-		str += `query.get_position(${i}) <= ${to[i] || 0} && `
+		str += `query.position(${i}) <= ${to[i] || 0} && `
 
 	return str.substring(0, str.length - 4)
 }
