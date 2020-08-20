@@ -27,9 +27,10 @@
 				auto-select-first
 				no-data-text="No suggestions available..."
 				class="json-input-menu"
+				hide-details
 			></v-combobox>
 			<v-btn
-				style="margin-left: 4px;"
+				style="margin-left: 4px; margin-right: 12px;"
 				color="default_button"
 				@click="click"
 				:disabled="type === 'edit' && file_navigation === 'global'"

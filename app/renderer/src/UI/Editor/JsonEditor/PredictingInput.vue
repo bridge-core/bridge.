@@ -17,6 +17,7 @@
 				auto-select-first
 				no-data-text="No suggestions available..."
 				dense
+				hide-details
 				class="json-input-menu"
 			></v-combobox>
 
