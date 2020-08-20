@@ -1,17 +1,22 @@
 <template>
-	<div :style="`height: ${availableHeight}px; overflow-y: auto;`">
+	<div :style="`height: ${availableHeight}px;`">
 		<UtilBar />
 		<TreeRenderer
 			:style="
 				`height: ${availableHeight -
-					170 * !this.isImmutable}px; margin-top: 12px;`
+					170 *
+						!this
+							.isImmutable}px; margin-top: 12px; overflow-y: auto;`
 			"
 			:tree="jsonTree"
 			:language="language"
 		/>
 		<v-divider />
 
-		<v-layout style="margin-right: 0.75em;" v-if="!isImmutable">
+		<v-layout
+			style="margin: 0.75em; align-items: center;"
+			v-if="!isImmutable"
+		>
 			<template
 				v-if="
 					$store.state.Settings.bridge_predictions &&
