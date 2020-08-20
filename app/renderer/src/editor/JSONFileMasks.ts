@@ -113,6 +113,7 @@ export class JSONFileMasks {
 		this.data = undefined
 	}
 	static async saveMasks() {
+		await fs.mkdir(path.join(CURRENT.PROJECT_PATH, 'bridge'))
 		await writeJSON(
 			path.join(CURRENT.PROJECT_PATH, 'bridge/.file_masks'),
 			this.data,
