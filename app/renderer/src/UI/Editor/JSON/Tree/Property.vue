@@ -8,20 +8,22 @@
 			right
 		>
 			<template v-slot:activator="{ on, attrs }">
-				<span v-on="on">
+				<summary
+					v-on="on"
+					style="display: inline;"
+					:class="{
+						'error-line': hasError && !tree.error.isDataError,
+						'warning-line': hasWarning && !tree.error.isDataError,
+						selected: isSelected(),
+					}"
+				>
 					<Highlight
-						:class="{
-							'error-line': hasError && !tree.error.isDataError,
-							'warning-line':
-								hasWarning && !tree.error.isDataError,
-							selected: isSelected(),
-						}"
 						@click="onClick"
 						:value="tree.key"
 						:isOnScreen="isOnScreen"
 						:language="language"
 					/>
-				</span>
+				</summary>
 			</template>
 			<span v-if="tree.error">{{ tree.error.message }}</span>
 		</v-tooltip>
@@ -33,20 +35,22 @@
 			right
 		>
 			<template v-slot:activator="{ on, attrs }">
-				<span v-on="on">
+				<summary
+					v-on="on"
+					style="display: inline;"
+					:class="{
+						'error-line': hasError && tree.error.isDataError,
+						'warning-line': hasWarning && tree.error.isDataError,
+						selected: isDataSelected(),
+					}"
+				>
 					<Highlight
-						:class="{
-							'error-line': hasError && tree.error.isDataError,
-							'warning-line':
-								hasWarning && tree.error.isDataError,
-							selected: isDataSelected(),
-						}"
 						@click="onDataClick"
 						:value="getData(tree.data)"
 						:isOnScreen="isOnScreen"
 						:language="dataLanguage"
 					/>
-				</span>
+				</summary>
 			</template>
 			<span v-if="tree.error">{{ tree.error.message }}</span>
 		</v-tooltip>
@@ -103,8 +107,13 @@ export default {
 .warning-line {
 	border-bottom: 2px dotted #ffa000;
 }
-.selected {
+.theme--light .selected {
 	font-style: italic;
-	background: rgba(119, 119, 119, 0.1);
+	background: rgba(65, 65, 65, 0.2);
+}
+
+.theme--dark .selected {
+	font-style: italic;
+	background: rgba(135, 135, 135, 0.2);
 }
 </style>
