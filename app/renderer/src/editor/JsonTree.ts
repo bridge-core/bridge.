@@ -523,6 +523,8 @@ export default class JSONTree {
 				EventBus.trigger('updateTabUI')
 				this.updateUUID(false)
 			}
+		} else if (first) {
+			this.updateUUID(false)
 		}
 	}
 	/**
