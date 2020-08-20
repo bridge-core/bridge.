@@ -117,3 +117,11 @@ export default {
 	background: rgba(135, 135, 135, 0.2);
 }
 </style>
+
+<style scoped>
+summary {
+	outline: none;
+	cursor: pointer;
+	transition: all ease-in-out 0.1s;
+}
+</style>
