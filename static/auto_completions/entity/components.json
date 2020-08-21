@@ -26,7 +26,8 @@
 			"minecraft:trade_resupply",
 			"minecraft:trust",
 			"minecraft:wants_jockey",
-			"minecraft:equip_item"
+			"minecraft:equip_item",
+			"minecraft:out_of_control"
 		]
 	},
 	"minecraft:addrider": {
@@ -291,9 +292,19 @@
  ],
 	"minecraft:burns_in_daylight": {},
 	"minecraft:can_climb": {},
-	"minecraft:can_fly": {
-		"value": "$general.boolean"
-	},
+	"$versioned_template.minecraft:can_fly": [
+		{
+			"$if": "$format_version >= 1.16.0",
+			"$data": "$general.boolean"
+		},
+		{
+			"$if": "$format_version < 1.16.0",
+			"$data": {
+				"value": "$general.boolean"
+			}
+		}
+	],
+	"minecraft:can_fly": "$general.boolean",
 	"minecraft:can_power_jump": {},
 	"minecraft:celebrate_hunt": {
 		"celebration_targets": "$entity.filters",
@@ -306,6 +317,16 @@
 			"range_max": "$general.number"
 		}
 	},
+	"$versioned_template.minecraft:inside_block_identifier": [
+		{
+			"$if": "$project_target_version >= 1.16.100",
+			"$data": {
+				"block_list": {
+					"$dynamic.list.next_index": "$general.block_identifier"
+				}
+			}
+		}
+	],
 	"minecraft:collision_box": {
 		"width": "$general.number",
 		"height": "$general.number"
@@ -883,6 +904,12 @@
 	"minecraft:on_hurt": "$entity.general.event_definition",
 	"minecraft:on_hurt_by_player": "$entity.general.event_definition",
 	"minecraft:on_ignite": "$entity.general.event_definition",
+	"$versioned_template.minecraft:out_of_control": [
+		{
+			"$if":"$project_target_version >= 1.16.100",
+			"$data": {}
+		}
+	],
 	"minecraft:on_start_landing": {
 		"@meta": {
 			"validate": {
