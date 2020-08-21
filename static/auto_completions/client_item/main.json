@@ -18,12 +18,22 @@
             "minecraft:hover_text_color": "$general.minecraft_color",
 
             "minecraft:render_offsets": "$client_item.general.render_offsets",
-            "minecraft:creative_category": {
-                "parent": "$client_item.general.item_group_reference"
-            },
-            "minecraft:armor": {
-                "texture_type": "$client_item.general.armor_types"
-            },
+            "$versioned_template.minecraft:creative_category":[
+                {
+                    "$if":"$project_target_version >= 1.16...",
+                    "$data": {
+                        "parent": "$client_item.general.item_group_reference"
+                    }
+                }
+            ],
+            "$versioned_template.minecraft:armor":[
+                {
+                    "$if":"$project_target_version >= 1.16...",
+                    "$data": {
+                        "texture_type": "$client_item.general.armor_types"
+                    }
+                }
+            ],
             "$versioned_template.minecraft:display_name": [
                 {
                     "$if": "$project_target_version >= 1.16.100",
