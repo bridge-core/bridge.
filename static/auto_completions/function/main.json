@@ -155,6 +155,36 @@
 		},
 		"$function.general.sound_definitions": {}
 	},
+	"playanimation": {
+		"$function.general.target_selector": {
+			"$dynamic.cache.rp_animation.ids": {
+				"$placeholder": {
+					"$general.number": {
+						"$molang.embedded": "$dynamic.cache.rp_animation_controller.ids"
+					}
+				}
+			}
+		}
+	},
+	"ride": {
+		"$function.general.target_selector": {
+			"summon_ride": {
+				"$function.general.entity_identifier": {
+					"$function.general.ride_rules": "$dynamic.cache.entity.events"
+				}
+			},
+			"start_riding": {
+				"$function.general.target_selector": {
+					"$function.general.teleport_rules": "$function.general.how_to_fill"
+				}
+			},
+
+			"stop_riding": {},
+			"summon_rider": {
+				"$function.general.entity_identifier": "$dynamic.cache.entity.events"
+			}
+		}
+	},
 	"reload": {},
 	"replaceitem": {
 		"block": {
@@ -285,6 +315,38 @@
 		}
 	},
 	"setmaxplayers": "$general.number",
+	"structure": {
+		"save": {
+			"$placeholder": {
+				"$function.general.location": {
+					"$function.general.location": {
+						"$function.general.location": {
+							"$function.general.location": {
+								"$function.general.location": {
+									"$function.general.location": {
+										"$general.boolean": ["disk", "memory"],
+										"disk": {},
+										"memory": {}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"load": {
+			"$placeholder": {
+				"$function.general.structure_rotations": {
+					"$function.general.mirror": {
+						"$general.boolean": {
+							"$general.boolean": "$general.number"
+						}
+					}
+				}
+			}
+		}
+	},
 	"setworldspawn": {
 		"$function.general.location": {
 			"$function.general.location": "$function.general.location"
