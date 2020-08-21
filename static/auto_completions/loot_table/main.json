@@ -7,7 +7,30 @@
 				"bonus_rolls": "$general.number",
 				"bonus_chance": "$general.decimal"
 			},
-			"rolls": "$general.number",
+			"rolls": {
+				"@import.value.number": "$general.number",
+				"min": "$general.number",
+				"max": "$general.number",
+
+				"@meta": { 
+					"validate": [
+						{
+							"confirm": "Bridge.Node.children.length === 0 && (Bridge.Node.data === '' || Number.isNaN(Number(Bridge.Node.data)))",
+							"then": {
+								"show": true,
+								"message": "Invalid data type: Expected number or min/max object"
+							}
+						},
+						{
+							"confirm": "Bridge.Node.children.length > 0 && (Bridge.Node.children.length !== 2 || !Bridge.Node.get('min') || !Bridge.Node.get('max'))",
+							"then": {
+								"show": true,
+								"message": "Invalid data type: Expected number or min/max object"
+							}
+						}
+					]
+				}			
+			},
 			"entries": {
 				"$dynamic.list.next_index": {
 					"type": [
