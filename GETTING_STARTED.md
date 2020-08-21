@@ -104,7 +104,7 @@ Snippets can be used by pressing `ctrl + q` while you have a JSON file open. Sni
 ### Custom syntax
 
 bridge. has custom syntax in JSON files that allow you to make complex features quickly.
-An example of custom syntax is the `bridge:item_equipped_sensor` component which can be found in item behavior files. This component aloows you to easily execute commands when you hold the item, trigger events when you equip/unequip the item and have components active on the player while holding/not holding the item.
+An example of custom syntax is the `bridge:item_equipped_sensor` component which can be found in item behavior files. This component allows you to easily execute commands when you hold the item, trigger events when you equip/unequip the item and have components active on the player while holding/not holding the item.
 
 ![bridge:item_equipped_sensor](https://github.com/bridge-core/bridge./blob/master/images/getting_started_15.png)
 
