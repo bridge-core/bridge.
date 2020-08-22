@@ -1,5 +1,4 @@
 import SETTINGS from '../../store/Settings'
-import UpdateWindow from '../../windows/NewUpdateWindow'
 import { fetchLatestJson } from '../../src/Utilities/updateApp'
 import { CONNECTION } from '../../src/Utilities/ConnectionStatus'
 import { setupDefaultMenus } from '../UI/Toolbar/setupDefaults'
@@ -10,6 +9,7 @@ import './DropFile'
 import './ResizeWatcher'
 import './Errors'
 import Store from '../../store/index'
+import { createUpdateAppWindow } from '../UI/Windows/UpdateApp/definition'
 
 export default async function startUp() {
 	SETTINGS.setup()
@@ -39,7 +39,7 @@ export default async function startUp() {
 				message: 'Update Available',
 				textColor: 'white',
 				onClick: () => {
-					new UpdateWindow(updateData)
+					createUpdateAppWindow(updateData)
 				},
 			})
 		}
@@ -58,6 +58,7 @@ export default async function startUp() {
 			},
 		})
 	}
+
 	if (Store.state.Settings.open_in_fullscreen) {
 		remote.getCurrentWindow().maximize()
 	}
