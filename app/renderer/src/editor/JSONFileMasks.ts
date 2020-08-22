@@ -16,6 +16,7 @@ import { BridgeCore } from '../bridgeCore/main'
 import JSONTree from './JsonTree'
 import { promises as fs } from 'fs'
 import { uuid } from '../Utilities/useAttr'
+import LightningCache from './LightningCache'
 
 export class JSONMask {
 	protected data: { [channel: string]: any }
@@ -189,12 +190,16 @@ export class JSONFileMasks {
 		}
 
 		let { format_version, cache_content, file_version } = loaded
+		let tree
 		if (format_version === 1) {
-			data = JSONTree.buildFromCache(cache_content).toJSON()
+			tree = JSONTree.buildFromCache(cache_content)
+			data = tree.toJSON()
 		} else {
+			tree = JSONTree.buildFromObject(cache_content)
 			data = cache_content
 		}
 		data = await BridgeCore.beforeSave(data, file_path, depth, true)
+		await LightningCache.add(file_path, tree)
 
 		await fs.mkdir(path.dirname(file_path), { recursive: true })
 		return writeJSON(file_path, data, true, file_version)

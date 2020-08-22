@@ -12,6 +12,9 @@ import { splitSelectorArgs, parseCommands } from '../bridgeCore/functions/parse'
 import JSONTree from '../editor/JsonTree'
 import { IDisposable } from '../Types/disposable'
 import { createLimitedEnv } from './scripts/require'
+import FileSystem from '../FileSystem'
+import LightningCache from '../editor/LightningCache'
+import { JSONFileMasks } from '../editor/JSONFileMasks'
 
 type TSelectorTransform = (
 	selector: string,
@@ -191,13 +194,7 @@ export async function updateCommandFiles() {
 						)}`
 					)
 				} else {
-					await BridgeCore.beforeSave(
-						JSONTree.buildFromCache(cache_content).toJSON(),
-						file,
-						undefined,
-						true,
-						file_uuid
-					)
+					await JSONFileMasks.apply(file)
 				}
 			} catch {}
 		})

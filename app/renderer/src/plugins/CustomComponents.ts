@@ -151,14 +151,6 @@ export default class ComponentRegistry {
 
 		this.setCacheHook(usedComponents)
 
-		//Trigger LightningCache update if simulatedCall
-		if (simulatedCall)
-			await LightningCache.triggerHook(
-				filePath,
-				'custom_components',
-				'entity.custom_components'
-			)
-
 		//RESET CONTEXT ENV
 		ContextEnv.value = {}
 
