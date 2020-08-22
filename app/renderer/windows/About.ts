@@ -106,10 +106,20 @@ export default class AboutWindow extends TabWindow {
 						link: 'https://github.com/ENDERZOMBI102',
 					},
 				]),
-
 				{
 					type: 'divider',
 				},
+				new Creator('Developer', 'Joel ant 05', [
+					{
+						color: 'black',
+						text: 'mdi-github',
+						link: 'https://github.com/joelant05',
+					},
+				]),
+				{
+					type: 'divider',
+				},
+
 				new Creator('Contributor', 'Pascal', [
 					{
 						color: 'black',
@@ -130,16 +140,6 @@ export default class AboutWindow extends TabWindow {
 						color: 'info',
 						text: 'mdi-twitter',
 						link: 'https://twitter.com/BSavage_81',
-					},
-				]),
-				{
-					type: 'divider',
-				},
-				new Creator('Contributor', 'Joel ant 05', [
-					{
-						color: 'black',
-						text: 'mdi-github',
-						link: 'https://github.com/joelant05',
 					},
 				]),
 				{
