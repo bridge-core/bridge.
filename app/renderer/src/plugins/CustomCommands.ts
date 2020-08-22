@@ -202,6 +202,10 @@ export async function updateCommandFiles() {
 	UpdateFiles.clear()
 }
 
+export function getCommandFiles() {
+	return UpdateFiles
+}
+
 export function proposeCustomCommands() {
 	let res = {}
 
