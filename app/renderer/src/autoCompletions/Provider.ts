@@ -122,6 +122,8 @@ class Provider {
 		path: { key: string; created: boolean }[],
 		current = LIB
 	) {
+		if (path.length === 0) return
+
 		let { key, created } = path.shift()
 		// console.log(key, created);
 		if (path.length > 0) this.removeFromLib(path, current[key])

@@ -114,6 +114,7 @@ import {
 	LoadedProjects,
 } from '../../Windows/Project/Chooser/definition'
 import { loadProjects } from '../../Windows/Project/Chooser/load'
+import { on, off } from '../../../AppCycle/EventSystem'
 
 export default {
 	name: 'content-explorer',
@@ -157,7 +158,7 @@ export default {
 		EventBus.on('bridge:refreshExplorer', this.refresh)
 		EventBus.on('bridge:selectProject', this.selectProject)
 		EventBus.on('bridge:loadedFileDefs', this.onFileDefsLoaded)
-		EventBus.on('bridge:findDefaultPack', this.findDefaultProject)
+		on('bridge:findDefaultPack', this.findDefaultProject)
 		window.addEventListener('resize', this.onResize)
 
 		this.findDefaultProject()
@@ -167,7 +168,7 @@ export default {
 		EventBus.off('bridge:refreshExplorer', this.refresh)
 		EventBus.off('bridge:selectProject', this.selectProject)
 		EventBus.off('bridge:loadedFileDefs', this.onFileDefsLoaded)
-		EventBus.off('bridge:findDefaultPack', this.findDefaultProject)
+		off('bridge:findDefaultPack', this.findDefaultProject)
 		window.removeEventListener('resize', this.onResize)
 	},
 	computed: {
@@ -306,20 +307,18 @@ export default {
 					this.items = []
 				}
 				this.no_projects = false
-				if (force_refresh) this.selected = undefined
 
 				/**
 				 * items[0] === "undefined":
 				 *   Allows the no_projects screen to launch for users which didn't have a BP before the no_projects screen update
 				 */
-				if (this.items.length === 0 || this.items[0] === 'undefined') {
-					this.no_projects = true
-				} else if (
-					this.selected === '' ||
-					this.selected === undefined
+				if (
+					this.items.length === 0 ||
+					(this.items.length === 1 && this.items[0] === 'undefined')
 				) {
-					this.selected = this.findDefaultBPProject()
+					this.no_projects = true
 				}
+				this.selected = this.findDefaultBPProject()
 			}
 		},
 		findDefaultBPProject() {
