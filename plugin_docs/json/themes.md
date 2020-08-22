@@ -40,39 +40,39 @@ bridge. applies the default color theme first and then overwrites it with the th
 
 #### ThemeVariant
 
-| Name                 | Type                            | Description                                     |
-| -------------------- | ------------------------------- | ----------------------------------------------- |
-| `highlighter`        | `Object<HighlighterDefinition>` | Syntax highlighter colors of your bridge. theme |
-| `primary`            | `String`                        | Color                                           |
-| `secondary`          | `String`                        | Color                                           |
-| `accent`             | `String`                        | Color                                           |
-| `error`              | `String`                        | Color                                           |
-| `info`               | `String`                        | Color                                           |
-| `success`            | `String`                        | Color                                           |
-| `warning`            | `String`                        | Color                                           |
-| `background`         | `String`                        | Color                                           |
-| `sidebar_navigation` | `String`                        | Color                                           |
-| `expanded_sidebar`   | `String`                        | Color                                           |
-| `menu`               | `String`                        | Color                                           |
-| `toolbar`            | `String`                        | Color                                           |
-| `footer`             | `String`                        | Color                                           |
-| `tooltip`            | `String`                        | Color                                           |
-| `default_button`     | `String`                        | Color                                           |
+| Name                 | Type                            | Description                                                                          |
+| -------------------- | ------------------------------- | ------------------------------------------------------------------------------------ |
+| `highlighter`        | `Object<HighlighterDefinition>` | Syntax highlighter colors of your bridge. theme                                      |
+| `primary`            | `String`                        | Color; affects menu icons, active tabs, MoLang edit icons, and more                  |
+| `secondary`          | `String`                        | Color                                                                                |
+| `accent`             | `String`                        | Color; affects toolbar icons                                                         |
+| `error`              | `String`                        | Color; affects hovered errors, ! error marks, close button on close prompt, and more |
+| `info`               | `String`                        | Color                                                                                |
+| `success`            | `String`                        | Color; affects save button on close prompt                                           |
+| `warning`            | `String`                        | Color                                                                                |
+| `background`         | `String`                        | Color; affects background of editor                                                  |
+| `sidebar_navigation` | `String`                        | Color; affects navigation sidebar                                                    |
+| `expanded_sidebar`   | `String`                        | Color; affects sidebar containing folders and files                                  |
+| `menu`               | `String`                        | Color; affects menus                                                                 |
+| `toolbar`            | `String`                        | Color; affects top bar with drop-down menus                                          |
+| `footer`             | `String`                        | Color; affects bottom bar containing Discord invite                                  |
+| `tooltip`            | `String`                        | Color; affects sidebar buttons hovered over                                          |
+| `default_button`     | `String`                        | Color; affects + buttons in the editor                                               |
 
 #### HighlighterDefinition
 
-| Name              | Type                  | Description                         |
-| ----------------- | --------------------- | ----------------------------------- |
-| `property`        | `Object<StyleObject>` | Custom style for syntax highlighter |
-| `keyword`         | `Object<StyleObject>` | Custom style for syntax highlighter |
-| `definition`      | `Object<StyleObject>` | Custom style for syntax highlighter |
-| `atom`            | `Object<StyleObject>` | Custom style for syntax highlighter |
-| `number`          | `Object<StyleObject>` | Custom style for syntax highlighter |
-| `string`          | `Object<StyleObject>` | Custom style for syntax highlighter |
-| `variable`        | `Object<StyleObject>` | Custom style for syntax highlighter |
-| `variable_strong` | `Object<StyleObject>` | Custom style for syntax highlighter |
-| `meta`            | `Object<StyleObject>` | Custom style for syntax highlighter |
-| `comment`         | `Object<StyleObject>` | Custom style for syntax highlighter |
+| Name              | Type                  | Description                                                   |
+| ----------------- | --------------------- | ------------------------------------------------------------- |
+| `property`        | `Object<StyleObject>` | Custom style for syntax highlighter; affects `format_version` |
+| `keyword`         | `Object<StyleObject>` | Custom style for syntax highlighter; affects namespaces       |
+| `definition`      | `Object<StyleObject>` | Custom style for syntax highlighter; affects special objects  |
+| `atom`            | `Object<StyleObject>` | Custom style for syntax highlighter; affects booleans         |
+| `number`          | `Object<StyleObject>` | Custom style for syntax highlighter; affects numbers          |
+| `string`          | `Object<StyleObject>` | Custom style for syntax highlighter; affects all other values |
+| `variable`        | `Object<StyleObject>` | Custom style for syntax highlighter                           |
+| `variable_strong` | `Object<StyleObject>` | Custom style for syntax highlighter                           |
+| `meta`            | `Object<StyleObject>` | Custom style for syntax highlighter                           |
+| `comment`         | `Object<StyleObject>` | Custom style for syntax highlighter                           |
 
 #### StyleObject
 
