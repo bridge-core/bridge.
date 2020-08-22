@@ -55,9 +55,9 @@ bridge. applies the default color theme first and then overwrites it with the th
 | `expanded_sidebar`   | `String`                        | Color; affects sidebar containing folders and files                                  |
 | `menu`               | `String`                        | Color; affects menus                                                                 |
 | `toolbar`            | `String`                        | Color; affects top bar with drop-down menus                                          |
-| `footer`             | `String`                        | Color; affects bottom bar containing Discord invite                                  |
-| `tooltip`            | `String`                        | Color; affects sidebar buttons hovered over                                          |
-| `default_button`     | `String`                        | Color; affects + buttons in the editor                                               |
+| `footer`             | `String`                        | Color; affects bottom bar containing notifications                                   |
+| `tooltip`            | `String`                        | Color; affects the tooltip that show when you hover over buttons                     |
+| `default_button`     | `String`                        | Color; affects the + buttons in the JSON editor                                      |
 
 #### HighlighterDefinition
 
