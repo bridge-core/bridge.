@@ -119,4 +119,11 @@ This can be found by clicking the extensions tab on the sidebar and the pressing
 
 bridge. also has a powerful feature for experienced users that allows you to write Javascript to create your own <a href="https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_components.md">Custom Components</a>, which can be used in entity behavior files to quickly re-use behaviors and <a href="https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_commands.md">Custom Commands</a>, which can be used inside .mcfunction files to make writing long and complex functions easier
 
-For further help, you can join the <a href="https://discord.gg/jj2PmqU">official bridge. Discord server</a>!
+## Need Help?
+
+-   Join the <a href="https://discord.gg/jj2PmqU">Official bridge. Discord server</a>!
+-   Check out the <a href="https://bedrock.dev">Unofficial Minecraft Bedrock documentation</a>
+-   Read the <a href="https://guide.bedrock.dev">Minecraft Bedrock Beginners Guide</a>
+-   Learn more about creating addons in the <a href="https://wiki.bedrock.dev">Unofficial Bedrock Wiki</a>
+
+More links can be found <a href="https://wiki.bedrock.dev/knowledge/useful-links.html">here</a>
