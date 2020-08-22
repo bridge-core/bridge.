@@ -65,7 +65,7 @@
 			}
 		},
 		{
-			"$if": "$project_target_version < 1.16.100.50",
+			"$if": "$project_target_version < 1.16.100",
 			"$data": {
 				"minecraft:ageable": {
 					"duration": "$general.number",
@@ -209,7 +209,7 @@
   ],
   "$versioned_template.minecraft:breedable": [
     {
-      "$if":"$project_target_version >= 1.16.100.50",
+      "$if":"$project_target_version >= 1.16.100",
       "$data": {
         "minecraft:breedable": {
           "allow_sitting": "$general.boolean",
@@ -279,7 +279,7 @@
      }
    },
    {
-     "$if":"$project_target_version < 1.16.100.50",
+     "$if":"$project_target_version < 1.16.100",
      "$data": {
       "minecraft:bribeable": {
         "bribe_cooldown": "$general.number",
@@ -443,7 +443,7 @@
   ],
   "$versioned_template.minecraft:equippable": [
     {
-      "$if":"$project_target_version >= 1.16.100.50",
+      "$if":"$project_target_version >= 1.16.100",
       "$data": {
         "minecraft:equippable": {
           "slots": {
@@ -468,7 +468,7 @@
         }
       }
     }, {
-      "$if":"$project_target_version < 1.16.100.50",
+      "$if":"$project_target_version < 1.16.100",
       "$data": {
         "minecraft:equippable": {
           "slots": {
@@ -587,7 +587,7 @@
       }
     },
     {
-      "$if":"$project_target_version < 1.16.100.50",
+      "$if":"$project_target_version < 1.16.100",
       "$data": {
         "minecraft:giveable": {
           "triggers": {
@@ -647,7 +647,7 @@
       }
     },
     {
-      "$if":"$project_target_version < 1.16.100.50",
+      "$if":"$project_target_version < 1.16.100",
       "$data": {
         "minecraft:healable": {
           "force_use": "$general.boolean",
@@ -1304,7 +1304,7 @@
       }
     },
     {
-      "$if":"$project_target_version < 1.16.100.50",
+      "$if":"$project_target_version < 1.16.100",
       "$data": {
         "minecraft:tamemount": {
           "attempt_temper_mod": "$general.number",
