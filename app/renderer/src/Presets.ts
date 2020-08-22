@@ -5,8 +5,13 @@ import ProjectConfig from './Project/Config'
 import { CURRENT } from './constants'
 import { detachMerge } from './Utilities/mergeUtils'
 import { trySetRP } from './Utilities/FindRP'
-import EventBus from './EventBus'
 import { createInformationWindow } from './UI/Windows/Common/CommonDefinitions'
+import { BridgeCore } from './bridgeCore/main'
+import cJSON from 'comment-json'
+import LightningCache from './editor/LightningCache'
+import JSONTree from './editor/JsonTree'
+import OmegaCache from './editor/OmegaCache'
+import { uuid } from './Utilities/useAttr'
 declare var __static: string
 
 let LOAD_LOCATIONS: string[] = []
@@ -201,6 +206,7 @@ export async function buildPresetFile(
 	ENV: IPresetEnv
 ) {
 	to_path = transformPath(to_path, path.extname(from_path), ENV)
+
 	let templ = (await fs.readFile(from_path)).toString('UTF-8')
 	templ = templ.replace(
 		/{{[^{}]+}}/g,
@@ -208,7 +214,27 @@ export async function buildPresetFile(
 	)
 
 	await fs.mkdir(path.dirname(to_path), { recursive: true })
-	await fs.writeFile(to_path, templ)
+	if (path.extname(to_path) === '.json') {
+		templ = cJSON.parse(templ, undefined, true)
+		const fileUuid = uuid()
+
+		await OmegaCache.save(to_path, {
+			format_version: 0,
+			cache_content: templ,
+			file_uuid: fileUuid,
+		})
+		await writeJSON(
+			to_path,
+			await BridgeCore.beforeSave(templ, to_path),
+			true
+		)
+		await LightningCache.add(
+			to_path,
+			new JSONTree('global').buildFromObject(templ)
+		)
+	} else {
+		await fs.writeFile(to_path, templ)
+	}
 }
 
 export async function expandPresetFile(
