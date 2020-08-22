@@ -102,10 +102,10 @@ export default {
 
 <style>
 .error-line {
-	border-bottom: 2px dotted #f44336;
+	border-bottom: 2px dotted var(--v-error-base);
 }
 .warning-line {
-	border-bottom: 2px dotted #ffa000;
+	border-bottom: 2px dotted var(--v-warning-base);
 }
 .theme--light .selected {
 	font-style: italic;
