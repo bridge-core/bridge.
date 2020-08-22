@@ -6,11 +6,17 @@
 		:hasMaximizeButton="false"
 		:isFullscreen="false"
 		:width="350"
-		:height="350"
+		:height="340"
 		@closeWindow="close"
 	>
 		<template #default>
-			<v-color-picker v-model="color" mode="hexa" hide-mode-switch />
+			<v-color-picker
+				v-model="color"
+				mode="hexa"
+				hide-mode-switch
+				flat
+				class="background"
+			/>
 		</template>
 	</BaseWindow>
 </template>
