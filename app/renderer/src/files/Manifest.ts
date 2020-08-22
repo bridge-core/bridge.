@@ -29,14 +29,17 @@ export default class Manifest {
 	constructor(
 		type: 'resources' | 'data',
 		client_data?: boolean,
-		dependency?: Dependency
+		dependency?: Dependency,
+		targetProjectVersion?: string
 	) {
 		this.header = {
 			name: 'pack.name',
 			description: 'pack.description',
 			uuid: uuidv4(),
 			version: [1, 0, 0],
-			min_engine_version: [1, 13, 0],
+			min_engine_version: <[number, number, number]>(
+				targetProjectVersion.split('.').map(n => Number(n))
+			),
 		}
 		this.modules = [
 			{

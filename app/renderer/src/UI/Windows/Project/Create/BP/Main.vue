@@ -49,8 +49,9 @@
 						projectDescription == '' ||
 						targetVersion == ''
 				"
-				><span>Create!</span></v-btn
 			>
+				<span>Create!</span>
+			</v-btn>
 		</template>
 	</BaseWindow>
 </template>
@@ -116,7 +117,12 @@ export default {
 								this.projectName,
 								'/manifest.json'
 							),
-							new Manifest('data', this.registerClientData).get(),
+							new Manifest(
+								'data',
+								this.registerClientData,
+								undefined,
+								this.targetVersion
+							).get(),
 							async () => {
 								if (
 									err &&
@@ -134,10 +140,12 @@ export default {
 									{
 										name: this.projectName,
 										description: this.projectDescription,
+										projectTargetVersion: this
+											.targetVersion,
 									}
 								)
 
-								Vue.$root.$emit('refreshExplorer')
+								this.$root.$emit('refreshExplorer')
 								ProjectConfig.setFormatVersion(
 									this.targetVersion
 								)

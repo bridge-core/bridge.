@@ -11,6 +11,7 @@ declare var __static: string
 interface EnvConfig {
 	name: string
 	description: string
+	projectTargetVersion: string
 	[s: string]: string
 }
 
