@@ -47,13 +47,15 @@
           }
         ],
         "minecraft:biome_filter": {
-          "test": "has_biome_tag",
-          "operator": "!=",
-          "value": "mooshroom_island"
+          "all_of": [
+            { "test": "has_biome_tag", "operator": "!=", "value": "mooshroom_island" },
+            { "test": "has_biome_tag", "operator": "!=", "value": "nether" },
+            { "test": "has_biome_tag", "operator": "!=", "value": "the_end" }
+          ]
         },
         "minecraft:player_in_village_filter": {
           "distance": 48,
-          "village_border_tolerance": 10
+          "village_border_tolerance": 32
         }
       },
       {
@@ -78,6 +80,11 @@
           "min": "normal",
           "max": "normal"
         },
+        "minecraft:brightness_filter": {
+          "min": 0,
+          "max": 7,
+          "adjust_for_weather": false
+        },
         "minecraft:herd": {
           "min_size": 2,
           "max_size": 5,
@@ -93,13 +100,15 @@
           }
         ],
         "minecraft:biome_filter": {
-          "test": "has_biome_tag",
-          "operator": "!=",
-          "value": "mooshroom_island"
+          "all_of": [
+            { "test": "has_biome_tag", "operator": "!=", "value": "mooshroom_island" },
+            { "test": "has_biome_tag", "operator": "!=", "value": "nether" },
+            { "test": "has_biome_tag", "operator": "!=", "value": "the_end" }
+          ]
         },
         "minecraft:player_in_village_filter": {
           "distance": 48,
-          "village_border_tolerance": 10
+          "village_border_tolerance": 32
         }
       },
       {
@@ -123,6 +132,11 @@
         "minecraft:difficulty_filter": {
           "min": "hard"
         },
+        "minecraft:brightness_filter": {
+          "min": 0,
+          "max": 7,
+          "adjust_for_weather": false
+        },
         "minecraft:herd": {
           "min_size": 2,
           "max_size": 5,
@@ -142,13 +156,15 @@
           }
         ],
         "minecraft:biome_filter": {
-          "test": "has_biome_tag",
-          "operator": "!=",
-          "value": "mooshroom_island"
+          "all_of": [
+            { "test": "has_biome_tag", "operator": "!=", "value": "mooshroom_island" },
+            { "test": "has_biome_tag", "operator": "!=", "value": "nether" },
+            { "test": "has_biome_tag", "operator": "!=", "value": "the_end" }
+          ]
         },
         "minecraft:player_in_village_filter": {
           "distance": 48,
-          "village_border_tolerance": 10
+          "village_border_tolerance": 32
         }
       }
     ]

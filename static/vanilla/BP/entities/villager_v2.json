@@ -1,5 +1,5 @@
 {
-  "format_version": "1.16.0",
+  "format_version": "1.16.100",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:villager_v2",
@@ -487,6 +487,9 @@
         },
         "minecraft:behavior.harvest_farm_block": {
           "priority": 8,
+          "max_seconds_before_search": 1.0,
+          "search_cooldown_max_seconds": 5.0,
+          "seconds_until_new_task":  0.5,
           "speed_multiplier": 0.5
         }
       },
@@ -677,7 +680,9 @@
           "display_name": "entity.villager.farmer",
           "table": "trading/economy_trades/farmer_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -710,7 +715,9 @@
           "display_name": "entity.villager.fisherman",
           "table": "trading/economy_trades/fisherman_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -743,7 +750,9 @@
           "display_name": "entity.villager.shepherd",
           "table": "trading/economy_trades/shepherd_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -776,7 +785,9 @@
           "display_name": "entity.villager.fletcher",
           "table": "trading/economy_trades/fletcher_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -809,7 +820,9 @@
           "display_name": "entity.villager.librarian",
           "table": "trading/economy_trades/librarian_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -842,7 +855,9 @@
           "display_name": "entity.villager.cartographer",
           "table": "trading/economy_trades/cartographer_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -875,7 +890,9 @@
           "display_name": "entity.villager.cleric",
           "table": "trading/economy_trades/cleric_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -908,7 +925,9 @@
           "display_name": "entity.villager.armor",
           "table": "trading/economy_trades/armorer_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -941,7 +960,9 @@
           "display_name": "entity.villager.weapon",
           "table": "trading/economy_trades/weapon_smith_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -974,7 +995,9 @@
           "display_name": "entity.villager.tool",
           "table": "trading/economy_trades/tool_smith_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -1007,7 +1030,9 @@
           "display_name": "entity.villager.butcher",
           "table": "trading/economy_trades/butcher_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -1040,7 +1065,9 @@
           "display_name": "entity.villager.leather",
           "table": "trading/economy_trades/leather_worker_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -1073,7 +1100,9 @@
           "display_name": "entity.villager.mason",
           "table": "trading/economy_trades/stone_mason_trades.json",
           "new_screen": true,
-          "persist_trades": true
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
         },
         "minecraft:dweller": {
           "dwelling_type": "village",

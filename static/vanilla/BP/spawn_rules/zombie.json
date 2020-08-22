@@ -31,7 +31,7 @@
           },
           {
             "weight": 5,
-            "entity_type": "minecraft:zombie_villager"
+            "entity_type": "minecraft:zombie_villager_v2"
           }
         ],
         "minecraft:biome_filter": {

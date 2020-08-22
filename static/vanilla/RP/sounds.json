@@ -2329,7 +2329,9 @@
 			"respawn_anchor.set_spawn": {"sound": "respawn_anchor.set_spawn", "volume": 1.0, "pitch": [ 0.8, 1.2 ]},
 			"lodestone_compass.link_compass_to_lodestone": {"sound": "lodestone_compass.link_compass_to_lodestone", "volume": 1.0, "pitch": [ 0.85, 0.95 ]},
 			"record.pigstep": { "sound": "record.pigstep", "volume": 1.0, "pitch": 1.0 },
-			"smithing_table.use":  {"sound":  "smithing_table.use", "volume": 1.0, "pitch":  1.0 },
+         "smithing_table.use": {"sound": "smithing_table.use", "volume": 1.0, "pitch":  1.0 },
+         "armor.equip_netherite": {"sound": "armor.equip_netherite", "volume": 1.0, "pitch":  1.0},
+         "lay_egg": {"sound": "block.turtle_egg.drop", "volume": 0.3, "pitch": 0.9},
 
          "ambient.basalt_deltas.mood" : {
             "pitch" : [ 0.50, 1.20 ],
