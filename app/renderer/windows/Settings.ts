@@ -420,10 +420,9 @@ export default class SettingsWindow extends TabWindow {
 						{ text: 'None', value: 'bridge.null' },
 						...ThemeManager.local_theme_names,
 					],
-					action: (val: string) => {
-						if (val !== 'bridge.null') ThemeManager.applyTheme(val)
-						ProjectConfig.setTheme(val)
-						trigger('bridge:reloadPlugins')
+					action: async (val: string) => {
+						await ProjectConfig.setTheme(val)
+						await ThemeManager.loadTheme()
 					},
 				},
 				{
@@ -438,10 +437,10 @@ export default class SettingsWindow extends TabWindow {
 					text: 'Choose a global theme...',
 					input: this.data.global_theme,
 					options: ThemeManager.global_theme_names,
-					action: (val: string) => {
+					action: async (val: string) => {
 						this.data.global_theme = val
 						ThemeManager.global_theme = val
-						ThemeManager.applyTheme(val)
+						await ThemeManager.loadTheme()
 						this.save()
 					},
 				},
