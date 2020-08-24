@@ -251,6 +251,47 @@
 				"require_tame": "$general.boolean",
 				"require_full_health": "$general.boolean"
 			}
+		},
+		{
+			"$if": "$format_version < 1.16.100",
+			"$data": {
+				"allow_sitting": "$general.boolean",
+				"blend_attributes": "$general.boolean",
+				"breed_cooldown": "$general.number",
+				"love_filters": "$entity.filters",
+				"breed_items": {
+					"$dynamic.list.next_index": "$general.item_identifier"
+				},
+				"breeds_with": {
+					"mate_type": "$general.entity_identifier",
+					"baby_type": "$general.entity_identifier",
+					"breed_event": "$entity.general.event_definition"
+				},
+				"causes_pregnancy": "$general.boolean",
+				"environment_requirements": {
+					"$dynamic.list.next_index": {
+						"blocks": {
+							"$dynamic.list.next_index": "$general.block_identifier"
+						},
+						"count": "$general.number",
+						"radius": "$general.number"
+					}
+				},
+				"extra_baby_chance": "$general.decimal",
+				"inherit_tamed": "$general.boolean",
+				"mutation_factor": {
+					"color": "$general.decimal",
+					"extra_variant": "$general.decimal",
+					"variant": "$general.decimal"
+				},
+				"deny_parents_variant": {
+					"chance": "$general.decimal",
+					"min_variant": "$general.number",
+					"max_variant": "$general.number"
+				},
+				"require_tame": "$general.boolean",
+				"require_full_health": "$general.boolean"
+			}
 		}
 	],
 	"$versioned_template.minecraft:bribeable": [
