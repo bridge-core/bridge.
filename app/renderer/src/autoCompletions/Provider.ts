@@ -208,7 +208,7 @@ class Provider {
 
 		SET_CONTEXT(context, context === undefined ? undefined : context.parent)
 		let propose = this.walk(path.split('/'))
-		// console.log('[PROPOSING]', path, propose, LIB)
+		console.log('[PROPOSING]', path, propose, LIB)
 
 		return this.preparePropose(
 			propose,
@@ -420,7 +420,12 @@ class Provider {
 		let dyn = Omega.walk(template['$key'])
 		if (template[`$dynamic_template.${dyn}`] !== undefined) {
 			return this.compileTemplate(template[`$dynamic_template.${dyn}`])
+		} else if (template[`$versioned_template.${dyn}`] !== undefined) {
+			return compileVersionedTemplate(
+				template[`$versioned_template.${dyn}`]
+			).object
 		}
+
 		return template[dyn || '$fallback'] || template['$default']
 	}
 }

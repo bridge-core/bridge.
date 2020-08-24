@@ -53,32 +53,30 @@
             "set_actor_id": {
                 "id": "$general.entity_identifier"
             },
-            "set_banner_details": {
-                "$versioned_template": [
-                    {
-                        "$if": "$project_target_version >= 1.16.100",
-                        "$data": {
-                            "type": ["default", "illager_captain"],
-                            "base_color": "$general.color_palette",
-                            "patterns": {
-                                "$dynamic.list.next_index": {
-                                    "pattern": "$loot_table.general.banner_patterns",
-                                    "color": "$general.color_palette"
-                                }
-                            }
-                        }
-                    },
-                    {
-                        "$if": "$project_target_version < 1.16.100",
-                        "$data": {
-                            "type": {
-                                "min": "$general.number",
-                                "max": "$general.number"
+            "$versioned_template.set_banner_details": [
+                {
+                    "$if": "$project_target_version >= 1.16.100",
+                    "$data": {
+                        "type": ["default", "illager_captain"],
+                        "base_color": "$general.color_palette",
+                        "patterns": {
+                            "$dynamic.list.next_index": {
+                                "pattern": "$loot_table.general.banner_patterns",
+                                "color": "$general.color_palette"
                             }
                         }
                     }
-                ]
-            },
+                },
+                {
+                    "$if": "$project_target_version < 1.16.100",
+                    "$data": {
+                        "type": {
+                            "min": "$general.number",
+                            "max": "$general.number"
+                        }
+                    }
+                }
+            ],
             "set_book_contents": {
                 "author": { "@meta": { "is_value": true } },
                 "title": { "@meta": { "is_value": true } },
