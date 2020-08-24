@@ -421,7 +421,7 @@ export default class SettingsWindow extends TabWindow {
 						...ThemeManager.local_theme_names,
 					],
 					action: (val: string) => {
-						if (val != 'bridge.null') ThemeManager.applyTheme(val)
+						if (val !== 'bridge.null') ThemeManager.applyTheme(val)
 						ProjectConfig.setTheme(val)
 						trigger('bridge:reloadPlugins')
 					},
@@ -441,7 +441,7 @@ export default class SettingsWindow extends TabWindow {
 					action: (val: string) => {
 						this.data.global_theme = val
 						ThemeManager.global_theme = val
-						trigger('bridge:reloadPlugins')
+						ThemeManager.applyTheme(val)
 						this.save()
 					},
 				},
