@@ -26,7 +26,7 @@ To add a resource pack to your project, you need to select the resource pack on 
 
 ![Create resource pack](https://github.com/bridge-core/bridge./blob/master/images/getting_started_3.png)
 
-**Link** will allow you to link an existing resource pack to your project. The resource pack will then be made a dependency of your selected behavior pack.
+**Link** will allow you to link an existing resource pack in the `development_resource_packs` folder to your project. The resource pack will then be made a dependency of your selected behavior pack.
 
 **Create** will open a resource pack creation window where you can input a name and description for your resource pack.
 
