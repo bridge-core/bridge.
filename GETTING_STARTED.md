@@ -87,6 +87,8 @@ bridge. also supports opening and editing other file types, including:
 
 LANG files are what give your entities, items, etc. proper names.
 
+![Language](https://github.com/Chikorita-Lover/bridge./blob/patch-2/images/getting_started_17.png)
+
 ## Unique editing features
 
 bridge. includes tools that will make your developing experience quicker and easier!
