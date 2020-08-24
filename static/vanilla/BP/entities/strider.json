@@ -280,8 +280,7 @@
         "priority": 7,
         "search_range": 16,
         "search_height": 10,
-        "goal_radius": 0.9,
-        "search_count": 30
+        "goal_radius": 1.0
       },
       "minecraft:behavior.random_stroll": {
         "priority": 8,

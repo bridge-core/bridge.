@@ -122,6 +122,8 @@ class Provider {
 		path: { key: string; created: boolean }[],
 		current = LIB
 	) {
+		if (path.length === 0) return
+
 		let { key, created } = path.shift()
 		// console.log(key, created);
 		if (path.length > 0) this.removeFromLib(path, current[key])
@@ -418,7 +420,12 @@ class Provider {
 		let dyn = Omega.walk(template['$key'])
 		if (template[`$dynamic_template.${dyn}`] !== undefined) {
 			return this.compileTemplate(template[`$dynamic_template.${dyn}`])
+		} else if (template[`$versioned_template.${dyn}`] !== undefined) {
+			return compileVersionedTemplate(
+				template[`$versioned_template.${dyn}`]
+			).object
 		}
+
 		return template[dyn || '$fallback'] || template['$default']
 	}
 }

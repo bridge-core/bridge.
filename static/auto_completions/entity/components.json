@@ -26,7 +26,8 @@
 			"minecraft:trade_resupply",
 			"minecraft:trust",
 			"minecraft:wants_jockey",
-			"minecraft:equip_item"
+			"minecraft:equip_item",
+			"minecraft:out_of_control"
 		]
 	},
 	"minecraft:addrider": {
@@ -39,46 +40,42 @@
 	},
 	"$versioned_template.minecraft:ageable": [
 		{
-			"$if": "$project_target_version >= 1.16.100",
+			"$if": "$format_version >= 1.16.100",
 			"$data": {
-				"minecraft:ageable": {
-					"duration": "$general.number",
-					"feed_items": {
-						"$dynamic.list.next_index": {
-							"item": {
-								"@import.value": "$general.item_identifier",
-								"any_tag": {
-									"$dynamic.list.next_index": {
-										"@meta": { "is_value": true }
-									}
+				"duration": "$general.number",
+				"feed_items": {
+					"$dynamic.list.next_index": {
+						"item": {
+							"@import.value": "$general.item_identifier",
+							"any_tag": {
+								"$dynamic.list.next_index": {
+									"@meta": { "is_value": true }
 								}
-							},
-							"growth": "$general.decimal"
-						}
-					},
-					"drop_items": {
-						"$dynamic.list.next_index": "$general.item_identifier"
-					},
-					"grow_up": "$entity.general.event_definition"
-				}
+							}
+						},
+						"growth": "$general.decimal"
+					}
+				},
+				"drop_items": {
+					"$dynamic.list.next_index": "$general.item_identifier"
+				},
+				"grow_up": "$entity.general.event_definition"
 			}
 		},
 		{
-			"$if": "$project_target_version < 1.16.100.50",
+			"$if": "$format_version < 1.16.100",
 			"$data": {
-				"minecraft:ageable": {
-					"duration": "$general.number",
-					"feed_items": {
-						"$dynamic.list.next_index": {
-							"item": "$general.item_identifier",
-							"growth": "$general.decimal"
-						}
-					},
-					"drop_items": {
-						"$dynamic.list.next_index": "$general.item_identifier"
-					},
-					"grow_up": "$entity.general.event_definition"
-				}
+				"duration": "$general.number",
+				"feed_items": {
+					"$dynamic.list.next_index": {
+						"item": "$general.item_identifier",
+						"growth": "$general.decimal"
+					}
+				},
+				"drop_items": {
+					"$dynamic.list.next_index": "$general.item_identifier"
+				},
+				"grow_up": "$entity.general.event_definition"
 			}
 		}
 	],
@@ -205,95 +202,140 @@
 				"simulate_waves": "$general.boolean"
 			}
 		}
-  ],
-  "$versioned_template.minecraft:breedable": [
-    {
-      "$if":"$project_target_version >= 1.16.100.50",
-      "$data": {
-        "minecraft:breedable": {
-          "allow_sitting": "$general.boolean",
-          "blend_attributes": "$general.boolean",
-          "breed_cooldown": "$general.number",
-          "love_filters": "$entity.filters",
-          "breed_items": {
-            "$dynamic.list.next_index": {
-              "@import.value": "$general.item_identifier",
-				"any_tag": {
+	],
+	"$versioned_template.minecraft:breedable": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"allow_sitting": "$general.boolean",
+				"blend_attributes": "$general.boolean",
+				"breed_cooldown": "$general.number",
+				"love_filters": "$entity.filters",
+				"breed_items": {
 					"$dynamic.list.next_index": {
-						"@meta": { "is_value": true }
+						"@import.value": "$general.item_identifier",
+						"any_tag": {
+							"$dynamic.list.next_index": {
+								"@meta": { "is_value": true }
+							}
+						}
+					}
+				},
+				"breeds_with": {
+					"mate_type": "$general.entity_identifier",
+					"baby_type": "$general.entity_identifier",
+					"breed_event": "$entity.general.event_definition"
+				},
+				"causes_pregnancy": "$general.boolean",
+				"environment_requirements": {
+					"$dynamic.list.next_index": {
+						"blocks": {
+							"$dynamic.list.next_index": "$general.block_identifier"
+						},
+						"count": "$general.number",
+						"radius": "$general.number"
+					}
+				},
+				"extra_baby_chance": "$general.decimal",
+				"inherit_tamed": "$general.boolean",
+				"mutation_factor": {
+					"color": "$general.decimal",
+					"extra_variant": "$general.decimal",
+					"variant": "$general.decimal"
+				},
+				"deny_parents_variant": {
+					"chance": "$general.decimal",
+					"min_variant": "$general.number",
+					"max_variant": "$general.number"
+				},
+				"require_tame": "$general.boolean",
+				"require_full_health": "$general.boolean"
+			}
+		},
+		{
+			"$if": "$format_version < 1.16.100",
+			"$data": {
+				"allow_sitting": "$general.boolean",
+				"blend_attributes": "$general.boolean",
+				"breed_cooldown": "$general.number",
+				"love_filters": "$entity.filters",
+				"breed_items": {
+					"$dynamic.list.next_index": "$general.item_identifier"
+				},
+				"breeds_with": {
+					"mate_type": "$general.entity_identifier",
+					"baby_type": "$general.entity_identifier",
+					"breed_event": "$entity.general.event_definition"
+				},
+				"causes_pregnancy": "$general.boolean",
+				"environment_requirements": {
+					"$dynamic.list.next_index": {
+						"blocks": {
+							"$dynamic.list.next_index": "$general.block_identifier"
+						},
+						"count": "$general.number",
+						"radius": "$general.number"
+					}
+				},
+				"extra_baby_chance": "$general.decimal",
+				"inherit_tamed": "$general.boolean",
+				"mutation_factor": {
+					"color": "$general.decimal",
+					"extra_variant": "$general.decimal",
+					"variant": "$general.decimal"
+				},
+				"deny_parents_variant": {
+					"chance": "$general.decimal",
+					"min_variant": "$general.number",
+					"max_variant": "$general.number"
+				},
+				"require_tame": "$general.boolean",
+				"require_full_health": "$general.boolean"
+			}
+		}
+	],
+	"$versioned_template.minecraft:bribeable": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"bribe_cooldown": "$general.number",
+				"bribe_items": {
+					"$dynamic.list.next_index": {
+						"@import.value": "$general.item_identifier",
+						"any_tag": {
+							"$dynamic.list.next_index": {
+								"@meta": { "is_value": true }
+							}
+						}
 					}
 				}
-            }
-          },
-          "breeds_with": {
-            "mate_type": "$general.entity_identifier",
-            "baby_type": "$general.entity_identifier",
-            "breed_event": "$entity.general.event_definition"
-          },
-          "causes_pregnancy": "$general.boolean",
-          "environment_requirements": {
-            "$dynamic.list.next_index": {
-              "blocks": {
-                "$dynamic.list.next_index": "$general.block_identifier"
-              },
-              "count": "$general.number",
-              "radius": "$general.number"
-            }
-          },
-          "extra_baby_chance": "$general.decimal",
-          "inherit_tamed": "$general.boolean",
-          "mutation_factor": {
-            "color": "$general.decimal",
-            "extra_variant": "$general.decimal",
-            "variant": "$general.decimal"
-          },
-          "deny_parents_variant": {
-            "chance": "$general.decimal",
-            "min_variant": "$general.number",
-            "max_variant": "$general.number"
-          },
-          "require_tame": "$general.boolean",
-          "require_full_health": "$general.boolean"
-        }
-      }
-    }
-  ],
- "$versioned_template.minecraft:bribeable": [
-   {
-     "$if": "$project_target_version >= 1.16.100",
-     "$data": {
-      "minecraft:bribeable": {
-        "bribe_cooldown": "$general.number",
-        "bribe_items": {
-          "$dynamic.list.next_index": {
-            "@import.value": "$general.item_identifier",
-            "any_tag": {
-              "$dynamic.list.next_index": {
-                "@meta": { "is_value": true }
-              }
-           }
-          }
-        }
-      }
-     }
-   },
-   {
-     "$if":"$project_target_version < 1.16.100.50",
-     "$data": {
-      "minecraft:bribeable": {
-        "bribe_cooldown": "$general.number",
-        "bribe_items": {
-          "$dynamic.list.next_index": "$general.item_identifier"
-        }
-      }
-     }
-   }
- ],
+			}
+		},
+		{
+			"$if": "$format_version < 1.16.100",
+			"$data": {
+				"bribe_cooldown": "$general.number",
+				"bribe_items": {
+					"$dynamic.list.next_index": "$general.item_identifier"
+				}
+			}
+		}
+	],
 	"minecraft:burns_in_daylight": {},
 	"minecraft:can_climb": {},
-	"minecraft:can_fly": {
-		"value": "$general.boolean"
-	},
+	"$versioned_template.minecraft:can_fly": [
+		{
+			"$if": "$format_version >= 1.16.0",
+			"$data": "$general.boolean"
+		},
+		{
+			"$if": "$format_version < 1.16.0",
+			"$data": {
+				"value": "$general.boolean"
+			}
+		}
+	],
+	"minecraft:can_fly": "$general.boolean",
 	"minecraft:can_power_jump": {},
 	"minecraft:celebrate_hunt": {
 		"celebration_targets": "$entity.filters",
@@ -306,6 +348,16 @@
 			"range_max": "$general.number"
 		}
 	},
+	"$versioned_template.minecraft:inside_block_identifier": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"block_list": {
+					"$dynamic.list.next_index": "$general.block_identifier"
+				}
+			}
+		}
+	],
 	"minecraft:collision_box": {
 		"width": "$general.number",
 		"height": "$general.number"
@@ -419,53 +471,50 @@
 			"$if": "$format_version >= 1.16.0",
 			"$data": {}
 		}
-  ],
-  "$versioned_template.minecraft:equippable": [
-    {
-      "$if":"$project_target_version >= 1.16.100.50",
-      "$data": {
-        "minecraft:equippable": {
-          "slots": {
-            "$dynamic.list.next_index": {
-              "accepted_items": {
-                "$dynamic.list.next_index": {
-                  "@import.value": "$general.item_identifier",
-								  "any_tag": {
-									  "$dynamic.list.next_index": {
-										  "@meta": { "is_value": true }
-									  }
-								  }
-                }
-              },
-              "interact_text": "$general.translatable_text",
-              "item": "$general.item_identifier",
-              "on_equip": "$entity.general.event_definition",
-              "on_unequip": "$entity.general.event_definition",
-              "slot": "$general.number"
-            }
-          }
-        }
-      }
-    }, {
-      "$if":"$project_target_version < 1.16.100.50",
-      "$data": {
-        "minecraft:equippable": {
-          "slots": {
-            "$dynamic.list.next_index": {
-              "accepted_items": {
-                "$dynamic.list.next_index": "$general.item_identifier"
-              },
-              "interact_text": "$general.translatable_text",
-              "item": "$general.item_identifier",
-              "on_equip": "$entity.general.event_definition",
-              "on_unequip": "$entity.general.event_definition",
-              "slot": "$general.number"
-            }
-          }
-        }
-      }
-    }
-  ],
+	],
+	"$versioned_template.minecraft:equippable": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"slots": {
+					"$dynamic.list.next_index": {
+						"accepted_items": {
+							"$dynamic.list.next_index": {
+								"@import.value": "$general.item_identifier",
+								"any_tag": {
+									"$dynamic.list.next_index": {
+										"@meta": { "is_value": true }
+									}
+								}
+							}
+						},
+						"interact_text": "$general.translatable_text",
+						"item": "$general.item_identifier",
+						"on_equip": "$entity.general.event_definition",
+						"on_unequip": "$entity.general.event_definition",
+						"slot": "$general.number"
+					}
+				}
+			}
+		},
+		{
+			"$if": "$format_version < 1.16.100",
+			"$data": {
+				"slots": {
+					"$dynamic.list.next_index": {
+						"accepted_items": {
+							"$dynamic.list.next_index": "$general.item_identifier"
+						},
+						"interact_text": "$general.translatable_text",
+						"item": "$general.item_identifier",
+						"on_equip": "$entity.general.event_definition",
+						"on_unequip": "$entity.general.event_definition",
+						"slot": "$general.number"
+					}
+				}
+			}
+		}
+	],
 	"minecraft:experience_reward": {
 		"on_bred": "$molang.embedded",
 		"on_death": "$molang.embedded"
@@ -540,48 +589,44 @@
 				}
 			}
 		}
-  },
-  "$versioned_template.minecraft:giveable": [
-    {
-      "$if":"$project_target_version >= 1.16.100",
-      "$data": {
-        "minecraft:giveable": {
-          "triggers": {
-            "$dynamic.list.next_index": {
-              "cooldown": "$general.number",
-              "items": {
-                "$dynamic.list.next_index": {
-                  "@import.value": "$general.item_identifier",
-								  "any_tag": {
-									  "$dynamic.list.next_index": {
-										  "@meta": { "is_value": true }
-									  }
-								  }
-                }
-              },
-              "on_give": "$entity.general.event_definition"
-            }
-          }
-        }
-      }
-    },
-    {
-      "$if":"$project_target_version < 1.16.100.50",
-      "$data": {
-        "minecraft:giveable": {
-          "triggers": {
-            "$dynamic.list.next_index": {
-              "cooldown": "$general.number",
-              "items": {
-                "$dynamic.list.next_index": "$general.item_identifier"
-              },
-              "on_give": "$entity.general.event_definition"
-            }
-          }
-        }
-      }
-    }
-  ],
+	},
+	"$versioned_template.minecraft:giveable": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"triggers": {
+					"$dynamic.list.next_index": {
+						"cooldown": "$general.number",
+						"items": {
+							"$dynamic.list.next_index": {
+								"@import.value": "$general.item_identifier",
+								"any_tag": {
+									"$dynamic.list.next_index": {
+										"@meta": { "is_value": true }
+									}
+								}
+							}
+						},
+						"on_give": "$entity.general.event_definition"
+					}
+				}
+			}
+		},
+		{
+			"$if": "$format_version < 1.16.100",
+			"$data": {
+				"triggers": {
+					"$dynamic.list.next_index": {
+						"cooldown": "$general.number",
+						"items": {
+							"$dynamic.list.next_index": "$general.item_identifier"
+						},
+						"on_give": "$entity.general.event_definition"
+					}
+				}
+			}
+		}
+	],
 	"minecraft:ground_offset": {
 		"value": "$general.decimal"
 	},
@@ -592,64 +637,60 @@
 	"minecraft:grows_crop": {
 		"charges": "$general.number",
 		"chance": "$general.decimal"
-  },
-  "$versioned_template.minecraft:healable": [
-    {
-      "$if":"$project_target_version >= 1.16.100",
-      "$data": {
-        "minecraft:healable": {
-          "force_use": "$general.boolean",
-          "filters": "$entity.filters",
-          "items": {
-            "$dynamic.list.next_index": {
-              "item": {
-                "@import.value": "$general.item_identifier",
-								"any_tag": {
-									"$dynamic.list.next_index": {
-										"@meta": { "is_value": true }
-									}
+	},
+	"$versioned_template.minecraft:healable": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"force_use": "$general.boolean",
+				"filters": "$entity.filters",
+				"items": {
+					"$dynamic.list.next_index": {
+						"item": {
+							"@import.value": "$general.item_identifier",
+							"any_tag": {
+								"$dynamic.list.next_index": {
+									"@meta": { "is_value": true }
 								}
-              },
-              "heal_amount": "$general.number",
-              "filters": "$entity.filters",
-              "effects": {
-                "$dynamic.list.next_index": {
-                  "name": "$general.effect_name",
-                  "chance": "$general.decimal",
-                  "duration": "$general.number",
-                  "amplifier": "$general.number"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "$if":"$project_target_version < 1.16.100.50",
-      "$data": {
-        "minecraft:healable": {
-          "force_use": "$general.boolean",
-          "filters": "$entity.filters",
-          "items": {
-            "$dynamic.list.next_index": {
-              "item": "$general.item_identifier",
-              "heal_amount": "$general.number",
-              "filters": "$entity.filters",
-              "effects": {
-                "$dynamic.list.next_index": {
-                  "name": "$general.effect_name",
-                  "chance": "$general.decimal",
-                  "duration": "$general.number",
-                  "amplifier": "$general.number"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  ],
+							}
+						},
+						"heal_amount": "$general.number",
+						"filters": "$entity.filters",
+						"effects": {
+							"$dynamic.list.next_index": {
+								"name": "$general.effect_name",
+								"chance": "$general.decimal",
+								"duration": "$general.number",
+								"amplifier": "$general.number"
+							}
+						}
+					}
+				}
+			}
+		},
+		{
+			"$if": "$format_version < 1.16.100",
+			"$data": {
+				"force_use": "$general.boolean",
+				"filters": "$entity.filters",
+				"items": {
+					"$dynamic.list.next_index": {
+						"item": "$general.item_identifier",
+						"heal_amount": "$general.number",
+						"filters": "$entity.filters",
+						"effects": {
+							"$dynamic.list.next_index": {
+								"name": "$general.effect_name",
+								"chance": "$general.decimal",
+								"duration": "$general.number",
+								"amplifier": "$general.number"
+							}
+						}
+					}
+				}
+			}
+		}
+	],
 	"minecraft:health": {
 		"value": "$general.number",
 		"max": "$general.number",
@@ -883,6 +924,12 @@
 	"minecraft:on_hurt": "$entity.general.event_definition",
 	"minecraft:on_hurt_by_player": "$entity.general.event_definition",
 	"minecraft:on_ignite": "$entity.general.event_definition",
+	"$versioned_template.minecraft:out_of_control": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {}
+		}
+	],
 	"minecraft:on_start_landing": {
 		"@meta": {
 			"validate": {
@@ -1236,71 +1283,67 @@
 			"$dynamic.list.next_index": "$general.item_identifier"
 		},
 		"tame_event": "$entity.general.event_definition"
-  },
-  "$versioned_template.minecraft:tamemount": [
-    {
-      "$if":"$project_target_version >= 1.16.100",
-      "$data": {
-        "minecraft:tamemount": {
-          "attempt_temper_mod": "$general.number",
-          "auto_reject_items": {
-            "$dynamic.list.next_index": {
-              "item": {
-                "@import.value": "$general.item_identifier",
-								"any_tag": {
-									"$dynamic.list.next_index": {
-										"@meta": { "is_value": true }
-									}
+	},
+	"$versioned_template.minecraft:tamemount": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"attempt_temper_mod": "$general.number",
+				"auto_reject_items": {
+					"$dynamic.list.next_index": {
+						"item": {
+							"@import.value": "$general.item_identifier",
+							"any_tag": {
+								"$dynamic.list.next_index": {
+									"@meta": { "is_value": true }
 								}
-              }
-            }
-          },
-          "feed_items": {
-            "$dynamic.list.next_index": {
-              "item": {
-                "@import.value": "$general.item_identifier",
-								"any_tag": {
-									"$dynamic.list.next_index": {
-										"@meta": { "is_value": true }
-									}
+							}
+						}
+					}
+				},
+				"feed_items": {
+					"$dynamic.list.next_index": {
+						"item": {
+							"@import.value": "$general.item_identifier",
+							"any_tag": {
+								"$dynamic.list.next_index": {
+									"@meta": { "is_value": true }
 								}
-              },
-              "temper_mod": "$general.number"
-            }
-          },
-          "feed_text": "$general.translatable_text",
-          "min_temper": "$general.number",
-          "max_temper": "$general.number",
-          "ride_text": "$general.translatable_text",
-          "tame_event": "$entity.general.event_definition"
-        }
-      }
-    },
-    {
-      "$if":"$project_target_version < 1.16.100.50",
-      "$data": {
-        "minecraft:tamemount": {
-          "attempt_temper_mod": "$general.number",
-          "auto_reject_items": {
-            "$dynamic.list.next_index": {
-              "item": "$general.item_identifier"
-            }
-          },
-          "feed_items": {
-            "$dynamic.list.next_index": {
-              "item": "$general.item_identifier",
-              "temper_mod": "$general.number"
-            }
-          },
-          "feed_text": "$general.translatable_text",
-          "min_temper": "$general.number",
-          "max_temper": "$general.number",
-          "ride_text": "$general.translatable_text",
-          "tame_event": "$entity.general.event_definition"
-        }
-      }
-    }
-  ],
+							}
+						},
+						"temper_mod": "$general.number"
+					}
+				},
+				"feed_text": "$general.translatable_text",
+				"min_temper": "$general.number",
+				"max_temper": "$general.number",
+				"ride_text": "$general.translatable_text",
+				"tame_event": "$entity.general.event_definition"
+			}
+		},
+		{
+			"$if": "$format_version < 1.16.100",
+			"$data": {
+				"attempt_temper_mod": "$general.number",
+				"auto_reject_items": {
+					"$dynamic.list.next_index": {
+						"item": "$general.item_identifier"
+					}
+				},
+				"feed_items": {
+					"$dynamic.list.next_index": {
+						"item": "$general.item_identifier",
+						"temper_mod": "$general.number"
+					}
+				},
+				"feed_text": "$general.translatable_text",
+				"min_temper": "$general.number",
+				"max_temper": "$general.number",
+				"ride_text": "$general.translatable_text",
+				"tame_event": "$entity.general.event_definition"
+			}
+		}
+	],
 	"minecraft:target_nearby_sensor": {
 		"inside_range": "$general.number",
 		"outside_range": "$general.number",

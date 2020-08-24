@@ -132,7 +132,6 @@
       "minecraft:jump.static": {
       },
       "minecraft:can_fly": {
-        "value": true
       },
       "minecraft:navigation.fly": {
         "can_path_over_water": true,

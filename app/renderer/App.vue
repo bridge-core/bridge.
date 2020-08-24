@@ -221,6 +221,9 @@ body {
 v-application--wrap > main.v-content {
 	padding-left: 60px !important;
 }
+.v-application .subtitle-1 {
+	font-family: unset !important;
+}
 .v-system-bar {
 	padding-right: 0;
 }

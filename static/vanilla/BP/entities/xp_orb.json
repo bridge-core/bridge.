@@ -16,6 +16,10 @@
         "value": 5,
         "max": 5
       },
+      "minecraft:buoyant":{
+        "apply_gravity": false,
+        "liquid_blocks": ["minecraft:flowing_water", "minecraft:water"] 
+      },
 	    "minecraft:physics": {
       },
       "minecraft:pushable": {

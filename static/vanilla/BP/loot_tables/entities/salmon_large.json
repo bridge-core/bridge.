@@ -6,7 +6,21 @@
         {
           "type": "item",
           "name": "minecraft:salmon",
-          "weight": 1
+          "weight": 1,
+          "functions": [
+            {
+              "function": "furnace_smelt",
+              "conditions": [
+                {
+                  "condition": "entity_properties",
+                  "entity": "this",
+                  "properties": {
+                    "on_fire": true
+                  }
+                }
+              ]
+            }
+          ]
         }
       ]
     },

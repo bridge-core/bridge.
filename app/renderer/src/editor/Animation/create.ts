@@ -1,6 +1,6 @@
 import { ISingleAnimation, TBoneModifier, TTimestamp } from './Format'
 import { Group, TextBufferGeometry, MathUtils } from 'three'
-import MoLang from 'molang'
+import { execute, setEnv } from 'molang'
 
 export function createAnimation(
 	{
@@ -13,19 +13,22 @@ export function createAnimation(
 	}: Partial<ISingleAnimation>,
 	boneMap: Map<string, [string | undefined, Group]>
 ) {
-	const molang = new MoLang.Interpreter({})
+	setEnv({})
+
 	let intervalID: NodeJS.Timeout
 	const parseBoneModifier = (
 		trans: TBoneModifier,
 		currTime: number
 	): [number, number, number] => {
 		if (typeof trans === 'string') {
-			const res = typeof trans === 'string' ? molang.parse(trans) : trans
+			const res = typeof trans === 'string' ? execute(trans) : trans
 			return [res, res, res] as [number, number, number]
 		} else if (Array.isArray(trans)) {
-			return trans.map(t =>
-				typeof t === 'string' ? molang.parse(t) : t
-			) as [number, number, number]
+			return trans.map(t => (typeof t === 'string' ? execute(t) : t)) as [
+				number,
+				number,
+				number
+			]
 		} else if (trans !== undefined) {
 			const timestamps = Object.entries(trans)
 				.map(

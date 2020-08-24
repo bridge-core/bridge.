@@ -15,5 +15,10 @@
     "mask_mode": ["replace", "masked"],
     "clone_mode": ["force", "move", "normal"],
     "mob_event": ["minecraft:pillager_patrols_event", "minecraft:wandering_trader_event", "minecraft:ender_dragon_event", "events_enabled"],
-    "time": ["day", "night", "noon", "midnight", "sunrise", "sunset"]
+    "time": ["day", "night", "noon", "midnight", "sunrise", "sunset"],
+    "structure_rotations": ["0_degrees", "90_degrees", "180_degrees", "270_degrees"],
+    "mirror": ["x", "z", "xz"],
+    "teleport_rules": ["teleport_rider", "teleport_ride"],
+    "how_to_fill": ["if_group_fits", "until_full"],
+    "ride_rules": ["no_ride_change", "reassign_rides", "skip_riders"]
 }

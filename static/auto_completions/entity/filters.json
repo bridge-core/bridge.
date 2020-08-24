@@ -128,6 +128,7 @@
     "inactivity_timer": "$general.number",
     "random_chance": "$general.number",
     "light_level": "$general.number0_15",
+    "is_sleeping": "$general.boolean",
     "has_tag": {
       "@meta": {
         "is_value": true

@@ -51,7 +51,10 @@ export default class ComponentRegistry {
 			},
 		}
 	}
-	static async updateFiles() {
+	static async updateFiles(commandUpdates: Set<string>) {
+		this.registerUpdates = new Set(
+			[...this.registerUpdates].filter(x => !commandUpdates.has(x))
+		)
 		console.log(Object.entries(this.components))
 		for (let f of this.registerUpdates) await JSONFileMasks.apply(f)
 
@@ -150,14 +153,6 @@ export default class ComponentRegistry {
 		}
 
 		this.setCacheHook(usedComponents)
-
-		//Trigger LightningCache update if simulatedCall
-		if (simulatedCall)
-			await LightningCache.triggerHook(
-				filePath,
-				'custom_components',
-				'entity.custom_components'
-			)
 
 		//RESET CONTEXT ENV
 		ContextEnv.value = {}
