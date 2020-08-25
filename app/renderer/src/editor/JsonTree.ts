@@ -225,7 +225,7 @@ export default class JSONTree {
 		}
 	}
 
-	get(inp: string | string[]): JSONTree {
+	get(inp: string | string[] = []): JSONTree {
 		let key
 		let i_arr = inp
 		if (typeof inp === 'string') {
