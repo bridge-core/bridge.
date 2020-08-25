@@ -319,7 +319,9 @@ export default {
 				) {
 					this.no_projects = true
 				}
-				this.selected = this.findDefaultBPProject()
+				this.selected = this.selected
+					? this.selected
+					: this.findDefaultBPProject()
 			}
 		},
 		findDefaultBPProject() {
