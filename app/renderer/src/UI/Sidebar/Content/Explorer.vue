@@ -179,13 +179,16 @@ export default {
 			},
 			async set(project) {
 				if (project === undefined) return
+				const loadDirectory =
+					this.selected === undefined || this.selected !== project
+
 				this.$store.commit('setExplorerProject', {
 					store_key: this.explorer_type,
 					project,
 				})
 				if (this.explorer_type === 'explorer') await trySetRP()
 
-				this.loadDirectory(project)
+				if (loadDirectory) this.loadDirectory(project)
 				EventBus.trigger('updateTabUI')
 				// EventBus.on("updateSelectedTab");
 			},
