@@ -2,6 +2,7 @@
  * Create manifest objects used for BPs & RPs
  */
 import uuidv4 from 'uuid/v4'
+import ProjectConfig from '../Project/Config'
 
 interface Module {
 	type: string
@@ -13,7 +14,7 @@ interface Header {
 	description: string
 	uuid: string
 	version: [number, number, number]
-	min_engine_version: [number, number, number]
+	min_engine_version?: [number, number, number]
 }
 interface Dependency {
 	version: [number, number, number]
@@ -32,14 +33,23 @@ export default class Manifest {
 		dependency?: Dependency,
 		targetProjectVersion?: string
 	) {
-		this.header = {
-			name: 'pack.name',
-			description: 'pack.description',
-			uuid: uuidv4(),
-			version: [1, 0, 0],
-			min_engine_version: <[number, number, number]>(
-				targetProjectVersion.split('.').map(n => Number(n))
-			),
+		if (type === 'resources') {
+			this.header = {
+				name: 'pack.name',
+				description: 'pack.description',
+				uuid: uuidv4(),
+				version: [1, 0, 0],
+			}
+		} else {
+			this.header = {
+				name: 'pack.name',
+				description: 'pack.description',
+				uuid: uuidv4(),
+				version: [1, 0, 0],
+				min_engine_version: <[number, number, number]>(
+					targetProjectVersion.split('.').map(n => Number(n))
+				),
+			}
 		}
 		this.modules = [
 			{

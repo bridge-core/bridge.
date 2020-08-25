@@ -6,11 +6,18 @@
 		:hasMaximizeButton="false"
 		:isFullscreen="false"
 		:width="440"
-		:height="130"
+		:height="140"
 		@closeWindow="onClose"
 	>
 		<template #default>
-			<v-select autofocus solo v-model="selectedValue" :items="items" />
+			<v-select
+				autofocus
+				solo
+				v-model="selectedValue"
+				:items="items"
+				background-color="background"
+				class="mt-4"
+			/>
 		</template>
 		<template #actions>
 			<v-spacer />

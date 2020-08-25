@@ -114,7 +114,7 @@ import {
 	LoadedProjects,
 } from '../../Windows/Project/Chooser/definition'
 import { loadProjects } from '../../Windows/Project/Chooser/load'
-import { on, off } from '../../../AppCycle/EventSystem'
+import { on } from '../../../AppCycle/EventSystem'
 
 export default {
 	name: 'content-explorer',
@@ -149,6 +149,7 @@ export default {
 			project_select_size: window.innerWidth / 7.5,
 			no_projects: false,
 			loaded_file_defs: FileType.LIB_LOADED,
+			disposable: null,
 		}
 	},
 	mounted() {
@@ -158,7 +159,7 @@ export default {
 		EventBus.on('bridge:refreshExplorer', this.refresh)
 		EventBus.on('bridge:selectProject', this.selectProject)
 		EventBus.on('bridge:loadedFileDefs', this.onFileDefsLoaded)
-		on('bridge:findDefaultPack', this.findDefaultProject)
+		this.disposable = on('bridge:findDefaultPack', this.findDefaultProject)
 		window.addEventListener('resize', this.onResize)
 
 		this.findDefaultProject()
@@ -168,7 +169,7 @@ export default {
 		EventBus.off('bridge:refreshExplorer', this.refresh)
 		EventBus.off('bridge:selectProject', this.selectProject)
 		EventBus.off('bridge:loadedFileDefs', this.onFileDefsLoaded)
-		off('bridge:findDefaultPack', this.findDefaultProject)
+		this.disposable.dispose()
 		window.removeEventListener('resize', this.onResize)
 	},
 	computed: {
@@ -178,13 +179,16 @@ export default {
 			},
 			async set(project) {
 				if (project === undefined) return
+				const loadDirectory =
+					this.selected === undefined || this.selected !== project
+
 				this.$store.commit('setExplorerProject', {
 					store_key: this.explorer_type,
 					project,
 				})
 				if (this.explorer_type === 'explorer') await trySetRP()
 
-				this.loadDirectory(project)
+				if (loadDirectory) this.loadDirectory(project)
 				EventBus.trigger('updateTabUI')
 				// EventBus.on("updateSelectedTab");
 			},
@@ -318,7 +322,9 @@ export default {
 				) {
 					this.no_projects = true
 				}
-				this.selected = this.findDefaultBPProject()
+				this.selected = this.selected
+					? this.selected
+					: this.findDefaultBPProject()
 			}
 		},
 		findDefaultBPProject() {
