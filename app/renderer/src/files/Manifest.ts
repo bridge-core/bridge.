@@ -2,6 +2,7 @@
  * Create manifest objects used for BPs & RPs
  */
 import uuidv4 from 'uuid/v4'
+import ProjectConfig from '../Project/Config'
 
 interface Module {
 	type: string
@@ -32,6 +33,8 @@ export default class Manifest {
 		dependency?: Dependency,
 		targetProjectVersion?: string
 	) {
+		if (targetProjectVersion === undefined)
+			targetProjectVersion = ProjectConfig.getFormatVersionSync()
 		this.header = {
 			name: 'pack.name',
 			description: 'pack.description',
