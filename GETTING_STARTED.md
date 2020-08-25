@@ -15,7 +15,7 @@ Here you can give your project a name, description and choose whether you want t
 
 Once you've done that, you can click **Create!** and bridge. will set up the project files including the manifest.
 
-You should also set the namespace for your project for better auto-completions and syntax highlighting. The option to change this is found by clicking the 'More' icon *(the three dots)* in the top left and clicking **Project Namespace**. A window will then appear allowing you to change the project namespace.
+You should also set the namespace for your project for better auto-completions and syntax highlighting. The option to change this is found by clicking the 'More' icon _(the three dots)_ in the top left and clicking **Project Namespace**. A window will then appear allowing you to change the project namespace.
 
 ## Creating a resource pack
 
@@ -87,7 +87,7 @@ bridge. also supports opening and editing other file types, including:
 
 LANG files are what give your entities, items, etc. proper names.
 
-![Language](https://github.com/Chikorita-Lover/bridge./blob/patch-2/images/getting_started_17.png)
+![Language](https://github.com/bridge-core/bridge./blob/master/images/getting_started_17.png)
 
 ## Unique editing features
 
