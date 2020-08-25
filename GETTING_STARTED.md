@@ -4,31 +4,31 @@
 
 To get started making addons with bridge. you need to create a project.
 
-With bridge. creating a new project is easy.
-You need to click the create project button to open the project creation window
+With bridge., creating a new project is easy.
+You need to click the create project button to open the project creation window.
 
 ![No projects - Create project](https://github.com/bridge-core/bridge./blob/master/images/getting_started_1.png)
 
-Here you can give your project a name, description and choose whether you want to register client data in the pack manifest - _this only needs to be toggled on if you're using Minecraft's scripting api in your addon_
+Here you can give your project a name, description and choose whether you want to register client data in the pack manifest - _this only needs to be toggled on if you're using Minecraft's scripting api in your addon._
 
 ![Create project window](https://github.com/bridge-core/bridge./blob/master/images/getting_started_2.png)
 
 Once you've done that, you can click **Create!** and bridge. will set up the project files including the manifest.
 
-You should also set the namespace for your project for better auto-completions and syntax highlighting. The option to change this is found by clicking the 'More' icon in the top left and clicking **Project Namespace**. A window will then appear allowing you to change the project namespace.
+You should also set the namespace for your project for better auto-completions and syntax highlighting. The option to change this is found by clicking the 'More' icon *(the three dots)* in the top left and clicking **Project Namespace**. A window will then appear allowing you to change the project namespace.
 
 ## Creating a resource pack
 
 Creating a resource pack in bridge. is just as easy.
 On the sidebar, you will see 6 buttons - the first one shows your behavior pack and the second shows your resource pack.
 
-To add a resource pack to your project you need to select the resource pack on the sidebar and you will see two buttons, **Create** and **Link**
+To add a resource pack to your project, you need to select the resource pack on the sidebar and you will see two buttons, **Create** and **Link**
 
 ![Create resource pack](https://github.com/bridge-core/bridge./blob/master/images/getting_started_3.png)
 
-**Link** will allow you to link an existing resource pack to your project. The resource pack will resource pack will then be made a dependency of your selected behavior pack
+**Link** will allow you to link an existing resource pack in the `development_resource_packs` folder to your project. The resource pack will then be made a dependency of your selected behavior pack.
 
-**Create** will open a resource pack creation window where you can input a name and description for your resource pack
+**Create** will open a resource pack creation window where you can input a name and description for your resource pack.
 
 ![Create resource pack window](https://github.com/bridge-core/bridge./blob/master/images/getting_started_4.png)
 
@@ -48,7 +48,7 @@ _Remember you can scroll down the sidebar to see more file types you can create!
 ![Create File Window](https://github.com/bridge-core/bridge./blob/master/images/getting_started_6.png)
 
 Once you have selected a file, you will see that you need to input a file name.
-**Make sure you keep all file names and identifiers in `snake_case`**
+**Make sure you keep all file names and identifiers in `snake_case`, with no capital letters and underscores replacing spaces!**
 
 For most file types, you will also see a dropdown to select a template to work from. It is recommended that you select a template because it will make creating your file easier.
 Once you have done that, click **Create!** and your file will be created, placed in the correct folder and opened.
@@ -69,7 +69,7 @@ When you right click on a node it will open the hover card, where you can cut, c
 
 ![Hover Card](https://github.com/bridge-core/bridge./blob/master/images/getting_started_8.png)
 
-_There is currently a work in progress, updated JSON renderer which will feature a new, fresh way to edit JSON files_
+_There is currently a work in progress, updated JSON renderer which will feature a new, fresh way to edit JSON files!_
 
 ### Other file types
 
@@ -82,6 +82,12 @@ bridge. also supports opening and editing other file types, including:
 ### .js
 
 ![Javascript](https://github.com/bridge-core/bridge./blob/master/images/getting_started_10.png)
+
+### .lang
+
+LANG files are what give your entities, items, etc. proper names.
+
+![Language](https://github.com/Chikorita-Lover/bridge./blob/patch-2/images/getting_started_17.png)
 
 ## Unique editing features
 
@@ -117,7 +123,7 @@ This can be found by clicking the extensions tab on the sidebar and the pressing
 
 ![Open extension store](https://github.com/bridge-core/bridge./blob/master/images/getting_started_16.png)
 
-bridge. also has a powerful feature for experienced users that allows you to write Javascript to create your own <a href="https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_components.md">Custom Components</a>, which can be used in entity behavior files to quickly re-use behaviors and <a href="https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_commands.md">Custom Commands</a>, which can be used inside .mcfunction files to make writing long and complex functions easier
+bridge. also has a powerful feature for experienced users that allows you to write Javascript to create your own <a href="https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_components.md">Custom Components</a>, which can be used in entity behavior files to quickly re-use behaviors and <a href="https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_commands.md">Custom Commands</a>, which can be used inside .mcfunction files to make writing long and complex functions easier.
 
 ## Need Help?
 
