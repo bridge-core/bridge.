@@ -35,6 +35,7 @@ There are lots of reasons an addon might not work. Before you ask in an addon he
 
 In *Minecraft* settings under the Profile section, there are two settings: ”Enable Content Log GUI” and “Enable Content Log File.” We recommend turning both on while
 testing.
+![Enable content logs](https://github.com/Chikorita-Lover/bridge./blob/patch-3/images/faq_1.png)
 
 **How do I make a scripting GUI?**
 
