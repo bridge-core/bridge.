@@ -7,7 +7,8 @@
 		:isFullscreen="isFullscreen"
 		:width="550"
 		:maxWidth="1000"
-		:height="550"
+		:height="500"
+		:maxHeight="520"
 		@closeWindow="close"
 		@toggleFullscreen="isFullscreen = !isFullscreen"
 	>
