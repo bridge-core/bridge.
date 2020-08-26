@@ -51,9 +51,11 @@ export default class ComponentRegistry {
 			},
 		}
 	}
-	static async updateFiles(commandUpdates: Set<string>) {
+	static async updateFiles(commandUpdates?: Set<string>) {
 		this.registerUpdates = new Set(
-			[...this.registerUpdates].filter(x => !commandUpdates.has(x))
+			[...this.registerUpdates].filter(
+				x => !commandUpdates || !commandUpdates.has(x)
+			)
 		)
 		console.log(Object.entries(this.components))
 		for (let f of this.registerUpdates) await JSONFileMasks.apply(f)
