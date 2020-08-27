@@ -118,6 +118,8 @@ export default {
 	},
 	methods: {
 		click(val) {
+			this.$refs.input.blur()
+
 			if (this.trigger_cooldown) return
 
 			if (this.value === '')
