@@ -6,7 +6,7 @@
 		:hasMaximizeButton="false"
 		:isFullscreen="false"
 		:width="500"
-		:height="400"
+		:height="420"
 		@closeWindow="close"
 	>
 		<template #default>
@@ -154,12 +154,12 @@ export default {
 									'bridge:selectProject',
 									this.projectName
 								)
+								this.reset()
 							}
 						)
 					}
 				)
 			}, 50)
-			//this.reset()
 		},
 		reset() {
 			this.projectName = ''
