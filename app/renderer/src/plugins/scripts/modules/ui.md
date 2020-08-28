@@ -50,6 +50,13 @@ A helper for quickly creating windows
 }
 ```
 
+### Events:
+
+```
+@closeWindow
+@toggleFullscreen
+```
+
 #### Example Usage:
 
 ```html

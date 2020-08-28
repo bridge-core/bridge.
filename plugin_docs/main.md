@@ -40,7 +40,7 @@ Scripts are loaded from the `<PLUGIN NAME>/scripts` folder. Scripts are written 
 
 ### JavaScript API
 
-We are currently working on creating the new API documentation.
+We are currently working on creating the <a href="https://github.com/solvedDev/bridge./blob/master/app/renderer/src/plugins/scripts/modules/modules.md">new API documentation</a>.
 
 ### Custom Syntax APIs
 
