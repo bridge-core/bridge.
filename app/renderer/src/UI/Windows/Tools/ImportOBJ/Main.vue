@@ -65,16 +65,16 @@
 
 <script>
 import { ImportOBJ } from './definition'
-import BaseWindow from '../Layout/Base'
+import BaseWindow from '../../Layout/Base'
 import { ipcRenderer } from 'electron'
-import LoadingWindow from '../../../../windows/LoadingWindow'
-import { uuid } from '../../../Utilities/useAttr'
-import { OBJtoMC } from '../../../Compiler/File/Model/OBJtoMC'
+import LoadingWindow from '../../../../../windows/LoadingWindow'
+import { uuid } from '../../../../Utilities/useAttr'
+import { OBJtoMC } from '../../../../Compiler/File/Model/OBJtoMC'
 import { promises as fs } from 'fs'
-import { CURRENT } from '../../../constants'
-import { trySetRP, NEGATIVE_RESPONSES } from '../../../Utilities/FindRP'
+import { CURRENT } from '../../../../constants'
+import { trySetRP, NEGATIVE_RESPONSES } from '../../../../Utilities/FindRP'
 import { join } from 'path'
-import { createInformationWindow } from '../../../UI/Windows/Common/CommonDefinitions'
+import { createInformationWindow } from '../../Common/CommonDefinitions'
 
 export default {
 	name: 'ImportOBJ',
@@ -124,7 +124,7 @@ export default {
 			if (!rpSet) {
 				lw.close()
 				this.reset()
-				return createInformationWindow(
+				createInformationWindow(
 					'ERROR',
 					'You do not have a resource pack to add the model to.'
 				)

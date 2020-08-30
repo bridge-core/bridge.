@@ -1,5 +1,5 @@
-import { FileExplorerStorage } from '../../../../src/UI/Sidebar/FileExplorer'
-import { CURRENT, BP_BASE_PATH, RP_BASE_PATH } from '../../../../src/constants'
+import { FileExplorerStorage } from '../../../Sidebar/FileExplorer'
+import { CURRENT, BP_BASE_PATH, RP_BASE_PATH } from '../../../../constants'
 import path from 'path'
 
 export function loadFiles(): { text: string; value: string }[] {

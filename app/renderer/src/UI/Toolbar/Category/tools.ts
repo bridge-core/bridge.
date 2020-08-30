@@ -1,5 +1,5 @@
 import { IAppMenu } from '../create'
-import { GoToFile } from '../../Windows/GoToFile/definition'
+import { GoToFile } from '../../Windows/Tools/GoToFile/definition'
 import SnippetWindow from '../../../../windows/Snippets'
 import PresetWindow from '../../../../windows/PresetWindow'
 
