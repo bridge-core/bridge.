@@ -13,7 +13,7 @@
 			<img
 				class="image"
 				:src="image"
-				:style="`width: ${zoom}%`"
+				:style="`width: ${zoom}%; cursor: zoom-in;`"
 				@click.left="zoomIn"
 				@click.right="zoomOut"
 			/>
