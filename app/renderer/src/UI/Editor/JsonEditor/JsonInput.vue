@@ -114,13 +114,11 @@ export default {
 	},
 	methods: {
 		click(val) {
-			this.$refs.input.blur()
-
 			if (this.trigger_cooldown) return
 
-			if (this.value === '')
+			if (!this.value)
 				this.value = this.$refs.input.$el.querySelector('input').value
-			if (this.value === '' || !this.value) return
+			if (!this.value) return
 			let current = this.render_object.get(this.file_navigation)
 			let is_data_path = TabSystem.getSelected().content.isDataPath(
 				this.file_navigation
