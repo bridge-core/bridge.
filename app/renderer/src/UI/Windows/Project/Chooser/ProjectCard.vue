@@ -16,7 +16,13 @@
 				}}
 			</div>
 
-			<div>{{ projectDescription }}</div>
+			<div
+				v-if="projectDescription == 'pack.description'"
+				class="text-wrap"
+			>
+				{{ processedDescription }}
+			</div>
+			<div v-else>{{ projectDescription }}</div>
 		</v-card-text>
 
 		<!-- <v-divider class="mx-4"></v-divider>
@@ -28,7 +34,7 @@
 </template>
 
 <script>
-import { promises as fs } from 'fs'
+import fs, { promises as fsp } from 'fs'
 import { join, basename } from 'path'
 import EventBus from '../../../../EventBus'
 import { ProjectChooser } from './definition'
@@ -45,7 +51,7 @@ export default {
 	},
 	async created() {
 		try {
-			await fs.readFile(join(this.projectPath, 'pack_icon.png'))
+			await fsp.readFile(join(this.projectPath, 'pack_icon.png'))
 			this.projectImage = join(this.projectPath, 'pack_icon.png')
 		} catch {}
 	},
@@ -57,6 +63,19 @@ export default {
 		projectName() {
 			return basename(this.projectPath)
 		},
+		processedDescription() {
+			let description = []
+			let lang = fs
+				.readFileSync(join(this.projectPath, 'texts\\en_US.lang'))
+				.toString()
+			lang = lang.split('\n')
+			for (let i = 0; i < lang.length; i++) {
+				if (lang[i].match('pack.description')) {
+					description = lang[i].split('=')
+				}
+			}
+			return description[1]
+		},
 	},
 	methods: {
 		selectProject() {
@@ -67,4 +86,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>
