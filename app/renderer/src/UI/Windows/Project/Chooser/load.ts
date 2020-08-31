@@ -1,5 +1,5 @@
 import { promises as fs, Dirent } from 'fs'
-import { BP_BASE_PATH, MOJANG_PATH } from '../../../../constants'
+import { BP_BASE_PATH, MOJANG_PATH, CURRENT } from '../../../../constants'
 import { join } from 'path'
 import { LoadedProjects } from './definition'
 import { readJSON } from '../../../../Utilities/JsonFS'
@@ -37,13 +37,28 @@ export async function loadProjects() {
 }
 
 async function loadManifest(projectPath: string) {
-	const {
+	let {
 		header: { version, name, description },
 		metadata: { author } = { author: 'Unknown' },
 	} = await readJSON(join(projectPath, 'manifest.json')).catch(() => ({
 		header: {},
 		metadata: {},
 	}))
+
+	if (description === 'pack.description') {
+		try {
+			const langFile = (
+				await fs.readFile(join(projectPath, 'texts/en_US.lang'))
+			).toString('utf-8')
+			const lines = langFile.split('\n')
+
+			for (let line of lines) {
+				const [key, value] = line.split('=')
+				if (key.trim() === 'pack.description')
+					description = value.trim()
+			}
+		} catch {}
+	}
 
 	return {
 		version,
