@@ -11,10 +11,14 @@ on('bridge:onProjectChanged', () => {
 })
 
 export const GlobalsModule = async ({}: IModuleConfig) => {
-	if (cachedGlobals === undefined)
-		cachedGlobals = await readJSON(
-			join(CURRENT.PROJECT_PATH, 'globals.json')
-		)
+	try {
+		if (cachedGlobals === undefined)
+			cachedGlobals = await readJSON(
+				join(CURRENT.PROJECT_PATH, 'globals.json')
+			)
+	} catch {
+		return {}
+	}
 
 	return { ...cachedGlobals }
 }
