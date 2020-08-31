@@ -19,7 +19,7 @@
 		<v-layout align-center>
 			<span style="padding: 0 4px;">
 				<v-avatar tile size="36px">
-					<img :src="project_icon" :key="updateIcon" />
+					<img :src="projectIcon" />
 				</v-avatar>
 			</span>
 
@@ -150,10 +150,11 @@ export default {
 			no_projects: false,
 			loaded_file_defs: FileType.LIB_LOADED,
 			disposable: null,
-			updateIcon: 0,
+			projectIcon: undefined,
 		}
 	},
 	mounted() {
+		this.projectIcon = this.loadProjectIcon()
 		this.$root.$on('refreshExplorer', () =>
 			EventBus.trigger('bridge:refreshExplorer')
 		)
@@ -204,23 +205,6 @@ export default {
 				value: p,
 			}))
 		},
-		project_icon() {
-			try {
-				return DataUrl.convert({
-					data: fsync.readFileSync(
-						this.base_path + this.selected + '/pack_icon.png'
-					),
-					mimetype: `image/png`,
-				})
-			} catch (e) {
-				return DataUrl.convert({
-					data: fsync.readFileSync(
-						__static + '/images/pack_icon.png'
-					),
-					mimetype: `image/png`,
-				})
-			}
-		},
 	},
 	methods: {
 		openProjectScreen() {
@@ -228,8 +212,8 @@ export default {
 				ProjectChooser.open()
 		},
 		async refresh(force_val) {
-			this._computedWatchers.project_icon.run()
-			this.updateIcon = this.updateIcon + 1
+			this.projectIcon = this.loadProjectIcon()
+
 			if (this.force_project_algorithm) {
 				if (force_val) this.selected = force_val
 				console.log('[REFRESH RP] ' + this.selected)
@@ -352,6 +336,33 @@ export default {
 		},
 		createRP() {
 			CreateRP.open()
+		},
+
+		loadProjectIcon() {
+			try {
+				return DataUrl.convert({
+					data: fsync.readFileSync(
+						path.join(
+							this.base_path,
+							this.selected,
+							'pack_icon.png'
+						)
+					),
+					mimetype: `image/png`,
+				})
+			} catch (e) {
+				return DataUrl.convert({
+					data: fsync.readFileSync(
+						path.join(__static, '/images/pack_icon.png')
+					),
+					mimetype: `image/png`,
+				})
+			}
+		},
+	},
+	watch: {
+		selected() {
+			this.projectIcon = this.loadProjectIcon()
 		},
 	},
 }
