@@ -261,7 +261,7 @@ export default {
 		async loadDirectory(dir = this.selected, force_reload) {
 			let lw = new LoadingWindow().show()
 			if (this.explorer_type === 'explorer') {
-				EventBus.trigger('bridge:changedProject')
+				EventBus.trigger('bridge:onProjectChanged')
 				OmegaCache.init(dir)
 				LightningCache.init()
 				JSONFileMasks.resetMasks()

@@ -8,7 +8,7 @@ import SETTINGS from '../../store/Settings'
 import { on } from '../AppCycle/EventSystem'
 import { getFormatVersions } from '../autoCompletions/components/VersionedTemplate/Common'
 
-on('bridge:changedProject', () => {
+on('bridge:onProjectChanged', () => {
 	ProjectConfig.prefix_cache = undefined
 	ProjectConfig.formatVersionCache = undefined
 })

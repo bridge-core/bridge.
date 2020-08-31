@@ -24,7 +24,7 @@ export function createFileRunner(
 	} = {}
 
 	const reset = () => {
-		// bridge:changedProject triggers upon loading the initial project...
+		// bridge:onProjectChanged triggers upon loading the initial project...
 		// ...but we don't want to reset the FileRunner in this case
 		if (!hadProjectSelectTrigger) return (hadProjectSelectTrigger = true)
 
@@ -33,7 +33,7 @@ export function createFileRunner(
 		CACHE = {}
 	}
 
-	on('bridge:changedProject', reset)
+	on('bridge:onProjectChanged', reset)
 	on('bridge:scriptRunner.resetCaches', reset)
 
 	return async function runFile(fileName: string, ...args: unknown[]) {
