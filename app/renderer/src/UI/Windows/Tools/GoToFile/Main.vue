@@ -23,9 +23,9 @@
 
 <script>
 import { GoToFile } from './definition'
-import BaseWindow from '../Layout/Base'
+import BaseWindow from '../../Layout/Base'
 import { loadFiles } from './loadFiles'
-import FileSystem from '../../../../src/FileSystem'
+import FileSystem from '../../../../FileSystem'
 
 export default {
 	name: 'GoToFile',

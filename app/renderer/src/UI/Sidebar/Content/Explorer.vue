@@ -19,7 +19,7 @@
 		<v-layout align-center>
 			<span style="padding: 0 4px;">
 				<v-avatar tile size="36px">
-					<img :src="project_icon" />
+					<img :src="project_icon" :key="updateIcon" />
 				</v-avatar>
 			</span>
 
@@ -150,6 +150,7 @@ export default {
 			no_projects: false,
 			loaded_file_defs: FileType.LIB_LOADED,
 			disposable: null,
+			updateIcon: 0,
 		}
 	},
 	mounted() {
@@ -227,6 +228,8 @@ export default {
 				ProjectChooser.open()
 		},
 		async refresh(force_val) {
+			this._computedWatchers.project_icon.run()
+			this.updateIcon = this.updateIcon + 1
 			if (this.force_project_algorithm) {
 				if (force_val) this.selected = force_val
 				console.log('[REFRESH RP] ' + this.selected)

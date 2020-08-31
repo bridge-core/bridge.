@@ -4,7 +4,7 @@
 		@input="$emit('closeWindow')"
 		:persistent="isPersistent"
 		:hide-overlay="!blurBackground"
-		:max-width="isFullscreen ? maxWidth : width"
+		:max-width="isFullscreen ? maxWindowWidth : windowWidth"
 		content-class="no-overflow"
 	>
 		<v-card height="100%" width="100%" color="background">
@@ -42,8 +42,8 @@
 
 			<v-card-text
 				:style="
-					`padding-top: 12px; max-height: ${maxHeight}px; height: ${
-						isFullscreen ? maxHeight : height
+					`padding-top: 12px; max-height: ${maxWindowHeight}px; height: ${
+						isFullscreen ? maxWindowHeight : windowHeight
 					}px; overflow-y: auto;`
 				"
 			>
@@ -94,10 +94,44 @@ export default {
 			type: Number,
 			default: 800,
 		},
+		percentageHeight: Number,
+		percentageWidth: Number,
+		maxPercentageHeight: Number,
+		maxPercentageWidth: Number,
 	},
 	computed: {
 		isDarkMode() {
 			return this.$store.state.Appearance.is_dark_mode
+		},
+		windowWidth() {
+			if (this.percentageWidth == undefined) {
+				return this.width
+			} else {
+				return (window.innerWidth / 100) * this.percentageWidth
+			}
+		},
+		windowHeight() {
+			if (this.percentageHeight == undefined) {
+				return this.height
+			} else {
+				return (window.innerHeight / 100) * this.percentageHeight - 150
+			}
+		},
+		maxWindowHeight() {
+			if (this.maxPercentageHeight == undefined) {
+				return this.maxHeight
+			} else {
+				return (
+					(window.innerHeight / 100) * this.maxPercentageHeight - 150
+				)
+			}
+		},
+		maxWindowWidth() {
+			if (this.maxPercentageWidth == undefined) {
+				return this.maxWidth
+			} else {
+				return (window.innerWidth / 100) * this.maxPercentageWidth
+			}
 		},
 	},
 }

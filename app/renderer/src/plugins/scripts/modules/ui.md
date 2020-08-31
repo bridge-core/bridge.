@@ -46,8 +46,24 @@ A helper for quickly creating windows
 	maxHeight: {
 		type: Number,
 		default: 800,
-    },
+	},
+	/*
+	/  These percentage values overwrite the height, width, maxHeight and maxWidth props
+	/  and allow you to create windows that fit inside the users display size by providing the
+	/  percentage you want the window to cover
+	*/
+	percentageHeight: Number,
+	percentageWidth: Number,
+	maxPercentageHeight: Number,
+	maxPercentageWidth: Number,
 }
+```
+
+### Events:
+
+```
+@closeWindow
+@toggleFullscreen
 ```
 
 #### Example Usage:

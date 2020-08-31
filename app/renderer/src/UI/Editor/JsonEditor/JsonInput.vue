@@ -109,15 +109,13 @@ export default {
 			return this.$store.state.Settings.auto_completions
 		},
 		autoApplyEdit() {
-			if (this.$store.state.Settings.automatically_apply_edits) {
-				return true
-			} else {
-				return false
-			}
+			return this.$store.state.Settings.automatically_apply_edits
 		},
 	},
 	methods: {
 		click(val) {
+			this.$refs.input.blur()
+
 			if (this.trigger_cooldown) return
 
 			if (this.value === '')
