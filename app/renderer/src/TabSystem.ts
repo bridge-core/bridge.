@@ -137,7 +137,8 @@ class TabSystem {
 				file_name: curr_file_name,
 				folders: curr_folders,
 			} = projects[this.project][i]
-			if (file_path === tab.file_path) {
+
+			if (path.resolve(file_path) === path.resolve(tab.file_path)) {
 				Store.commit('removeLoadingWindow', { id: 'open-file' })
 				return this.select(i)
 			} else if (curr_file_name === file_name) {

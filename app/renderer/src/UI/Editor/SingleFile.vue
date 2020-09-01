@@ -10,7 +10,13 @@
 		}"
 	>
 		<v-container v-if="file_viewer === 'image'">
-			<img class="image" :src="image" style="max-width: 100%;" />
+			<img
+				class="image"
+				:src="image"
+				:style="`width: ${zoom}%; cursor: zoom-in;`"
+				@click.left="zoomIn"
+				@click.right="zoomOut"
+			/>
 		</v-container>
 		<audio-player v-else-if="file_viewer === 'audio'" :src="audio" />
 		<model-editor
@@ -79,6 +85,7 @@ export default {
 				func: 'mcfunction',
 				html: 'text/html',
 			},
+			zoom: 50,
 		}
 	},
 	computed: {
@@ -166,6 +173,16 @@ export default {
 				data,
 				mimetype: `${type}/${ext}`,
 			})
+		},
+		zoomIn() {
+			if (this.zoom != 100) {
+				this.zoom = this.zoom + 10
+			}
+		},
+		zoomOut() {
+			if (this.zoom != 10) {
+				this.zoom = this.zoom - 10
+			}
 		},
 	},
 	watch: {

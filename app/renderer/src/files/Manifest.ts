@@ -39,6 +39,7 @@ export default class Manifest {
 				description: 'pack.description',
 				uuid: uuidv4(),
 				version: [1, 0, 0],
+				min_engine_version: [1, 13, 0],
 			}
 		} else {
 			this.header = {
@@ -46,9 +47,15 @@ export default class Manifest {
 				description: 'pack.description',
 				uuid: uuidv4(),
 				version: [1, 0, 0],
-				min_engine_version: <[number, number, number]>(
-					targetProjectVersion.split('.').map(n => Number(n))
-				),
+				min_engine_version: [1, 13, 0],
+
+				/**
+				 * Yay, Minecraft doesn't like our new feature... -.-
+				 * Disabled it until it works
+				 */
+				// min_engine_version: <[number, number, number]>(
+				// 	targetProjectVersion.split('.').map(n => Number(n))
+				// ),
 			}
 		}
 		this.modules = [

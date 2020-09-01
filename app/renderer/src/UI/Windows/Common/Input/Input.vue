@@ -49,10 +49,12 @@ export default {
 	methods: {
 		onClose() {
 			this.currentWindow.close()
+			this.inputValue = ''
 		},
 		onConfirm() {
 			this.currentWindow.close()
 			this.onConfirmCb(this.inputValue + this.expandText)
+			this.inputValue = ''
 		},
 	},
 }

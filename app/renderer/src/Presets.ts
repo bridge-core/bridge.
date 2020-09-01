@@ -263,5 +263,10 @@ export async function expandPresetFile(
 
 	if (typeof original === 'string')
 		await fs.writeFile(to_path, `${original}\n${templ}`)
-	else await writeJSON(to_path, detachMerge({}, original, JSON.parse(templ)))
+	else
+		await writeJSON(
+			to_path,
+			detachMerge({}, original, JSON.parse(templ)),
+			true
+		)
 }

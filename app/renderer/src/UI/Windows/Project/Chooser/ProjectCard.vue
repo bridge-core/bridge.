@@ -16,7 +16,7 @@
 				}}
 			</div>
 
-			<div>{{ projectDescription }}</div>
+			<div class="text-wrap">{{ projectDescription }}</div>
 		</v-card-text>
 
 		<!-- <v-divider class="mx-4"></v-divider>
@@ -50,7 +50,7 @@ export default {
 		} catch {}
 	},
 	data: () => ({
-		projectImage: join(__static, '/images/pack_icon.png'),
+		projectImage: join(__static, 'images/pack_icon.png'),
 	}),
 
 	computed: {
@@ -67,4 +67,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>

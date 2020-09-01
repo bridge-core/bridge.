@@ -58,7 +58,8 @@ export default {
 	data: () => CreateRP.getState(),
 	methods: {
 		close() {
-			CreateRP.close(), this.reset()
+			CreateRP.close()
+			this.reset()
 		},
 		invalidNameCheck() {
 			if (this.RPName.endsWith('.')) {
@@ -104,15 +105,16 @@ export default {
 							)
 							PackLinker.link(CURRENT.PROJECT, this.RPName)
 							Vue.$root.$emit('refreshExplorer')
+							this.reset()
 							l_w.hide()
 						}
 					)
 				})
 			}, 50)
-			//this.reset()
 		},
 		reset() {
-			;(this.RPName = ''), (this.RPDescription = '')
+			this.RPName = ''
+			this.RPDescription = ''
 		},
 	},
 }
