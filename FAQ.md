@@ -1,6 +1,6 @@
 # Frequently-Asked-Questions
 
-There are many questions that are asked frequently within the bridge. Discord, and this document goes through them.
+There are many questions that are asked frequently within the [bridge. Discord](https://discord.gg/jj2PmqU), and this document goes through them.
 
 **How do I use custom commands in game?**
 
