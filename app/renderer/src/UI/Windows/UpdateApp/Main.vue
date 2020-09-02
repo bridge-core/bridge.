@@ -16,6 +16,13 @@
 			<br />
 			<v-img :src="imgSrc" />
 			<br />
+			<div v-if="!downloadAvailable">
+				<p>
+					We are still in the process of rolling out the update. It
+					will be available shortly. <a @click="refresh">Refresh!</a>
+				</p>
+				<br />
+			</div>
 			<p v-html="updateDesc" />
 			<br />
 			<p class="downloads">Downloads: {{ downloads }}</p>
@@ -23,7 +30,10 @@
 		<template #actions>
 			<v-spacer />
 			<v-btn @click="close"><span>Later</span></v-btn>
-			<v-btn color="primary" @click="download"
+			<v-btn
+				color="primary"
+				@click="download"
+				:disabled="!downloadAvailable"
 				><v-icon>mdi-download</v-icon><span>Download!</span></v-btn
 			>
 		</template>
@@ -33,6 +43,7 @@
 <script>
 import BaseWindow from '../Layout/Base'
 import { updateApp } from '../../../Utilities/updateApp'
+import { createAppUpdateNotification } from '../../../AppCycle/startUp'
 
 export default {
 	name: 'UpdateApp',
@@ -50,6 +61,11 @@ export default {
 		download() {
 			this.currentWindow.close()
 			updateApp(this.urls)
+		},
+		refresh() {
+			this.currentWindow.close()
+			this.notification.dispose()
+			createAppUpdateNotification()
 		},
 	},
 }

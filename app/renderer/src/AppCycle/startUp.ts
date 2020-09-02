@@ -10,6 +10,7 @@ import './DropFile'
 import './ResizeWatcher'
 import './Errors'
 import Store from '../../store/index'
+import { createUpdateAppWindow } from '../UI/Windows/UpdateApp/definition'
 
 export default async function startUp() {
 	SETTINGS.setup()
@@ -60,7 +61,7 @@ export function createAppUpdateNotification() {
 				message: 'Update Available',
 				textColor: 'white',
 				onClick: () => {
-					new UpdateWindow(updateData, notification)
+					createUpdateAppWindow(updateData, notification)
 				},
 			})
 		}
