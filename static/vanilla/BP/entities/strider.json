@@ -65,7 +65,7 @@
       "minecraft:strider_piglin_jockey": {
         "minecraft:addrider": {
           "entity_type": "minecraft:zombie_pigman",
-          "spawn_event": "spawn_zombified_piglin_rider"
+          "spawn_event": "minecraft:spawn_as_strider_jockey"
         },
         "minecraft:rideable": {
           "priority": 0,
@@ -76,7 +76,7 @@
           ],
           "interact_text": "action.interact.ride.strider",
           "seats": {
-            "position": [ 0.0, 1.8, -0.2 ]
+            "position": [ 0.0, 1.65, -0.2 ]
           }
         }
       },
@@ -93,11 +93,6 @@
           "seats": {
             "position": [ 0.0, 1.6, 0.0 ]
           }
-        }
-      },
-      "minecraft:zombified_piglin_rider": {
-        "minecraft:equipment": {
-          "table": "loot_tables/entities/zombified_piglin_rider_gear.json"
         }
       },
       "minecraft:strider_baby": {
@@ -261,8 +256,8 @@
       "minecraft:jump.static": {
       },
       "minecraft:health": {
-        "value": 15,
-        "max": 15
+        "value": 20,
+        "max": 20
       },
       "minecraft:fire_immune": {
       },
@@ -276,11 +271,13 @@
         "rise_delta": 0.01,
         "sink_delta": 0.01
       },
-      "minecraft:behavior.move_to_lava": {
+      "minecraft:behavior.move_to_liquid": {
         "priority": 7,
         "search_range": 16,
         "search_height": 10,
-        "goal_radius": 1.0
+        "goal_radius": 0.9,
+        "material_type": "Lava",
+        "search_count": 30
       },
       "minecraft:behavior.random_stroll": {
         "priority": 8,
@@ -310,6 +307,7 @@
           "warped_fungus",
           "warped_fungus_on_a_stick"
         ],
+        "can_tempt_while_ridden": true,
         "tempt_sound": "tempt",
         "sound_interval": {
           "range_min": 2.0,
@@ -368,13 +366,6 @@
             "minecraft:strider_saddled",
             "minecraft:strider_piglin_jockey",
             "minecraft:detect_suffocating"
-          ]
-        }
-      },
-      "spawn_zombified_piglin_rider": {
-        "add": {
-          "component_groups": [
-            "minecraft:zombified_piglin_rider"
           ]
         }
       },

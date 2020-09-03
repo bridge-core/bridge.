@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:feature_rules": {
     "description": {
-      "identifier": "minecraft:warped_fungus_feature",
+      "identifier": "minecraft:warped_fungus_crimson_feature",
       "places_feature": "minecraft:warped_fungus_scatter_feature"
     },
     "conditions": {
@@ -11,14 +11,14 @@
         {
           "any_of": [
             {
-              "test": "has_biome_tag", "operator": "==", "value": "warped_forest"
+              "test": "has_biome_tag", "operator": "==", "value": "crimson_forest"
             }
           ]
         }
       ]
     },
     "distribution": {
-      "iterations": 20,
+      "iterations": 2,
       "x": {
         "distribution": "uniform",
         "extent": [ 0, 16 ]

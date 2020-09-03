@@ -4,6 +4,7 @@
     "description": {
       "identifier": "minecraft:birch_tree_with_beehive_feature"
     },
+    "early_out": "first_failure",
     "features": [
       "minecraft:birch_tree_feature",
       "minecraft:beehive_search_feature"

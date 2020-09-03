@@ -5,11 +5,6 @@
             "entries": [
                 {
                     "type": "item",
-                    "name": "minecraft:netherite_hoe",
-                    "weight": 1
-                },
-                {
-                    "type": "item",
                     "name": "minecraft:book",
                     "weight": 5,
                     "functions": [
@@ -43,7 +38,7 @@
                 {
                     "type": "item",
                     "name": "minecraft:potion",
-                    "weight": 10,
+                    "weight": 8,
                     "functions": [
                         {
                             "function": "set_data",
@@ -54,7 +49,7 @@
                 {
                     "type": "item",
                     "name": "minecraft:splash_potion",
-                    "weight": 10,
+                    "weight": 8,
                     "functions": [
                         {
                             "function": "set_data",
@@ -64,13 +59,24 @@
                 },                
                 {
                     "type": "item",
+                    "name": "minecraft:potion",
+                    "weight": 10,
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 0
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
                     "name": "minecraft:iron_nugget",
                     "weight": 10,
                     "functions": [
                         {
                             "function": "set_count",
                             "count": {
-                                "min": 9,
+                                "min": 10,
                                 "max": 36
                             }
                         }
@@ -78,21 +84,35 @@
                 },
                 {
                     "type": "item",
-                    "name": "minecraft:quartz",
+                    "name": "minecraft:ender_pearl",
+                    "weight": 10,
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 2,
+                                "max": 4
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:string",
                     "weight": 20,
                     "functions": [
                         {
                             "function": "set_count",
                             "count": {
-                                "min": 8,
-                                "max": 16
+                                "min": 3,
+                                "max": 9
                             }
                         }
                     ]
-                },   
+                }, 
                 {
                     "type": "item",
-                    "name": "minecraft:glowstone_dust",
+                    "name": "minecraft:quartz",
                     "weight": 20,
                     "functions": [
                         {
@@ -103,105 +123,7 @@
                             }
                         }
                     ]
-                },                                 
-                {
-                    "type": "item",
-                    "name": "minecraft:magma_cream",
-                    "weight": 20,
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 2,
-                                "max": 6
-                            }
-                        }
-                    ]
-                },    
-                {
-                    "type": "item",
-                    "name": "minecraft:ender_pearl",
-                    "weight": 20,
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 4,
-                                "max": 8
-                            }
-                        }
-                    ]
-                },    
-                {
-                    "type": "item",
-                    "name": "minecraft:string",
-                    "weight": 20,
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 8,
-                                "max": 24
-                            }
-                        }
-                    ]
-                },    
-                {
-                    "type": "item",
-                    "name": "minecraft:fireball",
-                    "weight": 40,
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 1,
-                                "max": 5
-                            }
-                        }
-                    ]
-                },    
-                {
-                    "type": "item",
-                    "name": "minecraft:gravel",
-                    "weight": 40,
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 8,
-                                "max": 16
-                            }
-                        }
-                    ]
-                },  
-                {
-                    "type": "item",
-                    "name": "minecraft:leather",
-                    "weight": 40,
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 4,
-                                "max": 10
-                            }
-                        }
-                    ]
-                },                   
-                {
-                    "type": "item",
-                    "name": "minecraft:nether_brick",
-                    "weight": 40,
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 4,
-                                "max": 16
-                            }
-                        }
-                    ]
-                }, 
+                },
                 {
                     "type": "item",
                     "name": "minecraft:obsidian",
@@ -220,7 +142,26 @@
                             }
                         }
                     ]
-                }, 
+                },   
+                {
+                    "type": "item",
+                    "name": "minecraft:fireball",
+                    "weight": 40
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:leather",
+                    "weight": 40,
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 2,
+                                "max": 4
+                            }
+                        }
+                    ]
+                },
                 {
                     "type": "item",
                     "name": "minecraft:soul_sand",
@@ -229,12 +170,68 @@
                         {
                             "function": "set_count",
                             "count": {
-                                "min": 4,
+                                "min": 2,
+                                "max": 8
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:netherbrick",
+                    "weight": 40,
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 2,
+                                "max": 8
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:arrow",
+                    "weight": 40,
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 6,
+                                "max": 12
+                            }
+                        }
+                    ]
+                },     
+                {
+                    "type": "item",
+                    "name": "minecraft:gravel",
+                    "weight": 40,
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 8,
                                 "max": 16
                             }
                         }
                     ]
-                } 
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:blackstone",
+                    "weight": 40,
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 8,
+                                "max": 16
+                            }
+                        }
+                    ]
+                }
             ]
         }
     ]
