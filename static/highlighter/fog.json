@@ -1,7 +1,7 @@
 {
     "set": {},
     "define": {
-        "keywords": ["minecraft", "description", "weather", "air", "water"],
+        "keywords": ["minecraft", "description", "distance"],
         "titles": ["format_version"],
         "symbols": []
     }
