@@ -97,6 +97,13 @@
 			}
 		}
 	},
+	"fog": {
+		"$function.general.target_selector": {
+			"push": {},
+			"pop": {},
+			"remove": {}
+		}
+	},
 	"function": "$dynamic.function_files",
 	"gamemode": {
 		"$general.gamemode": "$function.general.target_selector"

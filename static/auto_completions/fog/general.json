@@ -1,0 +1,4 @@
+{
+    "distances": ["water", "air", "weather"],
+    "render_distance_types": ["fixed", "render"]
+}

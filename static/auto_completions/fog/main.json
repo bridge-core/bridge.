@@ -1,0 +1,19 @@
+{
+    "format_version": "$general.format_version",
+    "minecraft:fog_settings": {
+        "description": {
+            "identifer": {
+                "@meta": {"is_value": true},
+                "@import.value.fog": "$general.file_identifier"
+            }
+        },
+        "distance": {
+            "$fog.general.distances": {
+                "fog_start": "$general.number",
+                "fog_end": "$general.number",
+                "fog_color": {"@meta": {"is_color": true}},
+                "render_distance_type": "$fog.general.render_distance_types"
+            }
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "set": {},
+    "define": {
+        "keywords": ["minecraft", "description", "weather", "air", "water"],
+        "titles": ["format_version"],
+        "symbols": []
+    }
+}

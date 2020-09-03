@@ -21,6 +21,9 @@
     "feature/main",
     "feature/general",
 
+    "fog/main",
+    "fog/general",
+
     "feature_rule/main",
     "feature_rule/general",
     

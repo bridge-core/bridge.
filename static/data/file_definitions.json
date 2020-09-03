@@ -94,6 +94,17 @@
         "start_state": "simple/tick"
     },
     {
+        "id": "fog",
+        "includes": "fogs/",
+        "file_viewer": "json",
+
+        "start_state": "fog/main",
+        "lightning_cache": "fog",
+        "highlighter": "fog",
+        "file_creator": "fog",
+        "rp_definition": true
+    },
+    {
         "id": "function",
         "includes": "functions/",
         "file_viewer": "text",
