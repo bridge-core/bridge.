@@ -22,6 +22,8 @@ _This documentation is still a work in progress_
 
 ## [@bridge/fs](https://github.com/solvedDev/bridge./blob/master/app/renderer/src/plugins/scripts/modules/fs.md)
 
+## [@bridge/globals](https://github.com/solvedDev/bridge./blob/master/app/renderer/src/plugins/scripts/modules/globals.md)
+
 Usage Examples:
 
 ```javascript
