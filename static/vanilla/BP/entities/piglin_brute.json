@@ -131,21 +131,6 @@
         }
       },
 
-      "take_target_as_response_to_block_break": {
-        "minecraft:behavior.nearest_attackable_target": {
-          "priority": 3,
-          "entity_types": [
-            {
-              "filters": {
-                "test": "is_family",
-                "subject": "other",
-                "value": "player"
-              },
-              "max_dist": 16
-            }
-          ]
-        }
-      },
       "go_back_to_spawn": {
         "minecraft:behavior.go_home": {
           "priority": 6,
@@ -176,23 +161,7 @@
       "minecraft:home": {
       },
       "minecraft:experience_reward": {
-        "on_death": "query.last_hit_by_player ? 10 : 0"
-      },
-      "minecraft:block_sensor": {
-        "sensor_radius": 16,
-        "on_break": [
-          {
-            "block_list": [
-              "minecraft:gold_block",
-              "minecraft:chest",
-              "minecraft:ender_chest",
-              "minecraft:barrel",
-              "minecraft:shulker_box",
-              "minecraft:undyed_shulker_box"
-            ],
-            "on_block_broken": "important_block_destroyed_event"
-          }
-        ]
+        "on_death": "query.last_hit_by_player ? 20 : 0"
       },
 
       "minecraft:on_target_acquired": {
@@ -346,8 +315,7 @@
       "become_calm_event": {
         "remove": {
           "component_groups": [
-            "angry",
-            "take_target_as_response_to_block_break"
+            "angry"
           ]
         },
         "add": {
@@ -360,18 +328,6 @@
         "add": {
           "component_groups": [
             "become_zombie"
-          ]
-        }
-      },
-      "important_block_destroyed_event": {
-        "remove": {
-          "component_groups": [
-            "alert_for_attack_targets"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "take_target_as_response_to_block_break"
           ]
         }
       },

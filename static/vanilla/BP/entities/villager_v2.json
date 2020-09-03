@@ -554,12 +554,20 @@
       },
 
 
-      "wander_schedule_villager" : {
+      "wander_schedule_villager": {
         "minecraft:behavior.explore_outskirts": {
           "priority": 9,
+          "next_xz": 5,
+          "next_y": 3,
+          "min_wait_time": 3.0,
+          "max_wait_time": 10.0,
+          "max_travel_time": 60.0,
+          "speed_multiplier": 0.6,
           "explore_dist": 6.0,
-          "wait_time": 200,
-          "speed_multiplier": 0.6
+          "min_perimeter": 1.0,
+          "min_dist_from_target": 2.5,
+          "timer_ratio": 2.0,
+          "dist_from_boundary": [ 5.0, 0.0, 5.0 ]
         }
       },
 

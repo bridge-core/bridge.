@@ -18,33 +18,16 @@
         "target_weirdness": 0.0,
         "weight": 0.175
       },
-      "minecraft:surface_parameters": {
-        "sea_floor_depth": 1,
-        "sea_floor_material": "minecraft:basalt",
-        "foundation_material": "minecraft:netherrack",
-        "mid_material": "minecraft:basalt",
-        "top_material": "minecraft:basalt",
-        "sea_material": "minecraft:lava"
-      },
-      "minecraft:surface_material_adjustments": {
-        "adjustments": [
-          {
-            "materials": {
-              "top_material": "minecraft:blackstone",
-              "mid_material": "minecraft:blackstone"
-            },
-            "noise_frequency_scale": 0.1,
-            "noise_range": [ -1.0, 0.0 ]
-          },
-          {
-            "materials": {
-              "top_material": "minecraft:gravel"
-            },
-            "height_range": [ "variable.sea_level - 3", "variable.sea_level + 2" ],
-            "noise_frequency_scale": 0.4125,
-            "noise_range": [ -1.0, 0.5 ]
-          }
-        ]
+      "minecraft:capped_surface": {
+        "floor_materials": [
+          "minecraft:basalt",
+          "minecraft:blackstone"
+        ],
+        "ceiling_materials": [
+          "minecraft:basalt"
+        ],
+        "sea_material": "minecraft:lava",
+        "foundation_material": "minecraft:netherrack"
       },
 
       "nether": {},

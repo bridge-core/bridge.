@@ -432,6 +432,23 @@
           },
           {
             "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "piglin"
+                },
+                {
+                  "test": "is_difficulty",
+                  "operator": "!=",
+                  "value": "peaceful"
+                }
+              ]
+            },
+            "max_dist": 16
+          },
+          {
+            "filters": {
               "test": "is_family",
               "subject": "other",
               "value": "irongolem"
