@@ -6,7 +6,7 @@ const validateGroup = () => {
 	Node.error = undefined
 
 	//Validate group data type
-	if (Node.children.length > 0 || Node.data === '') {
+	if (Node.children.length > 0) {
 		Node.error = {
 			show: true,
 			message: 'Component group name must be a string',
@@ -22,6 +22,14 @@ const validateGroup = () => {
 		return
 	}
 
+	//Error if node is empty - fix shouldn't be proposed
+	if (Node.data === '') {
+		Node.error = {
+			show: true,
+			message: 'Component group name must be a string',
+		}
+	}
+
 	//Validate group name
 	let componentGroups = []
 
@@ -33,7 +41,7 @@ const validateGroup = () => {
 		componentGroups = Object.keys(ComponentGroupsNode.toJSON())
 	}
 
-	if (!componentGroups.includes(Node.data)) {
+	if (!componentGroups.includes(Node.data) && Node.data !== '') {
 		Node.error = {
 			show: true,
 			message: 'Unknown component group',
