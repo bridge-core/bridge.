@@ -7,7 +7,7 @@
                 {
                     "$if": "$project_target_version >= 1.16.100",
                     "$data": {
-                        "fog_identfier": "$dynamic.cache.fog.identifiers"
+                        "fog_identifier": "$general.fog_identifier"
                     }
                 },
                 {

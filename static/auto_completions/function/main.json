@@ -99,7 +99,9 @@
 	},
 	"fog": {
 		"$function.general.target_selector": {
-			"push": {},
+			"push": {
+				"$general.fog_identifier": {}
+			},
 			"pop": {},
 			"remove": {}
 		}
