@@ -9,13 +9,19 @@ import path from 'path'
 import { readJSON } from '../Utilities/JsonFS'
 import ContentWindow from '../UI/Windows/Common/Content'
 import FileType from './FileType'
-import { DOC_URL } from '../constants'
+import { DOC_URL, CURRENT, DOC_URL_BETA } from '../constants'
 
 export async function openDocumentation(query: string, file_path: string) {
 	let doc = FileType.getDocumentation(file_path) || 'Addons'
+	let docURL = ''
+	if (CURRENT.PROJECT_TARGET_VERSION == '1.16.100') {
+		docURL = DOC_URL_BETA
+	} else {
+		docURL = DOC_URL
+	}
 
 	if (typeof doc === 'string') {
-		shell.openExternal(`${DOC_URL}${encodeURI(doc)}#${encodeURI(query)}`)
+		shell.openExternal(`${docURL}${encodeURI(doc)}#${encodeURI(query)}`)
 	} else {
 		if (doc.inject) {
 			let inject = await readJSON(
@@ -48,7 +54,7 @@ export async function openDocumentation(query: string, file_path: string) {
 			}
 		}
 		shell.openExternal(
-			`${DOC_URL}${encodeURI(doc.base)}#${doc.extend || query}`
+			`${docURL}${encodeURI(doc.base)}#${doc.extend || query}`
 		)
 	}
 }

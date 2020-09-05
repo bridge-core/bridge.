@@ -25,33 +25,51 @@
 		<v-subheader style="/*margin-top: 32px;*/">Minecraft</v-subheader>
 		<v-container>
 			<template v-for="(doc, i) in doc_list">
-				<v-btn :key="`btn.${i}`" @click.stop="openDoc(doc)" class="font-weight-light" block text>
+				<v-btn
+					:key="`btn.${i}`"
+					@click.stop="openDoc(doc)"
+					class="font-weight-light"
+					block
+					text
+				>
 					<span>{{ doc }}</span>
 					<v-spacer />
 					<v-icon>mdi-chevron-right</v-icon>
 				</v-btn>
 
-				<v-divider v-if="i + 1 < doc_list.length" :key="`divider.${i}`" />
+				<v-divider
+					v-if="i + 1 < doc_list.length"
+					:key="`divider.${i}`"
+				/>
 			</template>
 		</v-container>
 
 		<v-subheader style="/*margin-top: 32px;*/">bridge.</v-subheader>
 		<v-container>
 			<template v-for="([name, link], i) in bridge_docs">
-				<v-btn :key="`btn.${i}`" @click.stop="openLink(link)" class="font-weight-light" block text>
+				<v-btn
+					:key="`btn.${i}`"
+					@click.stop="openLink(link)"
+					class="font-weight-light"
+					block
+					text
+				>
 					<span>{{ name }}</span>
 					<v-spacer />
 					<v-icon>mdi-chevron-right</v-icon>
 				</v-btn>
 
-				<v-divider v-if="i + 1 < bridge_docs.length" :key="`divider.${i}`" />
+				<v-divider
+					v-if="i + 1 < bridge_docs.length"
+					:key="`divider.${i}`"
+				/>
 			</template>
 		</v-container>
 	</v-container>
 </template>
 
 <script>
-import { DOC_LIST, DOC_URL, CURRENT } from '../../../constants'
+import { DOC_LIST, DOC_URL, CURRENT, DOC_URL_BETA } from '../../../constants'
 import { shell } from 'electron'
 import TagDocumentation from '../../../../windows/Documentation/Tag.ts'
 
@@ -88,6 +106,13 @@ export default {
 		project() {
 			return CURRENT.PROJECT
 		},
+		docURL() {
+			if (CURRENT.PROJECT_TARGET_VERSION == '1.16.100') {
+				return DOC_URL_BETA
+			} else {
+				return DOC_URL
+			}
+		},
 	},
 	methods: {
 		onResize() {
@@ -95,7 +120,7 @@ export default {
 		},
 
 		openDoc(doc) {
-			shell.openExternal(`${DOC_URL}${encodeURI(doc)}`)
+			shell.openExternal(`${this.docURL}${encodeURI(doc)}`)
 		},
 		openLink(l) {
 			shell.openExternal(l)
