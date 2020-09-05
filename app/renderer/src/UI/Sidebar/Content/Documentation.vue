@@ -28,7 +28,7 @@
 				<v-btn
 					:key="`btn.${i}`"
 					@click.stop="openDoc(doc)"
-					class="font-weight-light"
+					class="font-weight-light btn-hover"
 					block
 					text
 				>
@@ -50,7 +50,7 @@
 				<v-btn
 					:key="`btn.${i}`"
 					@click.stop="openLink(link)"
-					class="font-weight-light"
+					class="font-weight-light btn-hover"
 					block
 					text
 				>
@@ -142,12 +142,15 @@ export default {
 div.container {
 	padding: 4px;
 	overflow-y: auto;
+	overflow-x: hidden;
 }
-
 .v-btn {
 	margin: 0;
 }
 .first {
 	padding-left: 0.1em;
+}
+.btn-hover:hover {
+	width: 105%;
 }
 </style>
