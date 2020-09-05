@@ -33,6 +33,8 @@ export { APP_VERSION }
 export * from '../../shared/Paths'
 export const BASE_PATH = BP_BASE_PATH
 
+export const MC_BETA_VERSION = '1.16.100'
+
 export const browser_window = remote.getCurrentWindow()
 
 export const CURRENT = {

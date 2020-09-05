@@ -98,7 +98,7 @@ import TabSystem from '../../TabSystem'
 import EventBus from '../../EventBus'
 import FileType from '../../editor/FileType'
 import { shell } from 'electron'
-import { DOC_URL, CURRENT, DOC_URL_BETA } from '../../constants'
+import { DOC_URL, CURRENT, DOC_URL_BETA, MC_BETA_VERSION } from '../../constants'
 import { getTabContextMenu } from '../../UI/ContextMenu/Tab'
 
 export default {
@@ -156,7 +156,7 @@ export default {
 			return this.$store.state.Appearance.is_dark_mode
 		},
 		docURL() {
-			if (CURRENT.PROJECT_TARGET_VERSION == '1.16.100') {
+			if (CURRENT.PROJECT_TARGET_VERSION == MC_BETA_VERSION) {
 				return DOC_URL_BETA
 			} else {
 				return DOC_URL

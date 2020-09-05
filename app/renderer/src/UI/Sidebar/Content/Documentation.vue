@@ -69,7 +69,13 @@
 </template>
 
 <script>
-import { DOC_LIST, DOC_URL, CURRENT, DOC_URL_BETA } from '../../../constants'
+import {
+	DOC_LIST,
+	DOC_URL,
+	CURRENT,
+	DOC_URL_BETA,
+	MC_BETA_VERSION,
+} from '../../../constants'
 import { shell } from 'electron'
 import TagDocumentation from '../../../../windows/Documentation/Tag.ts'
 
@@ -107,7 +113,7 @@ export default {
 			return CURRENT.PROJECT
 		},
 		docURL() {
-			if (CURRENT.PROJECT_TARGET_VERSION == '1.16.100') {
+			if (CURRENT.PROJECT_TARGET_VERSION == MC_BETA_VERSION) {
 				return DOC_URL_BETA
 			} else {
 				return DOC_URL
