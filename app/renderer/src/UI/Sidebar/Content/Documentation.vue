@@ -152,5 +152,6 @@ div.container {
 }
 .btn-hover:hover {
 	width: 105%;
+	border-left: 3px solid var(--v-primary-base);
 }
 </style>
