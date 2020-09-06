@@ -274,6 +274,7 @@ export default {
 	methods: {
 		updateComment(val) {
 			TabSystem.getCurrentNavObj().comment = val
+			TabSystem.setCurrentUnsaved()
 		},
 		updateCurrentComment() {
 			this.$nextTick(() => {
