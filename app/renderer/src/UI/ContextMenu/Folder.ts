@@ -1,12 +1,10 @@
 /**
  * Define context menu upon right clicking on a folder (FileDisplayer.vue)
  */
-import InputWindow from '../Windows/Common/Input'
 import trash from 'trash'
 import { promises as fs } from 'fs'
 import path from 'path'
 import { FileExplorer } from '../Sidebar/FileExplorer'
-import CreateFileHereWindow from '../../../windows/CreateFileHere'
 import { shell } from 'electron'
 import {
 	createInputWindow,

@@ -149,6 +149,7 @@ export default {
 								ProjectConfig.setFormatVersion(
 									this.targetVersion
 								)
+								ProjectConfig.setPrefix('bridge')
 								l_w.hide()
 								EventBus.trigger(
 									'bridge:selectProject',
