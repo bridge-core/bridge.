@@ -16,6 +16,9 @@ export const ENVModule = ({}: IModuleConfig) => ({
 	getProjectPrefix() {
 		return ProjectConfig.getPrefixSync()
 	},
+	getProjectTargetVersion() {
+		return CURRENT.PROJECT_TARGET_VERSION
+	},
 	getContext() {
 		return ContextEnv.value
 	},
