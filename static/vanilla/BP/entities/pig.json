@@ -128,7 +128,18 @@
       "minecraft:damage_sensor": {
         "triggers": {
           "on_damage": {
-            "filters": { "test" :  "is_family", "subject" : "other", "value" :  "lightning"},
+            "filters": [
+              {
+                "test": "is_family",
+                "subject": "other",
+                "value": "lightning"
+              },
+              {
+                "test": "is_difficulty",
+                "operator": "!=",
+                "value": "peaceful"
+              }
+            ],
             "event": "become_zombie"
           },
           "deals_damage": false
@@ -226,6 +237,8 @@
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 

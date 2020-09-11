@@ -159,6 +159,8 @@
       "minecraft:variant": {
         "value": 2
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:navigation.walk": {
         "is_amphibious": true,
         "can_pass_doors": true,

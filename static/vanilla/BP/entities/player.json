@@ -133,6 +133,8 @@
           }
         ]
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:scaffolding_climber": {},
       "minecraft:environment_sensor": {
         "triggers": {

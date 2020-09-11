@@ -313,6 +313,8 @@
           "range_min": 2.0,
           "range_max": 5.0
         }
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 

@@ -260,6 +260,8 @@
         "value": 24,
         "max": 24
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:hurt_on_condition": {
         "damage_conditions": [
           {

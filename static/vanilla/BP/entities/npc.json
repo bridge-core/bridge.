@@ -115,6 +115,8 @@
         "allow_name_tag_renaming": false
       },
       "minecraft:physics": {
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     }
   }

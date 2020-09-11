@@ -495,6 +495,8 @@
       "minecraft:behavior.barter": {
         "priority": 3
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:behavior.avoid_mob_type": {
         "priority": 4,
         "remove_target": true,

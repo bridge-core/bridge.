@@ -1414,6 +1414,8 @@
         "value": 20,
         "max": 20
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:hurt_on_condition": {
         "damage_conditions": [
           {
@@ -1468,7 +1470,18 @@
         "triggers": [
           {
             "on_damage": {
-              "filters": { "test" :  "is_family", "subject" : "other", "value" :  "lightning" },
+              "filters": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "lightning"
+                },
+                {
+                  "test": "is_difficulty",
+                  "operator": "!=",
+                  "value": "peaceful"
+                }
+              ],
               "event": "become_witch"
             },
             "deals_damage": false

@@ -28,7 +28,8 @@
         },
         "result": {
             "item": "piston",
-            "count": 1
+            "count": 1,
+            "data": 1
         },
         "priority": 2
     }

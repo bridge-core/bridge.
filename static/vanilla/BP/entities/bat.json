@@ -69,6 +69,8 @@
       "minecraft:nameable": {
       },
       "minecraft:physics": {
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 
