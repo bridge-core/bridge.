@@ -362,6 +362,28 @@
 		"width": "$general.number",
 		"height": "$general.number"
 	},
+	"$versioned_template.minecraft:conditional_bandwidth_optimization": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"conditional_values": {
+					"$dynamic.list.next_index": {
+						"max_dropped_ticks": "$general.number",
+						"max_optimized_distance": "$general.number",
+						"use_motion_prediction_hints": "$general.boolean",
+						"conditional_values": {
+							"$dynamic.list.next_index": "$entity.filters"
+						}
+					}
+				},
+				"default_values": {
+					"max_dropped_ticks": "$general.number",
+					"max_optimized_distance": "$general.number",
+					"use_motion_prediction_hints": "$general.boolean"
+				}
+			}
+		}
+	],
 	"minecraft:color": {
 		"value": "$general.number"
 	},
