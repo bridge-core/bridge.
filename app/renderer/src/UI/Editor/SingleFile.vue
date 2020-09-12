@@ -25,6 +25,11 @@
 			:available_height="available_height"
 			available_width="100%"
 		/>
+		<structure-editor
+			v-else-if="file_viewer === 'mcstructure'"
+			:filePath="file.file_path"
+			:availableHeight="available_height"
+		/>
 		<json-error-screen
 			v-else-if="file_viewer === 'json' && json_object == 'error'"
 		/>
@@ -60,6 +65,7 @@ import DataUrl from 'dataurl'
 import AudioPlayer from './AudioPlayer'
 import FileType from '../../editor/FileType'
 import ModelEditor from './Model/Main'
+import StructureEditor from './Structure/Main'
 import TextEditor from './Text/Monaco'
 
 export default {
@@ -69,6 +75,7 @@ export default {
 		JsonErrorScreen,
 		AudioPlayer,
 		ModelEditor,
+		StructureEditor,
 		TextEditor,
 	},
 	props: {
@@ -97,6 +104,7 @@ export default {
 			else if (this.extension === 'png' || this.extension === 'tga')
 				return 'image'
 			else if (this.extension === 'ogg') return 'audio'
+			else if (this.extension === 'mcstructure') return 'mcstructure'
 			return 'text'
 		},
 		extension() {
