@@ -10,7 +10,7 @@ import LoadingWindow from '../../../../windows/LoadingWindow'
 import FileSystem from '../../../FileSystem'
 import { ImportFileMap } from '../../../plugins/scripts/modules/importFiles'
 import { createInformationWindow } from '../../Windows/Common/CommonDefinitions'
-import { clearAllNotifiactions } from '../../Footer/create'
+import { clearAllNotifications } from '../../Footer/create'
 
 export const FileMenu: IAppMenu = {
 	displayName: 'File',
