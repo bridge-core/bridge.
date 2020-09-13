@@ -22,19 +22,21 @@ export async function loadStructure(
 	const currentPalette = palette.default.block_palette
 
 	//Warning notification - should be removed when this is fixed
-	let structureWarning = createNotification({
-		icon: 'mdi-alert-circle-outline',
-		message: 'Warning',
-		color: 'error',
-		textColor: 'white',
-		onClick: () => {
-			structureWarning.dispose()
-			createInformationWindow(
-				'Warning',
-				'There is currentlty a bug in minecraft where large structures can be cut off when generated with features and feature rules. The limit seems to be 32x32 on the x and z axis.'
-			)
-		},
-	})
+	if (size[0] > 32 || size[2] > 32) {
+		let structureWarning = createNotification({
+			icon: 'mdi-alert-circle-outline',
+			message: 'Warning',
+			color: 'error',
+			textColor: 'white',
+			onClick: () => {
+				structureWarning.dispose()
+				createInformationWindow(
+					'Warning',
+					'There is currentlty a bug in minecraft where large structures can be cut off when generated with features and feature rules. The limit seems to be 32x32 on the x and z axis.'
+				)
+			},
+		})
+	}
 
 	if (format_version !== 1)
 		return createErrorNotification(
