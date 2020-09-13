@@ -63,3 +63,9 @@ export function createTimedNotification(
 		...notification,
 	}
 }
+
+export function clearAllNotifications() {
+	for (const [key] of Object.entries(NotificationStore)) {
+		Vue.delete(NotificationStore, key)
+	}
+}
