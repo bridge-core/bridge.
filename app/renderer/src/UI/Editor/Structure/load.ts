@@ -1,6 +1,8 @@
 import { promises as fs } from 'fs'
 import nbt from 'prismarine-nbt'
 import { createErrorNotification } from '../../../AppCycle/Errors'
+import { createNotification } from '../../Footer/create'
+import { createInformationWindow } from '../../Windows/Common/CommonDefinitions'
 import { BlockLibrary } from '../Voxel/BlockLibrary/main'
 import { createVoxelEditor } from '../Voxel/create'
 
@@ -18,6 +20,21 @@ export async function loadStructure(
 	} = nbt.simplify(nbtStructure)
 	const { entities, block_indices, palette } = structure
 	const currentPalette = palette.default.block_palette
+
+	//Warning notification - should be removed when this is fixed
+	let structureWarning = createNotification({
+		icon: 'mdi-alert-circle-outline',
+		message: 'Warning',
+		color: 'error',
+		textColor: 'white',
+		onClick: () => {
+			structureWarning.dispose()
+			createInformationWindow(
+				'Warning',
+				'There is currentlty a bug in minecraft where large structures can be cut off when generated with features and feature rules. The limit seems to be 32x32 on the x and z axis.'
+			)
+		},
+	})
 
 	if (format_version !== 1)
 		return createErrorNotification(
