@@ -14,8 +14,8 @@ export interface IVoxelWorldCommonOptions {
 	chunkSize: number
 	renderDistance: number
 	tileSize: number
-	tileTextureWidth: number
-	tileTextureHeight: number
+	tileTextureWidth?: number
+	tileTextureHeight?: number
 }
 export interface IVoxelWorldOptions extends IVoxelWorldCommonOptions {
 	scene: Scene

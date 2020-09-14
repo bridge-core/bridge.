@@ -11,11 +11,13 @@ import {
 	Fog,
 	Raycaster,
 	Vector2,
+	CanvasTexture,
 } from 'three'
 import { MapControls } from 'three/examples/jsm/controls/OrbitControls'
 import { createLight } from './World/createLight'
 import { createVoxelWorld, IVoxelWorldCommonOptions } from './World/create'
 import { join } from 'path'
+import { BlockLibrary, createTileMap } from './BlockLibrary/main'
 declare var __static: string
 
 export interface IVoxelOptions extends IVoxelWorldCommonOptions {
@@ -40,15 +42,11 @@ export function createVoxelEditor(
 		far = 1000,
 		chunkSize,
 		tileSize,
-		tileTextureWidth,
-		tileTextureHeight,
 		renderDistance,
 		isImmutable,
 	}: IVoxelOptions = {
 		chunkSize: 16,
 		tileSize: 16,
-		tileTextureWidth: 80,
-		tileTextureHeight: 48,
 		renderDistance: 12,
 	}
 ) {
@@ -65,18 +63,23 @@ export function createVoxelEditor(
 	// )
 	scene.background = new Color(0xc9e2ff)
 	scene.add(new AmbientLight(0x404040))
-	createLight({ x: 2, y: 1, z: -1, scene, color: 0xc0c0c0 })
+	createLight({ x: 2, y: 32, z: -1, scene, color: 0xc0c0c0 })
 
-	const loader = new TextureLoader()
-	const texture = loader.load(join(__static, 'assets/terrain.png'))
-	texture.magFilter = NearestFilter
-	texture.minFilter = NearestFilter
 	const material = new MeshLambertMaterial({
-		map: texture,
 		side: FrontSide,
 		alphaTest: 0.1,
 		transparent: true,
 	})
+	createTileMap().then(canvas => {
+		const texture = new CanvasTexture(canvas)
+		texture.magFilter = NearestFilter
+		texture.minFilter = NearestFilter
+		material.map = texture
+	})
+	const {
+		tileTextureWidth,
+		tileTextureHeight,
+	} = BlockLibrary.getTileMapDimensions()
 	const world = createVoxelWorld({
 		chunkSize,
 		renderDistance,
