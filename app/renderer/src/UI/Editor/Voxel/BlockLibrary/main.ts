@@ -5,7 +5,7 @@ import { join } from 'path'
 import { createErrorNotification } from '../../../../AppCycle/Errors'
 import { readJSON } from '../../../../Utilities/JsonFS'
 import { promises as fs } from 'fs'
-import { isTransparentTexture } from './texture'
+import { isTransparentTexture, loadImage } from './texture'
 declare const __static: string
 
 const library: IBlockData[] = [
@@ -19,7 +19,6 @@ const library: IBlockData[] = [
 ]
 
 export interface IBlockData {
-	img?: unknown
 	id: string
 	isTransparent?: boolean
 	textureData?:
@@ -43,31 +42,22 @@ export async function createTileMap() {
 	context.imageSmoothingEnabled = false
 
 	await Promise.all(
-		library.map(
-			({ textureData }, i) =>
-				new Promise((resolve, reject) => {
-					const img = new Image()
-					library[i].img = img
+		library.map(({ textureData }, i) =>
+			loadImage(
+				(textureData as any)?.side ||
+					(textureData as any)?.west ||
+					textureData
+			).then(img => {
+				context.drawImage(img, i * 16, 0)
+				library[i].isTransparent = isTransparentTexture(
+					context,
+					i * 16,
+					0
+				)
 
-					img.addEventListener('load', () => {
-						context.drawImage(img, i * 16, 0)
-						library[i].isTransparent = isTransparentTexture(
-							context,
-							i * 16,
-							0
-						)
-
-						context.drawImage(img, i * 16, 16)
-						context.drawImage(img, i * 16, 32)
-						resolve()
-					})
-					img.addEventListener('error', reject)
-
-					img.src =
-						(textureData as any)?.side ||
-						(textureData as any)?.west ||
-						textureData
-				})
+				context.drawImage(img, i * 16, 16)
+				context.drawImage(img, i * 16, 32)
+			})
 		)
 	).catch(console.error)
 

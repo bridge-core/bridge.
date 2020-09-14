@@ -16,9 +16,8 @@ import {
 import { MapControls } from 'three/examples/jsm/controls/OrbitControls'
 import { createLight } from './World/createLight'
 import { createVoxelWorld, IVoxelWorldCommonOptions } from './World/create'
-import { join } from 'path'
 import { BlockLibrary, createTileMap } from './BlockLibrary/main'
-declare var __static: string
+declare const __static: string
 
 export interface IVoxelOptions extends IVoxelWorldCommonOptions {
 	fov?: number
