@@ -58,6 +58,15 @@
 						]
 					},
 					"@import.value.animations": "$dynamic.cache.rp_animation.ids and $dynamic.cache.rp_animation_controller.ids"
+				},
+				"@meta": {
+					"validate": {
+						"confirm": "Bridge.Node.children.length == 0",
+						"then": {
+							"show": true,
+							"message": "Node has too few children (0 < 1)"
+						}
+					}
 				}
 			},
 			"scripts": {
