@@ -43,11 +43,9 @@ export async function loadStructure(
 			new Error(`Unknown structure format version: ${format_version}`)
 		)
 
-	const editor = createVoxelEditor(canvas, {
+	const editor = await createVoxelEditor(canvas, {
 		chunkSize: Math.max(...(size as number[])),
 		tileSize: 16,
-		tileTextureWidth: 80,
-		tileTextureHeight: 48,
 		renderDistance: 12,
 		isImmutable: true,
 	})

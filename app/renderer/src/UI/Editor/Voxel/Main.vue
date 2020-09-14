@@ -27,8 +27,8 @@ export default {
 		availableHeight: Number,
 		availableWidth: Number,
 	},
-	mounted() {
-		editor = createVoxelEditor(this.$refs.canvas)
+	async mounted() {
+		editor = await createVoxelEditor(this.$refs.canvas)
 		this.onResize()
 		editor.startRendering()
 	},

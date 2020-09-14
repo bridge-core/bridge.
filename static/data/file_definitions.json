@@ -94,17 +94,6 @@
         "start_state": "simple/tick"
     },
     {
-        "id": "fog",
-        "includes": "fogs/",
-        "file_viewer": "json",
-
-        "start_state": "fog/main",
-        "lightning_cache": "fog",
-        "highlighter": "fog",
-        "file_creator": "fog",
-        "rp_definition": true
-    },
-    {
         "id": "function",
         "includes": "functions/",
         "file_viewer": "text",
@@ -192,6 +181,11 @@
         "start_state": "spawn_rule/main",
         "highlighter": "spawn_rule",
         "file_creator": "spawn_rule"
+    },
+    {
+        "id": "mcstructure",
+        "includes": "structures/",
+        "file_viewer": "mcstructure"
     },
     {
         "id": "trade_table",
@@ -304,6 +298,17 @@
         "file_viewer": "text",
         "file_creator": "lang",
         "comment_character": "##",
+        "rp_definition": true
+    },
+    {
+        "id": "fog",
+        "includes": "fogs/",
+        "file_viewer": "json",
+
+        "start_state": "fog/main",
+        "lightning_cache": "fog",
+        "highlighter": "fog",
+        "file_creator": "fog",
         "rp_definition": true
     },
     {

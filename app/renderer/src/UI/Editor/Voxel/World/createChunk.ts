@@ -1,5 +1,6 @@
 import { VoxelFaces } from '../VoxelFaces'
 import { VoxelNeighbours } from '../Neighbours'
+import { BlockLibrary } from '../BlockLibrary/main'
 
 export type TChunk = ReturnType<typeof createChunk>
 
@@ -9,7 +10,7 @@ export function createChunk(
 	chunkY: number,
 	chunkZ: number
 ) {
-	const chunkData = new Uint8Array(chunkSize * chunkSize * chunkSize)
+	const chunkData = new Uint32Array(chunkSize * chunkSize * chunkSize)
 	const chunkSliceSize = chunkSize * chunkSize
 	let blocksPlaced = 0
 	let maxX = 0,
@@ -167,8 +168,8 @@ export function createChunk(
 								startZ + z + dir[2]
 							)
 
-							// This voxel has air as a neighbour in the current direction -> add face
-							if (neighbour === 0) {
+							// This voxel has a transparent voxel as a neighbour in the current direction -> add face
+							if (BlockLibrary.isTransparent(neighbour)) {
 								const ndx = positions.length / 3
 								for (const {
 									pos: [oX, oY, oZ],

@@ -4,6 +4,8 @@
 import { join } from 'path'
 import { createErrorNotification } from '../../../../AppCycle/Errors'
 import { readJSON } from '../../../../Utilities/JsonFS'
+import { promises as fs } from 'fs'
+import { isTransparentTexture } from './texture'
 declare const __static: string
 
 const library: IBlockData[] = [
@@ -17,7 +19,9 @@ const library: IBlockData[] = [
 ]
 
 export interface IBlockData {
+	img?: unknown
 	id: string
+	isTransparent?: boolean
 	textureData?:
 		| {
 				top: string
@@ -43,23 +47,39 @@ export async function createTileMap() {
 			({ textureData }, i) =>
 				new Promise((resolve, reject) => {
 					const img = new Image()
-					img.src =
-						(textureData as any)?.side ||
-						(textureData as any)?.west ||
-						textureData
+					library[i].img = img
+
 					img.addEventListener('load', () => {
-						document.body.appendChild(img)
 						context.drawImage(img, i * 16, 0)
+						library[i].isTransparent = isTransparentTexture(
+							context,
+							i * 16,
+							0
+						)
+
 						context.drawImage(img, i * 16, 16)
 						context.drawImage(img, i * 16, 32)
 						resolve()
 					})
 					img.addEventListener('error', reject)
+
+					img.src =
+						(textureData as any)?.side ||
+						(textureData as any)?.west ||
+						textureData
 				})
 		)
 	).catch(console.error)
 
-	document.body.appendChild(canvas)
+	await fs.writeFile(
+		join(__static, 'assets/dynamic.png'),
+		canvas
+			.toDataURL('image/png')
+			.split(';base64,')
+			.pop(),
+		{ encoding: 'base64' }
+	)
+	console.log(library, BlockLibrary)
 	return canvas
 }
 
@@ -91,6 +111,8 @@ export async function loadVanillaBlocks() {
 	}
 
 	Object.entries(blockDefs).forEach(([id, data]) => {
+		if (id === 'air') return
+
 		BlockLibrary.addBlock({
 			id: `minecraft:${id}`,
 			textureData: resolveTextures((data as any).textures) as any,
@@ -98,7 +120,7 @@ export async function loadVanillaBlocks() {
 	})
 }
 
-loadVanillaBlocks().then(() => console.log(library))
+loadVanillaBlocks()
 export const BlockLibrary = {
 	/**
 	 * Get the runtime ID for a string block ID
@@ -129,4 +151,9 @@ export const BlockLibrary = {
 		tileTextureWidth: library.length * 16,
 		tileTextureHeight: 3 * 16,
 	}),
+
+	isTransparent(id: number) {
+		if (id === 0) return true
+		return library[id - 1].isTransparent
+	},
 }

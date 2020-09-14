@@ -33,7 +33,7 @@ export interface IVoxelOptions extends IVoxelWorldCommonOptions {
  * @param canvas Canvas to use to render the world
  * @param voxelRendererConfig Configure the properties of the voxel world
  */
-export function createVoxelEditor(
+export async function createVoxelEditor(
 	canvas: HTMLCanvasElement,
 	{
 		fov = 75,
@@ -50,6 +50,11 @@ export function createVoxelEditor(
 		renderDistance: 12,
 	}
 ) {
+	const {
+		tileTextureWidth,
+		tileTextureHeight,
+	} = BlockLibrary.getTileMapDimensions()
+
 	const renderer = new WebGLRenderer({ canvas, antialias: false })
 	renderer.setPixelRatio(window.devicePixelRatio)
 	const camera = new PerspectiveCamera(fov, aspect, near, far)
@@ -63,23 +68,18 @@ export function createVoxelEditor(
 	// )
 	scene.background = new Color(0xc9e2ff)
 	scene.add(new AmbientLight(0x404040))
-	createLight({ x: 2, y: 32, z: -1, scene, color: 0xc0c0c0 })
+	createLight({ x: 32, y: 32, z: -1, scene, color: 0xc0c0c0 })
 
+	const texture = new CanvasTexture(await createTileMap())
+	texture.magFilter = NearestFilter
+	texture.minFilter = NearestFilter
 	const material = new MeshLambertMaterial({
+		map: texture,
 		side: FrontSide,
 		alphaTest: 0.1,
 		transparent: true,
 	})
-	createTileMap().then(canvas => {
-		const texture = new CanvasTexture(canvas)
-		texture.magFilter = NearestFilter
-		texture.minFilter = NearestFilter
-		material.map = texture
-	})
-	const {
-		tileTextureWidth,
-		tileTextureHeight,
-	} = BlockLibrary.getTileMapDimensions()
+
 	const world = createVoxelWorld({
 		chunkSize,
 		renderDistance,
