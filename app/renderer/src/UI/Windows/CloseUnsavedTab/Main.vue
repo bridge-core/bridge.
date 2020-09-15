@@ -47,7 +47,7 @@ export default {
 		},
 		onClose() {
 			this.currentWindow.close()
-			this.onCloseCb()
+			this.onCancelCb()
 		},
 	},
 }
