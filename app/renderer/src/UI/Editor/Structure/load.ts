@@ -32,7 +32,7 @@ export async function loadStructure(
 				structureWarning.dispose()
 				createInformationWindow(
 					'Warning',
-					'There is currentlty a bug in minecraft where large structures can be cut off when generated with features and feature rules. The limit seems to be 32x32 on the x and z axis.'
+					'There is currentlty a bug in minecraft where large structures can be cut off when generated with features and feature rules. The limit seems to be 32x32 on the x and z axis, however this value is inconsistent and can sometimes be lower.'
 				)
 			},
 		})
