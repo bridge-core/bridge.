@@ -7,7 +7,7 @@
 		:isFullscreen="false"
 		:width="440"
 		:height="130"
-		@closeWindow="onClose"
+		@closeWindow="onCancel"
 	>
 		<template #default>
 			<p class="mt-2">
@@ -47,7 +47,7 @@ export default {
 		},
 		onClose() {
 			this.currentWindow.close()
-			this.onCancelCb()
+			this.onCloseCb()
 		},
 	},
 }
