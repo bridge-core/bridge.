@@ -4,7 +4,7 @@
 export const VoxelFaces = [
 	// Left
 	{
-		uvRow: 1,
+		faces: ['east', 'side', 'all'],
 		dir: [-1, 0, 0],
 		corners: [
 			{ pos: [0, 1, 0], uv: [0, 1] },
@@ -16,7 +16,7 @@ export const VoxelFaces = [
 
 	// Right
 	{
-		uvRow: 1,
+		faces: ['west', 'side', 'all'],
 		dir: [1, 0, 0],
 		corners: [
 			{ pos: [1, 1, 1], uv: [0, 1] },
@@ -28,7 +28,7 @@ export const VoxelFaces = [
 
 	// Bottom
 	{
-		uvRow: 2,
+		faces: ['down', 'all'],
 		dir: [0, -1, 0],
 		corners: [
 			{ pos: [1, 0, 1], uv: [1, 0] },
@@ -40,7 +40,7 @@ export const VoxelFaces = [
 
 	// Top
 	{
-		uvRow: 0,
+		faces: ['up', 'all'],
 		dir: [0, 1, 0],
 		corners: [
 			{ pos: [0, 1, 1], uv: [1, 1] },
@@ -52,7 +52,7 @@ export const VoxelFaces = [
 
 	//Back
 	{
-		uvRow: 1,
+		faces: ['south', 'side', 'all'],
 		dir: [0, 0, -1],
 		corners: [
 			{ pos: [1, 0, 0], uv: [0, 0] },
@@ -64,7 +64,7 @@ export const VoxelFaces = [
 
 	//Front
 	{
-		uvRow: 1,
+		faces: ['north', 'side', 'all'],
 		dir: [0, 0, 1],
 		corners: [
 			{ pos: [0, 0, 1], uv: [0, 0] },

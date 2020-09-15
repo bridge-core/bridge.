@@ -1,6 +1,6 @@
 import { VoxelFaces } from '../VoxelFaces'
 import { VoxelNeighbours } from '../Neighbours'
-import { BlockLibrary } from '../BlockLibrary/main'
+import { BlockLibrary, TDirection } from '../BlockLibrary/main'
 
 export type TChunk = ReturnType<typeof createChunk>
 
@@ -129,16 +129,16 @@ export function createChunk(
 		}
 	) => {
 		if (isChunkEmpty()) return
-		if (isChunkSolid())
-			return await getSolidChunkGeometry(
-				tileSize,
-				tileTextureWidth,
-				tileTextureHeight,
-				{
-					getVoxel: globalGetVoxel,
-					getChunk,
-				}
-			)
+		// if (isChunkSolid())
+		// 	return await getSolidChunkGeometry(
+		// 		tileSize,
+		// 		tileTextureWidth,
+		// 		tileTextureHeight,
+		// 		{
+		// 			getVoxel: globalGetVoxel,
+		// 			getChunk,
+		// 		}
+		// 	)
 
 		const positions: number[] = []
 		const normals: number[] = []
@@ -155,13 +155,12 @@ export function createChunk(
 
 					// The current voxel is not air, we may need to render faces for it
 					if (voxel !== 0) {
-						const uvVoxel = voxel - 1
 						x = chunkX < 0 ? chunkSize - x : x
 						y = chunkY < 0 ? chunkSize - y : y
 						z = chunkZ < 0 ? chunkSize - z : z
 
 						// Do we need faces for the current voxel?
-						for (const { dir, corners, uvRow } of VoxelFaces) {
+						for (const { dir, corners, faces } of VoxelFaces) {
 							const neighbour = globalGetVoxel(
 								startX + x + dir[0],
 								startY + y + dir[1],
@@ -169,19 +168,56 @@ export function createChunk(
 							)
 
 							// This voxel has a transparent voxel as a neighbour in the current direction -> add face
-							if (BlockLibrary.isTransparent(neighbour)) {
+							if (
+								BlockLibrary.isTransparent(
+									neighbour,
+									(faces as unknown) as TDirection[]
+								) ||
+								BlockLibrary.isSlab(voxel) ||
+								BlockLibrary.isFence(voxel)
+							) {
 								const ndx = positions.length / 3
-								for (const {
+								for (let {
 									pos: [oX, oY, oZ],
-									uv,
+									uv: [uvX, uvY],
 								} of corners) {
+									const [
+										voxelUVX,
+										voxelUVY,
+									] = BlockLibrary.getVoxelUV(
+										voxel,
+										(faces as unknown) as TDirection[]
+									)
+									if (BlockLibrary.isSlab(voxel)) {
+										oY /= 2
+										uvY /= 2
+									} else if (BlockLibrary.isFence(voxel)) {
+										;(oX as number) =
+											oX === 0 ? 6 / 16 : 10 / 16
+										;(oZ as number) =
+											oZ === 0 ? 6 / 16 : 10 / 16
+										;(uvX as number) =
+											uvX === 0 ? 6 / 16 : 10 / 16
+
+										if (
+											((faces as unknown) as TDirection[]).includes(
+												'up'
+											) ||
+											((faces as unknown) as TDirection[]).includes(
+												'down'
+											)
+										)
+											(uvY as number) =
+												uvY === 0 ? 6 / 16 : 10 / 16
+									}
+
 									positions.push(oX + x, oY + y, oZ + z)
 									normals.push(...dir)
 									uvs.push(
-										((uvVoxel + uv[0]) * tileSize) /
+										((voxelUVX + uvX) * tileSize) /
 											tileTextureWidth,
 										1 -
-											((uvRow + 1 - uv[1]) * tileSize) /
+											((voxelUVY + 1 - uvY) * tileSize) /
 												tileTextureHeight
 									)
 								}

@@ -47,9 +47,10 @@ export async function loadStructure(
 		chunkSize: Math.max(...(size as number[])),
 		tileSize: 16,
 		renderDistance: 12,
-		isImmutable: true,
+		limitedSize: true,
 	})
 	const world = editor.getWorld()
+	console.log(currentPalette)
 
 	const layer1 = block_indices[0]
 	for (let i = 0; i < layer1.length; i++) {

@@ -11,19 +11,13 @@
 			ref="canvas"
 		/>
 
-		<!-- <div class="canvas-overlay">
-			<v-avatar size="36px">
-				<img
-					alt="Avatar"
-					src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
-				/>
-			</v-avatar>
-		</div>-->
+		<Hotbar class="canvas-overlay" />
 	</div>
 </template>
 
 <script>
 import { loadStructure } from './load'
+import Hotbar from '../Voxel/Inventory/Hotbar.vue'
 
 let editor
 export default {
@@ -31,6 +25,9 @@ export default {
 	props: {
 		availableHeight: Number,
 		filePath: String,
+	},
+	components: {
+		Hotbar,
 	},
 	async mounted() {
 		editor = await loadStructure(this.filePath, this.$refs.canvas)

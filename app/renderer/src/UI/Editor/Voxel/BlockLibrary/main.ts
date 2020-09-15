@@ -11,55 +11,74 @@ declare const __static: string
 const library: IBlockData[] = [
 	{
 		id: 'bridge:unknown_block',
-		textureData: join(
-			__static,
-			'vanilla/RP/textures/blocks/missing_tile.png'
-		),
+		textureData: {
+			all: {
+				texturePath: join(
+					__static,
+					'vanilla/RP/textures/blocks/missing_tile'
+				),
+			},
+		},
+		faces: {},
 	},
 ]
 
+export type TDirection =
+	| 'up'
+	| 'down'
+	| 'north'
+	| 'west'
+	| 'east'
+	| 'south'
+	| 'side'
+	| 'all'
+
 export interface IBlockData {
 	id: string
-	isTransparent?: boolean
-	textureData?:
-		| {
-				top: string
-				bottom: string
-				north: string
-				west: string
-				east: string
-				south: string
-				side: string
-		  }
-		| string
+	faces?: {
+		[dir in TDirection]?: {
+			isTransparent: boolean
+			uvOffset: [number, number]
+		}
+	}
+	textureData?: {
+		[dir in TDirection]?: {
+			texturePath: string
+			overlayColor?: [number, number, number]
+		}
+	}
 }
 
 export async function createTileMap() {
 	const canvas = document.createElement('canvas')
-	canvas.width = library.length * 16
-	canvas.height = 3 * 16
+	const rowLength = Math.ceil(Math.sqrt(library.length * 8))
+	canvas.width = rowLength * 16
+	canvas.height = canvas.width
 	const context = canvas.getContext('2d')
 	context.imageSmoothingEnabled = false
 
-	await Promise.all(
-		library.map(({ textureData }, i) =>
-			loadImage(
-				(textureData as any)?.side ||
-					(textureData as any)?.west ||
-					textureData
-			).then(img => {
-				context.drawImage(img, i * 16, 0)
-				library[i].isTransparent = isTransparentTexture(
-					context,
-					i * 16,
-					0
-				)
+	let currentUVOffset = 0
+	for (const blockData of library) {
+		for (const [dir, { texturePath, overlayColor }] of Object.entries(
+			blockData.textureData
+		)) {
+			const x = currentUVOffset % rowLength
+			const y = Math.floor(currentUVOffset / rowLength)
+			context.drawImage(
+				await loadImage(texturePath, overlayColor),
+				x * 16,
+				y * 16,
+				16,
+				16
+			)
 
-				context.drawImage(img, i * 16, 16)
-				context.drawImage(img, i * 16, 32)
-			})
-		)
-	).catch(console.error)
+			blockData.faces[dir as TDirection] = {
+				isTransparent: isTransparentTexture(context, x * 16, y * 16),
+				uvOffset: [x, y],
+			}
+			currentUVOffset++
+		}
+	}
 
 	await fs.writeFile(
 		join(__static, 'assets/dynamic.png'),
@@ -69,6 +88,7 @@ export async function createTileMap() {
 			.pop(),
 		{ encoding: 'base64' }
 	)
+
 	console.log(library, BlockLibrary)
 	return canvas
 }
@@ -80,9 +100,16 @@ export async function loadVanillaBlocks() {
 	const blockDefs = await readJSON(join(__static, 'vanilla/RP/blocks.json'))
 	const resolveTextures = (textures: unknown) => {
 		if (textures === undefined)
-			return join(__static, 'vanilla/RP/textures/blocks/missing_tile.png')
+			return {
+				all: {
+					texturePath: join(
+						__static,
+						'vanilla/RP/textures/blocks/missing_tile'
+					),
+				},
+			}
 
-		if (typeof textures === 'string') return loadFromMap(textures)
+		if (typeof textures === 'string') return { all: loadFromMap(textures) }
 
 		return Object.fromEntries(
 			Object.entries(textures).map(([dir, texture]) => [
@@ -93,11 +120,20 @@ export async function loadVanillaBlocks() {
 	}
 	const loadFromMap = (texture: string) => {
 		let data = texture_data[texture].textures
+		let overlayColor
 
 		if (Array.isArray(data)) data = data[0]
-		if (typeof data !== 'string') data = data.path
+		if (typeof data !== 'string') {
+			overlayColor = data.overlay_color
+			overlayColor = [
+				overlayColor.slice(1, 3),
+				overlayColor.slice(3, 5),
+				overlayColor.slice(5, 7),
+			].map(c => new Number(`0x${c}`))
+			data = data.path
+		}
 
-		return join(__static, 'vanilla/RP', data + '.png')
+		return { texturePath: join(__static, 'vanilla/RP', data), overlayColor }
 	}
 
 	Object.entries(blockDefs).forEach(([id, data]) => {
@@ -105,7 +141,10 @@ export async function loadVanillaBlocks() {
 
 		BlockLibrary.addBlock({
 			id: `minecraft:${id}`,
-			textureData: resolveTextures((data as any).textures) as any,
+			textureData: resolveTextures(
+				(data as any).carried_textures || (data as any).textures
+			) as any,
+			faces: {},
 		})
 	})
 }
@@ -137,13 +176,43 @@ export const BlockLibrary = {
 		if (numericalID !== -1) library[numericalID] = data
 		else library.push(data)
 	},
-	getTileMapDimensions: () => ({
-		tileTextureWidth: library.length * 16,
-		tileTextureHeight: 3 * 16,
-	}),
+	getDisplayTexture: (id: number) => {
+		const textureData = library[id - 1].textureData
+		return (
+			(
+				(textureData as any)?.all ||
+				(textureData as any)?.side ||
+				(textureData as any)?.west
+			).texturePath + '.png'
+		)
+	},
 
-	isTransparent(id: number) {
+	isTransparent: (id: number, faces: TDirection[]) => {
 		if (id === 0) return true
-		return library[id - 1].isTransparent
+		if (BlockLibrary.isSlab(id) || BlockLibrary.isFence(id)) return true
+
+		const faceData = library[id - 1].faces
+		for (let face of faces) {
+			if (faceData[face]?.isTransparent) return true
+		}
+		return false
+	},
+	getVoxelUV(id: number, faces: TDirection[]) {
+		const faceData = library[id - 1].faces
+
+		for (let face of faces) {
+			if (faceData[face] !== undefined) return faceData[face].uvOffset
+		}
+		return library[0].faces.all.uvOffset
+	},
+	isSlab(id: number) {
+		if (id === 0) return false
+
+		return library[id - 1].id.includes('_slab')
+	},
+	isFence(id: number) {
+		if (id === 0) return false
+
+		return library[id - 1].id.includes('fence')
 	},
 }

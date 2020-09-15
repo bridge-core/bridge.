@@ -17,6 +17,8 @@ import { MapControls } from 'three/examples/jsm/controls/OrbitControls'
 import { createLight } from './World/createLight'
 import { createVoxelWorld, IVoxelWorldCommonOptions } from './World/create'
 import { BlockLibrary, createTileMap } from './BlockLibrary/main'
+import { getSelected, HotbarState } from './Inventory/Hotbar'
+import TabSystem from '../../../TabSystem'
 declare const __static: string
 
 export interface IVoxelOptions extends IVoxelWorldCommonOptions {
@@ -25,6 +27,7 @@ export interface IVoxelOptions extends IVoxelWorldCommonOptions {
 	near?: number
 	far?: number
 	isImmutable?: boolean
+	limitedSize?: boolean
 }
 
 /**
@@ -43,17 +46,13 @@ export async function createVoxelEditor(
 		tileSize,
 		renderDistance,
 		isImmutable,
+		limitedSize,
 	}: IVoxelOptions = {
 		chunkSize: 16,
 		tileSize: 16,
 		renderDistance: 12,
 	}
 ) {
-	const {
-		tileTextureWidth,
-		tileTextureHeight,
-	} = BlockLibrary.getTileMapDimensions()
-
 	const renderer = new WebGLRenderer({ canvas, antialias: false })
 	renderer.setPixelRatio(window.devicePixelRatio)
 	const camera = new PerspectiveCamera(fov, aspect, near, far)
@@ -67,9 +66,11 @@ export async function createVoxelEditor(
 	// )
 	scene.background = new Color(0xc9e2ff)
 	scene.add(new AmbientLight(0x404040))
-	createLight({ x: 32, y: 32, z: -1, scene, color: 0xc0c0c0 })
+	createLight({ x: -32, y: 32, z: 32, scene, color: 0xc0c0c0 })
+	renderer.render(scene, camera)
 
-	const texture = new CanvasTexture(await createTileMap())
+	const tileMapCanvas = await createTileMap()
+	const texture = new CanvasTexture(tileMapCanvas)
 	texture.magFilter = NearestFilter
 	texture.minFilter = NearestFilter
 	const material = new MeshLambertMaterial({
@@ -83,8 +84,8 @@ export async function createVoxelEditor(
 		chunkSize,
 		renderDistance,
 		tileSize,
-		tileTextureWidth,
-		tileTextureHeight,
+		tileTextureWidth: tileMapCanvas.width,
+		tileTextureHeight: tileMapCanvas.height,
 		scene,
 		material,
 	})
@@ -110,8 +111,7 @@ export async function createVoxelEditor(
 		}
 	}
 
-	let placeVoxel = 1
-	const createVoxelClickListener = (placeVoxelArg?: number) => {
+	const createVoxelClickListener = (placeVoxelArg: () => number) => {
 		return (event: MouseEvent) => {
 			const raycaster = new Raycaster()
 			const mouse = new Vector2()
@@ -133,17 +133,18 @@ export async function createVoxelEditor(
 				},
 			} = intersect
 			// if (distance > 7) return
-			const x = posX + nX * (placeVoxelArg ?? placeVoxel ? 0.5 : -0.5)
-			const y = posY + nY * (placeVoxelArg ?? placeVoxel ? 0.5 : -0.5)
-			const z = posZ + nZ * (placeVoxelArg ?? placeVoxel ? 0.5 : -0.5)
+			const x = posX + nX * (placeVoxelArg() ? 0.5 : -0.5)
+			const y = posY + nY * (placeVoxelArg() ? 0.5 : -0.5)
+			const z = posZ + nZ * (placeVoxelArg() ? 0.5 : -0.5)
 
-			world.setVoxel(x, y, z, placeVoxelArg ?? placeVoxel)
+			world.setVoxel(x, y, z, placeVoxelArg(), !limitedSize)
 			world.updateVoxelGeometry(x, y, z)
 			requestRendering()
+			TabSystem.setCurrentUnsaved()
 		}
 	}
-	const onVoxelClick = createVoxelClickListener(placeVoxel)
-	const onVoxelBreak = createVoxelClickListener(0)
+	const onVoxelClick = createVoxelClickListener(() => getSelected())
+	const onVoxelBreak = createVoxelClickListener(() => 0)
 
 	return {
 		/**
