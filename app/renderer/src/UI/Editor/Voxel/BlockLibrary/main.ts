@@ -189,7 +189,12 @@ export const BlockLibrary = {
 
 	isTransparent: (id: number, faces: TDirection[]) => {
 		if (id === 0) return true
-		if (BlockLibrary.isSlab(id) || BlockLibrary.isFence(id)) return true
+		if (
+			BlockLibrary.isSlab(id) ||
+			BlockLibrary.isFence(id) ||
+			BlockLibrary.isStairs(id)
+		)
+			return true
 
 		const faceData = library[id - 1].faces
 		for (let face of faces) {
@@ -214,5 +219,10 @@ export const BlockLibrary = {
 		if (id === 0) return false
 
 		return library[id - 1].id.includes('fence')
+	},
+	isStairs(id: number) {
+		if (id === 0) return false
+
+		return library[id - 1].id.includes('_stairs')
 	},
 }

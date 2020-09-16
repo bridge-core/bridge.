@@ -174,7 +174,8 @@ export function createChunk(
 									(faces as unknown) as TDirection[]
 								) ||
 								BlockLibrary.isSlab(voxel) ||
-								BlockLibrary.isFence(voxel)
+								BlockLibrary.isFence(voxel) ||
+								BlockLibrary.isStairs(voxel)
 							) {
 								const ndx = positions.length / 3
 								for (let {
@@ -191,6 +192,11 @@ export function createChunk(
 									if (BlockLibrary.isSlab(voxel)) {
 										oY /= 2
 										uvY /= 2
+									} else if (BlockLibrary.isStairs(voxel)) {
+										oY /= 2
+										oX /= 2
+										uvY /= 2
+										uvX /= 2
 									} else if (BlockLibrary.isFence(voxel)) {
 										;(oX as number) =
 											oX === 0 ? 6 / 16 : 10 / 16
