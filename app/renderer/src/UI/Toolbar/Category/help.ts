@@ -32,7 +32,7 @@ export const HelpMenu: IAppMenu = {
 			displayIcon: 'mdi-puzzle',
 			onClick: () =>
 				shell.openExternal(
-					'https://github.com/solvedDev/bridge./blob/master/plugin_docs/main.md'
+					'https://bridge-core.github.io/plugin-docs/'
 				),
 		},
 		{
