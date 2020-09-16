@@ -40,16 +40,14 @@ export const HelpMenu: IAppMenu = {
 			displayIcon: 'mdi-help-circle-outline',
 			onClick: () =>
 				shell.openExternal(
-					'https://github.com/bridge-core/bridge./blob/master/GETTING_STARTED.md'
+					'https://bridge-core.github.io/editor/getting-started/'
 				),
 		},
 		{
 			displayName: 'FAQ',
 			displayIcon: 'mdi-frequently-asked-questions',
 			onClick: () =>
-				shell.openExternal(
-					'https://github.com/bridge-core/bridge./blob/master/FAQ.md'
-				),
+				shell.openExternal('https://bridge-core.github.io/editor/faq/'),
 		},
 	],
 }
