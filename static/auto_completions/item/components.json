@@ -25,164 +25,164 @@
     "minecraft:foil": "$general.boolean",
     "$versioned_template.minecraft:bucket":[
         {
-            "$if": "$project_target_version >= 1.16...",
+            "$if": "$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:bed":[
         {
-            "$if": "$project_target_version >= 1.16...",
+            "$if": "$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:frame_count":[
         {
-            "$if": "$project_target_version >= 1.16...",
+            "$if": "$project_target_version >= 1.16.100",
             "$data": "$general.number"
         }
     ],
     "$versioned_template.minecraft:animates_in_toolbar":[
         {
-            "$if": "$project_target_version >= 1.16...",
+            "$if": "$project_target_version >= 1.16.100",
             "$data": "$general.boolean"
         }
     ],
     "$versioned_template.minecraft:ignores_permission":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": "$general.boolean"
         }
     ],
     "$versioned_template.minecraft:coal":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:mining_speed":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": "$general.number"
         }
     ],
     "$versioned_template.minecraft:damage":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": "$general.number"
         }
     ],
     "$versioned_template.minecraft:can_destroy_in_creative":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": "$general.boolean"
         }
     ],
     "$versioned_template.minecraft:dye":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:requires_interact":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": "$general.boolean"
         }
     ],
     "$versioned_template.minecraft:fire_charge":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:mirrored_art":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": "$general.boolean"
         }
     ],
     "$versioned_template.minecraft:fishing_rod":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:flint_and_steel":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:bottle":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:lead":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:name_tag":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:explodable":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": "$general.boolean"
         }
     ],
     "$versioned_template.minecraft:should_despawn":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": "$general.boolean"
         }
     ],
     "$versioned_template.saddle":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:shears":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:skull":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:mob_placer":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {}
         }
     ],
     "$versioned_template.minecraft:liquid_clipped":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": "$general.boolean"
         }
     ],
     "$versioned_template.minecraft:allow_offhand":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": "$general.boolean"
         }
     ],
 
     "$versioned_template.minecraft:door":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "material": ["metal", "wood"],
                 "type": "$item.general.door_types"
@@ -191,7 +191,7 @@
     ],
     "$versioned_template.minecraft:sign":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "type": "$_general.block_states.wood_type"
             }
@@ -199,7 +199,7 @@
     ],
     "$versioned_template.minecraft:projectile":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "projectile_entity": "$general.entity_identifier",
                 "minimum_critical_power": "$general.decimal"
@@ -208,7 +208,7 @@
     ],
     "$versioned_template.minecraft:block_placer":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "block": "$general.block_identifier",
                 "use_block_descritpion": "$general.boolean"
@@ -217,7 +217,7 @@
     ],
     "$versioned_template.minecraft:entity_placer":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "entity": "$general.entity_identifier",
                 "allowed_blocks": {
@@ -228,7 +228,7 @@
     ],
     "$versioned_template.minecraft:enchantable":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "slot": "$item.general.slots",
                 "value": "$general.number"
@@ -237,7 +237,7 @@
     ],
     "$versioned_template.minecraft:shooter":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "max_draw_duration": "$general.number",
                 "charge_on_draw": "$general.boolean",
@@ -255,7 +255,7 @@
     ],
     "$versioned_template.minecraft:damageable":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "max_damage": "$general.number",
                 "damage_chance": {
@@ -270,7 +270,7 @@
     ],
     "$versioned_template.minecraft:armor":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "protection": "$general.number"
             }
@@ -278,7 +278,7 @@
     ],
     "$versioned_template.minecraft:wearable":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "slot": "$general.slot_type"
             }
@@ -286,7 +286,7 @@
     ],
     "$versioned_template.minecraft:cooldown":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "category": "$item.general.cooldown_types"
             }
@@ -294,7 +294,7 @@
     ],
     "$versioned_template.minecraft:use_on":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "blocks": {
                     "$dynamic.list.next_index": "$general.block_identifier"
@@ -304,7 +304,7 @@
     ],
     "$versioned_template.minecraft:digger":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "use_efficiency": "$general.boolean",
                 "destroy_speeds": {
@@ -325,7 +325,7 @@
     ],
     "$versioned_template.minecraft:fertilizer":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "type": "$item.general.fertilizer_type"
             }
@@ -333,7 +333,7 @@
     ],
     "$versioned_template.minecraft:throwable":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "do_swing_animation": "$general.boolean",
                 "max_draw_duration": "$general.number",
@@ -343,7 +343,7 @@
     ],
     "$versioned_template.minecraft:map":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "empty": "$general.boolean"
             }
@@ -351,7 +351,7 @@
     ],
     "$versioned_template.minecraft:potion":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "type": "$item.general.potion_types"
             }
@@ -359,7 +359,7 @@
     ],
     "$versioned_template.minecraft:hanging_entity":[
         {
-            "$if":"$project_target_version >= 1.16...",
+            "$if":"$project_target_version >= 1.16.100",
             "$data": {
                 "actor_type": "$general.number"
             }
