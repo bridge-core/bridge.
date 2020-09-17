@@ -1,97 +1,155 @@
 {
-    "$versioned_template.minecraft:destroy_time": [
-        {
-            "$if": "$format_version < 1.16.0",
-            "$data": {
-                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data) } else { return Bridge.Node }" },
-                "value": "$general.decimal"
-            }
-        },
-        {
-            "$if":"$format_version >= 1.16.0",
-            "$data": "$general.decimal"
-        }
-    ],
-    "$versioned_template.minecraft:block_light_emission": [
-        {
-            "$if": "$format_version < 1.16.0",
-            "$data": {
-                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('emission') || {}).data) } else { return Bridge.Node }" },
-                "emission": "$general.decimal"
-            }
-        },
-        {
-            "$if":"$format_version >= 1.16.0",
-            "$data": "$general.decimal"
-        }
-    ],
-    "$versioned_template.minecraft:block_light_absorption": [
-        {
-            "$if": "$format_version < 1.16.0",
-            "$data": {
-                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('emission') || {}).data) } else { return Bridge.Node }" },
-                "value": "$general.decimal"
-            }
-        },
-        {
-            "$if":"$format_version >= 1.16.0",
-            "$data": "$general.decimal"
-        }
-    ],
-    "$versioned_template.minecraft:map_color": [
-        {
-            "$if": "$format_version < 1.16.0",
-            "$data": {
-                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('color') || {}).data) } else { return Bridge.Node }" },
-                "color": { "@meta": { "is_value": true, "is_color": true } }
-            }
-        },
-        {
-            "$if":"$format_version >= 1.16.0",
-            "$data": { "@meta": { "is_value": true, "is_color": true } }
-        }
-    ],
-    "minecraft:flammable": {
-        "burn_odds": "$general.decimal",
-        "flame_odds": "$general.decimal"
-    },
-    "$versioned_template.minecraft:friction": [
-        {
-            "$if": "$format_version < 1.16.0",
-            "$data": {
-                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data) } else { return Bridge.Node }" },
-                "value": "$general.decimal"
-            }
-        },
-        {
-            "$if":"$format_version >= 1.16.0",
-            "$data": "$general.decimal"
-        }
-    ],
-    "$versioned_template.minecraft:explosion_resistance": [
-        {
-            "$if": "$format_version < 1.16.0",
-            "$data": {
-                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data) } else { return Bridge.Node }" },
-                "value": "$general.decimal"
-            }
-        },
-        {
-            "$if":"$format_version >= 1.16.0",
-            "$data": "$general.decimal"
-        }
-    ],
-    "$versioned_template.minecraft:loot": [
-        {
-            "$if": "$format_version < 1.16.0",
-            "$data": {
-                "@meta": { "compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('table') || {}).data) } else { return Bridge.Node }" },
-                "table": "$dynamic.loot_table_files"
-            }
-        },
-        {
-            "$if":"$format_version >= 1.16.0",
-            "$data": "$dynamic.loot_table_files"
-        }
-    ]
+	"$versioned_template.minecraft:destroy_time": [
+		{
+			"$if": "$format_version < 1.16.0",
+			"$data": {
+				"@meta": {
+					"compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data) } else { return Bridge.Node }"
+				},
+				"value": "$general.decimal"
+			}
+		},
+		{
+			"$if": "$format_version >= 1.16.0",
+			"$data": "$general.decimal"
+		}
+	],
+	"$versioned_template.minecraft:block_light_emission": [
+		{
+			"$if": "$format_version < 1.16.0",
+			"$data": {
+				"@meta": {
+					"compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('emission') || {}).data) } else { return Bridge.Node }"
+				},
+				"emission": "$general.decimal"
+			}
+		},
+		{
+			"$if": "$format_version >= 1.16.0",
+			"$data": "$general.decimal"
+		}
+	],
+	"$versioned_template.minecraft:block_light_absorption": [
+		{
+			"$if": "$format_version < 1.16.0",
+			"$data": {
+				"@meta": {
+					"compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('emission') || {}).data) } else { return Bridge.Node }"
+				},
+				"value": "$general.decimal"
+			}
+		},
+		{
+			"$if": "$format_version >= 1.16.0",
+			"$data": "$general.decimal"
+		}
+	],
+	"$versioned_template.minecraft:map_color": [
+		{
+			"$if": "$format_version < 1.16.0",
+			"$data": {
+				"@meta": {
+					"compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('color') || {}).data) } else { return Bridge.Node }"
+				},
+				"color": { "@meta": { "is_value": true, "is_color": true } }
+			}
+		},
+		{
+			"$if": "$format_version >= 1.16.0",
+			"$data": { "@meta": { "is_value": true, "is_color": true } }
+		}
+	],
+	"minecraft:flammable": {
+		"burn_odds": "$general.decimal",
+		"flame_odds": "$general.decimal"
+	},
+	"$versioned_template.minecraft:friction": [
+		{
+			"$if": "$format_version < 1.16.0",
+			"$data": {
+				"@meta": {
+					"compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data) } else { return Bridge.Node }"
+				},
+				"value": "$general.decimal"
+			}
+		},
+		{
+			"$if": "$format_version >= 1.16.0",
+			"$data": "$general.decimal"
+		}
+	],
+	"$versioned_template.minecraft:explosion_resistance": [
+		{
+			"$if": "$format_version < 1.16.0",
+			"$data": {
+				"@meta": {
+					"compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('value') || {}).data) } else { return Bridge.Node }"
+				},
+				"value": "$general.decimal"
+			}
+		},
+		{
+			"$if": "$format_version >= 1.16.0",
+			"$data": "$general.decimal"
+		}
+	],
+	"$versioned_template.minecraft:loot": [
+		{
+			"$if": "$format_version < 1.16.0",
+			"$data": {
+				"@meta": {
+					"compile": "if(Bridge.Node.data === '') { return new Bridge.JSONTree(undefined, (Bridge.Node.get('table') || {}).data) } else { return Bridge.Node }"
+				},
+				"table": "$dynamic.loot_table_files"
+			}
+		},
+		{
+			"$if": "$format_version >= 1.16.0",
+			"$data": "$dynamic.loot_table_files"
+		}
+	],
+	"$versioned_template.minecraft:unit_cube": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {}
+		}
+	],
+	"$versioned_template.minecraft:material_instances": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"$placeholder": {
+					"texture": "$dynamic.rp.terrain_texture",
+					"render_method": ["opaque", "blend"]
+				}
+			}
+		}
+	],
+	"$versioned_template.minecraft:geometry": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"@meta": { "is_value": true },
+				"@import.value.model": "$dynamic.cache.entity_model.identifiers"
+			}
+		}
+	],
+	"$versioned_template.minecraft:on_step_on": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"event": "$dynamic.entity.events",
+				"target": ["self"]
+			}
+		}
+	],
+	"$versioned_template.minecraft:on_fall_on": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"event": "$dynamic.entity.events",
+				"target": ["self"]
+			}
+		}
+	]
 }
