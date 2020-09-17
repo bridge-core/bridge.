@@ -139,7 +139,18 @@
 			"$if": "$format_version >= 1.16.100",
 			"$data": {
 				"event": "$dynamic.entity.events",
-				"target": ["self"]
+				"target": ["self"],
+				"condition": "$molang.embedded"
+			}
+		}
+	],
+	"$versioned_template.minecraft:on_step_off": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"event": "$dynamic.entity.events",
+				"target": ["self"],
+				"condition": "$molang.embedded"
 			}
 		}
 	],
@@ -148,8 +159,168 @@
 			"$if": "$format_version >= 1.16.100",
 			"$data": {
 				"event": "$dynamic.entity.events",
-				"target": ["self"]
+				"target": ["self"],
+				"condition": "$molang.embedded",
+				"min_fall_distance": "$general.number"
 			}
+		}
+	],
+	"$versioned_template.minecraft:on_placed": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"event": "$dynamic.entity.events",
+				"target": ["self"],
+				"condition": "$molang.embedded"
+			}
+		}
+	],
+	"$versioned_template.minecraft:on_player_placing": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"event": "$dynamic.entity.events",
+				"target": ["self"],
+				"condition": "$molang.embedded"
+			}
+		}
+	],
+	"$versioned_template.minecraft:interact": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"event": "$dynamic.entity.events",
+				"target": ["self"],
+				"condition": "$molang.embedded"
+			}
+		}
+	],
+	"$versioned_template.minecraft:ticking": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"looping": "$general.boolean",
+				"range": {
+					"$dynamic.list.index_pair": "$general.number"
+				},
+				"trigger": {
+					"on_tick": {
+						"condition": "$molang.embedded",
+						"event": {
+							"@meta": {"is_value": true}
+						},
+						"range": {
+							"$dynamic.list.index_pair": "$general.number"
+						},
+						"target": {
+							"@meta": {"is_value": true}
+						}
+					}
+				}
+			}
+		}
+	],
+	"$versioned_template.minecraft:random_ticking": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"looping": "$general.boolean",
+				"range": {
+					"$dynamic.list.index_pair": "$general.number"
+				},
+				"trigger": {
+					"on_tick": {
+						"condition": "$molang.embedded",
+						"event": {
+							"@meta": {"is_value": true}
+						},
+						"range": {
+							"$dynamic.list.index_pair": "$general.number"
+						},
+						"target": {
+							"@meta": {"is_value": true}
+						}
+					}
+				}
+			}
+		}
+	],
+	"$versioned_template.minecraft:entity_collision": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"origin": {
+					"$dynamic.list.index_triple": "$general.number"
+				},
+				"size": {
+					"$dynamic.list.index_triple": "$general.number"
+				},
+				"@import.value": ["true"]
+			}
+		}
+	],
+	"$versioned_template.minecraft:pick_collision": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"origin": {
+					"$dynamic.list.index_triple": "$general.number"
+				},
+				"size": {
+					"$dynamic.list.index_triple": "$general.number"
+				},
+				"@import.value": ["true"]
+			}
+		}
+	],
+	"$versioned_template.minecraft:breakonpush": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {}
+		}
+	],
+	"$versioned_template.minecraft:immovable": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {}
+		}
+	],
+	"$versioned_template.minecraft:onlypistonpush": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {}
+		}
+	],
+	"$versioned_template.minecraft:placement_filter": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"block_filter": "",
+				"conditions": {},
+				"allowed_faces": {
+					"$dynamic.list.next_index": ["up", "down", "north", "south", "east", "west", "side", "all"]
+				}
+			}
+		}
+	],
+	"$versioned_template.minecraft:preventsjumping": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {}
+		}
+	],
+	"$versioned_template.minecraft:rotation": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"$dynamic.list.index_triple": "$general.number"
+			}
+		}
+	],
+	"$versioned_template.minecraft:unwalkable": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {}
 		}
 	]
 }
