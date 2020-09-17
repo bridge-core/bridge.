@@ -93,11 +93,11 @@ export default {
 			bridge_docs: [
 				[
 					'Custom Commands',
-					'https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_commands.md',
+					'https://bridge-core.github.io/plugin-docs/custom-commands/',
 				],
 				[
 					'Custom Components',
-					'https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_components.md',
+					'https://bridge-core.github.io/plugin-docs/custom-components/',
 				],
 			],
 		}

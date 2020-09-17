@@ -39,7 +39,7 @@ export default async function startUp() {
 			textColor: 'white',
 			onClick: () => {
 				shell.openExternal(
-					'https://github.com/bridge-core/bridge./blob/master/GETTING_STARTED.md'
+					'https://bridge-core.github.io/editor-docs/getting-started/'
 				)
 				getting_started.dispose()
 			},
