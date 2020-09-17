@@ -77,7 +77,7 @@
             "$data": "$general.boolean"
         }
     ],
-    "$versioned_template.minecraft:_powder":[
+    "$versioned_template.minecraft:dye_powder":[
         {
             "$if":"$project_target_version >= 1.16.100",
             "$data": {
