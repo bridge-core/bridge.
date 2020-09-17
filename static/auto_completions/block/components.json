@@ -203,18 +203,17 @@
 				"range": {
 					"$dynamic.list.index_pair": "$general.number"
 				},
-				"trigger": {
-					"on_tick": {
-						"condition": "$molang.embedded",
-						"event": {
-							"@meta": {"is_value": true}
-						},
-						"range": {
-							"$dynamic.list.index_pair": "$general.number"
-						},
-						"target": {
-							"@meta": {"is_value": true}
-						}
+
+				"on_tick": {
+					"condition": "$molang.embedded",
+					"event": {
+						"@meta": { "is_value": true }
+					},
+					"range": {
+						"$dynamic.list.index_pair": "$general.number"
+					},
+					"target": {
+						"@meta": { "is_value": true }
 					}
 				}
 			}
@@ -228,18 +227,17 @@
 				"range": {
 					"$dynamic.list.index_pair": "$general.number"
 				},
-				"trigger": {
-					"on_tick": {
-						"condition": "$molang.embedded",
-						"event": {
-							"@meta": {"is_value": true}
-						},
-						"range": {
-							"$dynamic.list.index_pair": "$general.number"
-						},
-						"target": {
-							"@meta": {"is_value": true}
-						}
+
+				"on_tick": {
+					"condition": "$molang.embedded",
+					"event": {
+						"@meta": { "is_value": true }
+					},
+					"range": {
+						"$dynamic.list.index_pair": "$general.number"
+					},
+					"target": {
+						"@meta": { "is_value": true }
 					}
 				}
 			}
@@ -298,7 +296,16 @@
 				"block_filter": "",
 				"conditions": {},
 				"allowed_faces": {
-					"$dynamic.list.next_index": ["up", "down", "north", "south", "east", "west", "side", "all"]
+					"$dynamic.list.next_index": [
+						"up",
+						"down",
+						"north",
+						"south",
+						"east",
+						"west",
+						"side",
+						"all"
+					]
 				}
 			}
 		}
