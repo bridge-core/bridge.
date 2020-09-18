@@ -1,7 +1,8 @@
 {
-  "format_version": "1.10",
+  "format_version": "1.16.100",
   "minecraft:item": {
     "description": {
+      "category": "equipment",
       "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}"
     },
     "components": {
@@ -10,9 +11,7 @@
       },
       "minecraft:icon": {
         "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}"
-      },
-      "minecraft:render_offsets": "tools",
-      "minecraft:display_name": {}
+      }
     }
   }
 }

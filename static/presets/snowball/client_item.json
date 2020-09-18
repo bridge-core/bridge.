@@ -10,9 +10,7 @@
         },
         "minecraft:icon": {
           "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}"
-        },
-        "minecraft:render_offsets": "miscellaneous", 
-        "minecraft:display_name": {} 
+        }
       }
     }
   }

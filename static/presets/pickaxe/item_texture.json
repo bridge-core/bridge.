@@ -1,7 +1,0 @@
-{
-  "texture_data": {
-    "{{PROJ_PREFIX}}_{{IDENTIFIER}}": {
-      "textures": "textures/items/{{IDENTIFIER}}"
-    }
-  }
-}
