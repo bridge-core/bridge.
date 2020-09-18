@@ -185,7 +185,7 @@
 			}
 		}
 	],
-	"$versioned_template.minecraft:interact": [
+	"$versioned_template.minecraft:on_interact": [
 		{
 			"$if": "$format_version >= 1.16.100",
 			"$data": {
