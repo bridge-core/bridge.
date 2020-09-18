@@ -1,47 +1,54 @@
 {
-    "format_version": "$general.format_version",
-    "minecraft:item": {
-        "description": {
-            "identifier": "$general.file_identifier and $general.item_identifier",
-            "category": "$general.item_category"
-        },
+	"format_version": "$general.format_version",
+	"minecraft:item": {
+		"description": {
+			"identifier": "$general.file_identifier and $general.item_identifier",
+			"category": "$general.item_category"
+		},
 
-        "components": {
-            "minecraft:icon": {
-                "texture": {
-                    "@meta": {"is_value": true},
-                    "@import.value": "$dynamic.rp.item_textures"
-                },
-                "frame_index": "$general.number"
-            },
-            "minecraft:use_animation": [ "bow", "eat", "drink", "crossbow", "camera" ],
-            "minecraft:hover_text_color": "$general.minecraft_color",
+		"components": {
+			"minecraft:icon": {
+				"texture": {
+					"@meta": { "is_value": true },
+					"@import.value": "$dynamic.rp.item_textures"
+				},
+				"frame_index": "$general.number"
+			},
+			"minecraft:use_animation": [
+				"bow",
+				"eat",
+				"drink",
+				"crossbow",
+				"camera"
+			],
+			"minecraft:hover_text_color": "$general.minecraft_color",
 
-            "minecraft:render_offsets": "$client_item.general.render_offsets",
-            "$versioned_template.minecraft:creative_category":[
-                {
-                    "$if":"$project_target_version >= 1.16...",
-                    "$data": {
-                        "parent": "$client_item.general.item_group_reference"
-                    }
-                }
-            ],
-            "$versioned_template.minecraft:armor":[
-                {
-                    "$if":"$project_target_version >= 1.16...",
-                    "$data": {
-                        "texture_type": "$client_item.general.armor_types"
-                    }
-                }
-            ],
-            "$versioned_template.minecraft:display_name": [
-                {
-                    "$if": "$project_target_version >= 1.16.100",
-                    "$data": {
-                        "value": {"@meta": {"is_value": true}}
-                    }
-                }
-            ]
-        }
-    }
+			"minecraft:render_offsets": "$client_item.general.render_offsets",
+
+			"$versioned_template.minecraft:armor": [
+				{
+					"$if": "$project_target_version >= 1.16.100",
+					"$data": {
+						"texture_type": "$client_item.general.armor_types"
+					}
+				}
+			],
+			"$versioned_template.minecraft:creative_category": [
+				{
+					"$if": "$project_target_version >= 1.16.100",
+					"$data": {
+						"parent": "$item.general.item_group_reference"
+					}
+				}
+			],
+			"$versioned_template.minecraft:display_name": [
+				{
+					"$if": "$project_target_version >= 1.16.100",
+					"$data": {
+						"value": { "@meta": { "is_value": true } }
+					}
+				}
+			]
+		}
+	}
 }

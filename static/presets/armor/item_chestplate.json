@@ -1,5 +1,5 @@
 {
-    "format_version": "1.10",
+    "format_version": "1.16.100",
     "minecraft:item": {
       "description": {
         "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}_chestplate" 

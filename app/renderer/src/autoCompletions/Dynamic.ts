@@ -167,6 +167,26 @@ export const DYNAMIC = {
 				return {}
 			}
 		},
+		events() {
+			try {
+				return TabSystem.getSelected()
+					.content.get('minecraft:block/events')
+					.toJSON()
+			} catch (e) {
+				return {}
+			}
+		},
+	},
+	item: {
+		events() {
+			try {
+				return TabSystem.getSelected()
+					.content.get('minecraft:item/events')
+					.toJSON()
+			} catch (e) {
+				return {}
+			}
+		},
 	},
 	recipe: {
 		pattern_keys() {

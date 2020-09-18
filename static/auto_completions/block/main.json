@@ -42,8 +42,14 @@
                 "set_block": {
                     "block_type": "$general.block_identifier"
                 },
+                "set_block_at_pos": {
+
+                },
+                "spawn_loot": {
+                    "table": "$dynamic.loot_table_files"
+                },
                 "trigger": {
-                    "event": "$dynamic.entity.events"
+                    "event": "$dynamic.block.events"
                 }
             }
         }
