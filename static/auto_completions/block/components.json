@@ -139,6 +139,10 @@
 				"$placeholder": {
 					"texture": "$dynamic.rp.terrain_texture",
 					"render_method": ["opaque", "blend", "alpha_test"]
+				},
+				"*": { 
+					"texture": "$dynamic.rp.terrain_texture",
+					"render_method": ["opaque", "blend", "alpha_test"]
 				}
 			}
 		}
