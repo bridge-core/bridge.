@@ -357,10 +357,7 @@
                     "$dynamic.list.next_index": {
                         "block": {
                         "@import.value": "$general.block_identifier",
-                            "any_tag": {
-                                "$dynamic.list.next_index": {
-                                    "@meta": {"is_value": true}
-                                }
+                            "tags": ["query.any_tag()", "query.all_tags()"]
                             }
                         },
                     "speed": "$general.number"
