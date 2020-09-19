@@ -132,25 +132,27 @@ export const FILE_CONTEXT_MENU = async (
 	 * QUICK ACTION TO TOGGLE CLIENT SCRIPTS
 	 */
 	if (fileName === 'manifest.json') {
-		let manifest: Manifest = await readJSON(file_path).catch(console.error)
-		if (Manifest.hasClientData(manifest)) {
-			DEFAULT_MENU.push({
-				title: 'Remove Client Scripts',
-				icon: 'mdi-minus',
-				action: () => {
-					Manifest.removeClientData(manifest)
-					writeJSON(file_path, manifest)
-				},
-			})
-		} else {
-			DEFAULT_MENU.push({
-				title: 'Add Client Scripts',
-				icon: 'mdi-plus',
-				action: () => {
-					Manifest.addClientData(manifest)
-					writeJSON(file_path, manifest)
-				},
-			})
+		if (Manifest.getPackFolder(file_path) === 'development_behavior_packs') {
+			let manifest: Manifest = await readJSON(file_path).catch(console.error)
+			if (Manifest.hasClientData(manifest)) {
+				DEFAULT_MENU.push({
+					title: 'Remove Client Scripts',
+					icon: 'mdi-minus',
+					action: () => {
+						Manifest.removeClientData(manifest)
+						writeJSON(file_path, manifest)
+					},
+				})
+			} else {
+				DEFAULT_MENU.push({
+					title: 'Add Client Scripts',
+					icon: 'mdi-plus',
+					action: () => {
+						Manifest.addClientData(manifest)
+						writeJSON(file_path, manifest)
+					},
+				})
+			}
 		}
 	}
 

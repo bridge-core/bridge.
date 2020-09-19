@@ -3,6 +3,7 @@
  */
 import uuidv4 from 'uuid/v4'
 import ProjectConfig from '../Project/Config'
+import path from 'path'
 
 interface Module {
 	type: string
@@ -96,6 +97,11 @@ export default class Manifest {
 			if (type === 'client_data') return true
 		}
 		return false
+	}
+
+	static getPackFolder(file_path: string) {
+		let folders = path.dirname(file_path).split(path.sep)
+		return folders[folders.length - 2]
 	}
 
 	get uuid() {
