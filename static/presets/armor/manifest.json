@@ -1,0 +1,35 @@
+{
+    "display_name": "Armor",
+    "description": "Creates a new armor set.",
+    "icon": "mdi-hanger",
+    "bp_map": {
+        "item_helmet.json": "items/{{IDENTIFIER}}_helmet.json",
+        "item_chestplate.json": "items/{{IDENTIFIER}}_chestplate.json",
+        "item_leggings.json": "items/{{IDENTIFIER}}_leggings.json",
+        "item_boots.json": "items/{{IDENTIFIER}}_boots.json"
+    },
+    "rp_map": {
+        "client_item_helmet.json": "items/{{IDENTIFIER}}_helmet.json",
+        "client_item_chestplate.json": "items/{{IDENTIFIER}}_chestplate.json",
+        "client_item_leggings.json": "items/{{IDENTIFIER}}_leggings.json",
+        "client_item_boots.json": "items/{{IDENTIFIER}}_boots.json",
+        "attachable_helmet.json": "attachables/{{IDENTIFIER}}_helmet.json",
+        "attachable_helmet.player.json": "attachables/{{IDENTIFIER}}_helmet.player.json",
+        "attachable_chestplate.json": "attachables/{{IDENTIFIER}}_chestplate.json",
+        "attachable_chestplate.player.json": "attachables/{{IDENTIFIER}}_chesplate.player.json",
+        "attachable_leggings.json": "attachables/{{IDENTIFIER}}_leggings.json",
+        "attachable_leggings.player.json": "attachables/{{IDENTIFIER}}_leggings.player.json",
+        "attachable_boots.json": "attachables/{{IDENTIFIER}}_boots.json",
+        "attachable_boots.player.json": "attachables/{{IDENTIFIER}}_boots.player.json"
+    },
+    "expand_rp_files": {
+        "item_texture.json": "textures/item_texture.json",
+        "en_US.lang": "texts/en_US.lang"
+    },
+    "copy_rp_files": {
+        "icon_helmet.png": "textures/items/{{IDENTIFIER}}_helmet.png",
+        "icon_chestplate.png": "textures/items/{{IDENTIFIER}}_chestplate.png",
+        "icon_leggings.png": "textures/items/{{IDENTIFIER}}_leggings.png",
+        "icon_boots.png": "textures/items/{{IDENTIFIER}}_boots.png"
+    }
+}

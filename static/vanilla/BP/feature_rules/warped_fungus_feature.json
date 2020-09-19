@@ -9,7 +9,11 @@
       "placement_pass": "surface_pass",
       "minecraft:biome_filter": [
         {
-          "test": "has_biome_tag", "operator": "==", "value": "warped_forest"
+          "any_of": [
+            {
+              "test": "has_biome_tag", "operator": "==", "value": "warped_forest"
+            }
+          ]
         }
       ]
     },

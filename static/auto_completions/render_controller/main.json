@@ -8,28 +8,28 @@
             "ignore_lighting" : "$general.boolean",
 
             "color": {
-                "r": "$molang.embedded",
-                "g": "$molang.embedded",
-                "b": "$molang.embedded",
-                "a": "$molang.embedded"
+                "r": "$molang.embedded and $general.number",
+                "g": "$molang.embedded and $general.number",
+                "b": "$molang.embedded and $general.number",
+                "a": "$molang.embedded and $general.number"
             },
             "overlay_color": {
-                "r": "$molang.embedded",
-                "g": "$molang.embedded",
-                "b": "$molang.embedded",
-                "a": "$molang.embedded"
+                "r": "$molang.embedded and $general.number",
+                "g": "$molang.embedded and $general.number",
+                "b": "$molang.embedded and $general.number",
+                "a": "$molang.embedded and $general.number"
             },
             "is_hurt_color": {
-                "r": "$molang.embedded",
-                "g": "$molang.embedded",
-                "b": "$molang.embedded",
-                "a": "$molang.embedded"
+                "r": "$molang.embedded and $general.number",
+                "g": "$molang.embedded and $general.number",
+                "b": "$molang.embedded and $general.number",
+                "a": "$molang.embedded and $general.number"
             },
             "on_fire_color": {
-                "r": "$molang.embedded",
-                "g": "$molang.embedded",
-                "b": "$molang.embedded",
-                "a": "$molang.embedded"
+                "r": "$molang.embedded and $general.number",
+                "g": "$molang.embedded and $general.number",
+                "b": "$molang.embedded and $general.number",
+                "a": "$molang.embedded and $general.number"
             },
             "uv_anim": {
                 "offset": {

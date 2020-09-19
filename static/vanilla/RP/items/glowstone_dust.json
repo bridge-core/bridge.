@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:glowstone_dust"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.glowstone"
+      },
+      "minecraft:icon": {
+        "texture": "glowstone_dust"
+      },
+      "minecraft:render_offsets": "powders",
+      "minecraft:display_name": {}
+    }
+  }
+}

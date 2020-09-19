@@ -7,7 +7,7 @@
 		:isFullscreen="false"
 		:width="440"
 		:height="130"
-		@closeWindow="onClose"
+		@closeWindow="onCancel"
 	>
 		<template #default>
 			<p class="mt-2">

@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:splash_potion"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:stacked_by_data": true,
+      "minecraft:use_duration": 1.6,
+      "minecraft:potion": {
+        "type": "splash" // PotionType::Splash
+      },
+      "minecraft:throwable": {
+        "do_swing_animation": true
+      },
+      "minecraft:projectile": {
+        "projectile_entity": "minecraft:splash_potion"
+      }
+    }
+  }
+}

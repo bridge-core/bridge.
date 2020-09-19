@@ -1,0 +1,17 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:record_blocks"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.record"
+      },
+      "minecraft:icon": {
+        "texture": "record_blocks"
+      },
+      "minecraft:display_name": {}
+    }
+  }
+}

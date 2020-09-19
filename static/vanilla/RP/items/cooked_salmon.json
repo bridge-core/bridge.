@@ -5,12 +5,16 @@
       "identifier": "minecraft:cooked_salmon",
       "category": "Equipment"
     },
-
     "components": {
-      "minecraft:icon": "cooked_salmon",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.cookedFood"
+      },
+      "minecraft:icon": {
+        "texture": "cooked_salmon"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "fishes"
+      "minecraft:render_offsets": "fishes",
+      "minecraft:display_name": {}
     }
   }
 }

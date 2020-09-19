@@ -507,6 +507,8 @@
       "minecraft:on_target_escape": {
         "event": "minecraft:lost_target",
         "target": "self"
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 

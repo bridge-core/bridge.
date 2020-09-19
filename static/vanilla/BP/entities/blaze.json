@@ -150,6 +150,8 @@
       "minecraft:on_hurt_by_player": {
         "event": "minecraft:on_hurt_event",
         "target": "self"
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
     "events": {

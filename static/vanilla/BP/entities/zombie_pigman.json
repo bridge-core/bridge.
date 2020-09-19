@@ -50,6 +50,11 @@
           "event": "minecraft:become_angry",
           "target": "self"
         }
+      },
+      "minecraft:strider_jockey": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/zombified_piglin_rider_gear.json"
+        }
       }
     },
 
@@ -364,6 +369,8 @@
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 
@@ -450,6 +457,13 @@
         "add": {
           "component_groups": [
             "minecraft:pig_zombie_angry"
+          ]
+        }
+      },
+      "minecraft:spawn_as_strider_jockey": {
+        "add": {
+          "component_groups": [
+            "minecraft:strider_jockey"
           ]
         }
       }

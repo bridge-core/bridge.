@@ -416,6 +416,8 @@
                 "width": 0.55,
                 "height": 0.5
             },
+            "minecraft:conditional_bandwidth_optimization": {
+            },
             "minecraft:home": {},
             "minecraft:follow_range": {
                 "value": 1024

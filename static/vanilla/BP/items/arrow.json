@@ -1,0 +1,16 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:arrow"
+    },
+    "components": {
+      "minecraft:stacked_by_data": true,
+      "minecraft:allow_off_hand": true,
+      "minecraft:projectile": {
+        "projectile_entity": "minecraft:arrow",
+        "minimum_critical_power": 1.0
+      }
+    }
+  }
+}

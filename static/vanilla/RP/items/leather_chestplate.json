@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:leather_chestplate"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.chestplate"
+      },
+      "minecraft:icon": {
+        "texture": "chestplate",
+        "frame_index": 0
+      },
+	  "minecraft:armor": {
+		"texture_type": "leather"
+      },
+      "minecraft:render_offsets": "chestplates",
+      "minecraft:display_name": {}
+    }
+  }
+}

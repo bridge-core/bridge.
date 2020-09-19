@@ -4,6 +4,7 @@
 		:close-on-content-click="false"
 		:position-x="x_position"
 		:position-y="y_position"
+		transition="slide-y-transition"
 	>
 		<v-card color="background">
 			<v-card-text>
@@ -273,6 +274,7 @@ export default {
 	methods: {
 		updateComment(val) {
 			TabSystem.getCurrentNavObj().comment = val
+			TabSystem.setCurrentUnsaved()
 		},
 		updateCurrentComment() {
 			this.$nextTick(() => {

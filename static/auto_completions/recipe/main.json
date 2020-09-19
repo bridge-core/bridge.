@@ -24,13 +24,13 @@
         "key": {
             "$dynamic.recipe.pattern_keys": {
                 "item": "$recipe.general.item_block_identifier",
-                "data": "$general.number"
+                "data": "$general.number and $molang.embedded"
             }
         },
         "result": {
             "$dynamic.list.next_index": {
                 "item": "$recipe.general.item_block_identifier",
-                "data": "$general.number",
+                "data": "$general.number and $molang.embedded",
                 "count": "$general.number"
             }
         }
@@ -46,14 +46,14 @@
         "ingredients": {
             "$dynamic.list.next_index": {
                 "item": "$recipe.general.item_block_identifier",
-                "data": "$general.number",
+                "data": "$general.number and $molang.embedded",
                 "count": "$general.number"
             }
         },
         "result": {
             "$dynamic.list.next_index": {
                 "item": "$recipe.general.item_block_identifier",
-                "data": "$general.number",
+                "data": "$general.number and $molang.embedded",
                 "count": "$general.number"
             }
         }

@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:bucket"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.buckets"
+      },
+      "minecraft:icon": {
+        "texture": "bucket"
+      },
+      "minecraft:use_animation": "drink",
+      "minecraft:render_offsets": "buckets",
+      "minecraft:display_name": {}
+    }
+  }
+}

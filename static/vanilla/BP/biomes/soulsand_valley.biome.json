@@ -18,39 +18,24 @@
         "target_weirdness": 0.0,
         "weight": 0.0
       },
-      "minecraft:surface_parameters": {
-        "sea_floor_depth": 1,
-        "sea_floor_material": "minecraft:soul_soil",
-        "foundation_material": "minecraft:netherrack",
-        "mid_material": "minecraft:soul_soil",
-        "top_material": "minecraft:soul_soil",
-        "sea_material": "minecraft:lava"
-      },
-      "minecraft:surface_material_adjustments": {
-        "adjustments":[
-          {
-            "materials": {
-              "top_material": "minecraft:soul_sand",
-              "mid_material": "minecraft:soul_sand"
-            },
-            "noise_frequency_scale": 0.04125,
-            "noise_range": [ -1.0, -0.1 ]
-          },
-          {
-            "materials": {
-              "top_material": "minecraft:gravel"
-            },
-            "height_range": [ "variable.sea_level - 3", "variable.sea_level + 2" ],
-            "noise_frequency_scale": 0.4125,
-            "noise_range": [ -1.0, 0.5 ]
-          }
-        ]
+      "minecraft:capped_surface": {
+        "floor_materials": [
+          "minecraft:soul_sand",
+          "minecraft:soul_soil"
+        ],
+        "ceiling_materials": [
+          "minecraft:soul_sand",
+          "minecraft:soul_soil"
+        ],
+        "sea_material": "minecraft:lava",
+        "beach_material": "minecraft:gravel",
+        "foundation_material": "minecraft:netherrack"
       },
 
       "nether": {},
       "soulsand_valley": {},
       "spawn_ghast": {},
-      "spawn_endermen" : {}
+      "spawn_endermen": {}
     }
   }
 }

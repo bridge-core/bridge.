@@ -5,11 +5,16 @@
       "identifier": "minecraft:apple",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "apple",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.crop"
+      },
+      "minecraft:icon": {
+        "texture": "apple"
+      },
       "minecraft:use_animation": "eat",
-      "minecraft:render_offsets": "apple"
+      "minecraft:render_offsets": "apple",
+      "minecraft:display_name": {}
     }
   }
 }

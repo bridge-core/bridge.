@@ -24,16 +24,15 @@ Follow the same steps as reporting improper bridge. behavior.
 
 **My entity exists in game, but is invisible.**
 
-If your entity has a shadow but is invisible, give it the `skeleton` material in the client entity file. If it has no shadow, you probably need to add a render
-controller.
+This could be caused by many different things, such as a mistake in your render controller, a probelm referecing your geometry or incorrectly defining the texture path. For more in depth help with this, check out <a href="https://wiki.bedrock.dev/knowledge/troubleshooting.html">this entity troubleshooting guide</a>.
 
 **My addon isn’t working. Why?**
 
-There are lots of reasons an addon might not work. Before you ask in an addon help channel within the bridge. Discord, please turn on content logs and review any errors.  
+There are lots of reasons an addon might not work. Before you ask in an addon help channel within the bridge. Discord, please turn on content logs and review any errors.
 
 **How do I turn on content logs?**
 
-In *Minecraft* settings under the Profile section, there are two settings: ”Enable Content Log GUI” and “Enable Content Log File.” We recommend turning both on while
+In _Minecraft_ settings under the Profile section, there are two settings: ”Enable Content Log GUI” and “Enable Content Log File.” We recommend turning both on while
 testing.
 ![Enable content logs](https://github.com/bridge-core/bridge./blob/master/images/faq_1.png)
 
@@ -49,7 +48,13 @@ available #addon-help channel.
 **Do I need experimental gameplay for…?**
 
 As of 1.16.0, the following things require experimental gameplay:
-* Biomes
-* Features
-* Feature rules
-* Scripts
+
+-   Biomes
+-   Features
+-   Feature rules
+-   Scripts
+
+**My entity's texture is black where there should be transparency.**
+
+This is caused when you're using a material that doesn't support transparency.
+`skeleton` and `entity_alphatest` both support transparency and can be used when you have this issue

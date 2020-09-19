@@ -638,6 +638,8 @@
         "block_weight": 0.85
       },
       "minecraft:nameable": {
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 

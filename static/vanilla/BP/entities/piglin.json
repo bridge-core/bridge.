@@ -49,7 +49,9 @@
         "minecraft:transformation": {
           "into": "minecraft:zombie_pigman",
           "transformation_sound" : "converted_to_zombified",
-          "keep_level": true
+          "keep_level": true,
+          "drop_inventory": true,
+          "preserve_equipment": true
         }
       },
 
@@ -493,6 +495,8 @@
       "minecraft:behavior.barter": {
         "priority": 3
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:behavior.avoid_mob_type": {
         "priority": 4,
         "remove_target": true,
@@ -782,7 +786,37 @@
             "priority": 8
           },
           {
+            "item": "minecraft:skull:2",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 8
+          },
+          {
+            "item": "minecraft:skull:3",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 8
+          },
+          {
+            "item": "minecraft:skull:4",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 8
+          },
+          {
+            "item": "minecraft:skull:5",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 8
+          },
+          {
             "item": "minecraft:carved_pumpkin",
+            "want_amount": 1,
+            "surplus_amount": 1,
+            "priority": 8
+          },
+          {
+            "item": "minecraft:turtle_helmet",
             "want_amount": 1,
             "surplus_amount": 1,
             "priority": 8
@@ -805,6 +839,10 @@
           },
           {
             "item": "minecraft:leather_chestplate",
+            "priority": 7
+          },
+          {
+            "item": "minecraft:elytra",
             "priority": 7
           },
           {
@@ -893,6 +931,10 @@
           },
           {
             "item": "minecraft:wooden_sword",
+            "priority": 7
+          },
+          {
+            "item": "minecraft:shield",
             "priority": 7
           },
           {

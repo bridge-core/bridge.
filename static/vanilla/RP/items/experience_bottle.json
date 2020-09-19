@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:experience_bottle"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.bottles"
+      },
+      "minecraft:icon": {
+        "texture": "experience_bottle"
+      },
+      "minecraft:render_offsets": "bottles",
+      "minecraft:display_name": {}
+    }
+  }
+}

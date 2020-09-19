@@ -4,11 +4,9 @@
     "description": {
       "identifier": "minecraft:nether_wart"
     },
-
     "components": {
-      "minecraft:seed": {
-        "plant_at": "soul_sand",
-        "crop_result": "nether_wart"
+      "minecraft:block_placer": {
+        "block": "minecraft:nether_wart"
       }
     }
   }

@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:painting"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.decorations"
+      },
+      "minecraft:icon": {
+        "texture": "painting"
+      },
+      "minecraft:render_offsets": "painting",
+      "minecraft:display_name": {}
+    }
+  }
+}

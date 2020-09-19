@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:paper"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.paper"
+      },
+      "minecraft:icon": {
+        "texture": "paper"
+      },
+      "minecraft:render_offsets": "paper",
+      "minecraft:display_name": {}
+    }
+  }
+}

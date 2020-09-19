@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:stick"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.stick"
+      },
+      "minecraft:icon": {
+        "texture": "stick"
+      },
+      "minecraft:render_offsets": "stick",
+      "minecraft:display_name": {}
+    }
+  }
+}

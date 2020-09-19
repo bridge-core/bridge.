@@ -4,10 +4,61 @@
     "minecraft:block": {
         "description": {
             "identifier": "$general.file_identifier and $general.block_identifier",
-            "register_to_creative_menu": "$general.boolean",
-            "is_experimental": "$general.boolean"
+            "is_experimental": "$general.boolean",
+            "properties": {
+                "$placeholder": {
+                    "$dynamic.list.next_index": {
+                        "@meta": { "validate": null },
+                        "@import.value.number": "$general.number",
+                        "@import.value.boolean": "$general.boolean"
+                    }
+                }
+            }
         },
 
-        "components": "$block.components"
+        "permutations": {
+            "$dynamic.list.next_index": {
+                "condition": "$molang.embedded",
+                "components": "$block.components"
+            }
+        },
+        "components": "$block.components",
+        "events": {
+            "$placeholder": {
+                "randomize": {
+                    "$dynamic.list.next_index": {
+                        "weight": "$general.number",
+                        "$load": "$block.main.minecraft:block.events.$placeholder"
+                    }
+                },
+                "sequence": {
+                    "$dynamic.list.next_index": {
+                      "$load": "$block.main.minecraft:block.events.$placeholder"
+                    }
+                  },
+                "set_block_property": {
+                    "$dynamic.block.property": {
+                        "$dynamic_template": {
+                            "$key": "$dynamic.currentNodeKey",
+                            "$load": "$dynamic.block.property_obj"
+                        }
+                    }
+                },
+                "set_block": {
+                    "block_type": "$general.block_identifier"
+                },
+                "set_block_at_pos": {
+
+                },
+                "spawn_loot": {
+                    "table": "$dynamic.loot_table_files"
+                },
+                "trigger": {
+                    "event": "asValue($dynamic.block.events)",
+                    "target": ["self", "other"],
+                    "condition": "$molang.embedded"
+                }
+            }
+        }
     }
 }

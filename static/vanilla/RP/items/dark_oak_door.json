@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:dark_oak_door"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.door"
+      },
+      "minecraft:icon": {
+        "texture": "dark_oak_door"
+      },
+      "minecraft:render_offsets": "doors",
+      "minecraft:display_name": {}
+    }
+  }
+}

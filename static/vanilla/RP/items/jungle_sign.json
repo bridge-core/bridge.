@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:jungle_sign"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.sign"
+      },
+      "minecraft:icon": {
+        "texture": "sign_jungle"
+      },
+      "minecraft:render_offsets": "sign",
+      "minecraft:display_name": {}
+    }
+  }
+}

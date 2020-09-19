@@ -1,0 +1,4 @@
+{
+    "distances": ["water", "air", "weather", "lava", "lava_resistance"],
+    "render_distance_types": ["fixed", "render"]
+}

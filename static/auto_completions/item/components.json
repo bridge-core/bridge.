@@ -1,41 +1,468 @@
 {
+    "@meta": {
+        "expand_path_exceptions": [
+            "minecraft:bucket",
+            "minecraft:bed",
+            "minecraft:coal",
+            "minecraft:dye",
+            "minecraft:fire_charge",
+            "minecraft:fishing_rod",
+            "minecraft:flint_and_steel",
+            "minecraft:bottle",
+            "minecraft:lead",
+            "minecraft:name_tag",
+            "saddle",
+            "minecraft:shears",
+            "minecarft:skull",
+            "minecraft:mob_placer"
+        ]
+    },
     "minecraft:use_duration": "$general.number",
     "minecraft:max_stack_size": "$general.number",
     "minecraft:max_damage": "$general.number",
     "minecraft:hand_equipped": "$general.boolean",
     "minecraft:stacked_by_data": "$general.boolean",
     "minecraft:foil": "$general.boolean",
-    "minecraft:block": "$general.block_identifier",
-
-    "minecraft:food": {
-        "nutrition": "$general.number",
-        "can_always_eat": "$general.boolean",
-        "saturation_modifier": "$item.general.saturation_modifier",
-        "effects": {
-            "$dynamic.list.next_index": "$item.general.effect_definition"
-        },
-        "remove_effects": {
-            "$dynamic.list.next_index": "$general.effect_name"
-        },
-        "using_converts_to": "$general.item_identifier",
-        "on_use_action": ["chorus_teleport", "suspicious_stew_effect", "none"],
-        "on_use_range": {
-            "$dynamic.list.index_triple": "$general.number"
-        },
-        "cooldown_type": ["chorusfruit", "none"],
-        "cooldown_time": "$general.number"
-    },
-    "minecraft:seed": {
-        "crop_result": "$general.block_identifier",
-        "plant_at": {
-            "$dynamic.list.next_index": "$general.block_identifier"
+    "$versioned_template.minecraft:bucket":[
+        {
+            "$if": "$format_version >= 1.17.0",
+            "$data": {}
         }
-    },
-    "$dynamic_template.bridge:weapon_damage": {
-        "$if": "$dynamic.bridge_core.is_active",
+    ],
+    "$versioned_template.minecraft:bed":[
+        {
+            "$if": "$format_version >= 1.17.0",
+            "$data": {}
+        }
+    ],
+    "$versioned_template.minecraft:frame_count":[
+        {
+            "$if": "$format_version >= 1.17.0",
+            "$data": "$general.number"
+        }
+    ],
+    "$versioned_template.minecraft:animates_in_toolbar":[
+        {
+            "$if": "$format_version >= 1.17.0",
+            "$data": "$general.boolean"
+        }
+    ],
+    "$versioned_template.minecraft:ignores_permission":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": "$general.boolean"
+        }
+    ],
+    "$versioned_template.minecraft:mining_speed":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": "$general.number"
+        }
+    ],
+    "$versioned_template.minecraft:damage":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": "$general.number"
+        }
+    ],
+    "$versioned_template.minecraft:can_destroy_in_creative":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": "$general.boolean"
+        }
+    ],
+    "$versioned_template.minecraft:dye_powder":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "color": "$general.number"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:requires_interact":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": "$general.boolean"
+        }
+    ],
+    "$versioned_template.minecraft:fire_charge":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {}
+        }
+    ],
+    "$versioned_template.minecraft:mirrored_art":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": "$general.boolean"
+        }
+    ],
+    "$versioned_template.minecraft:fishing_rod":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {}
+        }
+    ],
+    "$versioned_template.minecraft:flint_and_steel":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {}
+        }
+    ],
+    "$versioned_template.minecraft:bottle":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {}
+        }
+    ],
+    "$versioned_template.minecraft:lead":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {}
+        }
+    ],
+    "$versioned_template.minecraft:name_tag":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {}
+        }
+    ],
+    "$versioned_template.minecraft:explodable":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": "$general.boolean"
+        }
+    ],
+    "$versioned_template.minecraft:should_despawn":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": "$general.boolean"
+        }
+    ],
+    "$versioned_template.saddle":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {}
+        }
+    ],
+    "$versioned_template.minecraft:shears":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {}
+        }
+    ],
+    "$versioned_template.minecraft:skull":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {}
+        }
+    ],
+    "$versioned_template.minecraft:mob_placer":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {}
+        }
+    ],
+    "$versioned_template.minecraft:liquid_clipped":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": "$general.boolean"
+        }
+    ],
+    "$versioned_template.minecraft:allow_off_hand":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": "$general.boolean"
+        }
+    ],
 
-        "$default": "$general.number"
-    },
+    "$versioned_template.minecraft:door":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {
+                "material": ["metal", "wood"],
+                "type": "$item.general.door_types"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:sign":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {
+                "type": "$_general.block_states.wood_type"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:projectile":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "projectile_entity": "$general.entity_identifier",
+                "minimum_critical_power": "$general.decimal"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:block_placer":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "block": "$general.block_identifier",
+                "use_block_description": "$general.boolean"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:entity_placer":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "entity": "$general.entity_identifier",
+                "use_on": {
+                    "$dynamic.list.next_index": "$general.block_identifier"
+                },
+                "dispense_on": {
+                    "$dynamic.list.next_index": "$general.block_identifier"
+                }
+            }
+        }
+    ],
+    "$versioned_template.minecraft:knockback_resistance":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "protection": "$general.decimal"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:enchantable":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "slot": "$item.general.slots",
+                "value": "$general.number"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:shooter":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "max_draw_duration": "$general.number",
+                "charge_on_draw": "$general.boolean",
+                "scale_power_by_draw_duration": "$general.boolean",
+                "ammunition": {
+                    "$dynamic.list.next_index": {
+                        "item": "$general.item_identifier",
+                        "use_offhand": "$general.boolean",
+                        "search_inventory": "$general.boolean",
+                        "use_in_creative": "$general.boolean"
+                    }
+                }
+            }
+        }
+    ],
+    "$versioned_template.minecraft:damageable":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "max_damage": "$general.number",
+                "damage_chance": {
+                    "min": "$general.number",
+                    "max": "$general.number"
+                }
+            }
+        }
+    ],
+    "$versioned_template.minecraft:armor":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "protection": "$general.number"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:wearable":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "slot": "$general.slot_type"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:weapon":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "on_hurt": {
+                    "event": "asValue($dynamic.item.events)",
+                    "target": ["holder", "self"],
+                    "condition": "$molang.embedded"
+                }
+            }
+        }
+    ],
+    "$versioned_template.minecraft:record":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "sound_event": "$item.general.music_events",
+                "duration": "$general.number",
+                "comparator_signal": "$general.number"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:repairable":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "repair_items": {
+                    "$dynamic.list.next_index": {
+                        "items": {
+                            "$dynamic.list.next_index": "$general.item_identifier"
+                        },
+                        "repair_amount": "$general.number and $molang.embedded",
+                        "on_repaired": {
+                            "event": "asValue($dynamic.item.events)",
+                            "target": ["self", "holder"]
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "$versioned_template.minecraft:cooldown":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "category": "$item.general.cooldown_types",
+                "duration": "$general.decimal"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:use_on":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {
+                "blocks": {
+                    "$dynamic.list.next_index": "$general.block_identifier"
+                }
+            }
+        }
+    ],
+    "$versioned_template.minecraft:digger":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "use_efficiency": "$general.boolean",
+                "destroy_speeds": {
+                    "$dynamic.list.next_index": {
+                        "block": {
+                        "@import.value": "$general.block_identifier",
+                            "any_tag": {
+                                "$dynamic.list.next_index": {
+                                    "@meta": {"is_value": true}
+                                }
+                            }
+                        },
+                    "speed": "$general.number"
+                    }
+                }
+            }
+        }
+    ],
+    "$versioned_template.minecraft:fertilizer":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "type": "$item.general.fertilizer_type"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:fuel":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "duration": "$general.number"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:throwable":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "do_swing_animation": "$general.boolean",
+                "max_draw_duration": "$general.number",
+                "scale_power_by_draw_duration": "$general.boolean"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:map":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {
+                "empty": "$general.boolean"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:potion":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "type": "$item.general.potion_types"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:hanging_entity":[
+        {
+            "$if":"$format_version >= 1.17.0",
+            "$data": {
+                "actor_type": "$general.number"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:creative_category":[
+        {
+            "$if":"$project_target_version >= 1.16.100",
+            "$data": {
+                "parent": "$item.general.item_group_reference"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:food": [
+        {
+            "$if": "$format_version >= 1.16.100",
+            "$data": {
+                "on_consume": {
+                    "event": "asValue($dynamic.item.events)",
+                    "target": ["self", "holder"]
+                },
+                "nutrition": "$general.number",
+                "can_always_eat": "$general.boolean",
+                "saturation_modifier": "$item.general.saturation_modifier",
+                "using_converts_to": "$general.item_identifier"
+            }
+        },
+        {
+            "$if": "$format_version < 1.16.100",
+            "$data": {
+                "nutrition": "$general.number",
+                "can_always_eat": "$general.boolean",
+                "saturation_modifier": "$item.general.saturation_modifier",
+                "effects": {
+                "$dynamic.list.next_index": "$item.general.effect_definition"
+                },
+                "remove_effects": {
+                    "$dynamic.list.next_index": "$general.effect_name"
+                },
+                "using_converts_to": "$general.item_identifier",
+                "on_use_action": ["chorus_teleport", "suspicious_stew_effect", "none"],
+                "on_use_range": {
+                    "$dynamic.list.index_triple": "$general.number"
+                }
+            }
+        }
+    ],
+
+        
     "$dynamic_template.bridge:item_equipped_sensor": {
         "$if": "$dynamic.bridge_core.is_active",
 

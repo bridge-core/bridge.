@@ -10,6 +10,7 @@ import LoadingWindow from '../../../../windows/LoadingWindow'
 import FileSystem from '../../../FileSystem'
 import { ImportFileMap } from '../../../plugins/scripts/modules/importFiles'
 import { createInformationWindow } from '../../Windows/Common/CommonDefinitions'
+import { clearAllNotifications } from '../../Footer/create'
 
 export const FileMenu: IAppMenu = {
 	displayName: 'File',
@@ -101,6 +102,15 @@ export const FileMenu: IAppMenu = {
 				ctrlKey: true,
 			},
 			onClick: () => TabSystem.closeSelected(),
+		},
+		{
+			displayName: 'Clear all notifications',
+			displayIcon: 'mdi-cancel',
+			keyBinding: {
+				key: 'b',
+				ctrlKey: true,
+			},
+			onClick: () => clearAllNotifications(),
 		},
 		{
 			displayName: 'Preferences',

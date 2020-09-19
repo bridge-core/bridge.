@@ -159,6 +159,8 @@
       },
       "minecraft:follow_range": {
         "value": 64
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
     "events": {

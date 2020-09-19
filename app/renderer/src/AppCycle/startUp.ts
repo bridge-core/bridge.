@@ -30,20 +30,7 @@ export default async function startUp() {
 		})
 	}
 
-	// Fetch the latest json/version data
-	fetchLatestJson().then(updateData => {
-		if (updateData.update_available) {
-			// If there's an update, notify the user
-			createNotification({
-				icon: 'mdi-update',
-				message: 'Update Available',
-				textColor: 'white',
-				onClick: () => {
-					new UpdateWindow(updateData)
-				},
-			})
-		}
-	})
+	createAppUpdateNotification()
 
 	if (process.env.NODE_ENV !== 'development') {
 		let getting_started = createNotification({
@@ -52,7 +39,7 @@ export default async function startUp() {
 			textColor: 'white',
 			onClick: () => {
 				shell.openExternal(
-					'https://github.com/bridge-core/bridge./blob/master/GETTING_STARTED.md'
+					'https://bridge-core.github.io/editor-docs/getting-started/'
 				)
 				getting_started.dispose()
 			},
@@ -61,4 +48,21 @@ export default async function startUp() {
 	if (Store.state.Settings.open_in_fullscreen) {
 		remote.getCurrentWindow().maximize()
 	}
+}
+
+export function createAppUpdateNotification() {
+	// Fetch the latest json/version data
+	fetchLatestJson().then(updateData => {
+		if (updateData.update_available) {
+			// If there's an update, notify the user
+			const notification = createNotification({
+				icon: 'mdi-update',
+				message: 'Update Available',
+				textColor: 'white',
+				onClick: () => {
+					new UpdateWindow(updateData, notification)
+				},
+			})
+		}
+	})
 }

@@ -47,6 +47,13 @@
       },
       "minecraft:physics": {
         "has_collision": false
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 80.0,
+          "max_dropped_ticks": 10,
+          "use_motion_prediction_hints": true
+        }
       }
     }
   }

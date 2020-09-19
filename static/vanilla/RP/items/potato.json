@@ -5,12 +5,16 @@
       "identifier": "minecraft:potato",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "potato",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.crop"
+      },
+      "minecraft:icon": {
+        "texture": "potato"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "miscellaneous"
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
     }
   }
 }

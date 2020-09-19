@@ -7,11 +7,12 @@ import { BP_BASE_PATH, RP_BASE_PATH } from '../../shared/Paths'
 import Store from '../store/index'
 import { FileExplorerStorage } from './UI/Sidebar/FileExplorer'
 import { remote } from 'electron'
+import ProjectConfig from './Project/Config'
 
 export const WEB_APP_DATA = 'https://bridge-core.github.io/data/'
 export const WEB_APP_PLUGINS = 'https://bridge-core.github.io/plugins/'
-
 export const DOC_URL = 'https://bedrock.dev/r/'
+export const DOC_URL_BETA = 'https://bedrock.dev/b/'
 export const DOC_LIST = [
 	'Entities',
 	'Features',
@@ -31,6 +32,8 @@ export const DOC_LIST = [
 export { APP_VERSION }
 export * from '../../shared/Paths'
 export const BASE_PATH = BP_BASE_PATH
+
+export const MC_BETA_VERSION = '1.16.100'
 
 export const browser_window = remote.getCurrentWindow()
 
@@ -58,5 +61,8 @@ export const CURRENT = {
 	},
 	get RPFileExplorer() {
 		return FileExplorerStorage.get('resource_pack', CURRENT.RESOURCE_PACK)
+	},
+	get PROJECT_TARGET_VERSION() {
+		return ProjectConfig.getFormatVersionSync()
 	},
 }

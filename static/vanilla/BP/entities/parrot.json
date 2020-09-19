@@ -159,6 +159,8 @@
         "priority": 1,
         "look_distance": 8.0
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:healable": {
         "force_use": true,
         "filters": { "test": "is_riding", "operator": "!=", "value": true },

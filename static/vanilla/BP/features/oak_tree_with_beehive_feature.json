@@ -4,6 +4,7 @@
     "description": {
       "identifier": "minecraft:oak_tree_with_beehive_feature"
     },
+    "early_out": "first_failure",
     "features": [
       "minecraft:oak_tree_feature",
       "minecraft:beehive_search_feature"

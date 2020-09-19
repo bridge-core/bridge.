@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:flint_and_steel"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.tools"
+      },
+      "minecraft:icon": {
+        "texture": "flint_and_steel"
+      },
+      "minecraft:render_offsets": "flint_and_steel",
+      "minecraft:display_name": {}
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:crossbow"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.bows"
+      },
+      "minecraft:icon": {
+        "texture": "crossbow_standby"
+      },
+      "minecraft:use_animation": "crossbow",
+      "minecraft:render_offsets": "crossbow",
+      "minecraft:display_name": {}
+    }
+  }
+}

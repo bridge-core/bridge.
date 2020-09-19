@@ -5,12 +5,16 @@
       "identifier": "minecraft:porkchop",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "porkchop_raw",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.rawFood"
+      },
+      "minecraft:icon": {
+        "texture": "porkchop_raw"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "meats"
+      "minecraft:render_offsets": "meats",
+      "minecraft:display_name": {}
     }
   }
 }

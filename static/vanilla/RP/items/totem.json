@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:totem"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.totem"
+      },
+      "minecraft:icon": {
+        "texture": "totem"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
+    }
+  }
+}

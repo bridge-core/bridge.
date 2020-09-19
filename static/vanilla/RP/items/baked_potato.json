@@ -5,12 +5,16 @@
       "identifier": "minecraft:baked_potato",
       "category": "Equipment"
     },
-
     "components": {
-      "minecraft:icon": "potato_baked",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.miscFood"
+      },
+      "minecraft:icon": {
+        "texture": "potato_baked"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "miscellaneous"
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
     }
   }
 }

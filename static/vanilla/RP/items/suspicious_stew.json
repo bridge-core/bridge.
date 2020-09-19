@@ -5,12 +5,15 @@
       "identifier": "minecraft:suspicious_stew",
       "category": "Equipment"
     },
-    
+
     "components": {
-      "minecraft:icon": "suspicious_stew",
+      "minecraft:icon": {
+        "texture": "suspicious_stew"
+      },
       "minecraft:use_animation": "eat",
 
-      "minecraft:render_offsets": "stew"
+      "minecraft:render_offsets": "stew",
+      "minecraft:display_name": {}
     }
   }
 }

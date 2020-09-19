@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:redstone"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.redstone"
+      },
+      "minecraft:icon": {
+        "texture": "redstone_dust"
+      },
+      "minecraft:render_offsets": "powders",
+      "minecraft:display_name": {}
+    }
+  }
+}

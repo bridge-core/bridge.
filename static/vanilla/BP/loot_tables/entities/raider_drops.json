@@ -113,7 +113,7 @@
         },
         {
           "type": "item",
-          "name": "minecraft:iron_pick",
+          "name": "minecraft:iron_pickaxe",
           "weight": 10,
           "functions": [
             {

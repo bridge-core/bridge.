@@ -14,13 +14,15 @@ _This documentation is still a work in progress_
 
 ## [@bridge/windows](https://github.com/solvedDev/bridge./blob/master/app/renderer/src/plugins/scripts/modules/windows.md)
 
-## [@bridge/sidebar]()
+## [@bridge/sidebar](https://github.com/solvedDev/bridge./blob/master/app/renderer/src/plugins/scripts/modules/sidebar.md)
 
 ## [@bridge/file-importer]()
 
-## [@bridge/notification]()
+## [@bridge/notification](https://github.com/solvedDev/bridge./blob/master/app/renderer/src/plugins/scripts/modules/footer.md)
 
 ## [@bridge/fs](https://github.com/solvedDev/bridge./blob/master/app/renderer/src/plugins/scripts/modules/fs.md)
+
+## [@bridge/globals](https://github.com/solvedDev/bridge./blob/master/app/renderer/src/plugins/scripts/modules/globals.md)
 
 Usage Examples:
 

@@ -58,6 +58,15 @@
 						]
 					},
 					"@import.value.animations": "$dynamic.cache.rp_animation.ids and $dynamic.cache.rp_animation_controller.ids"
+				},
+				"@meta": {
+					"validate": {
+						"confirm": "Bridge.Node.children.length == 0",
+						"then": {
+							"show": true,
+							"message": "Node has too few children (0 < 1)"
+						}
+					}
 				}
 			},
 			"scripts": {
@@ -78,20 +87,24 @@
 						}
 					}
 				},
-				"animate": {
-					"$dynamic.list.next_index": {
-						"$dynamic.client_entity.animation_references": {},
-						"$placeholder": "$molang.embedded",
-						"@import.value.animation": "$dynamic.client_entity.animation_references"
-					}
-				},
-				"$versioned_template": [
+				"$versioned_template.animate": [
 					{
-						"$if": "$project_target_version >= 1.16.100",
+						"$if": "$format_version > 1.8.0",
 						"$data": {
-							"variables": {
-								"$placeholder": ["public"]
+							"$dynamic.list.next_index": {
+								"$dynamic.client_entity.animation_references": {},
+								"$placeholder": "$molang.embedded",
+								"@import.value.animation": "$dynamic.client_entity.animation_references"
 							}
+						}
+					}
+				],
+				"$versioned_template.variable": [
+					{
+						"$if": "$format_version >= 1.16.100",
+						"$data": {
+							"$placeholder": ["public"]
+							
 						}
 					}
 				]

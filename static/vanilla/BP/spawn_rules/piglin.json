@@ -41,7 +41,7 @@
           "minecraft:shroomlight"
         ],
         "minecraft:difficulty_filter": {
-          "min": "easy",
+          "min": "peaceful",
           "max": "hard"
         },
 

@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:bed"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "bed"
+      },
+      "minecraft:render_offsets": "bed",
+      "minecraft:display_name": {}
+    }
+  }
+}
