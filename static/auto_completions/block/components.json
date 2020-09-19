@@ -285,19 +285,19 @@
 	"$versioned_template.minecraft:breakonpush": [
 		{
 			"$if": "$format_version >= 1.16.100",
-			"$data": {}
+			"$data": "$general.boolean"
 		}
 	],
 	"$versioned_template.minecraft:immovable": [
 		{
 			"$if": "$format_version >= 1.16.100",
-			"$data": {}
+			"$data": "$general.boolean"
 		}
 	],
 	"$versioned_template.minecraft:onlypistonpush": [
 		{
 			"$if": "$format_version >= 1.16.100",
-			"$data": {}
+			"$data": "$general.boolean"
 		}
 	],
 	"$versioned_template.minecraft:placement_filter": [
@@ -327,7 +327,7 @@
 	"$versioned_template.minecraft:preventsjumping": [
 		{
 			"$if": "$format_version >= 1.16.100",
-			"$data": {}
+			"$data": "$general.boolean"
 		}
 	],
 	"$versioned_template.minecraft:rotation": [
@@ -341,7 +341,7 @@
 	"$versioned_template.minecraft:unwalkable": [
 		{
 			"$if": "$format_version >= 1.16.100",
-			"$data": {}
+			"$data": "$general.boolean"
 		}
 	]
 }
