@@ -41,11 +41,19 @@
       "$placeholder": {
         "@meta": { "validate": "entity/eventStructure.js" },
 
-        "$versioned_template": [
+        "$versioned_template.trigger": [
           {
             "$if": "$format_version >= 1.16.0",
+            "$data": "$entity.general.event_string"
+          }
+        ],
+        "$versioned_template.run_command": [
+          {
+            "$if": "$format_version >= 1.16.100",
             "$data": {
-              "trigger": "$entity.general.event_string"
+              "command": {
+                "$dynamic.list.next_index": "asValue($function.main)"
+              }
             }
           }
         ],

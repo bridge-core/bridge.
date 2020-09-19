@@ -38,6 +38,11 @@
                 },
                 "transform_item": {
                     "transform": "$general.item_identifier"
+                },
+                "run_command": {
+                    "command": {
+                        "$dynamic.list.next_index": "asValue($function.main)"
+                    }
                 }
             }
         }
