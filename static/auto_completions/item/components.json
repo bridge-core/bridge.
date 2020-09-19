@@ -207,7 +207,7 @@
             "$if":"$format_version >= 1.16.100",
             "$data": {
                 "block": "$general.block_identifier",
-                "use_block_descritpion": "$general.boolean"
+                "use_block_description": "$general.boolean"
             }
         }
     ],
