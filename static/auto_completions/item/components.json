@@ -169,7 +169,7 @@
             "$data": "$general.boolean"
         }
     ],
-    "$versioned_template.minecraft:allow_offhand":[
+    "$versioned_template.minecraft:allow_off_hand":[
         {
             "$if":"$format_version >= 1.16.100",
             "$data": "$general.boolean"
@@ -268,9 +268,6 @@
                 "damage_chance": {
                     "min": "$general.number",
                     "max": "$general.number"
-                },
-                "repair_items": {
-                    "$dynamic.list.next_index": "$general.item_identifier"
                 }
             }
         }
@@ -294,7 +291,42 @@
     "$versioned_template.minecraft:weapon":[
         {
             "$if":"$format_version >= 1.16.100",
-            "$data": {}
+            "$data": {
+                "on_hurt": {
+                    "event": "asValue($dynamic.item.events)",
+                    "target": ["holder", "self"],
+                    "condition": "$molang.embedded"
+                }
+            }
+        }
+    ],
+    "$versioned_template.minecraft:record":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "sound_event": "$item.general.music_events",
+                "duration": "$general.number",
+                "comparator_signal": "$general.number"
+            }
+        }
+    ],
+    "$versioned_template.minecraft:repairable":[
+        {
+            "$if":"$format_version >= 1.16.100",
+            "$data": {
+                "repair_items": {
+                    "$dynamic.list.next_index": {
+                        "items": {
+                            "$dynamic.list.next_index": "$general.item_identifier"
+                        },
+                        "repair_amount": "$general.number and $molang.embedded",
+                        "on_repaired": {
+                            "event": "asValue($dynamic.item.events)",
+                            "target": ["self", "holder"]
+                        }
+                    }
+                }
+            }
         }
     ],
     "$versioned_template.minecraft:cooldown":[
@@ -401,7 +433,7 @@
             "$data": {
                 "on_consume": {
                     "event": "asValue($dynamic.item.events)",
-                    "target": ["self"]
+                    "target": ["self", "holder"]
                 },
                 "nutrition": "$general.number",
                 "can_always_eat": "$general.boolean",

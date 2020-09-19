@@ -31,6 +31,11 @@
                         "$load": "$block.main.minecraft:block.events.$placeholder"
                     }
                 },
+                "sequence": {
+                    "$dynamic.list.next_index": {
+                      "$load": "$block.main.minecraft:block.events.$placeholder"
+                    }
+                  },
                 "set_block_property": {
                     "$dynamic.block.property": {
                         "$dynamic_template": {
@@ -49,7 +54,9 @@
                     "table": "$dynamic.loot_table_files"
                 },
                 "trigger": {
-                    "event": "asValue($dynamic.block.events)"
+                    "event": "asValue($dynamic.block.events)",
+                    "target": ["self", "other"],
+                    "condition": "$molang.embedded"
                 }
             }
         }

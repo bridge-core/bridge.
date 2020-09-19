@@ -105,5 +105,6 @@
 		"scute",
 		"mobEgg"
 	],
-    "item_group_reference": "'itemGroup.name.' + $item.general.item_group_names"
+	"item_group_reference": "'itemGroup.name.' + $item.general.item_group_names",
+	"music_events": ["13", "cat", "blocks", "chirp", "far", "mall", "mellohi", "stal", "strad", "ward", "11", "wait", "pigstep"]
 }

@@ -239,11 +239,6 @@
 		{
 			"$if": "$format_version >= 1.16.100",
 			"$data": {
-				"looping": "$general.boolean",
-				"range": {
-					"$dynamic.list.index_pair": "$general.number"
-				},
-
 				"on_tick": {
 					"condition": "$molang.embedded",
 					"event": "asValue($dynamic.block.events)",
