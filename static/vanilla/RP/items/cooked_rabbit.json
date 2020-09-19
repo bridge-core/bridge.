@@ -5,11 +5,16 @@
       "identifier": "minecraft:cooked_rabbit",
       "category": "Equipment"
     },
-
     "components": {
-      "minecraft:icon": "rabbit_cooked",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.cookedFood"
+      },
+      "minecraft:icon": {
+        "texture": "rabbit_cooked"
+      },
       "minecraft:use_animation": "eat",
-      "minecraft:render_offsets": "rabbit"
+      "minecraft:render_offsets": "rabbit",
+      "minecraft:display_name": {}
     }
   }
 }

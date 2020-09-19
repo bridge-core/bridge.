@@ -5,12 +5,16 @@
       "identifier": "minecraft:chorus_fruit",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "chorus_fruit",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.natureBuildingBlocks"
+      },
+      "minecraft:icon": {
+        "texture": "chorus_fruit"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "miscellaneous"
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
     }
   }
 }

@@ -2,7 +2,6 @@ import { JSONFileMasks, JSONMask } from '../editor/JSONFileMasks'
 import { CURRENT } from '../constants'
 import path, { join, dirname } from 'path'
 import { set } from '../Utilities/useAttr'
-import WeaponDamage from './item/WeaponDamage'
 import ItemEquippedSensor from './item/ItemEquippedSensor'
 import { OnSaveData } from './main'
 import { promises as fs } from 'fs'
@@ -14,33 +13,27 @@ export type ItemComponentData = Partial<
 		A_C_MASK: JSONMask
 		component_name: string
 		component: any
+		components: any
 		identifier: string
 		item_id?: string
 	}
 >
 
-export async function transformComponents({
+export function transformComponents({
 	PLAYER_MASK,
 	A_C_MASK,
 	component_name,
 	component,
+	components,
 	identifier = 'bridge:unknown',
 	file_uuid,
 }: ItemComponentData) {
 	let item_id = identifier.split(':').pop()
-
 	if (component_name === 'bridge:weapon_damage') {
-		WeaponDamage({
-			PLAYER_MASK,
-			A_C_MASK,
-			component_name,
-			component,
-			identifier,
-			file_uuid,
-			item_id,
-		})
+		components['minecraft:damage'] = component
+		return true
 	} else if (component_name === 'bridge:item_equipped_sensor') {
-		await ItemEquippedSensor({
+		ItemEquippedSensor({
 			PLAYER_MASK,
 			A_C_MASK,
 			component_name,
@@ -49,7 +42,10 @@ export async function transformComponents({
 			file_uuid,
 			item_id,
 		})
+		return true
 	}
+
+	return false
 }
 
 export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
@@ -96,20 +92,19 @@ export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
 	})
 
 	//READ COMPONENTS
-	const promises = []
 	for (let c in components) {
-		promises.push(
-			transformComponents({
-				component_name: c,
-				component: components[c],
-				identifier: description.identifier || 'bridge:no_identifier',
-				PLAYER_MASK,
-				A_C_MASK,
-				file_uuid,
-			})
-		)
+		const shouldRemove = transformComponents({
+			component_name: c,
+			component: components[c],
+			identifier: description.identifier || 'bridge:no_identifier',
+			PLAYER_MASK,
+			A_C_MASK,
+			file_uuid,
+			components,
+		})
+
+		if (shouldRemove) delete components[c]
 	}
-	await Promise.all(promises)
 
 	//SAVE ADDITIONAL FILES
 	await Promise.all([

@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:bone"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.natureMisc"
+      },
+      "minecraft:icon": {
+        "texture": "bone"
+      },
+      "minecraft:render_offsets": "bone",
+      "minecraft:display_name": {}
+    }
+  }
+}

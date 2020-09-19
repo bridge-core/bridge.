@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:fireworks"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.items"
+      },
+      "minecraft:icon": {
+        "texture": "fireworks"
+      },
+      "minecraft:render_offsets": "fireworks",
+      "minecraft:display_name": {}
+    }
+  }
+}

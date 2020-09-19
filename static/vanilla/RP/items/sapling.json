@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:sapling"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.sapling"
+      },
+      "minecraft:render_offsets": "saplings",
+      "minecraft:display_name": {}
+    }
+  }
+}

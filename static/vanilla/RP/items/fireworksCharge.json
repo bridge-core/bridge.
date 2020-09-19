@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:fireworksCharge"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.items"
+      },
+      "minecraft:icon": {
+        "texture": "fireworks_charge"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
+    }
+  }
+}

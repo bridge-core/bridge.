@@ -1,0 +1,20 @@
+{
+    "display_name": "Snowball",
+    "description": "Creates a new throwable snowball item.",
+    "icon": "mdi-tennis-ball",
+    "bp_map": {
+        "item.json": "items/{{IDENTIFIER}}.json",
+        "entity.json": "entities/{{IDENTIFIER}}.json"
+    },
+    "rp_map": {
+        "client_item.json": "items/{{IDENTIFIER}}.json",
+        "client_entity.json": "entity/{{IDENTIFIER}}.json"
+    },
+    "expand_rp_files": {
+        "item_texture.json": "textures/item_texture.json",
+        "en_US.lang": "texts/en_US.lang"
+    },
+    "copy_rp_files": {
+        "icon.png": "textures/items/{{IDENTIFIER}}.png"
+    }
+}

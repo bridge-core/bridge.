@@ -1,0 +1,37 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:bow"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:use_duration": 3600,
+      "minecraft:frame_count": 3,
+      "minecraft:animates_in_toolbar": false,
+      "minecraft:enchantable": {
+        "slot": "bow",
+        "value": 1
+      },
+      "minecraft:hand_equipped": true,
+      "minecraft:shooter": {
+        "ammunition": [
+          {
+            "item": "minecraft:arrow",
+            "use_offhand": true,
+						"search_inventory": true,
+						"use_in_creative" : true
+          }
+        ],
+        "max_draw_duration": 1.0,
+        "scale_power_by_draw_duration": true
+      },
+      "minecraft:damageable": {
+        "max_damage": 384,
+        "repair_items": [
+          "minecraft:bow"
+        ]
+      }
+    }
+  }
+}

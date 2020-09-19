@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:nautilus_shell"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.nautilus"
+      },
+      "minecraft:icon": {
+        "texture": "nautilus_shell"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
+    }
+  }
+}

@@ -7,10 +7,16 @@
     },
 
     "components": {
-      "minecraft:icon": "sweet_berries",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.crop"
+      },
+      "minecraft:icon": {
+        "texture": "sweet_berries"
+      },
       "minecraft:use_animation": "eat",
 
-      "minecraft:render_offsets": "miscellaneous"
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
     }
   }
 }

@@ -1,0 +1,16 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:bamboo",
+      "category": "Nature"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.nature"
+      },
+      "minecraft:render_offsets": "bamboo",
+      "minecraft:display_name": {}
+    }
+  }
+}

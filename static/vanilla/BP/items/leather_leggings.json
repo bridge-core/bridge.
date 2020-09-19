@@ -1,0 +1,35 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:leather_leggings"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "armor_legs"
+      },
+      "minecraft:damageable": {
+        "max_damage": 75,
+        "damage_chance": {
+          "min": 60,
+          "max": 100
+        },
+        "repair_items": [
+          "minecraft:leather",
+          "minecraft:leather_leggings"
+        ]
+      },
+      "minecraft:armor": {
+        "protection": 2
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.legs"
+      },
+      "minecraft:dyeable": {
+        "default_color": "FFA06540"
+      }
+    }
+  }
+}

@@ -5,12 +5,16 @@
       "identifier": "minecraft:beetroot_soup",
       "category": "Equipment"
     },
-
     "components": {
-      "minecraft:icon": "beetroot_soup",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.miscFood"
+      },
+      "minecraft:icon": {
+        "texture": "beetroot_soup"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "miscellaneous"
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
     }
   }
 }

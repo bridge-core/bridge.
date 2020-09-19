@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:stone_hoe"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.hoe"
+      },
+      "minecraft:icon": {
+        "texture": "hoe",
+        "frame_index": 1
+      },
+      "minecraft:render_offsets": "tools",
+      "minecraft:display_name": {}
+    }
+  }
+}

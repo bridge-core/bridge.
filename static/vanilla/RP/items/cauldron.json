@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:cauldron"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.cauldron"
+      },
+      "minecraft:icon": {
+        "texture": "cauldron"
+      },
+      "minecraft:render_offsets": "cauldron",
+      "minecraft:display_name": {}
+    }
+  }
+}

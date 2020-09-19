@@ -1,0 +1,16 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+      "description": {
+        "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}"
+      },
+      "components": {
+        "minecraft:creative_category": {
+          "parent": "itemGroup.name.snowball"
+        },
+        "minecraft:icon": {
+          "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}"
+        }
+      }
+    }
+  }

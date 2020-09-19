@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:wooden_pickaxe"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:damageable": {
+        "max_damage": 131,
+        "repair_items": [
+          "minecraft:planks",
+          "minecraft:wooden_pickaxe"
+        ]
+      },
+      "minecraft:mining_speed": 2,
+      "minecraft:damage": 2,
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "pickaxe"
+      },
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          {
+            "block": {
+              "any_tag": ["stone", "metal", "wood_pick_diggable"]
+            },
+            "speed": 2
+          },
+          {
+            "block": "minecraft:ice",
+            "speed": 2
+          },
+          {
+            "block": "minecraft:sandstone",
+            "speed": 2
+          }
+        ]
+      }
+    }
+  }
+}

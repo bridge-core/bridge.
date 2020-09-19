@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:fishing_rod"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.fishingRods"
+      },
+      "minecraft:icon": {
+        "texture": "fishing_rod"
+      },
+      "minecraft:render_offsets": "fishing_rods",
+      "minecraft:display_name": {}
+    }
+  }
+}

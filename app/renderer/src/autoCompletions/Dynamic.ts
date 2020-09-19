@@ -154,6 +154,40 @@ export const DYNAMIC = {
 			}
 		},
 	},
+	block: {
+		property() {
+			return Object.keys(DYNAMIC.block.property_obj)
+		},
+		property_obj() {
+			try {
+				return TabSystem.getSelected()
+					.content.get('#;bridge_node_skip;#/description/properties')
+					.toJSON()
+			} catch (e) {
+				return {}
+			}
+		},
+		events() {
+			try {
+				return TabSystem.getSelected()
+					.content.get('minecraft:block/events')
+					.toJSON()
+			} catch (e) {
+				return {}
+			}
+		},
+	},
+	item: {
+		events() {
+			try {
+				return TabSystem.getSelected()
+					.content.get('minecraft:item/events')
+					.toJSON()
+			} catch (e) {
+				return {}
+			}
+		},
+	},
 	recipe: {
 		pattern_keys() {
 			try {
@@ -387,6 +421,9 @@ export const DYNAMIC = {
 	},
 	children() {
 		return NODE_CONTEXT.toJSON()
+	},
+	current_node_key() {
+		return NODE_CONTEXT.key
 	},
 	current_file_name() {
 		try {

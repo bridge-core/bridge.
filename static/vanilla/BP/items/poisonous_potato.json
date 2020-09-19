@@ -4,9 +4,8 @@
     "description": {
       "identifier": "minecraft:poisonous_potato"
     },
-
     "components": {
-      "minecraft:use_duration": 32,
+      "minecraft:use_duration": 1.6,
       "minecraft:food": {
         "nutrition": 2,
         "saturation_modifier": "low",

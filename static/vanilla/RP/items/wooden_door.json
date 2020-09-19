@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:wooden_door"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.door"
+      },
+      "minecraft:icon": {
+        "texture": "wooden_door"
+      },
+      "minecraft:render_offsets": "doors",
+      "minecraft:display_name": {}
+    }
+  }
+}

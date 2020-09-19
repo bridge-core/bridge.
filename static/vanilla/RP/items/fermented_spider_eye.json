@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:fermented_spider_eye"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.potionIngredients"
+      },
+      "minecraft:icon": {
+        "texture": "spider_eye_fermented"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
+    }
+  }
+}

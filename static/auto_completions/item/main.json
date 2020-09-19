@@ -2,9 +2,44 @@
     "format_version": "$general.format_version",
     "minecraft:item": {
         "description": {
-            "identifier": "$general.file_identifier and $general.item_identifier"
+            "identifier": "$general.file_identifier and $general.item_identifier",
+            "category": "$general.item_category",
+            "is_experimental": "$general.boolean"
         },
 
-        "components": "$item.components"
+        "components": "$item.components",
+        "events": {
+            "$placeholder": {
+                "randomize": {
+                    "$dynamic.list.next_index": {
+                        "weight": "$general.number",
+                        "$load": "$item.main.minecraft:item.events.$placeholder"
+                    }
+                },
+                "shoot": {
+                    "projectile": "$general.entity_identifier",
+                    "launch_power": "$general.number",
+                    "angle_offset": "$general.number and $molang.embedded"
+                },
+                "swing": {},
+                "damage": {
+                    "type": ["magic", "contact"],
+                    "amount": "$general.number"
+                },
+                "add_mob_effect": {
+                    "effect": "$general.effect_name",
+                    "target": ["holder"],
+                    "duration": "$general.number",
+                    "amplifier": "$general.number"
+                },
+                "remove_mob_effect":{
+                    "effect": "$general.effect_name",
+                    "target": ["holder"]
+                },
+                "transform_item": {
+                    "transform": "$general.item_identifier"
+                }
+            }
+        }
     }
 }

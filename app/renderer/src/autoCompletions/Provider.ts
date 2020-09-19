@@ -425,6 +425,8 @@ class Provider {
 				template[`$versioned_template.${dyn}`]
 			).object
 		}
+		if (template.$load)
+			template = { ...template, ...this.omegaExpression(template.$load) }
 
 		return template[dyn || '$fallback'] || template['$default']
 	}

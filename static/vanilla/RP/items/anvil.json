@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:anvil"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.anvil"
+      },
+      "minecraft:render_offsets": "anvils",
+      "minecraft:display_name": {}
+    }
+  }
+}

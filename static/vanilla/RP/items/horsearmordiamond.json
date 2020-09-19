@@ -1,0 +1,21 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:horsearmordiamond"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.horseArmor"
+      },
+      "minecraft:icon": {
+        "texture": "diamond_horse_armor"
+      },
+	  "minecraft:armor": {
+		"texture_type": "diamond"
+      },
+      "minecraft:render_offsets": "armor",
+      "minecraft:display_name": {}
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:flower_pot"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.decorations"
+      },
+      "minecraft:icon": {
+        "texture": "flower_pot"
+      },
+      "minecraft:render_offsets": "flower_pot",
+      "minecraft:display_name": {}
+    }
+  }
+}

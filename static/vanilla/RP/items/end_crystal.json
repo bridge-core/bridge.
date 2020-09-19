@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:end_crystal"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.endCrystal"
+      },
+      "minecraft:icon": {
+        "texture": "end_crystal"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
+    }
+  }
+}

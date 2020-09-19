@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:leather_boots"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.boots"
+      },
+      "minecraft:icon": {
+        "texture": "boots",
+        "frame_index": 0
+      },
+	  "minecraft:armor": {
+		"texture_type": "leather"
+      },
+      "minecraft:render_offsets": "boots",
+      "minecraft:display_name": {}
+    }
+  }
+}

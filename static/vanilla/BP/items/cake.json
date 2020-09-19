@@ -1,0 +1,14 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:cake"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:block_placer": {
+        "block": "cake"
+      }
+    }
+  }
+}

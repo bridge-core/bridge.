@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:blaze_rod"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.blaze"
+      },
+      "minecraft:icon": {
+        "texture": "blaze_rod"
+      },
+      "minecraft:render_offsets": "blaze_rod",
+      "minecraft:display_name": {}
+    }
+  }
+}
