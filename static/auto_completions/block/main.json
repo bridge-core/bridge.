@@ -48,7 +48,10 @@
                     "block_type": "$general.block_identifier"
                 },
                 "set_block_at_pos": {
-
+					"block_type": "$general.block_identifier",
+					"block_offset": {
+						"$dynamic.list.index_triple": "$general.number"
+					}
                 },
                 "spawn_loot": {
                     "table": "$dynamic.loot_table_files"
