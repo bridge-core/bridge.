@@ -1,0 +1,25 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:carrot_on_a_stick",
+      "aliases": [
+        "minecraft:carrotOnAStick"
+      ]
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:mirrored_art": true,
+      "minecraft:requires_interact": true,
+      "minecraft:enchantable": {
+        "slot": "carrot_stick",
+        "value": 1
+      },
+      "minecraft:carrot_on_a_stick": {},
+      "minecraft:damageable": {
+        "max_damage": 25
+      }
+    }
+  }
+}

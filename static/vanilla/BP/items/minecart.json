@@ -9,11 +9,15 @@
       "minecraft:ignores_permission": true,
       "minecraft:entity_placer": {
         "entity": "minecraft:minecart",
-        "allowed_blocks": [
-          "minecraft:rail",
-          "minecraft:golden_rail",
-          "minecraft:detector_rail",
-          "minecraft:activator_rail"
+        "use_on": [
+          {
+            "tags": "q.any_tag('rail')"
+          }
+        ],
+        "dispense_on": [
+          {
+            "tags": "q.any_tag('rail')"
+          }
         ]
       }
     }

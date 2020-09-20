@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:tropical_fish",
+      "aliases": [
+        "minecraft:clownfish"
+      ]
+    },
+    "components": {
+      "minecraft:use_duration": 1.6,
+      "minecraft:stacked_by_data": true,
+      "minecraft:food": {
+        "nutrition": 1,
+        "saturation_modifier": "poor"
+      }
+    }
+  }
+}

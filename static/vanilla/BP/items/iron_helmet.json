@@ -15,11 +15,7 @@
         "damage_chance": {
           "min": 60,
           "max": 100
-        },
-        "repair_items": [
-          "minecraft:iron_ingot",
-          "minecraft:iron_helmet"
-        ]
+        }
       },
       "minecraft:mining_speed": 6,
       "minecraft:damage": 2,

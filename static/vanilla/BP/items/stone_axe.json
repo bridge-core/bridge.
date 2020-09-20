@@ -8,11 +8,7 @@
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:damageable": {
-        "max_damage": 131,
-        "repair_items": [
-          "minecraft:stone",
-          "minecraft:stone_axe"
-        ]
+        "max_damage": 131
       },
       "minecraft:mining_speed": 1,
       "minecraft:damage": 3,
@@ -32,7 +28,7 @@
         "destroy_speeds": [
           {
             "block": {
-              "any_tag": ["wood", "pumpkin", "plant"]
+              "tags": "q.any_tag('wood', 'pumpkin', 'plant')"
             },
             "speed": 4
           },
@@ -45,7 +41,8 @@
             "speed": 4
           }
         ]
-      }
+      },
+      "tag:minecraft:is_axe": {}
     }
   }
 }

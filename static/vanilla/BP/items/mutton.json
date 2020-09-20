@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:mutton",
+      "aliases": [
+        "minecraft:muttonRaw"
+      ]
+    },
+    "components": {
+      "minecraft:use_duration": 1.6,
+      "minecraft:food": {
+        "nutrition": 2,
+        "saturation_modifier": "low"
+      }
+    }
+  }
+}

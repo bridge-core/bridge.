@@ -8,11 +8,7 @@
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:damageable": {
-        "max_damage": 131,
-        "repair_items": [
-          "minecraft:stone",
-          "minecraft:stone_shovel"
-        ]
+        "max_damage": 131
       },
       "minecraft:mining_speed": 1,
       "minecraft:damage": 1,
@@ -32,12 +28,13 @@
         "destroy_speeds": [
           {
             "block": {
-              "any_tag": ["dirt", "sand", "gravel", "grass", "snow"]
+              "tags": "q.any_tag('dirt', 'sand', 'gravel', 'grass', 'snow')"
             },
             "speed": 4
           }
         ]
-      }
+      },
+      "tag:minecraft:is_shovel": {}
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "format_version": "1.10",
+  "format_version": "1.16.100",
   "minecraft:item": {
     "description": {
       "identifier": "minecraft:chorus_fruit"
@@ -10,12 +10,23 @@
       "minecraft:food": {
         "nutrition": 4,
         "saturation_modifier": "low",
-        "on_use_action": "chorus_teleport",
-        "can_always_eat": true
+        "can_always_eat": true,
+        "on_consume" : {
+          "event" : "consumed",
+          "target" : "self"
+        }
       },
       "minecraft:cooldown": {
         "category": "chorusfruit",
         "duration": 0.67
+      }
+    },
+    "events" : {
+      "consumed" : {
+        "teleport" : {
+          "target" : "holder",
+          "max_range" : [8, 8, 8]
+        }
       }
     }
   }

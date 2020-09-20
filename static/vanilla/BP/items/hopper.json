@@ -6,8 +6,7 @@
     },
     "components": {
       "minecraft:block_placer": {
-        "block": "hopper",
-        "use_block_description": true
+        "block": "hopper"
       }
     }
   }

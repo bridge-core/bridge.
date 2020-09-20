@@ -8,11 +8,7 @@
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:damageable": {
-        "max_damage": 250,
-        "repair_items": [
-          "minecraft:iron_ingot",
-          "minecraft:iron_pickaxe"
-        ]
+        "max_damage": 250
       },
       "minecraft:mining_speed": 1,
       "minecraft:damage": 2,
@@ -25,7 +21,7 @@
         "destroy_speeds": [
           {
             "block": {
-              "any_tag": ["stone", "metal", "iron_pick_diggable"]
+              "tags": "q.any_tag('stone', 'metal', 'iron_pick_diggable')"
             },
             "speed": 6
           },

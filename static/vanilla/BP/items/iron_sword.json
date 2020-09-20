@@ -9,11 +9,7 @@
       "minecraft:use_duration": 3600,
       "minecraft:hand_equipped": true,
       "minecraft:damageable": {
-        "max_damage": 250,
-        "repair_items": [
-          "minecraft:iron_ingot",
-          "minecraft:iron_sword"
-        ]
+        "max_damage": 250
       },
       "minecraft:mining_speed": 1.5,
       "minecraft:damage": 6,

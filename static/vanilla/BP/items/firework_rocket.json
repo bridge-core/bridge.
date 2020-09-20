@@ -1,0 +1,20 @@
+{
+   "format_version" : "1.10",
+   "minecraft:item" : {
+      "description" : {
+         "identifier" : "minecraft:firework_rocket",
+         "category" : "items",
+         "aliases" : [ "minecraft:fireworks" ]
+      },
+      "components" : {
+         "minecraft:allow_off_hand" : true,
+         "minecraft:projectile" : {
+            "projectile_entity" : "minecraft:fireworks_rocket"
+         },
+         "minecraft:wearable" : {
+            "slot" : "slot.weapon.offhand"
+         }
+      },
+      "events" : null
+   }
+}

@@ -1,0 +1,19 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:music_disc_11",
+      "aliases": [
+        "minecraft:record_11"
+      ]
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "sound_event": "11",
+        "duration": 71.0,
+        "comparator_signal": 11
+      }
+    }
+  }
+}

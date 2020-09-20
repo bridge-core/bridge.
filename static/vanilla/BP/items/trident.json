@@ -8,13 +8,10 @@
       "minecraft:max_stack_size": 1,
       "minecraft:use_duration": 3600,
       "minecraft:damageable": {
-        "max_damage": 250,
-        "repair_items": [
-          "minecraft:trident"
-        ]
+        "max_damage": 250
       },
       "minecraft:throwable": {
-        "do_swing_animation": true,
+        "min_draw_duration": 0.5,
         "max_draw_duration": 1.0,
         "scale_power_by_draw_duration": true
       },

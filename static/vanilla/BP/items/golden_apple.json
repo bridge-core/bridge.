@@ -1,5 +1,5 @@
 {
-  "format_version": "1.10",
+  "format_version": "1.16.100",
   "minecraft:item": {
     "description": {
       "identifier": "minecraft:golden_apple"
@@ -12,18 +12,30 @@
         "nutrition": 4,
         "saturation_modifier": "supernatural",
         "can_always_eat": true,
-        "effects": [
+        "on_consume": {
+          "event": "consumed",
+          "target": "self"
+        }
+      }
+    },
+    "events": {
+      "consumed": {
+        "sequence": [
           {
-            "name": "regeneration",
-            "chance": 1.0,
-            "duration": 5,
-            "amplifier": 1
+            "add_mob_effect": {
+              "effect": "regeneration",
+              "duration": 5,
+              "amplifier": 1,
+              "target": "holder"
+            }
           },
           {
-            "name": "absorption",
-            "chance": 1.0,
-            "duration": 120, // 2 * 60
-            "amplifier": 0
+            "add_mob_effect": {
+              "effect": "absorption",
+              "duration": 120,
+              "amplifier": 0,
+              "target": "holder"
+            }
           }
         ]
       }

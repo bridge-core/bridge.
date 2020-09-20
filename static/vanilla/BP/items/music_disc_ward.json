@@ -1,0 +1,19 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:music_disc_ward",
+      "aliases": [
+        "minecraft:record_ward"
+      ]
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "sound_event": "ward",
+        "duration": 251.0,
+        "comparator_signal": 10
+      }
+    }
+  }
+}

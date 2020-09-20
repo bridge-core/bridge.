@@ -1,0 +1,33 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:netherite_boots"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "armor_feet"
+      },
+      "minecraft:damageable": {
+        "max_damage": 481,
+        "damage_chance": {
+          "min": 60,
+          "max": 100
+        }
+      },
+      "minecraft:mining_speed": 9,
+      "minecraft:damage": 4,
+      "minecraft:armor": {
+        "protection": 3
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.feet"
+      },
+      "minecraft:knockback_resistance": {
+        "protection": 0.1
+      }
+    }
+  }
+}
