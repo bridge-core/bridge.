@@ -51,7 +51,7 @@
                     }
                 },
                 "execute_command": {
-                    "commands": {
+                    "command": {
                         "$dynamic.list.next_index": "asValue($function.main)"
                     }
                 }
