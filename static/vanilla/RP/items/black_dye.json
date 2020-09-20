@@ -1,0 +1,18 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:black_dye"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "dye_powder",
+        "frame_index": 16
+      },
+      "minecraft:render_offsets": "powders",
+      "minecraft:display_name": {
+        "value": "item.dye.black_new.name"
+      }
+    }
+  }
+}

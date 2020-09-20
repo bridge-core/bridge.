@@ -2,19 +2,19 @@
   "format_version": "1.10",
   "minecraft:item": {
     "description": {
-      "identifier": "minecraft:hopper"
+      "identifier": "minecraft:sugar_cane"
     },
     "components": {
       "minecraft:creative_category": {
-        "parent": "itemGroup.name.redstoneContainers"
+        "parent": "itemGroup.name.natureMisc"
       },
       "minecraft:icon": {
-        "texture": "hopper"
+        "texture": "reeds"
       },
-      "minecraft:render_offsets": "hopper",
+      "minecraft:render_offsets": "sugar_cane",
       "minecraft:display_name": {
-	    "value": "tile.hopper.name"
-	  }
+        "value": "item.reeds.name"
+      }
     }
   }
 }

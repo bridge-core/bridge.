@@ -1,0 +1,18 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:brown_dye"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "dye_powder",
+        "frame_index": 17
+      },
+      "minecraft:render_offsets": "powders",
+      "minecraft:display_name": {
+        "value": "item.dye.brown_new.name"
+      }
+    }
+  }
+}

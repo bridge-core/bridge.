@@ -11,6 +11,7 @@
       "minecraft:icon": {
         "texture": "trident"
       },
+      "minecraft:use_animation": "spear",
       "minecraft:render_offsets": "trident",
       "minecraft:display_name": {}
     }

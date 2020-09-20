@@ -1,8 +1,8 @@
 {
-  "format_version": "1.10",
+  "format_version": "1.16.100",
   "minecraft:item": {
     "description": {
-      "identifier": "minecraft:chainmail_boots"
+      "identifier": "minecraft:netherite_boots"
     },
     "components": {
       "minecraft:creative_category": {
@@ -10,10 +10,10 @@
       },
       "minecraft:icon": {
         "texture": "boots",
-        "frame_index": 1
+        "frame_index": 5
       },
-      "minecraft:armor": {
-        "texture_type": "chain"
+	  "minecraft:armor": {
+		"texture_type": "netherite"
       },
       "minecraft:render_offsets": "boots",
       "minecraft:display_name": {}

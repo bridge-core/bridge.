@@ -2,19 +2,19 @@
   "format_version": "1.10",
   "minecraft:item": {
     "description": {
-      "identifier": "minecraft:hopper"
+      "identifier": "minecraft:item_frame"
     },
     "components": {
       "minecraft:creative_category": {
-        "parent": "itemGroup.name.redstoneContainers"
+        "parent": "itemGroup.name.decorations"
       },
       "minecraft:icon": {
-        "texture": "hopper"
+        "texture": "item_frame"
       },
-      "minecraft:render_offsets": "hopper",
+      "minecraft:render_offsets": "frame",
       "minecraft:display_name": {
-	    "value": "tile.hopper.name"
-	  }
+        "value": "item.frame.name"
+      }
     }
   }
 }

@@ -1,0 +1,20 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:scute"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.scute"
+      },
+      "minecraft:icon": {
+        "texture": "turtle_shell_piece"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {
+        "value": "item.turtle_shell_piece.name"
+      }
+    }
+  }
+}

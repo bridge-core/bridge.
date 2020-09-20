@@ -2,18 +2,18 @@
   "format_version": "1.10",
   "minecraft:item": {
     "description": {
-      "identifier": "minecraft:map"
+      "identifier": "minecraft:carrot_on_a_stick"
     },
     "components": {
       "minecraft:creative_category": {
-        "parent": "itemGroup.name.navigation"
+        "parent": "itemGroup.name.fishingRods"
       },
       "minecraft:icon": {
-        "texture": "map_empty"
+        "texture": "carrot_on_a_stick"
       },
-      "minecraft:render_offsets": "empty_map",
+      "minecraft:render_offsets": "fishing_rods",
       "minecraft:display_name": {
-        "value": "item.emptyMap.name"
+        "value": "item.carrotOnAStick.name"
       }
     }
   }

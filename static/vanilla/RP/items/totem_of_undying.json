@@ -2,18 +2,19 @@
   "format_version": "1.10",
   "minecraft:item": {
     "description": {
-      "identifier": "minecraft:command_block_minecart",
-      "category": "commands"
+      "identifier": "minecraft:totem_of_undying"
     },
     "components": {
       "minecraft:creative_category": {
-        "parent": "itemGroup.name.minecart"
+        "parent": "itemGroup.name.totem"
       },
       "minecraft:icon": {
-        "texture": "minecart_command_block"
+        "texture": "totem"
       },
       "minecraft:render_offsets": "miscellaneous",
-      "minecraft:display_name": {}
+      "minecraft:display_name": {
+        "value": "item.totem.name"
+      }
     }
   }
 }

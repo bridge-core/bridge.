@@ -2,18 +2,18 @@
   "format_version": "1.10",
   "minecraft:item": {
     "description": {
-      "identifier": "minecraft:hopper"
+      "identifier": "minecraft:glistering_melon_slice"
     },
     "components": {
       "minecraft:creative_category": {
-        "parent": "itemGroup.name.redstoneContainers"
+        "parent": "itemGroup.name.crop"
       },
       "minecraft:icon": {
-        "texture": "hopper"
+        "texture": "melon_speckled"
       },
-      "minecraft:render_offsets": "hopper",
+      "minecraft:render_offsets": "glistering_melon",
       "minecraft:display_name": {
-	    "value": "tile.hopper.name"
+	  "value": "item.speckled_melon.name"
 	  }
     }
   }

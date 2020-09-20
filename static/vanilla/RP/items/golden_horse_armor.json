@@ -1,0 +1,23 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:golden_horse_armor"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.horseArmor"
+      },
+      "minecraft:icon": {
+        "texture": "gold_horse_armor"
+      },
+       "minecraft:armor": {
+        "texture_type": "gold"
+      },
+      "minecraft:render_offsets": "armor",
+      "minecraft:display_name": {
+        "value": "item.horsearmorgold.name"
+      }
+    }
+  }
+}

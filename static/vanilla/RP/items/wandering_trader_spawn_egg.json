@@ -1,0 +1,20 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:wandering_trader_spawn_egg"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.mobEgg"
+      },
+      "minecraft:icon": {
+        "texture": "spawn_egg_wandering_trader"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {
+        "value": "item.spawn_egg.entity.wandering_trader.name"
+      }
+    }
+  }
+}
