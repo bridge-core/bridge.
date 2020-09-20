@@ -23,7 +23,7 @@
                 },
                 "swing": {},
                 "damage": {
-                    "type": ["magic", "contact"],
+                    "type": "$general.damage_type",
                     "amount": "$general.number"
                 },
                 "add_mob_effect": {
@@ -39,6 +39,11 @@
                 "transform_item": {
                     "transform": "$general.item_identifier"
                 },
+				"sequence": {
+                    "$dynamic.list.next_index": {
+                      "$load": "$item.main.minecraft:item.events.$placeholder"
+                    }
+                  },
                 "execute_command": {
                     "commands": {
                         "$dynamic.list.next_index": "asValue($function.main)"

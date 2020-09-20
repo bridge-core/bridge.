@@ -4,7 +4,6 @@
             "minecraft:bucket",
             "minecraft:bed",
             "minecraft:coal",
-            "minecraft:dye",
             "minecraft:fire_charge",
             "minecraft:fishing_rod",
             "minecraft:flint_and_steel",
@@ -434,8 +433,7 @@
                 },
                 "nutrition": "$general.number",
                 "can_always_eat": "$general.boolean",
-                "saturation_modifier": "$item.general.saturation_modifier",
-                "using_converts_to": "$general.item_identifier"
+                "saturation_modifier": "$item.general.saturation_modifier"
             }
         },
         {
