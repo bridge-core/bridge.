@@ -43,7 +43,13 @@
                     "$dynamic.list.next_index": {
                       "$load": "$item.main.minecraft:item.events.$placeholder"
                     }
-                  },
+                },
+                "teleport": {
+                    "target": ["holder"],
+                    "max_range": {
+                        "$dynamic.list.index_triple": "$general.number"
+                    }
+                },
                 "execute_command": {
                     "commands": {
                         "$dynamic.list.next_index": "asValue($function.main)"
