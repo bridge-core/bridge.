@@ -339,10 +339,11 @@
     ],
     "$versioned_template.minecraft:use_on":[
         {
-            "$if":"$format_version >= 1.17.0",
+            "$if":"$format_version >= 1.16.100",
             "$data": {
-                "blocks": {
-                    "$dynamic.list.next_index": "$general.block_identifier"
+                "on_use": {
+                    "event": "$dynamic.cache.block.events",
+                    "target": ["block"]
                 }
             }
         }
@@ -357,10 +358,9 @@
                         "block": {
                         "@import.value": "$general.block_identifier",
                             "tags": ["query.any_tag()", "query.all_tags()"]
-                            }
-                        },
+                        }
+                    },
                     "speed": "$general.number"
-                    }
                 }
             }
         }
