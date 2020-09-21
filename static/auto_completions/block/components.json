@@ -231,9 +231,6 @@
 					"event": {
 						"@meta": { "is_value": true }
 					},
-					"range": {
-						"$dynamic.list.index_pair": "$general.number"
-					},
 					"target": ["self"]
 				}
 			}
@@ -246,9 +243,6 @@
 				"on_tick": {
 					"condition": "$molang.embedded",
 					"event": "asValue($dynamic.block.events)",
-					"range": {
-						"$dynamic.list.index_pair": "$general.number"
-					},
 					"target": ["self"]
 				}
 			}
