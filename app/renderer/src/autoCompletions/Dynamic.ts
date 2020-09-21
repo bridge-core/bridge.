@@ -172,9 +172,11 @@ export const DYNAMIC = {
 		},
 		events() {
 			try {
-				return TabSystem.getSelected()
-					.content.get('minecraft:block/events')
-					.toJSON()
+				return Object.keys(
+					TabSystem.getSelected()
+						.content.get('minecraft:block/events')
+						.toJSON()
+				)
 			} catch (e) {
 				return {}
 			}
@@ -183,9 +185,11 @@ export const DYNAMIC = {
 	item: {
 		events() {
 			try {
-				return TabSystem.getSelected()
-					.content.get('minecraft:item/events')
-					.toJSON()
+				return Object.keys(
+					TabSystem.getSelected()
+						.content.get('minecraft:item/events')
+						.toJSON()
+				)
 			} catch (e) {
 				return {}
 			}
