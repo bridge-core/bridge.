@@ -306,7 +306,9 @@
 			"$data": {
 				"conditions": {
 					"$dynamic.list.next_index": {
-						"block_filter": "$general.block_identifier",
+						"block_filter": {
+							"$dynamic.list.next_index": "$general.block_identifier"
+						},
 						"allowed_faces": {
 							"$dynamic.list.next_index": [
 								"up",
