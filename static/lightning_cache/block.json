@@ -1,4 +1,5 @@
 [ 
     { "key": "identifiers", "path": "minecraft:block/description/identifier" },
-    { "key": "custom_components", "hook": "block.custom_components" }
+    { "key": "custom_components", "hook": "block.custom_components" },
+	{ "key": "events", "path": "minecraft:block/events" }
 ]
