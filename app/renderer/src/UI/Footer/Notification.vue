@@ -16,8 +16,12 @@
 			color="white"
 			:background-opacity="0.2"
 		/>
-		<v-icon small style="padding-right: 6px;">{{ icon }}</v-icon>
-		{{ message }}
+		<v-icon
+			small
+			:style="`padding-right: 6px; opacity: ${1 - isDarkMode * 0.25};`"
+			>{{ icon }}</v-icon
+		>
+		<span :style="`opacity: ${1 - isDarkMode * 0.25};`">{{ message }}</span>
 	</v-chip>
 </template>
 
@@ -40,6 +44,11 @@ export default {
 			this.originalTime = Date.now()
 			this.update()
 		}
+	},
+	computed: {
+		isDarkMode() {
+			return this.$store.state.Appearance.is_dark_mode
+		},
 	},
 	methods: {
 		update() {
