@@ -33,9 +33,14 @@
                 },
                 "sequence": {
                     "$dynamic.list.next_index": {
-                      "$load": "$block.main.minecraft:block.events.$placeholder"
+                        "$load": "$block.main.minecraft:block.events.$placeholder"
                     }
-                  },
+                },
+                "execute_command": {
+                    "command": {
+                        "$dynamic.list.next_index": "$function.embedded_no_slash"
+                    }
+                },
                 "set_block_property": {
                     "$dynamic.block.property": {
                         "$dynamic_template": {
