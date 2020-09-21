@@ -46,8 +46,8 @@ export default class ComponentRegistry {
 		else throw new Error(`Invalid component type: ${Component.type}`)
 
 		//UPDATE ALL REFERENCES TO COMPONENT
-		let refs = await FetchDefinitions.fetch(
-			['entity', 'block'],
+		let refs = await FetchDefinitions.fetchSingle(
+			Component.type ?? 'entity',
 			['custom_components'],
 			name,
 			true
