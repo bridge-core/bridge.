@@ -76,8 +76,11 @@ export const DYNAMIC = {
 		},
 	},
 	plugins: {
+		block_custom_components() {
+			return ComponentRegistry.propose('block')
+		},
 		custom_components() {
-			return ComponentRegistry.propose()
+			return ComponentRegistry.propose('entity')
 		},
 		custom_commands() {
 			return proposeCustomCommands()

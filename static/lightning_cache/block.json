@@ -1,3 +1,4 @@
 [ 
-    { "key": "identifiers", "path": "minecraft:block/description/identifier" }
+    { "key": "identifiers", "path": "minecraft:block/description/identifier" },
+    { "key": "custom_components", "hook": "block.custom_components" }
 ]

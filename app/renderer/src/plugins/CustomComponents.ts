@@ -10,12 +10,14 @@ import { createErrorNotification } from '../AppCycle/Errors'
 
 export interface BridgeComponentClass {
 	component_name: string
+	type?: 'entity' | 'block'
 
 	new (): BridgeComponent
 }
 
 export class BridgeComponent {
 	static component_name = 'bridge:demo_component'
+	static type = 'entity'
 
 	onApply(data: any, location: string) {}
 	onPropose() {}
@@ -23,6 +25,7 @@ export class BridgeComponent {
 
 export default class ComponentRegistry {
 	static components: Record<string, BridgeComponent> = {}
+	static blockComponents = new Map<string, BridgeComponent>()
 	static registerUpdates = new Set<string>()
 
 	static async register(Component: BridgeComponentClass) {
@@ -30,15 +33,21 @@ export default class ComponentRegistry {
 		if (!name || name.startsWith('minecraft:'))
 			throw new Error("Invalid component namespace: 'minecraft:'!")
 
-		this.components[name] = new Component()
-		if (typeof this.components[name].onApply !== 'function')
-			this.components[name].onApply = () => {}
-		if (typeof this.components[name].onPropose !== 'function')
-			this.components[name].onPropose = () => {}
+		let componentInstance = new Component()
+		if (typeof componentInstance.onApply !== 'function')
+			componentInstance.onApply = () => {}
+		if (typeof componentInstance.onPropose !== 'function')
+			componentInstance.onPropose = () => {}
+
+		if (Component.type === 'entity' || Component.type === undefined)
+			this.components[name] = componentInstance
+		else if (Component.type === 'block')
+			this.blockComponents.set(name, componentInstance)
+		else throw new Error(`Invalid component type: ${Component.type}`)
 
 		//UPDATE ALL REFERENCES TO COMPONENT
-		let refs = await FetchDefinitions.fetchSingle(
-			'entity',
+		let refs = await FetchDefinitions.fetch(
+			['entity', 'block'],
 			['custom_components'],
 			name,
 			true
@@ -162,6 +171,54 @@ export default class ComponentRegistry {
 		return usedComponents
 	}
 
+	static async parseBlock(
+		filePath: string,
+		data: any,
+		simulatedCall?: boolean
+	) {
+		if (data === undefined || data['minecraft:block'] === undefined) return
+		const MASK = await JSONFileMasks.get(filePath)
+		const blockIdentifier = use(
+			data,
+			'minecraft:block/description/identifier',
+			false
+		)
+
+		//RESET OLD CHANNELS
+		MASK.keep(channelName => !channelName.startsWith('component@'))
+
+		//SETUP PLUGIN API ENV
+		ContextEnv.value = {
+			blockIdentifier,
+		}
+
+		const usedComponents: string[] = []
+		//PROCESS CUSTOM COMPONENTS
+		for (let [componentName, component] of this.blockComponents) {
+			//CHECK "COMPONENTS"
+			let c = use(data, `minecraft:block/components/${componentName}`)
+
+			if (c !== undefined) {
+				usedComponents.push(componentName)
+				const data = component.onApply(c, 'components')
+				if (typeof data === 'object')
+					MASK.set(`component@${componentName}`, data)
+				else
+					throw new Error(`Invalid type of applyData: ${typeof data}`)
+			}
+		}
+
+		once(
+			'bridge:onCacheHook[block.custom_components]',
+			() => usedComponents
+		)
+
+		//RESET CONTEXT ENV
+		ContextEnv.value = {}
+
+		return usedComponents
+	}
+
 	static setCacheHook(componentNames: string[]) {
 		once(
 			'bridge:onCacheHook[entity.custom_components]',
@@ -169,16 +226,29 @@ export default class ComponentRegistry {
 		)
 	}
 
-	static propose() {
-		let res = {}
+	static propose(typeFilter?: 'entity' | 'block') {
+		if (typeFilter === 'block') {
+			let res = {}
 
-		for (let component_name in this.components) {
-			let propose_data = this.components[component_name].onPropose()
-			if (typeof propose_data !== 'object') continue
+			for (let [componentName, component] of this.blockComponents) {
+				let proposeData = component.onPropose()
+				if (typeof proposeData !== 'object') continue
 
-			res = detachMerge(res, propose_data)
+				res = detachMerge(res, proposeData)
+			}
+
+			return res
+		} else {
+			let res = {}
+
+			for (let component_name in this.components) {
+				let propose_data = this.components[component_name].onPropose()
+				if (typeof propose_data !== 'object') continue
+
+				res = detachMerge(res, propose_data)
+			}
+
+			return res
 		}
-
-		return res
 	}
 }
