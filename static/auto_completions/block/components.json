@@ -343,6 +343,5 @@
 			"$if": "$format_version >= 1.16.100",
 			"$data": "$general.boolean"
 		}
-	],
-	"$load": "$dynamic.plugins.block_custom_components"
+	]
 }

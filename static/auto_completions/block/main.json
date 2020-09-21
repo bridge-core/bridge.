@@ -22,7 +22,7 @@
                 "components": "$block.components"
             }
         },
-        "components": "$block.components",
+        "components": "$block.components and $dynamic.plugins.block_custom_components",
         "events": {
             "$placeholder": {
                 "randomize": {
