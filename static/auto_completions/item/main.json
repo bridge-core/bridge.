@@ -53,7 +53,8 @@
                 "execute_command": {
                     "command": {
                         "$dynamic.list.next_index": "$function.embedded_no_slash"
-                    }
+                    },
+					"target": ["other"]
                 }
             }
         }
