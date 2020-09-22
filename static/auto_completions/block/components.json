@@ -152,7 +152,7 @@
 			"$if": "$format_version >= 1.16.100",
 			"$data": {
 				"@meta": { "is_value": true },
-				"@import.value.model": "$dynamic.cache.entity_model.identifiers"
+				"@import.value.model": "$dynamic.cache.model.identifiers"
 			}
 		}
 	],
