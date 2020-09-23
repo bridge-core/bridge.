@@ -9,6 +9,12 @@
       "minecraft:enchantable": {
         "value": 0,
         "slot": "elytra"
+      },
+      "minecraft:damageable": {
+      	"max_damage": 432
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest"
       }
     }
   }

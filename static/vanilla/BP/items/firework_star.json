@@ -1,0 +1,13 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:firework_star",
+      "aliases": [
+        "minecraft:fireworksCharge"
+      ]
+    },
+    "components": {
+    }
+  }
+}

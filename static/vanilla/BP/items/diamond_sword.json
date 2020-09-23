@@ -9,11 +9,7 @@
       "minecraft:use_duration": 3600,
       "minecraft:hand_equipped": true,
       "minecraft:damageable": {
-        "max_damage": 1561,
-        "repair_items": [
-          "minecraft:diamond",
-          "minecraft:diamond_sword"
-        ]
+        "max_damage": 1561
       },
       "minecraft:mining_speed": 1.5,
       "minecraft:damage": 7,

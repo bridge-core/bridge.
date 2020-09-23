@@ -1,5 +1,5 @@
 {
-  "format_version": "1.10",
+  "format_version": "1.16.100",
   "minecraft:item": {
     "description": {
       "identifier": "minecraft:wooden_sword"
@@ -9,10 +9,18 @@
       "minecraft:use_duration": 3600,
       "minecraft:hand_equipped": true,
       "minecraft:damageable": {
-        "max_damage": 131,
+        "max_damage": 131
+      },
+      "minecraft:repairable": {
         "repair_items": [
-          "minecraft:planks",
-          "minecraft:wooden_sword"
+          {
+            "items": [ "minecraft:planks" ],
+            "repair_amount": "query.max_damage * 0.25"
+          },
+          {
+            "items": [ "minecraft:wooden_sword" ],
+            "repair_amount": "context.other->query.remaining_health + 0.05 * context.other->query.max_damage"
+          }
         ]
       },
       "minecraft:mining_speed": 1.5,

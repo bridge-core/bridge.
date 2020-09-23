@@ -9,7 +9,7 @@
         "enchanted": "armor_enchanted"
       },
       "textures": {
-        "default": "textures/models/armor/iron_1",
+        "default": "textures/models/armor/{{IDENTIFIER}}_1",
         "enchanted": "textures/misc/enchanted_item_glint"
       },
       "geometry": {

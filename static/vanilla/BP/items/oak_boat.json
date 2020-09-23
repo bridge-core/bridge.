@@ -1,0 +1,25 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:oak_boat",
+      "aliases": [
+        "minecraft:boat:0"
+      ]
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:stacked_by_data": true,
+      "minecraft:liquid_clipped": true,
+      "minecraft:entity_placer": {
+        "entity": "minecraft:boat",
+        "variant": 0,
+        "dispense_on": [
+          {
+            "tags": "q.any_tag('water')"
+          }
+        ]
+      }
+    }
+  }
+}

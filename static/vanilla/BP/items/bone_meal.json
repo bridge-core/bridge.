@@ -1,0 +1,24 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:bone_meal",
+      "aliases": [
+        "minecraft:dye:15"
+      ]
+    },
+    "components": {
+      "minecraft:stacked_by_data": true,
+      "minecraft:ignores_permission": true,
+      "minecraft:dye_powder": {
+        "color": "white"
+      },
+      "minecraft:on_use": {
+        "on_use": {
+          "event": "fertilize_block",
+          "target": "block"
+        }
+      }
+    }
+  }
+}

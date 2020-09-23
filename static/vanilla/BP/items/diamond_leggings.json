@@ -15,11 +15,7 @@
         "damage_chance": {
           "min": 60,
           "max": 100
-        },
-        "repair_items": [
-          "minecraft:diamond",
-          "minecraft:diamond_leggings"
-        ]
+        }
       },
       "minecraft:mining_speed": 8,
       "minecraft:damage": 3,

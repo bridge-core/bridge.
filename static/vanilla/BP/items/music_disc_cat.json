@@ -1,0 +1,19 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:music_disc_cat",
+      "aliases": [
+        "minecraft:record_cat"
+      ]
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "sound_event": "cat",
+        "duration": 185.0,
+        "comparator_signal": 2
+      }
+    }
+  }
+}

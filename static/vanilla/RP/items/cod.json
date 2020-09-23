@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:cod",
+      "category": "Nature"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.rawFood"
+      },
+      "minecraft:icon": {
+        "texture": "fish"
+      },
+      "minecraft:use_animation": "eat",
+      "minecraft:render_offsets": "fishes",
+      "minecraft:display_name": {
+        "value": "item.fish.name"
+      }
+    }
+  }
+}

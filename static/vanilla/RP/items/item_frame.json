@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:item_frame"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.decorations"
+      },
+      "minecraft:icon": {
+        "texture": "item_frame"
+      },
+      "minecraft:render_offsets": "frame",
+      "minecraft:display_name": {
+        "value": "item.frame.name"
+      }
+    }
+  }
+}

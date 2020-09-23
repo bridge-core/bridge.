@@ -2,18 +2,23 @@
   "format_version": "1.10",
   "minecraft:item": {
     "description": {
-      "identifier": "minecraft:command_block_minecart"
+      "identifier": "minecraft:command_block_minecart",
+      "category": "commands"
     },
     "components": {
       "minecraft:max_stack_size": 1,
       "minecraft:ignores_permission": true,
       "minecraft:entity_placer": {
         "entity": "minecraft:command_block_minecart",
-        "allowed_blocks": [
-          "minecraft:rail",
-          "minecraft:golden_rail",
-          "minecraft:detector_rail",
-          "minecraft:activator_rail"
+        "use_on": [
+          {
+            "tags": "q.any_tag('rail')"
+          }
+        ],
+        "dispense_on": [
+          {
+            "tags": "q.any_tag('rail')"
+          }
         ]
       }
     }

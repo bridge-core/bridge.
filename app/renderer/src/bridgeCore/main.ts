@@ -164,6 +164,13 @@ export class BridgeCore {
 				data,
 				layer_name => layer_name.startsWith('component@')
 			)
+		} else if (file_type === 'block') {
+			await ComponentRegistry.parseBlock(file_path, data, simulated_call)
+			data = await JSONFileMasks.applyOnData(
+				file_path,
+				data,
+				layer_name => layer_name.startsWith('component@')
+			)
 		}
 
 		//Do not use custom syntax with deactivated bridgeCore

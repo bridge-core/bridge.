@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:sugar_cane"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.natureMisc"
+      },
+      "minecraft:icon": {
+        "texture": "reeds"
+      },
+      "minecraft:render_offsets": "sugar_cane",
+      "minecraft:display_name": {
+        "value": "item.reeds.name"
+      }
+    }
+  }
+}

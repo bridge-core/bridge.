@@ -23,7 +23,7 @@
                 },
                 "swing": {},
                 "damage": {
-                    "type": ["magic", "contact"],
+                    "type": "$general.damage_type",
                     "amount": "$general.number"
                 },
                 "add_mob_effect": {
@@ -39,10 +39,22 @@
                 "transform_item": {
                     "transform": "$general.item_identifier"
                 },
-                "execute_command": {
-                    "commands": {
-                        "$dynamic.list.next_index": "asValue($function.main)"
+				"sequence": {
+                    "$dynamic.list.next_index": {
+                      "$load": "$item.main.minecraft:item.events.$placeholder"
                     }
+                },
+                "teleport": {
+                    "target": ["holder"],
+                    "max_range": {
+                        "$dynamic.list.index_triple": "$general.number"
+                    }
+                },
+                "execute_command": {
+                    "command": {
+                        "$dynamic.list.next_index": "$function.embedded_no_slash"
+                    },
+					"target": ["other"]
                 }
             }
         }

@@ -12,8 +12,8 @@
         "texture": "boots",
         "frame_index": 1
       },
-	  "minecraft:armor": {
-		"texture_type": "chain"
+      "minecraft:armor": {
+        "texture_type": "chain"
       },
       "minecraft:render_offsets": "boots",
       "minecraft:display_name": {}

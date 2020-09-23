@@ -15,11 +15,7 @@
         "damage_chance": {
           "min": 60,
           "max": 100
-        },
-        "repair_items": [
-          "minecraft:gold_ingot",
-          "minecraft:golden_chestplate"
-        ]
+        }
       },
       "minecraft:mining_speed": 12,
       "minecraft:damage": 0,

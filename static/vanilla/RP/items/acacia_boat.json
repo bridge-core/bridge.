@@ -1,0 +1,21 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:acacia_boat"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.boat"
+      },
+      "minecraft:icon": {
+        "texture": "boat",
+        "frame_index": 4
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {
+        "value": "item.boat.acacia.name"
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:music_disc_far"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.record"
+      },
+      "minecraft:icon": {
+        "texture": "record_far"
+      },
+      "minecraft:display_name": {
+        "value": "item.record_far.desc"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:leather_horse_armor"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.horseArmor"
+      },
+      "minecraft:icon": {
+        "texture": "leather_horse_armor"
+      },
+      "minecraft:dyeable": {
+        "default_color": "FFA06540"
+      },
+      "minecraft:armor": {
+        "texture_type": "leather"
+      },
+      "minecraft:render_offsets": "armor",
+      "minecraft:display_name": {
+        "value": "item.horsearmorleather.name"
+      }
+    }
+  }
+}

@@ -9,11 +9,7 @@
       "minecraft:use_duration": 3600,
       "minecraft:hand_equipped": true,
       "minecraft:damageable": {
-        "max_damage": 32,
-        "repair_items": [
-          "minecraft:gold_ingot",
-          "minecraft:golden_sword"
-        ]
+        "max_damage": 32
       },
       "minecraft:mining_speed": 1.5,
       "minecraft:damage": 4,

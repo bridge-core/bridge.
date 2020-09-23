@@ -12,7 +12,9 @@
       "minecraft:icon": {
         "texture": "campfire"
       },
-      "minecraft:display_name": {}
+      "minecraft:display_name": {
+	  "value": "tile.campfire.name"
+	  }
     }
   }
 }

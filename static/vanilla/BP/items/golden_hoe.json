@@ -8,11 +8,7 @@
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:damageable": {
-        "max_damage": 32,
-        "repair_items": [
-          "minecraft:gold_ingot",
-          "minecraft:golden_hoe"
-        ]
+        "max_damage": 32
       },
       "minecraft:mining_speed": 12,
       "minecraft:damage": 0,
@@ -26,7 +22,8 @@
           "dirt",
           "grass_path"
         ]
-      }
+      },
+      "tag:minecraft:is_hoe": {}
     }
   }
 }

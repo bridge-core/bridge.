@@ -8,11 +8,7 @@
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:damageable": {
-        "max_damage": 59,
-        "repair_items": [
-          "minecraft:planks",
-          "minecraft:wooden_hoe"
-        ]
+        "max_damage": 59
       },
       "minecraft:mining_speed": 2,
       "minecraft:damage": 0,
@@ -26,7 +22,8 @@
           "dirt",
           "grass_path"
         ]
-      }
+      },
+      "tag:minecraft:is_hoe": {}
     }
   }
 }

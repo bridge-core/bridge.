@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:cooked_cod",
+      "aliases": [
+        "minecraft:cooked_fish"
+      ]
+    },
+    "components": {
+      "minecraft:use_duration": 1.6,
+      "minecraft:stacked_by_data": true,
+      "minecraft:food": {
+        "nutrition": 5,
+        "saturation_modifier": "normal"
+      }
+    }
+  }
+}

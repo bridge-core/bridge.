@@ -1,0 +1,18 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:zombie_pigman_spawn_egg",
+      "aliases": [
+        "minecraft:spawn_egg:36"
+      ]
+    },
+    "components": {
+      "minecraft:stacked_by_data": true,
+      "minecraft:liquid_clipped": true,
+      "minecraft:entity_placer": {
+        "entity": "minecraft:zombie_pigman"
+      }
+    }
+  }
+}

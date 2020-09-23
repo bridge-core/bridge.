@@ -1,18 +1,23 @@
 {
-  "format_version": "1.10",
-  "minecraft:item": {
-    "description": {
-      "identifier": "minecraft:crossbow"
-    },
+   "format_version" : "1.10",
+   "minecraft:item" : {
+      "description" : {
+         "identifier" : "minecraft:crossbow"
+      },
     "components": {
       "minecraft:max_stack_size": 1,
+      "minecraft:fuel": {
+        "duration": 10.0
+      },
+      "minecraft:hand_equipped": true,
+      "minecraft:use_duration": 25,
       "minecraft:shooter": {
         "ammunition": [
           {
             "item": "minecraft:arrow",
             "use_offhand": true,
-						"search_inventory": true,
-						"use_in_creative" : true
+            "search_inventory": true,
+            "use_in_creative": true
           },
           {
             "item": "minecraft:fireworks",
@@ -27,5 +32,5 @@
         "max_damage": 464
       }
     }
-  }
+   }
 }

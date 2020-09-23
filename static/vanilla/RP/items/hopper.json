@@ -12,7 +12,9 @@
         "texture": "hopper"
       },
       "minecraft:render_offsets": "hopper",
-      "minecraft:display_name": {}
+      "minecraft:display_name": {
+	    "value": "tile.hopper.name"
+	  }
     }
   }
 }

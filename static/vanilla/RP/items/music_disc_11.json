@@ -1,0 +1,19 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:music_disc_11"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.record"
+      },
+      "minecraft:icon": {
+        "texture": "record_11"
+      },
+      "minecraft:display_name": {
+        "value": "item.record_11.desc"
+      }
+    }
+  }
+}

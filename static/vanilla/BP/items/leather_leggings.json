@@ -15,11 +15,7 @@
         "damage_chance": {
           "min": 60,
           "max": 100
-        },
-        "repair_items": [
-          "minecraft:leather",
-          "minecraft:leather_leggings"
-        ]
+        }
       },
       "minecraft:armor": {
         "protection": 2

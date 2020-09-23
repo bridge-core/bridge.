@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:melon_slice",
+      "category": "Nature"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.crop"
+      },
+      "minecraft:icon": {
+        "texture": "melon"
+      },
+      "minecraft:use_animation": "eat",
+      "minecraft:render_offsets": "melon",
+      "minecraft:display_name": {
+        "value": "item.melon.name"
+      }
+    }
+  }
+}

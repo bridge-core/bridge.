@@ -30,6 +30,9 @@
         "icon_helmet.png": "textures/items/{{IDENTIFIER}}_helmet.png",
         "icon_chestplate.png": "textures/items/{{IDENTIFIER}}_chestplate.png",
         "icon_leggings.png": "textures/items/{{IDENTIFIER}}_leggings.png",
-        "icon_boots.png": "textures/items/{{IDENTIFIER}}_boots.png"
+        "icon_boots.png": "textures/items/{{IDENTIFIER}}_boots.png",
+		"armor_1.png": "textures/models/armor/{{IDENTIFIER}}_1.png",
+		"armor_2.png": "textures/models/armor/{{IDENTIFIER}}_2.png"
+
     }
 }

@@ -8,11 +8,7 @@
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:damageable": {
-        "max_damage": 131,
-        "repair_items": [
-          "minecraft:planks",
-          "minecraft:wooden_pickaxe"
-        ]
+        "max_damage": 131
       },
       "minecraft:mining_speed": 2,
       "minecraft:damage": 2,
@@ -25,7 +21,7 @@
         "destroy_speeds": [
           {
             "block": {
-              "any_tag": ["stone", "metal", "wood_pick_diggable"]
+              "tags": "q.any_tag('stone', 'metal', 'wood_pick_diggable')"
             },
             "speed": 2
           },

@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:cooked_cod",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.cookedFood"
+      },
+      "minecraft:icon": {
+        "texture": "cooked_fish"
+      },
+      "minecraft:use_animation": "eat",
+      "minecraft:render_offsets": "fishes",
+      "minecraft:display_name": {
+        "value": "item.cooked_fish.name"
+      }
+    }
+  }
+}

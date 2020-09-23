@@ -31,6 +31,7 @@
     "function/main",
     "function/general",
     "function/embedded",
+    "function/embedded_no_slash",
 
     "item/main",
     "item/general",

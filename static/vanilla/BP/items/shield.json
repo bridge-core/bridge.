@@ -8,12 +8,15 @@
       "minecraft:max_stack_size": 1,
       "minecraft:allow_off_hand": true,
       "minecraft:damageable": {
-      "max_damage": 336,
-      "repair_items": [
-        "minecraft:planks",
-        "minecraft:shield"
-      ]
-    }
+        "max_damage": 336,
+        "repair_items": [
+          "minecraft:planks",
+          "minecraft:shield"
+        ]
+      },
+      "minecraft:wearable": {
+        "slot": "slot.weapon.offhand"
+      }
     }
   }
 }

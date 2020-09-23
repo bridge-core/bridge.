@@ -1,0 +1,16 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:nether_star",
+      "aliases": [
+        "minecraft:netherStar"
+      ]
+    },
+    "components": {
+      "minecraft:explodable": false,
+      "minecraft:foil": true,
+      "minecraft:should_despawn": false
+    }
+  }
+}

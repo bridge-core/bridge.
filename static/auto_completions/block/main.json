@@ -22,7 +22,7 @@
                 "components": "$block.components"
             }
         },
-        "components": "$block.components",
+        "components": "$block.components and $dynamic.plugins.block_custom_components",
         "events": {
             "$placeholder": {
                 "randomize": {
@@ -33,9 +33,14 @@
                 },
                 "sequence": {
                     "$dynamic.list.next_index": {
-                      "$load": "$block.main.minecraft:block.events.$placeholder"
+                        "$load": "$block.main.minecraft:block.events.$placeholder"
                     }
-                  },
+                },
+                "execute_command": {
+                    "command": {
+                        "$dynamic.list.next_index": "$function.embedded_no_slash"
+                    }
+                },
                 "set_block_property": {
                     "$dynamic.block.property": {
                         "$dynamic_template": {
@@ -48,7 +53,10 @@
                     "block_type": "$general.block_identifier"
                 },
                 "set_block_at_pos": {
-
+					"block_type": "$general.block_identifier",
+					"block_offset": {
+						"$dynamic.list.index_triple": "$general.number"
+					}
                 },
                 "spawn_loot": {
                     "table": "$dynamic.loot_table_files"

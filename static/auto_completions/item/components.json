@@ -4,7 +4,6 @@
             "minecraft:bucket",
             "minecraft:bed",
             "minecraft:coal",
-            "minecraft:dye",
             "minecraft:fire_charge",
             "minecraft:fishing_rod",
             "minecraft:flint_and_steel",
@@ -340,10 +339,11 @@
     ],
     "$versioned_template.minecraft:use_on":[
         {
-            "$if":"$format_version >= 1.17.0",
+            "$if":"$format_version >= 1.16.100",
             "$data": {
-                "blocks": {
-                    "$dynamic.list.next_index": "$general.block_identifier"
+                "on_use": {
+                    "event": "$dynamic.cache.block.events",
+                    "target": ["block"]
                 }
             }
         }
@@ -357,14 +357,10 @@
                     "$dynamic.list.next_index": {
                         "block": {
                         "@import.value": "$general.block_identifier",
-                            "any_tag": {
-                                "$dynamic.list.next_index": {
-                                    "@meta": {"is_value": true}
-                                }
-                            }
-                        },
+                            "tags": ["query.any_tag()", "query.all_tags()"]
+                        }
+                    },
                     "speed": "$general.number"
-                    }
                 }
             }
         }
@@ -437,8 +433,7 @@
                 },
                 "nutrition": "$general.number",
                 "can_always_eat": "$general.boolean",
-                "saturation_modifier": "$item.general.saturation_modifier",
-                "using_converts_to": "$general.item_identifier"
+                "saturation_modifier": "$item.general.saturation_modifier"
             }
         },
         {
@@ -462,7 +457,10 @@
         }
     ],
 
-        
+    "$dynamic_template.bridge:weapon_damage": {
+        "$if": "$dynamic.bridge_core.is_active",
+        "$default": "$general.number"
+    },
     "$dynamic_template.bridge:item_equipped_sensor": {
         "$if": "$dynamic.bridge_core.is_active",
 
