@@ -3,6 +3,6 @@
         "identifier": { "@meta": { "is_value": true }, "@import.value.recipe": "$general.file_identifier" }
     },
     "vanilla_tags": [ "blast_furnace", "brewing_stand", "campfire", "cartography_table", "crafting_table", "furnace", "smoker", "stonecutter", "soul_campfire" ],
-    "tags": "$dynamic.cache.block.recipe_tags and $recipe.general.vanilla_tags",
+    "tags": "$dynamic.cache.block.recipe_tags and $dynamic.cache.recipe.tags and $recipe.general.vanilla_tags",
     "item_block_identifier": "$general.item_identifier and $general.block_identifier"
 }

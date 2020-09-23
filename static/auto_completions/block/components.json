@@ -123,11 +123,7 @@
 				},
 				"grid_size": ["3"],
 				"crafting_tags": {
-					"$dynamic.list.next_index": {
-						"@meta": {
-							"is_value": true
-						}
-					}
+					"$dynamic.list.next_index": "$recipe.general.tags"
 				}
 			}
 		}

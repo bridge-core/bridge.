@@ -159,6 +159,7 @@
         "documentation": "Recipes",
         "start_state": "recipe/main",
         "highlighter": "recipe",
+        "lightning_cache": "recipe",
         "file_creator": "recipe"
     },
     {
