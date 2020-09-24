@@ -118,6 +118,9 @@
       "minecraft:despawn": {
         "despawn_from_distance": {}
       },
+      "minecraft:home": {
+        "restriction_radius": 16
+      },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 1,
         "entity_types": [
@@ -145,10 +148,9 @@
       "minecraft:behavior.guardian_attack": {
         "priority": 4
       },
-      "minecraft:behavior.move_towards_restriction": {
+     "minecraft:behavior.move_towards_home_restriction": {
         "priority": 5,
-        "speed_multiplier": 1.0,
-        "control_flags": [ "move", "look" ]
+        "speed_multiplier": 1.0
       },
       "minecraft:behavior.random_swim": {
         "priority": 7,

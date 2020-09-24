@@ -341,9 +341,6 @@
         "goal_radius": 1.14,
         "interval": 20
       },
-      "minecraft:behavior.move_towards_restriction": {
-        "priority": 6
-      },
       "minecraft:behavior.pickup_items": {
         "priority": 6,
         "max_dist": 3,

@@ -134,7 +134,7 @@
             }
           ]
         },
-        "minecraft:behavior.move_towards_restriction": {
+        "minecraft:behavior.move_towards_dwelling_restriction": {
           "priority": 7
         }
       },

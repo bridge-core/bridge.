@@ -19,6 +19,7 @@
     },
     "result": {
       "item": "minecraft:brewing_stand"
-    }
+    },
+    "priority": 2
   }
 }

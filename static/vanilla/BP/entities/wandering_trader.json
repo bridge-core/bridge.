@@ -242,10 +242,6 @@
         "priority": 6,
         "close_door_after": true
       },
-      "minecraft:behavior.move_towards_restriction": {
-        "priority": 7,
-        "speed_multiplier": 0.6
-      },
       "minecraft:behavior.look_at_player": {
         "priority": 8,
         "look_distance": 8,
