@@ -598,6 +598,26 @@
     "speed_multiplier": "$general.decimal",
     "control_flags": [ "move", "look" ]
   },
+  "$versioned_template.minecraft:move_towards_dwelling_restriction": [
+    {
+      "$if":"$format_version >= 1.16.100",
+      "$data": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "control_flags": [ "move", "look" ]
+      }
+    }
+  ], 
+  "$versioned_template.minecraft:move_towards_home_restriction": [
+    {
+      "$if":"$format_version >= 1.16.100",
+      "$data": {
+        "priority": "$general.number",
+        "speed_multiplier": "$general.decimal",
+        "control_flags": [ "move", "look" ]
+      }
+    }
+  ], 
   "minecraft:behavior.move_towards_target": {
     "priority": "$general.number",
     "speed_multiplier": "$general.decimal",
