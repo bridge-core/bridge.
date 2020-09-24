@@ -7,6 +7,14 @@
 			}
 		}
 	},
+	"camerashake": {
+		"add": {
+			"$function.general.target_selector": {
+				"$general.decimal": "$general.decimal"
+			}
+		}
+	},
+	"clearspawnpoint": "$function.general.target_selector",
 	"clone": {
 		"$function.general.location": {
 			"$function.general.location": {
@@ -44,6 +52,11 @@
 				}
 			},
 			"clear": {}
+		}
+	},
+	"event": {
+		"entity": {
+			"$function.general.target_selector": "$dynamic.cache.entity.events"
 		}
 	},
 	"enchant": {

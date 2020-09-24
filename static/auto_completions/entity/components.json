@@ -719,7 +719,17 @@
 		"min": "$general.number"
 	},
 	"minecraft:hide": {},
-	"minecraft:home": {},
+	"$versioned_template.minecraft:home": [
+		{
+			"$if": "$format_version >= 1.16.100",
+			"$data": {
+				"restriction_radius": "$general.number"
+			}
+		},
+		{
+			"$data": {}
+		}
+	],
 	"minecraft:horse.jump_strength": {
 		"value": "$general.decimal"
 	},
