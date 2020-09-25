@@ -598,7 +598,7 @@
     "speed_multiplier": "$general.decimal",
     "control_flags": [ "move", "look" ]
   },
-  "$versioned_template.minecraft:move_towards_dwelling_restriction": [
+  "$versioned_template.minecraft:behavior.move_towards_dwelling_restriction": [
     {
       "$if":"$format_version >= 1.16.100",
       "$data": {
@@ -608,7 +608,7 @@
       }
     }
   ], 
-  "$versioned_template.minecraft:move_towards_home_restriction": [
+  "$versioned_template.minecraft:behavior.move_towards_home_restriction": [
     {
       "$if":"$format_version >= 1.16.100",
       "$data": {
