@@ -26,6 +26,12 @@
 				"development_behavior_packs" folder.
 			</p>
 			<div class="line" />
+			<p class="pt-2">
+				The target Minecraft version should be set to what version you
+				are developing for. Currently <strong>1.16.0</strong> is the
+				stable release and <strong>1.16.100</strong> is the beta
+				release.
+			</p>
 			<v-select
 				background-color="background"
 				v-model="targetVersion"
