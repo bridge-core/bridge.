@@ -1,5 +1,0 @@
-{
-    "material": [ "particles_alpha" ],
-    "variables": [ "variable.particle_lifetime", "variable.particle_age", "variable.particle_random_1", "variable.particle_random_2", "variable.particle_random_3", "variable.particle_random_4", "variable.emitter_lifetime", "variable.emitter_age", "variable.emitter_random_1", "variable.emitter_random_2", "variable.emitter_random_3", "variable.emitter_random_4", "variable.entity_scale" ],
-    "moLang": "$particle.general.variables and $molang.general.boolean and ('query.' + $molang.general.query)"
-}

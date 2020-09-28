@@ -1,4 +1,0 @@
-{
-    "@meta": { "is_value": true },
-    "@import.value.embedded_command": "('function ' + $dynamic.function_files) and $function.main"
-}
