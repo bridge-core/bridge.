@@ -1,6 +1,5 @@
 declare var __static: string
 
-import fs from 'fs'
 import APP_VERSION from '../../shared/app_version'
 import path from 'path'
 import { BP_BASE_PATH, RP_BASE_PATH } from '../../shared/Paths'

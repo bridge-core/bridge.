@@ -18,7 +18,7 @@ import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
 import { IDisposable } from '../Types/disposable'
 
 declare var __static: string
-
+declare const BridgeAutoCompletions: any
 let FILE_DEFS: FileDefinition[] = []
 let PLUGIN_FILE_DEFS: Record<string, FileDefinition[]> = {}
 let PLUGIN_COMPLETIONS: { key: string; created: boolean }[] = []
@@ -43,6 +43,13 @@ class Provider {
 	static loadAssets() {
 		let total = 0
 		LIB = { dynamic: DYNAMIC }
+		if (BridgeAutoCompletions !== undefined) {
+			LIB = { dynamic: DYNAMIC, ...BridgeAutoCompletions }
+			LIB_LOADED = true
+			this.loadAllPluginCompletions()
+			EventBus.trigger('bridge:loadedFileDefs')
+			return
+		}
 
 		this.loadAsset('files').then((files: string[]) =>
 			files.forEach(f =>
