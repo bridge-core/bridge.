@@ -10,11 +10,19 @@ import './DropFile'
 import './ResizeWatcher'
 import './Errors'
 import Store from '../../store/index'
+import Provider from '../autoCompletions/Provider'
+import { loadDependency } from './fetchDeps'
 
 export default async function startUp() {
 	SETTINGS.setup()
 	// Start listening for online and offline events
 	CONNECTION.startListening()
+
+	//Setup auto-completions
+	Provider.loadAssets(
+		await loadDependency('auto-completions.js'),
+		await loadDependency('file-definitions.js')
+	)
 
 	setupDefaultMenus()
 	if (process.env.NODE_ENV !== 'development') {

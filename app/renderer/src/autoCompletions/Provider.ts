@@ -40,41 +40,11 @@ class Provider {
 		else if (startState) this.start_state = startState
 	}
 
-	static loadAssets() {
-		let total = 0
-		LIB = { dynamic: DYNAMIC }
-		if (BridgeAutoCompletions !== undefined) {
-			LIB = { dynamic: DYNAMIC, ...BridgeAutoCompletions }
-			LIB_LOADED = true
-			this.loadAllPluginCompletions()
-			EventBus.trigger('bridge:loadedFileDefs')
-			return
-		}
-
-		this.loadAsset('files').then((files: string[]) =>
-			files.forEach(f =>
-				this.loadAsset(f).then((data: any) => {
-					//ALLOW MULTIPLE FILES TO REGISTER THE SAME LIB KEY
-					if (data.$register_as !== undefined) {
-						f = data.$register_as
-						delete data.$register_as
-					}
-
-					this.storeInLIB(f, data)
-					total++
-					if (total >= files.length) {
-						LIB_LOADED = true
-						this.loadAllPluginCompletions()
-						EventBus.trigger('bridge:loadedFileDefs')
-					}
-				})
-			)
-		)
-		this.loadAsset('file_definitions', 'data/').then(
-			(def: FileDefinition[]) => {
-				FILE_DEFS = def
-			}
-		)
+	static loadAssets(fetchedLib: any, fileDefs: FileDefinition[]) {
+		LIB = { dynamic: DYNAMIC, ...fetchedLib }
+		FILE_DEFS = fileDefs
+		this.loadAllPluginCompletions()
+		EventBus.trigger('bridge:loadedFileDefs')
 	}
 	static loadAsset(name: string, path = 'auto_completions/'): any {
 		return new Promise((resolve, reject) => {
@@ -438,6 +408,5 @@ class Provider {
 		return template[dyn || '$fallback'] || template['$default']
 	}
 }
-Provider.loadAssets()
 
 export default Provider
