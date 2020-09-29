@@ -18,6 +18,8 @@ if (process.env.NODE_ENV !== 'development') {
 	global.__static = require('path')
 		.join(__dirname, '/static')
 		.replace(/\\/g, '\\\\')
+} else {
+	require('dotenv').config()
 }
 
 if (SETTINGS.disable_hardware_acceleration) {

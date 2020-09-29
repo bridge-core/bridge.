@@ -6,6 +6,7 @@ import PluginLoader from '../../../plugins/PluginLoader'
 import Store from '../../../../store/index'
 import ThemeManager from '../../../editor/Themes/ThemeManager'
 import LoadingWindow from '../../../../windows/LoadingWindow'
+import { loadDependency } from '../../../AppCycle/fetchDeps'
 
 export const DevMenu: IAppMenu = {
 	displayName: 'Development',
@@ -34,7 +35,10 @@ export const DevMenu: IAppMenu = {
 				const lw = new LoadingWindow()
 
 				trigger('bridge:scriptRunner.resetCaches')
-				Provider.loadAssets()
+				Provider.loadAssets(
+					await loadDependency('auto-completions.js'),
+					await loadDependency('file-definitions.js')
+				)
 				ThemeManager.reloadDefaultThemes()
 				await PluginLoader.loadPlugins()
 
