@@ -1,5 +1,4 @@
 import SETTINGS from '../../store/Settings'
-import UpdateWindow from '../../windows/NewUpdateWindow'
 import { fetchLatestJson } from '../../src/Utilities/updateApp'
 import { CONNECTION } from '../../src/Utilities/ConnectionStatus'
 import { setupDefaultMenus } from '../UI/Toolbar/setupDefaults'
@@ -12,6 +11,7 @@ import './Errors'
 import Store from '../../store/index'
 import Provider from '../autoCompletions/Provider'
 import { loadDependency } from './fetchDeps'
+import { createUpdateAppWindow } from '../UI/Windows/UpdateApp/definition'
 
 export default async function startUp() {
 	SETTINGS.setup()
@@ -68,7 +68,7 @@ export function createAppUpdateNotification() {
 				message: 'Update Available',
 				textColor: 'white',
 				onClick: () => {
-					new UpdateWindow(updateData, notification)
+					createUpdateAppWindow(updateData, notification)
 				},
 			})
 		}
