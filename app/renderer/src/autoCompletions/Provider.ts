@@ -45,6 +45,10 @@ class Provider {
 		FILE_DEFS = fileDefs
 		this.loadAllPluginCompletions()
 		EventBus.trigger('bridge:loadedFileDefs')
+		LIB_LOADED = true
+	}
+	static get LIB_LOADED() {
+		return LIB_LOADED
 	}
 	static loadAsset(name: string, path = 'auto_completions/'): any {
 		return new Promise((resolve, reject) => {

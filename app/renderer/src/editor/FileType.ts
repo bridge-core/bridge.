@@ -6,7 +6,7 @@
 declare var __static: string
 
 import TabSystem from '../TabSystem'
-import Provider, { LIB_LOADED } from '../autoCompletions/Provider'
+import Provider from '../autoCompletions/Provider'
 import fs, { promises as fsp } from 'fs'
 import { join, basename, extname } from 'path'
 import { readJSON, readJSONSync } from '../Utilities/JsonFS'
@@ -32,7 +32,7 @@ export default class FileType {
 		HIGHLIGHTER_CACHE = {}
 	}
 	static get LIB_LOADED() {
-		return LIB_LOADED
+		return Provider.LIB_LOADED
 	}
 	static get FILE_DEFS(): FileDefinition[] {
 		return Provider.FILE_DEFS
