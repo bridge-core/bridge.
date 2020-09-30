@@ -29,7 +29,7 @@
         "scale_power_by_draw_duration": true,
         "max_draw_duration": 1.0
       },
-      "minecraft:damageable": {
+      "minecraft:durability": {
         "max_damage": 384
       }
     }

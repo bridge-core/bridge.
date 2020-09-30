@@ -35,10 +35,9 @@
 
       "minecraft:particle_motion_collision": {
         "enabled": 1,
-        "expire_on_contact": true,
         "collision_drag": 1.0,
         "coefficient_of_restitution": 1.0,
-        "collision_radius": 0.01
+        "collision_radius": 0.5
       },
 
       "minecraft:particle_appearance_billboard": {

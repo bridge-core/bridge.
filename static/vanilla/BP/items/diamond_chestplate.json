@@ -10,7 +10,7 @@
         "value": 10,
         "slot": "armor_torso"
       },
-      "minecraft:damageable": {
+      "minecraft:durability": {
         "max_damage": 528,
         "damage_chance": {
           "min": 60,
