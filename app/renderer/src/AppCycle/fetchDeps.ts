@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import { BRIDGE_DATA_PATH, DEPS_URLS } from '../constants'
+import Store from '../../store/index'
 
 export async function loadDependency(src: string) {
 	//In development mode, always use data from disk
@@ -11,7 +12,9 @@ export async function loadDependency(src: string) {
 			).toString('utf-8')
 		)
 
-	const script = await fetch(join(DEPS_URLS, src))
+	const script = await fetch(
+		join(DEPS_URLS(Store.state.Settings.remote_data_version), src)
+	)
 		.then(data => data.text())
 		.then(async script => {
 			try {
