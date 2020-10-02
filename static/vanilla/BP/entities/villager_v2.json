@@ -488,8 +488,8 @@
         "minecraft:behavior.harvest_farm_block": {
           "priority": 8,
           "max_seconds_before_search": 1.0,
-          "search_cooldown_max_seconds": 5.0,
-          "seconds_until_new_task":  0.5,
+          "search_cooldown_max_seconds": 8.0,
+          "seconds_until_new_task": 0.5,
           "speed_multiplier": 0.5
         }
       },
@@ -1570,7 +1570,7 @@
           }
         ]
       },
-      "minecraft:behavior.move_towards_restriction": {
+      "minecraft:behavior.move_towards_dwelling_restriction": {
         "priority": 10,
         "speed_multiplier": 0.6
       },

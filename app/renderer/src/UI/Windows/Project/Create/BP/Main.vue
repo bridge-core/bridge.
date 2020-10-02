@@ -26,6 +26,18 @@
 				"development_behavior_packs" folder.
 			</p>
 			<div class="line" />
+			<v-text-field
+				v-model="projectNamespace"
+				label="Project Namespace"
+				autofocus
+				class="py-6"
+			/>
+			<p class="pt-2">
+				The target Minecraft version should be set to what version you
+				are developing for. Currently <strong>1.16.0</strong> is the
+				stable release and <strong>1.16.100</strong> is the beta
+				release.
+			</p>
 			<v-select
 				background-color="background"
 				v-model="targetVersion"
@@ -34,6 +46,7 @@
 				placeholder="Target Minecraft Version"
 				class="py-2"
 			/>
+			<div class="line" />
 			<v-switch
 				v-model="registerClientData"
 				label="Register Client Data"
@@ -47,7 +60,8 @@
 				:disabled="
 					projectName == '' ||
 						projectDescription == '' ||
-						targetVersion == ''
+						targetVersion == '' ||
+						projectNamespace == ''
 				"
 			>
 				<span>Create!</span>
@@ -149,7 +163,7 @@ export default {
 								ProjectConfig.setFormatVersion(
 									this.targetVersion
 								)
-								ProjectConfig.setPrefix('bridge')
+								ProjectConfig.setPrefix(this.projectNamespace)
 								l_w.hide()
 								EventBus.trigger(
 									'bridge:selectProject',
@@ -166,6 +180,7 @@ export default {
 			this.projectName = ''
 			this.projectDescription = ''
 			this.targetVersion = ''
+			this.projectNamespace = ''
 		},
 	},
 	watch: {

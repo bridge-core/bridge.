@@ -87,7 +87,11 @@
                     "value": 1.0
                 },
                 "minecraft:damage_sensor": {
-                    "deals_damage": false
+                    "triggers": [
+                        {
+                            "deals_damage": false
+                        }
+                    ]
                 },
                 "minecraft:physics": {}
             }

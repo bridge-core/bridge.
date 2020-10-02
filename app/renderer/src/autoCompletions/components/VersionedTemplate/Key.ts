@@ -23,7 +23,7 @@ export class VersionedKeyTemplate {
 		//Template is undefined if path is_data_path
 		return provider.walk(
 			path_arr,
-			Object.keys(template).length > 0 ? template || {} : value
+			Object.keys(template || {}).length > 0 ? template || {} : value
 		)
 	}
 }

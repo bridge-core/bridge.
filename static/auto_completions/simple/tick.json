@@ -1,5 +1,0 @@
-{
-    "values": {
-        "$dynamic.list.next_index": "$dynamic.function_files"
-    }
-}

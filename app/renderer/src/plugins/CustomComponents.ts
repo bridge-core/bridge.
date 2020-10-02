@@ -66,7 +66,7 @@ export default class ComponentRegistry {
 				x => !commandUpdates || !commandUpdates.has(x)
 			)
 		)
-		console.log(Object.entries(this.components))
+		// console.log(Object.entries(this.components))
 		for (let f of this.registerUpdates) await JSONFileMasks.apply(f)
 
 		this.registerUpdates.clear()

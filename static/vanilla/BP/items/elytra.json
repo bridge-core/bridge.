@@ -10,7 +10,7 @@
         "value": 0,
         "slot": "elytra"
       },
-      "minecraft:damageable": {
+      "minecraft:durability": {
       	"max_damage": 432
       },
       "minecraft:wearable": {

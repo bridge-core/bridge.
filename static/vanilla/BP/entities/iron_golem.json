@@ -223,7 +223,7 @@
         "speed_multiplier": 0.6,
         "only_at_night": true
       },
-      "minecraft:behavior.move_towards_restriction": {
+      "minecraft:behavior.move_towards_dwelling_restriction": {
         "priority": 4,
         "speed_multiplier": 1
       },

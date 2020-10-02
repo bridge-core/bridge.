@@ -1,5 +1,0 @@
-{
-    "minecraft:mob_event_filter": {
-        "event": { "@meta": { "is_value": true } }
-    }
-}

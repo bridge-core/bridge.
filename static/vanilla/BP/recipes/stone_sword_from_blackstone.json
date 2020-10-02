@@ -20,6 +20,7 @@
     },
     "result": {
       "item": "minecraft:stone_sword"
-    }
+    },
+    "priority": 2
   }
 }

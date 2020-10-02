@@ -257,21 +257,6 @@ export default class SettingsWindow extends TabWindow {
 
 				{
 					color: 'grey',
-					text: '\nAuto-Completions',
-				},
-				new ReactiveSwitch(this, 'auto_completions', {
-					color: 'primary',
-					text: 'Provide Auto-Completions',
-					key: `settings.editor.tab.auto_completions.${Math.random()}`,
-				}),
-				new ReactiveSwitch(this, 'auto_fill_inputs', {
-					color: 'primary',
-					text: 'Auto Fill Inputs',
-					key: `settings.editor.tab.auto_fill_inputs.${Math.random()}`,
-				}),
-
-				{
-					color: 'grey',
 					text: '\nFile Validation',
 				},
 				new ReactiveSwitch(this, 'run_error_detection', {
@@ -288,6 +273,52 @@ export default class SettingsWindow extends TabWindow {
 					color: 'primary',
 					text: 'Error Auto-fix',
 					key: `settings.editor.tab.error_auto_fix.${Math.random()}`,
+				}),
+			],
+		})
+		this.addTab({
+			sidebar_element: {
+				icon: 'mdi-format-list-text',
+				title: 'Remote Data',
+			},
+			content: [
+				{
+					color: 'grey',
+					text: '\nRemote Data Version',
+				},
+				new ReactiveDropdown(
+					this,
+					'remote_data_version',
+					fetch('https://api.github.com/repos/bridge-core/data/tags')
+						.then(data => data.json())
+						.then(tags =>
+							['latest'].concat(tags.map((tag: any) => tag.name))
+						)
+						.catch(() => ['latest']),
+					{
+						color: 'primary',
+						text: 'Remote Data Version',
+						key: `settings.data.tab.remote_data_version.${Math.random()}`,
+					}
+				),
+				{
+					color: 'grey lighten-1',
+					text:
+						"Choose the version of bridge.'s data that you want to load. Requires an app restart.\n",
+				},
+				{
+					color: 'grey',
+					text: '\nAuto-Completions',
+				},
+				new ReactiveSwitch(this, 'auto_completions', {
+					color: 'primary',
+					text: 'Provide Auto-Completions',
+					key: `settings.editor.tab.auto_completions.${Math.random()}`,
+				}),
+				new ReactiveSwitch(this, 'auto_fill_inputs', {
+					color: 'primary',
+					text: 'Auto Fill Inputs',
+					key: `settings.editor.tab.auto_fill_inputs.${Math.random()}`,
 				}),
 			],
 		})

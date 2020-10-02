@@ -28,7 +28,7 @@
         "max_draw_duration": 1.0,
         "charge_on_draw": true
       },
-      "minecraft:damageable": {
+      "minecraft:durability": {
         "max_damage": 464
       }
     }

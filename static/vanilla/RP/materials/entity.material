@@ -852,6 +852,7 @@
     "cow:entity": {},
     "creeper:entity": {},
     "dragon_head:entity_alphatest": {},
+    "dragon_head_glint:entity_glint": {},
     "drowned:entity_emissive_alpha": {},
     "egg:entity_alphatest": {},
     "elytra:entity_alphatest": {},
@@ -868,6 +869,7 @@
     "ender_pearl:entity_alphatest": {},
     "evoker:entity_alphatest": {},
     "fang:entity_alphatest": {},
+    "fireball:entity_alphatest": {},
     "fireworks_rocket:entity_alphatest": {},
     "fishing_hook:entity_alphatest": {},
     "fox:entity": {},
@@ -895,12 +897,15 @@
     "llama_spit:entity": {},
     "minecart:entity_alphatest": {},
     "mob_head:entity_alphatest": {},
+    "mob_head_glint:entity_glint": {},
     "mooshroom:entity": {},
     "mooshroom_mushrooms:entity_alphatest": {},
     "npc:entity_alphatest": {},
     "ocelot:entity_alphatest": {},
     "parrot:entity_alphatest": {},
     "pig:entity": {},
+    "hoglin:entity_alphatest": {},
+    "zoglin:entity_alphatest": {},
     "shield:entity": {},
     "shield_glint:entity_glint": {},
     "trident:entity": {},
@@ -921,6 +926,8 @@
     "silverfish_layers:entity_alphatest": {},
     "skeleton:entity_alphatest": {},
     "pillager:entity_alphatest": {},
+    "piglin:entity_alphatest": {},
+    "piglin_brute:entity_alphatest": {},
     "slime:entity_alphatest": {},
     "slime_outer:entity": {
       "+states": [ "Blending" ]
@@ -941,6 +948,7 @@
     },
     "stray:entity_alphatest": {},
     "stray_clothes:entity_alphatest": {},
+    "strider:entity_alphatest": {},
     "turtle:entity": {},
     "camera:entity": {},
     "vex:entity_alphatest": {},
@@ -969,6 +977,9 @@
     },
     "player_animated:entity_alphatest": {
       "+defines": [ "USE_UV_ANIM" ]
+    },
+    "experience_orb:entity": {
+      "+defines": [ "USE_UV_ANIM", "ALPHA_TEST", "Blending", "USE_OVERLAY", "USE_MASK" ]
     }
   }
 }
