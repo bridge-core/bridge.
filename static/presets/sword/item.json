@@ -12,7 +12,7 @@
       "minecraft:max_stack_size": 1,
       "minecraft:use_duration": 3600,
       "minecraft:hand_equipped": true,
-      "minecraft:damageable": {
+      "minecraft:durability": {
         "max_damage": 150,
         "repair_items": [
           "{{PROJ_PREFIX}}:{{IDENTIFIER}}"

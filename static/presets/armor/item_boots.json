@@ -11,7 +11,7 @@
           "value": 9,		    
           "slot": "armor_feet"	 
         },
-        "minecraft:damageable": {		
+        "minecraft:durability": {		
           "max_damage": 195,		
           "damage_chance": {		
             "min": 60,			
