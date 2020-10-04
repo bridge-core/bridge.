@@ -1,13 +1,16 @@
 <template>
 	<BaseWindow
 		v-if="shouldRender"
-		:isVisible="isVisible"
 		windowTitle="Create Project"
-		:hasMaximizeButton="false"
-		:isFullscreen="false"
-		:width="500"
-		:height="420"
-		@closeWindow="close"
+		:isVisible="isVisible"
+		:hasMaximizeButton="true"
+		:isFullscreen="isFullscreen"
+		:percentageHeight="85"
+		:percentageWidth="40"
+		:maxPercentageHeight="95"
+		:maxPercentageWidth="90"
+		@closeWindow="onClose"
+		@toggleFullscreen="isFullscreen = !isFullscreen"
 	>
 		<template #default>
 			<v-text-field
@@ -94,7 +97,7 @@ export default {
 	},
 	data: () => CreateBP.getState(),
 	methods: {
-		close() {
+		onClose() {
 			CreateBP.close()
 			this.reset()
 		},

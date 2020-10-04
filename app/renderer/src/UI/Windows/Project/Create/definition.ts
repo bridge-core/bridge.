@@ -14,4 +14,5 @@ export const CreateBP = createWindow(CreateBPComponent, {
 	projectDescription: '',
 	projectNamespace: 'bridge',
 	registerClientData: false,
+	isFullscreen: false,
 })
