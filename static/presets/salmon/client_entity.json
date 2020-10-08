@@ -22,7 +22,7 @@
       },
       "animation_controllers": [
         {
-          "general": "controller.animation.salmon.general"
+          "general": "controller.animation.fish.general"
         }
       ],
       "render_controllers": [ "controller.render.{{IDENTIFIER}}" ],
