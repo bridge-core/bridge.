@@ -12,12 +12,16 @@
           "slot": "armor_head"	 
         },
         "minecraft:durability": {		
-          "max_damage": 170,		
+          "max_durability": 170,		
           "damage_chance": {		
             "min": 60,			
             "max": 100
           }
-        },	
+        },
+        "minecraft:icon": {	
+          "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}_helmet"
+        },
+        "minecraft:render_offsets": "helmets",	
         "minecraft:armor": {		
           "protection": 2		
         },

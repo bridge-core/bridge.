@@ -12,12 +12,16 @@
           "slot": "armor_torso"	 
         },
         "minecraft:durability": {		
-          "max_damage": 240,		
+          "max_durability": 240,		
           "damage_chance": {		
             "min": 60,			
             "max": 100
           }
-        },	
+        },
+        "minecraft:icon": {	
+          "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}_chestplate"
+        },
+        "minecraft:render_offsets": "chestplates",	
         "minecraft:armor": {		
           "protection": 6
         },

@@ -3,7 +3,7 @@
     "minecraft:item": {
       "description": {
         "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}_boots",
-		"category": "equipment"
+		    "category": "equipment"
       },
       "components": {
         "minecraft:max_stack_size": 1, 
@@ -12,12 +12,16 @@
           "slot": "armor_feet"	 
         },
         "minecraft:durability": {		
-          "max_damage": 195,		
+          "max_durability": 195,		
           "damage_chance": {		
             "min": 60,			
             "max": 100
           }
-        },	
+        },
+        "minecraft:icon": {	
+          "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}_boots"
+        },
+        "minecraft:render_offsets": "boots",
         "minecraft:armor": {		
           "protection": 2		
         },

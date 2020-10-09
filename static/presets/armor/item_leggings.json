@@ -12,12 +12,16 @@
           "slot": "armor_legs"	 
         },
         "minecraft:durability": {		
-          "max_damage": 125,		
+          "max_durability": 125,		
           "damage_chance": {		
             "min": 60,			
             "max": 100
           }
-        },	
+        },
+        "minecraft:icon": {	
+          "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}_leggings"
+        },
+        "minecraft:render_offsets": "leggings",	
         "minecraft:armor": {		
           "protection": 5		
         },

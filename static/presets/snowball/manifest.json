@@ -7,7 +7,6 @@
         "entity.json": "entities/{{IDENTIFIER}}.json"
     },
     "rp_map": {
-        "client_item.json": "items/{{IDENTIFIER}}.json",
         "client_entity.json": "entity/{{IDENTIFIER}}.json"
     },
     "expand_rp_files": {
