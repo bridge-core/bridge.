@@ -99,6 +99,22 @@ export default {
 					'Custom Components',
 					'https://bridge-core.github.io/plugin-docs/custom-components/',
 				],
+				[
+					'File Definitions',
+					'https://bridge-core.github.io/plugin-docs/json/file-definitions/',
+				],
+				[
+					'Presets',
+					'https://bridge-core.github.io/plugin-docs/json/presets/',
+				],
+				[
+					'Snippets',
+					'https://bridge-core.github.io/plugin-docs/json/snippets/',
+				],
+				[
+					'Themes',
+					'https://bridge-core.github.io/plugin-docs/json/themes/',
+				],
 			],
 		}
 	},
