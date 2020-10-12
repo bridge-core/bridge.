@@ -162,16 +162,17 @@ export default {
 									}
 								)
 
+								EventBus.trigger(
+									'bridge:selectProject',
+									this.projectName
+								)
 								this.$root.$emit('refreshExplorer')
 								ProjectConfig.setFormatVersion(
 									this.targetVersion
 								)
 								ProjectConfig.setPrefix(this.projectNamespace)
 								l_w.hide()
-								EventBus.trigger(
-									'bridge:selectProject',
-									this.projectName
-								)
+
 								this.reset()
 							}
 						)
