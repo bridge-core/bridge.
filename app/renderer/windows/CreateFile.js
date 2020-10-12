@@ -10,6 +10,7 @@ import { walkSync } from '../src/autoCompletions/Dynamic'
 import { join } from 'path'
 import { promises as fs } from 'fs'
 import { uuid } from '../src/Utilities/useAttr'
+import { compileCondition } from '../src/autoCompletions/components/VersionedTemplate/Common'
 
 class FileContent {
 	constructor(
@@ -228,7 +229,11 @@ export default class CreateFileWindow extends ContentWindow {
 				is_visible: false,
 				is_persistent: false,
 			},
-			sidebar: FILE_DATA.map(({ icon, title, rp_definition }, index) => {
+			sidebar: FILE_DATA.filter(
+				({ target_version }) =>
+					target_version === undefined ||
+					compileCondition(target_version)
+			).map(({ icon, title, rp_definition }, index) => {
 				return {
 					icon,
 					title,
