@@ -4,7 +4,7 @@ import { BRIDGE_DATA_PATH, DEPS_URLS } from '../constants'
 import Store from '../../store/index'
 
 export async function loadDependency(src: string) {
-	//In development mode, always use data from disk
+	// In development mode, always use data from disk
 	if (process.env.NODE_ENV === 'development' && process.env.DEV_DATA_PATH)
 		return eval(
 			await (
@@ -12,8 +12,24 @@ export async function loadDependency(src: string) {
 			).toString('utf-8')
 		)
 
+	// Get the latest data release tag
+	let latestTag: string
+	try {
+		const tags = await fetch(
+			'https://api.github.com/repos/bridge-core/data/tags'
+		).then(data => data.json())
+		latestTag = tags[0].name
+	} catch {}
+
 	const script = await fetch(
-		join(DEPS_URLS(Store.state.Settings.remote_data_version), src)
+		join(
+			DEPS_URLS(
+				Store.state.Settings.remote_data_version === 'latest'
+					? latestTag ?? 'latest'
+					: Store.state.Settings.remote_data_version
+			),
+			src
+		)
 	)
 		.then(data => data.text())
 		.then(async script => {
