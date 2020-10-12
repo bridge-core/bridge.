@@ -1,38 +1,44 @@
 <template>
 	<BaseWindow
 		v-if="shouldRender"
-		:isVisible="isVisible"
 		windowTitle="Create Project"
-		:hasMaximizeButton="false"
-		:isFullscreen="false"
-		:width="500"
-		:height="420"
-		@closeWindow="close"
+		:isVisible="isVisible"
+		:hasMaximizeButton="true"
+		:isFullscreen="isFullscreen"
+		:percentageHeight="65"
+		:percentageWidth="40"
+		:maxPercentageHeight="75"
+		:maxPercentageWidth="90"
+		@closeWindow="onClose"
+		@toggleFullscreen="isFullscreen = !isFullscreen"
 	>
 		<template #default>
-			<v-text-field
-				v-model="projectName"
-				label="Project Name"
-				autofocus
-			/>
+			<div class="d-flex">
+				<v-text-field
+					v-model="projectName"
+					label="Project Name"
+					autofocus
+					hide-details
+					class="mr-3"
+				/>
+				<v-text-field
+					v-model="projectNamespace"
+					label="Project Namespace"
+					autofocus
+					hide-details
+					class="ml-3"
+				/>
+			</div>
+
 			<v-text-field
 				v-model="projectDescription"
 				label="Project Description"
 				autofocus
-				class="pb-2"
+				hide-details
+				class="mt-4"
 			/>
-			<p>
-				Projects are stored directly inside the
-				"development_behavior_packs" folder.
-			</p>
-			<div class="line" />
-			<v-text-field
-				v-model="projectNamespace"
-				label="Project Namespace"
-				autofocus
-				class="py-6"
-			/>
-			<p class="pt-2">
+
+			<p class="mt-10">
 				The target Minecraft version should be set to what version you
 				are developing for. Currently <strong>1.16.0</strong> is the
 				stable release and <strong>1.16.100</strong> is the beta
@@ -43,14 +49,24 @@
 				v-model="targetVersion"
 				:items="targetVersions"
 				solo
+				hide-details
 				placeholder="Target Minecraft Version"
 				class="py-2"
 			/>
-			<div class="line" />
+			<div class="line mt-4" />
+			<p class="pt-2">
+				Client Data must be toggled if you want to use client scripts
+				with the experimental scripting API.
+			</p>
 			<v-switch
 				v-model="registerClientData"
 				label="Register Client Data"
-			></v-switch>
+			/>
+			<div class="line mt-4" />
+			<p class="pt-2">
+				Projects are stored directly inside the
+				"development_behavior_packs" folder.
+			</p>
 		</template>
 		<template #actions>
 			<v-spacer />
@@ -94,7 +110,7 @@ export default {
 	},
 	data: () => CreateBP.getState(),
 	methods: {
-		close() {
+		onClose() {
 			CreateBP.close()
 			this.reset()
 		},
@@ -159,16 +175,17 @@ export default {
 									}
 								)
 
+								EventBus.trigger(
+									'bridge:selectProject',
+									this.projectName
+								)
 								this.$root.$emit('refreshExplorer')
 								ProjectConfig.setFormatVersion(
 									this.targetVersion
 								)
 								ProjectConfig.setPrefix(this.projectNamespace)
 								l_w.hide()
-								EventBus.trigger(
-									'bridge:selectProject',
-									this.projectName
-								)
+
 								this.reset()
 							}
 						)

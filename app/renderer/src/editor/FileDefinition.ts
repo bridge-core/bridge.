@@ -2,6 +2,7 @@ import { TPlayerType } from '../UI/Play/state'
 
 export interface FileDefinition {
 	id?: string
+	target_version?: string
 	includes?: string
 	file_viewer?: 'json' | 'text' | 'model'
 	player?: TPlayerType

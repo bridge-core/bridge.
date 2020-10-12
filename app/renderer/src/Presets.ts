@@ -27,6 +27,7 @@ export interface IManifest {
 	display_name?: string
 	description?: string
 	icon?: string
+	target_version?: string
 	rp_map?: {
 		[file_path: string]: string
 	}

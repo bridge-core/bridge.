@@ -2,6 +2,7 @@
     "display_name": "Armor",
     "description": "Creates a new armor set.",
     "icon": "mdi-hanger",
+    "target_version": "$project_target_version >= 1.16.100",
     "bp_map": {
         "item_helmet.json": "items/{{IDENTIFIER}}_helmet.json",
         "item_chestplate.json": "items/{{IDENTIFIER}}_chestplate.json",
@@ -9,10 +10,6 @@
         "item_boots.json": "items/{{IDENTIFIER}}_boots.json"
     },
     "rp_map": {
-        "client_item_helmet.json": "items/{{IDENTIFIER}}_helmet.json",
-        "client_item_chestplate.json": "items/{{IDENTIFIER}}_chestplate.json",
-        "client_item_leggings.json": "items/{{IDENTIFIER}}_leggings.json",
-        "client_item_boots.json": "items/{{IDENTIFIER}}_boots.json",
         "attachable_helmet.json": "attachables/{{IDENTIFIER}}_helmet.json",
         "attachable_helmet.player.json": "attachables/{{IDENTIFIER}}_helmet.player.json",
         "attachable_chestplate.json": "attachables/{{IDENTIFIER}}_chestplate.json",

@@ -3,7 +3,7 @@
     "minecraft:item": {
       "description": {
         "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}_leggings",
-		"category": "equipment"
+		    "category": "equipment"
       },
       "components": {
         "minecraft:max_stack_size": 1, 
@@ -11,13 +11,17 @@
           "value": 9,		    
           "slot": "armor_legs"	 
         },
-        "minecraft:damageable": {		
-          "max_damage": 125,		
+        "minecraft:durability": {		
+          "max_durability": 125,		
           "damage_chance": {		
             "min": 60,			
             "max": 100
           }
-        },	
+        },
+        "minecraft:icon": {	
+          "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}_leggings"
+        },
+        "minecraft:render_offsets": "leggings",	
         "minecraft:armor": {		
           "protection": 5		
         },

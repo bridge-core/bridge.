@@ -131,6 +131,7 @@ export default class FileType {
 					//Load from dedicated file
 					if (typeof file.file_creator === 'string')
 						acc.push({
+							target_version: file.target_version,
 							rp_definition: file.rp_definition,
 							...JSON.parse(
 								fs
@@ -147,6 +148,7 @@ export default class FileType {
 					//Load as plain object
 					else
 						acc.push({
+							target_version: file.target_version,
 							rp_definition: file.rp_definition,
 							...file.file_creator,
 						})

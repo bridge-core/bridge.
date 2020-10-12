@@ -73,5 +73,6 @@ function getFormatVersion() {
 	}
 	if (typeof version === 'object')
 		version = ProjectConfig.getFormatVersionSync()
+	if (typeof version === 'number') version = version.toString()
 	return version
 }
