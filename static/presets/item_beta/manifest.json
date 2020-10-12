@@ -1,7 +1,7 @@
 {
-    "display_name": "Sword",
-    "description": "Creates a new sword item.",
-    "icon": "mdi-sword",
+    "display_name": "Food",
+    "description": "Creates a new food item.",
+    "icon": "mdi-food-apple",
     "target_version": "$project_target_version >= 1.16.100",
     "bp_map": {
         "item.json": "items/{{IDENTIFIER}}.json"
