@@ -12,6 +12,7 @@ import { PathModule } from './modules/path'
 import { FetchDefinitionModule } from './modules/fetchDefinition'
 import { WindowModule } from './modules/windows'
 import { GlobalsModule } from './modules/globals'
+import { ToolbarModule } from './modules/toolbar'
 
 const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/ui', UIModule],
@@ -25,6 +26,7 @@ const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/file-importer', ImportFileModule],
 	['@bridge/fetch-definition', FetchDefinitionModule],
 	['@bridge/windows', WindowModule],
+	['@bridge/toolbar', ToolbarModule],
 ])
 //For usage inside of custom commands, components etc.
 const LimitedModules = new Map<string, (config: IModuleConfig) => unknown>([
