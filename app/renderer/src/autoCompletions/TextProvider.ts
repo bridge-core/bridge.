@@ -15,7 +15,10 @@ export default class TextProvider {
 				'TextProvider needs either a filePath or a startState'
 			)
 
-		let path = FileType.transformTextSeparators(line, filePath).split(/\s+/)
+		let path = FileType.transformTextSeparators(
+			line.replace(/\//g, ''),
+			filePath
+		).split(/\s+/)
 		path.pop()
 		let strPath = path.join('/')
 
