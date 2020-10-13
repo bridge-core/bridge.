@@ -222,6 +222,10 @@ export default class CreateFileWindow extends ContentWindow {
 			FILE_DATA = FileType.getFileCreators()
 				.filter(({ is_hidden }) => !is_hidden)
 				.sort(({ title: t1 }, { title: t2 }) => t1.localeCompare(t2))
+		FILE_DATA = FILE_DATA.filter(
+			({ target_version }) =>
+				target_version === undefined || compileCondition(target_version)
+		)
 
 		super({
 			display_name: 'New File',
@@ -229,11 +233,7 @@ export default class CreateFileWindow extends ContentWindow {
 				is_visible: false,
 				is_persistent: false,
 			},
-			sidebar: FILE_DATA.filter(
-				({ target_version }) =>
-					target_version === undefined ||
-					compileCondition(target_version)
-			).map(({ icon, title, rp_definition }, index) => {
+			sidebar: FILE_DATA.map(({ icon, title, rp_definition }, index) => {
 				return {
 					icon,
 					title,
