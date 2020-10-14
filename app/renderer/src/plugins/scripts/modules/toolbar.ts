@@ -2,7 +2,7 @@ import { createAppMenu, IAppMenuElement } from '../../../UI/Toolbar/create'
 import { IModuleConfig } from '../types'
 
 export const ToolbarModule = ({ disposables }: IModuleConfig) => ({
-	create(config: {
+	createCategory(config: {
 		displayName: string
 		displayIcon?: string
 		onClick?: () => void
