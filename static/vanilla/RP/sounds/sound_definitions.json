@@ -5776,6 +5776,17 @@
             "sounds/mob/phantom/death3"
          ]
       },
+      "mob.phantom.flap": {
+         "category": "hostile",
+         "sounds": [
+           "sounds/mob/phantom/flap1",
+           "sounds/mob/phantom/flap2",
+           "sounds/mob/phantom/flap3",
+           "sounds/mob/phantom/flap4",
+           "sounds/mob/phantom/flap5",
+           "sounds/mob/phantom/flap6"
+         ]
+       },
       "mob.phantom.hurt" : {
          "__use_legacy_max_distance" : "true",
          "category" : "hostile",
@@ -8032,26 +8043,26 @@
          "sounds" : [ "sounds/portal/trigger" ]
       },
       "raid.horn" : {
-         "__use_legacy_max_distance" : "true",
          "category" : "neutral",
-         "max_distance" : 128.0,
+         // Double the valid raid radius of 96
+         "max_distance" : 192.0,
          "sounds" : [
             {
                "load_on_low_memory" : true,
                "name" : "sounds/event/raid/raidhorn_01",
-               "volume" : 10.0
+               "volume" : 1.0
             },
             {
                "name" : "sounds/event/raid/raidhorn_02",
-               "volume" : 10.0
+               "volume" : 1.0
             },
             {
                "name" : "sounds/event/raid/raidhorn_03",
-               "volume" : 10.0
+               "volume" : 1.0
             },
             {
                "name" : "sounds/event/raid/raidhorn_04",
-               "volume" : 10.0
+               "volume" : 1.0
             }
          ]
       },
