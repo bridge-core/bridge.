@@ -234,15 +234,17 @@ export default class PluginLoader {
 							disposables
 						)
 					),
+					this.loadThemeCSS(pluginPath, disposables).then(() =>
+						this.loadThemes(pluginPath, disposables)
+					),
 					this.loadSnippets(pluginPath, disposables),
-					this.loadThemes(pluginPath, disposables),
 					this.loadComponents(
 						path.join(pluginPath, 'components'),
 						disposables
 					),
 					this.loadAutoCompletions(pluginPath, disposables),
 					this.loadFileDefs(pluginPath, disposables),
-					this.loadThemeCSS(pluginPath, disposables),
+
 					loadCustomCommands(
 						path.join(pluginPath, 'commands'),
 						disposables

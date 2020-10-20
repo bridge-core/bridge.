@@ -3,7 +3,7 @@ import path from 'path'
 import EventBus from '../../EventBus'
 import ProjectConfig from '../../Project/Config'
 import Store from '../../../store/index'
-import fs from 'fs'
+import fs, { readFileSync } from 'fs'
 import deepmerge from 'deepmerge'
 import { defineMonacoTheme } from './Monaco'
 import { createErrorNotification } from '../../AppCycle/Errors'
@@ -51,6 +51,14 @@ function getDefaultThemes() {
 		const { id, ...theme } = readJSONSync(
 			path.join(__static, `themes/${f}`)
 		)
+		if (theme?.options?.css) {
+			ThemeManager.css.set(
+				theme?.options?.css,
+				readFileSync(
+					path.join(__static, `styles/${theme?.options?.css}`)
+				).toString('utf-8')
+			)
+		}
 		res[id] = theme
 	})
 
@@ -90,10 +98,11 @@ export default class ThemeManager {
 	static get local_theme_names() {
 		let theme_names = []
 		for (let id in this.themes) {
-			theme_names.push({
-				text: this.themes[id]?.name ?? 'Unknown',
-				value: id,
-			})
+			if (!this.themes[id].isHidden)
+				theme_names.push({
+					text: this.themes[id]?.name ?? 'Unknown',
+					value: id,
+				})
 		}
 		for (let id in this.plugin_themes) {
 			theme_names.push({
@@ -112,10 +121,11 @@ export default class ThemeManager {
 	static get global_theme_names() {
 		let theme_names = []
 		for (let id in this.themes) {
-			theme_names.push({
-				text: this.themes[id]?.name ?? 'Unknown',
-				value: id,
-			})
+			if (!this.themes[id].isHidden)
+				theme_names.push({
+					text: this.themes[id]?.name ?? 'Unknown',
+					value: id,
+				})
 		}
 		for (let id in this.plugin_themes_global) {
 			theme_names.push({
@@ -153,6 +163,19 @@ export default class ThemeManager {
 				else this.plugin_themes[id] = undefined
 			},
 		}
+	}
+
+	private static isHalloween() {
+		const today = new Date(Date.now())
+		const halloween = new Date(today.getUTCFullYear(), 9, 31)
+
+		return (
+			halloween.getMonth() === today.getMonth() &&
+			halloween.getDate() === today.getDate()
+		)
+	}
+	static lockThemeSettings() {
+		return this.isHalloween()
 	}
 
 	static applyTheme(id = 'bridge.default.theme') {
@@ -205,6 +228,11 @@ export default class ThemeManager {
 		this.global_theme = this.global_theme
 			? this.global_theme
 			: Store.state.Settings.global_theme
+
+		//Halloween easter egg
+		if (this.isHalloween())
+			return this.applyTheme('bridge.easterEgg.halloween')
+
 		try {
 			// Regardless of what theme is chosen, save what the local theme is for the settings menu to reference
 			this.local_theme = await ProjectConfig.theme
