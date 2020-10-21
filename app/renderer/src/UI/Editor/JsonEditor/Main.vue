@@ -6,8 +6,17 @@
 			<span v-if="render_object.children.length > 0">
 				<draggable
 					v-model="render_object.children"
-					v-bind="{ group: 'key', disabled: disabled_dragging }"
+					v-bind="{
+						group: {
+							name: 'key',
+							pull: this.is_immutable ? 'clone' : undefined,
+							put: !this.is_immutable,
+						},
+						sort: !this.is_immutable,
+						disabled: disabled_dragging,
+					}"
 					@change="draggedKey"
+					:clone="cloneDragged"
 				>
 					<details
 						v-for="e in render_object.children"
@@ -229,10 +238,7 @@ export default {
 			return this.render_object.data
 		},
 		disabled_dragging() {
-			return (
-				this.$store.state.Settings.disable_node_dragging ||
-				this.is_immutable
-			)
+			return this.$store.state.Settings.disable_node_dragging
 		},
 	},
 	methods: {
@@ -321,7 +327,15 @@ export default {
 			}, 5)
 		},
 		draggedKey(data) {
-			TabSystem.setCurrentUnsaved()
+			if (!this.is_active)
+				this.$nextTick(() => {
+					TabSystem.split_screen_active = !TabSystem.split_screen_active
+					TabSystem.setCurrentUnsaved()
+					TabSystem.split_screen_active = !TabSystem.split_screen_active
+				})
+			else TabSystem.setCurrentUnsaved()
+
+			console.log(data)
 
 			if ('removed' in data) {
 				TabSystem.getHistory().add(
@@ -339,6 +353,9 @@ export default {
 					new MoveAction(c.parent, undefined, c)
 				)
 			}
+		},
+		cloneDragged(jsontree) {
+			return jsontree.deepClone()
 		},
 
 		isKnownFileType() {
