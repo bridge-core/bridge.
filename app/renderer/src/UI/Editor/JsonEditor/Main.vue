@@ -335,8 +335,6 @@ export default {
 				})
 			else TabSystem.setCurrentUnsaved()
 
-			console.log(data)
-
 			if ('removed' in data) {
 				TabSystem.getHistory().add(
 					new MoveAction(undefined, this.object, data.removed.element)
