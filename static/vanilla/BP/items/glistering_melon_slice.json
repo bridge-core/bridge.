@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:glistering_melon_slice",
+      "aliases": [
+        "minecraft:speckled_melon"
+      ]
+    },
+    "components": {
+    }
+  }
+}

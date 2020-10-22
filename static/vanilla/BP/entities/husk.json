@@ -159,6 +159,8 @@
       "minecraft:variant": {
         "value": 2
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:navigation.walk": {
         "is_amphibious": true,
         "can_pass_doors": true,
@@ -412,10 +414,6 @@
         "search_height": 2,
         "goal_radius": 1.14,
         "interval": 20
-      },
-      "minecraft:behavior.move_towards_restriction": {
-        "priority": 5,
-        "speed_multiplier": 1
       },
       "minecraft:behavior.pickup_items": {
         "priority": 6,

@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:campfire",
+      "category": "Items"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.furnaces"
+      },
+      "minecraft:icon": {
+        "texture": "campfire"
+      },
+      "minecraft:display_name": {
+	  "value": "tile.campfire.name"
+	  }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:minecart"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.minecart"
+      },
+      "minecraft:icon": {
+        "texture": "minecart_normal"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
+    }
+  }
+}

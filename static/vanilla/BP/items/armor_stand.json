@@ -1,0 +1,14 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:armor_stand"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "armor_stand"
+      },
+      "minecraft:hand_equipped": true
+    }
+  }
+}

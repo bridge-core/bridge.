@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:gunpowder"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.gunpowder"
+      },
+      "minecraft:icon": {
+        "texture": "gunpowder"
+      },
+      "minecraft:render_offsets": "powders",
+      "minecraft:display_name": {}
+    }
+  }
+}

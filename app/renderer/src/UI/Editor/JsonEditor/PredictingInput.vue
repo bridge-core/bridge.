@@ -92,7 +92,7 @@ export default {
 	methods: {
 		click(val, force) {
 			if (this.trigger_cooldown) return
-			if (this.value === '')
+			if (!this.value)
 				this.value =
 					val || this.$refs.input.$el.querySelector('input').value
 			if (

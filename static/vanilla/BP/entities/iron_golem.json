@@ -24,7 +24,17 @@
       },
       "minecraft:village_created": {
         "minecraft:behavior.defend_village_target": {
-          "priority": 1
+          "priority": 1,
+          "must_reach": true,
+          "attack_chance": 0.05,
+          "entity_types": {
+            "filters": {
+              "any_of": [
+                { "test": "is_family", "subject": "other", "value": "mob" },
+                { "test": "is_family", "subject": "other", "value": "player" }
+              ] 
+            }
+          }
         },
         "minecraft:dweller": {
           "dwelling_type": "village",
@@ -100,6 +110,7 @@
         "max_distance": 10.0
       },
       "minecraft:balloonable": {
+		"mass": 2.0
       },
       "minecraft:preferred_path" : {
         "max_fall_blocks" : 1,
@@ -200,7 +211,6 @@
       },
       "minecraft:behavior.melee_attack": {
         "priority": 1,
-        "target_dist": 1.0,
         "track_target": true
       },
       "minecraft:behavior.move_towards_target": {
@@ -213,7 +223,7 @@
         "speed_multiplier": 0.6,
         "only_at_night": true
       },
-      "minecraft:behavior.move_towards_restriction": {
+      "minecraft:behavior.move_towards_dwelling_restriction": {
         "priority": 4,
         "speed_multiplier": 1
       },
@@ -222,7 +232,7 @@
       },
       "minecraft:behavior.random_stroll": {
         "priority": 6,
-        "speed_multiplier": 1,
+        "speed_multiplier": 0.6,
         "xz_dist": 16
       },
       "minecraft:behavior.look_at_player": {
@@ -235,19 +245,63 @@
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 3,
+        "must_reach": true,
+        "must_see": true,
+
         "entity_types": [
           {
-            "filters": { 
-                "all_of": [
-                  { "test" :  "is_family", "subject" : "other", "value" :  "monster"},
-                  { "test" :  "is_family", "subject" : "other", "operator": "!=", "value" :  "creeper"}
-                ] 
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "monster"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "operator": "!=",
+                  "value": "creeper"
+                }
+              ]
             },
             "within_default": 10
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "hoglin"
+                },
+                {
+                  "test": "is_difficulty",
+                  "operator": "!=",
+                  "value": "peaceful"
+                }
+              ]
+            },
+            "max_dist": 16
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zoglin"
+                },
+                {
+                  "test": "is_difficulty",
+                  "operator": "!=",
+                  "value": "peaceful"
+                }
+              ]
+            },
+            "max_dist": 16
           }
-        ],
-        "must_see": true,
-        "must_reach": true
+        ]
       },
       "minecraft:behavior.hurt_by_target": {
         "priority": 2,
@@ -265,6 +319,8 @@
       },
       "minecraft:follow_range": {
         "value": 64
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 

@@ -1,33 +1,49 @@
 {
-  "format_version": "1.10",
+  "format_version": "1.16.100",
   "minecraft:item": {
     "description": {
       "identifier": "minecraft:pufferfish"
     },
 
     "components": {
-      "minecraft:use_duration": 32,
-      "minecraft:max_damage": 0,
+      "minecraft:use_duration": 1.6,
       "minecraft:stacked_by_data": true,
 
       "minecraft:food": {
         "nutrition": 1,
         "saturation_modifier": "poor",
-        "effects": [
+        "on_consume": {
+          "event": "consumed",
+          "target": "self"
+        }
+      }
+    },
+    "events": {
+      "consumed": {
+        "sequence": [
           {
-            "name": "poison",
-            "duration": 60,
-            "amplifier": 3
+            "add_mob_effect": {
+              "effect": "poison",
+              "duration": 60,
+              "amplifier": 3,
+              "target": "holder"
+            }
           },
           {
-            "name": "nausea", // confusion
-            "duration": 15,
-            "amplifier": 1
+            "add_mob_effect": {
+              "effect": "nausea",
+              "duration": 15,
+              "amplifier": 1,
+              "target": "holder"
+            }
           },
           {
-            "name": "hunger",
-            "duration": 15,
-            "amplifier": 2
+            "add_mob_effect": {
+              "effect": "hunger",
+              "duration": 15,
+              "amplifier": 2,
+              "target": "holder"
+            }
           }
         ]
       }

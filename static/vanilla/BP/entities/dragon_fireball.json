@@ -22,7 +22,8 @@
             "particle": "dragonbreath",
             "duration": 120,
             "color": [ 220, 0, 239 ],
-            "affect_owner": false
+            "affect_owner": false,
+            "reapplication_delay": 20
           },
           "remove_on_hit": { }
         },
@@ -42,6 +43,13 @@
     "minecraft:pushable": {
       "is_pushable": true,
       "is_pushable_by_piston": true
+    },
+    "minecraft:conditional_bandwidth_optimization": {
+      "default_values": {
+        "max_optimized_distance": 80.0,
+        "max_dropped_ticks": 10,
+        "use_motion_prediction_hints": true
+      }
     }
   }
 }

@@ -1,0 +1,22 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:netherite_leggings"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.leggings"
+      },
+      "minecraft:icon": {
+        "texture": "leggings",
+        "frame_index": 5
+      },
+	  "minecraft:armor": {
+		"texture_type": "netherite"
+      },
+      "minecraft:render_offsets": "leggings",
+      "minecraft:display_name": {}
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:fireball"
+    },
+    "components": {
+      "minecraft:fire_charge": {},
+      "minecraft:projectile": {
+        "projectile_entity": "minecraft:small_fireball",
+        "minimum_critical_power": 1.0
+      }
+    }
+  }
+}

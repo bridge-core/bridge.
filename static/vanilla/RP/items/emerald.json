@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:emerald"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.emerald"
+      },
+      "minecraft:icon": {
+        "texture": "emerald"
+      },
+      "minecraft:render_offsets": "emerald",
+      "minecraft:display_name": {}
+    }
+  }
+}

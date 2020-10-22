@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:brewing_stand"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.craftingTables"
+      },
+      "minecraft:icon": {
+        "texture": "brewing_stand"
+      },
+      "minecraft:render_offsets": "brewing_stand",
+      "minecraft:display_name": {}
+    }
+  }
+}

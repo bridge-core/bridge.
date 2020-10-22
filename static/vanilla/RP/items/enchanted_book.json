@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:enchanted_book"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.enchantedBook"
+      },
+      "minecraft:icon": {
+        "texture": "book_enchanted"
+      },
+      "minecraft:render_offsets": "books",
+      "minecraft:display_name": {}
+    }
+  }
+}

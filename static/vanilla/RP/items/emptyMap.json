@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:emptyMap"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.navigation"
+      },
+      "minecraft:icon": {
+        "texture": "map_empty"
+      },
+      "minecraft:render_offsets": "empty_map",
+      "minecraft:display_name": {
+        "value": "item.emptyMap.name"
+      }
+    }
+  }
+}

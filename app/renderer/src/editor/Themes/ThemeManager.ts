@@ -90,14 +90,20 @@ export default class ThemeManager {
 	static get local_theme_names() {
 		let theme_names = []
 		for (let id in this.themes) {
-			theme_names.push({ text: this.themes[id]?.name, value: id })
+			theme_names.push({
+				text: this.themes[id]?.name ?? 'Unknown',
+				value: id,
+			})
 		}
 		for (let id in this.plugin_themes) {
-			theme_names.push({ text: this.plugin_themes[id]?.name, value: id })
+			theme_names.push({
+				text: this.plugin_themes[id]?.name ?? 'Unknown',
+				value: id,
+			})
 		}
 		for (let id in this.plugin_themes_global) {
 			theme_names.push({
-				text: this.plugin_themes_global[id]?.name,
+				text: this.plugin_themes_global[id]?.name ?? 'Unknown',
 				value: id,
 			})
 		}
@@ -106,11 +112,14 @@ export default class ThemeManager {
 	static get global_theme_names() {
 		let theme_names = []
 		for (let id in this.themes) {
-			theme_names.push({ text: this.themes[id]?.name, value: id })
+			theme_names.push({
+				text: this.themes[id]?.name ?? 'Unknown',
+				value: id,
+			})
 		}
 		for (let id in this.plugin_themes_global) {
 			theme_names.push({
-				text: this.plugin_themes_global[id]?.name,
+				text: this.plugin_themes_global[id]?.name ?? 'Unknown',
 				value: id,
 			})
 		}
@@ -197,16 +206,17 @@ export default class ThemeManager {
 			? this.global_theme
 			: Store.state.Settings.global_theme
 		try {
+			// Regardless of what theme is chosen, save what the local theme is for the settings menu to reference
+			this.local_theme = await ProjectConfig.theme
+
 			this.applyTheme(
 				// If the local theme is "None", use the global theme.
-				(await ProjectConfig.theme) == 'bridge.null'
+				this.local_theme === 'bridge.null'
 					? this.global_theme
-					: await ProjectConfig.theme
+					: this.local_theme
 			)
 		} catch {
 			this.applyTheme('bridge.default.theme')
 		}
-		// Regardless of what theme is chosen, save what the local theme is for the settings menu to reference
-		this.local_theme = await ProjectConfig.theme
 	}
 }

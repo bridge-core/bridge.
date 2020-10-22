@@ -30,7 +30,6 @@ export default class EditMoLangWindow extends ContentWindow {
 						this.input = val
 							.replace(/\s\.\s/g, '.')
 							.replace(/\;\n/g, '; ')
-							.replace(/\n/g, '; ')
 					},
 				},
 			],

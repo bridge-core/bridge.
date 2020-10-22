@@ -132,7 +132,6 @@
       "minecraft:jump.static": {
       },
       "minecraft:can_fly": {
-        "value": true
       },
       "minecraft:navigation.fly": {
         "can_path_over_water": true,
@@ -159,6 +158,8 @@
       "minecraft:behavior.look_at_player": {
         "priority": 1,
         "look_distance": 8.0
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       },
       "minecraft:healable": {
         "force_use": true,

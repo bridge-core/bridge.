@@ -20,6 +20,7 @@ import {
 	loadCustomCommands,
 	CommandRegistry,
 	updateCommandFiles,
+	getCommandFiles,
 } from './CustomCommands'
 import FileType from '../editor/FileType'
 import { createErrorNotification } from '../AppCycle/Errors'
@@ -143,14 +144,14 @@ export default class PluginLoader {
 			this.loadComponents(
 				path.join(CURRENT.PROJECT_PATH, 'components'),
 				[]
-			).then(() => ComponentRegistry.updateFiles()),
-
+			),
 			//LOAD CUSTOM COMMANDS IN PROJECT
-			loadCustomCommands(
-				path.join(CURRENT.PROJECT_PATH, 'commands'),
-				[]
-			).then(() => updateCommandFiles()),
+			loadCustomCommands(path.join(CURRENT.PROJECT_PATH, 'commands'), []),
 		])
+
+		//Update files using custom commands/components
+		await ComponentRegistry.updateFiles(getCommandFiles())
+		await updateCommandFiles()
 
 		//Update Monaco Language services
 		await FileType.registerMonacoLanguages()

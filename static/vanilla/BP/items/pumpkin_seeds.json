@@ -4,10 +4,9 @@
     "description": {
       "identifier": "minecraft:pumpkin_seeds"
     },
-
     "components": {
-      "minecraft:seed": {
-        "crop_result": "pumpkin_stem"
+      "minecraft:block_placer": {
+        "block": "minecraft:pumpkin_stem"
       }
     }
   }

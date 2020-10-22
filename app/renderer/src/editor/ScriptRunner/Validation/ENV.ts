@@ -5,6 +5,7 @@ import LightningCache from '../../LightningCache'
 import { IDisposable } from '../../../Types/disposable'
 import { compare } from 'compare-versions'
 import ProjectConfig from '../../../Project/Config'
+import * as MoLang from 'molang'
 
 export const ENV = (
 	disposables: IDisposable[],
@@ -24,6 +25,7 @@ export const ENV = (
 	get FileType() {
 		return FileType.get(filePath)
 	},
+	MoLang: MoLang,
 	Version: {
 		ProjectTarget: ProjectConfig.getFormatVersionSync(),
 		compare,

@@ -170,6 +170,15 @@
         {
           "type": "item",
           "name": "minecraft:speckled_melon",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 4,
+                "max": 12
+              }
+            }
+          ],
           "weight": 5
         },
         {

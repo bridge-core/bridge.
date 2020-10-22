@@ -464,6 +464,8 @@
       "minecraft:variant": {
         "value": 0
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:genetics": {
         "mutation_rate": 0.03125,
         "genes": [

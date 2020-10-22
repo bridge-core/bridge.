@@ -1,8 +1,0 @@
-{
-    "conditions": [
-        "entity_properties", "has_mark_variant", "killed_by_player", "killed_by_player_or_pets", "random_chance", "random_chance_with_looting", "random_difficulty_chance", "random_regional_difficulty_chance"
-    ],
-    "functions": [
-        "enchant_book_for_trading", "enchant_random_gear", "enchant_randomly", "enchant_with_levels", "exploration_map", "fill_container", "furnace_smelt", "looting_enchant", "random_aux_val", "random_block_state", "random_dye", "set_actor_id", "set_banner_details", "set_book_contents", "set_count", "set_damage", "set_data", "set_data_from_color_index", "set_lore", "set_name", "specific_enchants", "trader_material_type"
-    ]
-}

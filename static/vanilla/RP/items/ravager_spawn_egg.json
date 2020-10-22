@@ -1,0 +1,21 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:ravager_spawn_egg"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.mobEgg"
+      },
+      "minecraft:icon": {
+        "texture": "spawn_egg",
+        "frame_index": 57
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {
+        "value": "item.spawn_egg.entity.ravager.name"
+      }
+    }
+  }
+}

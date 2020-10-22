@@ -5,6 +5,7 @@
 				id="json-editing-input"
 				ref="input"
 				@keydown.enter.native="click"
+				v-on="autoApplyEdit ? { change: click } : null"
 				:disabled="file_navigation === 'global'"
 				v-if="type == 'edit'"
 				v-model="value"
@@ -107,14 +108,17 @@ export default {
 		provide_auto_completions() {
 			return this.$store.state.Settings.auto_completions
 		},
+		autoApplyEdit() {
+			return this.$store.state.Settings.automatically_apply_edits
+		},
 	},
 	methods: {
 		click(val) {
 			if (this.trigger_cooldown) return
 
-			if (this.value === '')
+			if (!this.value)
 				this.value = this.$refs.input.$el.querySelector('input').value
-			if (this.value === '' || !this.value) return
+			if (!this.value) return
 			let current = this.render_object.get(this.file_navigation)
 			let is_data_path = TabSystem.getSelected().content.isDataPath(
 				this.file_navigation

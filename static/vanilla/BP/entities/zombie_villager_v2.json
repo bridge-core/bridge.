@@ -325,6 +325,8 @@
       },
       "minecraft:equip_item": {
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:collision_box": {
         "width": 0.6,
         "height": 1.9
@@ -592,10 +594,6 @@
         "search_height": 2,
         "goal_radius": 1.14,
         "interval": 20
-      },
-      "minecraft:behavior.move_towards_restriction": {
-        "priority": 7,
-        "speed_multiplier": 1
       },
       "minecraft:behavior.pickup_items": {
         "priority": 8,

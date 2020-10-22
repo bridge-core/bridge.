@@ -279,8 +279,10 @@ export default {
 
 			//Node already has data meaning that we can focus the editing input (no new children can be added)
 			if (context.data !== '') {
-				const input = document.getElementById('json-editing-input')
-				if (input) input.focus()
+				this.$nextTick(() => {
+					const input = document.getElementById('json-editing-input')
+					if (input) input.focus()
+				})
 			}
 		},
 		attrClick() {
@@ -290,8 +292,10 @@ export default {
 
 			TabSystem.setCurrentFileNav(path)
 
-			const input = document.getElementById('json-editing-input')
-			if (input) input.focus()
+			this.$nextTick(() => {
+				const input = document.getElementById('json-editing-input')
+				if (input) input.focus()
+			})
 		},
 		openAllChildren(
 			children = this.computed_object().children,

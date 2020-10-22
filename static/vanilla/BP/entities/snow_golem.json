@@ -82,6 +82,7 @@
             "cooldown": 2.5,
             "use_item": false,
             "hurt_item": 1,
+            "spawn_items": { "table": "loot_tables/entities/snow_golem_shear.json" },
             "play_sounds": "shear",
             "interact_text": "action.interact.shear",
             "on_interact": {
@@ -145,6 +146,8 @@
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 

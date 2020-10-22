@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:repeater"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.redstoneProducers"
+      },
+      "minecraft:icon": {
+        "texture": "repeater"
+      },
+      "minecraft:render_offsets": "repeater",
+      "minecraft:display_name": {}
+    }
+  }
+}

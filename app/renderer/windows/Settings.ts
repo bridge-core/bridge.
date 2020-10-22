@@ -204,6 +204,11 @@ export default class SettingsWindow extends TabWindow {
 				// 	text: 'Hide File Toolbar',
 				// 	key: `settings.editor.tab.hide_file_toolbar.${Math.random()}`,
 				// }),
+				new ReactiveSwitch(this, 'automatically_apply_edits', {
+					color: 'primary',
+					text: 'Automatically Apply Edits',
+					key: `settings.editor.tab.automatically_apply_edits.${Math.random()}`,
+				}),
 				new ReactiveSwitch(this, 'open_in_fullscreen', {
 					color: 'primary',
 					text: 'Launch In Fullscreen',
@@ -420,10 +425,9 @@ export default class SettingsWindow extends TabWindow {
 						{ text: 'None', value: 'bridge.null' },
 						...ThemeManager.local_theme_names,
 					],
-					action: (val: string) => {
-						if (val != 'bridge.null') ThemeManager.applyTheme(val)
-						ProjectConfig.setTheme(val)
-						trigger('bridge:reloadPlugins')
+					action: async (val: string) => {
+						await ProjectConfig.setTheme(val)
+						await ThemeManager.loadTheme()
 					},
 				},
 				{
@@ -438,10 +442,10 @@ export default class SettingsWindow extends TabWindow {
 					text: 'Choose a global theme...',
 					input: this.data.global_theme,
 					options: ThemeManager.global_theme_names,
-					action: (val: string) => {
+					action: async (val: string) => {
 						this.data.global_theme = val
 						ThemeManager.global_theme = val
-						trigger('bridge:reloadPlugins')
+						await ThemeManager.loadTheme()
 						this.save()
 					},
 				},

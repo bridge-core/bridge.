@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:cobblestone_wall"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.walls"
+      },
+      "minecraft:render_offsets": "walls",
+      "minecraft:display_name": {}
+    }
+  }
+}

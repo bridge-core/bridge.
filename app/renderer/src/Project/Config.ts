@@ -8,7 +8,7 @@ import SETTINGS from '../../store/Settings'
 import { on } from '../AppCycle/EventSystem'
 import { getFormatVersions } from '../autoCompletions/components/VersionedTemplate/Common'
 
-on('bridge:changedProject', () => {
+on('bridge:onProjectChanged', () => {
 	ProjectConfig.prefix_cache = undefined
 	ProjectConfig.formatVersionCache = undefined
 })
@@ -40,21 +40,19 @@ export default class ProjectConfig {
 			}
 		})()
 	}
-	static setPrefix(val: string) {
-		;(async () => {
-			let data
-			try {
-				data = await readJSON(this.config_path)
-			} catch (e) {
-				data = {}
-			}
-			this.prefix_cache = val
+	static async setPrefix(val: string) {
+		let data
+		try {
+			data = await readJSON(this.config_path)
+		} catch (e) {
+			data = {}
+		}
+		this.prefix_cache = val
 
-			await writeJSON(this.config_path, {
-				...data,
-				prefix: val,
-			})
-		})()
+		await writeJSON(this.config_path, {
+			...data,
+			prefix: val,
+		})
 	}
 	static getFormatVersionSync() {
 		try {
@@ -79,21 +77,19 @@ export default class ProjectConfig {
 			}
 		})()
 	}
-	static setFormatVersion(val: string) {
-		;(async () => {
-			let data
-			try {
-				data = await readJSON(this.config_path)
-			} catch (e) {
-				data = {}
-			}
-			this.formatVersionCache = val
+	static async setFormatVersion(val: string) {
+		let data
+		try {
+			data = await readJSON(this.config_path)
+		} catch (e) {
+			data = {}
+		}
+		this.formatVersionCache = val
 
-			await writeJSON(this.config_path, {
-				...data,
-				formatVersion: val,
-			})
-		})()
+		await writeJSON(this.config_path, {
+			...data,
+			formatVersion: val,
+		})
 	}
 	static get theme(): Promise<string> {
 		return (async () => {
@@ -108,22 +104,20 @@ export default class ProjectConfig {
 			}
 		})()
 	}
-	static setTheme(val: string) {
-		;(async () => {
-			let data
-			try {
-				data = await readJSON(this.config_path)
-			} catch (e) {
-				data = {}
-			}
+	static async setTheme(val: string) {
+		let data
+		try {
+			data = await readJSON(this.config_path)
+		} catch (e) {
+			data = {}
+		}
 
-			await writeJSON(this.config_path, {
-				...data,
-				theme: {
-					...(data.theme || {}),
-					[SETTINGS.load().id]: val,
-				},
-			})
-		})()
+		await writeJSON(this.config_path, {
+			...data,
+			theme: {
+				...(data.theme || {}),
+				[SETTINGS.load().id]: val,
+			},
+		})
 	}
 }

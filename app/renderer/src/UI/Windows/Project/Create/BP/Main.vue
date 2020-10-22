@@ -6,7 +6,7 @@
 		:hasMaximizeButton="false"
 		:isFullscreen="false"
 		:width="500"
-		:height="400"
+		:height="420"
 		@closeWindow="close"
 	>
 		<template #default>
@@ -26,6 +26,18 @@
 				"development_behavior_packs" folder.
 			</p>
 			<div class="line" />
+			<v-text-field
+				v-model="projectNamespace"
+				label="Project Namespace"
+				autofocus
+				class="py-6"
+			/>
+			<p class="pt-2">
+				The target Minecraft version should be set to what version you
+				are developing for. Currently <strong>1.16.0</strong> is the
+				stable release and <strong>1.16.100</strong> is the beta
+				release.
+			</p>
 			<v-select
 				background-color="background"
 				v-model="targetVersion"
@@ -34,6 +46,7 @@
 				placeholder="Target Minecraft Version"
 				class="py-2"
 			/>
+			<div class="line" />
 			<v-switch
 				v-model="registerClientData"
 				label="Register Client Data"
@@ -47,10 +60,12 @@
 				:disabled="
 					projectName == '' ||
 						projectDescription == '' ||
-						targetVersion == ''
+						targetVersion == '' ||
+						projectNamespace == ''
 				"
-				><span>Create!</span></v-btn
 			>
+				<span>Create!</span>
+			</v-btn>
 		</template>
 	</BaseWindow>
 </template>
@@ -116,7 +131,12 @@ export default {
 								this.projectName,
 								'/manifest.json'
 							),
-							new Manifest('data', this.registerClientData).get(),
+							new Manifest(
+								'data',
+								this.registerClientData,
+								undefined,
+								this.targetVersion
+							).get(),
 							async () => {
 								if (
 									err &&
@@ -134,29 +154,33 @@ export default {
 									{
 										name: this.projectName,
 										description: this.projectDescription,
+										projectTargetVersion: this
+											.targetVersion,
 									}
 								)
 
-								Vue.$root.$emit('refreshExplorer')
+								this.$root.$emit('refreshExplorer')
 								ProjectConfig.setFormatVersion(
 									this.targetVersion
 								)
+								ProjectConfig.setPrefix(this.projectNamespace)
 								l_w.hide()
 								EventBus.trigger(
 									'bridge:selectProject',
 									this.projectName
 								)
+								this.reset()
 							}
 						)
 					}
 				)
 			}, 50)
-			//this.reset()
 		},
 		reset() {
 			this.projectName = ''
 			this.projectDescription = ''
 			this.targetVersion = ''
+			this.projectNamespace = ''
 		},
 	},
 	watch: {

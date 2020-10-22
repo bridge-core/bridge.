@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:kelp"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.coral_decorations"
+      },
+      "minecraft:icon": {
+        "texture": "kelp"
+      },
+      "minecraft:render_offsets": "kelp",
+      "minecraft:display_name": {}
+    }
+  }
+}

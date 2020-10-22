@@ -1,5 +1,5 @@
 {
-  "format_version": "1.16.0",
+  "format_version": "1.16.100",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:cat",
@@ -134,7 +134,7 @@
             }
           ]
         },
-        "minecraft:behavior.move_towards_restriction": {
+        "minecraft:behavior.move_towards_dwelling_restriction": {
           "priority": 7
         }
       },
@@ -195,6 +195,15 @@
       "minecraft:cat_gift_for_owner": {
         "minecraft:behavior.drop_item_for": {
           "priority": 1,
+          "seconds_before_pickup": 0.0,
+          "cooldown": 0.25,
+          "drop_item_chance": 0.7,
+          "offering_distance": 5.0,
+          "minimum_teleport_distance": 2.0,
+          "max_head_look_at_height": 10.0,
+          "target_range": [ 5.0, 5.0, 5.0 ],
+          "teleport_offset": [ 0.0, 1.0, 0.0],
+          "time_of_day_range": [ 0.74999, 0.80 ],
           "speed_multiplier": 1.0,
           "search_range": 5,
           "search_height": 2,
@@ -206,11 +215,7 @@
               "max_dist": 6
             }
           ],
-          "max_dist":  5,
-          "drop_item_chance": 0.7,
-          "offering_distance": 5,
           "loot_table": "loot_tables/entities/cat_gift.json",
-          "time_of_day_range": [ 0.74999, 0.80 ],
           "on_drop_attempt": {
             "event": "minecraft:cat_gifted_owner",
             "target": "self"
@@ -386,6 +391,8 @@
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 

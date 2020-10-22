@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:cooked_mutton",
+      "aliases": [
+        "minecraft:muttonCooked"
+      ]
+    },
+    "components": {
+      "minecraft:use_duration": 1.6,
+      "minecraft:food": {
+        "nutrition": 6,
+        "saturation_modifier": "good"
+      }
+    }
+  }
+}

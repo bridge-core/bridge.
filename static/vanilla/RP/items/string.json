@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:string"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.arrowComponents"
+      },
+      "minecraft:icon": {
+        "texture": "string"
+      },
+      "minecraft:render_offsets": "string",
+      "minecraft:display_name": {}
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:nether_star"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.netherStar"
+      },
+      "minecraft:icon": {
+        "texture": "nether_star"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {
+        "value": "item.netherStar.name"
+      }
+    }
+  }
+}

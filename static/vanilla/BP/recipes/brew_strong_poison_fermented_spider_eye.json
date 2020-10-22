@@ -9,7 +9,7 @@
 
     "input": "minecraft:potion_type:strong_poison",
     "reagent": "minecraft:fermented_spider_eye",
-    "output": "minecraft:potion_type:harming"
+    "output": "minecraft:potion_type:strong_harming"
   }
 
 }

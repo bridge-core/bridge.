@@ -72,7 +72,7 @@ export default class SearchListView extends ContentWindow {
 					is_disabled: from === 0,
 					action: () => {
 						this.close()
-						new LogListView(search_filter, from - PAGE_SIZE)
+						new SearchListView(search_filter, from - PAGE_SIZE)
 					},
 				},
 				{
@@ -82,7 +82,7 @@ export default class SearchListView extends ContentWindow {
 					is_disabled: from + PAGE_SIZE > logs.length,
 					action: () => {
 						this.close()
-						new LogListView(search_filter, from + PAGE_SIZE)
+						new SearchListView(search_filter, from + PAGE_SIZE)
 					},
 				},
 			]

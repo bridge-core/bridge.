@@ -76,8 +76,11 @@ export const DYNAMIC = {
 		},
 	},
 	plugins: {
+		block_custom_components() {
+			return ComponentRegistry.propose('block')
+		},
 		custom_components() {
-			return ComponentRegistry.propose()
+			return ComponentRegistry.propose('entity')
 		},
 		custom_commands() {
 			return proposeCustomCommands()
@@ -151,6 +154,44 @@ export const DYNAMIC = {
 				)
 			} catch (e) {
 				return []
+			}
+		},
+	},
+	block: {
+		property() {
+			return Object.keys(DYNAMIC.block.property_obj)
+		},
+		property_obj() {
+			try {
+				return TabSystem.getSelected()
+					.content.get('#;bridge_node_skip;#/description/properties')
+					.toJSON()
+			} catch (e) {
+				return {}
+			}
+		},
+		events() {
+			try {
+				return Object.keys(
+					TabSystem.getSelected()
+						.content.get('minecraft:block/events')
+						.toJSON()
+				)
+			} catch (e) {
+				return {}
+			}
+		},
+	},
+	item: {
+		events() {
+			try {
+				return Object.keys(
+					TabSystem.getSelected()
+						.content.get('minecraft:item/events')
+						.toJSON()
+				)
+			} catch (e) {
+				return {}
 			}
 		},
 	},
@@ -387,6 +428,9 @@ export const DYNAMIC = {
 	},
 	children() {
 		return NODE_CONTEXT.toJSON()
+	},
+	current_node_key() {
+		return NODE_CONTEXT.key
 	},
 	current_file_name() {
 		try {

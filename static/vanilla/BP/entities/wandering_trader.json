@@ -108,6 +108,8 @@
       "minecraft:behavior.float": {
         "priority": 0
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:despawn": {
         "remove_child_entities": true,
         "filters": {
@@ -239,10 +241,6 @@
       "minecraft:behavior.open_door": {
         "priority": 6,
         "close_door_after": true
-      },
-      "minecraft:behavior.move_towards_restriction": {
-        "priority": 7,
-        "speed_multiplier": 0.6
       },
       "minecraft:behavior.look_at_player": {
         "priority": 8,

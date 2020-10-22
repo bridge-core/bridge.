@@ -5,12 +5,16 @@
       "identifier": "minecraft:salmon",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "salmon",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.rawFood"
+      },
+      "minecraft:icon": {
+        "texture": "salmon"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "fishes"
+      "minecraft:render_offsets": "fishes",
+      "minecraft:display_name": {}
     }
   }
 }

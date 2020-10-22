@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:turtle_shell_piece"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.scute"
+      },
+      "minecraft:icon": {
+        "texture": "turtle_shell_piece"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
+    }
+  }
+}

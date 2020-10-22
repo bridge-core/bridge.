@@ -1,0 +1,21 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:elytra"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.elytra"
+      },
+      "minecraft:icon": {
+        "texture": "elytra"
+      },
+	  "minecraft:armor": {
+		"texture_type": "elytra"
+      },
+      "minecraft:render_offsets": "wings",
+      "minecraft:display_name": {}
+    }
+  }
+}

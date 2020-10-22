@@ -18,7 +18,7 @@ export async function createClientEntity(filePath: string) {
 		await Promise.all(
 			Object.entries(geometry).map(async ([name, id]) => {
 				let [modelFile] = await FetchDefinitions.fetchSingle(
-					'entity_model',
+					'model',
 					['identifiers'],
 					id,
 					false

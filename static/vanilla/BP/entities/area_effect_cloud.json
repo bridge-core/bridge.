@@ -11,6 +11,8 @@
     "components": {
       "minecraft:physics": {
         "has_collision": false
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     }
   }

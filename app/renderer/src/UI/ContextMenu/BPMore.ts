@@ -16,6 +16,7 @@ import {
 	createDropdownWindow,
 	createConfirmWindow,
 } from '../Windows/Common/CommonDefinitions'
+import { trigger } from '../../AppCycle/EventSystem'
 
 export default [
 	{
@@ -158,7 +159,7 @@ export default [
 				async () => {
 					let lw = new LoadingWindow()
 					await trash(CURRENT.PROJECT_PATH)
-					EventBus.trigger('bridge:findDefaultPack', true)
+					trigger('bridge:findDefaultPack', true)
 					lw.close()
 				},
 				() => {}

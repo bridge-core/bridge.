@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:double_plant"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.grass"
+      },
+      "minecraft:render_offsets": "plants",
+      "minecraft:display_name": {}
+    }
+  }
+}

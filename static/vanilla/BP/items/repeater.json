@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:repeater"
+    },
+    "components": {
+      "minecraft:block_placer": {
+        "block": "unpowered_repeater"
+      }
+    }
+  }
+}

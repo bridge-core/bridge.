@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:chainmail_boots"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.boots"
+      },
+      "minecraft:icon": {
+        "texture": "boots",
+        "frame_index": 1
+      },
+      "minecraft:armor": {
+        "texture_type": "chain"
+      },
+      "minecraft:render_offsets": "boots",
+      "minecraft:display_name": {}
+    }
+  }
+}

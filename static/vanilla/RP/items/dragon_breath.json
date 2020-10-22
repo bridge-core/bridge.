@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:dragon_breath"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.potionIngredients"
+      },
+      "minecraft:icon": {
+        "texture": "dragon_breath"
+      },
+      "minecraft:render_offsets": "bottles",
+      "minecraft:display_name": {}
+    }
+  }
+}

@@ -223,6 +223,8 @@
       "minecraft:on_target_escape": {
         "event": "minecraft:stop_exploding",
         "target": "self"
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 

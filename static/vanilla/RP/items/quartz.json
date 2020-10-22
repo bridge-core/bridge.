@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:quartz"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.netherQuartz"
+      },
+      "minecraft:icon": {
+        "texture": "quartz"
+      },
+      "minecraft:render_offsets": "quartz",
+      "minecraft:display_name": {}
+    }
+  }
+}

@@ -516,10 +516,6 @@
         "goal_radius": 1.14,
         "interval": 20
       },
-      "minecraft:behavior.move_towards_restriction": {
-        "priority": 7,
-        "speed_multiplier": 1
-      },
       "minecraft:behavior.pickup_items": {
         "priority": 8,
         "max_dist": 3,
@@ -613,6 +609,8 @@
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 

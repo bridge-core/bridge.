@@ -1,0 +1,26 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:cocoa_beans",
+      "aliases": [
+        "minecraft:dye:3"
+      ]
+    },
+    "components": {
+      "minecraft:stacked_by_data": true,
+      "minecraft:ignores_permission": true,
+      "minecraft:dye_powder": {
+        "color": "brown"
+      },
+      "minecraft:block_placer": {
+        "block": "minecraft:cocoa",
+		"use_on": [
+          {
+            "tags": "q.all_tags('log', 'jungle')"
+          }
+        ]
+      }
+    }
+  }
+}

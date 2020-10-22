@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:fence_gate"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.fenceGate"
+      },
+      "minecraft:render_offsets": "fences",
+      "minecraft:display_name": {}
+    }
+  }
+}

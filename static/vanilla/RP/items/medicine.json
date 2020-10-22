@@ -1,0 +1,17 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:medicine"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.items"
+      },
+      "minecraft:icon": {
+        "texture": "medicine"
+      },
+      "minecraft:display_name": {}
+    }
+  }
+}

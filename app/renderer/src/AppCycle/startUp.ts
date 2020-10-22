@@ -9,12 +9,20 @@ import './DropFile'
 import './ResizeWatcher'
 import './Errors'
 import Store from '../../store/index'
+import Provider from '../autoCompletions/Provider'
+import { loadDependency } from './fetchDeps'
 import { createUpdateAppWindow } from '../UI/Windows/UpdateApp/definition'
 
 export default async function startUp() {
 	SETTINGS.setup()
 	// Start listening for online and offline events
 	CONNECTION.startListening()
+
+	//Setup auto-completions
+	Provider.loadAssets(
+		await loadDependency('auto-completions.js'),
+		await loadDependency('file-definitions.js')
+	)
 
 	setupDefaultMenus()
 	if (process.env.NODE_ENV !== 'development') {
@@ -30,20 +38,7 @@ export default async function startUp() {
 		})
 	}
 
-	// Fetch the latest json/version data
-	fetchLatestJson().then(updateData => {
-		if (updateData.update_available) {
-			// If there's an update, notify the user
-			createNotification({
-				icon: 'mdi-update',
-				message: 'Update Available',
-				textColor: 'white',
-				onClick: () => {
-					createUpdateAppWindow(updateData)
-				},
-			})
-		}
-	})
+	createAppUpdateNotification()
 
 	if (process.env.NODE_ENV !== 'development') {
 		let getting_started = createNotification({
@@ -52,7 +47,7 @@ export default async function startUp() {
 			textColor: 'white',
 			onClick: () => {
 				shell.openExternal(
-					'https://github.com/bridge-core/bridge./blob/master/GETTING_STARTED.md'
+					'https://bridge-core.github.io/editor-docs/getting-started/'
 				)
 				getting_started.dispose()
 			},
@@ -62,4 +57,21 @@ export default async function startUp() {
 	if (Store.state.Settings.open_in_fullscreen) {
 		remote.getCurrentWindow().maximize()
 	}
+}
+
+export function createAppUpdateNotification() {
+	// Fetch the latest json/version data
+	fetchLatestJson().then(updateData => {
+		if (updateData.update_available) {
+			// If there's an update, notify the user
+			const notification = createNotification({
+				icon: 'mdi-update',
+				message: 'Update Available',
+				textColor: 'white',
+				onClick: () => {
+					createUpdateAppWindow(updateData, notification)
+				},
+			})
+		}
+	})
 }

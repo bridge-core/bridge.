@@ -1,0 +1,22 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+      "description": {
+        "identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}_boots",
+		"category": "equipment"
+      },
+      "components": {
+        "minecraft:creative_category": {		
+          "parent": "itemGroup.name.boots"	
+        },
+        "minecraft:icon": {	
+          "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}_boots"
+        },
+        "minecraft:armor": {		
+          "texture_type": ""	
+        },
+        "minecraft:render_offsets": "boots",	
+        "minecraft:display_name": {}	
+      }
+    }
+  }

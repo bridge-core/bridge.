@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:comparator"
+    },
+    "components": {
+      "minecraft:block_placer": {
+        "block": "unpowered_comparator"
+      }
+    }
+  }
+}

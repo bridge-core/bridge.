@@ -136,9 +136,6 @@
 							"damage_nearby_mobs" : "variable.damage_nearby_mobs"
 						},
 						{
-							"bow_and_arrow" : "query.has_target"
-						},
-						{
 							"swimming" : "variable.swim_amount > 0.0"
 						},
 						{
@@ -270,9 +267,6 @@
 						"bob",
 						{
 							"damage_nearby_mobs" : "variable.damage_nearby_mobs"
-						},
-						{
-							"bow_and_arrow" : "query.has_target"
 						},
 						{
 							"swimming" : "variable.swim_amount > 0.0"

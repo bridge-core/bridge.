@@ -5,11 +5,15 @@
       "identifier": "minecraft:wheat_seeds",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "seeds_wheat",
-
-      "minecraft:render_offsets": "seeds"
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.seed"
+      },
+      "minecraft:icon": {
+        "texture": "seeds_wheat"
+      },
+      "minecraft:render_offsets": "seeds",
+      "minecraft:display_name": {}
     }
   }
 }

@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:cooked_mutton",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.cookedFood"
+      },
+      "minecraft:icon": {
+        "texture": "mutton_cooked"
+      },
+      "minecraft:use_animation": "eat",
+      "minecraft:render_offsets": "meats",
+      "minecraft:display_name": {
+        "value": "item.muttonCooked.name"
+      }
+    }
+  }
+}

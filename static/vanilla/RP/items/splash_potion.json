@@ -1,0 +1,16 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:splash_potion"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "potion_bottle_splash"
+      },
+      "minecraft:use_animation": "drink",
+      "minecraft:render_offsets": "splash_potions",
+      "minecraft:display_name": {}
+    }
+  }
+}

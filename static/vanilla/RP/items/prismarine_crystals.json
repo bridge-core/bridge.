@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:prismarine_crystals"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.prismarineItems"
+      },
+      "minecraft:icon": {
+        "texture": "prismarine_crystals"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
+    }
+  }
+}

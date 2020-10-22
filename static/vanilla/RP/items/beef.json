@@ -5,12 +5,16 @@
       "identifier": "minecraft:beef",
       "category": "Nature"
     },
-    
     "components": {
-      "minecraft:icon": "beef_raw",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.rawFood"
+      },
+      "minecraft:icon": {
+        "texture": "beef_raw"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "meats"
+      "minecraft:render_offsets": "meats",
+      "minecraft:display_name": {}
     }
   }
 }

@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:carrot_on_a_stick"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.fishingRods"
+      },
+      "minecraft:icon": {
+        "texture": "carrot_on_a_stick"
+      },
+      "minecraft:render_offsets": "fishing_rods",
+      "minecraft:display_name": {
+        "value": "item.carrotOnAStick.name"
+      }
+    }
+  }
+}

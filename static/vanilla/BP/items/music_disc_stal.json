@@ -1,0 +1,19 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:music_disc_stal",
+      "aliases": [
+        "minecraft:record_stal"
+      ]
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:record": {
+        "sound_event": "stal",
+        "duration": 150.0,
+        "comparator_signal": 8
+      }
+    }
+  }
+}

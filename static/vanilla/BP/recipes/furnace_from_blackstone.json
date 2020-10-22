@@ -17,6 +17,7 @@
     },
     "result": {
       "item": "minecraft:furnace"
-    }
+    },
+    "priority": 2
   }
 }

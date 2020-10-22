@@ -1,0 +1,17 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:experience_bottle"
+    },
+    "components": {
+      "minecraft:foil": true,
+      "minecraft:throwable": {
+        "do_swing_animation": true
+      },
+      "minecraft:projectile": {
+        "projectile_entity": "minecraft:xp_bottle"
+      }
+    }
+  }
+}

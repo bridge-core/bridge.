@@ -49,7 +49,8 @@
         "minecraft:transformation": {
           "into": "minecraft:zombie_pigman",
           "transformation_sound" : "converted_to_zombified",
-          "keep_level": true
+          "keep_level": true,
+          "preserve_equipment": true
         }
       },
 
@@ -175,26 +176,12 @@
       },
       "minecraft:home": {
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:experience_reward": {
-        "on_death": "query.last_hit_by_player ? 10 : 0"
+        "on_death": "query.last_hit_by_player ? 20 : 0"
       },
-      "minecraft:block_sensor": {
-        "sensor_radius": 16,
-        "on_break": [
-          {
-            "block_list": [
-              "minecraft:gold_block",
-              "minecraft:chest",
-              "minecraft:ender_chest",
-              "minecraft:barrel",
-              "minecraft:shulker_box",
-              "minecraft:undyed_shulker_box"
-            ],
-            "on_block_broken": "important_block_destroyed_event"
-          }
-        ]
-      },
-
+      
       "minecraft:on_target_acquired": {
         "event": "become_angry_event",
         "target": "self"
@@ -346,8 +333,7 @@
       "become_calm_event": {
         "remove": {
           "component_groups": [
-            "angry",
-            "take_target_as_response_to_block_break"
+            "angry"
           ]
         },
         "add": {

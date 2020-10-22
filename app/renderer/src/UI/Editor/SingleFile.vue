@@ -10,7 +10,13 @@
 		}"
 	>
 		<v-container v-if="file_viewer === 'image'">
-			<img class="image" :src="image" style="max-width: 100%;" />
+			<img
+				class="image"
+				:src="image"
+				:style="`width: ${zoom}%; cursor: zoom-in;`"
+				@click.left="zoomIn"
+				@click.right="zoomOut"
+			/>
 		</v-container>
 		<audio-player v-else-if="file_viewer === 'audio'" :src="audio" />
 		<model-editor
@@ -19,6 +25,11 @@
 			:available_height="available_height"
 			available_width="100%"
 		/>
+		<!--<structure-editor
+			v-else-if="file_viewer === 'mcstructure'"
+			:filePath="file.file_path"
+			:availableHeight="available_height"
+		/>-->
 		<json-error-screen
 			v-else-if="file_viewer === 'json' && json_object == 'error'"
 		/>
@@ -54,6 +65,7 @@ import DataUrl from 'dataurl'
 import AudioPlayer from './AudioPlayer'
 import FileType from '../../editor/FileType'
 import ModelEditor from './Model/Main'
+import StructureEditor from './Structure/Main'
 import TextEditor from './Text/Monaco'
 
 export default {
@@ -63,6 +75,7 @@ export default {
 		JsonErrorScreen,
 		AudioPlayer,
 		ModelEditor,
+		StructureEditor,
 		TextEditor,
 	},
 	props: {
@@ -79,6 +92,7 @@ export default {
 				func: 'mcfunction',
 				html: 'text/html',
 			},
+			zoom: 50,
 		}
 	},
 	computed: {
@@ -90,6 +104,7 @@ export default {
 			else if (this.extension === 'png' || this.extension === 'tga')
 				return 'image'
 			else if (this.extension === 'ogg') return 'audio'
+			else if (this.extension === 'mcstructure') return 'mcstructure'
 			return 'text'
 		},
 		extension() {
@@ -166,6 +181,16 @@ export default {
 				data,
 				mimetype: `${type}/${ext}`,
 			})
+		},
+		zoomIn() {
+			if (this.zoom != 100) {
+				this.zoom = this.zoom + 10
+			}
+		},
+		zoomOut() {
+			if (this.zoom != 10) {
+				this.zoom = this.zoom - 10
+			}
 		},
 	},
 	watch: {

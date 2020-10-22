@@ -10,16 +10,10 @@
 
       "minecraft:food": {
         "nutrition": 2,
-        "saturation_modifier": "low",
-        "is_meat":  false
+        "saturation_modifier": "low"
       },
-      "minecraft:seed": {
-        "crop_result": "sweet_berry_bush",
-        "plant_at": [
-          "grass",
-          "dirt",
-          "podzol"
-        ]
+      "minecraft:block_placer": {
+        "block": "minecraft:sweet_berry_bush"
       }
     }
   }

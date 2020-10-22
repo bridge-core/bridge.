@@ -3,16 +3,22 @@ import { Marked } from '@ts-stack/markdown'
 import { WEB_APP_DATA } from '../src/constants'
 import ContentWindow from '../src/UI/Windows/Common/Content'
 import { updateApp } from '../src/Utilities/updateApp'
+import { IDisposable } from '../src/Types/disposable'
+import { createAppUpdateNotification } from '../src/AppCycle/startUp'
 
 export default class UpdateWindow extends ContentWindow {
 	content: any
-	constructor({
-		description,
-		latest_version,
-		downloads,
-		latest_version_name,
-		urls,
-	}: newVersionRes) {
+	constructor(
+		{
+			description,
+			latest_version,
+			downloads,
+			latest_version_name,
+			download_available,
+			urls,
+		}: newVersionRes,
+		notification: IDisposable
+	) {
 		// Check if there's an update name, if not, add a generic "update available"
 		if (!latest_version_name.includes('-'))
 			latest_version_name = latest_version.concat(' - Update Available')
@@ -47,6 +53,7 @@ export default class UpdateWindow extends ContentWindow {
 						icon: 'mdi-download',
 						text: 'Download!',
 						is_rounded: false,
+						is_disabled: !download_available,
 						color: 'primary',
 						action: () => {
 							this.close()
@@ -74,6 +81,22 @@ export default class UpdateWindow extends ContentWindow {
 			{
 				type: 'divider',
 			},
+			...(!download_available
+				? [
+						{
+							text: `\nWe are still in the process of rolling out the update. It will be available shortly.`,
+						},
+						{
+							color: 'primary',
+							text: ' Refresh!\n',
+							action: () => {
+								this.close()
+								notification.dispose()
+								createAppUpdateNotification()
+							},
+						},
+				  ]
+				: []),
 			{
 				type: 'html-text',
 				text: `<br>${Marked.parse(description)}`,

@@ -5,14 +5,17 @@
       "identifier": "minecraft:golden_apple",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "apple_golden",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.crop"
+      },
+      "minecraft:icon": {
+        "texture": "apple_golden"
+      },
       "minecraft:use_animation": "eat",
       "minecraft:hover_text_color": "aqua",
-
-      "minecraft:render_offsets": "apple"
-      
+      "minecraft:render_offsets": "apple",
+      "minecraft:display_name": {}
     }
   }
 }

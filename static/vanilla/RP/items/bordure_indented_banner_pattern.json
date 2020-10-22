@@ -1,0 +1,20 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:bordure_indented_banner_pattern"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.banner_pattern"
+      },
+      "minecraft:icon": {
+        "texture": "banner_pattern"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {
+        "value": "item.banner_pattern.vines"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:shears"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.tools"
+      },
+      "minecraft:icon": {
+        "texture": "shears"
+      },
+      "minecraft:render_offsets": "shears",
+      "minecraft:display_name": {}
+    }
+  }
+}

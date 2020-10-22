@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:seagrass"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.coral_decorations"
+      },
+      "minecraft:render_offsets": "grass",
+      "minecraft:display_name": {}
+    }
+  }
+}

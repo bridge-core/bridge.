@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:lead"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.tools"
+      },
+      "minecraft:icon": {
+        "texture": "lead"
+      },
+      "minecraft:render_offsets": "lead",
+      "minecraft:display_name": {}
+    }
+  }
+}

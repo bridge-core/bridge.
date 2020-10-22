@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:rabbit_foot"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.leather"
+      },
+      "minecraft:icon": {
+        "texture": "rabbit_foot"
+      },
+      "minecraft:render_offsets": "rabbit_foot",
+      "minecraft:display_name": {}
+    }
+  }
+}

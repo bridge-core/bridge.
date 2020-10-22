@@ -1,3 +1,6 @@
 [ 
-    { "key": "identifiers", "path": "minecraft:block/description/identifier" }
+    { "key": "identifiers", "path": "minecraft:block/description/identifier" },
+    { "key": "custom_components", "hook": "block.custom_components" },
+    { "key": "events", "path": "minecraft:block/events" },
+    { "key": "recipe_tags", "path": "minecraft:block/components/minecraft:crafting_table/crafting_tags"}
 ]

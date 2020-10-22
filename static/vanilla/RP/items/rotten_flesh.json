@@ -5,12 +5,16 @@
       "identifier": "minecraft:rotten_flesh",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "rotten_flesh",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.natureMisc"
+      },
+      "minecraft:icon": {
+        "texture": "rotten_flesh"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "flesh"
+      "minecraft:render_offsets": "flesh",
+      "minecraft:display_name": {}
     }
   }
 }

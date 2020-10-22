@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:popped_chorus_fruit"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.natureBuildingBlocks"
+      },
+      "minecraft:icon": {
+        "texture": "chorus_fruit_popped"
+      },
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {
+        "value": "item.chorus_fruit_popped.name"
+      }
+    }
+  }
+}

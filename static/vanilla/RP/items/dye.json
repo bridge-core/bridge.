@@ -1,0 +1,15 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:dye"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "dye_powder"
+      },
+      "minecraft:render_offsets": "powders",
+      "minecraft:display_name": {}
+    }
+  }
+}

@@ -5,12 +5,16 @@
       "identifier": "minecraft:melon",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "melon",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.crop"
+      },
+      "minecraft:icon": {
+        "texture": "melon"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "melon"
+      "minecraft:render_offsets": "melon",
+      "minecraft:display_name": {}
     }
   }
 }

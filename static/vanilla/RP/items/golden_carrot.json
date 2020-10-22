@@ -5,12 +5,16 @@
       "identifier": "minecraft:golden_carrot",
       "category": "Nature"
     },
-
     "components": {
-      "minecraft:icon": "carrot_golden",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.crop"
+      },
+      "minecraft:icon": {
+        "texture": "carrot_golden"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "carrots"
+      "minecraft:render_offsets": "carrots",
+      "minecraft:display_name": {}
     }
   }
 }

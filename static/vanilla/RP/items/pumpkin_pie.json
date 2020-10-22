@@ -5,12 +5,16 @@
       "identifier": "minecraft:pumpkin_pie",
       "category": "Equipment"
     },
-
     "components": {
-      "minecraft:icon": "pumpkin_pie",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.miscFood"
+      },
+      "minecraft:icon": {
+        "texture": "pumpkin_pie"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "miscellaneous"
+      "minecraft:render_offsets": "miscellaneous",
+      "minecraft:display_name": {}
     }
   }
 }

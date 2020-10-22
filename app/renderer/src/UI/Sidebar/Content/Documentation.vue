@@ -25,33 +25,57 @@
 		<v-subheader style="/*margin-top: 32px;*/">Minecraft</v-subheader>
 		<v-container>
 			<template v-for="(doc, i) in doc_list">
-				<v-btn :key="`btn.${i}`" @click.stop="openDoc(doc)" class="font-weight-light" block text>
+				<v-btn
+					:key="`btn.${i}`"
+					@click.stop="openDoc(doc)"
+					class="font-weight-light btn-hover"
+					block
+					text
+				>
 					<span>{{ doc }}</span>
 					<v-spacer />
 					<v-icon>mdi-chevron-right</v-icon>
 				</v-btn>
 
-				<v-divider v-if="i + 1 < doc_list.length" :key="`divider.${i}`" />
+				<v-divider
+					v-if="i + 1 < doc_list.length"
+					:key="`divider.${i}`"
+				/>
 			</template>
 		</v-container>
 
 		<v-subheader style="/*margin-top: 32px;*/">bridge.</v-subheader>
 		<v-container>
 			<template v-for="([name, link], i) in bridge_docs">
-				<v-btn :key="`btn.${i}`" @click.stop="openLink(link)" class="font-weight-light" block text>
+				<v-btn
+					:key="`btn.${i}`"
+					@click.stop="openLink(link)"
+					class="font-weight-light btn-hover"
+					block
+					text
+				>
 					<span>{{ name }}</span>
 					<v-spacer />
 					<v-icon>mdi-chevron-right</v-icon>
 				</v-btn>
 
-				<v-divider v-if="i + 1 < bridge_docs.length" :key="`divider.${i}`" />
+				<v-divider
+					v-if="i + 1 < bridge_docs.length"
+					:key="`divider.${i}`"
+				/>
 			</template>
 		</v-container>
 	</v-container>
 </template>
 
 <script>
-import { DOC_LIST, DOC_URL, CURRENT } from '../../../constants'
+import {
+	DOC_LIST,
+	DOC_URL,
+	CURRENT,
+	DOC_URL_BETA,
+	MC_BETA_VERSION,
+} from '../../../constants'
 import { shell } from 'electron'
 import TagDocumentation from '../../../../windows/Documentation/Tag.ts'
 
@@ -69,11 +93,11 @@ export default {
 			bridge_docs: [
 				[
 					'Custom Commands',
-					'https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_commands.md',
+					'https://bridge-core.github.io/plugin-docs/custom-commands/',
 				],
 				[
 					'Custom Components',
-					'https://github.com/bridge-core/bridge./blob/master/plugin_docs/custom_components.md',
+					'https://bridge-core.github.io/plugin-docs/custom-components/',
 				],
 			],
 		}
@@ -88,6 +112,13 @@ export default {
 		project() {
 			return CURRENT.PROJECT
 		},
+		docURL() {
+			if (CURRENT.PROJECT_TARGET_VERSION == MC_BETA_VERSION) {
+				return DOC_URL_BETA
+			} else {
+				return DOC_URL
+			}
+		},
 	},
 	methods: {
 		onResize() {
@@ -95,7 +126,7 @@ export default {
 		},
 
 		openDoc(doc) {
-			shell.openExternal(`${DOC_URL}${encodeURI(doc)}`)
+			shell.openExternal(`${this.docURL}${encodeURI(doc)}`)
 		},
 		openLink(l) {
 			shell.openExternal(l)
@@ -111,12 +142,16 @@ export default {
 div.container {
 	padding: 4px;
 	overflow-y: auto;
+	overflow-x: hidden;
 }
-
 .v-btn {
 	margin: 0;
 }
 .first {
 	padding-left: 0.1em;
+}
+.btn-hover:hover {
+	width: 105%;
+	border-left: 3px solid var(--v-primary-base);
 }
 </style>

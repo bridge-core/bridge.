@@ -1,0 +1,19 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:cod",
+      "aliases": [
+        "minecraft:fish"
+      ]
+    },
+    "components": {
+      "minecraft:use_duration": 1.6,
+      "minecraft:stacked_by_data": true,
+      "minecraft:food": {
+        "nutrition": 2,
+        "saturation_modifier": "poor"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:gray_dye",
+      "aliases": [
+        "minecraft:dye:8"
+      ]
+    },
+    "components": {
+      "minecraft:stacked_by_data": true,
+      "minecraft:ignores_permission": true,
+      "minecraft:dye_powder": {
+        "color": "gray"
+      }
+    }
+  }
+}

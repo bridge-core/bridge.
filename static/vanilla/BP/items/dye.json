@@ -1,0 +1,16 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:dye"
+    },
+    "components": {
+      "minecraft:stacked_by_data": true,
+      "minecraft:ignores_permission": true,
+      "minecraft:dye_powder": {},
+      "minecraft:fertilizer": {
+        "type": "bonemeal"
+      }
+    }
+  }
+}

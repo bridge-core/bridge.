@@ -7,7 +7,11 @@
 	>
 		<v-tab
 			v-for="(file, i) in open_files"
-			:key="`${selected_project}-${i}-${unsaved.join()}-${file.content.isLoadingMetaData}`"
+			:key="
+				`${selected_project}-${i}-${unsaved.join()}-${
+					file.content.isLoadingMetaData
+				}`
+			"
 			:ripple="!isSelected(i)"
 			:class="`tab ${isSelected(i) ? 'selected' : ''}`"
 			:style="
@@ -35,9 +39,19 @@
 				<v-icon small>mdi-book-open-page-variant</v-icon>
 			</v-btn>
 
-			<v-tooltip v-if="file.content.isLoadingMetaData" color="tooltip" right>
+			<v-tooltip
+				v-if="file.content.isLoadingMetaData"
+				color="tooltip"
+				right
+			>
 				<template v-slot:activator="{ on }">
-					<v-progress-circular v-on="on" indeterminate :size="14" :width="2" color="primary" />
+					<v-progress-circular
+						v-on="on"
+						indeterminate
+						:size="14"
+						:width="2"
+						color="primary"
+					/>
 				</template>
 				<span>Validating file...</span>
 			</v-tooltip>
@@ -46,7 +60,8 @@
 				v-else-if="getIcon(file.file_path)"
 				:color="isSelected(i) ? 'primary' : undefined"
 				small
-			>{{ getIcon(file.file_path) }}</v-icon>
+				>{{ getIcon(file.file_path) }}</v-icon
+			>
 
 			<span v-if="file.folders.length > 0">
 				{{ file.folders[file.folders.length - 1] }}
@@ -65,7 +80,8 @@
 						:style="
 							`font-style: ${unsaved[i] ? 'italic' : 'none'};`
 						"
-					>{{ getFileName(file.file_name) }}</span>
+						>{{ getFileName(file.file_name) }}</span
+					>
 				</template>
 				<span>{{ file.file_name }}</span>
 			</v-tooltip>
@@ -82,7 +98,7 @@ import TabSystem from '../../TabSystem'
 import EventBus from '../../EventBus'
 import FileType from '../../editor/FileType'
 import { shell } from 'electron'
-import { DOC_URL } from '../../constants'
+import { DOC_URL, CURRENT, DOC_URL_BETA, MC_BETA_VERSION } from '../../constants'
 import { getTabContextMenu } from '../../UI/ContextMenu/Tab'
 
 export default {
@@ -138,6 +154,13 @@ export default {
 		},
 		is_dark_mode() {
 			return this.$store.state.Appearance.is_dark_mode
+		},
+		docURL() {
+			if (CURRENT.PROJECT_TARGET_VERSION == MC_BETA_VERSION) {
+				return DOC_URL_BETA
+			} else {
+				return DOC_URL
+			}
 		},
 	},
 	methods: {
@@ -197,7 +220,7 @@ export default {
 		},
 		openDoc(file_path) {
 			shell.openExternal(
-				`${DOC_URL}${encodeURI(
+				`${this.docURL}${encodeURI(
 					FileType.getData(file_path).documentation
 				)}`
 			)

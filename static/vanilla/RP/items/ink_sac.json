@@ -1,0 +1,18 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:ink_sac"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "dye_powder",
+        "frame_index": 0
+      },
+      "minecraft:render_offsets": "powders",
+      "minecraft:display_name": {
+        "value": "item.dye.black.name"
+      }
+    }
+  }
+}

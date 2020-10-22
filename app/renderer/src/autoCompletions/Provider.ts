@@ -18,7 +18,7 @@ import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
 import { IDisposable } from '../Types/disposable'
 
 declare var __static: string
-
+declare const BridgeAutoCompletions: any
 let FILE_DEFS: FileDefinition[] = []
 let PLUGIN_FILE_DEFS: Record<string, FileDefinition[]> = {}
 let PLUGIN_COMPLETIONS: { key: string; created: boolean }[] = []
@@ -40,34 +40,15 @@ class Provider {
 		else if (startState) this.start_state = startState
 	}
 
-	static loadAssets() {
-		let total = 0
-		LIB = { dynamic: DYNAMIC }
-
-		this.loadAsset('files').then((files: string[]) =>
-			files.forEach(f =>
-				this.loadAsset(f).then((data: any) => {
-					//ALLOW MULTIPLE FILES TO REGISTER THE SAME LIB KEY
-					if (data.$register_as !== undefined) {
-						f = data.$register_as
-						delete data.$register_as
-					}
-
-					this.storeInLIB(f, data)
-					total++
-					if (total >= files.length) {
-						LIB_LOADED = true
-						this.loadAllPluginCompletions()
-						EventBus.trigger('bridge:loadedFileDefs')
-					}
-				})
-			)
-		)
-		this.loadAsset('file_definitions', 'data/').then(
-			(def: FileDefinition[]) => {
-				FILE_DEFS = def
-			}
-		)
+	static loadAssets(fetchedLib: any, fileDefs: FileDefinition[]) {
+		LIB = { dynamic: DYNAMIC, ...fetchedLib }
+		FILE_DEFS = fileDefs
+		this.loadAllPluginCompletions()
+		EventBus.trigger('bridge:loadedFileDefs')
+		LIB_LOADED = true
+	}
+	static get LIB_LOADED() {
+		return LIB_LOADED
 	}
 	static loadAsset(name: string, path = 'auto_completions/'): any {
 		return new Promise((resolve, reject) => {
@@ -122,6 +103,8 @@ class Provider {
 		path: { key: string; created: boolean }[],
 		current = LIB
 	) {
+		if (path.length === 0) return
+
 		let { key, created } = path.shift()
 		// console.log(key, created);
 		if (path.length > 0) this.removeFromLib(path, current[key])
@@ -418,10 +401,16 @@ class Provider {
 		let dyn = Omega.walk(template['$key'])
 		if (template[`$dynamic_template.${dyn}`] !== undefined) {
 			return this.compileTemplate(template[`$dynamic_template.${dyn}`])
+		} else if (template[`$versioned_template.${dyn}`] !== undefined) {
+			return compileVersionedTemplate(
+				template[`$versioned_template.${dyn}`]
+			).object
 		}
+		if (template.$load)
+			template = { ...template, ...this.omegaExpression(template.$load) }
+
 		return template[dyn || '$fallback'] || template['$default']
 	}
 }
-Provider.loadAssets()
 
 export default Provider

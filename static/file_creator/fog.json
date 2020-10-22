@@ -1,0 +1,21 @@
+{
+    "icon": "mdi-weather-fog",
+    "title": "Fog", 
+    "extension": "json",
+    "path": "fogs/",
+
+    "templates": {
+        "$default_pack": {
+            "path": "RP/fogs"
+        },
+        "Blank Fog": {
+            "format_version": {},
+            "minecraft:fog_settings": {
+                "description": {
+                    "identifier": {}
+                },
+                "distance": {}
+            }
+        }
+    }
+}

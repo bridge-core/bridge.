@@ -1,0 +1,48 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:wooden_sword"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:use_duration": 3600,
+      "minecraft:hand_equipped": true,
+      "minecraft:damageable": {
+        "max_damage": 131
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [ "minecraft:planks" ],
+            "repair_amount": "query.max_damage * 0.25"
+          },
+          {
+            "items": [ "minecraft:wooden_sword" ],
+            "repair_amount": "context.other->query.remaining_health + 0.05 * context.other->query.max_damage"
+          }
+        ]
+      },
+      "minecraft:mining_speed": 1.5,
+      "minecraft:damage": 4,
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "sword"
+      },
+      "minecraft:can_destroy_in_creative": false,
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          {
+            "block": "minecraft:web",
+            "speed": 15
+          },
+          {
+            "block": "minecraft:bamboo",
+            "speed": 10
+          }
+        ]
+      }
+    }
+  }
+}

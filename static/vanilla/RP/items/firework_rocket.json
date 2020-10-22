@@ -1,0 +1,20 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:firework_rocket"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.items"
+      },
+      "minecraft:icon": {
+        "texture": "fireworks"
+      },
+      "minecraft:render_offsets": "fireworks",
+      "minecraft:display_name": {
+        "value": "item.fireworks.name"
+      }
+    }
+  }
+}

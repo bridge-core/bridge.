@@ -1,0 +1,22 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:netherite_boots"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.boots"
+      },
+      "minecraft:icon": {
+        "texture": "boots",
+        "frame_index": 5
+      },
+	  "minecraft:armor": {
+		"texture_type": "netherite"
+      },
+      "minecraft:render_offsets": "boots",
+      "minecraft:display_name": {}
+    }
+  }
+}

@@ -40,6 +40,7 @@ function setup() {
 			is_alternative_append_with_copy: true,
 			custom_snippets: [],
 			open_in_fullscreen: false,
+			automatically_apply_edits: false,
 		})
 	} else {
 		DATA = STORE.load('settings')

@@ -52,8 +52,7 @@
         "priority": 0
       },
       "minecraft:behavior.charge_attack": {
-        "priority": 4,
-        "speed_multiplier": 2.0
+        "priority": 4
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 3,
@@ -97,6 +96,8 @@
       "minecraft:physics": {
         "has_gravity": false,
         "has_collision": false
+      },
+      "minecraft:conditional_bandwidth_optimization": {
       }
     }
   }

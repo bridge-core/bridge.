@@ -1,21 +1,34 @@
 {
-  "format_version": "1.10",
+  "format_version": "1.16.100",
   "minecraft:item": {
     "description": {
       "identifier": "minecraft:poisonous_potato"
     },
-
     "components": {
-      "minecraft:use_duration": 32,
+      "minecraft:use_duration": 1.6,
       "minecraft:food": {
         "nutrition": 2,
         "saturation_modifier": "low",
-        "effects": [
+        "on_consume": {
+          "event": "consumed",
+          "target": "self"
+        }
+      }
+    },
+    "events": {
+      "consumed": {
+        "randomize": [
           {
-            "name": "poison",
-            "chance": 0.6,
-            "duration": 5,
-            "amplifier": 0
+            "weight": 6,
+            "add_mob_effect": {
+              "effect": "poison",
+              "duration": 5,
+              "amplifier": 0,
+              "target": "holder"
+            }
+          },
+          {
+            "weight": 4
           }
         ]
       }

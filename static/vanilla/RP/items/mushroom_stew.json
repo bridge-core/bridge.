@@ -5,12 +5,16 @@
       "identifier": "minecraft:mushroom_stew",
       "category": "Equipment"
     },
-    
     "components": {
-      "minecraft:icon": "mushroom_stew",
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.miscFood"
+      },
+      "minecraft:icon": {
+        "texture": "mushroom_stew"
+      },
       "minecraft:use_animation": "eat",
-
-      "minecraft:render_offsets": "stew"
+      "minecraft:render_offsets": "stew",
+      "minecraft:display_name": {}
     }
   }
 }

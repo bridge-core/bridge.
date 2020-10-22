@@ -9,6 +9,7 @@
 				:position-x="x_position"
 				:position-y="y_position"
 				absolute
+				transition="slide-y-transition"
 			>
 				<v-list color="menu" class="small-list">
 					<template

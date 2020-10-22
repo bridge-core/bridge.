@@ -1,0 +1,14 @@
+{
+   "format_version" : "1.10",
+   "minecraft:item" : {
+      "description" : {
+         "identifier" : "minecraft:blaze_rod"
+      },
+      "components" : {
+         "minecraft:fuel" : {
+            "duration" : 120.0
+         },
+         "minecraft:hand_equipped" : true
+      }
+   }
+}

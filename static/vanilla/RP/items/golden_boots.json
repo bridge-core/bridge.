@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:golden_boots"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.boots"
+      },
+      "minecraft:icon": {
+        "texture": "boots",
+        "frame_index": 3
+      },
+	  "minecraft:armor": {
+		"texture_type": "gold"
+      },
+      "minecraft:render_offsets": "boots",
+      "minecraft:display_name": {}
+    }
+  }
+}

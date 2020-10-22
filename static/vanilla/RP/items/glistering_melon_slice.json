@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:glistering_melon_slice"
+    },
+    "components": {
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.crop"
+      },
+      "minecraft:icon": {
+        "texture": "melon_speckled"
+      },
+      "minecraft:render_offsets": "glistering_melon",
+      "minecraft:display_name": {
+	  "value": "item.speckled_melon.name"
+	  }
+    }
+  }
+}

@@ -19,7 +19,7 @@
 		<v-layout align-center>
 			<span style="padding: 0 4px;">
 				<v-avatar tile size="36px">
-					<img :src="project_icon" />
+					<img :src="projectIcon" />
 				</v-avatar>
 			</span>
 
@@ -114,6 +114,7 @@ import {
 	LoadedProjects,
 } from '../../Windows/Project/Chooser/definition'
 import { loadProjects } from '../../Windows/Project/Chooser/load'
+import { on } from '../../../AppCycle/EventSystem'
 
 export default {
 	name: 'content-explorer',
@@ -148,16 +149,19 @@ export default {
 			project_select_size: window.innerWidth / 7.5,
 			no_projects: false,
 			loaded_file_defs: FileType.LIB_LOADED,
+			disposable: null,
+			projectIcon: undefined,
 		}
 	},
 	mounted() {
+		this.projectIcon = this.loadProjectIcon()
 		this.$root.$on('refreshExplorer', () =>
 			EventBus.trigger('bridge:refreshExplorer')
 		)
 		EventBus.on('bridge:refreshExplorer', this.refresh)
 		EventBus.on('bridge:selectProject', this.selectProject)
 		EventBus.on('bridge:loadedFileDefs', this.onFileDefsLoaded)
-		EventBus.on('bridge:findDefaultPack', this.findDefaultProject)
+		this.disposable = on('bridge:findDefaultPack', this.findDefaultProject)
 		window.addEventListener('resize', this.onResize)
 
 		this.findDefaultProject()
@@ -167,7 +171,7 @@ export default {
 		EventBus.off('bridge:refreshExplorer', this.refresh)
 		EventBus.off('bridge:selectProject', this.selectProject)
 		EventBus.off('bridge:loadedFileDefs', this.onFileDefsLoaded)
-		EventBus.off('bridge:findDefaultPack', this.findDefaultProject)
+		this.disposable.dispose()
 		window.removeEventListener('resize', this.onResize)
 	},
 	computed: {
@@ -177,13 +181,16 @@ export default {
 			},
 			async set(project) {
 				if (project === undefined) return
+				const loadDirectory =
+					this.selected === undefined || this.selected !== project
+
 				this.$store.commit('setExplorerProject', {
 					store_key: this.explorer_type,
 					project,
 				})
 				if (this.explorer_type === 'explorer') await trySetRP()
 
-				this.loadDirectory(project)
+				if (loadDirectory) this.loadDirectory(project)
 				EventBus.trigger('updateTabUI')
 				// EventBus.on("updateSelectedTab");
 			},
@@ -198,23 +205,6 @@ export default {
 				value: p,
 			}))
 		},
-		project_icon() {
-			try {
-				return DataUrl.convert({
-					data: fsync.readFileSync(
-						this.base_path + this.selected + '/pack_icon.png'
-					),
-					mimetype: `image/png`,
-				})
-			} catch (e) {
-				return DataUrl.convert({
-					data: fsync.readFileSync(
-						__static + '/images/pack_icon.png'
-					),
-					mimetype: `image/png`,
-				})
-			}
-		},
 	},
 	methods: {
 		openProjectScreen() {
@@ -222,6 +212,8 @@ export default {
 				ProjectChooser.open()
 		},
 		async refresh(force_val) {
+			this.projectIcon = this.loadProjectIcon()
+
 			if (this.force_project_algorithm) {
 				if (force_val) this.selected = force_val
 				console.log('[REFRESH RP] ' + this.selected)
@@ -256,7 +248,7 @@ export default {
 		async loadDirectory(dir = this.selected, force_reload) {
 			let lw = new LoadingWindow().show()
 			if (this.explorer_type === 'explorer') {
-				EventBus.trigger('bridge:changedProject')
+				EventBus.trigger('bridge:onProjectChanged')
 				OmegaCache.init(dir)
 				LightningCache.init()
 				JSONFileMasks.resetMasks()
@@ -306,20 +298,20 @@ export default {
 					this.items = []
 				}
 				this.no_projects = false
-				if (force_refresh) this.selected = undefined
 
 				/**
 				 * items[0] === "undefined":
 				 *   Allows the no_projects screen to launch for users which didn't have a BP before the no_projects screen update
 				 */
-				if (this.items.length === 0 || this.items[0] === 'undefined') {
-					this.no_projects = true
-				} else if (
-					this.selected === '' ||
-					this.selected === undefined
+				if (
+					this.items.length === 0 ||
+					(this.items.length === 1 && this.items[0] === 'undefined')
 				) {
-					this.selected = this.findDefaultBPProject()
+					this.no_projects = true
 				}
+				this.selected = this.selected
+					? this.selected
+					: this.findDefaultBPProject()
 			}
 		},
 		findDefaultBPProject() {
@@ -344,6 +336,33 @@ export default {
 		},
 		createRP() {
 			CreateRP.open()
+		},
+
+		loadProjectIcon() {
+			try {
+				return DataUrl.convert({
+					data: fsync.readFileSync(
+						path.join(
+							this.base_path,
+							this.selected,
+							'pack_icon.png'
+						)
+					),
+					mimetype: `image/png`,
+				})
+			} catch (e) {
+				return DataUrl.convert({
+					data: fsync.readFileSync(
+						path.join(__static, '/images/pack_icon.png')
+					),
+					mimetype: `image/png`,
+				})
+			}
+		},
+	},
+	watch: {
+		selected() {
+			this.projectIcon = this.loadProjectIcon()
 		},
 	},
 }

@@ -3,7 +3,7 @@
     "near_clipping_plane": 0.025,
     "far_clipping_plane": 2500.0,
     "render_player_model": false,
-	"player_rotation_offset": [0.0, 180.0],
+    "player_rotation_offset": [0.0, 180.0],
     "priority": 1,
     "blend_in_default": {
         "blend_time": 0.0,
@@ -15,18 +15,19 @@
         "attach": {
             "offset": [0.0, 0.0, 0.0]
         },
-		"sneak": {
-			"camera_interpolation_rate": 0.03,
-			"sneak_offset": -0.125
-		},
+        "sneak": {
+            "camera_interpolation_rate": 0.03,
+            "sneak_offset": -0.125
+        },
         "first_person_look": {
             "pitch_min": -89.9,
             "pitch_max": 89.9
         },
-		"bob": {},
-		"portal": {},
-		"liquid_offset": {},
-		"ride_rotation": {}
+        "bob": {},
+        "comfort_move": {},
+        "portal": {},
+        "liquid_offset": {},
+        "ride_rotation": {}
     },
     "activation_rule": {
         "type": "option",

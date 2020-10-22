@@ -427,6 +427,8 @@
         "priority": 1,
         "hurt_owner": true
       },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
       "minecraft:damage_sensor": {
         "triggers": {
           "cause": "all",
