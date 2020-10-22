@@ -4,10 +4,11 @@
     "description": {
       "identifier": "minecraft:appleEnchanted"
     },
+    
     "components": {
       "minecraft:hand_equipped": false,
       "minecraft:stacked_by_data": true,
-      "minecraft:use_duration": 1.6,
+      "minecraft:use_duration": 32,
       "minecraft:foil": true,
       "minecraft:food": {
         "nutrition": 4,

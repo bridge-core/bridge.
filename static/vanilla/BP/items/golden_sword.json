@@ -8,7 +8,7 @@
       "minecraft:max_stack_size": 1,
       "minecraft:use_duration": 3600,
       "minecraft:hand_equipped": true,
-      "minecraft:damageable": {
+      "minecraft:durability": {
         "max_damage": 32
       },
       "minecraft:mining_speed": 1.5,

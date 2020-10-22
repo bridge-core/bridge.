@@ -5,7 +5,8 @@ export function createStyleSheet(styles: string) {
 
 	return {
 		dispose: () => {
-			document.head.removeChild(styleTag)
+			if (document.head.contains(styleTag))
+				document.head.removeChild(styleTag)
 		},
 	}
 }

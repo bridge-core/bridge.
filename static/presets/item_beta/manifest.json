@@ -1,0 +1,16 @@
+{
+    "display_name": "Food",
+    "description": "Creates a new food item.",
+    "icon": "mdi-food-apple",
+    "target_version": "$project_target_version >= 1.16.100",
+    "bp_map": {
+        "item.json": "items/{{IDENTIFIER}}.json"
+    },
+    "expand_rp_files": {
+        "item_texture.json": "textures/item_texture.json",
+        "en_US.lang": "texts/en_US.lang"
+    },
+    "copy_rp_files": {
+        "icon.png": "textures/items/{{IDENTIFIER}}.png"
+    }
+}

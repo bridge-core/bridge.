@@ -10,7 +10,8 @@ import ProjectConfig from './Project/Config'
 
 export const WEB_APP_DATA = 'https://bridge-core.github.io/data/'
 export const WEB_APP_PLUGINS = 'https://bridge-core.github.io/plugins/'
-export const DEPS_URLS = 'https://cdn.jsdelivr.net/npm/bridge-data@latest/dist/'
+export const DEPS_URLS = (version = 'latest') =>
+	`https://cdn.jsdelivr.net/npm/bridge-data@${version}/dist/`
 export const DOC_URL = 'https://bedrock.dev/r/'
 export const DOC_URL_BETA = 'https://bedrock.dev/b/'
 export const DOC_LIST = [

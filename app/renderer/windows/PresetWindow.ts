@@ -2,6 +2,7 @@ import TabWindow from '../src/UI/Windows/Common/TabWindow'
 import { loadPresets, buildPreset } from '../src/Presets'
 import LoadingWindow from './LoadingWindow'
 import { uuid } from '../src/Utilities/useAttr'
+import { compileCondition } from '../src/autoCompletions/components/VersionedTemplate/Common'
 
 export default class PresetWindow extends TabWindow {
 	private action_button = {
@@ -40,6 +41,11 @@ export default class PresetWindow extends TabWindow {
 		let data_arr = await loadPresets()
 
 		data_arr
+			.filter(
+				({ manifest: { target_version } }) =>
+					target_version === undefined ||
+					compileCondition(target_version)
+			)
 			.sort(
 				(
 					{ manifest: { display_name: nameA } },

@@ -10,6 +10,7 @@ import { walkSync } from '../src/autoCompletions/Dynamic'
 import { join } from 'path'
 import { promises as fs } from 'fs'
 import { uuid } from '../src/Utilities/useAttr'
+import { compileCondition } from '../src/autoCompletions/components/VersionedTemplate/Common'
 
 class FileContent {
 	constructor(
@@ -221,6 +222,10 @@ export default class CreateFileWindow extends ContentWindow {
 			FILE_DATA = FileType.getFileCreators()
 				.filter(({ is_hidden }) => !is_hidden)
 				.sort(({ title: t1 }, { title: t2 }) => t1.localeCompare(t2))
+		FILE_DATA = FILE_DATA.filter(
+			({ target_version }) =>
+				target_version === undefined || compileCondition(target_version)
+		)
 
 		super({
 			display_name: 'New File',

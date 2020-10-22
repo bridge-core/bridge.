@@ -123,6 +123,37 @@
         "hard_distance": 6.0,
         "max_distance": 10.0
       },
+      "minecraft:rideable": {
+        "seat_count": 2,
+        "interact_text": "action.interact.ride.boat",
+        "pull_in_entities": true,
+
+        "seats": [
+          {
+            "position": [ 0.0, -0.2, 0.0 ],
+            "min_rider_count": 0,
+            "max_rider_count": 1,
+
+            "rotate_rider_by": -90,
+            "lock_rider_rotation": 90
+          },
+          {
+            "position": [ 0.2, -0.2, 0.0 ],
+            "min_rider_count": 2,
+            "max_rider_count": 2,
+
+            "rotate_rider_by": "query.has_any_family('blaze', 'creeper', 'enderman', 'illager', 'magmacube', 'piglin', 'player', 'skeleton', 'slime', 'villager', 'wandering_trader', 'witch', 'zombie', 'zombie_pigman') ? -90 : 0",
+            "lock_rider_rotation": 90
+          },
+          {
+            "position": [ -0.6, -0.2, 0.0 ],
+            "min_rider_count": 2,
+            "max_rider_count": 2,
+            "rotate_rider_by": "query.has_any_family('blaze', 'creeper', 'enderman', 'illager', 'magmacube', 'piglin', 'player', 'skeleton', 'slime', 'villager', 'wandering_trader', 'witch', 'zombie', 'zombie_pigman') ? -90 : 0",
+            "lock_rider_rotation": 90
+          }
+        ]
+      },
       "minecraft:is_stackable": {
       },
       "minecraft:physics": {
@@ -130,6 +161,17 @@
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
+      },
+      "minecraft:buoyant": {
+        "base_buoyancy": 1.0,
+        "apply_gravity": true,
+        "simulate_waves": true,
+        "big_wave_probability": 0.03,
+        "big_wave_speed": 10.0,
+        "liquid_blocks": [
+          "minecraft:water",
+          "minecraft:flowing_water"
+          ]
       },
       "minecraft:conditional_bandwidth_optimization": {
         "default_values": {
@@ -151,7 +193,7 @@
               }
             ]
           }
-	]
+        ]
       },
       "minecraft:inside_block_notifier": {
         "block_list": [

@@ -4,6 +4,7 @@ import LoadingWindow from '../../windows/LoadingWindow'
 import { ipcRenderer, shell } from 'electron'
 import * as VERSION_UTILS from './VersionUtils'
 import { APP_VERSION } from '../constants'
+import Store from '../../store/index'
 
 export async function updateApp(urls: Array<string>) {
 	let file_path = path.join(tmpdir(), 'bridge-update')
@@ -64,7 +65,7 @@ export async function fetchLatestJson() {
 		.then(data => {
 			// Log bridge. infos
 			console.log(
-				`Running bridge. ${APP_VERSION} | Latest: ${data.tag_name}`
+				`Running bridge. ${APP_VERSION} | Latest: ${data.tag_name} | Data Version: ${Store.state.Settings.remote_data_version}`
 			)
 
 			// Set interface data

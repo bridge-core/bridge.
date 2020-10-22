@@ -1,0 +1,72 @@
+{
+    "name": "Halloween",
+    "id": "bridge.easterEgg.halloween",
+    "options": {
+        "css": "halloween.css"
+    },
+    "isHidden": true,
+    "definition": {
+        "dark": {
+            "highlighter": {
+                "property": { "color": "#90be6d" },
+                "keyword": { "color": "#e85d04" },
+                "definition": { "color": "#fd971f" },
+                "atom": { "color": "#43aa8b" },
+                "number": { "color": "#43aa8b" },
+                "string": { "color": "#faa307" },
+                "variable": { "color": "#577590" },
+                "variable_strong": { "color": "#577590" },
+                "meta": { "color": "white" },
+                "comment": { "color": "#ffba08" }
+            },
+            "primary": "#dc2f02",
+            "secondary": "#dc2f02",
+            "accent": "#dc2f02",
+            "error": "#d00000",
+            "info": "#e85d04",
+            "success": "#40916c",
+            "warning": "#FB8C00",
+            "background": "#121212",
+            "sidebar_navigation": "#1F1F1F",
+            "expanded_sidebar": "#1F1F1F",
+            "menu": "#1F1F1F",
+            "toolbar": "#000000",
+            "footer": "#111111",
+            "tooltip": "#1F1F1F",
+            "default_button": "#212121"
+        },
+        "light": {
+            "highlighter": {
+                "property": { "color": "#2d6a4f" },
+                "keyword": { "color": "#dc2f02" },
+                "definition": { "text_decoration": "underline" },
+                "atom": { "color": "#f48c06" },
+                "number": { "color": "#f48c06" },
+                "string": { "color": "red" },
+                "variable": { "color": "#03071e" },
+                "variable_strong": { "color": "#03071e" },
+                "meta": { "color": "#dc2f02" },
+                "comment": { "color": "#ffba08" }
+            },
+            "monaco": {
+                "editor.lineHighlightBackground": "#e0e0e0",
+                "editorWidget.border":  "#e0e0e0"
+            },
+            "primary": "#dc2f02",
+            "secondary": "#dc2f02",
+            "accent": "#dc2f02",
+            "error": "#d00000",
+            "info": "#e85d04",
+            "success": "#40916c",
+            "warning": "#FB8C00",
+            "background": "#fafafa",
+            "sidebar_navigation": "#FFFFFF",
+            "expanded_sidebar": "#FFFFFF",
+            "menu": "#FFFFFF",
+            "toolbar": "#e0e0e0",
+            "footer": "#f5f5f5",
+            "tooltip": "#424242",
+            "default_button": "#f5f5f5"
+        }
+    }
+}

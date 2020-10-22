@@ -455,7 +455,10 @@ class TabSystem {
 		}
 	}
 	setCurrentUnsaved() {
-		if (!this.getSelected().is_unsaved) {
+		if (
+			!this.getSelected().is_unsaved &&
+			!this.getSelected().is_immutable
+		) {
 			this.getSelected().is_unsaved = true
 			EventBus.trigger('updateSelectedTabUI')
 		}

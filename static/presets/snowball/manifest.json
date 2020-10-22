@@ -2,12 +2,12 @@
     "display_name": "Snowball",
     "description": "Creates a new throwable snowball item.",
     "icon": "mdi-tennis-ball",
+    "target_version": "$project_target_version >= 1.16.100",
     "bp_map": {
         "item.json": "items/{{IDENTIFIER}}.json",
         "entity.json": "entities/{{IDENTIFIER}}.json"
     },
     "rp_map": {
-        "client_item.json": "items/{{IDENTIFIER}}.json",
         "client_entity.json": "entity/{{IDENTIFIER}}.json"
     },
     "expand_rp_files": {
