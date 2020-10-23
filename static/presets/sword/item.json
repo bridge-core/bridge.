@@ -13,10 +13,7 @@
       "minecraft:use_duration": 3600,
       "minecraft:hand_equipped": true,
       "minecraft:durability": {
-        "max_durability": 150,
-        "repair_items": [
-          "{{PROJ_PREFIX}}:{{IDENTIFIER}}"
-        ]
+        "max_durability": 150
       },
       "minecraft:mining_speed": 1.5,
       "minecraft:damage": 5,
