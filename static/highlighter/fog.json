@@ -1,7 +1,7 @@
 {
     "set": {},
     "define": {
-        "keywords": ["minecraft", "description", "distance"],
+        "keywords": ["minecraft", "description", "distance", "volumetric"],
         "titles": ["format_version"],
         "symbols": []
     }

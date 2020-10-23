@@ -29,7 +29,7 @@ export const FILE_CONTEXT_MENU = async (
 		icon: 'mdi-arrow-split-vertical',
 		action: () => {
 			TabSystem.split_screen_active = true
-			FileSystem.open(file_path)
+			FileSystem.open(file_path, isImmutable)
 		},
 	}
 
@@ -132,8 +132,12 @@ export const FILE_CONTEXT_MENU = async (
 	 * QUICK ACTION TO TOGGLE CLIENT SCRIPTS
 	 */
 	if (fileName === 'manifest.json') {
-		if (Manifest.getPackFolder(file_path) === 'development_behavior_packs') {
-			let manifest: Manifest = await readJSON(file_path).catch(console.error)
+		if (
+			Manifest.getPackFolder(file_path) === 'development_behavior_packs'
+		) {
+			let manifest: Manifest = await readJSON(file_path).catch(
+				console.error
+			)
 			if (Manifest.hasClientData(manifest)) {
 				DEFAULT_MENU.push({
 					title: 'Remove Client Scripts',

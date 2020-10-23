@@ -269,6 +269,7 @@
 		hide-no-data
 		style="max-width: 99%;"
 		dense
+		:disabled="content.is_disabled"
 		:menu-props="{ maxHeight: 162 }"
 		:label="content.text"
 		:items="content.options"

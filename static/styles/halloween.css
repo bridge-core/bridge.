@@ -1,0 +1,14 @@
+.v-system-bar > img {
+	filter: hue-rotate(160deg) saturate(1.6);
+}
+
+.file-displayer
+	.v-icon:not(.mdi-folder):not(.mdi-folder-open):not(.mdi-folder-lock) {
+	color: var(--v-primary-base);
+}
+
+.file-displayer .v-icon.mdi-folder,
+.v-icon.mdi-folder-open,
+.v-icon.mdi-folder-lock {
+	color: var(--v-success-lighten1);
+}

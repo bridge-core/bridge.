@@ -3,6 +3,6 @@
     "define": {
         "keywords": ["minecraft", "description", "components", "bridge", "events"],
         "titles": ["format_version"],
-        "symbols": []
+        "symbols": ["sequence", "randomize"]
     }
 }
