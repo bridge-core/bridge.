@@ -13,19 +13,32 @@ export async function refreshCache(refresh_rp = false, reset = true) {
 	let explorer = refresh_rp ? CURRENT.RPFileExplorer : CURRENT.BPFileExplorer
 	if (explorer === undefined) return
 
+	await explorer.loading_promise
 	let files = explorer.getAllFiles()
 	if (reset) LightningCache.init()
 
 	for (let filePath of files) {
-		if (FileType.get(filePath) === 'unknown') continue
+		const fileType = FileType.get(filePath)
+		if (fileType === 'unknown') continue
 
 		const fileContent = await FileSystem.loadFileAsTree(filePath)
 
 		if (fileContent instanceof JSONTree) {
-			await ComponentRegistry.parse(filePath, fileContent.toJSON(), false)
+			if (fileType === 'entity')
+				await ComponentRegistry.parse(
+					filePath,
+					fileContent.toJSON(),
+					false
+				)
+			else if (fileType === 'block')
+				await ComponentRegistry.parseBlock(
+					filePath,
+					fileContent.toJSON(),
+					false
+				)
 			await LightningCache.add(filePath, fileContent, false)
 		} else {
-			if (FileType.get(filePath) === 'function')
+			if (fileType === 'function')
 				await BridgeCore.beforeTextSave(fileContent, filePath)
 		}
 	}
