@@ -3,6 +3,7 @@ import { IDisposable } from '../Types/disposable'
 const DisposableStore = new Map<string, IDisposable[]>()
 
 export function set(pluginId: string, disposables: IDisposable[]) {
+	if (DisposableStore.has(pluginId)) clear(pluginId)
 	DisposableStore.set(pluginId, disposables)
 }
 
