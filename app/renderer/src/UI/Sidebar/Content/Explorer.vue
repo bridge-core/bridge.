@@ -114,7 +114,7 @@ import {
 	LoadedProjects,
 } from '../../Windows/Project/Chooser/definition'
 import { loadProjects } from '../../Windows/Project/Chooser/load'
-import { on } from '../../../AppCycle/EventSystem'
+import { on, trigger } from '../../../AppCycle/EventSystem'
 
 export default {
 	name: 'content-explorer',
@@ -149,7 +149,7 @@ export default {
 			project_select_size: window.innerWidth / 7.5,
 			no_projects: false,
 			loaded_file_defs: FileType.LIB_LOADED,
-			disposable: null,
+			disposables: [],
 			projectIcon: undefined,
 		}
 	},
@@ -159,9 +159,11 @@ export default {
 			EventBus.trigger('bridge:refreshExplorer')
 		)
 		EventBus.on('bridge:refreshExplorer', this.refresh)
-		EventBus.on('bridge:selectProject', this.selectProject)
+		this.disposables.push(on('bridge:selectProject', this.selectProject))
 		EventBus.on('bridge:loadedFileDefs', this.onFileDefsLoaded)
-		this.disposable = on('bridge:findDefaultPack', this.findDefaultProject)
+		this.disposables.push(
+			on('bridge:findDefaultPack', this.findDefaultProject)
+		)
 		window.addEventListener('resize', this.onResize)
 
 		this.findDefaultProject()
@@ -171,7 +173,8 @@ export default {
 		EventBus.off('bridge:refreshExplorer', this.refresh)
 		EventBus.off('bridge:selectProject', this.selectProject)
 		EventBus.off('bridge:loadedFileDefs', this.onFileDefsLoaded)
-		this.disposable.dispose()
+
+		this.disposables.forEach(disposable => disposable.dispose())
 		window.removeEventListener('resize', this.onResize)
 	},
 	computed: {
@@ -214,32 +217,12 @@ export default {
 		async refresh(force_val) {
 			this.projectIcon = this.loadProjectIcon()
 
-			if (this.force_project_algorithm) {
-				if (force_val) this.selected = force_val
-				console.log('[REFRESH RP] ' + this.selected)
-				this.loadDirectory(this.selected, true)
-			} else {
-				try {
-					await loadProjects()
-					this.items = LoadedProjects.map(
-						({ relativeProjectPath }) => relativeProjectPath
-					)
-				} catch (e) {
-					this.items = []
-				}
-
-				this.no_projects = false
-				console.log('[REFRESH BP] ' + this.selected)
-
-				if (this.items.length === 0) {
-					this.no_projects = true
-				}
-				this.loadDirectory(this.selected, true)
-			}
+			await this.findDefaultProject(true)
+			await this.loadDirectory(this.selected, true)
 		},
 
-		selectProject(val) {
-			this.loadDirectory(val, true)
+		async selectProject(val) {
+			await this.loadDirectory(val, true)
 		},
 		onFileDefsLoaded() {
 			this.loaded_file_defs = true
@@ -283,10 +266,10 @@ export default {
 			this.project_select_size = window.innerWidth / 7.5
 		},
 
-		async findDefaultProject(force_refresh = false) {
+		async findDefaultProject(forceRefresh = false, findBP = false) {
 			if (this.force_project_algorithm) {
 				this.selected = undefined
-				if (force_refresh) setRP(undefined)
+				if (forceRefresh) setRP(undefined)
 				this.selected = await this.force_project_algorithm()
 			} else {
 				try {
@@ -295,6 +278,7 @@ export default {
 						({ relativeProjectPath }) => relativeProjectPath
 					)
 				} catch (e) {
+					console.log(e)
 					this.items = []
 				}
 				this.no_projects = false
@@ -309,9 +293,11 @@ export default {
 				) {
 					this.no_projects = true
 				}
-				this.selected = this.selected
-					? this.selected
-					: this.findDefaultBPProject()
+
+				this.selected =
+					this.selected && !findBP
+						? this.selected
+						: this.findDefaultBPProject()
 			}
 		},
 		findDefaultBPProject() {

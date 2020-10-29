@@ -93,10 +93,16 @@ export default class ComponentRegistry {
 
 		//Save that this file is using the specific custom component inside the LightningCache
 
-		let apply_data = this.components[component_name].onApply(
-			component_data,
-			location
-		)
+		let apply_data: any = {}
+		try {
+			apply_data = this.components[component_name].onApply(
+				component_data,
+				location
+			)
+		} catch (err) {
+			createErrorNotification(err)
+		}
+
 		if (typeof apply_data !== 'object' || Array.isArray(apply_data)) {
 			createErrorNotification(
 				new Error(`Invalid data for component "${component_name}"`)
@@ -200,7 +206,13 @@ export default class ComponentRegistry {
 
 			if (c !== undefined) {
 				usedComponents.push(componentName)
-				const data = component.onApply(c, 'components')
+				let data: any = {}
+				try {
+					data = component.onApply(c, 'components')
+				} catch (err) {
+					createErrorNotification(err)
+				}
+
 				if (typeof data === 'object')
 					MASK.set(`component@${componentName}`, data)
 				else
