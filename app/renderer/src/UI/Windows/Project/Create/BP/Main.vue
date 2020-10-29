@@ -143,6 +143,7 @@ export default {
 				} else if (err) {
 					lW.hide()
 					createErrorNotification(err)
+					return
 				}
 			}
 
