@@ -89,7 +89,7 @@
 <script>
 import BaseWindow from '../../../Layout/Base'
 import { CreateBP } from '../definition'
-import fs from 'fs'
+import { promises as fs } from 'fs'
 import ContentWindow from '../../../Common/Content'
 import { BASE_PATH } from '../../../../../constants'
 import Vue from '../../../../../../main'
@@ -98,10 +98,12 @@ import Manifest from '../../../../../files/Manifest'
 import uuidv4 from 'uuid/v4'
 import CreateFiles from '../../../../../Project/CreateFiles'
 import path from 'path'
-import EventBus from '../../../../../EventBus'
+import { once, trigger } from '../../../../../AppCycle/EventSystem'
 import ProjectConfig from '../../../../../Project/Config'
 import { getFormatVersions } from '../../../../../autoCompletions/components/VersionedTemplate/Common'
 import { createInformationWindow } from '../../../Common/CommonDefinitions'
+import { createErrorNotification } from '../../../../../AppCycle/Errors'
+import { writeJSON } from '../../../../../Utilities/JsonFS'
 
 export default {
 	name: 'CreateBP',
@@ -124,74 +126,59 @@ export default {
 				this.createProject()
 			}
 		},
-		createProject() {
+		async createProject() {
 			CreateBP.close()
-			let l_w = new LoadingWindow('project.').show()
-			let b_path = BASE_PATH
+			let lW = new LoadingWindow('project.').show()
 
-			window.setTimeout(() => {
-				fs.mkdir(
-					b_path + this.projectName,
-					{ recursive: true },
-					err => {
-						if (err && err.message.includes('already exists'))
-							return l_w.hide()
-						else if (err) {
-							l_w.hide()
-							throw err
-						}
-
-						fs.writeFile(
-							path.join(
-								b_path,
-								this.projectName,
-								'/manifest.json'
-							),
-							new Manifest(
-								'data',
-								this.registerClientData,
-								undefined,
-								this.targetVersion
-							).get(),
-							async () => {
-								if (
-									err &&
-									err.message.includes('already exists')
-								)
-									return l_w.hide()
-								if (err) {
-									l_w.hide()
-									throw err
-								}
-
-								//CREATE DEFAULT FILES
-								await CreateFiles.createBPFiles(
-									path.join(b_path, this.projectName),
-									{
-										name: this.projectName,
-										description: this.projectDescription,
-										projectTargetVersion: this
-											.targetVersion,
-									}
-								)
-
-								EventBus.trigger(
-									'bridge:selectProject',
-									this.projectName
-								)
-								this.$root.$emit('refreshExplorer')
-								ProjectConfig.setFormatVersion(
-									this.targetVersion
-								)
-								ProjectConfig.setPrefix(this.projectNamespace)
-								l_w.hide()
-
-								this.reset()
-							}
-						)
+			try {
+				await fs.mkdir(
+					path.join(BASE_PATH, this.projectName, 'bridge'),
+					{
+						recursive: true,
 					}
 				)
-			}, 50)
+			} catch (err) {
+				if (err && err.message.includes('already exists')) {
+					return lW.hide()
+				} else if (err) {
+					lW.hide()
+					createErrorNotification(err)
+				}
+			}
+
+			await fs.writeFile(
+				path.join(BASE_PATH, this.projectName, '/manifest.json'),
+				new Manifest(
+					'data',
+					this.registerClientData,
+					undefined,
+					this.targetVersion
+				).get()
+			)
+
+			//Create config file
+			await writeJSON(
+				path.join(BASE_PATH, this.projectName, 'bridge/config.json'),
+				{
+					prefix: this.projectNamespace,
+					formatVersion: this.targetVersion,
+				}
+			)
+
+			//Create default files
+			await CreateFiles.createBPFiles(
+				path.join(BASE_PATH, this.projectName),
+				{
+					name: this.projectName,
+					description: this.projectDescription,
+					projectTargetVersion: this.targetVersion,
+				}
+			)
+
+			trigger('bridge:selectProject', this.projectName)
+
+			lW.hide()
+			this.reset()
 		},
 		reset() {
 			this.projectName = ''
