@@ -214,28 +214,8 @@ export default {
 		async refresh(force_val) {
 			this.projectIcon = this.loadProjectIcon()
 
-			if (this.force_project_algorithm) {
-				if (force_val) this.selected = force_val
-				console.log('[REFRESH RP] ' + this.selected)
-				this.loadDirectory(this.selected, true)
-			} else {
-				try {
-					await loadProjects()
-					this.items = LoadedProjects.map(
-						({ relativeProjectPath }) => relativeProjectPath
-					)
-				} catch (e) {
-					this.items = []
-				}
-
-				this.no_projects = false
-				console.log('[REFRESH BP] ' + this.selected)
-
-				if (this.items.length === 0) {
-					this.no_projects = true
-				}
-				this.loadDirectory(this.selected, true)
-			}
+			await this.findDefaultProject(true)
+			await this.loadDirectory(this.selected, true)
 		},
 
 		selectProject(val) {
@@ -283,10 +263,10 @@ export default {
 			this.project_select_size = window.innerWidth / 7.5
 		},
 
-		async findDefaultProject(force_refresh = false) {
+		async findDefaultProject(forceRefresh = false, findBP = false) {
 			if (this.force_project_algorithm) {
 				this.selected = undefined
-				if (force_refresh) setRP(undefined)
+				if (forceRefresh) setRP(undefined)
 				this.selected = await this.force_project_algorithm()
 			} else {
 				try {
@@ -295,6 +275,7 @@ export default {
 						({ relativeProjectPath }) => relativeProjectPath
 					)
 				} catch (e) {
+					console.log(e)
 					this.items = []
 				}
 				this.no_projects = false
@@ -309,9 +290,11 @@ export default {
 				) {
 					this.no_projects = true
 				}
-				this.selected = this.selected
-					? this.selected
-					: this.findDefaultBPProject()
+
+				this.selected =
+					this.selected && !findBP
+						? this.selected
+						: this.findDefaultBPProject()
 			}
 		},
 		findDefaultBPProject() {

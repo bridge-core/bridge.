@@ -159,7 +159,7 @@ export default [
 				async () => {
 					let lw = new LoadingWindow()
 					await trash(CURRENT.PROJECT_PATH)
-					trigger('bridge:findDefaultPack', true)
+					trigger('bridge:findDefaultPack', true, true)
 					lw.close()
 				},
 				() => {}
