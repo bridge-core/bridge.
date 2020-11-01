@@ -12,7 +12,9 @@
         "nutrition": 4,
         "saturation_modifier": "low"
       },
-      "minecraft:icon": "{{PROJ_PREFIX}}_{{IDENTIFIER}}",
+      "minecraft:icon": {
+        "texture": "{{PROJ_PREFIX}}_{{IDENTIFIER}}"
+      },
       "minecraft:use_animation": "eat",
       "minecraft:render_offsets": "apple"
     }
