@@ -1699,6 +1699,11 @@
       "sound" : "grass",
       "textures" : "potatoes"
    },
+   "powder_snow": {
+        "isotropic": true,
+        "textures": "powder_snow",
+        "sound": "snow"
+    },
    "powered_comparator" : {
       "sound" : "wood",
       "textures" : {

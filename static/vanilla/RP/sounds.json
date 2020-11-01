@@ -1133,6 +1133,13 @@
             "pitch" : [ 0.80, 1.20 ],
             "volume" : 600.0
          },
+		 "goat": {
+			"volume": 1.0,
+			"pitch": [ 0.8, 1.2 ],
+			"events": {
+				"charge": "mob.goat.charge"
+			}
+		}
          "guardian" : {
             "events" : {
                "ambient" : "mob.guardian.land_idle",
