@@ -15,8 +15,14 @@ import { loadDependency } from './fetchDeps'
 
 export default async function startUp() {
 	SETTINGS.setup()
+
+	// Load toolbar
+	setupDefaultMenus()
+
 	// Start listening for online and offline events
 	CONNECTION.startListening()
+
+	createAppUpdateNotification()
 
 	//Setup auto-completions
 	Provider.loadAssets(
@@ -24,7 +30,6 @@ export default async function startUp() {
 		await loadDependency('file-definitions.js')
 	)
 
-	setupDefaultMenus()
 	if (process.env.NODE_ENV !== 'development') {
 		let discordMsg = createNotification({
 			icon: 'mdi-discord',
@@ -37,8 +42,6 @@ export default async function startUp() {
 			},
 		})
 	}
-
-	createAppUpdateNotification()
 
 	if (process.env.NODE_ENV !== 'development') {
 		let getting_started = createNotification({
