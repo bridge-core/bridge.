@@ -49,13 +49,13 @@ export default class FileSystem {
 		if (open) this.addAsTab(path, content, 0, content)
 		trigger('bridge:finishedSaving', path, true, false)
 	}
-	static basicSaveAs(
+	static async basicSaveAs(
 		path: string,
 		content: string,
 		update = false,
 		open = true
 	) {
-		ipcRenderer.send('saveAsFileDialog', { path, content })
+		return await ipcRenderer.invoke('saveAsFileDialog', { path, content })
 	}
 
 	static async open(file_path: string, is_immutable = false) {
