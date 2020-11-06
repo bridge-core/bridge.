@@ -2,6 +2,7 @@
     "set": {},
     "define": {
         "keywords": ["minecraft"],
-        "titles": ["format_version"]
+        "titles": ["format_version"],
+        "symbols": []
     }
 }
