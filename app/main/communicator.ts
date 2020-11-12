@@ -7,7 +7,7 @@ import {
 	OpenDialogOptions,
 } from 'electron'
 import { dialog } from 'electron'
-import fs from 'fs'
+import { promises as fs } from 'fs'
 import { DefaultDir } from '../shared/DefaultDir'
 import { download } from 'electron-dl'
 import path from 'path'
@@ -37,15 +37,15 @@ ipcMain.handle(
 	}
 )
 
-ipcMain.on('saveAsFileDialog', async (event, { path, content }) => {
+ipcMain.handle('saveAsFileDialog', async (event, { path, content }) => {
 	let { filePath, canceled } = await dialog.showSaveDialog({
 		defaultPath: path.replace(/\//g, '\\'),
 	})
 
-	if (!canceled)
-		fs.writeFile(filePath, content, err => {
-			if (err) throw err
-		})
+	if (canceled) return false
+
+	await fs.writeFile(filePath, content)
+	return true
 })
 
 ipcMain.on('chooseDefaultDirectory', async (event, args) => {

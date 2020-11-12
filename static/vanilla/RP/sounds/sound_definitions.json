@@ -4774,6 +4774,12 @@
             }
          ]
       },
+		"mob.goat.charge": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/mob/goat/charge1"
+			]
+		},
       "mob.guardian.ambient" : {
          "__use_legacy_max_distance" : "true",
          "category" : "hostile",

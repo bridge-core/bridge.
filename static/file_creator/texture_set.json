@@ -1,0 +1,13 @@
+{
+    "icon": "mdi-texture",
+    "title": "Texture Set",
+    "extension": "json",
+    "path": "textures/blocks/",
+    
+    "templates": {
+        "Blank Texture Set": {
+            "format_version": {},
+            "minecraft:texture_set": {}
+        }
+    }
+}

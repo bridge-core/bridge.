@@ -357,6 +357,9 @@
       "glowstone_dust" : {
          "textures" : "textures/items/glowstone_dust"
       },
+	  "goat_horn": {
+		"textures": "textures/items/goat_horn"
+	  },
       "gold_horse_armor" : {
          "textures" : "textures/items/gold_horse_armor"
       },

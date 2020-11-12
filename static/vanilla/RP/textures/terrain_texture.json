@@ -1777,6 +1777,9 @@
             "textures/blocks/potatoes_stage_3"
          ]
       },
+	  "powder_snow": {
+		"textures": "textures/blocks/powder_snow"
+	  },
       "prismarine" : {
          "textures" : [
             "textures/blocks/prismarine_rough",

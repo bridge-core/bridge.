@@ -558,8 +558,9 @@ class TabSystem {
 
 		//Load .no-cache file
 		const shouldBeCached = await useCache(current.file_path)
+		let shouldSetSaved = true
 		if (!shouldBeCached) {
-			FileSystem[fsMethod](
+			await FileSystem[fsMethod](
 				current.file_path,
 				await this.getSaveContent(
 					current,
@@ -570,7 +571,7 @@ class TabSystem {
 			)
 		} else {
 			let comment_char = FileType.getCommentChar(current.file_path)
-			FileSystem[fsMethod](
+			shouldSetSaved = await FileSystem[fsMethod](
 				current.file_path,
 				`${comment_char}bridge-file-version: #${
 					current.file_version
@@ -583,7 +584,7 @@ class TabSystem {
 			)
 		}
 
-		this.setCurrentSaved()
+		if (shouldSetSaved) this.setCurrentSaved()
 		win.close()
 	}
 	saveCurrentAs() {

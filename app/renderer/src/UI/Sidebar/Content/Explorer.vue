@@ -153,7 +153,7 @@ export default {
 			projectIcon: undefined,
 		}
 	},
-	mounted() {
+	created() {
 		this.projectIcon = this.loadProjectIcon()
 		this.$root.$on('refreshExplorer', () =>
 			EventBus.trigger('bridge:refreshExplorer')
@@ -171,7 +171,6 @@ export default {
 	destroyed() {
 		this.$root.$off('refreshExplorer')
 		EventBus.off('bridge:refreshExplorer', this.refresh)
-		EventBus.off('bridge:selectProject', this.selectProject)
 		EventBus.off('bridge:loadedFileDefs', this.onFileDefsLoaded)
 
 		this.disposables.forEach(disposable => disposable.dispose())
