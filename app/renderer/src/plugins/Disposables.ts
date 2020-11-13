@@ -8,11 +8,13 @@ export function set(pluginId: string, disposables: IDisposable[]) {
 }
 
 export function clearAll() {
-	DisposableStore.forEach(disposables => {
+	DisposableStore.forEach((disposables, pluginId) => {
 		disposables.forEach(disposable => disposable.dispose())
+		DisposableStore.delete(pluginId)
 	})
 }
 
 export function clear(pluginId: string) {
 	DisposableStore.get(pluginId)?.forEach(disposable => disposable.dispose())
+	DisposableStore.delete(pluginId)
 }
