@@ -48,6 +48,7 @@ export default class FileSystem {
 		if (update) Vue.$root.$emit('refreshExplorer')
 		if (open) this.addAsTab(path, content, 0, content)
 		trigger('bridge:finishedSaving', path, true, false)
+		return true
 	}
 	static async basicSaveAs(
 		path: string,
