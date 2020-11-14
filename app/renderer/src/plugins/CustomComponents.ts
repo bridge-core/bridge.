@@ -126,6 +126,7 @@ export default class ComponentRegistry {
 		//SETUP PLUGIN API ENV
 		ContextEnv.value = {
 			entityIdentifier,
+			formatVersion: data.format_version,
 		}
 
 		const usedComponents: string[] = []
@@ -193,6 +194,7 @@ export default class ComponentRegistry {
 		//SETUP PLUGIN API ENV
 		ContextEnv.value = {
 			blockIdentifier,
+			formatVersion: data.format_version,
 		}
 
 		const usedComponents: string[] = []
