@@ -68,8 +68,6 @@ export default class PluginLoader {
 		Store.commit('unloadPlugins')
 		clearAllDisposables()
 
-		CommandRegistry.clear()
-		ComponentRegistry.reset()
 		resetLoadLocations()
 	}
 
@@ -136,6 +134,7 @@ export default class PluginLoader {
 			)
 		)
 
+		const globalDisposables: IDisposable[] = []
 		await Promise.all([
 			//LOAD CORRECT THEME
 			ThemeManager.loadTheme(),
@@ -143,11 +142,15 @@ export default class PluginLoader {
 			//LOAD CUSTOM COMPONENENTS IN PROJECT
 			this.loadComponents(
 				path.join(CURRENT.PROJECT_PATH, 'components'),
-				[]
+				globalDisposables
 			),
 			//LOAD CUSTOM COMMANDS IN PROJECT
-			loadCustomCommands(path.join(CURRENT.PROJECT_PATH, 'commands'), []),
+			loadCustomCommands(
+				path.join(CURRENT.PROJECT_PATH, 'commands'),
+				globalDisposables
+			),
 		])
+		setDisposables('bridge.core', globalDisposables)
 
 		//Update files using custom commands/components
 		await ComponentRegistry.updateFiles(getCommandFiles())

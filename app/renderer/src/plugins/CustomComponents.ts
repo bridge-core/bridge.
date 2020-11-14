@@ -71,9 +71,6 @@ export default class ComponentRegistry {
 
 		this.registerUpdates.clear()
 	}
-	static async reset() {
-		this.components = {}
-	}
 
 	static set(
 		MASK: JSONMask,
