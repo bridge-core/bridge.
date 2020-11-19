@@ -41,8 +41,8 @@
 			<p class="mt-10">
 				The target Minecraft version should be set to what version you
 				are developing for. Currently
-				<strong>{{ MC_STABLE_VERSION }}</strong> is the stable release
-				and <strong>{{ MC_BETA_VERSION }}</strong> is the beta release.
+				<strong>{{ MC_STABLE_VERSION }}</strong> is the stable release.
+				<!--and <strong>{{ MC_BETA_VERSION }}</strong> is the beta release.-->
 			</p>
 			<v-select
 				background-color="background"
