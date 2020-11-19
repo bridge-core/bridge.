@@ -72,6 +72,7 @@ export default class PluginLoader {
 	}
 
 	static async unloadPlugin(pluginId: string) {
+		if (pluginId === 'bridge.core') BridgeCore.deactivate()
 		clearDisposables(pluginId)
 	}
 
@@ -169,6 +170,11 @@ export default class PluginLoader {
 		pluginFolder: string,
 		unloadedPlugins: string[]
 	) {
+		if (basePath === 'bridge.core') {
+			BridgeCore.activate()
+			return
+		}
+
 		let pluginPath = path.join(basePath, 'plugins', pluginFolder)
 		if ((await fs.lstat(pluginPath)).isFile()) {
 			if (path.extname(pluginPath) === '.js') {

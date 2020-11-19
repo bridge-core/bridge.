@@ -41,6 +41,8 @@ export const UI_DATA = {
 		'A core library which improves your add-on experience with custom syntax.',
 	version: '1.0.0',
 	id: 'bridge.core',
+	basePath: 'bridge.core',
+	pluginFolder: 'bridge.core',
 }
 
 export type TTextSaveHandler = (
