@@ -4,6 +4,42 @@ import { FunctionCache } from './cache'
 import LightningCache from '../../editor/LightningCache'
 import { once } from '../../AppCycle/EventSystem'
 
+export async function transformRunCommands(
+	fileUuid: string,
+	commandArr: string[]
+) {
+	UsedSelectors.clear()
+	FunctionCache.clear()
+	const commandsStore = new Set<string>()
+	const transformedCommands: string[] = []
+
+	for (let command of commandArr) {
+		const [usedCommands, commands] = parseCommands(command)
+		usedCommands.forEach(command => commandsStore.add(command))
+
+		transformedCommands.push(...commands)
+	}
+
+	await LightningCache.setPlainDataWithTypeAndKey(
+		'function',
+		fileUuid,
+		Object.fromEntries(
+			Array.from(FunctionCache.entries()).map(([id, set]) => [
+				id,
+				Array.from(set),
+			])
+		)
+	)
+
+	once('bridge:onCacheHook[json.custom_commands]', () =>
+		Array.from(commandsStore).concat(Array.from(UsedSelectors))
+	)
+	UsedSelectors.clear()
+	FunctionCache.clear()
+
+	return transformedCommands
+}
+
 export async function transformJsonCommands(
 	fileUuid: string,
 	commandArr: string[]
