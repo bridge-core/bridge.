@@ -72,6 +72,7 @@ export default class PluginLoader {
 	}
 
 	static async unloadPlugin(pluginId: string) {
+		if (pluginId === 'bridge.core') BridgeCore.deactivate()
 		clearDisposables(pluginId)
 	}
 

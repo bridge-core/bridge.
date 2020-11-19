@@ -9,7 +9,13 @@ import { transformTag } from './TagHandler'
 import LightningCache from '../editor/LightningCache'
 import FileType from '../editor/FileType'
 import { OnSaveData } from './main'
-import { transformJsonCommands } from './functions/transformJson'
+import {
+	transformJsonCommands,
+	transformRunCommands,
+} from './functions/transformJson'
+import { createErrorNotification } from '../AppCycle/Errors'
+import ProjectConfig from '../Project/Config'
+import { compare } from 'compare-versions'
 
 let COM_ID_COUNTER = 0
 let A_C: AnimationController
@@ -23,8 +29,16 @@ async function transformEvent(
 		events,
 		file_name,
 		file_uuid,
+		eventName,
+		formatVersion,
 	}: Partial<
-		OnSaveData & { component_groups: any; description: any; events: any }
+		OnSaveData & {
+			component_groups: any
+			description: any
+			events: any
+			eventName: string
+			formatVersion: string
+		}
 	>
 ) {
 	//SPELL EFFECTS
@@ -58,81 +72,135 @@ async function transformEvent(
 		set(component_groups, group_name, g.components || {})
 	}
 
+	if (event.run_command !== undefined) {
+		let { command } = event.run_command
+		if (typeof command === 'string') command = [command]
+
+		if (Array.isArray(command))
+			event.run_command.command = await transformRunCommands(
+				file_uuid,
+				command
+			)
+		else
+			createErrorNotification(
+				new Error(
+					`Invalid run_command>command syntax: Expected array, found ${typeof command}! (Path: ${file_name} - ${eventName})`
+				)
+			)
+	}
+
 	//EXECUTE COMMANDS
 	let { commands: e_c } = use(event, 'execute') || {}
-	if (e_c !== undefined) {
-		let e_c_group = `execute_command_id_${++COM_ID_COUNTER}`
+	if (typeof e_c === 'string') e_c = [e_c]
+	if (e_c !== undefined && Array.isArray(e_c)) {
+		if (compare(formatVersion, '1.16.100', '<')) {
+			let e_c_group = `execute_command_id_${++COM_ID_COUNTER}`
 
-		if (!COMMAND_ANIM_REGISTERED) {
-			set(description, 'scripts/animate', ['bridge_execute_commands'])
-			COMMAND_ANIM_REGISTERED = true
-		}
-
-		set(description, 'animations', {
-			bridge_execute_commands: `controller.animation.bridge_${file_name}.execute_commands`,
-		})
-		set(component_groups, `bridge:${e_c_group}`, {
-			'minecraft:skin_id': {
-				value: COM_ID_COUNTER,
-			},
-		})
-		set(component_groups, 'bridge:execute_no_command', {
-			'minecraft:skin_id': {
-				value: 0,
-			},
-		})
-		set(event, 'add/component_groups', [`bridge:${e_c_group}`])
-		set(events, 'bridge:remove_command_id_' + COM_ID_COUNTER, {
-			add: {
-				component_groups: ['bridge:execute_no_command'],
-			},
-			remove: {
-				component_groups: [`bridge:${e_c_group}`],
-			},
-		})
-
-		set(
-			A_C,
-			`animation_controllers/controller.animation.bridge_${file_name}.execute_commands/states`,
-			{
-				default: {
-					transitions: [
-						{ [e_c_group]: `query.skin_id == ${COM_ID_COUNTER}` },
-					],
-				},
-				[e_c_group]: {
-					transitions: [
-						{ default: `query.skin_id != ${COM_ID_COUNTER}` },
-					],
-					on_entry: (
-						await transformJsonCommands(file_uuid, e_c)
-					).concat(['@s bridge:remove_command_id_' + COM_ID_COUNTER]),
-				},
+			if (!COMMAND_ANIM_REGISTERED) {
+				set(description, 'scripts/animate', ['bridge_execute_commands'])
+				COMMAND_ANIM_REGISTERED = true
 			}
+
+			set(description, 'animations', {
+				bridge_execute_commands: `controller.animation.bridge_${file_name}.execute_commands`,
+			})
+			set(component_groups, `bridge:${e_c_group}`, {
+				'minecraft:skin_id': {
+					value: COM_ID_COUNTER,
+				},
+			})
+			set(component_groups, 'bridge:execute_no_command', {
+				'minecraft:skin_id': {
+					value: 0,
+				},
+			})
+			set(event, 'add/component_groups', [`bridge:${e_c_group}`])
+			set(events, 'bridge:remove_command_id_' + COM_ID_COUNTER, {
+				add: {
+					component_groups: ['bridge:execute_no_command'],
+				},
+				remove: {
+					component_groups: [`bridge:${e_c_group}`],
+				},
+			})
+
+			set(
+				A_C,
+				`animation_controllers/controller.animation.bridge_${file_name}.execute_commands/states`,
+				{
+					default: {
+						transitions: [
+							{
+								[e_c_group]: `query.skin_id == ${COM_ID_COUNTER}`,
+							},
+						],
+					},
+					[e_c_group]: {
+						transitions: [
+							{ default: `query.skin_id != ${COM_ID_COUNTER}` },
+						],
+						on_entry: (
+							await transformJsonCommands(file_uuid, e_c)
+						).concat([
+							'@s bridge:remove_command_id_' + COM_ID_COUNTER,
+						]),
+					},
+				}
+			)
+		} else {
+			if (event?.run_command?.command === undefined)
+				event.run_command = {
+					...(event.run_command ?? {}),
+					command: await transformRunCommands(
+						file_uuid,
+						e_c.map(c => (c[0] === '/' ? c.slice(1) : c))
+					),
+				}
+			else {
+				if (typeof event.run_command.command === 'string')
+					event.run_command.command = [event.run_command.command]
+				if (Array.isArray(event.run_command.command))
+					event.run_command.command.push(
+						...(await transformRunCommands(
+							file_uuid,
+							e_c.map(c => (c[0] === '/' ? c.slice(1) : c))
+						))
+					)
+			}
+		}
+	} else if (e_c !== undefined) {
+		createErrorNotification(
+			new Error(
+				`Invalid execute>commands syntax: Expected array, found ${typeof e_c}! (Path: ${file_name} - ${eventName})`
+			)
 		)
 	}
 
 	if (event.sequence !== undefined)
 		await Promise.all(
-			event.sequence.map((e: any) =>
+			event.sequence.map((e: any, i: number) =>
 				transformEvent(e, {
 					component_groups,
 					description,
 					events,
 					file_name,
 					file_uuid,
+					eventName: `${eventName}>sequence>${i}`,
+					formatVersion,
 				})
 			)
 		)
 	if (event.randomize !== undefined)
 		await Promise.all(
-			event.randomize.map((e: any) =>
+			event.randomize.map((e: any, i: number) =>
 				transformEvent(e, {
 					component_groups,
 					description,
 					events,
 					file_name,
 					file_uuid,
+					eventName: `${eventName}>randomize>${i}`,
+					formatVersion,
 				})
 			)
 		)
@@ -177,6 +245,8 @@ export default async function EntityHandler({
 	file_path,
 	simulated_call,
 }: OnSaveData) {
+	let formatVersion =
+		data.format_version || (await ProjectConfig.formatVersion)
 	let entity = data['minecraft:entity']
 	if (!entity) return
 	set(entity, 'component_groups', {})
@@ -194,12 +264,16 @@ export default async function EntityHandler({
 			events,
 			file_uuid,
 			file_name: file_name.replace('.json', ''),
+			eventName: e,
+			formatVersion,
 		})
 
-	await A_C.save(
-		join(
-			CURRENT.PROJECT_PATH,
-			`animation_controllers/bridge/commands_${file_name}`
+	// The execute>commands syntax only needs an animation controller on Minecraft releases before v1.16.100
+	if (compare(formatVersion, '1.16.100', '<'))
+		await A_C.save(
+			join(
+				CURRENT.PROJECT_PATH,
+				`animation_controllers/bridge/commands_${file_name}`
+			)
 		)
-	)
 }

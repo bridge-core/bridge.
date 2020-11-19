@@ -6,7 +6,8 @@ import ProjectConfig from '../../../Project/Config'
 import Provider from '../../Provider'
 
 interface IVersionedTemplate {
-	$if: string
+	$if?: string
+	$legacy_if?: string //Allows usage of legacy dynamic_template $if hooks into the DYNAMIC lib
 	$data: any
 }
 
@@ -22,8 +23,11 @@ export function compileVersionedTemplate(template: IVersionedTemplate[]) {
 		resValue: string[] = []
 	let hasTruthyCondition = false
 
-	for (let { $if, $data } of template) {
-		if (!$if || compileCondition($if)) {
+	for (let { $if, $legacy_if, $data } of template) {
+		if (
+			(!$if || compileCondition($if)) &&
+			(!$legacy_if || Omega.walk($legacy_if))
+		) {
 			hasTruthyCondition = true
 
 			if (typeof $data === 'string') {

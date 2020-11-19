@@ -16,6 +16,17 @@ export const EditMenu: IAppMenu = {
 					displayIcon: 'mdi-cancel',
 					keyBinding: {
 						key: 'escape',
+						prevent: e => {
+							if (
+								e.tagName === 'INPUT' &&
+								document.activeElement === e
+							) {
+								//This might be a "little" bit hacky (because this function shouldn't have side effects) but it works :)
+								e.blur()
+								return true
+							}
+							return false
+						},
 					},
 					onClick: () => TabSystem.setCurrentFileNav('global'),
 				},

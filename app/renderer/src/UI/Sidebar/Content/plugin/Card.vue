@@ -79,6 +79,7 @@ import { readJSON, writeJSON } from '../../../../Utilities/JsonFS'
 import path from 'path'
 import { CURRENT } from '../../../../constants'
 import LoadingWindow from '../../../../../windows/LoadingWindow'
+import { BridgeCore } from '../../../../bridgeCore/main'
 
 export default {
 	name: 'plugin-card',
@@ -129,6 +130,7 @@ export default {
 					this.plugin.pluginFolder,
 					plugins
 				)
+			else BridgeCore.activate()
 
 			lw.close()
 		},
@@ -151,6 +153,7 @@ export default {
 			//This ensures that we're not trying to unload the built-in bridge. Core plugin
 			if (this.plugin.pluginPath)
 				PluginLoader.unloadPlugin(this.plugin.id)
+			else BridgeCore.deactivate()
 			lw.close()
 		},
 	},

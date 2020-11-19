@@ -153,7 +153,7 @@ export default {
 			projectIcon: undefined,
 		}
 	},
-	created() {
+	mounted() {
 		this.projectIcon = this.loadProjectIcon()
 		this.$root.$on('refreshExplorer', () =>
 			EventBus.trigger('bridge:refreshExplorer')

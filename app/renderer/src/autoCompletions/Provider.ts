@@ -264,12 +264,13 @@ class Provider {
 						Omega.walk(object[key].$if)
 					)
 						return key.substring(key.indexOf('.') + 1, key.length)
+					return undefined
 				} else if (key.startsWith('$versioned_template.')) {
-					const {
-						object: tmpObject,
-						value: tmpValue,
-					} = compileVersionedTemplate(object[key])
+					const { object: tmpObject } = compileVersionedTemplate(
+						object[key]
+					)
 
+					// Check for value is not needed because tmpObject is only undefined when value is also undefined
 					if (tmpObject === undefined) return undefined
 					return key.substring(key.indexOf('.') + 1, key.length)
 				} else if (key.startsWith('@import.value')) {
