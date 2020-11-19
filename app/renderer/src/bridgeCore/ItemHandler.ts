@@ -5,6 +5,7 @@ import { set } from '../Utilities/useAttr'
 import ItemEquippedSensor from './item/ItemEquippedSensor'
 import { OnSaveData } from './main'
 import { promises as fs } from 'fs'
+import { iterateEvents } from './events/iterate'
 declare const __static: string
 
 export type ItemComponentData = Partial<
@@ -48,7 +49,11 @@ export function transformComponents({
 	return false
 }
 
-export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
+export default async function ItemHandler({
+	file_uuid,
+	data,
+	file_name,
+}: OnSaveData) {
 	//FILE PATHS
 	let player_file_path = path.join(
 		CURRENT.PROJECT_PATH,
@@ -75,7 +80,8 @@ export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
 	if (!item) return
 	set(item, 'components', {})
 	set(item, 'description', {})
-	let { components, description } = item
+	set(item, 'events', {})
+	let { components, description, events } = item
 
 	//ADDITIONAL FILES
 	let PLAYER_MASK = await JSONFileMasks.get(player_file_path)
@@ -111,4 +117,7 @@ export default async function ItemHandler({ file_uuid, data }: OnSaveData) {
 		JSONFileMasks.apply(player_file_path),
 		JSONFileMasks.generateFromMask(a_c_file_path, ['default/on_entry']),
 	])
+
+	// Needs to be after player file mask so the lightning cache entries actually get added to the item, not the player
+	await iterateEvents(file_uuid, file_name, events)
 }

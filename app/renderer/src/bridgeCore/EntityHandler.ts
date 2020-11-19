@@ -72,6 +72,23 @@ async function transformEvent(
 		set(component_groups, group_name, g.components || {})
 	}
 
+	if (event.run_command !== undefined) {
+		let { command } = event.run_command
+		if (typeof command === 'string') command = [command]
+
+		if (Array.isArray(command))
+			event.run_command.command = await transformRunCommands(
+				file_uuid,
+				command
+			)
+		else
+			createErrorNotification(
+				new Error(
+					`Invalid run_command>command syntax: Expected array, found ${typeof command}! (Path: ${file_name} - ${eventName})`
+				)
+			)
+	}
+
 	//EXECUTE COMMANDS
 	let { commands: e_c } = use(event, 'execute') || {}
 	if (typeof e_c === 'string') e_c = [e_c]
@@ -131,10 +148,25 @@ async function transformEvent(
 				}
 			)
 		} else {
-			event.run_commands = await transformRunCommands(
-				file_uuid,
-				e_c.map(c => (c[0] === '/' ? c.slice(1) : c))
-			)
+			if (event?.run_command?.command === undefined)
+				event.run_command = {
+					...(event.run_command ?? {}),
+					command: await transformRunCommands(
+						file_uuid,
+						e_c.map(c => (c[0] === '/' ? c.slice(1) : c))
+					),
+				}
+			else {
+				if (typeof event.run_command.command === 'string')
+					event.run_command.command = [event.run_command.command]
+				if (Array.isArray(event.run_command.command))
+					event.run_command.command.push(
+						...(await transformRunCommands(
+							file_uuid,
+							e_c.map(c => (c[0] === '/' ? c.slice(1) : c))
+						))
+					)
+			}
 		}
 	} else if (e_c !== undefined) {
 		createErrorNotification(

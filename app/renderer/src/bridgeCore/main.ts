@@ -7,11 +7,9 @@ import OmegaCache from '../editor/OmegaCache'
 import { JSONFileMasks } from '../editor/JSONFileMasks'
 import path from 'path'
 import CORE_FILES from './CORE_FILES'
-
 import EntityHandler, { handleTags } from './EntityHandler'
 import ItemHandler from './ItemHandler'
 import TagHandler from './TagHandler'
-
 import ComponentRegistry from '../plugins/CustomComponents'
 import MapAreaHandler from './MapAreaHandler'
 import trash from 'trash'
@@ -23,6 +21,7 @@ import { updateCustomCommand } from './update/commands'
 import AnimationHandler from './AnimationHandler'
 import AnimationControllerHandler from './AnimationControllerHandler'
 import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
+import BlockHandler from './BlockHandler'
 
 export interface OnSaveData {
 	file_path: string
@@ -221,6 +220,7 @@ BridgeCore.setSaveHandler('animation', AnimationHandler)
 BridgeCore.setSaveHandler('animation_controller', AnimationControllerHandler)
 BridgeCore.setSaveHandler('entity', EntityHandler)
 BridgeCore.setSaveHandler('item', ItemHandler)
+BridgeCore.setSaveHandler('block', BlockHandler)
 BridgeCore.setSaveHandler('entity_tag', TagHandler)
 BridgeCore.setSaveHandler('bridge_map_area', MapAreaHandler)
 BridgeCore.setTextSaveHandler('function', parseFunction)

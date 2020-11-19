@@ -229,7 +229,7 @@ export default class LightningCache {
 				}) => {
 					if (iterate !== undefined) {
 						;(content.get(iterate)?.children ?? []).forEach(c =>
-							this.storeInCahe(
+							this.storeInCache(
 								cache,
 								c,
 								path,
@@ -239,7 +239,7 @@ export default class LightningCache {
 							)
 						)
 					} else if (path !== undefined) {
-						this.storeInCahe(
+						this.storeInCache(
 							cache,
 							content,
 							path,
@@ -284,7 +284,7 @@ export default class LightningCache {
 		if (except) cache[except] = []
 	}
 
-	static storeInCahe(
+	static storeInCache(
 		cache: { [cacheKey: string]: string[] },
 		content: JSONTree,
 		path: string,

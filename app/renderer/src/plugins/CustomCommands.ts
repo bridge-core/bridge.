@@ -89,6 +89,7 @@ export async function registerCustomCommand(
 							'animation_controller',
 							'animation',
 							'item',
+							'block',
 						],
 						['custom_commands'],
 						Command.command_name
