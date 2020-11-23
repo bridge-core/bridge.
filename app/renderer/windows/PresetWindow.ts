@@ -80,10 +80,13 @@ export default class PresetWindow extends TabWindow {
 									this.action_button.action = async () => {
 										this.close()
 										let lw = new LoadingWindow()
-										await buildPreset(
-											data,
-											this.input.toLowerCase()
-										)
+										let inputValue = this.input.toLowerCase()
+										if (inputValue.includes(':'))
+											inputValue = inputValue
+												.split(':')
+												.pop()
+
+										await buildPreset(data, inputValue)
 										lw.close()
 									}
 								},
