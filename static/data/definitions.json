@@ -16,6 +16,9 @@
         "identifiers"
     ],
     "particle": [
+        "ids"
+    ],
+    "entity_model": [
         "identifiers"
     ],
     "render_controller": [

@@ -228,7 +228,9 @@ export default class LightningCache {
 					filter,
 				}) => {
 					if (iterate !== undefined) {
-						;(content.get(iterate)?.children ?? []).forEach(c =>
+						let data = content.get(iterate)?.children ?? []
+
+						data.forEach(c =>
 							this.storeInCache(
 								cache,
 								c,
