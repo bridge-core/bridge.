@@ -258,7 +258,11 @@ export default class LightningCache {
 									if (search.data !== undefined)
 										c = c.get(search.data)
 
-									let data = c.toJSON()
+									let data = []
+									try {
+										data = c.toJSON()
+									} catch {}
+
 									if (Array.isArray(data)) {
 										res.push(...data)
 									} else if (typeof data === 'object') {
