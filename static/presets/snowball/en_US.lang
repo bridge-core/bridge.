@@ -1,3 +1,3 @@
-item.{{PROJ_PREFIX}}:{{IDENTIFIER}}.name={{IDENTIFIER_NAME}}
+item.{{PROJ_PREFIX}}:{{IDENTIFIER}}={{IDENTIFIER_NAME}}
 
 entity.{{PROJ_PREFIX}}:{{IDENTIFIER}}_projectile.name={{IDENTIFIER_NAME}}

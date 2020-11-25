@@ -14,7 +14,7 @@ Bridge.registerTokens({
 })
 
 const getSuggestions = () => [
-	...o('$dynamic.cache.item.identifiers').map(id => `item.${id}.name`),
+	...o('$dynamic.cache.item.identifiers').map(id => `item.${id}`),
 	...o('$dynamic.cache.block.identifiers').map(id => `tile.${id}.name`),
 	...o('$dynamic.cache.entity.identifiers').map(
 		id => `item.spawn_egg.entity.${id}.name`
