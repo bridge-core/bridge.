@@ -15,12 +15,12 @@
 		</template>
 		<template #actions>
 			<v-spacer />
-			<v-btn @click="onCancel"
-				><span>{{ cancelText }}</span></v-btn
-			>
-			<v-btn color="primary" @click="onConfirm"
-				><span>{{ confirmText }}</span></v-btn
-			>
+			<v-btn @click="onCancel">
+				<span>{{ cancelText }}</span>
+			</v-btn>
+			<v-btn color="primary" @click="onConfirm">
+				<span>{{ confirmText }}</span>
+			</v-btn>
 		</template>
 	</BaseWindow>
 </template>

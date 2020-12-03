@@ -2,8 +2,8 @@
 	"format_version": "1.13.0",
 	"minecraft:feature_rules": {
 		"description": {
-			"identifier": "overworld_underground_{{IDENTIFIER}}_feature",
-			"places_feature": "{{IDENTIFIER}}_feature"
+			"identifier": "{{PROJ_PREFIX}}:overworld_underground_{{IDENTIFIER}}_feature",
+			"places_feature": "{{PROJ_PREFIX}}:{{IDENTIFIER}}_feature"
 		},
 		"conditions": {
 			"placement_pass": "underground_pass",
