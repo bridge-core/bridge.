@@ -247,13 +247,12 @@ export default class CreateFileWindow extends ContentWindow {
 		})
 
 		this.createFile = () => {
-			if (/\.\.(\\|\/)/g.test(this.current_content.getFullPath())) return // Silently stop. Shouldn't ever happen
-			FileSystem.save(
-				this.current_content.getFullPath(),
-				this.chosen_template,
-				true,
-				true
-			)
+			let path = this.current_content.getFullPath()
+			if (path.includes('minecraftWorlds'))
+				path = path.replace('development_behavior_packs\\..\\', '')
+
+			if (/\.\.(\\|\/)/g.test(path)) return // Silently stop. Shouldn't ever happen
+			FileSystem.save(path, this.chosen_template, true, true)
 			this.close()
 		}
 		this.actions = [
