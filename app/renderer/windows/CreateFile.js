@@ -187,12 +187,18 @@ class FileContent {
 		}/${expand}${val}.${ext}`
 	}
 
-	getFullPath(val, ext, expand) {
-		return `${this.use_rp_path ? RP_BASE_PATH : BASE_PATH}${this.getPath(
-			val,
-			ext,
-			expand
-		)}`
+	getFullPath(
+		val = this.curr_input,
+		ext = this.ext,
+		expand = this.expand_path
+	) {
+		const base = resolve(
+			this.use_rp_path
+				? join(RP_BASE_PATH, Store.state.Explorer.project.resource_pack)
+				: join(BASE_PATH, Store.state.Explorer.project.explorer)
+		)
+
+		return join(base, expand, `${val}.${ext}`)
 	}
 
 	get() {
@@ -247,7 +253,7 @@ export default class CreateFileWindow extends ContentWindow {
 		})
 
 		this.createFile = () => {
-			const path = resolve(this.current_content.getFullPath())
+			const path = this.current_content.getFullPath()
 
 			if (/\.\.(\\|\/)/g.test(path)) return // Silently stop. Shouldn't ever happen
 			FileSystem.save(path, this.chosen_template, true, true)
