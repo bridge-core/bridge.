@@ -7,7 +7,7 @@ import { run } from '../src/editor/ScriptRunner/run'
 import { RP_BASE_PATH, BASE_PATH } from '../src/constants'
 import uuidv4 from 'uuid/v4'
 import { walkSync } from '../src/autoCompletions/Dynamic'
-import { join } from 'path'
+import { join, resolve } from 'path'
 import { promises as fs } from 'fs'
 import { uuid } from '../src/Utilities/useAttr'
 import { compileCondition } from '../src/autoCompletions/components/VersionedTemplate/Common'
@@ -247,9 +247,7 @@ export default class CreateFileWindow extends ContentWindow {
 		})
 
 		this.createFile = () => {
-			let path = this.current_content.getFullPath()
-			if (path.includes('minecraftWorlds'))
-				path = path.replace('development_behavior_packs\\..\\', '')
+			const path = resolve(this.current_content.getFullPath())
 
 			if (/\.\.(\\|\/)/g.test(path)) return // Silently stop. Shouldn't ever happen
 			FileSystem.save(path, this.chosen_template, true, true)
