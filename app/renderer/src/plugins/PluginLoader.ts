@@ -90,7 +90,7 @@ export default class PluginLoader {
 		try {
 			unloadedPlugins = await readJSON(uninstalledPath)
 		} catch {
-			fs.mkdir(path.join(CURRENT.PROJECT_PATH, 'plugins'), {
+			fs.mkdir(path.join(CURRENT.PROJECT_PATH, 'bridge/plugins'), {
 				recursive: true,
 			}).finally(() => fs.writeFile(uninstalledPath, '[]'))
 			unloadedPlugins = []
