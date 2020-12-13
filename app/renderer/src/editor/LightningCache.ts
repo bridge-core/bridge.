@@ -228,7 +228,9 @@ export default class LightningCache {
 					filter,
 				}) => {
 					if (iterate !== undefined) {
-						;(content.get(iterate)?.children ?? []).forEach(c =>
+						let data = content.get(iterate)?.children ?? []
+
+						data.forEach(c =>
 							this.storeInCache(
 								cache,
 								c,
@@ -258,7 +260,11 @@ export default class LightningCache {
 									if (search.data !== undefined)
 										c = c.get(search.data)
 
-									let data = c.toJSON()
+									let data = []
+									try {
+										data = c.toJSON()
+									} catch {}
+
 									if (Array.isArray(data)) {
 										res.push(...data)
 									} else if (typeof data === 'object') {

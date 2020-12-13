@@ -1139,7 +1139,7 @@
 			"events": {
 				"charge": "mob.goat.charge"
 			}
-		}
+		},
          "guardian" : {
             "events" : {
                "ambient" : "mob.guardian.land_idle",

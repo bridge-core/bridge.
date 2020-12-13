@@ -72,7 +72,10 @@ export default class PresetWindow extends TabWindow {
 								default: (inp: string) => {
 									this.input = inp
 
-									if (this.input === '')
+									if (
+										this.input === '' ||
+										this.input.includes(' ')
+									)
 										this.action_button.is_disabled = true
 									else this.action_button.is_disabled = false
 									this.update()
@@ -80,10 +83,13 @@ export default class PresetWindow extends TabWindow {
 									this.action_button.action = async () => {
 										this.close()
 										let lw = new LoadingWindow()
-										await buildPreset(
-											data,
-											this.input.toLowerCase()
-										)
+										let inputValue = this.input.toLowerCase()
+										if (inputValue.includes(':'))
+											inputValue = inputValue
+												.split(':')
+												.pop()
+
+										await buildPreset(data, inputValue)
 										lw.close()
 									}
 								},
@@ -96,7 +102,7 @@ export default class PresetWindow extends TabWindow {
 						{
 							key: uuid(),
 							text:
-								'\nThe identifier will be used as a file name for all files this preset creates. It should not contain your namespace because bridge. adds it automatically where needed.\n',
+								'\nThe identifier will be used as a file name for all files this preset creates. It should not contain your namespace because bridge. adds it automatically where needed. Do not use spaces inside of your identifier!\n',
 						},
 						{
 							key: uuid(),

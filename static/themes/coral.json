@@ -52,7 +52,7 @@
             },
             "primary": "#EF6F6C",
             "secondary": "#EF6F6C",
-            "accent": "white",
+            "accent": "#7d0000",
             "toolbar": "#EF6F6C",
             "tooltip": "#EF6F6C"
         }

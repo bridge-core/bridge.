@@ -7,7 +7,7 @@ import { run } from '../src/editor/ScriptRunner/run'
 import { RP_BASE_PATH, BASE_PATH } from '../src/constants'
 import uuidv4 from 'uuid/v4'
 import { walkSync } from '../src/autoCompletions/Dynamic'
-import { join } from 'path'
+import { join, resolve } from 'path'
 import { promises as fs } from 'fs'
 import { uuid } from '../src/Utilities/useAttr'
 import { compileCondition } from '../src/autoCompletions/components/VersionedTemplate/Common'
@@ -187,12 +187,18 @@ class FileContent {
 		}/${expand}${val}.${ext}`
 	}
 
-	getFullPath(val, ext, expand) {
-		return `${this.use_rp_path ? RP_BASE_PATH : BASE_PATH}${this.getPath(
-			val,
-			ext,
-			expand
-		)}`
+	getFullPath(
+		val = this.curr_input,
+		ext = this.ext,
+		expand = this.expand_path
+	) {
+		const base = resolve(
+			this.use_rp_path
+				? join(RP_BASE_PATH, Store.state.Explorer.project.resource_pack)
+				: join(BASE_PATH, Store.state.Explorer.project.explorer)
+		)
+
+		return join(base, expand, `${val}.${ext}`)
 	}
 
 	get() {
@@ -247,13 +253,10 @@ export default class CreateFileWindow extends ContentWindow {
 		})
 
 		this.createFile = () => {
-			if (/\.\.(\\|\/)/g.test(this.current_content.getFullPath())) return // Silently stop. Shouldn't ever happen
-			FileSystem.save(
-				this.current_content.getFullPath(),
-				this.chosen_template,
-				true,
-				true
-			)
+			const path = this.current_content.getFullPath()
+
+			if (/\.\.(\\|\/)/g.test(path)) return // Silently stop. Shouldn't ever happen
+			FileSystem.save(path, this.chosen_template, true, true)
 			this.close()
 		}
 		this.actions = [

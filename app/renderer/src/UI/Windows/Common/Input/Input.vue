@@ -15,6 +15,7 @@
 					:label="label"
 					v-model="inputValue"
 					@keydown.enter.native="onConfirm"
+					autofocus
 				/>
 				<p class="expand_text" v-if="expandText !== ''">
 					{{ expandText }}

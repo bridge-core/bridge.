@@ -2,7 +2,7 @@
 	"format_version": "1.13.0",
 	"minecraft:ore_feature": {
 		"description": {
-			"identifier": "{{IDENTIFIER}}_feature"
+			"identifier": "{{PROJ_PREFIX}}:{{IDENTIFIER}}_feature"
 		},
 		"count": 9,
 		"places_block": "{{PROJ_PREFIX}}:{{IDENTIFIER}}",

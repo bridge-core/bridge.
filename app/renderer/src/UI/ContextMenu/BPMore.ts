@@ -136,7 +136,7 @@ export default [
 									remote.shell.showItemInFolder(
 										join(
 											MOJANG_PATH,
-											`${project_name}.mcpack`
+											`${project_name}.mcaddon`
 										)
 									)
 								},

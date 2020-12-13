@@ -13,6 +13,7 @@ import { FetchDefinitionModule } from './modules/fetchDefinition'
 import { WindowModule } from './modules/windows'
 import { GlobalsModule } from './modules/globals'
 import { ToolbarModule } from './modules/toolbar'
+import { CompareVersions } from './modules/compareVersions'
 
 const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/ui', UIModule],
@@ -27,6 +28,7 @@ const BuiltInModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/fetch-definition', FetchDefinitionModule],
 	['@bridge/windows', WindowModule],
 	['@bridge/toolbar', ToolbarModule],
+	['@bridge/compare-versions', CompareVersions],
 ])
 //For usage inside of custom commands, components etc.
 const LimitedModules = new Map<string, (config: IModuleConfig) => unknown>([
@@ -37,6 +39,7 @@ const LimitedModules = new Map<string, (config: IModuleConfig) => unknown>([
 	['@bridge/globals', GlobalsModule],
 	['@bridge/utils', UtilsModule],
 	['@bridge/fetch-definition', FetchDefinitionModule],
+	['@bridge/compare-versions', CompareVersions],
 ])
 
 function createGenericEnv(
