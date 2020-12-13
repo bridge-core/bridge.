@@ -35,7 +35,7 @@ export * from '../../shared/Paths'
 export * from '../../shared/DefaultDir'
 export const BASE_PATH = BP_BASE_PATH
 
-export const MC_BETA_VERSION = '1.16.200'
+export const MC_BETA_VERSION = '1.16.210'
 export const MC_STABLE_VERSION = '1.16.100'
 
 export const browser_window = remote.getCurrentWindow()
