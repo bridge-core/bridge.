@@ -213,6 +213,11 @@ export default class AboutWindow extends TabWindow {
 					'GitHub',
 					'https://github.com/solvedDev/bridge./'
 				),
+				new Link(
+					'bridge. Homepage:',
+					'Website',
+					'https://bridge-core.github.io/'
+				),
 				new Link('Bedrock ', 'Documentation', 'https://bedrock.dev/'),
 				new Link(
 					'',
