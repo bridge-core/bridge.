@@ -369,26 +369,28 @@ class Provider {
 			if (res !== undefined) {
 				return res
 			} else if (current !== LIB) {
-				for (let k of Object.keys(current)) {
-					if (k[0] === '$' && !REMOVE_LIST.includes(k)) {
-						for (let i = 0; i < path_arr.length + 1; i++)
-							CONTEXT_UP()
-						let { object, value } = this.omegaExpression(k)
-						for (let i = 0; i < path_arr.length + 1; i++)
-							CONTEXT_DOWN()
-						object = this.parseObjectCompletions(object, value)
-
-						if (
-							value.includes(key) ||
-							object.includes(key) ||
-							value.includes('@wildcard')
-						)
-							return this.walk(path_arr, current[k])
-					}
-				}
+				return this.resolveDynamicReferences(path_arr, key, current)
 			}
 		}
 		return this.walk(path_arr, current[key])
+	}
+
+	resolveDynamicReferences(pathArr: string[], key: string, current: any) {
+		for (let k of Object.keys(current)) {
+			if (k[0] === '$' && !REMOVE_LIST.includes(k)) {
+				for (let i = 0; i < pathArr.length + 1; i++) CONTEXT_UP()
+				let { object, value } = this.omegaExpression(k)
+				for (let i = 0; i < pathArr.length + 1; i++) CONTEXT_DOWN()
+				object = this.parseObjectCompletions(object, value)
+
+				if (
+					value.includes(key) ||
+					object.includes(key) ||
+					value.includes('@wildcard')
+				)
+					return this.walk(pathArr, current[k])
+			}
+		}
 	}
 
 	omegaExpression(expression: string) {
