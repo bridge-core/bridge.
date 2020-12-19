@@ -288,6 +288,29 @@ export const DYNAMIC = {
 				return []
 			}
 		},
+		textures() {
+			try {
+				return walkSync(path.join(CURRENT.RP_PATH, 'textures')).map(
+					e => {
+						let tmp = e
+							.replace(
+								RP_BASE_PATH.replace(/\//g, '\\') +
+									Store.state.Explorer.project.resource_pack +
+									'\\',
+								''
+							)
+							.replace(/\\/g, '/')
+						if (tmp.endsWith('.json')) return
+						return `${path.dirname(tmp)}/${path.basename(
+							tmp,
+							path.extname(tmp)
+						)}`
+					}
+				)
+			} catch (e) {
+				return []
+			}
+		},
 		entity_textures() {
 			try {
 				return walkSync(
