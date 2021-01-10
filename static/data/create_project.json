@@ -10,6 +10,7 @@
             "RP/biomes_client.json": "biomes_client.json",
             "RP/blocks.json": "blocks.json",
             "RP/sounds.json": "sounds.json",
+            "RP/textures_list.json": "textures/textures_list.json",
             "RP/terrain_texture.json": "textures/terrain_texture.json",
             "RP/flipbook_textures.json": "textures/flipbook_textures.json",
             "RP/item_texture.json": "textures/item_texture.json",

@@ -22,7 +22,20 @@ export default class ComponentProvider {
 		path_arr: string[],
 		current: any
 	) {
-		for (let component of COMPONENTS) {
+		for (const component of COMPONENTS) {
+			if (component.confirm(provider, key, path_arr, current))
+				return component.process(provider, key, path_arr, current)
+		}
+	}
+
+	static processWithoutLoad(
+		provider: Provider,
+		key: string,
+		path_arr: string[],
+		current: any
+	) {
+		for (let i = 1; i < COMPONENTS.length; i++) {
+			const component = COMPONENTS[i]
 			if (component.confirm(provider, key, path_arr, current))
 				return component.process(provider, key, path_arr, current)
 		}

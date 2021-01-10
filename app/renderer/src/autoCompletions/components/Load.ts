@@ -1,3 +1,4 @@
+import ComponentProvider from '../Components'
 import Provider from '../Provider'
 
 export class Load {
@@ -7,7 +8,11 @@ export class Load {
 		path_arr: string[],
 		current: any
 	) {
-		return current.$load !== undefined
+		if (!current.$load) return false
+
+		const { object = {}, value = [] } =
+			this.process(provider, key, [...path_arr], current) ?? {}
+		return Object.keys(object).length > 0 || value.length > 0
 	}
 	static process(
 		provider: Provider,
@@ -22,6 +27,7 @@ export class Load {
 		path_arr.unshift(key)
 		return provider.walk(path_arr, object)
 	}
+
 	static walk(path_arr: string[], arg1: any): any {
 		throw new Error('Method not implemented.')
 	}

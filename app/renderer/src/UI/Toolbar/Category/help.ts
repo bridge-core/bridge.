@@ -1,6 +1,8 @@
 import { IAppMenu } from '../create'
 import AboutWindow from '../../../../windows/About'
-import { shell } from 'electron'
+import { remote, shell } from 'electron'
+import os from 'os'
+import path from 'path'
 
 export const HelpMenu: IAppMenu = {
 	displayName: 'Help',
@@ -49,6 +51,14 @@ export const HelpMenu: IAppMenu = {
 			onClick: () =>
 				shell.openExternal(
 					'https://bridge-core.github.io/editor-docs/faq/'
+				),
+		},
+		{
+			displayName: 'Open Global Plugins Folder',
+			displayIcon: 'mdi-folder-cog',
+			onClick: () =>
+				remote.shell.showItemInFolder(
+					path.join(os.homedir(), '.bridge/data/plugins')
 				),
 		},
 	],
