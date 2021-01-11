@@ -192,7 +192,7 @@ class Provider {
 		// console.log('[PROPOSING]', path, propose, LIB)
 
 		return this.preparePropose(
-			propose,
+			propose ?? { object: {}, value: [] },
 			context === undefined ? [] : Object.keys(context.toJSON(false))
 		)
 	}
