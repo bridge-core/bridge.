@@ -12,10 +12,10 @@
           "enchanted": "textures/misc/enchanted_item_glint"
         },
         "geometry": {
-          "default": "geometry.humanoid.armor.helmet"
+          "default": "geometry.humanoid.armor.chestplate"
         },
         "scripts": {
-          "parent_setup": "variable.helmet_layer_visible = 0.0;"
+          "parent_setup": "variable.chestplate_layer_visible = 0.0;"
         },
         "render_controllers": [ "controller.render.armor" ]
       }
