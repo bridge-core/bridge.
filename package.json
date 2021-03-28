@@ -1,6 +1,7 @@
 {
   "name": "bridge",
   "version": "1.7.18",
+  "private": true,
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
   "license": "GNU",
