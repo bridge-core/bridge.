@@ -12,6 +12,8 @@ import './Errors'
 import Store from '../../store/index'
 import Provider from '../autoCompletions/Provider'
 import { loadDependency } from './fetchDeps'
+import { createConfirmWindow } from '../UI/Windows/Common/CommonDefinitions'
+import { createMigrationPromptWindow } from '../UI/Windows/Migration/definition'
 
 export default async function startUp() {
 	SETTINGS.setup()
@@ -59,6 +61,9 @@ export default async function startUp() {
 	if (Store.state.Settings.open_in_fullscreen) {
 		remote.getCurrentWindow().maximize()
 	}
+
+	// Prompt to migrate to v2
+	createMigrationPromptWindow()
 }
 
 export function createAppUpdateNotification() {
