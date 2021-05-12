@@ -53,6 +53,8 @@ import { loadProjects } from './load'
 import { ipcRenderer } from 'electron'
 import LoadingWindow from '../../../../windows/LoadingWindow'
 import { createV2Directory } from './create'
+import { promises as fs } from 'fs'
+import { createInformationWindow } from '../Common/CommonDefinitions'
 
 export default {
 	name: 'Migration',
@@ -70,6 +72,7 @@ export default {
 		},
 		onConfirm() {
 			createV2Directory(this.projectPath, this.selectedProjects)
+			createMigrationPromptNotification()
 		},
 		async chooseProjectFolder() {
 			const lw = new LoadingWindow()
@@ -80,7 +83,18 @@ export default {
 
 			lw.close()
 
-			if (path) this.projectPath = path[0]
+			// Ensure chosen directory is empty
+			if (path[0]) {
+				console.log(path)
+				fs.readdir(path[0]).then(files => {
+					if (files.length > 0)
+						createInformationWindow(
+							'Invalid directory',
+							'Please select an empty directory!'
+						)
+					else this.projectPath = path[0]
+				})
+			}
 		},
 	},
 	async mounted() {
