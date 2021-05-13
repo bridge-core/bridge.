@@ -71,7 +71,12 @@ export default {
 			this.currentWindow.close()
 		},
 		onConfirm() {
+			this.currentWindow.close()
+
+			const lw = new LoadingWindow()
 			createV2Directory(this.projectPath, this.selectedProjects)
+			lw.close()
+
 			createMigrationPromptNotification()
 		},
 		async chooseProjectFolder() {

@@ -1,5 +1,4 @@
-import { promises as fs } from 'fs'
-import LoadingWindow from '../../../../windows/LoadingWindow'
+import { PathLike, promises as fs } from 'fs'
 import { join } from 'path'
 import { BP_BASE_PATH, RP_BASE_PATH } from '../../../../../shared/Paths'
 import { readJSON, writeJSON } from '../../../Utilities/JsonFS'
@@ -47,8 +46,10 @@ function transform(children: any[]) {
 	for (const c of children) {
 		if (c.is_disabled) continue
 		if (c.is_minified) res[c.key] = c.data || c.children || c.array
-		else if (Array.isArray(c.children)) res[c.key] = transform(c.children)
-		else if (c.key && c.data) {
+		else if (Array.isArray(c.children)) {
+			if (c.key === undefined) res.push(transform(c.children))
+			res[c.key] = transform(c.children)
+		} else if (c.key && c.data) {
 			if (c.key == 'format_version') res[c.key] = c.data
 			else res[c.key] = convertValues(c.data)
 		}
@@ -62,15 +63,12 @@ function convertValues(value: string) {
 	else if (value == 'true') return true
 	else {
 		const newValue = parseInt(value)
-		console.log('newValue: ' + newValue)
 		if (isNaN(newValue)) return value
 		else return newValue
 	}
 }
 
 export function createV2Directory(targetPath: string, projects: string[]) {
-	const lw = new LoadingWindow()
-
 	const projectPath = join(targetPath, 'projects')
 
 	projects.forEach(async bpPath => {
@@ -118,6 +116,4 @@ export function createV2Directory(targetPath: string, projects: string[]) {
 			)
 		}
 	})
-
-	lw.close()
 }
