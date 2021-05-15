@@ -58,7 +58,6 @@ function transform(children: any[]) {
 }
 
 function convertValues(value: string) {
-	console.log(value)
 	if (value == 'false') return false
 	else if (value == 'true') return true
 	else {
@@ -68,10 +67,13 @@ function convertValues(value: string) {
 	}
 }
 
-export function createV2Directory(targetPath: string, projects: string[]) {
+export async function createV2Directory(
+	targetPath: string,
+	projects: string[]
+) {
 	const projectPath = join(targetPath, 'projects')
 
-	projects.forEach(async bpPath => {
+	for (const bpPath of projects) {
 		// Find linked RP
 		let rpPath = undefined
 		let bpManifest = undefined
@@ -83,19 +85,21 @@ export function createV2Directory(targetPath: string, projects: string[]) {
 			)
 		} catch {}
 
-		// Check RPs
-		const resourcePacks = await fs.readdir(RP_BASE_PATH)
-		for (const rp of resourcePacks) {
-			try {
-				rpManifest = await readJSON(
-					join(RP_BASE_PATH, rp, 'manifest.json')
-				)
-			} catch {}
+		if (bpManifest) {
+			// Check RPs
+			const resourcePacks = await fs.readdir(RP_BASE_PATH)
+			for (const rp of resourcePacks) {
+				try {
+					rpManifest = await readJSON(
+						join(RP_BASE_PATH, rp, 'manifest.json')
+					)
+				} catch {}
 
-			if (bpManifest.dependencies) {
-				for (const dependency of bpManifest.dependencies) {
-					if (dependency.uuid == rpManifest.header.uuid) {
-						rpPath = rp
+				if (bpManifest.dependencies && rpManifest) {
+					for (const dependency of bpManifest.dependencies) {
+						if (dependency.uuid == rpManifest.header.uuid) {
+							rpPath = rp
+						}
 					}
 				}
 			}
@@ -115,5 +119,5 @@ export function createV2Directory(targetPath: string, projects: string[]) {
 				join(BP_BASE_PATH, bpPath, 'bridge/cache/RP')
 			)
 		}
-	})
+	}
 }
