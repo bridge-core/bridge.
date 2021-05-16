@@ -40,7 +40,6 @@ async function iterateDir(src: string, dest: string, cache: string) {
 }
 
 function transform(children: any[]) {
-	// TODO Fix transforming objects nested in arrays
 	const res: any = {}
 
 	for (const c of children) {
@@ -195,6 +194,49 @@ export async function createV2Directory(
 				bpPath.replace(/BP|behaviors/gi, ''),
 				lang
 			),
+			true
+		)
+
+		// Create other project files
+		await fs.writeFile(
+			join(targetPath, 'projects', bpPath, '.gitignore'),
+			`Desktop.ini
+.DS_Store
+!.bridge/
+.bridge/*
+!.bridge/compiler/
+!.bridge/extensions
+!.bridge/config.json
+builds
+		`
+		)
+
+		await fs.mkdir(
+			join(targetPath, 'projects', bpPath, '.bridge/compiler'),
+			{ recursive: true }
+		)
+		await writeJSON(
+			join(
+				targetPath,
+				'projects',
+				bpPath,
+				'.bridge/compiler/default.json'
+			),
+			{
+				icon: 'mdi-cogs',
+				name: 'Deafult Script',
+				description:
+					'Transforms the "bridge." folder structure to "com.mojang". "bridge." runs it automatically in dev mode in the background to enable fast, incremental builds for testing.',
+				plugins: [
+					'typeScript',
+					'entityIdentifierAlias',
+					'customEntityComponents',
+					'customItemComponents',
+					'customBlockComponents',
+					'moLang',
+					['simpleRewrite', { packName: bpPath }],
+				],
+			},
 			true
 		)
 	}
