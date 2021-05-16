@@ -12,7 +12,6 @@ import './Errors'
 import Store from '../../store/index'
 import Provider from '../autoCompletions/Provider'
 import { loadDependency } from './fetchDeps'
-import { createConfirmWindow } from '../UI/Windows/Common/CommonDefinitions'
 import { createMigrationPromptWindow } from '../UI/Windows/Migration/definition'
 
 export default async function startUp() {
@@ -64,6 +63,15 @@ export default async function startUp() {
 
 	// Prompt to migrate to v2
 	createMigrationPromptWindow()
+	createNotification({
+		icon: 'mdi-update',
+		message: 'bridge. v2',
+		textColor: 'white',
+		disposeOnMiddleClick: false,
+		onClick: () => {
+			createMigrationPromptWindow()
+		},
+	})
 }
 
 export function createAppUpdateNotification() {

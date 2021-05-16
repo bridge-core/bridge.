@@ -1,4 +1,4 @@
-import { PathLike, promises as fs } from 'fs'
+import { promises as fs } from 'fs'
 import { join } from 'path'
 import { BP_BASE_PATH, RP_BASE_PATH } from '../../../../../shared/Paths'
 import { readJSON, writeJSON } from '../../../Utilities/JsonFS'
@@ -67,6 +67,57 @@ function convertValues(value: string) {
 	}
 }
 
+function updateConfig(
+	config: any,
+	bpManifest: any,
+	projectName: string,
+	lang: string
+) {
+	let newConfig: any = {
+		type: 'minecraftBedrock',
+		packs: {
+			behaviorPack: './BP',
+			resourcePack: './RP',
+		},
+		bridge: {},
+		capabilities: [],
+	}
+	if (config) {
+		const { prefix: projectPrefix, formatVersion: targetVersion } = config
+
+		if (projectPrefix) newConfig['namespace'] = projectPrefix
+		if (targetVersion) newConfig['targetVersion'] = targetVersion
+	} else {
+		newConfig['namespace'] = 'bridge'
+		newConfig['targetVersion'] = '1.16.0'
+	}
+	newConfig['name'] = projectName
+
+	if (bpManifest) {
+		if (bpManifest?.header?.description)
+			newConfig['description'] = bpManifest.header.description
+
+		if (bpManifest?.metadata?.authors)
+			newConfig['author'] = bpManifest.metadata.authors
+	}
+
+	// Get description from lang file
+	if (lang && newConfig['description'] === 'pack.description') {
+		const lines = lang.split('\n')
+
+		for (const line of lines) {
+			if (line.includes('pack.description')) {
+				newConfig['description'] = line
+					.split('=')
+					.pop()
+					.replace('\r', '')
+			}
+		}
+	}
+
+	return newConfig
+}
+
 export async function createV2Directory(
 	targetPath: string,
 	projects: string[]
@@ -78,6 +129,8 @@ export async function createV2Directory(
 		let rpPath = undefined
 		let bpManifest = undefined
 		let rpManifest = undefined
+		let projectConfig = undefined
+		let lang = undefined
 
 		try {
 			bpManifest = await readJSON(
@@ -105,13 +158,14 @@ export async function createV2Directory(
 			}
 		}
 
-		// Copy files over
+		// Copy BP files over
 		await iterateDir(
 			join(BP_BASE_PATH, bpPath),
 			join(targetPath, 'projects', bpPath, 'BP'),
 			join(BP_BASE_PATH, bpPath, 'bridge/cache/BP')
 		)
 
+		// Copy RP files over if a linked RP exists
 		if (rpPath) {
 			await iterateDir(
 				join(RP_BASE_PATH, rpPath),
@@ -119,5 +173,29 @@ export async function createV2Directory(
 				join(BP_BASE_PATH, bpPath, 'bridge/cache/RP')
 			)
 		}
+
+		// Transfer project config
+		try {
+			projectConfig = await readJSON(
+				join(BP_BASE_PATH, bpPath, 'bridge/config.json')
+			)
+		} catch {}
+		try {
+			const langFile = await fs.readFile(
+				join(BP_BASE_PATH, bpPath, 'texts/en_US.lang')
+			)
+			lang = langFile.toString()
+		} catch {}
+
+		await writeJSON(
+			join(targetPath, 'projects', bpPath, 'config.json'),
+			updateConfig(
+				projectConfig,
+				bpManifest,
+				bpPath.replace(/BP|behaviors/gi, ''),
+				lang
+			),
+			true
+		)
 	}
 }

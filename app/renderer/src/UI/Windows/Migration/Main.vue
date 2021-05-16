@@ -26,7 +26,12 @@
 					Select the projects below that you want to migrate to
 					bridge. v2
 				</p>
-				<v-btn @click="selectAll" color="primary">Select All</v-btn>
+				<v-btn @click="selectAll" color="primary" v-if="!allSelected"
+					>Select All</v-btn
+				>
+				<v-btn @click="deselectAll" color="primary" v-if="allSelected"
+					>Deselect All</v-btn
+				>
 				<div
 					v-for="(project, i) in availableProjects"
 					:key="`project${i}`"
@@ -45,7 +50,18 @@
 					<strong>"{{ projectPath }}"</strong>.
 				</p>
 				<p>
-					TODO
+					Now you need to launch bridge. v2 and during step 1 of the
+					setup process, select the bridge. v2 directory above that
+					has just been created.
+				</p>
+				<p>
+					If you have already been through the bridge. v2 setup
+					process and have already selected a different directory, you
+					can change it by navigating to the "General" tab of the
+					settings window and selecting the "Select Root Folder"
+					option at the bottom. The settings window can be found in
+					the toolbar under "File > Preferences > Settings" or
+					accessed via the "Ctrl + ," shortcut.
 				</p>
 			</div>
 		</template>
@@ -71,7 +87,6 @@
 </template>
 
 <script>
-import { createMigrationPromptNotification } from './definition'
 import BaseWindow from '../Layout/Base'
 import { loadProjects } from './load'
 import { ipcRenderer, shell } from 'electron'
@@ -93,7 +108,6 @@ export default {
 	methods: {
 		onClose() {
 			this.projectsCreated = false
-			createMigrationPromptNotification()
 			this.currentWindow.close()
 		},
 		async onConfirm() {
@@ -102,8 +116,6 @@ export default {
 			lw.close()
 
 			this.projectsCreated = true
-
-			createMigrationPromptNotification()
 		},
 		goToV2() {
 			shell.openExternal('https://bridge-core.github.io/editor')
@@ -114,6 +126,9 @@ export default {
 		},
 		selectAll() {
 			this.selectedProjects = this.availableProjects
+		},
+		deselectAll() {
+			this.selectedProjects = []
 		},
 		async chooseProjectFolder() {
 			const lw = new LoadingWindow()
@@ -139,6 +154,11 @@ export default {
 	},
 	async mounted() {
 		this.availableProjects = await loadProjects()
+	},
+	computed: {
+		allSelected() {
+			return this.selectedProjects == this.availableProjects
+		},
 	},
 }
 </script>
