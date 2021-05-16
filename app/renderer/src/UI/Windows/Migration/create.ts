@@ -234,7 +234,7 @@ builds
 					'customItemComponents',
 					'customBlockComponents',
 					'moLang',
-					['simpleRewrite', { packName: bpPath }],
+					['simpleRewrite', { packName: `${bpPath} v2` }],
 				],
 			},
 			true
