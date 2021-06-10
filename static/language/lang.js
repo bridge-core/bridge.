@@ -35,26 +35,28 @@ Bridge.registerCompletionProvider({
 			.toLowerCase()
 
 		if (id[id.length - 1] === '=') {
-			const textTranslation = id
-				.substring(0, id.length - 1)
-				.split('.')
-				.find(val => val.includes(':'))
-				.split(':')
-				.pop()
-				.replace(/_.|^./g, match => {
-					if (match.length === 1) return match.toUpperCase()
-					return ` ${match[1].toUpperCase()}`
-				})
+			try {
+				const textTranslation = id
+					.substring(0, id.length - 1)
+					.split('.')
+					.find(val => val.includes(':'))
+					.split(':')
+					.pop()
+					.replace(/_.|^./g, match => {
+						if (match.length === 1) return match.toUpperCase()
+						return ` ${match[1].toUpperCase()}`
+					})
 
-			return {
-				suggestions: [
-					{
-						label: textTranslation,
-						insertText: textTranslation,
-						kind: 1,
-					},
-				],
-			}
+				return {
+					suggestions: [
+						{
+							label: textTranslation,
+							insertText: textTranslation,
+							kind: 1,
+						},
+					],
+				}
+			} catch(err) {}
 		}
 
 		return {
