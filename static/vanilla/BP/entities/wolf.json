@@ -252,6 +252,8 @@
 
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:nameable": {
       },
       "minecraft:type_family": {

@@ -103,7 +103,7 @@
         },
         "minecraft:scale": {
           "value": 0.5
-        },        
+        },
         "minecraft:ageable": {
           "duration": 1200,
           "feed_items": [ "warped_fungus" ],
@@ -207,6 +207,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:type_family": {
         "family": [ "strider", "mob" ]
       },
@@ -217,12 +219,12 @@
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
-      },      
+      },
       "minecraft:hurt_on_condition": {
         "damage_conditions": [
           {
             "filters": {
-              "test": "in_water_or_rain",
+              "test": "in_contact_with_water",
               "operator": "==",
               "value": true
             },

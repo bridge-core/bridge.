@@ -1,0 +1,19 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:ore_feature": {
+        "description": {
+            "identifier": "minecraft:clay_ore_feature"
+        },
+        "count": 33,
+        "replace_rules": [
+            {
+                "places_block": "minecraft:clay",
+                "may_replace": [
+                    {
+                        "name": "minecraft:stone"
+                    }
+                ]
+            }
+        ]
+    }
+}

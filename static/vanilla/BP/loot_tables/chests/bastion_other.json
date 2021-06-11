@@ -5,13 +5,13 @@
             "entries": [
                 {
                     "type": "item",
-                    "weight": 12,
+                    "weight": 6,
                     "functions": [
                         {
                             "function": "minecraft:set_damage",
                             "damage": {
                                 "min": 0.1,
-                                "max": 0.5
+                                "max": 0.9
                             }
                         },
                         {
@@ -22,7 +22,22 @@
                 },
                 {
                     "type": "item",
-                    "weight": 2,
+                    "weight": 6,
+                    "functions": [
+                        {
+                            "function": "enchant_randomly"
+                        }
+                    ],
+                    "name": "minecraft:diamond_pickaxe"
+                },
+                {
+                    "type": "item",
+                    "weight": 6,
+                    "name": "minecraft:diamond_shovel"
+                },
+                {
+                    "type": "item",
+                    "weight": 12,
                     "functions": [
                         {
                             "function": "set_count",
@@ -33,7 +48,7 @@
                 },
                 {
                     "type": "item",
-                    "weight": 2,
+                    "weight": 4,
                     "functions": [
                         {
                             "function": "set_count",
@@ -44,13 +59,13 @@
                 },
                 {
                     "type": "item",
-                    "weight": 16,
+                    "weight": 10,
                     "functions": [
                         {
                             "function": "set_count",
                             "count": {
-                                "min": 2,
-                                "max": 15
+                                "min": 10,
+                                "max": 22
                             }
                         }
                     ],
@@ -58,7 +73,21 @@
                 },
                 {
                     "type": "item",
-                    "weight": 5,
+                    "weight": 12,
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 6,
+                                "max": 17
+                            }
+                        }
+                    ],
+                    "name": "minecraft:golden_carrot"
+                },
+                {
+                    "type": "item",
+                    "weight": 9,
                     "functions": [
                         {
                             "function": "set_count",
@@ -73,7 +102,18 @@
                 },
                 {
                     "type": "item",
-                    "weight": 3,
+                    "weight": 9,
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": 1
+                        }
+                    ],
+                    "name": "minecraft:golden_apple"
+                },
+                {
+                    "type": "item",
+                    "weight": 5,
                     "functions": [
                         {
                             "function": "set_count",
@@ -100,10 +140,6 @@
                         }
                     ],
                     "name": "minecraft:book"
-                },
-                {
-                    "type": "empty",
-                    "weight": 50
                 }
             ]
         },
@@ -135,6 +171,16 @@
                 },
                 {
                     "type": "item",
+                    "weight": 1,
+                    "functions": [
+                        {
+                            "function": "enchant_randomly"
+                        }
+                    ],
+                    "name": "minecraft:golden_axe"
+                },
+                {
+                    "type": "item",
                     "functions": [
                         {
                             "function": "set_count",
@@ -152,8 +198,36 @@
                             "count": 1
                         }
                     ],
+                    "name": "minecraft:iron_block",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": 1
+                        }
+                    ],
                     "name": "minecraft:crossbow",
                     "weight": 1
+                },
+                {
+                    "type": "item",
+                    "weight": 6,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_damage",
+                            "damage": {
+                                "min": 0.1,
+                                "max": 0.9
+                            }
+                        },
+                        {
+                            "function": "enchant_randomly"
+                        }
+                    ],
+                    "name": "minecraft:iron_sword"
                 },
                 {
                     "type": "item",
@@ -239,8 +313,18 @@
                     "weight": 1
                 },
                 {
-                    "type": "empty",
-                    "weight": 2
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 5
+                            }
+                        }
+                    ],
+                    "name": "minecraft:crying_obsidian",
+                    "weight": 1
                 }
             ]
         },
@@ -261,22 +345,8 @@
                             }
                         }
                     ],
-                    "name": "minecraft:crying_obsidian",
-                    "weight": 1
-                },
-                {
-                    "type": "item",
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 1,
-                                "max": 5
-                            }
-                        }
-                    ],
                     "name": "minecraft:gilded_blackstone",
-                    "weight": 1
+                    "weight": 2
                 },
                 {
                     "type": "item",
@@ -304,7 +374,7 @@
                         }
                     ],
                     "name": "minecraft:magma_cream",
-                    "weight": 1
+                    "weight": 2
                 },
                 {
                     "type": "item",
@@ -389,6 +459,17 @@
                         }
                     ],
                     "name": "minecraft:arrow"
+                },
+                {
+                    "type": "item",
+                    "weight": 1,
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": 1
+                        }
+                    ],
+                    "name": "minecraft:cooked_porkchop"
                 }
             ]
         }

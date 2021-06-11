@@ -83,6 +83,8 @@
       "minecraft:dirt",
       "minecraft:grass",
       "minecraft:podzol",
+      "minecraft:dirt_with_roots",
+      "minecraft:moss_block",
       // Block aliases sure would be sweet
       {
         "name": "minecraft:dirt",

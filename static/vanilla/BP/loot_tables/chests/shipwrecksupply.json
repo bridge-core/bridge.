@@ -36,6 +36,20 @@
         },
         {
           "type": "item",
+          "name": "minecraft:moss_block",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
           "name": "minecraft:poisonous_potato",
           "weight": 7,
           "functions": [

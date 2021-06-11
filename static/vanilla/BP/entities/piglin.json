@@ -217,6 +217,8 @@
                 "minecraft:gold_block",
                 "minecraft:gilded_blackstone",
                 "minecraft:nether_gold_ore",
+                "minecraft:deepslate_gold_ore",
+                "minecraft:raw_gold_block",
                 "minecraft:gold_ore",
                 "minecraft:chest",
                 "minecraft:trapped_chest",
@@ -419,6 +421,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:equip_item": {
       },
       "minecraft:admire_item": {
@@ -710,6 +714,13 @@
             "stored_in_inventory": true
           },
           {
+            "item": "minecraft:raw_gold",
+            "priority": 2,
+            "admire": true,
+            "pickup_limit": 1,
+            "stored_in_inventory": true
+          },
+          {
             "item": "minecraft:gold_ore",
             "priority": 2,
             "admire": true,
@@ -718,6 +729,20 @@
           },
           {
             "item": "minecraft:nether_gold_ore",
+            "priority": 2,
+            "admire": true,
+            "pickup_limit": 1,
+            "stored_in_inventory": true
+          },
+          {
+            "item": "minecraft:deepslate_gold_ore",
+            "priority": 2,
+            "admire": true,
+            "pickup_limit": 1,
+            "stored_in_inventory": true
+          },
+          {
+            "item": "minecraft:raw_gold_block",
             "priority": 2,
             "admire": true,
             "pickup_limit": 1,

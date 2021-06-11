@@ -1,0 +1,28 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "minecraft:axolotl",
+      "population_control": "animal"
+    },
+    "conditions": [
+      {
+        "minecraft:spawns_underground": {},
+        "minecraft:spawns_underwater": {},
+        "minecraft:weight": {
+          "default": 8
+        },
+        "minecraft:herd": {
+          "min_size": 1,
+          "max_size": 4,
+          "event": "minecraft:entity_born",
+          "event_skip_count": 2
+        },
+        "minecraft:height_filter": {
+          "min": 0,
+          "max": 63
+        }
+      }
+    ]
+  }
+}

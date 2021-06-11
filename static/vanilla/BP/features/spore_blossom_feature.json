@@ -1,0 +1,11 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:single_block_feature": {
+    "description": {
+      "identifier": "minecraft:spore_blossom_feature"
+    },
+    "places_block": "minecraft:spore_blossom",
+    "enforce_survivability_rules": true,
+    "enforce_placement_rules": false
+  }
+}

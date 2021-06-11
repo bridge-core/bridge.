@@ -1,0 +1,36 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:growing_plant_feature": {
+    "description": {
+      "identifier": "minecraft:big_dripleaf_north_feature"
+    },
+    "height_distribution":  [
+      [{"range_min": 1, "range_max": 6}, 2],
+      [{"range_min": 1, "range_max": 2}, 1]
+    ],
+    "growth_direction": "UP",
+    "body_blocks": [
+      [
+        {
+          "name": "minecraft:big_dripleaf",
+          "states": {
+            "big_dripleaf_head": false,
+            "direction": 2
+          }
+        }, 1
+      ]
+    ],
+    "head_blocks": [
+      [
+        {
+          "name": "minecraft:big_dripleaf",
+          "states": {
+            "big_dripleaf_head": true,
+            "direction": 2
+          }
+        }, 1
+      ]
+    ],
+    "allow_water": true
+  }
+}

@@ -125,6 +125,8 @@
 
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:damage_sensor": {
         "triggers": {
           "on_damage": {
@@ -257,14 +259,7 @@
         "randomize": [
           {
             "weight": 95,
-            "remove": {
-            },
-            "add": {
-              "component_groups": [
-                "minecraft:pig_adult",
-                "minecraft:pig_unsaddled"
-              ]
-            }
+            "trigger": "minecraft:spawn_adult"
           },
           {
             "weight": 5,
@@ -313,6 +308,14 @@
         "add": {
           "component_groups": [
             "minecraft:pig_saddled"
+          ]
+        }
+      },
+      "minecraft:spawn_adult": {
+        "add": {
+          "component_groups": [
+            "minecraft:pig_adult",
+            "minecraft:pig_unsaddled"
           ]
         }
       }

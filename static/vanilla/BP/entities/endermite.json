@@ -8,6 +8,8 @@
       "is_experimental": false
     },
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:experience_reward": {
         "on_death": "query.last_hit_by_player ? 3 : 0"
       },
@@ -19,7 +21,7 @@
       },
 
       "minecraft:type_family": {
-        "family": [ "endermite", "arthropod", "monster", "mob" ]
+        "family": [ "endermite", "arthropod", "monster", "lightweight", "mob" ]
       },
       "minecraft:collision_box": {
         "width": 0.4,

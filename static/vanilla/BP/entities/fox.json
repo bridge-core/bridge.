@@ -17,7 +17,10 @@
         },
         "minecraft:ageable": {
           "duration": 1200,
-          "feed_items": "sweet_berries",
+          "feed_items": [
+            "sweet_berries",
+            "glow_berries"
+          ],
           "grow_up": {
             "event": "minecraft:ageable_grow_up",
             "target": "self"
@@ -29,7 +32,7 @@
           "speed_multiplier": 1.1
         }
       },
-   
+
       "minecraft:fox_adult": {
         "minecraft:experience_reward": {
           "on_bred": "Math.Random(1,7)",
@@ -44,7 +47,10 @@
         },
         "minecraft:breedable": {
           "require_tame": false,
-          "breed_items": "sweet_berries",
+          "breed_items": [
+            "sweet_berries",
+            "glow_berries"
+          ],
           "breeds_with": {
             "mate_type": "minecraft:fox",
             "baby_type": "minecraft:fox",
@@ -67,7 +73,7 @@
           ]
         }
       },
-      
+
       "minecraft:trusting_fox" : {
         "minecraft:trust": {},
         "minecraft:behavior.defend_trusted_target": {
@@ -130,7 +136,7 @@
           ]
         }
       },
-   
+
       "minecraft:fox_red": {
         "minecraft:variant": {
           "value": 0
@@ -310,7 +316,7 @@
             }
           ]
         },
-  
+
         "minecraft:behavior.find_cover": {
           "priority": 0,
           "speed_multiplier": 1,
@@ -394,7 +400,7 @@
           "cooldown_time": 5.0
         }
       },
-      
+
       "minecraft:fox_night": {
         "minecraft:environment_sensor": {
           "triggers": [
@@ -440,8 +446,10 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:type_family": {
-        "family": [ "fox", "mob" ]
+        "family": [ "fox", "lightweight", "mob" ]
       },
       "minecraft:breathable": {
         "totalSupply": 15,
@@ -517,6 +525,7 @@
           { "item": "minecraft:salmon", "priority": 0, "max_amount": 1 },
           { "item": "minecraft:spider_eye", "priority": 0, "max_amount": 1 },
           { "item": "minecraft:sweet_berries", "priority": 0, "max_amount": 1 },
+          { "item": "minecraft:glow_berries", "priority": 0, "max_amount": 1 },
           { "item": "minecraft:suspicious_stew", "priority": 0, "max_amount": 1 }
         ]
       },
@@ -572,7 +581,8 @@
         "within_radius": 16,
         "can_get_scared": true,
         "items": [
-          "sweet_berries"
+          "sweet_berries",
+          "glow_berries"
         ]
       },
       "minecraft:behavior.stalk_and_pounce_on_target": {
@@ -608,7 +618,9 @@
       "minecraft:behavior.raid_garden": {
         "priority": 12,
         "blocks": [
-          "minecraft:sweet_berry_bush"
+          "minecraft:sweet_berry_bush",
+          "minecraft:cave_vines_head_with_berries",
+          "minecraft:cave_vines_body_with_berries"
         ],
         "speed_multiplier": 1.2,
         "search_range": 12,
@@ -693,7 +705,7 @@
         ]
       }
     },
-    
+
     "events": {
       "minecraft:entity_spawned": {
         "sequence": [
@@ -823,7 +835,7 @@
           ]
         }
       },
-      
+
       "minecraft:fox_configure_defending": {
         "remove": {
           "component_groups": [

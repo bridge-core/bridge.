@@ -1,0 +1,42 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:geode_feature": {
+    "description": {
+      "identifier": "minecraft:amethyst_geode_feature"
+    },
+    "filler": "minecraft:air",
+    "inner_layer": "minecraft:amethyst_block",
+    "alternate_inner_layer": "minecraft:budding_amethyst",
+    "middle_layer": "minecraft:calcite",
+    "outer_layer": "minecraft:smooth_basalt",
+    "inner_placements": [
+      {
+        "name": "minecraft:amethyst_cluster"
+      },
+      {
+        "name": "minecraft:large_amethyst_bud"
+      },
+      {
+        "name": "minecraft:medium_amethyst_bud"
+      },
+      {
+        "name": "minecraft:small_amethyst_bud"
+      }
+    ],
+    "min_outer_wall_distance": 4,
+    "max_outer_wall_distance": 7,
+    "min_distribution_points": 3,
+    "max_distribution_points": 5,
+    "min_point_offset": 1,
+    "max_point_offset": 3,
+    "max_radius": 16,
+    "crack_point_offset": 2.0,
+    "generate_crack_chance": 0.95,
+    "base_crack_size": 2.0,
+    "noise_multiplier": 0.025,
+    "use_potential_placements_chance": 0.35,
+    "use_alternate_layer0_chance": 0.083,
+    "placements_require_layer0_alternate": true,
+    "invalid_blocks_threshold": 1
+  }
+}

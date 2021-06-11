@@ -1,5 +1,5 @@
 {
-  "format_version": "1.16.0",
+  "format_version": "1.16.210",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:drowned",
@@ -65,7 +65,8 @@
           "priority": 3,
           "attack_interval_min": 1.0,
           "attack_interval_max": 3.0,
-          "attack_radius": 10.0
+          "attack_radius": 10.0,
+          "swing": true
         }
       },
 
@@ -446,7 +447,8 @@
                   "any_of": [
                     { "test": "is_family", "subject": "other", "value": "player" },
                     { "test": "is_family", "subject": "other", "value": "snowgolem" },
-                    { "test": "is_family", "subject": "other", "value": "irongolem" }
+                    { "test": "is_family", "subject": "other", "value": "irongolem" },
+                    { "test": "is_family", "subject": "other", "value": "axolotl" }
                   ]
                 },
                 {

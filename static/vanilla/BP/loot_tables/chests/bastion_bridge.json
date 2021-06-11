@@ -44,8 +44,8 @@
                         {
                             "function": "set_count",
                             "count": {
-                                "min": 2,
-                                "max": 12
+                                "min": 10,
+                                "max": 28
                             }
                         }
                     ],
@@ -58,8 +58,8 @@
                         {
                             "function": "set_count",
                             "count": {
-                                "min": 5,
-                                "max": 8
+                                "min": 8,
+                                "max": 12
                             }
                         }
                     ],
@@ -97,8 +97,8 @@
                         {
                             "function": "set_count",
                             "count": {
-                                "min": 2,
-                                "max": 8
+                                "min": 4,
+                                "max": 9
                             }
                         }
                     ],
@@ -111,8 +111,8 @@
                         {
                             "function": "set_count",
                             "count": {
-                                "min": 2,
-                                "max": 8
+                                "min": 4,
+                                "max": 9
                             }
                         }
                     ],
@@ -184,6 +184,20 @@
                         }
                     ],
                     "name": "minecraft:golden_boots",
+                    "weight": 1
+                },
+                {
+                    "type": "item",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": 1
+                        },
+                        {
+                            "function": "enchant_randomly"
+                        }
+                    ],
+                    "name": "minecraft:golden_axe",
                     "weight": 1
                 }
             ]

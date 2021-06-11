@@ -53,6 +53,8 @@
       "minecraft:dirt",
       "minecraft:grass",
       "minecraft:podzol",
+      "minecraft:dirt_with_roots",
+      "minecraft:moss_block",
       {
         "name": "minecraft:dirt",
         "states": {

@@ -280,6 +280,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:attack_damage": {
         "value": 4
       },

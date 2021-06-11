@@ -48,6 +48,8 @@
       }
     },
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:experience_reward": {
         "on_death": "query.last_hit_by_player ? 10 : 0"
       },
@@ -86,7 +88,7 @@
         "damage_conditions": [
           {
             "filters": {
-              "test": "in_water_or_rain",
+              "test": "in_contact_with_water",
               "operator": "==",
               "value": true
             },

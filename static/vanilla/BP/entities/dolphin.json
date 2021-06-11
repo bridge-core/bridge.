@@ -109,24 +109,18 @@
           "can_breach": false,
           "can_jump": false
         },
-        "minecraft:timer": {
-          "looping": false,
-          "time": 120,
-          "time_down_event": {
+        "minecraft:drying_out_timer": {
+          "total_time": 120,
+          "water_bottle_refill_time": 0,
+          "dried_out_event": {
             "event": "dried_out"
+          },
+          "stopped_drying_out_event": {
+            "event": "stop_dryingout"
+          },
+          "recover_after_dried_out_event": {
+            "event": "recover_after_dried_out"
           }
-        },
-        "minecraft:environment_sensor": {
-          "triggers": [
-            {
-              "filters": {
-                "test": "in_water_or_rain",
-                "operator": "==",
-                "value": true
-              },
-              "event": "stop_dryingout"
-            }
-          ]
         }
       },
       "dolphin_on_land_in_rain": {
@@ -162,6 +156,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:nameable": {
       },
       "minecraft:type_family": {
@@ -332,7 +328,7 @@
         "max_distance": 10.0
       },
       "minecraft:conditional_bandwidth_optimization": {
-      }      
+      }
     },
 
     "events": {
@@ -407,6 +403,11 @@
       },
       "dried_out": {
         "add": {
+          "component_groups": [ "dolphin_dried" ]
+        }
+      },
+      "recover_after_dried_out": {
+        "remove": {
           "component_groups": [ "dolphin_dried" ]
         }
       },

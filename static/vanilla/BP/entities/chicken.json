@@ -86,6 +86,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:type_family": {
         "family": [ "chicken", "mob" ]
       },
@@ -191,28 +193,19 @@
       "from_egg": {
         "add": { "component_groups": [ "minecraft:chicken_baby" ] }
       },
-      
+
       "minecraft:entity_spawned": {
         "randomize": [
           {
             "weight": 95,
-            "remove": {
-            },
-            "add": {
-              "component_groups": [
-                "minecraft:chicken_adult"
-              ]
-            }
+            "trigger": "minecraft:spawn_adult"
           },
           {
             "weight": 5,
-            "remove": {
-            },
             "add": {
               "component_groups": [
                 "minecraft:chicken_baby"
               ]
-
             }
           }
         ]
@@ -234,6 +227,14 @@
             "minecraft:chicken_baby"
           ]
         },
+        "add": {
+          "component_groups": [
+            "minecraft:chicken_adult"
+          ]
+        }
+      },
+
+      "minecraft:spawn_adult": {
         "add": {
           "component_groups": [
             "minecraft:chicken_adult"
