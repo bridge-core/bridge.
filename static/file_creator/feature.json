@@ -126,6 +126,142 @@
                 },
                 "features": {}
             }
+        },
+        "Blank Cave Carver Feature": {
+            "format_version": {},
+            "minecraft:cave_carver_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "fill_with": {},
+                "width_modifier": {}
+            }
+        },
+        "Blank Hell Cave Carver Feature": {
+            "format_version": {},
+            "minecraft:hell_cave_carver_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "fill_with": {},
+                "width_modifier": {}
+            }
+        },
+        "Blank Underwater Cave Carver Feature": {
+            "format_version": {},
+            "minecraft:underwater_cave_carver_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "fill_with": {},
+                "width_modifier": {},
+                "replace_air_with": {}
+            }
+        },
+        "Blank Growing Plant Feature": {
+            "format_version": {},
+            "minecraft:growing_plant_feature": {
+                "description": {
+                    "identifier": {}
+                },
+                "height_distribution": {},
+				"allow_water": {},
+				"growth_direction": {},
+				"body_blocks": {},
+				"head_blocks": {}
+            }
+        },
+        "Blank Snap to Surface Feature": {
+            "format_version": {},
+            "minecraft:snap_to_surface_feature": {
+                "description": {
+					"identifier": {}
+				},
+				"feature_to_snap": {},
+				"vertical_search_range": {},
+				"surface": {}
+            }
+        },
+        "Blank Vegetation Patch Feature": {
+            "format_version": {},
+            "minecraft:vegetation_patch_feature": {
+                "description": {
+					"identifier": {}
+				},
+				"replaceable_blocks": {},
+				"ground_block": {},
+				"vegetation_feature": {},
+				"surface": {},
+				"depth": {},
+				"extra_deep_block_chance": {},
+				"vertical_range": {},
+				"vegetation_chance": {},
+				"horizontal_radius": {},
+				"extra_edge_column_chance": {}
+            }
+        },
+        "Blank Geode Feature": {
+            "format_version": {},
+            "minecraft:geode_feature": {
+                "description": {
+					"identifier": {}
+				},
+				"filler": {},
+				"inner_layer": {},
+				"alternate_inner_layer": {},
+				"middle_layer": {},
+				"outer_layer": {},
+				"inner_placements": {},
+				"min_outer_wall_distance": {},
+				"max_outer_wall_distance": {},
+				"max_radius": {},
+				"invalid_blocks_threshold": {}
+            }
+        },
+        "Blank Multiface Feature": {
+            "format_version": {},
+            "minecraft:multiface_feature": {
+                "description": {
+					"identifier": {}
+				},
+				"places_block": {},
+				"search_range": {},
+				"can_place_on_floor": {},
+				"can_place_on_ceiling": {},
+				"can_place_on_wall": {},
+				"chance_of_spreading": {},
+				"can_place_on": {}
+            }
+        },
+        "Blank Beards and Shavers Feature": {
+            "format_version": {},
+            "minecraft:beards_and_shavers": {
+                "description": {
+					"identifier": {}
+				},
+				"places_feature": {},
+				"bounding_box_min": {},
+				"bounding_box_max": {},
+				"surface_block_type": {},
+				"subsurface_block_type": {},
+				"beard_raggedness_min": {},
+				"beard_raggedness_max": {}
+            }
+        },
+        "Blank Rect Layout Feature": {
+            "format_version": {},
+            "minecraft:rect_layout": {
+                "description": {
+					"identifier": {}
+				},
+				"ratio_of_empty_space": {},
+				"feature_areas": [
+					{
+						"feature": {},
+						"area_dimensions": {}
+					}
+				]
+            }
         }
     }
 }
