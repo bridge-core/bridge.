@@ -6,7 +6,7 @@ export function createMigrationPromptWindow() {
 	createConfirmWindow(
 		'bridge. v2 is now available! To begin migrating to bridge. v2, select the "Continue" option below.',
 		'Continue',
-		'Discard',
+		'Later',
 		() => MigrationWindow.open(),
 		() => {}
 	)
