@@ -81,7 +81,7 @@
           "reward_exp": true
         }
       ]
-    },
+    },    
     {
       "total_exp_required": 70,
       "trades": [
@@ -138,6 +138,10 @@
                 },
                 {
                   "item": "minecraft:stone:6",
+                  "quantity": 4
+                },
+                {
+                  "item": "minecraft:dripstone_block",
                   "quantity": 4
                 }
               ]

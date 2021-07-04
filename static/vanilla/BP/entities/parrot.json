@@ -97,6 +97,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:breathable": {
         "total_supply": 15,
         "suffocate_time": 0

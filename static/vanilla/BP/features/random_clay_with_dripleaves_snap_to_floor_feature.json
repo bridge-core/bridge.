@@ -1,0 +1,11 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:snap_to_surface_feature": {
+    "description": {
+      "identifier": "minecraft:random_clay_with_dripleaves_snap_to_floor_feature"
+    },
+    "feature_to_snap": "minecraft:random_clay_with_dripleaves_feature",
+    "vertical_search_range": 12,
+    "surface": "floor"
+  }
+}

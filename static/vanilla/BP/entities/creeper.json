@@ -59,6 +59,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:experience_reward": {
         "on_death": "query.last_hit_by_player ? 5 : 0"
       },
@@ -212,7 +214,15 @@
         ]
       },
       "minecraft:behavior.hurt_by_target": {
-        "priority": 2
+        "priority": 2,
+        "entity_types": {
+          "filters": {
+            "test": "is_family",
+            "subject": "other",
+            "operator": "!=",
+            "value":  "goat"
+          }
+        }
       },
       "minecraft:physics": {
       },

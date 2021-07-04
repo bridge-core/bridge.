@@ -1,0 +1,12 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:weighted_random_feature": {
+    "description": {
+      "identifier": "minecraft:random_clay_with_dripleaves_feature"
+    },
+    "features": [
+      ["minecraft:clay_with_dripleaves_feature", 1],
+      ["minecraft:clay_pool_with_dripleaves_feature", 1]
+    ]
+  }
+}

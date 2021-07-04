@@ -135,6 +135,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:health": {
         "value": 10,
         "max": 10

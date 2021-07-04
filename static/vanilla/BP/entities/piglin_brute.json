@@ -162,6 +162,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:collision_box": {
         "width": 0.6,
         "height": 1.9

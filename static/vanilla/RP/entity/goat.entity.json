@@ -11,8 +11,8 @@
           "default": "geometry.goat"
         },
         "spawn_egg": {
-          "base_color": "#000000",
-          "overlay_color": "#ffffff"
+          "base_color": "#c0ac90",
+          "overlay_color": "#857261"
         },
         "scripts": {
           "pre_animation": [

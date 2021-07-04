@@ -126,6 +126,8 @@
 
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:type_family": {
         "family": [ "sheep", "mob" ]
       },

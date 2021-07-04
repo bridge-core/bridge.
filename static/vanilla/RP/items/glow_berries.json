@@ -1,0 +1,16 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "minecraft:glow_berries",
+      "category": "Nature"
+    },
+
+    "components": {
+      "minecraft:icon": "glow_berries",
+      "minecraft:use_animation": "eat",
+
+      "minecraft:render_offsets": "miscellaneous"
+    }
+  }
+}

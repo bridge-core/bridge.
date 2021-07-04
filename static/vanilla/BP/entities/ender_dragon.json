@@ -46,6 +46,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:type_family": {
         "family": [ "dragon", "mob" ]
       },
@@ -98,8 +100,6 @@
       "minecraft:physics": {
         "has_gravity": false,
         "has_collision": false
-      },
-      "minecraft:conditional_bandwidth_optimization": {
       }
     },
 

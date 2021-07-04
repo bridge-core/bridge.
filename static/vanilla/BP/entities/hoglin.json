@@ -239,6 +239,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:nameable": {
       },
       "minecraft:health": {

@@ -318,6 +318,8 @@
 
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:type_family": {
         "family": [ "llama", "mob" ]
       },
@@ -492,105 +494,11 @@
             "randomize": [
               {
                 "weight": 90,
-                "remove": {
-                },
-                "add": {
-                  "component_groups": [
-                    "minecraft:llama_adult",
-                    "minecraft:llama_wild"
-                  ]
-                }
+                "trigger": "minecraft:spawn_adult"
               },
               {
                 "weight": 10,
-                "remove": {
-                },
-                "add": {
-                  "component_groups": [
-                    "minecraft:llama_baby"
-                  ]
-
-                }
-              }
-            ]
-          },
-          {
-            "randomize": [
-              {
-                "weight": 32,
-                "add": {
-                  "component_groups": [
-                    "minecraft:strength_1"
-                  ]
-                }
-              },
-              {
-                "weight": 32,
-                "add": {
-                  "component_groups": [
-                    "minecraft:strength_2"
-                  ]
-                }
-              },
-              {
-                "weight": 32,
-                "add": {
-                  "component_groups": [
-                    "minecraft:strength_3"
-                  ]
-                }
-              },
-              {
-                "weight": 2,
-                "add": {
-                  "component_groups": [
-                    "minecraft:strength_4"
-                  ]
-                }
-              },
-              {
-                "weight": 2,
-                "add": {
-                  "component_groups": [
-                    "minecraft:strength_5"
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "randomize": [
-              {
-                "weight": 25,
-                "add": {
-                  "component_groups": [
-                    "minecraft:llama_creamy"
-                  ]
-                }
-              },
-              {
-                "weight": 25,
-                "add": {
-                  "component_groups": [
-                    "minecraft:llama_white"
-                  ]
-                }
-              },
-              {
-                "weight": 25,
-                "add": {
-                  "component_groups": [
-                    "minecraft:llama_brown"
-                  ]
-                }
-              },
-              {
-                "weight": 25,
-                "add": {
-                  "component_groups": [
-                    "minecraft:llama_gray"
-                  ]
-                }
+                "trigger": "minecraft:spawn_baby"
               }
             ]
           }
@@ -616,84 +524,7 @@
             }
           },
           {
-            "randomize": [
-              {
-                "weight": 32,
-                "add": {
-                  "component_groups": [
-                    "minecraft:strength_1"
-                  ]
-                }
-              },
-              {
-                "weight": 32,
-                "add": {
-                  "component_groups": [
-                    "minecraft:strength_2"
-                  ]
-                }
-              },
-              {
-                "weight": 32,
-                "add": {
-                  "component_groups": [
-                    "minecraft:strength_3"
-                  ]
-                }
-              },
-              {
-                "weight": 2,
-                "add": {
-                  "component_groups": [
-                    "minecraft:strength_4"
-                  ]
-                }
-              },
-              {
-                "weight": 2,
-                "add": {
-                  "component_groups": [
-                    "minecraft:strength_5"
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "randomize": [
-              {
-                "weight": 25,
-                "add": {
-                  "component_groups": [
-                    "minecraft:llama_creamy"
-                  ]
-                }
-              },
-              {
-                "weight": 25,
-                "add": {
-                  "component_groups": [
-                    "minecraft:llama_white"
-                  ]
-                }
-              },
-              {
-                "weight": 25,
-                "add": {
-                  "component_groups": [
-                    "minecraft:llama_brown"
-                  ]
-                }
-              },
-              {
-                "weight": 25,
-                "add": {
-                  "component_groups": [
-                    "minecraft:llama_gray"
-                  ]
-                }
-              }
-            ]
+            "trigger": "minecraft:add_attributes"
           }
         ]
       },
@@ -781,8 +612,111 @@
             "minecraft:llama_chested"
           ]
         }
-      }
+      },
 
+      "minecraft:add_attributes": {
+        "sequence": [
+          {
+            "randomize": [
+              {
+                "weight": 32,
+                "add": {
+                  "component_groups": [
+                    "minecraft:strength_1"
+                  ]
+                }
+              },
+              {
+                "weight": 32,
+                "add": {
+                  "component_groups": [
+                    "minecraft:strength_2"
+                  ]
+                }
+              },
+              {
+                "weight": 32,
+                "add": {
+                  "component_groups": [
+                    "minecraft:strength_3"
+                  ]
+                }
+              },
+              {
+                "weight": 2,
+                "add": {
+                  "component_groups": [
+                    "minecraft:strength_4"
+                  ]
+                }
+              },
+              {
+                "weight": 2,
+                "add": {
+                  "component_groups": [
+                    "minecraft:strength_5"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "randomize": [
+              {
+                "weight": 25,
+                "add": {
+                  "component_groups": [
+                    "minecraft:llama_creamy"
+                  ]
+                }
+              },
+              {
+                "weight": 25,
+                "add": {
+                  "component_groups": [
+                    "minecraft:llama_white"
+                  ]
+                }
+              },
+              {
+                "weight": 25,
+                "add": {
+                  "component_groups": [
+                    "minecraft:llama_brown"
+                  ]
+                }
+              },
+              {
+                "weight": 25,
+                "add": {
+                  "component_groups": [
+                    "minecraft:llama_gray"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+
+      "minecraft:spawn_baby": { 
+        "add": {
+          "component_groups": [
+            "minecraft:llama_baby"
+          ]
+        },
+        "trigger": "minecraft:add_attributes"
+      },
+
+      "minecraft:spawn_adult": {
+        "add": {
+          "component_groups": [
+            "minecraft:llama_adult",
+            "minecraft:llama_wild"
+          ]
+        },
+        "trigger": "minecraft:add_attributes"
+      }
     }
   }
 }

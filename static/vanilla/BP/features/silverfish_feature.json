@@ -5,49 +5,22 @@
       "identifier": "minecraft:silverfish_feature"
     },
     "count": 8,
-    "places_block": "minecraft:monster_egg",
-    "may_replace": [
+    "replace_rules": [
       {
-        "name": "minecraft:stone",
-        "states": {
-          "stone_type": "andesite"
-        }
+        "places_block": "minecraft:monster_egg",
+        "may_replace": [
+          {
+            "name": "minecraft:stone"
+          }
+        ]
       },
       {
-        "name": "minecraft:stone",
-        "states": {
-          "stone_type": "andesite_smooth"
-        }
-      },
-      {
-        "name": "minecraft:stone",
-        "states": {
-          "stone_type": "diorite"
-        }
-      },
-      {
-        "name": "minecraft:stone",
-        "states": {
-          "stone_type": "diorite_smooth"
-        }
-      },
-      {
-        "name": "minecraft:stone",
-        "states": {
-          "stone_type": "granite"
-        }
-      },
-      {
-        "name": "minecraft:stone",
-        "states": {
-          "stone_type": "granite_smooth"
-        }
-      },
-      {
-        "name": "minecraft:stone",
-        "states": {
-          "stone_type": "stone"
-        }
+        "places_block": "minecraft:infested_deepslate",
+        "may_replace": [
+          {
+            "name": "minecraft:deepslate"
+          }
+        ]
       }
     ]
   }

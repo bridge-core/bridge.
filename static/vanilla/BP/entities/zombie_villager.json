@@ -209,6 +209,8 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       // Zombie_villager Components
       "minecraft:navigation.walk": {
         "is_amphibious": true,

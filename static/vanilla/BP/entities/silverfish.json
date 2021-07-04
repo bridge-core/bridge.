@@ -36,11 +36,13 @@
     },
 
     "components": {
+      "minecraft:is_hidden_when_invisible": {
+      },
       "minecraft:experience_reward": {
         "on_death": "query.last_hit_by_player ? 5 : 0"
       },
-	  "minecraft:type_family": {
-		  "family":["silverfish", "monster", "mob", "arthropod" ]          
+      "minecraft:type_family": {
+        "family":["silverfish", "monster", "lightweight", "mob", "arthropod" ]
       },
       "minecraft:breathable": {
         "total_supply": 15,
@@ -71,7 +73,6 @@
         "can_path_over_water": true
       },
       "minecraft:movement.basic": {
-        
       },
       "minecraft:jump.static": {
       },
@@ -89,7 +90,7 @@
       },
       "minecraft:behavior.float": {
         "priority": 1
-      },      
+      },
       "minecraft:behavior.silverfish_merge_with_stone": {
         "priority": 5
       },
@@ -124,9 +125,9 @@
     },
     "events": {
       "minecraft:entity_spawned": {
-	    "remove": {
-		},
-		"add": {
+        "remove": {
+        },
+        "add": {
           "component_groups": [
             "minecraft:silverfish_calm"
           ]

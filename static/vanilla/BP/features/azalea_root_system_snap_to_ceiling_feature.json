@@ -1,0 +1,11 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:snap_to_surface_feature": {
+    "description": {
+      "identifier": "minecraft:azalea_root_system_snap_to_ceiling_feature"
+    },
+    "feature_to_snap": "minecraft:azalea_root_system_feature",
+    "vertical_search_range": 12,
+    "surface": "ceiling"
+  }
+}
