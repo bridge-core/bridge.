@@ -1,7 +1,8 @@
-import { promises as fs } from 'fs'
+import { promises as fs, createReadStream } from 'fs'
 import { join } from 'path'
 import { BP_BASE_PATH, RP_BASE_PATH } from '../../../../../shared/Paths'
 import { readJSON, writeJSON } from '../../../Utilities/JsonFS'
+import unzipper from 'unzipper'
 
 async function iterateDir(src: string, dest: string, cache: string) {
 	await fs.mkdir(dest, { recursive: true })
@@ -229,6 +230,7 @@ builds
 					'Transforms the "bridge." folder structure to "com.mojang". "bridge." runs it automatically in dev mode in the background to enable fast, incremental builds for testing.',
 				plugins: [
 					'typeScript',
+					'customEntitySyntax',
 					'entityIdentifierAlias',
 					'customEntityComponents',
 					'customItemComponents',
@@ -239,5 +241,42 @@ builds
 			},
 			true
 		)
+		// Download v1 -> v2 compatibility extensions
+		const CUSTOM_ENTITY_SYNTAX_EXTENSION = 'CustomEntitySyntax/plugin.zip'
+		const EXTENSION_PATH = 'https://bridge-core.github.io/plugins/plugins'
+		const GLOBAL_EXTENSIONS_PATH = join(targetPath, 'extensions')
+
+		await fetch(join(EXTENSION_PATH, CUSTOM_ENTITY_SYNTAX_EXTENSION))
+			.then(data => data.arrayBuffer())
+			.then(async data => {
+				const EXT_PATH = join(
+					GLOBAL_EXTENSIONS_PATH,
+					'CustomEntitySyntax'
+				)
+
+				await fs.mkdir(
+					join(GLOBAL_EXTENSIONS_PATH, 'CustomEntitySyntax'),
+					{ recursive: true }
+				)
+				await fs.writeFile(
+					join(
+						GLOBAL_EXTENSIONS_PATH,
+						CUSTOM_ENTITY_SYNTAX_EXTENSION
+					),
+					new Buffer(data)
+				)
+
+				await createReadStream(
+					join(GLOBAL_EXTENSIONS_PATH, CUSTOM_ENTITY_SYNTAX_EXTENSION)
+				)
+					.pipe(unzipper.Extract({ path: EXT_PATH }))
+					.promise()
+
+				await fs.unlink(
+					join(GLOBAL_EXTENSIONS_PATH, CUSTOM_ENTITY_SYNTAX_EXTENSION)
+				)
+				await fs.writeFile(join(EXT_PATH, '.installed'), '')
+			})
+			.catch(console.error)
 	}
 }
