@@ -62,7 +62,6 @@ export default async function startUp() {
 	}
 
 	// Prompt to migrate to v2
-	createMigrationPromptWindow()
 	createNotification({
 		icon: 'mdi-update',
 		message: 'bridge. v2',
