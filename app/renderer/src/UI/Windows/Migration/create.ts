@@ -79,7 +79,9 @@ function updateConfig(
 			behaviorPack: './BP',
 			resourcePack: './RP',
 		},
-		bridge: {},
+		bridge: {
+			v1CompatMode: true,
+		},
 		capabilities: [],
 	}
 	if (config) {
@@ -230,12 +232,13 @@ builds
 					'Transforms the "bridge." folder structure to "com.mojang". "bridge." runs it automatically in dev mode in the background to enable fast, incremental builds for testing.',
 				plugins: [
 					'typeScript',
-					'customEntitySyntax',
 					'entityIdentifierAlias',
-					'customEntityComponents',
+					['customEntityComponents', { v1CompatMode: true }],
 					'customItemComponents',
-					'customBlockComponents',
+					['customBlockComponents', { v1CompatMode: true }],
+					'customEntitySyntax',
 					'moLang',
+					['customCommands', { v1CompatMode: true }],
 					['simpleRewrite', { packName: `${bpPath} v2` }],
 				],
 			},
