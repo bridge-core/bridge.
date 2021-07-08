@@ -17,4 +17,5 @@ export const MigrationWindow = createWindow(MigrationWindowComponent, {
 	availableProjects: [],
 	projectPath: undefined,
 	projectsCreated: false,
+	mergeWithExistingProject: false,
 })

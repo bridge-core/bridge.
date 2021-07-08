@@ -27,7 +27,6 @@ async function iterateDir(src: string, dest: string, cache: string) {
 			const { cache_content: cacheContent } = await readJSON(
 				join(cache, dirent.name)
 			)
-
 			await writeJSON(
 				join(dest, dirent.name),
 				transform(cacheContent.children),
@@ -41,20 +40,25 @@ async function iterateDir(src: string, dest: string, cache: string) {
 }
 
 function transform(children: any[]) {
-	const res: any = {}
+	let res: any = {}
+	let resArr: any[] = []
+
+	if (!children) return {}
 
 	for (const c of children) {
 		if (c.is_disabled) continue
-		if (c.is_minified) res[c.key] = c.data || c.children || c.array
-		else if (Array.isArray(c.children)) {
-			if (c.key === undefined) res.push(transform(c.children))
-			res[c.key] = transform(c.children)
-		} else if (c.key && c.data) {
+
+		if (c.is_minified && !c.key) resArr.push(c.children)
+		else if (c.is_minified && c.key)
+			res[c.key] = c.data || c.children || c.array
+		else if (Array.isArray(c.children)) res[c.key] = transform(c.children)
+		else if (c.key && c.data) {
 			if (c.key == 'format_version') res[c.key] = c.data
 			else res[c.key] = convertValues(c.data)
-		}
+		} else if (c.array) res[c.key] = transform(c.array)
 	}
-	return res
+
+	return resArr.length > 0 ? resArr : res
 }
 
 function convertValues(value: string) {
@@ -122,11 +126,18 @@ function updateConfig(
 
 export async function createV2Directory(
 	targetPath: string,
-	projects: string[]
+	projects: string[],
+	merge: boolean
 ) {
-	const projectPath = join(targetPath, 'projects')
-
 	for (const bpPath of projects) {
+		const targetProject = join(targetPath, 'projects', bpPath)
+
+		try {
+			// If project already exists in target directory, don't copy it over
+			await fs.access(targetProject)
+			continue
+		} catch {}
+
 		// Find linked RP
 		let rpPath = undefined
 		let bpManifest = undefined
@@ -134,14 +145,12 @@ export async function createV2Directory(
 		let projectConfig = undefined
 		let lang = undefined
 
+		// Get linked RP
 		try {
 			bpManifest = await readJSON(
 				join(BP_BASE_PATH, bpPath, 'manifest.json')
 			)
-		} catch {}
 
-		if (bpManifest) {
-			// Check RPs
 			const resourcePacks = await fs.readdir(RP_BASE_PATH)
 			for (const rp of resourcePacks) {
 				try {
@@ -158,12 +167,12 @@ export async function createV2Directory(
 					}
 				}
 			}
-		}
+		} catch {} // No dependencies
 
 		// Copy BP files over
 		await iterateDir(
 			join(BP_BASE_PATH, bpPath),
-			join(targetPath, 'projects', bpPath, 'BP'),
+			join(targetProject, 'BP'),
 			join(BP_BASE_PATH, bpPath, 'bridge/cache/BP')
 		)
 
@@ -171,7 +180,7 @@ export async function createV2Directory(
 		if (rpPath) {
 			await iterateDir(
 				join(RP_BASE_PATH, rpPath),
-				join(targetPath, 'projects', bpPath, 'RP'),
+				join(targetProject, 'RP'),
 				join(BP_BASE_PATH, bpPath, 'bridge/cache/RP')
 			)
 		}
@@ -190,7 +199,7 @@ export async function createV2Directory(
 		} catch {}
 
 		await writeJSON(
-			join(targetPath, 'projects', bpPath, 'config.json'),
+			join(targetProject, 'config.json'),
 			updateConfig(
 				projectConfig,
 				bpManifest,
@@ -202,7 +211,7 @@ export async function createV2Directory(
 
 		// Create other project files
 		await fs.writeFile(
-			join(targetPath, 'projects', bpPath, '.gitignore'),
+			join(targetProject, '.gitignore'),
 			`Desktop.ini
 .DS_Store
 !.bridge/
@@ -214,17 +223,11 @@ builds
 		`
 		)
 
-		await fs.mkdir(
-			join(targetPath, 'projects', bpPath, '.bridge/compiler'),
-			{ recursive: true }
-		)
+		await fs.mkdir(join(targetProject, '.bridge/compiler'), {
+			recursive: true,
+		})
 		await writeJSON(
-			join(
-				targetPath,
-				'projects',
-				bpPath,
-				'.bridge/compiler/default.json'
-			),
+			join(targetProject, '.bridge/compiler/default.json'),
 			{
 				icon: 'mdi-cogs',
 				name: 'Deafult Script',
@@ -249,37 +252,48 @@ builds
 		const EXTENSION_PATH = 'https://bridge-core.github.io/plugins/plugins'
 		const GLOBAL_EXTENSIONS_PATH = join(targetPath, 'extensions')
 
-		await fetch(join(EXTENSION_PATH, CUSTOM_ENTITY_SYNTAX_EXTENSION))
-			.then(data => data.arrayBuffer())
-			.then(async data => {
-				const EXT_PATH = join(
-					GLOBAL_EXTENSIONS_PATH,
-					'CustomEntitySyntax'
-				)
-
-				await fs.mkdir(
-					join(GLOBAL_EXTENSIONS_PATH, 'CustomEntitySyntax'),
-					{ recursive: true }
-				)
-				await fs.writeFile(
-					join(
+		// If the extension already exists, don't install it
+		try {
+			await fs.access(join(GLOBAL_EXTENSIONS_PATH, 'CustomEntitySyntax'))
+		} catch {
+			await fetch(join(EXTENSION_PATH, CUSTOM_ENTITY_SYNTAX_EXTENSION))
+				.then(data => data.arrayBuffer())
+				.then(async data => {
+					const EXT_PATH = join(
 						GLOBAL_EXTENSIONS_PATH,
-						CUSTOM_ENTITY_SYNTAX_EXTENSION
-					),
-					new Buffer(data)
-				)
+						'CustomEntitySyntax'
+					)
 
-				await createReadStream(
-					join(GLOBAL_EXTENSIONS_PATH, CUSTOM_ENTITY_SYNTAX_EXTENSION)
-				)
-					.pipe(unzipper.Extract({ path: EXT_PATH }))
-					.promise()
+					await fs.mkdir(
+						join(GLOBAL_EXTENSIONS_PATH, 'CustomEntitySyntax'),
+						{ recursive: true }
+					)
+					await fs.writeFile(
+						join(
+							GLOBAL_EXTENSIONS_PATH,
+							CUSTOM_ENTITY_SYNTAX_EXTENSION
+						),
+						new Buffer(data)
+					)
 
-				await fs.unlink(
-					join(GLOBAL_EXTENSIONS_PATH, CUSTOM_ENTITY_SYNTAX_EXTENSION)
-				)
-				await fs.writeFile(join(EXT_PATH, '.installed'), '')
-			})
-			.catch(console.error)
+					await createReadStream(
+						join(
+							GLOBAL_EXTENSIONS_PATH,
+							CUSTOM_ENTITY_SYNTAX_EXTENSION
+						)
+					)
+						.pipe(unzipper.Extract({ path: EXT_PATH }))
+						.promise()
+
+					await fs.unlink(
+						join(
+							GLOBAL_EXTENSIONS_PATH,
+							CUSTOM_ENTITY_SYNTAX_EXTENSION
+						)
+					)
+					await fs.writeFile(join(EXT_PATH, '.installed'), '')
+				})
+				.catch(console.error)
+		}
 	}
 }

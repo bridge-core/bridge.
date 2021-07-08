@@ -93,7 +93,6 @@ import { ipcRenderer, shell } from 'electron'
 import LoadingWindow from '../../../../windows/LoadingWindow'
 import { createV2Directory } from './create'
 import { promises as fs } from 'fs'
-import { createInformationWindow } from '../Common/CommonDefinitions'
 import { join } from 'path'
 
 export default {
@@ -112,7 +111,11 @@ export default {
 		},
 		async onConfirm() {
 			const lw = new LoadingWindow()
-			await createV2Directory(this.projectPath, this.selectedProjects)
+			await createV2Directory(
+				this.projectPath,
+				this.selectedProjects,
+				this.mergeWithExistingProject
+			)
 			lw.close()
 
 			this.projectsCreated = true
@@ -139,16 +142,15 @@ export default {
 
 			lw.close()
 
-			// Ensure chosen directory is empty
+			// Check whether chosen directory is empty
 			if (path[0]) {
-				fs.readdir(path[0]).then(files => {
-					if (files.length > 0)
-						createInformationWindow(
-							'Invalid directory',
-							'Please select an empty directory!'
-						)
-					else this.projectPath = path[0]
-				})
+				fs.readdir(path[0])
+					.then(files => {
+						if (files.length > 0)
+							this.mergeWithExistingProject = true
+						this.projectPath = path[0]
+					})
+					.catch(console.error)
 			}
 		},
 	},
