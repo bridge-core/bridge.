@@ -75,13 +75,14 @@ function updateConfig(
 	config: any,
 	bpManifest: any,
 	projectName: string,
-	lang: string
+	lang: string,
+	hasRP: boolean
 ) {
 	let newConfig: any = {
 		type: 'minecraftBedrock',
 		packs: {
 			behaviorPack: './BP',
-			resourcePack: './RP',
+			resourcePack: hasRP ? './RP' : undefined,
 		},
 		bridge: {
 			v1CompatMode: true,
@@ -126,8 +127,7 @@ function updateConfig(
 
 export async function createV2Directory(
 	targetPath: string,
-	projects: string[],
-	merge: boolean
+	projects: string[]
 ) {
 	for (const bpPath of projects) {
 		const targetProject = join(targetPath, 'projects', bpPath)
@@ -204,7 +204,8 @@ export async function createV2Directory(
 				projectConfig,
 				bpManifest,
 				bpPath.replace(/BP|behaviors/gi, ''),
-				lang
+				lang,
+				rpPath ? true : false
 			),
 			true
 		)
