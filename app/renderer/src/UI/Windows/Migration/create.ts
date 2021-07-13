@@ -231,7 +231,7 @@ builds
 			join(targetProject, '.bridge/compiler/default.json'),
 			{
 				icon: 'mdi-cogs',
-				name: 'Deafult Script',
+				name: 'Default Script',
 				description:
 					'Transforms the "bridge." folder structure to "com.mojang". "bridge." runs it automatically in dev mode in the background to enable fast, incremental builds for testing.',
 				plugins: [
