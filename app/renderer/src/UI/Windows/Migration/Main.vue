@@ -121,7 +121,7 @@ export default {
 			this.projectsCreated = true
 		},
 		goToV2() {
-			shell.openExternal('https://bridge-core.github.io/editor')
+			shell.openExternal('https://editor.bridge-core.app')
 			this.currentWindow.close()
 		},
 		showProjects() {

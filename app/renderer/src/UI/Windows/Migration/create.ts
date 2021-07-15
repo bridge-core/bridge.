@@ -233,7 +233,7 @@ builds
 				icon: 'mdi-cogs',
 				name: '[Default Script]',
 				description:
-					'[Transforms the "bridge." folder structure to "com.mojang". "bridge." runs it automatically in dev mode in the background to enable fast, incremental builds for testing.]',
+					'[Transforms the "bridge." folder structure to "com.mojang". "bridge." runs it automatically in dev mode in the background to enable fast, incremental builds for testing. Includes bridge. v1 backwards compatibility.]',
 				plugins: [
 					'typeScript',
 					'entityIdentifierAlias',
