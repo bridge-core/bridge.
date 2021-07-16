@@ -113,8 +113,7 @@ export default {
 			const lw = new LoadingWindow()
 			await createV2Directory(
 				this.projectPath,
-				this.selectedProjects,
-				this.mergeWithExistingProject
+				this.selectedProjects
 			)
 			lw.close()
 
@@ -142,15 +141,8 @@ export default {
 
 			lw.close()
 
-			// Check whether chosen directory is empty
 			if (path[0]) {
-				fs.readdir(path[0])
-					.then(files => {
-						if (files.length > 0)
-							this.mergeWithExistingProject = true
-						this.projectPath = path[0]
-					})
-					.catch(console.error)
+				this.projectPath = path[0]
 			}
 		},
 	},
