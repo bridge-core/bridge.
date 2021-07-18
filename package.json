@@ -1,6 +1,6 @@
 {
   "name": "bridge",
-  "version": "1.8.0-pre1",
+  "version": "1.8.0",
   "private": true,
   "author": "solvedDev <solveddev@gmail.com>",
   "description": "A powerful add-on editor",
