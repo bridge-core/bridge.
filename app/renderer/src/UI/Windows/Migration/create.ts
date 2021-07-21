@@ -57,7 +57,9 @@ function transform(children: any[]) {
 		if (c.is_minified && !c.key) resArr.push(c.children)
 		else if (c.is_minified && c.key)
 			res[c.key] = c.data || c.children || c.array
-		else if (Array.isArray(c.children)) res[c.key] = transform(c.children)
+		else if (Array.isArray(c.children))
+			if (c.key) res[c.key] = transform(c.children)
+			else resArr.push(transform(c.children))
 		else if (c.key && c.data) {
 			if (c.key == 'format_version') res[c.key] = c.data
 			else res[c.key] = convertValues(c.data)
