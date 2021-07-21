@@ -27,6 +27,12 @@ async function iterateDir(src: string, dest: string, cache: string) {
 			const { cache_content: cacheContent } = await readJSON(
 				join(cache, dirent.name)
 			)
+
+			// Non JSON files: Functions, scripts etc.
+			if (!dirent.name.endsWith('.json'))
+				await fs.writeFile(join(dest, dirent.name), cacheContent)
+
+			// JSON files
 			await writeJSON(
 				join(dest, dirent.name),
 				transform(cacheContent.children),
@@ -167,7 +173,11 @@ export async function createV2Directory(
 					}
 				}
 			}
-		} catch {} // No dependencies
+		} catch {
+			console.log(
+				`No resource pack found linked with pack uuid ${bpManifest.uuid}`
+			)
+		} // No dependencies
 
 		// Copy BP files over
 		await iterateDir(
