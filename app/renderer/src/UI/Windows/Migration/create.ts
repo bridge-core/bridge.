@@ -272,7 +272,7 @@ builds
 					'customEntitySyntax',
 					'moLang',
 					['customCommands', { v1CompatMode: true }],
-					['simpleRewrite', { packName: `${bpPath} v2` }],
+					['simpleRewrite', { packName: bpPath }],
 				],
 			},
 			true
