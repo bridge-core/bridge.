@@ -47,7 +47,9 @@
 				<p>
 					The projects that you have selected have now been converted
 					to the bridge. v2 format and copied to
-					<strong>"{{ projectPath }}"</strong>.
+					<strong>"{{ projectPath }}"</strong>. The original v1
+					projects has been moved to the "oldProjectBackups" directory
+					of your project folder.
 				</p>
 				<p>
 					Now you need to launch bridge. v2 and during step 1 of the
@@ -111,10 +113,7 @@ export default {
 		},
 		async onConfirm() {
 			const lw = new LoadingWindow()
-			await createV2Directory(
-				this.projectPath,
-				this.selectedProjects
-			)
+			await createV2Directory(this.projectPath, this.selectedProjects)
 			lw.close()
 
 			this.projectsCreated = true

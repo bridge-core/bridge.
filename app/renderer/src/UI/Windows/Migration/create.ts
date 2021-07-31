@@ -4,7 +4,12 @@ import { BP_BASE_PATH, RP_BASE_PATH } from '../../../../../shared/Paths'
 import { readJSON, writeJSON } from '../../../Utilities/JsonFS'
 import unzipper from 'unzipper'
 
-async function iterateDir(src: string, dest: string, cache: string) {
+async function iterateDir(
+	src: string,
+	dest: string,
+	cache: string,
+	deleteSrc: boolean = false
+) {
 	await fs.mkdir(dest, { recursive: true })
 
 	const dirents = await fs.readdir(src, { withFileTypes: true })
@@ -12,17 +17,20 @@ async function iterateDir(src: string, dest: string, cache: string) {
 	for (const dirent of dirents) {
 		if (dirent.isDirectory()) {
 			// Don't copy bridge folder
-			if (dirent.name != 'bridge') {
-				iterateDir(
+			if (!(dirent.name === 'bridge' && !deleteSrc))
+				await iterateDir(
 					join(src, dirent.name),
 					join(dest, dirent.name),
-					join(cache, dirent.name)
+					cache ? join(cache, dirent.name) : null,
+					deleteSrc
 				)
-			}
+			if (deleteSrc) await fs.rmdir(join(src, dirent.name))
 			continue
 		}
 
 		try {
+			if (!cache) throw {}
+
 			// Try reading from cache
 			const { cache_content: cacheContent } = await readJSON(
 				join(cache, dirent.name)
@@ -40,7 +48,16 @@ async function iterateDir(src: string, dest: string, cache: string) {
 			)
 		} catch {
 			// No cache, just copy file
-			await fs.copyFile(join(src, dirent.name), join(dest, dirent.name))
+			try {
+				await fs.copyFile(
+					join(src, dirent.name),
+					join(dest, dirent.name)
+				)
+
+				if (deleteSrc) await fs.unlink(join(src, dirent.name))
+			} catch (err) {
+				console.error(err)
+			}
 		}
 	}
 }
@@ -255,7 +272,7 @@ builds
 					'customEntitySyntax',
 					'moLang',
 					['customCommands', { v1CompatMode: true }],
-					['simpleRewrite', { packName: `${bpPath} v2` }],
+					['simpleRewrite', { packName: bpPath }],
 				],
 			},
 			true
@@ -307,6 +324,29 @@ builds
 					await fs.writeFile(join(EXT_PATH, '.installed'), '')
 				})
 				.catch(console.error)
+		}
+
+		// Move old projects out of com.mojang folder
+		const projectBackups = join(targetPath, 'oldProjectBackups')
+
+		// Copy BP files over
+		await iterateDir(
+			join(BP_BASE_PATH, bpPath),
+			join(projectBackups, 'BP', bpPath),
+			null,
+			true
+		)
+		await fs.rmdir(join(BP_BASE_PATH, bpPath))
+
+		// Copy RP files over if a linked RP exists
+		if (rpPath) {
+			await iterateDir(
+				join(RP_BASE_PATH, rpPath),
+				join(projectBackups, 'RP', rpPath),
+				null,
+				true
+			)
+			await fs.rmdir(join(RP_BASE_PATH, rpPath))
 		}
 	}
 }
