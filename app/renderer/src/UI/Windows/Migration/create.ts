@@ -39,13 +39,13 @@ async function iterateDir(
 			// Non JSON files: Functions, scripts etc.
 			if (!dirent.name.endsWith('.json'))
 				await fs.writeFile(join(dest, dirent.name), cacheContent)
-
 			// JSON files
-			await writeJSON(
-				join(dest, dirent.name),
-				transform(cacheContent.children),
-				true
-			)
+			else
+				await writeJSON(
+					join(dest, dirent.name),
+					transform(cacheContent.children),
+					true
+				)
 		} catch {
 			// No cache, just copy file
 			try {
