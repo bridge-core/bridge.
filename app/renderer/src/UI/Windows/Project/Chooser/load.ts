@@ -1,8 +1,13 @@
 import { promises as fs, Dirent } from 'fs'
-import { BP_BASE_PATH, MOJANG_PATH, CURRENT } from '../../../../constants'
+import {
+	BP_BASE_PATH,
+	MOJANG_PATH,
+	CURRENT,
+	APP_VERSION,
+} from '../../../../constants'
 import { join } from 'path'
 import { LoadedProjects } from './definition'
-import { readJSON } from '../../../../Utilities/JsonFS'
+import { readJSON, writeJSON } from '../../../../Utilities/JsonFS'
 import Store from '../../../../../store/index'
 
 export async function loadProjects() {
@@ -37,13 +42,17 @@ export async function loadProjects() {
 }
 
 async function loadManifest(projectPath: string) {
-	let {
-		header: { version, name, description },
-		metadata: { author } = { author: 'Unknown' },
-	} = await readJSON(join(projectPath, 'manifest.json')).catch(() => ({
+	const manifestPath = join(projectPath, 'manifest.json')
+	let manifest = await readJSON(manifestPath).catch(() => ({
 		header: {},
 		metadata: {},
 	}))
+	let {
+		header: { version, name, description },
+		metadata: { author } = {
+			author: 'Unknown',
+		},
+	} = manifest
 
 	if (description === 'pack.description') {
 		try {
@@ -59,6 +68,27 @@ async function loadManifest(projectPath: string) {
 			}
 		} catch {}
 	}
+
+	const appVersion = APP_VERSION.replace('v', '')
+	const generatedWithBridge: string[] | undefined =
+		manifest?.metadata?.generated_with?.bridge
+	if (generatedWithBridge) {
+		if (!generatedWithBridge.includes(appVersion))
+			generatedWithBridge.push(appVersion)
+	} else {
+		manifest = {
+			...(manifest ?? {}),
+			metadata: {
+				...(manifest?.metadata ?? {}),
+				generated_with: {
+					...(manifest?.metadata?.generated_with ?? {}),
+					bridge: [appVersion],
+				},
+			},
+		}
+	}
+
+	await writeJSON(manifestPath, manifest, true)
 
 	return {
 		version,
