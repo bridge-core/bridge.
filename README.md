@@ -92,7 +92,7 @@ Additionally, "bridge." has a few more specific features which other editors do 
 
 **Documentation**
 
-You can read more on plugins [here](https://github.com/solvedDev/bridge./blob/master/plugin_docs/main.md).
+You can read more on plugins [here](https://github.com/bridge-core/v1-docs/tree/main/docs/plugin-docs).
 
 **Library**
 
