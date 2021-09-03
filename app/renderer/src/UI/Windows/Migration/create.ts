@@ -112,7 +112,6 @@ function updateConfig(
 		bridge: {
 			v1CompatMode: true,
 		},
-		capabilities: [],
 	}
 	if (config) {
 		const { prefix: projectPrefix, formatVersion: targetVersion } = config
