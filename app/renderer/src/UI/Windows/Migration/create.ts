@@ -153,7 +153,9 @@ export async function createV2Directory(
 	targetPath: string,
 	projects: string[]
 ) {
+	console.log('[MIGRATION] Start')
 	for (const bpPath of projects) {
+		console.log(`[MIGRATION] Migrating project '${bpPath}''`)
 		const targetProject = join(targetPath, 'projects', bpPath)
 
 		try {
@@ -193,7 +195,7 @@ export async function createV2Directory(
 			}
 		} catch {
 			console.log(
-				`No resource pack found linked with pack uuid ${bpManifest.uuid}`
+				`[MIGRATION] No resource pack found linked with pack uuid ${bpManifest.uuid}`
 			)
 		} // No dependencies
 
@@ -203,6 +205,7 @@ export async function createV2Directory(
 			join(targetProject, 'BP'),
 			join(BP_BASE_PATH, bpPath, 'bridge/cache/BP')
 		)
+		console.log('[MIGRATION] BP Transfer complete')
 
 		// Copy RP files over if a linked RP exists
 		if (rpPath) {
@@ -211,6 +214,7 @@ export async function createV2Directory(
 				join(targetProject, 'RP'),
 				join(BP_BASE_PATH, bpPath, 'bridge/cache/RP')
 			)
+			console.log('[MIGRATION] RP Transfer complete')
 		}
 
 		// Transfer project config
@@ -348,4 +352,5 @@ builds
 			await fs.rmdir(join(RP_BASE_PATH, rpPath))
 		}
 	}
+	console.log('[MIGRATION] Complete')
 }
