@@ -509,9 +509,11 @@ export const DYNAMIC = {
 				.map(e =>
 					e
 						.replace(
-							BASE_PATH.replace(/\//g, '\\') +
-								Store.state.Explorer.project.explorer +
-								'\\functions\\',
+							path.join(
+								BASE_PATH.replace(/\//g, '\\'),
+								Store.state.Explorer.project.explorer,
+								'\\functions\\'
+							),
 							''
 						)
 						.replace(/\\/g, '/')

@@ -4,6 +4,7 @@
 import uuidv4 from 'uuid/v4'
 import ProjectConfig from '../Project/Config'
 import path from 'path'
+import { APP_VERSION } from '../constants'
 
 interface Module {
 	type: string
@@ -21,12 +22,19 @@ interface Dependency {
 	version: [number, number, number]
 	uuid: string
 }
+interface Metadata {
+	generated_with: {
+		[tool: string]: string[]
+	}
+	author?: string
+}
 
 export default class Manifest {
 	format_version = 2
 	header: Header
 	modules: Module[]
 	dependencies: Dependency[]
+	metadata: Metadata
 
 	constructor(
 		type: 'resources' | 'data',
@@ -48,15 +56,9 @@ export default class Manifest {
 				description: 'pack.description',
 				uuid: uuidv4(),
 				version: [1, 0, 0],
-				min_engine_version: [1, 13, 0],
-
-				/**
-				 * Yay, Minecraft doesn't like our new feature... -.-
-				 * Disabled it until it works
-				 */
-				// min_engine_version: <[number, number, number]>(
-				// 	targetProjectVersion.split('.').map(n => Number(n))
-				// ),
+				min_engine_version: <[number, number, number]>(
+					targetProjectVersion.split('.').map(n => Number(n))
+				),
 			}
 		}
 		this.modules = [
@@ -71,6 +73,13 @@ export default class Manifest {
 
 		if (dependency !== undefined) {
 			this.dependencies = [dependency]
+		}
+
+		const appVersion = APP_VERSION.replace('v', '')
+		this.metadata = {
+			generated_with: {
+				bridge: [appVersion],
+			},
 		}
 	}
 
