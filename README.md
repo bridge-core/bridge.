@@ -1,8 +1,10 @@
-<h1 align="center">bridge.</h1>
+<h1 align="center">bridge. v2</h1>
 <p align="center">
+  bridge. v2 is now available. Read more about it on our <a href="https://bridge-core.app/">website</a> or visit our <a href="https://github.com/bridge-core/editor">new repository</a>.
+  <br><br>
+  
   <a href="https://github.com/solvedDev/bridge./releases/latest">
-    <img width="256" height="256" src="https://raw.githubusercontent.com/solvedDev/bridge./master/images/1024x1024.png">
-    <h4 align="center">Download the latest version</h4>
+    <img width="256" height="256" src="https://raw.githubusercontent.com/solvedDev/bridge./master/build/icons/new_logo.png">
   </a>
 </p>
 
