@@ -97,7 +97,7 @@ async function loadManifest(projectPath: string) {
 		return {
 			version: undefined,
 			name: undefined,
-			author: undefined,
+			author: 'Unknown',
 			description: undefined,
 		}
 	}
