@@ -42,59 +42,64 @@ export async function loadProjects() {
 }
 
 async function loadManifest(projectPath: string) {
-	const manifestPath = join(projectPath, 'manifest.json')
-	let manifest = await readJSON(manifestPath).catch(() => ({
-		header: {},
-		metadata: {},
-	}))
-	let {
-		header: { version, name, description },
-		metadata: { author } = {
-			author: 'Unknown',
-		},
-	} = manifest
+	let langDescription: string
+	try {
+		const langFile = (
+			await fs.readFile(join(projectPath, 'texts/en_US.lang'))
+		).toString('utf-8')
+		const lines = langFile.split('\n')
 
-	if (description === 'pack.description') {
-		try {
-			const langFile = (
-				await fs.readFile(join(projectPath, 'texts/en_US.lang'))
-			).toString('utf-8')
-			const lines = langFile.split('\n')
-
-			for (let line of lines) {
-				const [key, value] = line.split('=')
-				if (key.trim() === 'pack.description')
-					description = value.trim()
-			}
-		} catch {}
-	}
-
-	const appVersion = APP_VERSION.replace('v', '')
-	const generatedWithBridge: string[] | undefined =
-		manifest?.metadata?.generated_with?.bridge
-	if (generatedWithBridge) {
-		if (!generatedWithBridge.includes(appVersion))
-			generatedWithBridge.push(appVersion)
-	} else {
-		manifest = {
-			...(manifest ?? {}),
-			metadata: {
-				...(manifest?.metadata ?? {}),
-				generated_with: {
-					...(manifest?.metadata?.generated_with ?? {}),
-					bridge: [appVersion],
-				},
-			},
+		for (let line of lines) {
+			const [key, value] = line.split('=')
+			if (key.trim() === 'pack.description')
+				langDescription = value.trim()
 		}
-	}
+	} catch {}
+	try {
+		const manifestPath = join(projectPath, 'manifest.json')
+		let manifest = await readJSON(manifestPath)
+		let {
+			header: { version, name, description },
+			metadata: { author } = {
+				author: 'Unknown',
+			},
+		} = manifest
 
-	await writeJSON(manifestPath, manifest, true)
+		if (description === 'pack.description') description = langDescription
 
-	return {
-		version,
-		name,
-		author,
-		description,
+		const appVersion = APP_VERSION.replace('v', '')
+		const generatedWithBridge: string[] | undefined =
+			manifest?.metadata?.generated_with?.bridge
+		if (generatedWithBridge) {
+			if (!generatedWithBridge.includes(appVersion))
+				generatedWithBridge.push(appVersion)
+		} else {
+			manifest = {
+				...(manifest ?? {}),
+				metadata: {
+					...(manifest?.metadata ?? {}),
+					generated_with: {
+						...(manifest?.metadata?.generated_with ?? {}),
+						bridge: generatedWithBridge ?? [appVersion],
+					},
+				},
+			}
+		}
+
+		await writeJSON(manifestPath, manifest, true)
+		return {
+			version,
+			name,
+			author,
+			description,
+		}
+	} catch {
+		return {
+			version: undefined,
+			name: undefined,
+			author: undefined,
+			description: undefined,
+		}
 	}
 }
 
