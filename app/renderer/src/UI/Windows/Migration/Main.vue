@@ -13,18 +13,18 @@
 			<div v-if="!projectsCreated">
 				<p>
 					Select a directory to store your bridge. v2 projects. This
-					should not be your "com.mojang" folder
+					should not be in your "com.mojang" folder.
 				</p>
 				<v-btn color="primary" @click="chooseProjectFolder"
 					>Select Folder</v-btn
 				>
-				<p v-if="projectPath !== undefined" class="pt-3">
-					{{ projectPath }}
+				<p v-if="projectPath" class="pt-3">
+					<strong>bridge v2 folder:</strong> {{ projectPath }}
 				</p>
 				<v-divider class="my-6" />
 				<p>
 					Select the projects below that you want to migrate to
-					bridge. v2
+					bridge. v2.
 				</p>
 				<v-btn @click="selectAll" color="primary" v-if="!allSelected"
 					>Select All</v-btn
@@ -72,9 +72,7 @@
 			<v-btn
 				@click="onConfirm"
 				color="primary"
-				:disabled="
-					projectPath == undefined || selectedProjects.length == 0
-				"
+				:disabled="!projectPath || selectedProjects.length == 0"
 				v-if="!projectsCreated"
 				>Confirm</v-btn
 			>
@@ -94,7 +92,6 @@ import { loadProjects } from './load'
 import { ipcRenderer, shell } from 'electron'
 import LoadingWindow from '../../../../windows/LoadingWindow'
 import { createV2Directory } from './create'
-import { promises as fs } from 'fs'
 import { join } from 'path'
 
 export default {

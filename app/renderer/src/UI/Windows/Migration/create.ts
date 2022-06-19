@@ -3,98 +3,9 @@ import { join } from 'path'
 import { BP_BASE_PATH, RP_BASE_PATH } from '../../../../../shared/Paths'
 import { readJSON, writeJSON } from '../../../Utilities/JsonFS'
 import unzipper from 'unzipper'
-
-async function iterateDir(
-	src: string,
-	dest: string,
-	cache: string,
-	deleteSrc: boolean = false
-) {
-	await fs.mkdir(dest, { recursive: true })
-
-	const dirents = await fs.readdir(src, { withFileTypes: true })
-
-	for (const dirent of dirents) {
-		if (dirent.isDirectory()) {
-			// Don't copy bridge folder
-			if (!(dirent.name === 'bridge' && !deleteSrc))
-				await iterateDir(
-					join(src, dirent.name),
-					join(dest, dirent.name),
-					cache ? join(cache, dirent.name) : null,
-					deleteSrc
-				)
-			if (deleteSrc) await fs.rmdir(join(src, dirent.name))
-			continue
-		}
-
-		try {
-			if (!cache) throw {}
-
-			// Try reading from cache
-			const { cache_content: cacheContent } = await readJSON(
-				join(cache, dirent.name)
-			)
-
-			// Non JSON files: Functions, scripts etc.
-			if (!dirent.name.endsWith('.json'))
-				await fs.writeFile(join(dest, dirent.name), cacheContent)
-			// JSON files
-			else
-				await writeJSON(
-					join(dest, dirent.name),
-					transform(cacheContent.children),
-					true
-				)
-		} catch {
-			// No cache, just copy file
-			try {
-				await fs.copyFile(
-					join(src, dirent.name),
-					join(dest, dirent.name)
-				)
-
-				if (deleteSrc) await fs.unlink(join(src, dirent.name))
-			} catch (err) {
-				console.error(err)
-			}
-		}
-	}
-}
-
-function transform(children: any[]) {
-	let res: any = {}
-	let resArr: any[] = []
-
-	if (!children) return {}
-
-	for (const c of children) {
-		if (c.is_disabled) continue
-
-		if (c.is_minified && !c.key) resArr.push(c.children)
-		else if (c.is_minified && c.key)
-			res[c.key] = c.data || c.children || c.array
-		else if (Array.isArray(c.children))
-			if (c.key) res[c.key] = transform(c.children)
-			else resArr.push(transform(c.children))
-		else if (c.key && c.data) {
-			if (c.key == 'format_version') res[c.key] = c.data
-			else res[c.key] = convertValues(c.data)
-		} else if (c.array) res[c.key] = transform(c.array)
-	}
-
-	return resArr.length > 0 ? resArr : res
-}
-
-function convertValues(value: string) {
-	if (value == 'false') return false
-	else if (value == 'true') return true
-	else {
-		const newValue = parseInt(value)
-		if (isNaN(newValue)) return value
-		else return newValue
-	}
-}
+import { findRP } from './findLinkedRP'
+import { MinecraftManifest } from '../../../Project/Manifest/types'
+import { transferProject } from './transferProject'
 
 function updateConfig(
 	config: any,
@@ -111,6 +22,19 @@ function updateConfig(
 		},
 		bridge: {
 			v1CompatMode: true,
+		},
+		compiler: {
+			plugins: [
+				'typeScript',
+				'entityIdentifierAlias',
+				['customEntityComponents', { v1CompatMode: true }],
+				'customItemComponents',
+				['customBlockComponents', { v1CompatMode: true }],
+				'customEntitySyntax',
+				'moLang',
+				['customCommands', { v1CompatMode: true }],
+				['simpleRewrite', { packName: projectName }],
+			],
 		},
 	}
 	if (config) {
@@ -129,7 +53,7 @@ function updateConfig(
 			newConfig['description'] = bpManifest.header.description
 
 		if (bpManifest?.metadata?.authors)
-			newConfig['author'] = bpManifest.metadata.authors
+			newConfig['authors'] = bpManifest.metadata.authors
 	}
 
 	// Get description from lang file
@@ -154,6 +78,7 @@ export async function createV2Directory(
 	projects: string[]
 ) {
 	console.log('[MIGRATION] Start')
+	// Iterate each BP in the development_behavior_packs folder
 	for (const bpPath of projects) {
 		console.log(`[MIGRATION] Migrating project '${bpPath}''`)
 		const targetProject = join(targetPath, 'projects', bpPath)
@@ -161,46 +86,24 @@ export async function createV2Directory(
 		try {
 			// If project already exists in target directory, don't copy it over
 			await fs.access(targetProject)
+			console.log(`[MIGRATION] Project '${bpPath}' already exists`)
 			continue
 		} catch {}
 
-		// Find linked RP
-		let rpPath = undefined
-		let bpManifest = undefined
-		let rpManifest = undefined
-		let projectConfig = undefined
-		let lang = undefined
+		// Get BP manifest
+		const bpManifest: MinecraftManifest.IStructure = await readJSON(
+			join(BP_BASE_PATH, bpPath, 'manifest.json')
+		).catch(() => console.log(`No valid manifest found for BP ${bpPath}`))
 
 		// Get linked RP
-		try {
-			bpManifest = await readJSON(
-				join(BP_BASE_PATH, bpPath, 'manifest.json')
-			)
-
-			const resourcePacks = await fs.readdir(RP_BASE_PATH)
-			for (const rp of resourcePacks) {
-				try {
-					rpManifest = await readJSON(
-						join(RP_BASE_PATH, rp, 'manifest.json')
-					)
-				} catch {}
-
-				if (bpManifest.dependencies && rpManifest) {
-					for (const dependency of bpManifest.dependencies) {
-						if (dependency.uuid == rpManifest.header.uuid) {
-							rpPath = rp
-						}
-					}
-				}
-			}
-		} catch {
-			console.log(
-				`[MIGRATION] No resource pack found linked with pack uuid ${bpManifest.uuid}`
-			)
-		} // No dependencies
+		const dependencies = bpManifest?.dependencies
+			? bpManifest.dependencies.map(dep => dep.uuid)
+			: []
+		const rpPath = await findRP(dependencies)
 
 		// Copy BP files over
-		await iterateDir(
+		console.log('[MIGRATION] Starting BP transfer')
+		await transferProject(
 			join(BP_BASE_PATH, bpPath),
 			join(targetProject, 'BP'),
 			join(BP_BASE_PATH, bpPath, 'bridge/cache/BP')
@@ -209,7 +112,8 @@ export async function createV2Directory(
 
 		// Copy RP files over if a linked RP exists
 		if (rpPath) {
-			await iterateDir(
+			console.log('[MIGRATION] Starting RP transfer')
+			await transferProject(
 				join(RP_BASE_PATH, rpPath),
 				join(targetProject, 'RP'),
 				join(BP_BASE_PATH, bpPath, 'bridge/cache/RP')
@@ -218,25 +122,31 @@ export async function createV2Directory(
 		}
 
 		// Transfer project config
-		try {
-			projectConfig = await readJSON(
-				join(BP_BASE_PATH, bpPath, 'bridge/config.json')
+		const projectConfig = await readJSON(
+			join(BP_BASE_PATH, bpPath, 'bridge/config.json')
+		).catch(() =>
+			console.log(
+				`[MIGRATION] No valid bridge config found for BP ${bpPath}`
 			)
-		} catch {}
+		)
+
+		let langData: string
 		try {
 			const langFile = await fs.readFile(
 				join(BP_BASE_PATH, bpPath, 'texts/en_US.lang')
 			)
-			lang = langFile.toString()
-		} catch {}
+			langData = langFile.toString()
+		} catch {
+			console.log(`[MIGRATION] No valid lang file found for BP ${bpPath}`)
+		}
 
 		await writeJSON(
 			join(targetProject, 'config.json'),
 			updateConfig(
 				projectConfig,
 				bpManifest,
-				bpPath.replace(/BP|behaviors/gi, ''),
-				lang,
+				bpPath.replace(/BP|behaviors|behavior/gi, ''),
+				langData,
 				rpPath ? true : false
 			),
 			true
@@ -251,35 +161,13 @@ export async function createV2Directory(
 .bridge/*
 !.bridge/compiler/
 !.bridge/extensions
-!.bridge/config.json
 builds
 		`
 		)
-
 		await fs.mkdir(join(targetProject, '.bridge/compiler'), {
 			recursive: true,
 		})
-		await writeJSON(
-			join(targetProject, '.bridge/compiler/default.json'),
-			{
-				icon: 'mdi-cogs',
-				name: '[Default Script]',
-				description:
-					'[Transforms the "bridge." folder structure to "com.mojang". "bridge." runs it automatically in dev mode in the background to enable fast, incremental builds for testing. Includes bridge. v1 backwards compatibility.]',
-				plugins: [
-					'typeScript',
-					'entityIdentifierAlias',
-					['customEntityComponents', { v1CompatMode: true }],
-					'customItemComponents',
-					['customBlockComponents', { v1CompatMode: true }],
-					'customEntitySyntax',
-					'moLang',
-					['customCommands', { v1CompatMode: true }],
-					['simpleRewrite', { packName: bpPath }],
-				],
-			},
-			true
-		)
+
 		// Download v1 -> v2 compatibility extensions
 		const CUSTOM_ENTITY_SYNTAX_EXTENSION = 'CustomEntitySyntax/plugin.zip'
 		const EXTENSION_PATH = 'https://bridge-core.github.io/plugins/plugins'
@@ -333,7 +221,7 @@ builds
 		const projectBackups = join(targetPath, 'oldProjectBackups')
 
 		// Copy BP files over
-		await iterateDir(
+		await transferProject(
 			join(BP_BASE_PATH, bpPath),
 			join(projectBackups, 'BP', bpPath),
 			null,
@@ -343,7 +231,7 @@ builds
 
 		// Copy RP files over if a linked RP exists
 		if (rpPath) {
-			await iterateDir(
+			await transferProject(
 				join(RP_BASE_PATH, rpPath),
 				join(projectBackups, 'RP', rpPath),
 				null,
