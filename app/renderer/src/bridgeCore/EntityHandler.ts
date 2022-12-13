@@ -93,7 +93,8 @@ async function transformEvent(
 	let { commands: e_c } = use(event, 'execute') || {}
 	if (typeof e_c === 'string') e_c = [e_c]
 	if (e_c !== undefined && Array.isArray(e_c)) {
-		if (compare(formatVersion, '1.16.100', '<')) {
+		// Disabled because run_command is still experimental
+		// if (compare(formatVersion, '1.16.100', '<')) {
 			let e_c_group = `execute_command_id_${++COM_ID_COUNTER}`
 
 			if (!COMMAND_ANIM_REGISTERED) {
@@ -147,27 +148,28 @@ async function transformEvent(
 					},
 				}
 			)
-		} else {
-			if (event?.run_command?.command === undefined)
-				event.run_command = {
-					...(event.run_command ?? {}),
-					command: await transformRunCommands(
-						file_uuid,
-						e_c.map(c => (c[0] === '/' ? c.slice(1) : c))
-					),
-				}
-			else {
-				if (typeof event.run_command.command === 'string')
-					event.run_command.command = [event.run_command.command]
-				if (Array.isArray(event.run_command.command))
-					event.run_command.command.push(
-						...(await transformRunCommands(
-							file_uuid,
-							e_c.map(c => (c[0] === '/' ? c.slice(1) : c))
-						))
-					)
-			}
-		}
+			
+		// } else {
+		// 	if (event?.run_command?.command === undefined)
+		// 		event.run_command = {
+		// 			...(event.run_command ?? {}),
+		// 			command: await transformRunCommands(
+		// 				file_uuid,
+		// 				e_c.map(c => (c[0] === '/' ? c.slice(1) : c))
+		// 			),
+		// 		}
+		// 	else {
+		// 		if (typeof event.run_command.command === 'string')
+		// 			event.run_command.command = [event.run_command.command]
+		// 		if (Array.isArray(event.run_command.command))
+		// 			event.run_command.command.push(
+		// 				...(await transformRunCommands(
+		// 					file_uuid,
+		// 					e_c.map(c => (c[0] === '/' ? c.slice(1) : c))
+		// 				))
+		// 			)
+		// 	}
+		// }
 	} else if (e_c !== undefined) {
 		createErrorNotification(
 			new Error(
