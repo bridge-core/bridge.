@@ -171,7 +171,7 @@
     "monaco-editor-webpack-plugin": "^1.9.0",
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^8.0.0",
     "prettier": "^1.19.1",
     "sass-loader": "^7.3.1",
     "source-map-loader": "^0.2.4",
