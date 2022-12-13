@@ -147,7 +147,7 @@
     "@types/node": "^12.12.34",
     "@types/unzipper": "^0.10.3",
     "@types/uuid": "^3.4.8",
-    "ajv": "^6.12.0",
+    "ajv": "^6.12.3",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.1.0",
     "babili-webpack-plugin": "^0.1.2",
